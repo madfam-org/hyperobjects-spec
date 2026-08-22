@@ -179,3 +179,13 @@ def test_both_clis_fail_a_bad_identity_file(tmp_path, capsys, tool):
     p.write_text(json.dumps(bad))
     assert main(["identity", str(p)]) == 1
     assert "FAIL" in capsys.readouterr().out
+
+
+def test_the_shipped_example_file_is_valid():
+    """examples/chainmail-panel.identity.json is what the README points a contributor
+    at — it must never rot into an invalid record."""
+    example = Path(__file__).resolve().parents[1] / "examples" / "chainmail-panel.identity.json"
+    assert example.is_file(), "the README references this example; it must ship"
+    result = check_identity_file(example)
+    assert result.ok, result.problems
+    assert result.identity_id == "chainmail-panel"

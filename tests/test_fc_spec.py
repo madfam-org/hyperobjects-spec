@@ -12,7 +12,7 @@ drift that can actually happen HERE.
 
 The FC-side drift guard (bundled vs packages/schemas) and the lane-sharing guard
 (verify_hardware_links.py imports fc_spec.rules) stay in the FC repo, where the files
-they guard live. See the P1b checklist in the README.
+they guard live. See docs/P1B_ADOPTION.md.
 """
 
 import json

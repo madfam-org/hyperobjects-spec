@@ -47,4 +47,5 @@ jobs:
           .venv/bin/fc-spec list
           .venv/bin/fc-spec check garment-manifest tests/fixtures/fc/bodice-block.project.json
           .venv/bin/y4d-spec check tests/fixtures/y4d/sew-on-snap tests/fixtures/y4d/thimble
+          .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules

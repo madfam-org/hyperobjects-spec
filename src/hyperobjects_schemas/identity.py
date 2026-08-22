@@ -22,7 +22,7 @@ is the Yantra4D side and ``soft`` the Fashion Cabinet side, and that the two slu
 not the same string in the same repo. What is NOT checked here: that either slug
 actually exists — this package has no repo to look in, and a third party pairing
 against their own fork must still be able to validate the record. Existence is a
-platform-side lane (see the P1b checklist in the README).
+platform-side lane (see docs/P1B_ADOPTION.md).
 """
 
 from __future__ import annotations

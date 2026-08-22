@@ -1,0 +1,24 @@
+{
+  "identity_id": "chainmail-panel",
+  "label": {
+    "en": "Printed chainmail panel",
+    "es": "Panel de cota de malla impreso"
+  },
+  "solid": {
+    "repo": "yantra4d",
+    "slug": "tpu-chainmail-panel"
+  },
+  "soft": {
+    "repo": "fashion-cabinet",
+    "slug": "chainmail-panel",
+    "kind": "notion"
+  },
+  "material_identity": {
+    "soft_material": "tpu-panel-impreso",
+    "solid_material": "bambu-tpu-95a",
+    "equivalence": "same_object"
+  },
+  "notes": {
+    "en": "The panel drapes as cloth only in TPU-95A; the same geometry in PLA is a rigid plate."
+  }
+}
