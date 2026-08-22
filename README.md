@@ -266,5 +266,18 @@ visible instead of silent.
 
 ## License
 
-Apache-2.0. The commons tooling is permissive so anyone can adopt it; the platform repos
-themselves remain AGPL-3.0.
+Apache-2.0. The commons tooling is permissive so anyone can adopt it. The platform
+repos carry their own license (source-available per RFC 0038 P1); the commons objects
+carry theirs (CERN-OHL-W-2.0 for solids; the FC1 ruling for soft goods).
+
+## Why "hyperobjects"
+
+We borrow the word twice. From the philosopher Timothy Morton (*Hyperobjects*,
+University of Minnesota Press, 2013), whose hyperobjects are entities too vast to
+point at — ours are **domestic hyperobjects**, the concept scaled to the workbench:
+an object here is never the artifact but the family it regenerates into, a region of
+parameter space sliced per render, real only through the contracts this package
+validates. And from computing — *hyper-* as in hypertext and hyperparameter, the
+object that generates objects. Both meanings are load-bearing; neither is a claim to
+metaphysics. The long form lives in the
+[Yantra4D manifesto](https://github.com/madfam-org/yantra4d/blob/main/docs/strategy/MANIFESTO.md#on-the-word-why-hyperobjects).
