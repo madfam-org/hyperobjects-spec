@@ -2,10 +2,16 @@
 
     fc-spec list
     fc-spec check <contract> <file> [<file> ...] [--resolve catalog.json]
+    fc-spec identity <pair.json> [<pair.json> ...]
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
 read errors. Output is read-proof: it prints how many files it checked, and
 checking zero files is a usage error.
+
+`identity` checks a cross-commons identity pair record (RFC 0038 §9) — the same
+check `y4d-spec identity` runs, exposed on both tools so a contributor on either
+side of the commons can validate a pair with what they already have installed.
+`list` and `check` are unchanged: they are a published contract.
 """
 
 from __future__ import annotations
@@ -64,12 +70,35 @@ def main(argv: list[str] | None = None) -> int:
              "to resolve linked slugs against",
     )
 
+    p_id = sub.add_parser("identity", help="check a cross-commons identity pair file")
+    p_id.add_argument("files", nargs="+", help="pair record JSON file(s)")
+
     args = parser.parse_args(argv)
 
     if args.cmd == "list":
         for name in list_contracts():
             print(name)
         return 0
+
+    if args.cmd == "identity":
+        from hyperobjects_schemas.identity import check_identity_file
+
+        failures = 0
+        for f in args.files:
+            try:
+                result = check_identity_file(f)
+            except (OSError, ValueError) as exc:
+                print(f"  ERROR {f}: cannot read — {exc}")
+                failures += 1
+                continue
+            if result.ok:
+                print(f"  ok {f} (identity '{result.identity_id or 'multiple'}')")
+            else:
+                failures += 1
+                for prob in result.problems:
+                    print(f"  FAIL {f}: {prob}")
+        print(f"fc-spec identity: files={len(args.files)} failures={failures}")
+        return 1 if failures else 0
 
     resolve = _resolve_map(args.resolve)
     failures = 0
