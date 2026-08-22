@@ -26,7 +26,17 @@ dependencies = ["jsonschema>=4.21"]
 # Geometry verification (`y4d-spec check --render`) needs a real CAD kernel and a
 # mesh library. Kept out of the base install so manifest conformance stays a
 # pure-python, seconds-fast check anyone can run.
-geometry = ["cadquery>=2.4", "trimesh>=4.0", "numpy>=1.24"]
+#
+# cadquery is capped below 2.8: 2.8 added a numba/llvmlite dependency that has no
+# wheel for CPython 3.13, so an unpinned install fails to build on the interpreter
+# this package targets. 2.7.0 is also the version yantra4d's own venv runs.
+#
+# scipy and networkx are not optional here despite being trimesh "extras":
+# mesh.split() needs a graph engine and raises ImportError without one, and the
+# split-into-bodies check is exactly how an inverted shell is caught. networkx is
+# additionally what trimesh's submesh() reaches for on a mesh WITH holes — i.e. on
+# precisely the broken cartridges this lane exists to report.
+geometry = ["cadquery>=2.4,<2.8", "trimesh>=4.0", "scipy>=1.10", "networkx>=3.0"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.urls]

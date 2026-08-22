@@ -112,6 +112,19 @@ class RenderCheck:
         )
 
 
+def _boundary_edges(mesh) -> int:
+    """Edges used by exactly one face — the holes. Mirrors yantra4d's
+    mesh_integrity._edge_face_counts, without the graph-engine dependency."""
+    try:
+        import numpy as np
+
+        edges = np.sort(mesh.edges_sorted, axis=1)
+        _, counts = np.unique(edges, axis=0, return_counts=True)
+        return int((counts == 1).sum())
+    except Exception:
+        return -1
+
+
 def _exec_cartridge(script_path: str, params: dict):
     """Execute a cartridge in the shared sandbox and return its result object.
 
@@ -217,7 +230,12 @@ def render_part(
                 problems=[f"STL export failed: {type(exc).__name__}: {exc}"],
             )
 
-        mesh = trimesh.load(stl, force="mesh")
+        # process=False is load-bearing, not a speed knob: trimesh's default load
+        # pipeline REPAIRS the mesh (merges vertices, fills holes, fixes winding).
+        # Loading with it on would silently seal the exact hole this check exists to
+        # find, and report a broken cartridge as watertight. Merge is done
+        # explicitly below, at a tolerance we choose; nothing else is healed.
+        mesh = trimesh.load(stl, force="mesh", process=False)
 
     if not isinstance(mesh, trimesh.Trimesh) or mesh.faces.shape[0] == 0:
         return RenderCheck(
@@ -232,12 +250,24 @@ def render_part(
 
     watertight = bool(mesh.is_watertight)
     volume = float(mesh.volume)
-    bodies = mesh.split(only_watertight=False)
+
+    # trimesh's split() runs each component through submesh(), which REPAIRS
+    # (fill_holes) on the way out — and that repair needs a graph engine it may not
+    # have. Neither the repair nor its absence may decide the verdict, so a failure
+    # here degrades to "could not split" and the watertight/volume findings stand on
+    # their own rather than the whole check erroring out.
+    try:
+        bodies = list(mesh.split(only_watertight=False))
+    except Exception as exc:
+        bodies = []
+        problems.append(f"could not split into bodies ({type(exc).__name__}: {exc})")
 
     if not watertight:
+        # Count boundary edges directly rather than via mesh.outline(), which needs a
+        # graph engine and would turn a plain finding into an ImportError.
         problems.append(
-            f"not watertight — {len(mesh.outline().entities) if mesh.outline() else '?'} "
-            f"boundary loop(s); the mesh does not enclose a volume"
+            f"not watertight — {_boundary_edges(mesh)} boundary edge(s); the mesh "
+            f"does not enclose a volume"
         )
     if volume <= 0:
         problems.append(f"volume is {volume:.4f} (must be > 0)")
