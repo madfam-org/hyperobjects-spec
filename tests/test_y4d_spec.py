@@ -438,8 +438,10 @@ def test_assembly_volume_is_the_sum_of_its_parts():
 @pytest.mark.geometry
 @geometry_required
 def test_dead_dispatch_is_caught(tmp_path):
-    """Cut the socket branch out of the cartridge: every target_part now renders the
-    same body, and the distinct-modes check must say so."""
+    """Cut the socket branch out of the cartridge: 'socket' now falls through to the
+    else-branch set assembly, so two distinct parts (socket, set) render the fallback
+    body — the distinct-modes check must say so. (One part matching the fallback is
+    legitimate — sew-on-snap's own 'set' IS the else-branch; two is a dead dispatch.)"""
     cart = tmp_path / "dead-dispatch"
     cart.mkdir()
     (cart / "project.json").write_text((SEW_ON_SNAP / "project.json").read_text())

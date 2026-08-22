@@ -326,24 +326,53 @@ def check_geometry(cartridge_dir: Path, manifest: dict) -> list[RenderCheck]:
 
         results.append(render_part(cartridge_dir, script_file, mode_id, part_id))
 
-    # Distinct-modes check: the same PART rendered from two different modes should be
-    # the same body (that is fine); two different PARTS rendering identical volume is
-    # what signals a dead dispatch.
-    volumes: dict[float, list[str]] = {}
-    for check in results:
-        if check.ok and check.volume:
-            volumes.setdefault(round(check.volume, 6), []).append(f"{check.mode}/{check.part}")
+    # Distinct-modes check: the same PART rendered from two different modes should
+    # be the same body (that is fine). Pairwise-identical volumes across different
+    # parts are NOT evidence of a dead dispatch either: parts may legitimately
+    # coincide (an assembly mode reusing a single-mode plate — hook-and-eye's
+    # tape_hook_plate IS the hook plate by design). The precise signal is the
+    # FALLBACK body — the else-branch a missed target_part falls into. Render it
+    # once with a sentinel target_part no manifest declares, then flag when TWO OR
+    # MORE distinct declared parts equal it: at most one part can legitimately BE
+    # the else-branch (a "set"/assembly default mode), so a second match means some
+    # part's branch is not wired and silently renders the default. A script that
+    # instead RAISES on unknown target_part has no silent fallthrough to catch, and
+    # skips this check (the fallback render fails, which is the correct exemption).
+    fallback_vol: float | None = None
+    fb_script = next(
+        (
+            m.get("cq_file")
+            for m in modes
+            if isinstance(m.get("cq_file"), str)
+            and Path(m["cq_file"]).suffix in SCRIPT_SUFFIXES
+        ),
+        None,
+    )
+    if fb_script:
+        fb = render_part(
+            cartridge_dir, fb_script, "__y4d_spec_fallback__", "__y4d_spec_fallback__"
+        )
+        if fb.ok and fb.volume:
+            fallback_vol = round(fb.volume, 6)
 
-    for vol, targets in volumes.items():
-        if len({t.split("/", 1)[1] for t in targets}) < 2:
-            continue
-        for check in results:
-            if not (check.ok and check.volume and round(check.volume, 6) == vol):
-                continue
-            others = sorted(t for t in targets if t != f"{check.mode}/{check.part}")
-            check.ok = False
-            check.problems.append(
-                f"renders identical geometry (volume {vol}) to {', '.join(others)} — "
-                f"the target_part dispatch is not distinguishing these parts"
-            )
+    if fallback_vol is not None:
+        declared_parts = {p for m in modes for p in m.get("parts") or []}
+        matching = [
+            c
+            for c in results
+            if c.ok
+            and c.volume
+            and round(c.volume, 6) == fallback_vol
+            and c.part in declared_parts
+        ]
+        if len({c.part for c in matching}) >= 2:
+            parts_list = ", ".join(sorted({c.part for c in matching}))
+            for check in matching:
+                check.ok = False
+                check.problems.append(
+                    f"renders the cartridge's fallback body (volume {fallback_vol}), "
+                    f"as do other parts ({parts_list}) — at most one part can be the "
+                    f"else-branch default; the target_part dispatch is not "
+                    f"distinguishing these parts"
+                )
     return results
