@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.fashioncabinet.madfam.io/garment-manifest.schema.json",
+  "title": "Fashion Cabinet Garment Manifest",
+  "type": "object",
+  "required": ["project", "modes", "pieces", "parameters"],
+  "additionalProperties": true,
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" },
+        "fr": { "type": "string" }
+      },
+      "additionalProperties": { "type": "string" }
+    },
+    "edgeRef": {
+      "type": "object",
+      "required": ["piece", "edge"],
+      "properties": {
+        "piece": { "type": "string" },
+        "edge": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["name", "slug", "version", "attribution"],
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "version": { "type": "string" },
+        "engine": { "type": "string", "enum": ["fc"] },
+        "description": { "$ref": "#/$defs/i18n" },
+        "thumbnail": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "unlisted": { "type": "boolean" },
+        "attribution": {
+          "type": "object",
+          "required": ["author", "license", "lineage"],
+          "properties": {
+            "author": { "type": "string" },
+            "license": { "type": "string" },
+            "lineage": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["source", "license"],
+                "properties": {
+                  "source": { "type": "string" },
+                  "url": { "type": "string" },
+                  "license": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "hyperobject": false
+      },
+      "additionalProperties": true
+    },
+    "modes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "pieces"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "script_file": { "type": "string", "default": "main.py" },
+          "pieces": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "estimate": { "type": "object" }
+        }
+      }
+    },
+    "pieces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "default_color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+          "cut": {
+            "type": "object",
+            "properties": {
+              "quantity": { "type": "integer", "minimum": 1 },
+              "on_fold": { "type": "boolean" },
+              "mirror": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "parameter_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "$ref": "#/$defs/i18n" }
+        }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "label"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "type": { "type": "string", "enum": ["slider", "select", "checkbox", "text"] },
+          "label": { "$ref": "#/$defs/i18n" },
+          "tooltip": { "$ref": "#/$defs/i18n" },
+          "default": {},
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "step": { "type": "number" },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["value", "label"],
+              "properties": {
+                "value": {},
+                "label": { "$ref": "#/$defs/i18n" }
+              }
+            }
+          },
+          "group": { "type": "string" },
+          "modes": { "type": "array", "items": { "type": "string" } },
+          "advanced": { "type": "boolean" },
+          "measurement": {
+            "type": "object",
+            "required": ["standard", "code"],
+            "properties": {
+              "standard": { "type": "string", "enum": ["iso_8559", "astm_d5585", "custom"] },
+              "code": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "values"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "mode": { "type": "string" },
+          "values": { "type": "object" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["expression", "message"],
+        "properties": {
+          "expression": { "type": "string" },
+          "severity": { "type": "string", "enum": ["error", "warning"], "default": "warning" },
+          "message": { "$ref": "#/$defs/i18n" }
+        }
+      }
+    },
+    "export_formats": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["svg", "dxf", "json", "pdf"] }
+    },
+    "fabrics": {
+      "type": "array",
+      "description": "Suggested fabric-card slugs from materials/ (validated to exist)",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" }
+    },
+    "notion": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["button", "zipper", "buckle", "snap", "rivet", "eyelet", "hook", "boning", "custom"]
+        },
+        "subtype": { "type": "string" },
+        "hardware_ref": {
+          "type": "object",
+          "required": ["platform", "linked"],
+          "properties": {
+            "platform": { "type": "string", "enum": ["yantra4d"] },
+            "project_slug": { "type": "string" },
+            "linked": { "type": "boolean" },
+            "params_map": { "type": "object", "additionalProperties": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "hyperobject": {
+      "type": "object",
+      "required": ["is_hyperobject", "domain"],
+      "properties": {
+        "is_hyperobject": { "type": "boolean" },
+        "domain": {
+          "type": "string",
+          "enum": ["garment", "block", "notion", "technique", "material_system", "e_textile", "am_fashion"]
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "edges"],
+            "properties": {
+              "id": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "neckline", "armscye", "shoulder", "side_seam", "waistband", "cuff",
+                  "placket", "hem", "zipper_tape", "button_stand", "pocket", "custom"
+                ]
+              },
+              "label": { "$ref": "#/$defs/i18n" },
+              "edges": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/edgeRef" } },
+              "parameters": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "capabilities": {
+          "type": "object",
+          "description": "Boolean capability flags only — never material or feature names (yantra4d material_awareness lesson)",
+          "additionalProperties": { "type": "boolean" }
+        },
+        "societal_benefit": { "$ref": "#/$defs/i18n" },
+        "commons_license": { "type": "string" }
+      }
+    }
+  }
+}

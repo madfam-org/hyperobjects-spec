@@ -1,0 +1,30 @@
+{
+  "body": {
+    "slug": "straight-w-m",
+    "name": { "en": "Women's dress form — M", "es": "Maniquí de mujer — M" },
+    "kind": "dress_form",
+    "demographic": "womenswear",
+    "size_label": "M",
+    "region": "MX",
+    "notes": {
+      "en": "An abstract standing dress form at a straight women's size M — deliberately a neutral tailor's bust, not a figure. Values sit mid-range across the garments that consume them; a made-to-measure person overrides any of these.",
+      "es": "Un maniquí abstracto de pie en talla M recta de mujer — deliberadamente un busto de sastre neutral, no una figura. Los valores están a media escala entre las prendas que los consumen; una medida a la medida sobrescribe cualquiera de ellos."
+    }
+  },
+  "units": "mm",
+  "landmarks": {
+    "neck_girth": { "value": 360, "iso_8559": "4.4", "source": "size_chart" },
+    "chest_bust_girth": { "value": 900, "iso_8559": "4.6", "source": "size_chart" },
+    "bust_girth": { "value": 920, "iso_8559": "4.7", "source": "size_chart" },
+    "underbust_girth": { "value": 760, "source": "size_chart" },
+    "waist_girth": { "value": 720, "iso_8559": "4.10", "source": "size_chart" },
+    "hip_girth": { "value": 980, "iso_8559": "4.12", "source": "size_chart" },
+    "thigh_girth": { "value": 580, "source": "size_chart" },
+    "arm_length": { "value": 600, "iso_8559": "5.2", "source": "size_chart" },
+    "inside_leg_length": { "value": 760, "iso_8559": "6.4", "source": "size_chart" },
+    "body_rise": { "value": 280, "source": "size_chart" },
+    "back_neck_to_waist": { "value": 410, "source": "size_chart" },
+    "shoulder_length": { "value": 122, "source": "size_chart" },
+    "vertical_trunk_girth": { "value": 1560, "source": "size_chart" }
+  }
+}

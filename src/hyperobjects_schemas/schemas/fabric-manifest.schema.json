@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.fashioncabinet.madfam.io/fabric-manifest.schema.json",
+  "title": "Fashion Cabinet Fabric Card",
+  "description": "A material hyperobject: one card drives both physical fabrication (cutting compensation, care) and the digital twin (cloth physics + PBR). Sibling of yantra4d's material-manifest.",
+  "type": "object",
+  "required": ["fabric", "physical"],
+  "additionalProperties": true,
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" },
+        "fr": { "type": "string" }
+      },
+      "additionalProperties": { "type": "string" }
+    },
+    "warpWeft": {
+      "type": "object",
+      "required": ["warp", "weft"],
+      "properties": {
+        "warp": { "type": "number" },
+        "weft": { "type": "number" }
+      }
+    }
+  },
+  "properties": {
+    "fabric": {
+      "type": "object",
+      "required": ["slug", "name", "class"],
+      "properties": {
+        "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "$ref": "#/$defs/i18n" },
+        "class": {
+          "type": "string",
+          "enum": ["woven", "knit", "nonwoven", "leather", "technical", "printed_textile"]
+        },
+        "weave": { "type": "string" },
+        "composition": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["fiber", "pct"],
+            "properties": {
+              "fiber": { "type": "string" },
+              "pct": { "type": "number", "minimum": 0, "maximum": 100 }
+            }
+          }
+        },
+        "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+      }
+    },
+    "physical": {
+      "type": "object",
+      "required": ["gsm", "width_mm"],
+      "properties": {
+        "gsm": { "type": "number", "exclusiveMinimum": 0 },
+        "width_mm": { "type": "number", "exclusiveMinimum": 0 },
+        "thickness_mm": { "type": "number" },
+        "stretch_pct": { "$ref": "#/$defs/warpWeft" },
+        "shrinkage_pct": { "$ref": "#/$defs/warpWeft" },
+        "drape_class": {
+          "type": "string",
+          "enum": ["fluid", "soft", "medium", "crisp", "stiff"]
+        }
+      }
+    },
+    "compensations": {
+      "type": "object",
+      "properties": {
+        "cut_scale": { "$ref": "#/$defs/warpWeft" },
+        "notes": { "$ref": "#/$defs/i18n" }
+      }
+    },
+    "care": { "type": "array", "items": { "type": "string" } },
+    "digital_twin": {
+      "type": "object",
+      "properties": {
+        "physics": {
+          "type": "object",
+          "properties": {
+            "weight_gsm": { "type": "number" },
+            "bend_stiffness_class": {
+              "type": "string",
+              "enum": ["very-soft", "soft", "medium", "medium-stiff", "stiff"]
+            },
+            "stretch_warp_pct": { "type": "number" },
+            "stretch_weft_pct": { "type": "number" }
+          }
+        },
+        "pbr": {
+          "type": "object",
+          "properties": {
+            "base_color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+            "roughness": { "type": "number", "minimum": 0, "maximum": 1 },
+            "sheen": { "type": "number", "minimum": 0, "maximum": 1 },
+            "metallic": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    },
+    "e_textile": {
+      "type": "object",
+      "description": "Boolean/numeric capability flags for embedded-electronics compatibility",
+      "properties": {
+        "conductive_thread_compatible": { "type": "boolean" },
+        "max_iron_temp_c": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "origin": { "type": "string" },
+        "notes": { "$ref": "#/$defs/i18n" }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/cross-commons-identity.schema.json",
+  "title": "Cross-Commons Identity Key",
+  "description": "The semi-rigid rule of the MADFAM hyperobject commons (RFC 0038 §9): one physical thing may exist as TWO cartridges in two commons — a SOLID one (Yantra4D, a printed/machined body) and a SOFT one (Fashion Cabinet, the same thing understood as cloth or as a garment component). A pair record declares that those two slugs are the same object, and names the material identity under which the equivalence holds. Without the material identity the claim is unfalsifiable: a chainmail panel printed in TPU-95A drapes as cloth, the same geometry printed in PLA does not.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["identity_id", "solid", "soft", "material_identity"],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS identity-key contract the record is written against. Absent means 1.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "identity_id": {
+      "description": "Stable slug for the pair itself, unique across the commons. Conventionally the shared physical noun, e.g. 'chainmail-panel'.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "solid": {
+      "$ref": "#/$defs/cartridgeRef",
+      "description": "The rigid-body side — a Yantra4D cartridge that renders a solid."
+    },
+    "soft": {
+      "$ref": "#/$defs/cartridgeRef",
+      "description": "The soft-goods side — a Fashion Cabinet cartridge (a garment, a notion, or a fabric card)."
+    },
+    "material_identity": {
+      "$ref": "#/$defs/materialIdentity",
+      "description": "The material under which the two sides are the SAME object. The pairing is only claimed for this material."
+    },
+    "label": {
+      "$ref": "#/$defs/i18nString",
+      "description": "Human-readable name of the paired object."
+    },
+    "notes": {
+      "$ref": "#/$defs/i18nString",
+      "description": "Why the two sides are one object, and where the equivalence stops."
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "cartridgeRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "slug"],
+      "properties": {
+        "repo": {
+          "description": "Which commons the cartridge lives in.",
+          "type": "string",
+          "enum": ["yantra4d", "fashion-cabinet"]
+        },
+        "slug": {
+          "description": "The cartridge's slug within that repo — its project.json project.slug (or, for a fabric card, its fabric.slug).",
+          "$ref": "#/$defs/slug"
+        },
+        "kind": {
+          "description": "What the slug names in that repo. Defaults to 'cartridge'.",
+          "type": "string",
+          "enum": ["cartridge", "notion", "fabric"],
+          "default": "cartridge"
+        }
+      }
+    },
+    "materialIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["soft_material", "solid_material"],
+      "properties": {
+        "soft_material": {
+          "description": "The Fashion Cabinet fabric-card slug (materials/<slug>/material.json) describing the object AS CLOTH.",
+          "$ref": "#/$defs/slug"
+        },
+        "solid_material": {
+          "description": "The Yantra4D material slug (materials/<slug>/material.json) the solid is printed in.",
+          "$ref": "#/$defs/slug"
+        },
+        "equivalence": {
+          "description": "How far the identity holds. 'same_object' = one physical thing, two descriptions. 'derived' = the soft side is produced from the solid side (or vice versa) but is not the identical body. Defaults to 'same_object'.",
+          "type": "string",
+          "enum": ["same_object", "derived"],
+          "default": "same_object"
+        }
+      }
+    },
+    "i18nString": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" },
+            "es": { "type": "string" }
+          },
+          "required": ["en"]
+        }
+      ]
+    }
+  }
+}

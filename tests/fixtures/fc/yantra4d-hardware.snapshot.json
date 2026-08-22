@@ -1,0 +1,70 @@
+{
+  "_comment": "Trimmed slice of fashion-cabinet/docs/interfaces/yantra4d-hardware.snapshot.json, carrying only the cartridges the test fixtures link to.",
+  "cartridges": {
+    "shank-button-solid": {
+      "slug": "shank-button-solid",
+      "name": "Button",
+      "domain": "wearable",
+      "parameter_ids": [
+        "diameter_mm",
+        "thickness",
+        "holes",
+        "hole_dia",
+        "rim"
+      ],
+      "commons_license": "CERN-OHL-W-2.0",
+      "cdg_interfaces": [
+        {
+          "id": "thread_path",
+          "geometry_type": "socket",
+          "parameters": [
+            "hole_dia",
+            "holes"
+          ]
+        },
+        {
+          "id": "button_face",
+          "geometry_type": "boss",
+          "parameters": [
+            "diameter_mm",
+            "thickness"
+          ]
+        }
+      ]
+    },
+    "tpu-chainmail-panel": {
+      "slug": "tpu-chainmail-panel",
+      "name": "TPU Chainmail Panel",
+      "domain": "wearable",
+      "parameter_ids": [
+        "rows",
+        "cols",
+        "ring_id",
+        "wire_d",
+        "clearance"
+      ],
+      "commons_license": "CERN-OHL-W-2.0",
+      "cdg_interfaces": [
+        {
+          "id": "panel_edge",
+          "geometry_type": "flange",
+          "parameters": [
+            "rows",
+            "cols",
+            "ring_id",
+            "wire_d"
+          ]
+        },
+        {
+          "id": "link_cell",
+          "geometry_type": "snap",
+          "parameters": [
+            "ring_id",
+            "wire_d",
+            "clearance"
+          ]
+        }
+      ]
+    }
+  }
+}

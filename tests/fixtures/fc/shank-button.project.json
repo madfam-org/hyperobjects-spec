@@ -1,0 +1,229 @@
+{
+  "project": {
+    "name": "Shank Button",
+    "slug": "shank-button",
+    "version": "0.1.0",
+    "engine": "fc",
+    "description": {
+      "en": "A Yantra4D-bridged notion: the solid shank button lives in the Yantra4D commons (CadQuery, STL/3MF), while Fashion Cabinet owns the fashion semantics — ligne sizing and placement math — and renders a printable button placement guide that transfers every position to the placket as drill crosses and edge notches.\n\nOfficial visualizer and configurator: Fashion Cabinet",
+      "es": "Un avío puenteado con Yantra4D: el botón de pie sólido vive en el commons de Yantra4D (CadQuery, STL/3MF), mientras Fashion Cabinet posee la semántica de moda — talla en líneas y cálculo de colocación — y genera una guía de colocación imprimible que transfiere cada posición a la cartera como cruces de taladro y piquetes.\n\nVisualizador y configurador oficial: Fashion Cabinet",
+      "fr": "Une fourniture pontée vers Yantra4D : le bouton à tige plein vit dans le commun Yantra4D (CadQuery, STL/3MF), tandis que Fashion Cabinet possède la sémantique mode — dimensionnement en lignes et calcul de placement — et génère un guide de placement de boutons imprimable qui transfère chaque position sur la patte sous forme de croix de perçage et de crans de bord.\n\nVisualiseur et configurateur officiel : Fashion Cabinet"
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "button",
+      "notion",
+      "hardware",
+      "placement",
+      "hyperobject",
+      "commons"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "LicenseRef-FC1-pending",
+      "lineage": [
+        {
+          "source": "Original draft for Fashion Cabinet",
+          "license": "original"
+        }
+      ]
+    }
+  },
+  "modes": [
+    {
+      "id": "placement-guide",
+      "label": {
+        "en": "Placement Guide",
+        "es": "Guía de Colocación",
+        "fr": "Guide de placement"
+      },
+      "script_file": "main.py",
+      "pieces": [
+        "placement-guide"
+      ]
+    }
+  ],
+  "pieces": [
+    {
+      "id": "placement-guide",
+      "label": {
+        "en": "Button Placement Guide",
+        "es": "Guía de Colocación de Botones",
+        "fr": "Guide de placement des boutons"
+      },
+      "default_color": "#8a6d3b",
+      "cut": {
+        "quantity": 1,
+        "on_fold": false,
+        "mirror": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "button_ligne",
+      "type": "slider",
+      "default": 24,
+      "min": 10,
+      "max": 80,
+      "step": 1,
+      "label": {
+        "en": "Button size (ligne, 1L = 0.635 mm)",
+        "es": "Tamaño del botón (líneas, 1L = 0.635 mm)",
+        "fr": "Taille du bouton (ligne, 1L = 0,635 mm)"
+      }
+    },
+    {
+      "id": "button_count",
+      "type": "slider",
+      "default": 6,
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "label": {
+        "en": "Button count",
+        "es": "Número de botones",
+        "fr": "Nombre de boutons"
+      }
+    },
+    {
+      "id": "placket_length",
+      "type": "slider",
+      "default": 300,
+      "min": 60,
+      "max": 1200,
+      "step": 5,
+      "label": {
+        "en": "Placket length (mm)",
+        "es": "Largo de la cartera (mm)",
+        "fr": "Longueur de la patte (mm)"
+      }
+    },
+    {
+      "id": "end_offset",
+      "type": "slider",
+      "default": 15,
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "label": {
+        "en": "End offset (mm)",
+        "es": "Margen en extremos (mm)",
+        "fr": "Décalage d'extrémité (mm)"
+      }
+    },
+    {
+      "id": "strip_width",
+      "type": "slider",
+      "default": 40,
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "label": {
+        "en": "Guide strip width (mm)",
+        "es": "Ancho de la guía (mm)",
+        "fr": "Largeur de la bande guide (mm)"
+      }
+    },
+    {
+      "id": "show_outline",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Draw button outlines",
+        "es": "Dibujar contornos de botón",
+        "fr": "Tracer les contours des boutons"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "shirt-front",
+      "label": {
+        "en": "Shirt front (18L × 7)",
+        "es": "Frente de camisa (18L × 7)",
+        "fr": "Devant de chemise (18L × 7)"
+      },
+      "values": {
+        "button_ligne": 18,
+        "button_count": 7,
+        "placket_length": 380,
+        "end_offset": 12
+      }
+    },
+    {
+      "id": "coat-front",
+      "label": {
+        "en": "Coat front (36L × 4)",
+        "es": "Frente de abrigo (36L × 4)",
+        "fr": "Devant de manteau (36L × 4)"
+      },
+      "values": {
+        "button_ligne": 36,
+        "button_count": 4,
+        "placket_length": 520,
+        "end_offset": 40
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "end_offset * 2 < placket_length",
+      "severity": "error",
+      "message": {
+        "en": "End offsets exceed the placket length",
+        "es": "Los márgenes de extremo exceden el largo de la cartera",
+        "fr": "Les marges d'extrémité dépassent la longueur de la patte"
+      }
+    }
+  ],
+  "export_formats": [
+    "svg",
+    "dxf",
+    "json"
+  ],
+  "notion": {
+    "kind": "button",
+    "subtype": "shank",
+    "hardware_ref": {
+      "platform": "yantra4d",
+      "project_slug": "shank-button-solid",
+      "linked": true,
+      "params_map": {
+        "diameter_mm": "button_ligne * 0.635"
+      }
+    }
+  },
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "notion",
+    "interfaces": [
+      {
+        "id": "button_stand",
+        "type": "button_stand",
+        "edges": [
+          {
+            "piece": "placement-guide",
+            "edge": "guide"
+          }
+        ],
+        "parameters": [
+          "button_count",
+          "placket_length",
+          "end_offset"
+        ]
+      }
+    ],
+    "capabilities": {
+      "made_to_measure": false,
+      "fold_cutting": false,
+      "fabric_compensation": false
+    },
+    "societal_benefit": {
+      "en": "Button placement is the most common point of amateur garment failure; a parametric guide makes the spacing math disappear and the marks transferable, while the bridged Yantra4D solid closes the loop from placement to printable hardware.",
+      "es": "La colocación de botones es el punto de falla amateur más común; una guía paramétrica hace desaparecer el cálculo de espaciado y vuelve transferibles las marcas, mientras el sólido puenteado de Yantra4D cierra el ciclo de la colocación al herraje imprimible.",
+      "fr": "Le placement des boutons est le point de défaillance amateur le plus courant d'un vêtement ; un guide paramétrique fait disparaître le calcul d'espacement et rend les repères transférables, tandis que le solide Yantra4D ponté boucle la chaîne du placement à la quincaillerie imprimable."
+    },
+    "commons_license": "LicenseRef-FC1-pending"
+  }
+}
