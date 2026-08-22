@@ -1,0 +1,74 @@
+{
+  "fabric": {
+    "slug": "manta-cruda",
+    "name": {
+      "en": "Raw Manta (unbleached cotton)",
+      "es": "Manta cruda",
+      "fr": "Manta crue (coton écru)"
+    },
+    "class": "woven",
+    "weave": "plain",
+    "composition": [
+      {
+        "fiber": "cotton",
+        "pct": 100
+      }
+    ],
+    "color": "#e8dcc8"
+  },
+  "physical": {
+    "gsm": 140,
+    "width_mm": 900,
+    "thickness_mm": 0.35,
+    "stretch_pct": {
+      "warp": 1.0,
+      "weft": 2.0
+    },
+    "shrinkage_pct": {
+      "warp": 5.0,
+      "weft": 3.0
+    },
+    "drape_class": "crisp"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.05,
+      "weft": 1.03
+    },
+    "notes": {
+      "en": "Unwashed manta shrinks hard on first wash; pre-wash or apply cut_scale. The warp/weft factors mirror Yantra4D's am_compensations.shrinkage contract.",
+      "es": "La manta sin lavar encoge fuerte en el primer lavado; prelavar o aplicar cut_scale. Los factores de urdimbre/trama reflejan el contrato am_compensations.shrinkage de Yantra4D.",
+      "fr": "La manta non lavée rétrécit fortement au premier lavage ; prélavez ou appliquez cut_scale. Les facteurs chaîne/trame reflètent le contrat am_compensations.shrinkage de Yantra4D."
+    }
+  },
+  "care": [
+    "machine_wash_30c",
+    "tumble_dry_low",
+    "iron_high"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 140,
+      "bend_stiffness_class": "medium-stiff",
+      "stretch_warp_pct": 1.0,
+      "stretch_weft_pct": 2.0
+    },
+    "pbr": {
+      "base_color": "#e8dcc8",
+      "roughness": 0.92,
+      "sheen": 0.08
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 200
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The workhorse cloth of Mexican garment craft — toiles, embroidery grounds, and everyday wear.",
+      "es": "La tela de batalla de la confección mexicana — pruebas, bordado y prendas de diario.",
+      "fr": "Le tissu de labeur de la confection mexicaine — toiles, supports de broderie et vêtements du quotidien."
+    }
+  }
+}

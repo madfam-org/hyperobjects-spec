@@ -1,0 +1,439 @@
+{
+  "project": {
+    "name": "Bodice Block (Sloper)",
+    "slug": "bodice-block",
+    "version": "0.1.0",
+    "engine": "fc",
+    "description": {
+      "en": "A simplified metric bodice sloper drafted from body measurements: front and back pieces with waist darts, matched side and shoulder seams, fold-cut center lines, notches, and grainlines. The foundational block every fitted garment starts from.\n\nOfficial visualizer and configurator: Fashion Cabinet",
+      "es": "Un patrón base de corpiño métrico simplificado trazado a partir de medidas corporales: piezas delantera y trasera con pinzas de cintura, costuras laterales y de hombro emparejadas, líneas centrales al doblez, piquetes y sentido de hilo. El bloque fundamental del que parte toda prenda entallada.\n\nVisualizador y configurador oficial: Fashion Cabinet",
+      "fr": "Un patron de base de corsage métrique simplifié tracé à partir de mesures corporelles : pièces devant et dos avec pinces de taille, coutures de côté et d'épaule appariées, lignes centrales au pli, crans et droits-fil. Le bloc fondamental d'où part tout vêtement ajusté.\n\nVisualiseur et configurateur officiel : Fashion Cabinet"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "bodice",
+      "sloper",
+      "block",
+      "made-to-measure",
+      "hyperobject",
+      "commons"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "LicenseRef-FC1-pending",
+      "lineage": [
+        {
+          "source": "Original draft for Fashion Cabinet; simplified flat block informed by standard metric pattern-drafting practice",
+          "license": "original"
+        }
+      ]
+    }
+  },
+  "modes": [
+    {
+      "id": "sloper",
+      "label": {
+        "en": "Sloper (front + back)",
+        "es": "Patrón base (delantero + trasero)",
+        "fr": "Patron de base (devant + dos)"
+      },
+      "script_file": "main.py",
+      "pieces": [
+        "front",
+        "back"
+      ]
+    }
+  ],
+  "pieces": [
+    {
+      "id": "front",
+      "label": {
+        "en": "Front Bodice",
+        "es": "Corpiño Delantero",
+        "fr": "Corsage devant"
+      },
+      "default_color": "#c96f4a",
+      "cut": {
+        "quantity": 1,
+        "on_fold": true,
+        "mirror": true
+      }
+    },
+    {
+      "id": "back",
+      "label": {
+        "en": "Back Bodice",
+        "es": "Corpiño Trasero",
+        "fr": "Corsage dos"
+      },
+      "default_color": "#4a7fc9",
+      "cut": {
+        "quantity": 1,
+        "on_fold": true,
+        "mirror": true
+      }
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body Measurements",
+        "es": "Medidas Corporales",
+        "fr": "Mesures corporelles"
+      }
+    },
+    {
+      "id": "fit",
+      "label": {
+        "en": "Ease & Fit",
+        "es": "Holgura y Ajuste",
+        "fr": "Aisance et ajustement"
+      }
+    },
+    {
+      "id": "construction",
+      "label": {
+        "en": "Construction",
+        "es": "Construcción",
+        "fr": "Montage"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "bust_girth",
+      "type": "slider",
+      "default": 880,
+      "min": 600,
+      "max": 1600,
+      "step": 5,
+      "group": "body",
+      "measurement": {
+        "standard": "iso_8559",
+        "code": "bust_girth"
+      },
+      "label": {
+        "en": "Bust girth (mm)",
+        "es": "Contorno de busto (mm)",
+        "fr": "Tour de buste (mm)"
+      }
+    },
+    {
+      "id": "waist_girth",
+      "type": "slider",
+      "default": 700,
+      "min": 450,
+      "max": 1500,
+      "step": 5,
+      "group": "body",
+      "measurement": {
+        "standard": "iso_8559",
+        "code": "waist_girth"
+      },
+      "label": {
+        "en": "Waist girth (mm)",
+        "es": "Contorno de cintura (mm)",
+        "fr": "Tour de taille (mm)"
+      }
+    },
+    {
+      "id": "back_waist_length",
+      "type": "slider",
+      "default": 400,
+      "min": 280,
+      "max": 560,
+      "step": 5,
+      "group": "body",
+      "measurement": {
+        "standard": "iso_8559",
+        "code": "back_neck_to_waist"
+      },
+      "label": {
+        "en": "Nape to waist (mm)",
+        "es": "Largo de talle espalda (mm)",
+        "fr": "Nuque à la taille (mm)"
+      }
+    },
+    {
+      "id": "neck_girth",
+      "type": "slider",
+      "default": 370,
+      "min": 280,
+      "max": 520,
+      "step": 5,
+      "group": "body",
+      "measurement": {
+        "standard": "iso_8559",
+        "code": "neck_girth"
+      },
+      "label": {
+        "en": "Neck girth (mm)",
+        "es": "Contorno de cuello (mm)",
+        "fr": "Tour de cou (mm)"
+      }
+    },
+    {
+      "id": "shoulder_length",
+      "type": "slider",
+      "default": 125,
+      "min": 90,
+      "max": 200,
+      "step": 1,
+      "group": "body",
+      "measurement": {
+        "standard": "iso_8559",
+        "code": "shoulder_length"
+      },
+      "label": {
+        "en": "Shoulder length (mm)",
+        "es": "Largo de hombro (mm)",
+        "fr": "Longueur d'épaule (mm)"
+      }
+    },
+    {
+      "id": "armscye_depth",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 320,
+      "step": 5,
+      "group": "body",
+      "advanced": true,
+      "label": {
+        "en": "Armscye depth (mm, 0 = auto)",
+        "es": "Profundidad de sisa (mm, 0 = auto)",
+        "fr": "Profondeur d'emmanchure (mm, 0 = auto)"
+      }
+    },
+    {
+      "id": "bust_ease",
+      "type": "slider",
+      "default": 80,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "group": "fit",
+      "label": {
+        "en": "Bust ease (mm)",
+        "es": "Holgura de busto (mm)",
+        "fr": "Aisance de poitrine (mm)"
+      }
+    },
+    {
+      "id": "waist_ease",
+      "type": "slider",
+      "default": 60,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "group": "fit",
+      "label": {
+        "en": "Waist ease (mm)",
+        "es": "Holgura de cintura (mm)",
+        "fr": "Aisance de taille (mm)"
+      }
+    },
+    {
+      "id": "back_dart_intake",
+      "type": "slider",
+      "default": 25,
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "group": "fit",
+      "advanced": true,
+      "label": {
+        "en": "Back dart intake (mm)",
+        "es": "Pinza trasera (mm)",
+        "fr": "Profondeur de pince dos (mm)"
+      }
+    },
+    {
+      "id": "front_dart_intake",
+      "type": "slider",
+      "default": 30,
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "group": "fit",
+      "advanced": true,
+      "label": {
+        "en": "Front dart intake (mm)",
+        "es": "Pinza delantera (mm)",
+        "fr": "Valeur de la pince devant (mm)"
+      }
+    },
+    {
+      "id": "seam_allowance",
+      "type": "slider",
+      "default": 10,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "group": "construction",
+      "label": {
+        "en": "Seam allowance (mm)",
+        "es": "Margen de costura (mm)",
+        "fr": "Marge de couture (mm)"
+      }
+    },
+    {
+      "id": "hem_allowance",
+      "type": "slider",
+      "default": 20,
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "group": "construction",
+      "label": {
+        "en": "Waist/hem allowance (mm)",
+        "es": "Margen de cintura/dobladillo (mm)",
+        "fr": "Marge de taille/ourlet (mm)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "size-s",
+      "label": {
+        "en": "Size S (84/66)",
+        "es": "Talla S (84/66)",
+        "fr": "Taille S (84/66)"
+      },
+      "values": {
+        "bust_girth": 840,
+        "waist_girth": 660,
+        "back_waist_length": 395,
+        "neck_girth": 355,
+        "shoulder_length": 120
+      }
+    },
+    {
+      "id": "size-m",
+      "label": {
+        "en": "Size M (88/70)",
+        "es": "Talla M (88/70)",
+        "fr": "Taille M (88/70)"
+      },
+      "values": {
+        "bust_girth": 880,
+        "waist_girth": 700,
+        "back_waist_length": 400,
+        "neck_girth": 370,
+        "shoulder_length": 125
+      }
+    },
+    {
+      "id": "size-l",
+      "label": {
+        "en": "Size L (96/80)",
+        "es": "Talla L (96/80)",
+        "fr": "Taille L (96/80)"
+      },
+      "values": {
+        "bust_girth": 960,
+        "waist_girth": 800,
+        "back_waist_length": 405,
+        "neck_girth": 385,
+        "shoulder_length": 130
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "waist_girth <= bust_girth + 100",
+      "severity": "warning",
+      "message": {
+        "en": "Waist girth is unusually large relative to bust; the draft clamps it",
+        "es": "El contorno de cintura es inusualmente grande respecto al busto; el trazo lo limita",
+        "fr": "Le tour de taille est inhabituellement grand par rapport à la poitrine ; le tracé le bride"
+      }
+    },
+    {
+      "expression": "armscye_depth == 0 || armscye_depth >= 140",
+      "severity": "warning",
+      "message": {
+        "en": "Manual armscye depth below 140 mm will be clamped",
+        "es": "Una profundidad de sisa manual menor a 140 mm será limitada",
+        "fr": "Une profondeur d'emmanchure manuelle inférieure à 140 mm sera bridée"
+      }
+    }
+  ],
+  "export_formats": [
+    "svg",
+    "dxf",
+    "json"
+  ],
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "block",
+    "interfaces": [
+      {
+        "id": "neckline",
+        "type": "neckline",
+        "edges": [
+          {
+            "piece": "front",
+            "edge": "neck"
+          },
+          {
+            "piece": "back",
+            "edge": "neck"
+          }
+        ],
+        "parameters": [
+          "neck_girth"
+        ]
+      },
+      {
+        "id": "armscye",
+        "type": "armscye",
+        "edges": [
+          {
+            "piece": "front",
+            "edge": "armscye"
+          },
+          {
+            "piece": "back",
+            "edge": "armscye"
+          }
+        ],
+        "parameters": [
+          "armscye_depth",
+          "bust_girth",
+          "bust_ease"
+        ]
+      },
+      {
+        "id": "waistband",
+        "type": "waistband",
+        "edges": [
+          {
+            "piece": "front",
+            "edge": "waist"
+          },
+          {
+            "piece": "back",
+            "edge": "waist"
+          }
+        ],
+        "parameters": [
+          "waist_girth",
+          "waist_ease"
+        ]
+      }
+    ],
+    "capabilities": {
+      "made_to_measure": true,
+      "fold_cutting": true,
+      "fabric_compensation": false
+    },
+    "societal_benefit": {
+      "en": "The bodice sloper is the literacy primitive of garment making: drafted to real body measurements it replaces standardized sizing with fit, reduces fabric waste from mis-sized patterns, and gives every downstream Fashion Cabinet garment a verified foundation.",
+      "es": "El patrón base de corpiño es la primitiva de alfabetización de la confección: trazado con medidas corporales reales sustituye el tallaje estandarizado por el ajuste, reduce el desperdicio de tela por patrones de talla errónea y da a cada prenda de Fashion Cabinet una base verificada.",
+      "fr": "Le patron de base de corsage est la primitive d'alphabétisation de la confection : tracé à de vraies mesures corporelles, il remplace le tallage standardisé par l'ajustement, réduit le gaspillage de tissu dû aux patrons mal dimensionnés, et donne à chaque vêtement Fashion Cabinet en aval une base vérifiée."
+    },
+    "commons_license": "LicenseRef-FC1-pending"
+  }
+}

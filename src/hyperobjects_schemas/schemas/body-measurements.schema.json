@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.fashioncabinet.madfam.io/body-measurements.schema.json",
+  "title": "Fashion Cabinet Body Measurement Set",
+  "description": "The shared measurement contract between Fashion Cabinet (which CONSUMES these numbers to draft flat patterns) and Yantra4D (whose dress-form hyperobject PRODUCES a solid whose measured landmark rings EQUAL them). One versioned source of truth, imported by both repos, so the body and the garment can never disagree about the same person. A measurement set is one body / size: a named collection of ISO-8559 landmark values in millimetres. See docs/strategy/3d-and-the-mannequin.md §3.",
+  "type": "object",
+  "required": ["body", "landmarks"],
+  "additionalProperties": true,
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      },
+      "additionalProperties": { "type": "string" }
+    },
+    "landmark_code": {
+      "description": "Canonical ISO-8559 landmark codes. This enum is the vocabulary a garment's parameter `measurement.code` must draw from and the rings a Yantra4D body form must expose. Girths are full-body circumferences; lengths are along the body. All values millimetres. Two legacy spellings seen in early cartridges are NOT canonical and must converge here: `chest_girth` → `chest_bust_girth`; `under_bust_girth` → `underbust_girth`.",
+      "type": "string",
+      "enum": [
+        "neck_girth",
+        "chest_bust_girth",
+        "bust_girth",
+        "underbust_girth",
+        "waist_girth",
+        "hip_girth",
+        "thigh_girth",
+        "knee_girth",
+        "calf_girth",
+        "ankle_girth",
+        "wrist_girth",
+        "bicep_girth",
+        "head_girth",
+        "arm_length",
+        "inside_leg_length",
+        "outside_leg_length",
+        "body_rise",
+        "back_neck_to_waist",
+        "front_neck_to_waist",
+        "shoulder_length",
+        "across_back",
+        "across_front",
+        "vertical_trunk_girth",
+        "total_height"
+      ]
+    },
+    "measurement_mm": {
+      "description": "One landmark value in millimetres. A bare number is shorthand for {value}. The object form may add an ISO reference and provenance (measured on a person, or a size-chart cell).",
+      "oneOf": [
+        { "type": "number", "exclusiveMinimum": 0 },
+        {
+          "type": "object",
+          "required": ["value"],
+          "properties": {
+            "value": { "type": "number", "exclusiveMinimum": 0 },
+            "iso_8559": { "type": "string", "description": "ISO 8559-1 measurement number, e.g. '4.10' for waist girth" },
+            "source": { "type": "string", "enum": ["measured", "size_chart", "derived", "estimate"] },
+            "note": { "$ref": "#/$defs/i18n" }
+          },
+          "additionalProperties": true
+        }
+      ]
+    }
+  },
+  "properties": {
+    "body": {
+      "type": "object",
+      "required": ["slug", "name", "kind"],
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Stable id for this measurement set, e.g. 'straight-m-torso', 'child-6y', 'infant-6m'."
+        },
+        "name": { "$ref": "#/$defs/i18n" },
+        "kind": {
+          "type": "string",
+          "enum": ["dress_form", "person", "size_preset"],
+          "description": "dress_form = an abstract tailor's bust/form (the recommended starting body — neutral, no uncanny figure); person = a real individual's made-to-measure set; size_preset = a canonical sized template."
+        },
+        "demographic": {
+          "type": "string",
+          "enum": ["womenswear", "menswear", "unisex", "child", "infant"],
+          "description": "Sizing context, not an assertion about any wearer."
+        },
+        "size_label": {
+          "type": "string",
+          "description": "Human size name for a preset, e.g. 'M', 'EU 40', '6Y'. Absent for a made-to-measure person."
+        },
+        "region": { "type": "string", "description": "Origin of the size system, e.g. 'MX', 'EU', 'US'." },
+        "notes": { "$ref": "#/$defs/i18n" }
+      },
+      "additionalProperties": true
+    },
+    "units": {
+      "type": "string",
+      "const": "mm",
+      "description": "Millimetres are the only unit in v0 (matches the fc kernel). Present for forward-compatibility; if absent, mm is assumed."
+    },
+    "landmarks": {
+      "type": "object",
+      "description": "The measurement values, keyed by canonical landmark code. A set need not carry every landmark — only those a garment or the form needs — but every key present MUST be a canonical code (propertyNames enforces it), so drift is impossible.",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/landmark_code" },
+      "additionalProperties": { "$ref": "#/$defs/measurement_mm" }
+    },
+    "posture": {
+      "type": "object",
+      "description": "Optional form/pose hints the Yantra4D dress-form cartridge may honour (a standing form, a low bust point). Advisory in v0; the landmark rings are authoritative.",
+      "additionalProperties": true
+    }
+  }
+}
