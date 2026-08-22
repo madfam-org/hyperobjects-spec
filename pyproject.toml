@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hyperobjects-spec"
+version = "0.1.0"
+description = "The MADFAM hyperobject commons spec: validate a Fashion Cabinet or Yantra4D cartridge with zero platform code."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Innovaciones MADFAM SAS de CV" }]
+keywords = ["hyperobject", "commons", "cartridge", "cadquery", "conformance", "spec"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering",
+]
+dependencies = ["jsonschema>=4.21"]
+
+[project.optional-dependencies]
+# Geometry verification (`y4d-spec check --render`) needs a real CAD kernel and a
+# mesh library. Kept out of the base install so manifest conformance stays a
+# pure-python, seconds-fast check anyone can run.
+geometry = ["cadquery>=2.4", "trimesh>=4.0", "numpy>=1.24"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/madfam-org/hyperobjects-spec"
+Source = "https://github.com/madfam-org/hyperobjects-spec"
+
+[project.scripts]
+fc-spec = "fc_spec.cli:main"
+y4d-spec = "y4d_spec.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+fc_spec = ["schemas/*.json"]
+hyperobjects_schemas = ["schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "geometry: requires the [geometry] extra (cadquery + trimesh)",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
