@@ -1,0 +1,50 @@
+name: CI
+
+# Org policy: self-hosted runners only.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: pytest
+    runs-on: madfam-runners-blue
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create a clean virtualenv
+        run: python3 -m venv .venv
+
+      - name: Install (with geometry + dev extras)
+        run: |
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install -e ".[geometry,dev]"
+
+      - name: Report what is installed
+        # Read-proof: the summary below claims geometry ran, so say what is present.
+        run: |
+          .venv/bin/python -c "import fc_spec, y4d_spec, commons_sandbox, hyperobjects_schemas; print('packages ok')"
+          .venv/bin/python -c "from y4d_spec.geometry import geometry_available; print('geometry available:', geometry_available())"
+
+      - name: Lint
+        run: .venv/bin/ruff check src tests
+
+      - name: Test
+        # -ra so skipped geometry tests are named in the summary rather than hidden —
+        # a green run that silently skipped the render lane must not read as a full one.
+        run: .venv/bin/python -m pytest -ra
+
+      - name: Self-check against the bundled fixtures
+        # Exercises the two console scripts exactly as a third party would.
+        run: |
+          .venv/bin/fc-spec list
+          .venv/bin/fc-spec check garment-manifest tests/fixtures/fc/bodice-block.project.json
+          .venv/bin/y4d-spec check tests/fixtures/y4d/sew-on-snap tests/fixtures/y4d/thimble
+          .venv/bin/y4d-spec rules

@@ -29,7 +29,7 @@ test in this repo asserts the two copies are byte-equal, so they cannot drift.
 from __future__ import annotations
 
 import json
-from functools import lru_cache
+from functools import cache
 from importlib import resources
 from pathlib import Path
 
@@ -65,7 +65,7 @@ def schema_path(name: str) -> Path:
     return Path(str(resources.files("hyperobjects_schemas.schemas").joinpath(fname)))
 
 
-@lru_cache(maxsize=None)
+@cache
 def _load_cached(fname: str) -> dict:
     with resources.files("hyperobjects_schemas.schemas").joinpath(fname).open(
         encoding="utf-8"

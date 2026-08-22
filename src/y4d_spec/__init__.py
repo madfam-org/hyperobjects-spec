@@ -27,12 +27,15 @@ contains no inverted body.
 
 from __future__ import annotations
 
+from . import rules, structure
 from .conformance import CartridgeResult, check_cartridge, check_manifest
 
 __all__ = [
     "CartridgeResult",
     "check_cartridge",
     "check_manifest",
+    "rules",
+    "structure",
     "__version__",
 ]
 

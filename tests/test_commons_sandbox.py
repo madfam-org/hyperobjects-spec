@@ -8,8 +8,9 @@ restricted, and the path validator normalizes real paths.
 
 import os
 
-import commons_sandbox as cs
 import pytest
+
+import commons_sandbox as cs
 
 
 # ── the whitelist ────────────────────────────────────────────────────────────

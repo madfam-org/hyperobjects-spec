@@ -307,13 +307,10 @@ def check_geometry(cartridge_dir: Path, manifest: dict) -> list[RenderCheck]:
     from .rules import render_targets
 
     results: list[RenderCheck] = []
-    by_part_volume: dict[str, list[tuple[str, float]]] = {}
+    modes = [m for m in manifest.get("modes") or [] if isinstance(m, dict)]
 
     for mode_id, part_id in render_targets(manifest):
-        mode = next(
-            (m for m in manifest.get("modes") or [] if isinstance(m, dict) and m.get("id") == mode_id),
-            {},
-        )
+        mode = next((m for m in modes if m.get("id") == mode_id), {})
         script_file = mode.get("cq_file") or mode.get("scad_file")
         if not isinstance(script_file, str) or Path(script_file).suffix not in SCRIPT_SUFFIXES:
             results.append(
@@ -327,10 +324,7 @@ def check_geometry(cartridge_dir: Path, manifest: dict) -> list[RenderCheck]:
             )
             continue
 
-        check = render_part(cartridge_dir, script_file, mode_id, part_id)
-        results.append(check)
-        if check.ok and check.volume is not None:
-            by_part_volume.setdefault(part_id, []).append((mode_id, check.volume))
+        results.append(render_part(cartridge_dir, script_file, mode_id, part_id))
 
     # Distinct-modes check: the same PART rendered from two different modes should be
     # the same body (that is fine); two different PARTS rendering identical volume is
@@ -339,15 +333,17 @@ def check_geometry(cartridge_dir: Path, manifest: dict) -> list[RenderCheck]:
     for check in results:
         if check.ok and check.volume:
             volumes.setdefault(round(check.volume, 6), []).append(f"{check.mode}/{check.part}")
+
     for vol, targets in volumes.items():
-        distinct_parts = {t.split("/", 1)[1] for t in targets}
-        if len(distinct_parts) > 1:
-            for check in results:
-                if check.ok and check.volume and round(check.volume, 6) == vol:
-                    check.ok = False
-                    check.problems.append(
-                        f"renders identical geometry (volume {vol}) to "
-                        f"{', '.join(sorted(t for t in targets if t != f'{check.mode}/{check.part}'))}"
-                        f" — the target_part dispatch is not distinguishing these parts"
-                    )
+        if len({t.split("/", 1)[1] for t in targets}) < 2:
+            continue
+        for check in results:
+            if not (check.ok and check.volume and round(check.volume, 6) == vol):
+                continue
+            others = sorted(t for t in targets if t != f"{check.mode}/{check.part}")
+            check.ok = False
+            check.problems.append(
+                f"renders identical geometry (volume {vol}) to {', '.join(others)} — "
+                f"the target_part dispatch is not distinguishing these parts"
+            )
     return results
