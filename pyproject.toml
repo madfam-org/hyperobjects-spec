@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperobjects-spec"
-version = "0.1.0"
+version = "0.1.1"
 description = "The MADFAM hyperobject commons spec: validate a Fashion Cabinet or Yantra4D cartridge with zero platform code."
 readme = "README.md"
 requires-python = ">=3.11"
