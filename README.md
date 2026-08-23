@@ -205,8 +205,17 @@ Three steps per link, each strictly stronger than the last:
 | 2 · render at mapped values | the hardware solid actually builds at what the garment asks for, watertight | `[geometry]` |
 | 3 · responsiveness | each mapped key demonstrably **moves** the geometry | `[geometry]` |
 
-Exit code is nonzero on `render_fail` or `dead_params`. Renders are seconds each, so
-step 3 probes at most `--max-probes` (default 3) parameters per link.
+Exit code is nonzero on `render_fail` or `dead_params`. Renders are seconds each and
+a link costs `targets × (2 + probes)` of them — a full sweep of the commons is ~1080
+renders — so `--max-probes` (default 3) and `--max-targets` (default 4) bound each
+link, and every capped link says what it skipped.
+
+One rule reports without blocking: a mapped value **outside** the target parameter's
+declared `min`/`max` is printed under `MEASUREMENT (non-blocking)` and counted as
+`range_notes=N`. It is a real finding — the cartridge clamps it, so the garment gets
+a part of a size it did not order — but house doctrine is that a new rule is
+calibrated against the whole commons and has its false-positive analysis written down
+*before* it is allowed to fail a build.
 
 **What it will not blame you for.** A yantra4d cartridge that already fails
 `y4d-spec check --render` at its own defaults is skipped with a note, not reported as
