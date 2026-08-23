@@ -22,21 +22,26 @@ cartridge, so a third party could not run them anyway.
 With the [geometry] extra installed, `--render` executes the cartridge through the
 same restricted sandbox the platform uses (commons_sandbox, per cq_runner.py) for
 every (mode, part) and asserts the mesh is watertight, has positive volume, and
-contains no inverted body.
+contains no inverted body. It does that at TWO parameter points: the cartridge's own
+defaults, and every PRESET the manifest declares — the points a user actually clicks
+(`--no-presets` opts out). It also reports printability MEASUREMENTS — thin walls,
+overhangs, build volume — as notes that never fail a cartridge (`--no-printability`
+opts out); their thresholds are provisional pending full-commons calibration.
 """
 
 from __future__ import annotations
 
-from . import rules, structure
+from . import printability, rules, structure
 from .conformance import CartridgeResult, check_cartridge, check_manifest
 
 __all__ = [
     "CartridgeResult",
     "check_cartridge",
     "check_manifest",
+    "printability",
     "rules",
     "structure",
     "__version__",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
