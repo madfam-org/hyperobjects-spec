@@ -209,10 +209,20 @@ doctrine's calibration step exists to expose, and it means the rule should proba
 land as a failure only for `min` violations, with `max` violations staying a note
 until the range-vs-hint question is settled with the yantra4d side.
 
-**Cost, measured.** The 54-link sweep ran as four parallel shards. The `zipper`
-family (11 links) had to be run separately at `--max-targets 2 --max-probes 2` and is
-still the dominant cost of any full sweep: `zip_length` maps from garment body
-lengths of 300 mm and up, and a 300 mm zipper is an enormous solid.
+**Cost, measured.** The 54-link sweep ran as four parallel shards. Two link families
+dominate the cost of any full sweep and should be run separately:
+
+* **`zipper` (11 links)** — `zip_length` maps from garment body lengths of 300 mm and
+  up, and a 300 mm zipper is an enormous solid. Run at `--max-targets 2
+  --max-probes 2`.
+* **`dog-coat → hook-loop-tape`** — the pathological case. The mapping asks for
+  ~340 individually-modelled hook pins against ~80 at the cartridge's defaults, and a
+  single render exceeds twelve minutes. It is not a broken link; it is an expensive
+  one. See the killed per-render-timeout rule below for why this is handled by
+  running it separately rather than by a timeout.
+
+Neither is a finding about the commons. Both are facts about what this check costs,
+and they belong in the record so the next sweep is planned rather than discovered.
 
 ### The measurement lane — out-of-range mappings
 
@@ -285,6 +295,31 @@ calibration sweep and false-positive write-up.
 **KILLED: "compare per-part volumes."** A mapped parameter driving exactly one part
 of a multi-part mode reads as dead against the other parts. Replaced by the summed
 volume across rendered targets.
+
+**KILLED (for now): a per-render wall-clock timeout.** The motivation is real and
+still stands: `dog-coat → hook-loop-tape` maps `strip_length` = 110 and
+`strip_width` = 38 onto a cartridge that models every hook pin individually at a
+3.5 mm pitch — roughly **340 separate solids** against ~80 at the cartridge's own
+defaults. It is not hung, it is doing exactly what it was asked, but it stalled a
+calibration shard for over twelve minutes and would stall a CI lane indefinitely.
+
+The obvious implementation does not work. The render is CPU-bound inside OCCT and
+never returns to the interpreter, so neither a signal alarm nor a thread can
+interrupt it — only killing a process can. But `os.fork()` from a parent that has
+already imported cadquery produces a child that **never exits**: OCCT initializes
+native threads at import, and `fork` without `exec` gives the child only the calling
+thread while leaving every lock those threads held permanently taken. Measured
+directly: an 8.66 s in-process render, forked, was still unfinished at 180 s and got
+reported as a timeout. That is a *worse* failure than the one being fixed — it turns
+healthy links into false timeouts.
+
+A correct implementation needs a fresh interpreter per render (`spawn`, not `fork`),
+which re-imports cadquery and costs seconds on every render — paid on all 1080 of
+them to bound the handful that are pathological. Until that trade is worth making,
+the cost controls are `--max-targets`, `--max-probes`, and sharding, and a
+pathological link is handled by running it separately. Documented rather than
+silently dropped, because the next person to reach for `fork` here deserves to know
+what happens.
 
 **KILLED: "use `eval` for the params_map expressions — the grammar is tiny."**
 The grammar is tiny; the input is a third party's manifest. Replaced by the
