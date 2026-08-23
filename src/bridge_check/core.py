@@ -119,6 +119,13 @@ class LinkVerdict:
     resolve_problems: list[str] = field(default_factory=list)
     render_problems: list[str] = field(default_factory=list)
     dead_params: list[str] = field(default_factory=list)
+    # Mapped values already outside the target parameter's declared min/max. A REAL
+    # finding (the cartridge clamps, and the garment gets a part of a size it did
+    # not order) but it lands as a MEASUREMENT, not a failure — house doctrine: a new
+    # rule is calibrated against the full commons and its false-positive analysis is
+    # written down BEFORE it is allowed to block. Counted separately in the summary
+    # and excluded from `ok` on purpose.
+    range_problems: list[str] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
     mapped_values: dict[str, float] = field(default_factory=dict)
     probes: list[ParamProbe] = field(default_factory=list)
@@ -127,6 +134,7 @@ class LinkVerdict:
 
     @property
     def ok(self) -> bool:
+        # NOTE: range_problems are deliberately NOT here. See `status`.
         return not (self.resolve_problems or self.render_problems or self.dead_params)
 
     @property
@@ -159,7 +167,10 @@ class LinkVerdict:
         vals = ", ".join(f"{k}={v:g}" for k, v in sorted(self.mapped_values.items()))
         probed = sum(1 for p in self.probes if p.responsive)
         where = f" at ({self.rendered[0]}, {self.rendered[1]})" if self.rendered else ""
-        return f"ok   {head}{where} [{vals}] — {probed} param(s) proven responsive"
+        tail = f" [range: {len(self.range_problems)}]" if self.range_problems else ""
+        return (
+            f"ok   {head}{where} [{vals}] — {probed} param(s) proven responsive{tail}"
+        )
 
 
 # ── step 1: resolve ──────────────────────────────────────────────────────────
@@ -470,11 +481,54 @@ def _param_meta(y4d_manifest: dict, pid: str) -> dict:
     return {}
 
 
+def _is_integral(meta: dict) -> bool:
+    """Does this y4d parameter take whole numbers only?
+
+    Declared `type: "integer"`/`"int"`, or an integral `step` with an integral
+    default — the manifest idiom the commons actually uses (lacing-hook's
+    `hook_count` is `type: "slider"`, `step: 1`, `default: 4`, and its script does
+    `int(PARAM(...))`).
+    """
+    if meta.get("type") in ("integer", "int"):
+        return True
+    step = meta.get("step")
+    default = meta.get("default")
+    return (
+        isinstance(step, int)
+        and not isinstance(step, bool)
+        and step >= 1
+        and isinstance(default, int)
+        and not isinstance(default, bool)
+    )
+
+
+def _out_of_range(meta: dict, value: float) -> str | None:
+    """Is the MAPPED value already outside the target parameter's declared range?
+
+    Not a perturbation concern — a finding in its own right. The garment is asking
+    the hardware for a value its own manifest says it does not accept, so the
+    cartridge clamps and returns a part of a different size than the garment
+    believes it ordered. Silent, and exactly the failure class this tool exists for.
+    Calibration found it in the wild (ankle-gaiter maps `pitch` = 26 to a parameter
+    declared max 25), where the naive responsiveness rule misreported it as a dead
+    key — a real problem given the wrong name, which is its own kind of false
+    positive.
+    """
+    lo, hi = meta.get("min"), meta.get("max")
+    lo = float(lo) if isinstance(lo, (int, float)) and not isinstance(lo, bool) else None
+    hi = float(hi) if isinstance(hi, (int, float)) and not isinstance(hi, bool) else None
+    if hi is not None and value > hi + VOLUME_EPSILON:
+        return f"maps {value:g}, above the target parameter's declared max {hi:g}"
+    if lo is not None and value < lo - VOLUME_EPSILON:
+        return f"maps {value:g}, below the target parameter's declared min {lo:g}"
+    return None
+
+
 def _perturb_value(meta: dict, value: float) -> tuple[float | None, str | None]:
     """The +10% probe value for a mapped parameter, or `(None, reason)` to skip.
 
-    This guard is why the responsiveness rule can be trusted, and it exists because
-    the naive version produces false failures:
+    This guard is why the responsiveness rule can be trusted, and every clause of it
+    exists because the naive version produced a false failure on the real commons:
 
       * NON-NUMERIC parameter (a select's string, a toggle's bool): "+10%" is
         meaningless. Skip.
@@ -482,10 +536,15 @@ def _perturb_value(meta: dict, value: float) -> tuple[float | None, str | None]:
         the volume will not move, and the parameter will look dead when it is not.
         This is a false positive produced by the CHECK, not a finding. So the probe
         is clamped into [min, max] first.
-      * DEFAULT ALREADY AT MAX: clamping +10% back to max leaves the value unchanged
+      * VALUE ALREADY AT MAX: clamping +10% back to max leaves the value unchanged
         — no signal. Perturb -10% instead, which is inside the range by construction.
-      * NO ROOM IN EITHER DIRECTION (min == max, or a range narrower than the
-        floating-point epsilon of the value): nothing proves anything. Note and skip.
+      * INTEGRAL PARAMETER: +10% of 5 is 5.5, and the cartridge's `int(...)`
+        truncates it straight back to 5 — a guaranteed false "dead" on every count
+        parameter in the commons. Calibration caught this on lacing-hook's
+        `hook_count`. An integral parameter moves by at least one whole step.
+      * NO ROOM IN EITHER DIRECTION (min == max, a range narrower than one step,
+        or a range narrower than the float epsilon): nothing proves anything. Note
+        and skip.
 
     A skipped probe is never a failure. It is recorded so the run says out loud how
     much of the link it actually proved.
@@ -502,36 +561,62 @@ def _perturb_value(meta: dict, value: float) -> tuple[float | None, str | None]:
     if ptype in ("select", "toggle", "boolean", "text", "color"):
         return None, f"parameter type '{ptype}' is not continuously perturbable"
 
-    up = value * (1.0 + PERTURB_FRACTION)
-    if value == 0:
-        # A zero default has no multiplicative neighbourhood; step by the declared
-        # step, or by 1mm — the commons is in millimetres.
-        step = meta.get("step")
-        step = float(step) if isinstance(step, (int, float)) and step else 1.0
-        up = step
+    integral = _is_integral(meta)
+    step = meta.get("step")
+    step = float(step) if isinstance(step, (int, float)) and step else 1.0
 
-    # Clamp up into range; if that pins it at the current value, go the other way.
-    cand = up
+    def _quantize(cand: float, away_from: float) -> float:
+        """Round an integral probe AWAY from the base value, so a sub-step
+        perturbation still lands a whole step out instead of truncating back."""
+        if not integral:
+            return cand
+        return math.ceil(cand) if cand > away_from else math.floor(cand)
+
+    if value == 0:
+        # A zero value has no multiplicative neighbourhood; step by the declared
+        # step, or by 1mm — the commons is in millimetres.
+        up = step
+    else:
+        up = value * (1.0 + PERTURB_FRACTION)
+        if integral and abs(up - value) < step:
+            up = value + step
+
+    cand = _quantize(up, value)
     if hi is not None:
         cand = min(cand, hi)
     if lo is not None:
         cand = max(cand, lo)
+    if integral:
+        cand = float(math.floor(cand)) if cand < value else float(math.ceil(cand))
+        if hi is not None and cand > hi:
+            cand = float(math.floor(hi))
     if abs(cand - value) > VOLUME_EPSILON:
         return cand, None
 
-    down = value * (1.0 - PERTURB_FRACTION) if value != 0 else -abs(up)
-    cand = down
+    if value == 0:
+        down = -step
+    else:
+        down = value * (1.0 - PERTURB_FRACTION)
+        if integral and abs(value - down) < step:
+            down = value - step
+
+    cand = _quantize(down, value)
     if hi is not None:
         cand = min(cand, hi)
     if lo is not None:
         cand = max(cand, lo)
+    if integral:
+        cand = float(math.ceil(cand)) if cand > value else float(math.floor(cand))
+        if lo is not None and cand < lo:
+            cand = float(math.ceil(lo))
     if abs(cand - value) > VOLUME_EPSILON:
         return cand, None
 
     rng = f"[{lo}, {hi}]" if (lo is not None or hi is not None) else "unbounded"
+    unit = f" (integral, step {step:g})" if integral else ""
     return None, (
-        f"no perturbation moves the value: {value:g} with declared range {rng} "
-        f"(±{int(PERTURB_FRACTION * 100)}% clamps back to itself)"
+        f"no perturbation moves the value: {value:g} with declared range {rng}"
+        f"{unit} (±{int(PERTURB_FRACTION * 100)}% clamps back to itself)"
     )
 
 
@@ -667,6 +752,26 @@ def check_link(
         if key not in values:
             continue
         meta = _param_meta(y4d_manifest, key)
+
+        # OUT-OF-RANGE MAPPING — a MEASUREMENT, not a failure (see the class doc on
+        # `range_problems` and docs/BRIDGE_HANDSHAKE.md). Recorded, reported, and
+        # deliberately non-blocking until it has been calibrated against the whole
+        # commons and its false-positive analysis is written down. It also ends this
+        # parameter's responsiveness probe: the cartridge is clamping the value, so
+        # nothing a perturbation does can prove anything about the wiring.
+        oor = _out_of_range(meta, values[key])
+        if oor is not None:
+            v.range_problems.append(f"params_map['{key}'] {oor}")
+            v.probes.append(
+                ParamProbe(
+                    param=key, base_value=values[key],
+                    skipped=f"{oor} — the cartridge clamps it, so responsiveness "
+                            f"is unprovable here",
+                )
+            )
+            v.notes.append(f"RANGE params_map['{key}'] {oor}")
+            continue
+
         probe_value, skip = _perturb_value(meta, values[key])
         if probe_value is None:
             v.probes.append(ParamProbe(param=key, base_value=values[key], skipped=skip))

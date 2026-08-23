@@ -330,6 +330,72 @@ def test_target_already_broken_at_its_own_defaults_is_skipped_not_failed(tmp_pat
     assert "y4d-spec check" in v.geometry_skipped
 
 
+# ── the two bugs the real-commons calibration found in this checker ──────────
+def test_integral_parameter_perturbs_by_a_whole_step():
+    """CALIBRATION BUG 1. lacing-hook's `hook_count` is `step: 1, default: 4` and its
+    script does `int(PARAM(...))`. +10% of 5 is 5.5, which truncates straight back to
+    5 — a guaranteed false 'dead' verdict on every count parameter in the commons.
+    An integral parameter must move by at least one whole step."""
+    from bridge_check.core import _perturb_value
+
+    meta = {"id": "hook_count", "type": "slider", "default": 4, "min": 2, "max": 8,
+            "step": 1}
+    probe, skip = _perturb_value(meta, 5.0)
+    assert skip is None
+    assert probe == 6.0                    # not 5.5
+    assert probe == int(probe)             # survives the cartridge's int()
+
+
+def test_integral_parameter_at_max_steps_down_a_whole_step():
+    from bridge_check.core import _perturb_value
+
+    meta = {"id": "hook_count", "type": "slider", "default": 4, "min": 2, "max": 8,
+            "step": 1}
+    probe, skip = _perturb_value(meta, 8.0)
+    assert skip is None
+    assert probe == 7.0
+
+
+def test_continuous_parameter_still_perturbs_fractionally():
+    """The integral path must not swallow ordinary sliders."""
+    from bridge_check.core import _perturb_value
+
+    meta = {"id": "cord_dia", "type": "slider", "default": 4.0, "min": 2.0,
+            "max": 6.0, "step": 0.1}
+    probe, skip = _perturb_value(meta, 4.0)
+    assert skip is None
+    assert probe == pytest.approx(4.4)
+
+
+def test_out_of_range_mapping_is_detected():
+    """CALIBRATION BUG 2. ankle-gaiter maps `pitch` = 26 to a parameter whose
+    declared max is 25. The cartridge clamps it, so the garment gets a part of a
+    size it did not order — a REAL finding, but a different one from a dead key.
+    The naive rule reported it as dead: a real problem given the wrong name."""
+    from bridge_check.core import _out_of_range
+
+    meta = {"id": "pitch", "min": 8.0, "max": 25.0}
+    assert "above the target parameter's declared max 25" in _out_of_range(meta, 26.0)
+    assert "below the target parameter's declared min 8" in _out_of_range(meta, 7.0)
+    assert _out_of_range(meta, 12.0) is None
+
+
+@pytest.mark.geometry
+def test_out_of_range_mapping_is_a_measurement_not_a_failure(tmp_path):
+    """House doctrine: a new rule lands as a measurement, gets calibrated, and only
+    then may block. The range finding is counted and printed, and the link still
+    passes."""
+    y4d_mf = _y4d_manifest(w_min=5.0, w_max=25.0)  # tape_width default 30 > max 25
+    fc, y4d = _build(tmp_path, params_map={"plate_w": "tape_width"}, y4d_manifest=y4d_mf)
+    [v] = check_bridge(fc, y4d)
+    assert v.ok                     # NOT blocking
+    assert v.status == "ok"
+    assert v.dead_params == []      # and NOT misreported as dead wiring
+    assert len(v.range_problems) == 1
+    assert "above the target parameter's declared max 25" in v.range_problems[0]
+    assert "[range: 1]" in v.summary
+
+
 @pytest.mark.geometry
 def test_max_probes_caps_the_render_budget(tmp_path):
     fc, y4d = _build(
