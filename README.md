@@ -161,6 +161,67 @@ if not result.ok:
 
 ---
 
+## `ho-bridge` — does the hardware link actually hold?
+
+`fc-spec check hardware-ref --resolve` answers the **structural** question: the slug
+resolves, every `params_map` key names a real parameter of the target, every value
+expression references real garment parameters. That is name-level conformance, and
+until now it was the whole of the bar.
+
+It is not enough. A link can be perfectly named and still be a lie:
+
+* the mapped **values** may be values the hardware solid cannot build at. The y4d
+  cartridge clamps them back into range and quietly returns a differently-sized
+  part, or OCCT raises on a degenerate fillet. The garment says *this ring passes
+  38 mm webbing*; the ring that comes out passes 25. Nothing in either manifest is
+  wrong.
+* a `params_map` key may drive **nothing**. The name resolves, the expression is
+  valid, and the script never reads it — or reads it and clamps it to a constant.
+  Dead wiring, invisible to every name-level check.
+
+`ho-bridge` renders. For each link it evaluates the mapping against the garment's
+parameter defaults, renders the yantra4d cartridge **at those values**, then perturbs
+each mapped parameter by 10 % and proves the geometry actually moves.
+
+```bash
+# every FC cartridge with a linked hardware_ref, against a local yantra4d checkout
+ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
+
+# one link, with the per-probe evidence
+ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d \
+    ./fashion-cabinet/projects/duffel-bag -v
+
+  ok   duffel-bag → strap-ring at (o_ring, o_ring) [opening=44, webbing_w=38] — 2 param(s) proven responsive
+       probe opening: 44 → 48.4, volume 8526.978 → 9321.537 (responsive)
+       probe webbing_w: 38 → 41.8, volume 8526.978 → 8556.723 (responsive)
+bridge-check: links=1 ok=1 render_fail=0 dead_params=0 skipped=0
+```
+
+Three steps per link, each strictly stronger than the last:
+
+| Step | What it proves | Needs |
+|---|---|---|
+| 1 · resolve | the slug and every mapped name exist, **and every mapped expression evaluates to a number** | nothing |
+| 2 · render at mapped values | the hardware solid actually builds at what the garment asks for, watertight | `[geometry]` |
+| 3 · responsiveness | each mapped key demonstrably **moves** the geometry | `[geometry]` |
+
+Exit code is nonzero on `render_fail` or `dead_params`. Renders are seconds each, so
+step 3 probes at most `--max-probes` (default 3) parameters per link.
+
+**What it will not blame you for.** A yantra4d cartridge that already fails
+`y4d-spec check --render` at its own defaults is skipped with a note, not reported as
+a broken link — blaming a garment's mapping for a solid that was broken before the
+garment existed is a finding nobody can act on. A perturbation that would leave the
+parameter's declared range is clamped, and a value with no room to move in either
+direction is skipped, never called dead. OpenSCAD-only targets get step 1 and an
+explicit skip for the rest. Every skip is counted in the summary, so a run that
+proved little can never read like one that proved a lot.
+
+`docs/BRIDGE_HANDSHAKE.md` records the calibration: what a full sweep of the commons
+found, which candidate rules were killed and why.
+
+---
+
 ## The identity key
 
 **One physical thing can be two cartridges.** A printed chainmail panel is a *solid* in
@@ -210,6 +271,7 @@ Existence is a platform-side lane.
 |---|---|
 | `fc_spec` | the Fashion Cabinet conformance runner (`fc-spec`) |
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) |
+| `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
 
@@ -229,12 +291,15 @@ permission to execute untrusted cartridges unsandboxed.
 
 ## Scope
 
-Everything here is a property of **one cartridge**, checkable by anyone, anywhere.
+`fc-spec` and `y4d-spec` check properties of **one cartridge**, checkable by anyone,
+anywhere. `ho-bridge` is the one deliberate exception: a link is a property of a
+*pair*, so it takes two checkouts and can only run where both are present. It is a
+separate command for exactly that reason — nothing about the single-cartridge lanes
+changed to accommodate it.
 
-Repo-wide checks deliberately stay in the platforms — catalog drift, cross-cartridge
-slug uniqueness, OpenSCAD↔CadQuery geometric parity, and whether a paired slug actually
-exists. They are not properties of a cartridge, so a third party could not run them
-anyway.
+Repo-wide checks still stay in the platforms — catalog drift, cross-cartridge slug
+uniqueness, and OpenSCAD↔CadQuery geometric parity. They are properties of a whole
+commons, not of a cartridge or a pair.
 
 Platform maintainers: [`docs/P1B_ADOPTION.md`](docs/P1B_ADOPTION.md) is the checklist for
 making `fashion-cabinet` and `yantra4d` consume this package, including every behavior
