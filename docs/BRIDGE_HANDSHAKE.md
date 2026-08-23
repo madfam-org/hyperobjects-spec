@@ -143,11 +143,11 @@ names real parameters on both sides, and evaluates to numbers. The name-level ba
 genuinely met — which is exactly why a name-level bar was not enough to keep
 believing in.
 
-**The geometric sweep (rules 2–3)** over **78 of the 96 links** (the remainder are
+**The geometric sweep (rules 2–3)** over **85 of the 96 links** (the remainder are
 the slowest `zipper` links and the pathological `dog-coat`, noted under Cost below):
 
 ```
-ok 64   render_fail 2   dead_params 0   skipped 12   range_notes 11
+ok 70   render_fail 2   dead_params 1   skipped 12   range_notes 11
 ```
 
 **`render_fail` — 2 links, one root cause, both real:**
@@ -168,12 +168,30 @@ Both are one defect in two garments. `bra-underwire` itself is healthy —
 `y4d-spec check bra-underwire --render` passes — so these are genuinely findings
 about the *links*, which is the entire point of the tool.
 
-**`dead_params` — zero.** No genuinely dead wiring survived in the swept set. The two
-keys the first uncalibrated run reported as dead were both the checker's own bugs
-(see the killed rules below). Reporting zero here is the honest result, and it is
-worth noting that the rule still has teeth: it is exercised end-to-end by
-`test_a_params_map_key_the_script_ignores_is_caught_as_dead`, on a fixture whose
-structural check passes.
+**`dead_params` — 1 link, and it is the finding this whole tool was built for:**
+
+* **`kiss-lock-purse → kiss-lock-frame`**, key `channel_w`. The purse maps
+  `channel_w = 6` — which is the parameter's own **declared maximum**, so it is
+  perfectly in range and the measurement lane cannot see it. The script *does* read
+  the parameter. And it still drives nothing, because line 61 of the cartridge
+  clamps it against a *different* parameter:
+
+  ```python
+  channel_w = max(1.2, min(channel_w, rod_t - 1.6))
+  ```
+
+  With `rod_t` at its default of 5.0 the ceiling is **3.4**. The mapped 6 becomes
+  3.4; the −10 % probe's 5.4 also becomes 3.4; the two renders are byte-identical.
+  The purse's declared 6 mm sew channel is silently a 3.4 mm channel, and every
+  name-level check in the commons passes it.
+
+  This is the exact shape the rule was written for: a key that resolves, is read,
+  sits inside its declared range, and is nevertheless dead. Nothing short of
+  rendering at two values can see it.
+
+The two keys the *first, uncalibrated* run reported as dead were, by contrast, both
+the checker's own bugs (see the killed rules below) — which is why the rule was
+calibrated before being believed.
 
 **`skipped` — 12 links, 3 yantra4d cartridges broken at their own defaults:**
 `strap-buckle` (8 links), `magnetic-clasp` (3), `tpu-scale-mail` (1). Each fails
