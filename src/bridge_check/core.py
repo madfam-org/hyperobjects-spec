@@ -773,7 +773,10 @@ def check_link(
         v.geometry_skipped = "skipped — no baseline-healthy target produced a volume"
         return v
 
-    v.rendered = targets[0]
+    # Report a target that was ACTUALLY measured. targets[0] may have been excluded
+    # for failing at the cartridge's own defaults, and naming it would credit the
+    # verdict to a render that never happened.
+    v.rendered = next(iter(base_volumes))
 
     # ── step 3: responsiveness, one mapped parameter at a time.
     #
