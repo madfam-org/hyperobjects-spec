@@ -143,10 +143,76 @@ names real parameters on both sides, and evaluates to numbers. The name-level ba
 genuinely met — which is exactly why a name-level bar was not enough to keep
 believing in.
 
-Findings from the geometric sweep are recorded in the release notes for this rule
-set; the load-bearing ones are the **dead `params_map` keys**, because they are
-invisible to every other tool in the commons and they mean a garment maker adjusting
-a slider gets a hardware part that does not change.
+**The geometric sweep (rules 2–3)** over 54 links, excluding the `zipper` family
+which was run separately at a reduced budget:
+
+```
+ok 43   render_fail 2   dead_params 0   skipped 9   range_notes 10
+```
+
+**`render_fail` — 2 links, one root cause, both real:**
+
+* **`balconette-bra → bra-underwire`** — renders clean at the cartridge's defaults,
+  fails at the mapped values: not watertight, plus an inverted body. The garment
+  hardcodes `wire_d: "1.4"` against a `bra-underwire` whose declared minimum is
+  **1.5**. It is asking for a wire thinner than the hardware supports, and the solid
+  degenerates.
+* **`underwire-bra → bra-underwire`** — same hardcoded `wire_d: "1.4"`. Here the
+  solid survives at the mapped `cup_width` of 130 and breaks when the probe moves it
+  to 143 — a value **well inside** the declared 80–160 range. This is the cliff-edge
+  case: the link sits on the edge of what the solid can build, and any real-world
+  size change walks it off. It is reported as a `render_fail`, not a dead param,
+  because the two need different fixes.
+
+Both are one defect in two garments. `bra-underwire` itself is healthy —
+`y4d-spec check bra-underwire --render` passes — so these are genuinely findings
+about the *links*, which is the entire point of the tool.
+
+**`dead_params` — zero.** No genuinely dead wiring survived in the swept set. The two
+keys the first uncalibrated run reported as dead were both the checker's own bugs
+(see the killed rules below). Reporting zero here is the honest result, and it is
+worth noting that the rule still has teeth: it is exercised end-to-end by
+`test_a_params_map_key_the_script_ignores_is_caught_as_dead`, on a fixture whose
+structural check passes.
+
+**`skipped` — 9 links, 3 yantra4d cartridges broken at their own defaults:**
+`strap-buckle` (7 links), `magnetic-clasp` (1), `tpu-scale-mail` (1). Each fails
+`y4d-spec check --render` with no garment involved — `strap-buckle` produces an
+inverted body on all three of its parts. These are real bugs, but they belong to
+`y4d-spec` and to the yantra4d maintainers; attributing them to the garments that
+link them would be blaming the wrong side.
+
+**`range_notes` — 10 out-of-range mappings across 8 links** (non-blocking; see the
+measurement lane above). Every one is the garment asking for **more** than the
+hardware declares, never less — except the two `wire_d` cases, which ask for less:
+
+| link | mapping | declared |
+|---|---|---|
+| `ankle-gaiter → lacing-hook` | `pitch` = 26 | max 25 |
+| `beret-structured → hat-size-reducer` | `strip_height` = 32 | max 30 |
+| `pillbox-hat → hat-size-reducer` | `strip_height` = 40 | max 30 |
+| `structured-fascinator → fascinator-base` | `brim_w` = 32 | max 30 |
+| `suit-trousers → trouser-hook-bar` | `hook_width` = 38 | max 20 |
+| `tool-roll → cord-end` | `bell_flare` = 2.5 | max 2 |
+| `turban-band → headband-blank` | `band_w` = 55 | max 45 |
+| `turban-band → headband-blank` | `head_width` = 190 | max 180 |
+| `balconette-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** |
+| `underwire-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** |
+
+The pattern is informative and is why this rule is not yet a gate. Eight of the ten
+overshoot a maximum by a modest margin (`hook_width` = 38 against max 20 is the
+outlier), which is the signature of a y4d slider range that is narrower than the real
+part rather than of eight independently broken garments. The two that *undershoot* a
+minimum are different in kind: both break the render, and both are unambiguous bugs.
+That split — same rule, two very different populations — is precisely what the
+doctrine's calibration step exists to expose, and it means the rule should probably
+land as a failure only for `min` violations, with `max` violations staying a note
+until the range-vs-hint question is settled with the yantra4d side.
+
+**Cost, measured.** The 54-link sweep ran as four parallel shards. The `zipper`
+family (11 links) had to be run separately at `--max-targets 2 --max-probes 2` and is
+still the dominant cost of any full sweep: `zip_length` maps from garment body
+lengths of 300 mm and up, and a 300 mm zipper is an enormous solid.
 
 ### The measurement lane — out-of-range mappings
 
