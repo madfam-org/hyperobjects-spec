@@ -36,6 +36,7 @@ __all__ = [
     "LinkVerdict",
     "ParamProbe",
     "MAX_PROBES",
+    "MAX_TARGETS",
     "VOLUME_EPSILON",
     "PERTURB_FRACTION",
     "check_bridge",
@@ -75,6 +76,22 @@ PERTURB_FRACTION = 0.10
 # for one render, and the calibration run's first output was a single unreadable
 # 40,000-character line. The count is always stated, so nothing is hidden.
 MAX_REPORTED_PROBLEMS = 3
+
+# Distinct (mode, part) targets rendered per link. Ownership resolution can select
+# SEVERAL modes when the mapped parameters are scoped to all of them, and the render
+# count is targets × (2 + probes) — it multiplies fast. Measured across the real
+# commons: 1080 renders for a full sweep, of which the eleven `zipper` links alone
+# are ~250, because `zip_length` is scoped to both the `closed` and `separating`
+# modes and those declare seven parts between them. At 15-25s a render that is over
+# an hour for one hardware family.
+#
+# Capping the targets does not weaken the claim: the responsiveness comparison is a
+# SUM over whatever was rendered, so a parameter that moves any rendered part is
+# still proven live, and the parts are taken in manifest order — the order the
+# cartridge author considered primary. What the cap does is bound the cost of a link
+# so a sweep of the commons finishes. Raise it with --max-targets when auditing one
+# link. Every capped link says so in its notes; nothing is silently dropped.
+MAX_TARGETS = 4
 
 
 # ── data ─────────────────────────────────────────────────────────────────────
@@ -449,6 +466,19 @@ def _owning_targets(y4d_manifest: dict, mapped_keys: set[str]) -> tuple[list[tup
     return targets, note
 
 
+def _cap_targets(targets: list[tuple[str, str]], limit: int) -> tuple[list, str | None]:
+    """Bound a link's render budget. See MAX_TARGETS."""
+    if limit <= 0 or len(targets) <= limit:
+        return targets, None
+    kept = targets[:limit]
+    dropped = ", ".join(f"({m}, {p})" for m, p in targets[limit:])
+    return kept, (
+        f"render budget: {len(targets)} targets owned the mapped parameters, "
+        f"rendering the first {limit} in manifest order; not rendered: {dropped} "
+        f"(raise with --max-targets)"
+    )
+
+
 def _y4d_defaults(y4d_manifest: dict) -> dict:
     """The y4d cartridge's own parameter defaults — the base the mapping merges over.
 
@@ -627,6 +657,7 @@ def check_link(
     *,
     render: bool = True,
     max_probes: int = MAX_PROBES,
+    max_targets: int = MAX_TARGETS,
 ) -> LinkVerdict:
     """Run the three-step handshake on one link."""
     v = LinkVerdict(fc_slug=link.fc_slug, target_slug=link.target_slug)
@@ -670,6 +701,9 @@ def check_link(
         return v
     if note:
         v.notes.append(note)
+    targets, budget_note = _cap_targets(targets, max_targets)
+    if budget_note:
+        v.notes.append(budget_note)
 
     from y4d_spec.geometry import render_part  # local: only step 2+ needs [geometry]
 
@@ -835,6 +869,7 @@ def check_bridge(
     only: list[Path] | None = None,
     render: bool = True,
     max_probes: int = MAX_PROBES,
+    max_targets: int = MAX_TARGETS,
     on_verdict=None,
 ) -> list[LinkVerdict]:
     """Check every bridged FC cartridge against a yantra4d checkout.
@@ -849,7 +884,9 @@ def check_bridge(
     links = discover_links(Path(fc_repo), index, only=only)
     verdicts: list[LinkVerdict] = []
     for link in links:
-        v = check_link(link, index, render=render, max_probes=max_probes)
+        v = check_link(
+            link, index, render=render, max_probes=max_probes, max_targets=max_targets
+        )
         verdicts.append(v)
         if on_verdict is not None:
             on_verdict(v)

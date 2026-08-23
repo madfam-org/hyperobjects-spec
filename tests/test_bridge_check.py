@@ -396,6 +396,28 @@ def test_out_of_range_mapping_is_a_measurement_not_a_failure(tmp_path):
     assert "[range: 1]" in v.summary
 
 
+def test_target_cap_bounds_the_render_budget_and_says_so():
+    """CALIBRATION FINDING 3. The render count is targets x (2 + probes), and
+    ownership resolution can select several modes at once: `zipper`'s `zip_length` is
+    scoped to both `closed` and `separating`, which declare seven parts between them,
+    so each of the eleven zipper links wanted 21+ renders of a 300mm zipper. Measured
+    across the commons a full sweep is 1080 renders. The cap bounds a link's cost and
+    records exactly what it did not render — never silently."""
+    from bridge_check.core import _cap_targets
+
+    targets = [("closed", "tape_left"), ("closed", "tape_right"),
+               ("closed", "slider"), ("separating", "tape_left"),
+               ("separating", "pin_box")]
+    kept, note = _cap_targets(targets, 4)
+    assert kept == targets[:4]
+    assert "5 targets owned the mapped parameters" in note
+    assert "(separating, pin_box)" in note      # names what was dropped
+    assert "--max-targets" in note              # and how to get it back
+
+    kept, note = _cap_targets(targets, 10)
+    assert kept == targets and note is None
+
+
 @pytest.mark.geometry
 def test_max_probes_caps_the_render_budget(tmp_path):
     fc, y4d = _build(

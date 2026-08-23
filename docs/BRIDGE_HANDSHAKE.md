@@ -111,6 +111,7 @@ the tool.
 | **Non-numeric parameters skipped** | "+10 %" of a select's string or a toggle's bool is meaningless. |
 | **Render failure at the perturbed value is a `render_fail`, not a dead param** | It is a real finding — the link sits on a cliff edge that any real-world tolerance walks off — but it is a *different* finding, and conflating the two makes both unactionable. |
 | **`MAX_PROBES = 3` per link** | The widest links map six parameters. At ~15–25 s a render, an uncapped sweep of the commons runs for many hours. |
+| **`MAX_TARGETS = 4` per link** | The render count is `targets × (2 + probes)`, and ownership resolution can select several modes at once. `zipper`'s `zip_length` is scoped to both `closed` and `separating`, which declare seven parts between them, so each of the **eleven** zipper links wanted 21+ renders — of a 300 mm zipper. Measured over the commons: **1080 renders for a full sweep**, ~250 of them the zipper family alone. Capping does not weaken the claim (responsiveness is a *sum* over rendered targets, so any part moving still proves the key live) and every capped link names what it skipped. |
 | **Problem lists truncated to 3 + a count** | The first calibration run emitted a single 40,000-character line for one cartridge (200+ per-body messages). Unreadable output is unread output. |
 
 ---
@@ -122,6 +123,19 @@ Run read-only against the real repos:
 ```bash
 ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d -v
 ```
+
+### Shape of the commons
+
+97 Fashion Cabinet cartridges declare a `notion.hardware_ref`; 96 are `linked: true`
+(`hi-vis-vest → hook-loop-tape` is declared but unlinked, so it is not a link and is
+not checked). Those 96 links carry **207 `params_map` entries** between them. The
+most-linked hardware is `zipper` (11 links), then `strap-buckle` (8).
+
+Cost, measured rather than estimated: **1080 renders** for an uncapped full sweep at
+`MAX_PROBES = 3`, at 15–25 s each. That is the reason both caps exist, and the reason
+a full sweep is an audit you schedule rather than a pre-commit hook.
+
+### Results
 
 **Structural resolution (rule 1), all 96 links: zero failures.** Every linked
 `hardware_ref` in the Fashion Cabinet commons resolves to a real yantra4d cartridge,
