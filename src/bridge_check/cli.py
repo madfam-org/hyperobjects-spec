@@ -22,7 +22,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from .core import MAX_PROBES, check_bridge
+from .core import MAX_PROBES, MAX_TARGETS, check_bridge
 
 
 def _cmd_check(args) -> int:
@@ -80,6 +80,7 @@ def _cmd_check(args) -> int:
 
     verdicts = check_bridge(
         fc, y4d, only=only, render=render, max_probes=args.max_probes,
+        max_targets=args.max_targets,
         on_verdict=report,
     )
 
@@ -129,6 +130,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--max-probes", type=int, default=MAX_PROBES, metavar="N",
         help=f"responsiveness probes per link (default {MAX_PROBES}; renders are seconds each)",
+    )
+    p.add_argument(
+        "--max-targets", type=int, default=MAX_TARGETS, metavar="N",
+        help=f"(mode, part) targets rendered per link (default {MAX_TARGETS}); the "
+             f"render count is targets x (2 + probes), so this bounds a link's cost",
     )
     p.add_argument("-v", "--verbose", action="store_true", help="print per-probe evidence")
 
