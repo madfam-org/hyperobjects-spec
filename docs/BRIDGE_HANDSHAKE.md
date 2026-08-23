@@ -143,11 +143,11 @@ names real parameters on both sides, and evaluates to numbers. The name-level ba
 genuinely met — which is exactly why a name-level bar was not enough to keep
 believing in.
 
-**The geometric sweep (rules 2–3)** over 54 links, excluding the `zipper` family
-which was run separately at a reduced budget:
+**The geometric sweep (rules 2–3)** over **78 of the 96 links** (the remainder are
+the slowest `zipper` links and the pathological `dog-coat`, noted under Cost below):
 
 ```
-ok 43   render_fail 2   dead_params 0   skipped 9   range_notes 10
+ok 64   render_fail 2   dead_params 0   skipped 12   range_notes 11
 ```
 
 **`render_fail` — 2 links, one root cause, both real:**
@@ -175,39 +175,48 @@ worth noting that the rule still has teeth: it is exercised end-to-end by
 `test_a_params_map_key_the_script_ignores_is_caught_as_dead`, on a fixture whose
 structural check passes.
 
-**`skipped` — 9 links, 3 yantra4d cartridges broken at their own defaults:**
-`strap-buckle` (7 links), `magnetic-clasp` (1), `tpu-scale-mail` (1). Each fails
+**`skipped` — 12 links, 3 yantra4d cartridges broken at their own defaults:**
+`strap-buckle` (8 links), `magnetic-clasp` (3), `tpu-scale-mail` (1). Each fails
 `y4d-spec check --render` with no garment involved — `strap-buckle` produces an
 inverted body on all three of its parts. These are real bugs, but they belong to
 `y4d-spec` and to the yantra4d maintainers; attributing them to the garments that
 link them would be blaming the wrong side.
 
-**`range_notes` — 10 out-of-range mappings across 8 links** (non-blocking; see the
-measurement lane above). Every one is the garment asking for **more** than the
-hardware declares, never less — except the two `wire_d` cases, which ask for less:
+**`range_notes` — 11 out-of-range mappings across 10 links** (non-blocking; see the
+measurement lane above):
 
-| link | mapping | declared |
-|---|---|---|
-| `ankle-gaiter → lacing-hook` | `pitch` = 26 | max 25 |
-| `beret-structured → hat-size-reducer` | `strip_height` = 32 | max 30 |
-| `pillbox-hat → hat-size-reducer` | `strip_height` = 40 | max 30 |
-| `structured-fascinator → fascinator-base` | `brim_w` = 32 | max 30 |
-| `suit-trousers → trouser-hook-bar` | `hook_width` = 38 | max 20 |
-| `tool-roll → cord-end` | `bell_flare` = 2.5 | max 2 |
-| `turban-band → headband-blank` | `band_w` = 55 | max 45 |
-| `turban-band → headband-blank` | `head_width` = 190 | max 180 |
-| `balconette-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** |
-| `underwire-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** |
+| link | mapping | declared | render |
+|---|---|---|---|
+| `ankle-gaiter → lacing-hook` | `pitch` = 26 | max 25 | ok |
+| `beret-structured → hat-size-reducer` | `strip_height` = 32 | max 30 | ok |
+| `pillbox-hat → hat-size-reducer` | `strip_height` = 40 | max 30 | ok |
+| `structured-fascinator → fascinator-base` | `brim_w` = 32 | max 30 | ok |
+| `suit-trousers → trouser-hook-bar` | `hook_width` = 38 | max 20 | ok |
+| `tool-roll → cord-end` | `bell_flare` = 2.5 | max 2 | ok |
+| `knife-roll → cord-end` | `bell_flare` = 2.7 | max 2 | ok |
+| `turban-band → headband-blank` | `band_w` = 55 | max 45 | ok |
+| `turban-band → headband-blank` | `head_width` = 190 | max 180 | ok |
+| `mary-jane-upper → sew-through-button` | `card_count` = 1 | **min 2** | ok |
+| `balconette-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** | **FAILS** |
+| `underwire-bra → bra-underwire` | `wire_d` = 1.4 | **min 1.5** | **FAILS** |
 
-The pattern is informative and is why this rule is not yet a gate. Eight of the ten
-overshoot a maximum by a modest margin (`hook_width` = 38 against max 20 is the
-outlier), which is the signature of a y4d slider range that is narrower than the real
-part rather than of eight independently broken garments. The two that *undershoot* a
-minimum are different in kind: both break the render, and both are unambiguous bugs.
-That split — same rule, two very different populations — is precisely what the
-doctrine's calibration step exists to expose, and it means the rule should probably
-land as a failure only for `min` violations, with `max` violations staying a note
-until the range-vs-hint question is settled with the yantra4d side.
+The pattern is informative and is exactly why this rule is not yet a gate. Nine of
+the twelve overshoot a maximum by a modest margin (`hook_width` = 38 against max 20
+is the outlier) and every one of them **still renders clean**. That is the signature
+of a y4d slider range narrower than the real part, not of nine independently broken
+garments — and failing them would be the checker asserting that the manifest's UI
+range is a physical limit, which nobody has established.
+
+The three that *undershoot* a minimum split further: `mary-jane-upper`'s
+`card_count` = 1 against min 2 renders fine (a button card of one is a perfectly
+sensible thing to ask for), while both `wire_d` = 1.4 cases **break the render**.
+
+So: same rule, three populations, only one of which is unambiguously a bug. The
+recommendation this calibration supports is to fail on a `min` violation **that also
+breaks the render**, keep bare `min` violations a note, and keep `max` violations a
+note until the range-vs-hint question is settled with the yantra4d maintainers. That
+conclusion could not have been reached without running the rule non-blocking over the
+commons first, which is the whole argument for the doctrine.
 
 **Cost, measured.** The 54-link sweep ran as four parallel shards. Two link families
 dominate the cost of any full sweep and should be run separately:
