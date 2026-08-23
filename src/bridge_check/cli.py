@@ -56,9 +56,11 @@ def _cmd_check(args) -> int:
                 return 2
 
     counts = {"ok": 0, "resolve_fail": 0, "render_fail": 0, "dead_params": 0, "skipped": 0}
+    range_notes: list[str] = []
 
     def report(v) -> None:
         counts[v.status] += 1
+        range_notes.extend(f"{v.fc_slug} → {v.target_slug}: {r}" for r in v.range_problems)
         print(f"  {v.summary}", flush=True)
         if not args.verbose:
             return
@@ -82,11 +84,24 @@ def _cmd_check(args) -> int:
     )
 
     total = len(verdicts)
+    if range_notes:
+        # A measurement lane, not a gate — see docs/BRIDGE_HANDSHAKE.md. Printed
+        # after the verdicts so it reads as the calibration record it is.
+        print(
+            f"\n  MEASUREMENT (non-blocking) — {len(range_notes)} mapped value(s) "
+            f"outside the target parameter's declared range; the cartridge clamps "
+            f"these, so the garment gets a part of a size it did not order:"
+        )
+        for note in range_notes:
+            print(f"    {note}")
+        print()
+
     print(
         f"bridge-check: links={total} ok={counts['ok']} "
         f"render_fail={counts['render_fail']} dead_params={counts['dead_params']} "
         f"skipped={counts['skipped']}"
         + (f" resolve_fail={counts['resolve_fail']}" if counts["resolve_fail"] else "")
+        + (f" range_notes={len(range_notes)}" if range_notes else "")
     )
     if not render:
         print("  NOTE geometry was NOT verified (--no-render): resolution only")

@@ -106,6 +106,8 @@ the tool.
 | **Perturbation clamped into `[min, max]`** | A +10 % probe that leaves the declared range gets clamped by the cartridge, the volume does not move, and a healthy parameter reads as dead. |
 | **Default at max → perturb −10 %** | Clamping +10 % back to `max` leaves the value unchanged, producing zero signal and a false "dead" verdict on the most common boundary case. |
 | **No room either way → skip, never fail** | A pinned parameter (`min == max`) proves nothing in either direction. Silence is the honest answer. |
+| **Integral parameters step by ≥ 1** | `+10 %` of `hook_count = 5` is `5.5`, and the cartridge's `int(PARAM(...))` truncates it back to `5`. Zero signal, guaranteed false "dead" on **every count parameter in the commons**. Found by calibration on `ankle-gaiter → lacing-hook`. |
+| **Out-of-range mapped value → its own verdict** | A value the target already rejects (`pitch = 26` against a declared max of `25`) is clamped by the cartridge, so a perturbation moves nothing and the key reads as dead. It is a real finding — the garment gets a part it did not order — but a *different* one, and giving a real problem the wrong name is its own false positive. |
 | **Non-numeric parameters skipped** | "+10 %" of a select's string or a toggle's bool is meaningless. |
 | **Render failure at the perturbed value is a `render_fail`, not a dead param** | It is a real finding — the link sits on a cliff edge that any real-world tolerance walks off — but it is a *different* finding, and conflating the two makes both unactionable. |
 | **`MAX_PROBES = 3` per link** | The widest links map six parameters. At ~15–25 s a render, an uncapped sweep of the commons runs for many hours. |
@@ -132,6 +134,32 @@ set; the load-bearing ones are the **dead `params_map` keys**, because they are
 invisible to every other tool in the commons and they mean a garment maker adjusting
 a slider gets a hardware part that does not change.
 
+### The measurement lane — out-of-range mappings
+
+One rule is **deliberately non-blocking**, per the house doctrine that a new rule
+lands as a measurement, gets calibrated against the full commons, and only flips to a
+failure once its false-positive analysis is written down.
+
+A mapped value outside the target parameter's declared `min`/`max` is reported under
+`MEASUREMENT (non-blocking)` and counted as `range_notes=N` in the summary. It does
+not affect the exit code and does not make the link `FAIL`.
+
+It is a real finding: the cartridge clamps the value, and the garment receives a part
+of a different size than its manifest claims. But two things must be settled before
+it may block:
+
+1. **Is the y4d `min`/`max` a hard constraint or a UI hint?** The manifest range
+   drives the studio's slider. Some cartridges clamp to the same numbers in-script
+   (`lacing-hook` does); others clamp to different ones, or not at all. If a
+   cartridge accepts values outside its declared slider range, an out-of-range
+   mapping may be entirely safe and the *manifest* is what needs widening.
+2. **How many links does it fire on, and are they the same defect?** One instance
+   (`ankle-gaiter → lacing-hook`) is an anecdote. The sweep count decides whether
+   this is a handful of genuine bugs or a systematic mismatch between how the two
+   commons declare ranges — and those need opposite fixes.
+
+Until both are answered it measures, and says out loud that it is measuring.
+
 ### Killed rules
 
 Recorded so they are not re-proposed.
@@ -153,6 +181,26 @@ leaves the declared range, on every parameter already at its maximum, and on eve
 non-numeric parameter. Those are three separate false-positive classes and all three
 appear in the real commons. Replaced by the guarded form in the table above, where an
 unprovable parameter is *skipped and counted*, never failed.
+
+**KILLED: "perturb every parameter by +10 %."** Correct for continuous sliders, wrong
+for counts. The commons declares integral parameters as ordinary sliders with
+`step: 1` (`lacing-hook`'s `hook_count` is `type: "slider", step: 1, default: 4`) and
+its script reads them through `int(PARAM(...))`. A +10 % probe of `5` produces `5.5`,
+which truncates straight back to `5` — the volume cannot move, and **every count
+parameter in the commons** would have been reported as dead wiring. Replaced by a
+probe that moves an integral parameter by at least one whole step. This was the first
+of the two false positives inside `ankle-gaiter → lacing-hook`.
+
+**KILLED: "a mapped value the target clamps is a dead key."** The second false
+positive in the same link. `ankle-gaiter` maps `pitch` = 26 to a `lacing-hook`
+parameter whose declared max is 25; the cartridge clamps it, so no perturbation moves
+anything and the naive rule called the key dead. It is not dead — it is
+**out of range**, which is a real and arguably more serious finding (the garment
+receives a part of a size it did not order), but it is a *different* finding.
+Reporting a real problem under the wrong name is its own kind of false positive: it
+sends the maintainer to fix wiring that is fine. Now detected separately, and — per
+house doctrine — landed as a **non-blocking measurement** until it has its own
+calibration sweep and false-positive write-up.
 
 **KILLED: "compare per-part volumes."** A mapped parameter driving exactly one part
 of a multi-part mode reads as dead against the other parts. Replaced by the summed
