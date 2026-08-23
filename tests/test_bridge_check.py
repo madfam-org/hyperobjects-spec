@@ -419,6 +419,25 @@ def test_target_cap_bounds_the_render_budget_and_says_so():
 
 
 @pytest.mark.geometry
+def test_range_check_covers_every_key_not_just_the_probed_ones(tmp_path):
+    """CALIBRATION FINDING 4. The range check is pure arithmetic — it costs no
+    render — so it must not inherit the probe budget. `balconette-bra` hardcodes
+    `wire_d: "1.4"` against a bra-underwire whose declared minimum is 1.5, and
+    `wire_d` sorts LAST of that link's three keys: bounded by --max-probes 1, the
+    single most informative fact about the failure would have gone unreported."""
+    y4d_mf = _y4d_manifest(d_min=20.0, d_max=40.0)   # plate_d mapped to 12 -> below min
+    fc, y4d = _build(
+        tmp_path,
+        params_map={"plate_w": "tape_width", "plate_d": "tape_depth"},
+        y4d_manifest=y4d_mf,
+    )
+    [v] = check_bridge(fc, y4d, max_probes=1)        # only plate_d probed... but
+    assert len(v.probes) == 1                        # ...the budget still binds probes
+    assert any("plate_d" in r for r in v.range_problems)
+    assert "below the target parameter's declared min 20" in v.range_problems[0]
+
+
+@pytest.mark.geometry
 def test_max_probes_caps_the_render_budget(tmp_path):
     fc, y4d = _build(
         tmp_path, params_map={"plate_w": "tape_width", "plate_d": "tape_depth"}
