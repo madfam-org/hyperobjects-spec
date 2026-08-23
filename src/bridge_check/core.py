@@ -722,6 +722,26 @@ def check_link(
     base_params.update(values)
     mapped_desc = ", ".join(f"{k}={x:g}" for k, x in sorted(values.items()))
 
+    # ── OUT-OF-RANGE MAPPINGS — checked for EVERY mapped key, before any render.
+    #
+    # This costs nothing (pure arithmetic on the manifests), so unlike the
+    # responsiveness probe it is not subject to `max_probes`. Calibration proved the
+    # distinction matters: `balconette-bra` hardcodes `wire_d: "1.4"` against a
+    # `bra-underwire` whose declared minimum is 1.5 — and `wire_d` sorts LAST of that
+    # link's three keys, so a range check bounded by the probe budget would have
+    # missed the single most informative fact about the failure it then reported.
+    #
+    # A MEASUREMENT, not a failure: recorded, printed under its own heading, excluded
+    # from `ok` and from the exit code until it has its own calibration write-up.
+    # See the `range_problems` field doc and docs/BRIDGE_HANDSHAKE.md.
+    out_of_range: dict[str, str] = {}
+    for key in sorted(values):
+        oor = _out_of_range(_param_meta(y4d_manifest, key), values[key])
+        if oor is not None:
+            out_of_range[key] = oor
+            v.range_problems.append(f"params_map['{key}'] {oor}")
+            v.notes.append(f"RANGE params_map['{key}'] {oor}")
+
     # ── step 2a: BASELINE — render at the y4d cartridge's OWN defaults first.
     #
     # This is the single most important false-positive control in the tool, and it
@@ -761,9 +781,20 @@ def check_link(
             continue
         check = render_part(y4d_dir, script_of[m_id], m_id, part, params=dict(base_params))
         if not check.ok:
+            # Name the out-of-range keys in the failure itself. When a mapping breaks
+            # the solid AND asks for a value the target says it does not accept, the
+            # second fact is very often the cause of the first, and burying it in a
+            # separate measurement block makes the maintainer hunt for it. Calibration
+            # case: balconette-bra's `wire_d = 1.4` against a declared minimum of 1.5.
+            why = (
+                " — note "
+                + "; ".join(f"params_map['{k}'] {out_of_range[k]}" for k in sorted(out_of_range))
+                if out_of_range
+                else ""
+            )
             v.render_problems.append(
                 f"({m_id}, {part}) renders clean at the cartridge's defaults but FAILS "
-                f"at the mapped values [{mapped_desc}]: {_brief(check.problems)}"
+                f"at the mapped values [{mapped_desc}]: {_brief(check.problems)}{why}"
             )
         elif check.volume is not None:
             base_volumes[(m_id, part)] = float(check.volume)
@@ -792,15 +823,11 @@ def check_link(
             continue
         meta = _param_meta(y4d_manifest, key)
 
-        # OUT-OF-RANGE MAPPING — a MEASUREMENT, not a failure (see the class doc on
-        # `range_problems` and docs/BRIDGE_HANDSHAKE.md). Recorded, reported, and
-        # deliberately non-blocking until it has been calibrated against the whole
-        # commons and its false-positive analysis is written down. It also ends this
-        # parameter's responsiveness probe: the cartridge is clamping the value, so
-        # nothing a perturbation does can prove anything about the wiring.
-        oor = _out_of_range(meta, values[key])
+        # An out-of-range key (already recorded above) ends its own responsiveness
+        # probe: the cartridge is clamping the value, so nothing a perturbation does
+        # can prove anything about the wiring.
+        oor = out_of_range.get(key)
         if oor is not None:
-            v.range_problems.append(f"params_map['{key}'] {oor}")
             v.probes.append(
                 ParamProbe(
                     param=key, base_value=values[key],
@@ -808,7 +835,6 @@ def check_link(
                             f"is unprovable here",
                 )
             )
-            v.notes.append(f"RANGE params_map['{key}'] {oor}")
             continue
 
         probe_value, skip = _perturb_value(meta, values[key])
