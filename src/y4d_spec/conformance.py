@@ -39,13 +39,19 @@ class CartridgeResult:
     #: Non-blocking observations — true, worth saying, but not a conformance failure
     #: (e.g. an include of the repo's shared libs/ tree). Never affects `ok`.
     notes: list[str] = field(default_factory=list)
-    #: One RenderCheck per (mode, part) when geometry ran; empty otherwise.
+    #: One RenderCheck per (mode, part), plus one per (preset, part) when the preset
+    #: matrix ran. Empty when geometry did not run.
     renders: list = field(default_factory=list)
     #: True when geometry verification actually executed.
     rendered: bool = False
 
     def __bool__(self) -> bool:
         return self.ok
+
+    @property
+    def preset_renders(self) -> list:
+        """Just the preset renders — the parameter points a user clicks."""
+        return [c for c in self.renders if getattr(c, "preset", None)]
 
 
 def _schema_errors(doc: object) -> list[str]:
@@ -74,13 +80,22 @@ def check_manifest(doc: dict) -> CartridgeResult:
 
 
 def check_cartridge(
-    cartridge_dir: str | Path, *, render: bool = False
+    cartridge_dir: str | Path,
+    *,
+    render: bool = False,
+    presets: bool = True,
+    printability: bool = True,
 ) -> CartridgeResult:
     """Check a cartridge DIRECTORY: its manifest, its files, and optionally its geometry.
 
     `render=True` requires the [geometry] extra; without it, a GeometryUnavailable is
     raised rather than silently skipped — a checker that quietly downgrades its own
     strictness is how an unverified cartridge ships green.
+
+    `presets` and `printability` only mean anything under `render=True`. Both default
+    ON so the strongest available check is the one a caller gets by asking for
+    geometry — the same reason `--render` refuses rather than downgrading. Presets are
+    part of the conformance verdict; printability is notes only and never is.
     """
     path = Path(cartridge_dir).resolve()
     manifest_path = path / "project.json"
@@ -114,11 +129,16 @@ def check_cartridge(
     if render:
         from .geometry import check_geometry  # imports cadquery; keep it lazy
 
-        result.renders = check_geometry(path, doc)
+        result.renders = check_geometry(
+            path, doc, presets=presets, printability=printability
+        )
         result.rendered = True
         for check in result.renders:
             if not check.ok:
                 result.problems.append(f"render {check.summary}")
+            # Per-render notes (preset-vs-default sameness, printability
+            # measurements) join the cartridge's notes and never touch `ok`.
+            result.notes.extend(check.notes)
 
     result.ok = not result.problems
     return result
