@@ -248,28 +248,49 @@ an id, a `geometry_type`, and the parameters that drive it. It does not declare
 part's bounding box and nothing finer — and a bounding box is not a mating dimension
 for anything but the simplest flange.
 
-So phase 2 needs, per interface geometry type, a declared **measurable**:
+So phase 2 needs, **per interface geometry type**, a declared *measurable*. The
+vocabulary is not hypothetical — every one of the 59 distinct y4d cartridges the
+Fashion Cabinet bridges to already declares `cdg_interfaces`, and their types
+distribute like this:
 
-* **`flange`** (a sewn edge — zipper tape, hook-and-loop, bias binding). Needs the
-  edge's *length* and *thickness* as a measurable: a face selector, a plane the
-  length is measured in, or a pair of named datum points. Then the check is the
-  garment's edge length against the hardware's, at the mapped values, with a declared
-  ease. This is the highest-value type — it covers the zipper (11 links), the
-  hook-loop tape, and the binding families.
-* **`bore` / `pass-through`** (a ring, an eyelet, a cord lock). Needs the *clear
-  opening* — a minimum inscribed circle or rectangle through the aperture, not the
-  outer diameter. This is where today's tool is weakest and the clamping bug bites
-  hardest: `strap-ring` clamps `opening` to `webbing_w * 2`, and the garment has no
-  way to learn that its webbing will not pass. A measured clear opening compared
-  against the garment's webbing width would catch it directly.
-* **`stud` / `socket`** (snaps, magnetic clasps, chicago screws). Needs the *mating
-  diameter and engagement depth* as a pair, plus which of the pair this cartridge is.
-  A tolerance band is unavoidable here — an interference fit is a range, not a
-  number — so the manifest must carry a fit class, not just a dimension.
-* **`channel`** (a boning stay, an underwire, a busk). Needs the *cross-section
-  profile* at a named station and the channel's *path length*. The hardest of the
-  four, because the profile is a curve rather than a scalar, and a garment's channel
-  is sewn to a seam length that only the explode-JSON payload knows.
+| `geometry_type` on bridged targets | count |
+|---|---|
+| `flange` | 42 |
+| `snap` | 37 |
+| `socket` | 17 |
+| `profile` | 7 |
+| `pocket` | 4 |
+| `rail` | 4 |
+| `bolt_pattern` | 4 |
+| `custom`, `thread`, `boss`, `surface`, `grid` | 9 combined |
+
+That distribution is the work order — measurables are worth defining in the order the
+commons actually uses them, not in the order they are easy.
+
+* **`flange` (42)** — the sewn mating edge: zipper tape, hook-and-loop, bias binding.
+  Needs the edge's *length* and *thickness*: a face selector, the plane the length is
+  measured in, or a pair of named datum points. The check is then the garment's edge
+  length against the hardware's at the mapped values, plus a declared ease. Highest
+  count and the most mechanical — it covers the whole zipper family (11 links).
+* **`snap` (37) / `socket` (17)** — the engaging pair: snaps, magnetic clasps,
+  chicago screws, grommets. Needs the *mating diameter* and *engagement depth* as a
+  pair, plus which half of the pair this cartridge is. A tolerance band is
+  unavoidable — an interference fit is a range, not a number — so the manifest must
+  carry a **fit class**, not just a dimension. Together these are the largest group,
+  and they cannot be done without the tolerance convention below.
+* **`profile` (7) / `rail` (4)** — the channel families: boning stays, underwires,
+  busks. Needs a *cross-section at a named station* plus a *path length*. The hardest
+  measurable, because the section is a curve rather than a scalar and the garment's
+  channel is sewn to a seam length that only the explode-JSON payload knows.
+* **The pass-through case has no type of its own, and that is itself a finding.**
+  A ring, an eyelet, or a cord lock is the place today's checker is weakest and the
+  silent-clamp bug bites hardest: `strap-ring` clamps `opening` to `webbing_w * 2`,
+  and the garment has no way to learn its webbing will not pass. The measurable
+  wanted is a *clear opening* — the minimum inscribed circle or rectangle through the
+  aperture, never the outer diameter. Today those cartridges declare `socket` or
+  `custom`, which does not distinguish "something seats in this" from "something
+  passes through this". Phase 2 should either add a `bore` type or require a
+  `clear_opening` measurable on the sockets that are really pass-throughs.
 
 Two supporting pieces are needed on top of the per-interface measurables:
 
@@ -281,10 +302,20 @@ Two supporting pieces are needed on top of the per-interface measurables:
    because the same zipper sews into a jacket and a cushion cover with different
    allowances. `hardware_ref` has no field for it today.
 
-The recommended order is `bore` first: it is a single scalar, it has the most links
-behind it, and it is where the silent-clamp failure this tool was built to hunt
-actually lives. `flange` second, on link count. `stud`/`socket` and `channel` after
-the ease and datum conventions exist, because neither is expressible without them.
+The recommended order follows the counts and the dependencies:
+
+1. **`flange`** — 42 interfaces, one scalar (edge length), and the zipper family
+   behind it. It needs the ease convention but not the tolerance one.
+2. **the pass-through measurable** — a single scalar (clear opening), and it is
+   where the silent clamp this tool was built to hunt actually lives. Small, and it
+   closes the `strap-ring` class of failure outright.
+3. **`snap` / `socket`** — the biggest group combined, but blocked on the fit-class
+   convention; not expressible before it exists.
+4. **`profile` / `rail`** — last, because a cross-section is not a scalar and the
+   garment side of the comparison lives in explode JSON rather than the manifest.
+
+The honest summary: phase 1 (this tool) proves a link is **live**. Phase 2 proves it
+**fits**, and the blocker is a manifest contract, not a geometry algorithm.
 
 Until then, `ho-bridge` claims exactly what it can prove — the link is live, not that
 the parts fit — and the summary line counts every skip so nobody mistakes one for the
