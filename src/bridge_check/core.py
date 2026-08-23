@@ -673,13 +673,15 @@ def check_link(
 
     from y4d_spec.geometry import render_part  # local: only step 2+ needs [geometry]
 
-    mode_id = targets[0][0]
-    mode = next(
-        (m for m in y4d_manifest.get("modes") or []
-         if isinstance(m, dict) and m.get("id") == mode_id),
-        {},
-    )
-    script_file = mode.get("cq_file")
+    # Each target carries its own source file: when the mapped parameters are owned
+    # by several modes, those modes may name DIFFERENT cq_files, and rendering them
+    # all through the first mode's script would silently measure the wrong cartridge
+    # half. Resolved per target, not once.
+    script_of = {
+        m.get("id"): m.get("cq_file")
+        for m in y4d_manifest.get("modes") or []
+        if isinstance(m, dict)
+    }
 
     defaults = _y4d_defaults(y4d_manifest)
     base_params = dict(defaults)
@@ -703,7 +705,7 @@ def check_link(
     # `y4d-spec check --render`, which is where it will be found and fixed.
     baseline_ok: dict[tuple[str, str], bool] = {}
     for m_id, part in targets:
-        check = render_part(y4d_dir, script_file, m_id, part, params=dict(defaults))
+        check = render_part(y4d_dir, script_of[m_id], m_id, part, params=dict(defaults))
         baseline_ok[(m_id, part)] = check.ok
 
     if not any(baseline_ok.values()):
@@ -723,7 +725,7 @@ def check_link(
                 f"excluded from the handshake (a y4d-spec finding, not a bridge one)"
             )
             continue
-        check = render_part(y4d_dir, script_file, m_id, part, params=dict(base_params))
+        check = render_part(y4d_dir, script_of[m_id], m_id, part, params=dict(base_params))
         if not check.ok:
             v.render_problems.append(
                 f"({m_id}, {part}) renders clean at the cartridge's defaults but FAILS "
@@ -783,7 +785,7 @@ def check_link(
         total = 0.0
         failed = None
         for m_id, part in base_volumes:
-            check = render_part(y4d_dir, script_file, m_id, part, params=dict(probe_params))
+            check = render_part(y4d_dir, script_of[m_id], m_id, part, params=dict(probe_params))
             if not check.ok or check.volume is None:
                 failed = f"({m_id}, {part}): {_brief(check.problems) or 'no volume'}"
                 break
