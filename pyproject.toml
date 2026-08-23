@@ -46,6 +46,7 @@ Source = "https://github.com/madfam-org/hyperobjects-spec"
 [project.scripts]
 fc-spec = "fc_spec.cli:main"
 y4d-spec = "y4d_spec.cli:main"
+ho-bridge = "bridge_check.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
