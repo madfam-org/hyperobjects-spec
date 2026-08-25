@@ -49,3 +49,8 @@ jobs:
           .venv/bin/y4d-spec check tests/fixtures/y4d/sew-on-snap tests/fixtures/y4d/thimble
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
+
+      - name: Lexicon lane
+        # Hermetic (bundled slug snapshot): schema-valid, quadrilingual-complete,
+        # zero dangling cross-refs, embodied_by resolved. Sub-second.
+        run: .venv/bin/fc-spec lexicon --catalog bundled
