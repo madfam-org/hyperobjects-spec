@@ -1,0 +1,27 @@
+{
+  "id": "thread",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "thread",
+    "es": "rosca",
+    "fr": "filetage",
+    "pt": "rosca"
+  },
+  "definition": {
+    "en": "A CDG interface type: a helical ridge that converts rotation into axial travel and clamping force, letting two parts join and separate repeatedly without a fastener. Threads are the commons' most standardized interface — a cartridge that declares a real designation (M22×1, 1/4-20 UNC, PCO 1881) mates with hardware nobody in the commons had to draw.",
+    "es": "Tipo de interfaz CDG: un filete helicoidal que convierte la rotación en avance axial y fuerza de apriete, permitiendo que dos piezas se unan y se separen repetidamente sin herraje adicional. Las roscas son la interfaz más normalizada del procomún: un cartucho que declara una designación real (M22×1, 1/4-20 UNC, PCO 1881) acopla con herrajes que nadie del procomún tuvo que dibujar.",
+    "fr": "Type d'interface CDG : un filet hélicoïdal qui convertit la rotation en déplacement axial et en force de serrage, permettant à deux pièces de s'assembler et de se séparer à répétition sans visserie ajoutée. Le filetage est l'interface la plus normalisée des communs : une cartouche qui déclare une désignation réelle (M22×1, 1/4-20 UNC, PCO 1881) s'accouple à une quincaillerie que personne dans les communs n'a eu à dessiner.",
+    "pt": "Tipo de interface CDG: um filete helicoidal que converte a rotação em avanço axial e força de aperto, permitindo que duas peças se unam e se separem repetidamente sem ferragem adicional. As roscas são a interface mais normalizada do comum: um cartucho que declara uma designação real (M22×1, 1/4-20 UNC, PCO 1881) acopla com ferragens que ninguém no comum teve de desenhar."
+  },
+  "aliases": [
+    { "name": "thread", "repo": "yantra4d", "note": "geometry_type value; 30 declared interfaces across the catalog." }
+  ],
+  "standards": ["ASME B1.1", "ISO 68-1", "PCO 1881"],
+  "embodied_by": ["yantra4d/aerator-cache", "yantra4d/bottle-thread", "yantra4d/ball-socket"],
+  "see_also": ["cdg-interface", "socket", "bolt-pattern"],
+  "constraints": "A printed thread needs a clearance parameter of its own: the designation fixes the nominal geometry, and a cartridge that prints to nominal binds in every material that shrinks — which is why the commons' thread cartridges pair a thread_std with a clearance rather than a single dimension.",
+  "sources": [
+    "ASME B1.1 — Unified Inch Screw Threads",
+    "ISO 68-1 — ISO general purpose screw threads: basic profile"
+  ]
+}

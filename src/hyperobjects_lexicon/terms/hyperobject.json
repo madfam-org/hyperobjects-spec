@@ -1,0 +1,28 @@
+{
+  "id": "hyperobject",
+  "domain": "manifest",
+  "term": {
+    "en": "hyperobject",
+    "es": "hiperobjeto",
+    "fr": "hyperobjet",
+    "pt": "hiperobjeto"
+  },
+  "definition": {
+    "en": "In this commons, an object that is never one artifact but the family it regenerates into — a region of parameter space, sliced per render, real through the contracts that validate it. The word is borrowed twice: from Timothy Morton, whose hyperobjects are entities too vast to point at, scaled down here to the workbench; and from computing, where hyper- marks the thing that generates things, as in hypertext and hyperparameter. Neither borrowing is a claim to metaphysics.",
+    "es": "En este procomún, un objeto que nunca es un artefacto único sino la familia en la que se regenera: una región del espacio de parámetros, rebanada en cada render, real a través de los contratos que la validan. La palabra está tomada dos veces: de Timothy Morton, cuyos hiperobjetos son entidades demasiado vastas para señalarlas, reducidas aquí a la escala del banco de trabajo; y de la computación, donde hiper- marca aquello que genera cosas, como en hipertexto e hiperparámetro. Ninguno de los dos préstamos pretende ser una afirmación metafísica.",
+    "fr": "Dans ces communs, un objet qui n'est jamais un artefact unique mais la famille en laquelle il se régénère : une région de l'espace des paramètres, tranchée à chaque rendu, réelle par les contrats qui la valident. Le mot est emprunté deux fois : à Timothy Morton, dont les hyperobjets sont des entités trop vastes pour être désignées, ramenées ici à l'échelle de l'établi ; et à l'informatique, où hyper- marque ce qui engendre des choses, comme dans hypertexte et hyperparamètre. Aucun des deux emprunts ne prétend à une thèse métaphysique.",
+    "pt": "Neste comum, um objeto que nunca é um artefacto único mas a família em que se regenera: uma região do espaço de parâmetros, fatiada a cada renderização, real através dos contratos que a validam. A palavra é tomada duas vezes: de Timothy Morton, cujos hiperobjetos são entidades demasiado vastas para se apontarem, reduzidas aqui à escala da bancada; e da computação, onde hiper- marca aquilo que gera coisas, como em hipertexto e hiperparâmetro. Nenhum dos empréstimos pretende ser uma afirmação metafísica."
+  },
+  "aliases": [
+    { "name": "hyperobject", "repo": "yantra4d", "note": "The manifest block declaring the object's family, domain and CDG interfaces." },
+    { "name": "hyperobject", "repo": "fashion-cabinet", "note": "The same block on the soft side, carrying garment interfaces and capability flags." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "fashion-cabinet/bodice-block"],
+  "see_also": ["cartridge", "cdg-interface", "cross-commons-identity"],
+  "heritage": true,
+  "sources": [
+    "Timothy Morton, Hyperobjects: Philosophy and Ecology after the End of the World, University of Minnesota Press, 2013",
+    "yantra4d/docs/strategy/MANIFESTO.md — 'On the Word: Why Hyperobjects'"
+  ],
+  "notes": "Flagged as heritage because it makes an attribution to a named living author. The citation bar exists for exactly this: borrowing a thinker's term without saying whose it is, and where it was changed, is the failure mode."
+}

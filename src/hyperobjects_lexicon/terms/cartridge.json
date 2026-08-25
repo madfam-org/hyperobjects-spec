@@ -1,0 +1,23 @@
+{
+  "id": "cartridge",
+  "domain": "manifest",
+  "term": {
+    "en": "cartridge",
+    "es": "cartucho",
+    "fr": "cartouche",
+    "pt": "cartucho"
+  },
+  "definition": {
+    "en": "The unit of the commons: a directory holding a validated manifest, the code that generates the object, and its documentation. A cartridge is not a file of one shape — it is a generator with declared parameters, so what it names is a family of objects rather than a single artifact, and any point in its parameter space renders on demand. Everything the conformance tooling checks is a property of one cartridge.",
+    "es": "La unidad del procomún: un directorio que contiene un manifiesto validado, el código que genera el objeto y su documentación. Un cartucho no es un archivo de una sola forma: es un generador con parámetros declarados, así que lo que nombra es una familia de objetos y no un artefacto único, y cualquier punto de su espacio de parámetros se renderiza a petición. Todo lo que comprueba la herramienta de conformidad es una propiedad de un cartucho.",
+    "fr": "L'unité des communs : un répertoire contenant un manifeste validé, le code qui engendre l'objet et sa documentation. Une cartouche n'est pas un fichier d'une seule forme — c'est un générateur à paramètres déclarés, de sorte que ce qu'elle nomme est une famille d'objets et non un artefact unique, et tout point de son espace de paramètres se rend à la demande. Tout ce que vérifie l'outillage de conformité est une propriété d'une cartouche.",
+    "pt": "A unidade do comum: um diretório que contém um manifesto validado, o código que gera o objeto e a sua documentação. Um cartucho não é um ficheiro de uma só forma — é um gerador com parâmetros declarados, pelo que o que nomeia é uma família de objetos e não um artefacto único, e qualquer ponto do seu espaço de parâmetros renderiza-se a pedido. Tudo o que a ferramenta de conformidade verifica é uma propriedade de um cartucho."
+  },
+  "aliases": [
+    { "name": "project.json", "repo": "yantra4d", "note": "The manifest whose presence makes a directory a cartridge." },
+    { "name": "project.json", "repo": "fashion-cabinet", "note": "The garment manifest; the soft side's cartridges are garments, notions and fabric cards." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "fashion-cabinet/bodice-block"],
+  "see_also": ["hyperobject", "target-part", "cdg-interface", "render-lane"],
+  "constraints": "Repo-wide properties are not cartridge properties. Catalog drift, slug uniqueness across a commons, and whether a paired slug exists cannot be checked from one cartridge, so they belong to the platform and not to the conformance tooling a third party runs."
+}

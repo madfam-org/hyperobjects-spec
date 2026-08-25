@@ -1,0 +1,22 @@
+{
+  "id": "body-count",
+  "domain": "geometry",
+  "term": {
+    "en": "body count",
+    "es": "conteo de cuerpos",
+    "fr": "nombre de corps",
+    "pt": "contagem de corpos"
+  },
+  "definition": {
+    "en": "How many separate connected solids a rendered mesh splits into. It is a cheap number that answers an expensive question: whether the cartridge produced the one object it meant to. A count above one is not automatically wrong — an assembly renders as several — but it is always something the author should have intended, and it is where a stray body or a detached feature shows up before anyone prints it.",
+    "es": "En cuántos sólidos conexos e independientes se separa una malla renderizada. Es un número barato que responde una pregunta cara: si el cartucho produjo el único objeto que pretendía. Un conteo mayor que uno no está mal por sí solo —un ensamble se renderiza en varios— pero siempre debe ser algo que el autor haya querido, y es donde un cuerpo suelto o un rasgo desprendido aparece antes de que alguien lo imprima.",
+    "fr": "En combien de solides connexes distincts se sépare un maillage rendu. C'est un nombre bon marché qui répond à une question coûteuse : la cartouche a-t-elle produit l'unique objet qu'elle visait. Un nombre supérieur à un n'est pas fautif en soi — un assemblage se rend en plusieurs — mais il doit toujours être voulu par l'auteur, et c'est là qu'un corps égaré ou un élément détaché se révèle avant que quiconque l'imprime.",
+    "pt": "Em quantos sólidos conexos distintos se separa uma malha renderizada. É um número barato que responde a uma pergunta cara: se o cartucho produziu o único objeto que pretendia. Uma contagem maior do que um não está errada por si só — uma montagem renderiza-se em vários — mas tem de ser sempre algo que o autor quis, e é onde um corpo solto ou um elemento destacado aparece antes de alguém o imprimir."
+  },
+  "aliases": [
+    { "name": "bodies", "repo": "yantra4d", "note": "The RenderCheck field; obtained by splitting the mesh without requiring each piece to be watertight, so that a broken body is counted rather than silently dropped." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["watertight", "render-lane"],
+  "constraints": "The split must not require its pieces to be watertight. Splitting watertight-only discards exactly the malformed bodies the count exists to find, and reports a broken cartridge as clean — a body of negative volume is an inverted shell that reads as geometry and prints as nothing."
+}

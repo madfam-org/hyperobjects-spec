@@ -1,0 +1,30 @@
+{
+  "id": "ease",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "ease",
+    "es": "holgura",
+    "fr": "aisance",
+    "pt": "folga"
+  },
+  "definition": {
+    "en": "The difference between a garment's finished measurement and the body measurement underneath it. Positive ease is room — for movement, for breathing, for the silhouette the garment intends. Negative ease is the opposite and is not an error: a knit cut smaller than the body stretches to fit and holds itself there, which is how swimwear, underwear and activewear stay put. Ease is what separates a garment from a cast of a body.",
+    "es": "La diferencia entre la medida terminada de una prenda y la medida del cuerpo que va debajo. La holgura positiva es espacio: para el movimiento, para respirar, para la silueta que la prenda busca. La holgura negativa es lo contrario y no es un error: un tejido de punto cortado más chico que el cuerpo se estira para entrar y se sostiene ahí, y así es como el traje de baño, la ropa interior y la ropa deportiva se quedan en su sitio. La holgura es lo que separa una prenda de un molde del cuerpo.",
+    "fr": "La différence entre la mesure finie d'un vêtement et la mesure du corps qui se trouve dessous. L'aisance positive est de l'espace : pour le mouvement, pour la respiration, pour la silhouette que le vêtement vise. L'aisance négative est l'inverse et n'est pas une erreur : une maille coupée plus petite que le corps s'étire pour entrer et s'y maintient, et c'est ainsi que maillots, sous-vêtements et vêtements de sport tiennent en place. L'aisance est ce qui distingue un vêtement d'un moulage du corps.",
+    "pt": "A diferença entre a medida acabada de uma peça e a medida do corpo que vai por baixo. A folga positiva é espaço: para o movimento, para respirar, para a silhueta que a peça procura. A folga negativa é o contrário e não é um erro: uma malha cortada mais pequena do que o corpo estica para entrar e mantém-se lá, e é assim que fatos de banho, roupa interior e roupa desportiva se aguentam no sítio. A folga é o que separa uma peça de um molde do corpo."
+  },
+  "aliases": [
+    { "name": "ease", "repo": "fashion-cabinet", "note": "The most widespread parameter family in the soft commons — chest_ease, hip_ease, wrap_ease, drape_ease and others across 180 cartridges." },
+    { "name": "knit_negative_ease", "repo": "fashion-cabinet", "note": "The hyperobject capability flag declaring that a cartridge's draft is designed to be cut smaller than the body; set on 32 cartridges." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/bikini-bottom",
+    "fashion-cabinet/raglan-knit-pullover",
+    "fashion-cabinet/blouse",
+    "fashion-cabinet/abaya"
+  ],
+  "see_also": ["seam-allowance", "dart", "body-measurements", "shoulder-slope"],
+  "constraints": "Negative ease is a claim about the fabric, not about the pattern: it only holds for a knit with enough recovery to return, and applying it to a woven produces a garment that does not close. A cartridge drafting negative ease declares the capability so the claim is checkable rather than implied.",
+  "notes": "Ease is not seam allowance. Ease changes the size of the finished garment; seam allowance is consumed by the sewing and does not appear in the finished measurement at all. Confusing the two is the classic first-draft error, and it compounds at every seam."
+}

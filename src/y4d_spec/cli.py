@@ -2,6 +2,7 @@
 
     y4d-spec check <cartridge-dir> [<cartridge-dir> ...] [--render] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
+    y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec rules
 
 Exit code 0 iff every cartridge conforms; 1 on any conformance problem; 2 on a
@@ -16,6 +17,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from hyperobjects_lexicon.cli import add_lexicon_parser
 from hyperobjects_schemas.identity import check_identity_file
 
 from .conformance import check_cartridge
@@ -143,6 +145,8 @@ def main(argv: list[str] | None = None) -> int:
     p_id = sub.add_parser("identity", help="check a cross-commons identity pair file")
     p_id.add_argument("files", nargs="+", help="pair record JSON file(s)")
     p_id.set_defaults(func=_cmd_identity)
+
+    add_lexicon_parser(sub, "y4d-spec")
 
     p_rules = sub.add_parser("rules", help="explain what gets checked, and where it came from")
     p_rules.set_defaults(func=_cmd_rules)

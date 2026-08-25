@@ -1,0 +1,23 @@
+{
+  "id": "cross-commons-identity",
+  "domain": "cross-commons",
+  "term": {
+    "en": "cross-commons identity",
+    "es": "identidad entre procomunes",
+    "fr": "identité inter-communs",
+    "pt": "identidade entre comuns"
+  },
+  "definition": {
+    "en": "The claim that one physical thing exists as two cartridges — a solid one and a soft one — and is the same object in both. A printed chainmail panel is a body you print and also a cloth you sew from; neither description is wrong and neither is complete. The claim only holds under a named material, because the same geometry printed in a flexible polymer drapes and printed in a rigid one is a plate, so the record names the material or it is unfalsifiable.",
+    "es": "La afirmación de que una misma cosa física existe como dos cartuchos —uno sólido y uno blando— y es el mismo objeto en ambos. Un panel de malla impreso es un cuerpo que se imprime y también una tela con la que se cose; ninguna descripción es falsa y ninguna es completa. La afirmación sólo se sostiene bajo un material nombrado, porque la misma geometría impresa en un polímero flexible cae como tela e impresa en uno rígido es una placa; por eso el registro nombra el material o resulta infalsable.",
+    "fr": "L'affirmation qu'une même chose physique existe en deux cartouches — une solide et une souple — et qu'elle est le même objet dans les deux. Un panneau de maille imprimé est un corps qu'on imprime et aussi une étoffe dont on coud ; aucune description n'est fausse et aucune n'est complète. L'affirmation ne tient que sous un matériau nommé, car la même géométrie imprimée dans un polymère souple tombe comme du tissu et dans un polymère rigide n'est qu'une plaque ; d'où l'obligation de nommer le matériau, faute de quoi la revendication est infalsifiable.",
+    "pt": "A afirmação de que uma mesma coisa física existe como dois cartuchos — um sólido e um macio — e é o mesmo objeto em ambos. Um painel de malha impresso é um corpo que se imprime e também um tecido com que se cose; nenhuma descrição é falsa e nenhuma é completa. A afirmação só se sustenta sob um material nomeado, porque a mesma geometria impressa num polímero flexível cai como pano e impressa num rígido é uma placa; por isso o registo nomeia o material, ou torna-se infalsificável."
+  },
+  "aliases": [
+    { "name": "identity_id", "repo": "yantra4d", "note": "The pair record's own slug; the record is checkable from either CLI as `<tool> identity <file>`." }
+  ],
+  "embodied_by": ["yantra4d/tpu-chainmail-panel", "fashion-cabinet/chainmail-panel"],
+  "see_also": ["hardware-ref", "cartridge", "body-measurements"],
+  "constraints": "A pair spans the two commons: both halves in one repo is not an identity, and the same slug on both sides is not two cartridges. Existence of either slug is deliberately NOT checked — a contributor pairing against their own fork must still be able to validate the record.",
+  "notes": "Distinct from a hardware reference, which says a garment fastens with a solid. Identity says there is one object; fastening says there are two."
+}

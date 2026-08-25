@@ -1,0 +1,22 @@
+{
+  "id": "grid",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "grid",
+    "es": "retícula",
+    "fr": "trame",
+    "pt": "grelha"
+  },
+  "definition": {
+    "en": "A CDG interface type: a repeating array of features on a fixed pitch, so that any object built on the same pitch stacks, tiles or nests with any other. The pitch is the whole contract — a bin and a baseplate interoperate because both are drawn on the same module, not because either knows the other exists. This is the interface type that turns a set of unrelated objects into a system.",
+    "es": "Tipo de interfaz CDG: un arreglo repetido de rasgos con un paso fijo, de modo que cualquier objeto construido sobre ese mismo paso se apila, embaldosa o anida con cualquier otro. El paso es todo el contrato: una charola y una base interoperan porque ambas están trazadas sobre el mismo módulo, no porque alguna sepa que la otra existe. Es el tipo de interfaz que convierte un conjunto de objetos sueltos en un sistema.",
+    "fr": "Type d'interface CDG : un réseau répété d'éléments à un pas fixe, de sorte que tout objet construit sur ce même pas s'empile, se carrelle ou s'emboîte avec n'importe quel autre. Le pas est tout le contrat : un bac et une plaque de base interopèrent parce que tous deux sont tracés sur le même module, non parce que l'un sait que l'autre existe. C'est le type d'interface qui transforme un ensemble d'objets épars en système.",
+    "pt": "Tipo de interface CDG: um arranjo repetido de elementos com um passo fixo, de modo que qualquer objeto construído sobre esse mesmo passo se empilha, ladrilha ou encaixa com qualquer outro. O passo é todo o contrato: uma gaveta e uma base interoperam porque ambas estão traçadas sobre o mesmo módulo, não porque alguma saiba que a outra existe. É o tipo de interface que transforma um conjunto de objetos soltos num sistema."
+  },
+  "aliases": [
+    { "name": "grid", "repo": "yantra4d", "note": "geometry_type value; 37 declared interfaces across the catalog." }
+  ],
+  "embodied_by": ["yantra4d/battery-holder", "yantra4d/brick-tile", "yantra4d/grid-hub"],
+  "see_also": ["cdg-interface", "rail", "socket"],
+  "constraints": "The pitch belongs to the standard, not to the object: a grid whose pitch is derived from the object's own dimensions interoperates with nothing, which is the failure mode a declared 'standard' field exists to make visible."
+}

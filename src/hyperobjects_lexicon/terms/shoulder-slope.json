@@ -1,0 +1,27 @@
+{
+  "id": "shoulder-slope",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "shoulder slope",
+    "es": "caída de hombro",
+    "fr": "pente d'épaule",
+    "pt": "queda de ombro"
+  },
+  "definition": {
+    "en": "How far the shoulder line drops from the neck point to the shoulder point — the drafted angle at which a garment leaves the neck and travels out to the arm. It is the single measurement that most decides whether a finished garment hangs or drags: too little slope and the fabric bridges over the shoulder and breaks into folds at the armscye, too much and the whole garment hangs from the neck.",
+    "es": "Cuánto baja la línea de hombro desde el punto de escote hasta el punto de hombro: el ángulo trazado con que una prenda sale del cuello y viaja hacia el brazo. Es la medida que más decide si una prenda terminada cae bien o se arrastra: con poca caída la tela puentea sobre el hombro y se quiebra en pliegues en la sisa; con demasiada, la prenda entera cuelga del cuello.",
+    "fr": "De combien la ligne d'épaule descend du point d'encolure au point d'épaule — l'angle tracé selon lequel un vêtement quitte le cou et gagne le bras. C'est la mesure qui décide le plus si un vêtement fini tombe bien ou tire : trop peu de pente et le tissu ponte au-dessus de l'épaule et casse en plis à l'emmanchure, trop et le vêtement entier pend du cou.",
+    "pt": "Quanto desce a linha de ombro do ponto de decote até ao ponto de ombro — o ângulo traçado com que uma peça sai do pescoço e viaja para o braço. É a medida que mais decide se uma peça acabada cai bem ou arrasta: com pouca queda o tecido faz ponte sobre o ombro e quebra em pregas na cava; com demasiada, a peça inteira pende do pescoço."
+  },
+  "aliases": [
+    { "name": "shoulder_slope", "repo": "fashion-cabinet", "note": "A manifest parameter id where the draft exposes it; more often an internal SHOULDER_SLOPE derived from the body measurements." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/knit-poncho-wrap",
+    "fashion-cabinet/magnetic-placket-shirt",
+    "fashion-cabinet/bodice-block"
+  ],
+  "see_also": ["back-neck-rise", "neck-drop", "armscye", "ease"],
+  "constraints": "The slope is one leg of the right triangle that gives the shoulder its length, so it can never be changed alone: any adjustment to the slope changes the shoulder run, and a back piece solved against the old run will no longer match the front."
+}

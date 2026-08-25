@@ -1,0 +1,39 @@
+{
+  "id": "tape-edge",
+  "domain": "cross-commons",
+  "term": {
+    "en": "sewn tape edge",
+    "es": "canto de cinta cosido",
+    "fr": "bord de ruban cousu",
+    "pt": "debrum de fita costurado"
+  },
+  "definition": {
+    "en": "The flat woven margin along a zipper's chain, by which the zipper is sewn into a garment seam. It is the surface where the two commons meet on one physical object: Yantra4D models it as the solid's sewn mating face, Fashion Cabinet consumes it as the garment edge that carries the closure. Its dimension — the zip length running along the seam — must be the same number on both sides.",
+    "es": "El margen tejido y plano que corre a lo largo de la cadena de un cierre, y por el cual el cierre se cose a la costura de una prenda. Es la superficie donde ambos procomunes se encuentran sobre un mismo objeto físico: Yantra4D lo modela como la cara de cosido del sólido, y Fashion Cabinet lo consume como el canto de la prenda que aloja el cierre. Su dimensión — el largo de cierre que corre por la costura — debe ser el mismo número de los dos lados.",
+    "fr": "La marge tissée et plate qui longe la chaîne d'une fermeture à glissière, et par laquelle la fermeture est cousue dans une couture de vêtement. C'est la surface où les deux communs se rencontrent sur un même objet physique : Yantra4D la modélise comme la face de couture du solide, Fashion Cabinet la consomme comme le bord du vêtement qui porte la fermeture. Sa dimension — la longueur de fermeture qui court le long de la couture — doit être le même nombre des deux côtés.",
+    "pt": "A margem tecida e plana que corre ao longo da corrente de um fecho de correr, pela qual o fecho é costurado à costura de uma peça. É a superfície onde os dois comuns se encontram sobre um mesmo objeto físico: o Yantra4D modela-a como a face de costura do sólido, e o Fashion Cabinet consome-a como o debrum da peça que aloja o fecho. A sua dimensão — o comprimento de fecho que corre pela costura — tem de ser o mesmo número dos dois lados."
+  },
+  "aliases": [
+    {
+      "name": "tape_edge",
+      "repo": "yantra4d",
+      "note": "The cdg_interface id on the zipper and invisible-zipper cartridges, geometry_type 'flange', driven by tape_width / tape_thick / zip_length."
+    },
+    {
+      "name": "zipper_tape",
+      "repo": "fashion-cabinet",
+      "note": "The hyperobject.interfaces type on 39 garment cartridges, bound to a piece edge (e.g. back/center) and driven by zipper_length."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/zipper",
+    "yantra4d/invisible-zipper",
+    "fashion-cabinet/mini-skirt",
+    "fashion-cabinet/pencil-skirt",
+    "fashion-cabinet/puffer-vest",
+    "fashion-cabinet/dopp-kit"
+  ],
+  "see_also": ["flange", "sew-field", "hardware-ref", "cdg-interface"],
+  "constraints": "The garment parameter that feeds this edge through a hardware_ref params_map must ALSO drive one of the garment's own interfaces — otherwise the two sides merely resolve by name while their lengths are free to disagree.",
+  "notes": "This entry exists because the same object had two names. Neither repo was wrong: 'tape_edge' describes the solid's face, 'zipper_tape' the notion the garment sews. Recording both dialects with their repo of origin is the lexicon's job — a reader arriving with either word must land here."
+}

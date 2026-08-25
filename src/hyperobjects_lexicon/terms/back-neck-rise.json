@@ -1,0 +1,33 @@
+{
+  "id": "back-neck-rise",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "back-neck rise",
+    "es": "elevación del escote trasero",
+    "fr": "remontée d'encolure dos",
+    "pt": "subida do decote das costas"
+  },
+  "definition": {
+    "en": "How much higher the back neck point sits than the front neck point on a drafted bodice. A back neck is shallower than a front neck, so the two neck points are not at the same height, and the rise is the difference. It is not a free decoration: the back neck width is solved from the front's measured shoulder using a right triangle whose vertical leg is this rise, so the rise is what makes the back shoulder seam come out equal to the front's by construction rather than by hoping two formulas agree.",
+    "es": "Cuánto más alto queda el punto de escote trasero respecto al delantero en un trazo de corpiño. El escote trasero es menos profundo que el delantero, de modo que los dos puntos no están a la misma altura, y la elevación es esa diferencia. No es un adorno libre: el ancho del escote trasero se resuelve a partir del hombro medido del delantero mediante un triángulo rectángulo cuyo cateto vertical es justamente esta elevación, así que la elevación es lo que hace que la costura de hombro trasera salga igual a la delantera por construcción y no por confiar en que dos fórmulas coincidan.",
+    "fr": "De combien le point d'encolure dos se situe plus haut que le point d'encolure devant sur un tracé de corsage. L'encolure dos est moins profonde que celle du devant, si bien que les deux points ne sont pas à la même hauteur, et la remontée est cette différence. Ce n'est pas un ornement libre : la largeur d'encolure dos se résout à partir de l'épaule mesurée du devant au moyen d'un triangle rectangle dont le côté vertical est précisément cette remontée, de sorte que la remontée est ce qui fait que la couture d'épaule dos sort égale à celle du devant par construction, et non parce qu'on espère que deux formules concordent.",
+    "pt": "Quanto mais alto fica o ponto de decote das costas em relação ao da frente num traçado de corpete. O decote das costas é menos profundo do que o da frente, pelo que os dois pontos não estão à mesma altura, e a subida é essa diferença. Não é um adorno livre: a largura do decote das costas resolve-se a partir do ombro medido da frente através de um triângulo retângulo cujo cateto vertical é precisamente esta subida, de modo que a subida é o que faz a costura de ombro das costas sair igual à da frente por construção, e não por se esperar que duas fórmulas concordem."
+  },
+  "aliases": [
+    { "name": "back_neck_rise_mm", "repo": "fashion-cabinet", "note": "The reported drafting value in the explode payload of the shirt-family cartridges; the drawn variable is BACK_NECK_Y." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/magnetic-placket-shirt",
+    "fashion-cabinet/button-aid-cuff-shirt",
+    "fashion-cabinet/chaleco-charro",
+    "fashion-cabinet/post-surgical-access-tee"
+  ],
+  "see_also": ["shoulder-slope", "neck-drop", "seam-allowance", "ease"],
+  "constraints": "The DRAWN rise must track any flattening of the shoulder run. When a narrow shoulder meets a deep neck the solved rise can exceed the shoulder length itself, and the draft must flatten it; clamping only the solve's local variable while drawing the piece at the unclamped rise produces a back shoulder longer than the front — measured at 126.9 mm against 86.3 mm, a 40.6 mm mismatch, at legal parameters (340 mm shoulder, 520 mm neck). The clamp therefore lands on the drawn value itself, and every later use reads that one variable.",
+  "sources": [
+    "fashion-cabinet#113 — back-neck-rise clamp, five cartridges affected (shoulder seams up to 83.5 mm wrong at legal parameters)",
+    "fashion-cabinet/projects/button-aid-cuff-shirt/docs/README.md — 'The back neck rise is clamped on the drawn value, not on the solve.'"
+  ],
+  "notes": "This entry is the reason the lexicon exists. The semantics lived only in five copied code comments, and the copy carried the bug with it into five landed cartridges. A term is where a definition gets to be written once."
+}

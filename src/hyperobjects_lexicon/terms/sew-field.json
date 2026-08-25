@@ -1,0 +1,29 @@
+{
+  "id": "sew-field",
+  "domain": "cross-commons",
+  "term": {
+    "en": "sew field",
+    "es": "campo de cosido",
+    "fr": "champ de couture",
+    "pt": "campo de costura"
+  },
+  "definition": {
+    "en": "The region of a solid cartridge that a garment is actually sewn to: the flange face, the holes or slots the thread passes through, and the length of it available to the seam. It is the soft side's reading of a flange — what the solid offers as geometry, the garment consumes as a stretch of edge — and naming it separately keeps the handshake honest, because the two sides own different halves of the same contact.",
+    "es": "La región de un cartucho sólido a la que efectivamente se cose una prenda: la cara de la pestaña, los barrenos o ranuras por donde pasa el hilo, y el largo de esa cara disponible para la costura. Es la lectura que el lado blando hace de una pestaña —lo que el sólido ofrece como geometría, la prenda lo consume como un tramo de canto— y nombrarlo aparte mantiene honesto el acuerdo, porque cada lado posee una mitad distinta del mismo contacto.",
+    "fr": "La région d'une cartouche solide à laquelle un vêtement est effectivement cousu : la face de la collerette, les trous ou fentes que le fil traverse, et la longueur disponible pour la couture. C'est la lecture que le côté souple fait d'une collerette — ce que le solide offre comme géométrie, le vêtement le consomme comme une portion de bord — et le nommer à part garde l'accord honnête, car chaque côté possède une moitié différente du même contact.",
+    "pt": "A região de um cartucho sólido à qual uma peça é efetivamente costurada: a face da aba, os furos ou fendas por onde o fio passa, e o comprimento dessa face disponível para a costura. É a leitura que o lado macio faz de uma aba — o que o sólido oferece como geometria, a peça consome como um troço de debrum — e nomeá-lo à parte mantém o acordo honesto, porque cada lado possui uma metade diferente do mesmo contacto."
+  },
+  "aliases": [
+    { "name": "sew_face", "repo": "yantra4d", "note": "The recurring cdg_interface id for this region on sewn hardware (sew-on-snap, boning-stay); geometry_type 'flange'." },
+    { "name": "hardware_ref", "repo": "fashion-cabinet", "note": "The notion block through which a garment names the solid it sews to, and maps its own parameters onto that solid's." }
+  ],
+  "embodied_by": [
+    "yantra4d/sew-on-snap",
+    "yantra4d/boning-stay",
+    "fashion-cabinet/boning-channel",
+    "fashion-cabinet/chainmail-panel"
+  ],
+  "see_also": ["flange", "tape-edge", "hardware-ref", "seam-allowance", "cdg-interface"],
+  "constraints": "The dimension must flow to both sides: the garment parameter driving a sew field through a params_map has to also drive one of the garment's own interfaces, so the same length reaches the cloth edge and the solid's face. A mapping that only resolves by name lets the two dimensions drift apart while every check still passes.",
+  "notes": "Not a manifest field on either side — it is the concept the two manifest fields are about. That is precisely why it belongs in a lexicon rather than in a schema."
+}

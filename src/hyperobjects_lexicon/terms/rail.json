@@ -1,0 +1,22 @@
+{
+  "id": "rail",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "rail",
+    "es": "riel",
+    "fr": "rail",
+    "pt": "calha"
+  },
+  "definition": {
+    "en": "A CDG interface type: a constant cross-section that constrains motion to one axis, letting a mating part slide on and stop where it is placed. Because the profile is constant along its length, a rail interface is dimensioned by its section and its clearance, never by how long it is — the length is free, and that freedom is the point.",
+    "es": "Tipo de interfaz CDG: una sección transversal constante que restringe el movimiento a un solo eje, permitiendo que una pieza acoplada deslice y se detenga donde se le coloque. Como el perfil es constante a lo largo del recorrido, una interfaz de riel se dimensiona por su sección y su holgura, nunca por su longitud: el largo queda libre, y esa libertad es justamente el propósito.",
+    "fr": "Type d'interface CDG : une section transversale constante qui contraint le mouvement à un seul axe, permettant à une pièce accouplée de coulisser et de s'arrêter là où on la place. Le profil étant constant sur toute sa longueur, une interface rail se dimensionne par sa section et son jeu, jamais par sa longueur : la longueur reste libre, et cette liberté est précisément l'intérêt.",
+    "pt": "Tipo de interface CDG: uma secção transversal constante que restringe o movimento a um único eixo, permitindo que uma peça acoplada deslize e pare onde for colocada. Como o perfil é constante ao longo do percurso, uma interface de calha dimensiona-se pela sua secção e pela sua folga, nunca pelo comprimento: o comprimento fica livre, e essa liberdade é justamente o objetivo."
+  },
+  "aliases": [
+    { "name": "rail", "repo": "yantra4d", "note": "geometry_type value; 29 declared interfaces across the catalog." }
+  ],
+  "embodied_by": ["yantra4d/belt-buckle", "yantra4d/board-rack", "yantra4d/boxjoint-jig"],
+  "see_also": ["cdg-interface", "grid", "profile"],
+  "constraints": "Clearance is a material property, not a drawing constant: the same nominal section printed in a shrinking material binds, so a rail that hard-codes its fit will only fit in the filament it was drawn for."
+}

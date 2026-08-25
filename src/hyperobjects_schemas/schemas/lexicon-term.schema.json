@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/lexicon-term.schema.json",
+  "title": "Commons Lexicon Term",
+  "description": "One entry in the Commons Lexicon (RFC 0039): the shared vocabulary of the two MADFAM hyperobject commons. A term is the canonical, quadrilingual definition of a word that both commons — and third-party cartridge authors — use. Terms are born quadrilingual: en/es/fr/pt are ALL required to ship (RFC 0039 §7), because a partial entry is a translation debt that never gets paid. A term is also where a geometry lesson becomes durable: `constraints` carries the clamp rule or degeneracy trap that would otherwise live only in a code comment and be copied, bug and all, into the next cartridge (the case that motivated this schema: fashion-cabinet #113).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "domain", "term", "definition"],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS term contract the entry is written against. Absent means 1.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "id": {
+      "description": "Stable kebab-case id, globally unique across the lexicon. It is what `see_also` points at and what a platform's define(term) tool resolves, so it is a published name: renaming one is a breaking change.",
+      "$ref": "#/$defs/termId"
+    },
+    "domain": {
+      "description": "Which part of the commons the term belongs to. A controlled list spanning both halves — the solid side (yantra4d), the soft side (fashion-cabinet), and the shared seams between them.",
+      "type": "string",
+      "enum": [
+        "cdg-interface",
+        "pattern-drafting",
+        "garment-construction",
+        "geometry",
+        "materials",
+        "cross-commons",
+        "manifest",
+        "licensing"
+      ]
+    },
+    "term": {
+      "description": "The word itself in each language. All four are required: this is the dictionary headword, and an entry missing one is not shippable (RFC 0039 §7).",
+      "$ref": "#/$defs/quadrilingualString"
+    },
+    "definition": {
+      "description": "What the term means, in each language. Written to be read by a contributor who does not already know — a definition that only makes sense to someone who knows the answer is not a definition.",
+      "$ref": "#/$defs/quadrilingualString"
+    },
+    "aliases": {
+      "description": "The SAME concept as it is actually spelled in each repo. This is how the lexicon absorbs a dialect split rather than papering over it: FC's `zipper_tape` and Yantra4D's `tape_edge` are one term with two recorded dialects, and each alias names the repo where that spelling is real, so a reader who arrives holding either word lands on the same entry.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/alias" }
+    },
+    "standards": {
+      "description": "Published standards the term is defined against, cited by their identifier (e.g. 'ISO 8559-1'). Optional — most house vocabulary has no standard, and inventing one is worse than having none.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 }
+    },
+    "embodied_by": {
+      "description": "Cartridges where the term is real, as '<repo>/<slug>'. The lexicon's claim to be about actual objects rather than about words rests on this field: a term nothing embodies is a term nobody needed.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/cartridgeSlug" }
+    },
+    "see_also": {
+      "description": "Other term ids in this lexicon. Validated — a dangling cross-reference is a broken dictionary, so the lane refuses it.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/termId" }
+    },
+    "constraints": {
+      "description": "The rule that comes with the term: a clamp, a degeneracy trap, a bound that must hold. Free text, in English, and deliberately singular — if a term needs three, it is probably three terms. This is the field that pays for the lexicon.",
+      "type": "string",
+      "minLength": 10
+    },
+    "heritage": {
+      "description": "True when the entry makes a cultural or historical claim. Setting it engages RFC 0039 §7's citation bar: a heritage term MUST carry at least one source, and the lane fails the entry otherwise. It is a self-declared flag on purpose — the author knows they are making the claim.",
+      "type": "boolean",
+      "default": false
+    },
+    "sources": {
+      "description": "Citations backing the entry's claims. REQUIRED when `heritage` is true (RFC 0039 §7: no uncited cultural or historical claim). A citation is a string a reader can follow: a publication, a standard, a repo path, or an issue reference.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 4 }
+    },
+    "notes": {
+      "description": "Anything true and worth saying that is not the definition — where the equivalence stops, what the term is often confused with.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "termId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "cartridgeSlug": {
+      "description": "'<repo>/<slug>', where repo is one of the two commons.",
+      "type": "string",
+      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "quadrilingualString": {
+      "description": "A string in all four languages of the commons (RFC 0039, ruled 2026-08-25). Spanish is the house register and the quality bar; French and Portuguese are reviewed, not merely generated.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "es", "fr", "pt"],
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    },
+    "alias": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "repo"],
+      "properties": {
+        "name": {
+          "description": "The identifier as it literally appears in that repo's data (e.g. 'zipper_tape').",
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "description": "Where that spelling is real.",
+          "type": "string",
+          "enum": ["yantra4d", "fashion-cabinet"]
+        },
+        "note": {
+          "description": "What the spelling is (a manifest enum value, a parameter id, drafting idiom) and why it differs.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

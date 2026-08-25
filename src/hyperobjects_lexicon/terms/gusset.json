@@ -1,0 +1,29 @@
+{
+  "id": "gusset",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "gusset",
+    "es": "cuchillo",
+    "fr": "soufflet",
+    "pt": "nesga"
+  },
+  "definition": {
+    "en": "A separate piece of fabric let into a seam or a corner to add room exactly where a garment would otherwise bind. It solves the problem a single flat piece cannot: at an underarm or a crotch, several seams converge and the body needs volume precisely at the point where the pattern has the least. Adding a gusset relieves that point without enlarging the whole garment around it.",
+    "es": "Una pieza de tela aparte, insertada en una costura o en un ángulo, que añade espacio justo donde la prenda de otro modo tiraría. Resuelve lo que una sola pieza plana no puede: en una axila o una entrepierna convergen varias costuras y el cuerpo necesita volumen precisamente donde el patrón tiene menos. Añadir un cuchillo alivia ese punto sin agrandar toda la prenda a su alrededor.",
+    "fr": "Une pièce de tissu distincte, insérée dans une couture ou un angle, qui ajoute de l'aisance exactement là où le vêtement tirerait sinon. Elle résout ce qu'une seule pièce plate ne peut pas : à une emmanchure ou à une entrejambe, plusieurs coutures convergent et le corps a besoin de volume précisément là où le patron en a le moins. Ajouter un soufflet soulage ce point sans agrandir tout le vêtement autour.",
+    "pt": "Uma peça de tecido separada, inserida numa costura ou num canto, que acrescenta espaço exatamente onde a peça de outro modo repuxaria. Resolve o que uma única peça plana não consegue: numa cava ou numa gancha convergem várias costuras e o corpo precisa de volume precisamente onde o molde tem menos. Acrescentar uma nesga alivia esse ponto sem alargar a peça inteira em redor."
+  },
+  "aliases": [
+    { "name": "gusset", "repo": "fashion-cabinet", "note": "A parameter family (gusset_front_w, gusset_len, gusset_width) on 13 cartridges, mostly the close-fitting families." },
+    { "name": "gusset", "repo": "fashion-cabinet", "note": "Also used in the printed-flexure sense — a hinge panel that adds articulation at a corner — where the soft commons draws a part meant to be printed rather than cut." }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/briefs",
+    "fashion-cabinet/boxer-briefs",
+    "fashion-cabinet/cycling-shorts",
+    "fashion-cabinet/printed-gusset-flexure"
+  ],
+  "see_also": ["dart", "ease", "raglan", "seam-allowance"],
+  "constraints": "A gusset adds edges to every piece it touches: inserting one changes the seam lengths of its neighbours, so the pieces around it must be redrafted rather than left as they were.",
+  "notes": "The engineering sense of the word — a stiffening web at a corner — is the opposite mechanical intent from the garment sense, which opens a corner rather than bracing it. Both senses live in the soft commons, so a reader who arrives from mechanics should not assume the garment meaning."
+}

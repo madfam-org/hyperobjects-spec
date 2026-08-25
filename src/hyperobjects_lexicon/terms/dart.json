@@ -1,0 +1,27 @@
+{
+  "id": "dart",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "dart",
+    "es": "pinza",
+    "fr": "pince",
+    "pt": "pince"
+  },
+  "definition": {
+    "en": "A wedge folded out of a flat pattern piece and stitched away, so that flat cloth takes a curved shape over the body. The amount removed is the intake, and it is conserved: a dart can be rotated to a different seam or split into several, but the total intake a body needs does not change, only where the draft chooses to spend it. Darts are how a woven fabric, which does not stretch, becomes a shaped garment.",
+    "es": "Una cuña doblada y cosida hacia afuera de una pieza plana del patrón, para que la tela plana tome forma curva sobre el cuerpo. La cantidad retirada es el consumo de la pinza, y se conserva: una pinza puede rotarse a otra costura o partirse en varias, pero el consumo total que un cuerpo necesita no cambia, sólo cambia dónde decide gastarlo el trazo. Las pinzas son la manera en que una tela plana, que no se estira, se vuelve una prenda con forma.",
+    "fr": "Un coin replié hors d'une pièce de patron plate et piqué, afin qu'un tissu plat prenne une forme courbe sur le corps. La quantité retirée est la valeur de pince, et elle se conserve : une pince peut être pivotée vers une autre couture ou divisée en plusieurs, mais la valeur totale dont un corps a besoin ne change pas, seul change l'endroit où le tracé choisit de la dépenser. Les pinces sont ce qui fait qu'un tissu chaîne et trame, qui ne s'étire pas, devient un vêtement galbé.",
+    "pt": "Uma cunha dobrada para fora de uma peça plana do molde e cosida, para que o tecido plano tome forma curva sobre o corpo. A quantidade retirada é o consumo da pince, e conserva-se: uma pince pode ser rodada para outra costura ou dividida em várias, mas o consumo total de que um corpo precisa não muda, muda apenas onde o traçado escolhe gastá-lo. As pinces são o modo como um tecido plano, que não estica, se torna uma peça com forma."
+  },
+  "aliases": [
+    { "name": "dart_intake", "repo": "fashion-cabinet", "note": "The parameter family naming the amount removed — bust_dart_intake, waist_dart_intake, back_dart_intake — on 12 cartridges." }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bodice-block",
+    "fashion-cabinet/blouse",
+    "fashion-cabinet/a-line-dress",
+    "fashion-cabinet/cocktail-dress"
+  ],
+  "see_also": ["ease", "seam-allowance", "gusset", "raglan"],
+  "constraints": "Intake is conserved, so it cannot be reduced without being moved: a draft that shrinks a dart to flatten a piece has silently changed the body the garment fits, not merely the seam it shows."
+}
