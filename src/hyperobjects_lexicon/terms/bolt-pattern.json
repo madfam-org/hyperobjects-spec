@@ -1,0 +1,23 @@
+{
+  "id": "bolt-pattern",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "bolt pattern",
+    "es": "patrón de barrenos",
+    "fr": "entraxe de fixation",
+    "pt": "padrão de furação"
+  },
+  "definition": {
+    "en": "A CDG interface type: the positions, count and size of the holes by which a part is fastened to something else. It is the interface that costs nothing to get right and everything to get wrong, because it is not adjustable after the fact — a pattern is stated as a pitch circle or a rectangular spacing plus a thread designation, and those numbers are the whole of the fit.",
+    "es": "Tipo de interfaz CDG: las posiciones, la cantidad y el tamaño de los barrenos por los que una pieza se fija a otra cosa. Es la interfaz que no cuesta nada acertar y todo equivocar, porque no admite ajuste posterior: un patrón se enuncia como círculo de centros o separación rectangular más una designación de rosca, y esos números son la totalidad del ajuste.",
+    "fr": "Type d'interface CDG : les positions, le nombre et la taille des trous par lesquels une pièce se fixe à autre chose. C'est l'interface qu'il ne coûte rien de réussir et tout de manquer, car elle ne se rattrape pas après coup : un entraxe s'énonce comme cercle de perçage ou espacement rectangulaire plus une désignation de filetage, et ces nombres constituent tout l'ajustement.",
+    "pt": "Tipo de interface CDG: as posições, a quantidade e o tamanho dos furos pelos quais uma peça se fixa a outra coisa. É a interface que nada custa acertar e tudo custa errar, porque não admite ajuste posterior: um padrão enuncia-se como círculo de furação ou espaçamento retangular mais uma designação de rosca, e esses números são a totalidade do ajuste."
+  },
+  "aliases": [
+    { "name": "bolt_pattern", "repo": "yantra4d", "note": "geometry_type value; 95 declared interfaces across the catalog." }
+  ],
+  "standards": ["ASME B1.1", "ISO 68-1"],
+  "embodied_by": ["yantra4d/arca-plate", "yantra4d/board-rack", "yantra4d/assembly-fixture"],
+  "see_also": ["cdg-interface", "thread", "grid"],
+  "constraints": "The hole is not the fastener: a pattern must state clearance or tapped intent alongside the designation, because an M5 clearance hole and an M5 tapped hole are different diameters and only one of them accepts an M5 bolt."
+}

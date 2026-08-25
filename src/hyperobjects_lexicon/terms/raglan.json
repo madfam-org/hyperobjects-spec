@@ -1,0 +1,26 @@
+{
+  "id": "raglan",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "raglan",
+    "es": "ranglán",
+    "fr": "raglan",
+    "pt": "raglã"
+  },
+  "definition": {
+    "en": "A sleeve construction in which the sleeve runs all the way to the neckline, so the seam travels diagonally from the underarm to the neck instead of circling the shoulder. The shoulder point disappears as a seam and becomes part of the sleeve, which gives an unbroken range of arm movement and removes the set-in sleeve's hardest fitting problem — at the cost of a softer, less defined shoulder line.",
+    "es": "Construcción de manga en la que la manga llega hasta el escote, de modo que la costura viaja en diagonal de la axila al cuello en lugar de rodear el hombro. El punto de hombro desaparece como costura y pasa a formar parte de la manga, lo que da un rango de movimiento del brazo sin interrupciones y elimina el problema de entalle más difícil de la manga montada — a cambio de una línea de hombro más suave y menos definida.",
+    "fr": "Construction de manche où la manche monte jusqu'à l'encolure, de sorte que la couture chemine en diagonale de l'aisselle au cou au lieu de contourner l'épaule. Le point d'épaule disparaît en tant que couture et devient partie de la manche, ce qui donne une amplitude de mouvement du bras ininterrompue et supprime le problème d'ajustement le plus ardu de la manche montée — au prix d'une ligne d'épaule plus douce et moins définie.",
+    "pt": "Construção de manga em que a manga sobe até ao decote, de modo que a costura viaja em diagonal da axila ao pescoço em vez de contornar o ombro. O ponto de ombro desaparece enquanto costura e passa a fazer parte da manga, o que dá uma amplitude de movimento do braço sem interrupções e elimina o problema de ajuste mais difícil da manga montada — ao custo de uma linha de ombro mais suave e menos definida."
+  },
+  "aliases": [
+    { "name": "raglan_depth", "repo": "fashion-cabinet", "note": "The parameter setting how far down the armhole the diagonal seam starts; with raglan_neck_w on the neckline end." }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/raglan-knit-pullover",
+    "fashion-cabinet/raglan-baseball-tee",
+    "fashion-cabinet/led-trim-jacket"
+  ],
+  "see_also": ["armscye", "shoulder-slope", "dart", "gusset"],
+  "constraints": "The diagonal is one seam sewn from two pieces, so the bodice's raglan edge and the sleeve's must measure equal — a raglan depth changed on one piece and not the other produces two edges that cannot be joined, and neither piece is wrong on its own."
+}

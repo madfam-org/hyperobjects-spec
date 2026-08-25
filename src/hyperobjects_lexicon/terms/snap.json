@@ -1,0 +1,23 @@
+{
+  "id": "snap",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "snap",
+    "es": "broche a presión",
+    "fr": "encliquetage",
+    "pt": "mola de pressão"
+  },
+  "definition": {
+    "en": "A CDG interface type: a feature that deflects elastically during assembly and springs back to capture, joining two parts by their own material rather than by hardware. The interface is defined by three quantities that are easy to confuse — the interference that must be passed, the force to pass it, and the force to release — and a snap is only specified when all three are, because a joint that assembles and never releases is a weld.",
+    "es": "Tipo de interfaz CDG: un rasgo que se flexiona elásticamente al ensamblar y regresa para retener, uniendo dos piezas por su propio material y no por herraje. La interfaz queda definida por tres magnitudes fáciles de confundir —la interferencia que hay que vencer, la fuerza para vencerla y la fuerza para soltar— y un broche sólo está especificado cuando las tres lo están, porque una unión que ensambla y nunca suelta es una soldadura.",
+    "fr": "Type d'interface CDG : un élément qui fléchit élastiquement au montage et revient pour retenir, assemblant deux pièces par leur propre matière plutôt que par de la quincaillerie. L'interface se définit par trois grandeurs faciles à confondre — le serrage à franchir, l'effort pour le franchir et l'effort pour libérer — et un encliquetage n'est spécifié que lorsque les trois le sont, car un assemblage qui se monte et ne se libère jamais est une soudure.",
+    "pt": "Tipo de interface CDG: um elemento que flete elasticamente durante a montagem e regressa para reter, unindo duas peças pelo seu próprio material em vez de por ferragem. A interface fica definida por três grandezas fáceis de confundir — a interferência a vencer, a força para a vencer e a força para soltar — e uma mola só está especificada quando as três o estão, porque uma união que monta e nunca solta é uma soldadura."
+  },
+  "aliases": [
+    { "name": "snap", "repo": "yantra4d", "note": "geometry_type value; 86 declared interfaces across the catalog." },
+    { "name": "snap", "repo": "fashion-cabinet", "note": "A notion.kind value on the soft side — the garment fastener whose solid half is a Yantra4D cartridge referenced through hardware_ref." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/bag-clip", "yantra4d/battery-pocket-frame"],
+  "see_also": ["cdg-interface", "socket", "sew-field", "hardware-ref"],
+  "constraints": "Retention comes from the interference, not from the print: the same geometry in a stiffer material yields a snap that will not close, and in a softer one a snap that will not hold — so a snap cartridge that does not expose material as a parameter is specified for exactly one filament."
+}

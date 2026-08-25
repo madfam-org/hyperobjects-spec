@@ -1,0 +1,23 @@
+{
+  "id": "hardware-ref",
+  "domain": "cross-commons",
+  "term": {
+    "en": "hardware reference",
+    "es": "referencia de herraje",
+    "fr": "référence de quincaillerie",
+    "pt": "referência de ferragem"
+  },
+  "definition": {
+    "en": "The block by which a soft cartridge names the solid cartridge it fastens with, and maps its own parameters onto that solid's. It encodes the commons' division of labour: Fashion Cabinet owns the fashion semantics of a closure — sizing, placement, the seam it lands on — while the physical hardware is a Yantra4D cartridge, referenced and never re-drawn. A reference is either linked, meaning it resolves to a real cartridge, or honestly marked unlinked while the hardware does not yet exist.",
+    "es": "El bloque con el que un cartucho blando nombra al cartucho sólido con el que se abrocha, y mapea sus propios parámetros sobre los de ese sólido. Codifica la división del trabajo del procomún: Fashion Cabinet posee la semántica de moda de un cierre —talla, colocación, la costura donde aterriza— mientras que el herraje físico es un cartucho de Yantra4D, referenciado y jamás vuelto a dibujar. Una referencia o está enlazada, es decir resuelve a un cartucho real, o está marcada honestamente como no enlazada mientras el herraje aún no existe.",
+    "fr": "Le bloc par lequel une cartouche souple nomme la cartouche solide avec laquelle elle se ferme, et fait correspondre ses propres paramètres à ceux de ce solide. Il encode la division du travail des communs : Fashion Cabinet possède la sémantique vestimentaire d'une fermeture — taille, placement, la couture où elle se pose — tandis que la quincaillerie physique est une cartouche Yantra4D, référencée et jamais redessinée. Une référence est soit liée, c'est-à-dire qu'elle résout vers une cartouche réelle, soit honnêtement marquée non liée tant que la quincaillerie n'existe pas.",
+    "pt": "O bloco pelo qual um cartucho macio nomeia o cartucho sólido com que se aperta, e mapeia os seus próprios parâmetros sobre os desse sólido. Codifica a divisão do trabalho do comum: o Fashion Cabinet possui a semântica de moda de um fecho — tamanho, colocação, a costura onde assenta — enquanto a ferragem física é um cartucho Yantra4D, referenciado e nunca redesenhado. Uma referência ou está ligada, ou seja resolve para um cartucho real, ou está honestamente marcada como não ligada enquanto a ferragem ainda não existe."
+  },
+  "aliases": [
+    { "name": "hardware_ref", "repo": "fashion-cabinet", "note": "notion.hardware_ref — platform, project_slug, linked, params_map. Spec v1, enforced fail-closed." }
+  ],
+  "embodied_by": ["fashion-cabinet/shank-button", "fashion-cabinet/chainmail-panel", "yantra4d/shank-button-solid"],
+  "see_also": ["sew-field", "flange", "tape-edge", "cross-commons-identity", "cdg-interface"],
+  "constraints": "Never fabricate a slug that does not resolve. A reference to hardware the commons does not yet hold is set unlinked, with the slug left empty or documentary — an invented slug turns a known gap into a silent broken link.",
+  "notes": "Distinct from the identity key: a hardware reference says 'this garment fastens with that solid', while an identity key says 'this soft cartridge and that solid cartridge are the same physical object'. Fastening is a relation between two things; identity is a claim that there is one."
+}

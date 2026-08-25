@@ -1,0 +1,27 @@
+{
+  "id": "seam-allowance",
+  "domain": "garment-construction",
+  "term": {
+    "en": "seam allowance",
+    "es": "margen de costura",
+    "fr": "marge de couture",
+    "pt": "margem de costura"
+  },
+  "definition": {
+    "en": "The strip of fabric between the stitching line and the cut edge, added to every pattern piece so the pieces can be joined at all. It is consumed by the sewing and does not survive into the finished measurement: a piece cut without it comes out smaller than drafted by twice the allowance at every seam. Nearly every cartridge in the soft commons exposes it as a parameter, because the right amount depends on the fabric, the seam finish and the machine.",
+    "es": "La franja de tela entre la línea de costura y el canto de corte, añadida a cada pieza del patrón para que las piezas puedan unirse siquiera. La consume el cosido y no sobrevive en la medida terminada: una pieza cortada sin él sale más chica que lo trazado en el doble del margen en cada costura. Casi todos los cartuchos del procomún blando lo exponen como parámetro, porque la cantidad correcta depende de la tela, del acabado de costura y de la máquina.",
+    "fr": "La bande de tissu entre la ligne de piqûre et le bord de coupe, ajoutée à chaque pièce du patron pour que les pièces puissent seulement être assemblées. Elle est consommée par la couture et ne survit pas dans la mesure finie : une pièce coupée sans elle sort plus petite que le tracé du double de la marge à chaque couture. Presque toutes les cartouches des communs souples l'exposent en paramètre, car la bonne valeur dépend du tissu, de la finition de couture et de la machine.",
+    "pt": "A tira de tecido entre a linha de costura e o bordo de corte, acrescentada a cada peça do molde para que as peças sequer possam ser unidas. É consumida pela costura e não sobrevive na medida acabada: uma peça cortada sem ela sai mais pequena do que o traçado no dobro da margem em cada costura. Quase todos os cartuchos do comum macio a expõem como parâmetro, porque a quantidade certa depende do tecido, do acabamento da costura e da máquina."
+  },
+  "aliases": [
+    { "name": "seam_allowance", "repo": "fashion-cabinet", "note": "A parameter id on 217 of the 316 cartridges — the most widely shared parameter name in the soft commons." }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bodice-block",
+    "fashion-cabinet/a-line-skirt",
+    "fashion-cabinet/blouse",
+    "fashion-cabinet/abaya"
+  ],
+  "see_also": ["ease", "sew-field", "flange", "dart"],
+  "constraints": "The allowance is not part of the fit. Adding it to a measurement that is already a finished dimension double-counts it at every seam, and adding it to a mating edge without adding it to the edge it mates with breaks the seam-length match the interface check enforces."
+}

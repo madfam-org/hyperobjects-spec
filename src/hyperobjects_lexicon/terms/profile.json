@@ -1,0 +1,22 @@
+{
+  "id": "profile",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "profile",
+    "es": "perfil",
+    "fr": "profil",
+    "pt": "perfil"
+  },
+  "definition": {
+    "en": "A CDG interface type: a named two-dimensional outline that a mating part must reproduce — the shape of the contact, stated once, independent of what either object does with it. Where a socket says how deep and a rail says how it slides, a profile says only what the section looks like, and is the type to reach for when the fit is about silhouette rather than about capture.",
+    "es": "Tipo de interfaz CDG: un contorno bidimensional con nombre que la pieza acoplada debe reproducir — la forma del contacto, enunciada una sola vez e independiente de lo que cada objeto haga con ella. Donde un alojamiento dice qué tan profundo y un riel dice cómo desliza, un perfil dice únicamente cómo se ve la sección; es el tipo al que se recurre cuando el ajuste es cuestión de silueta y no de retención.",
+    "fr": "Type d'interface CDG : un contour bidimensionnel nommé que la pièce accouplée doit reproduire — la forme du contact, énoncée une seule fois, indépendamment de ce que chaque objet en fait. Là où un logement dit la profondeur et un rail dit le glissement, un profil ne dit que l'allure de la section ; c'est le type auquel recourir quand l'ajustement relève de la silhouette et non de la retenue.",
+    "pt": "Tipo de interface CDG: um contorno bidimensional com nome que a peça acoplada tem de reproduzir — a forma do contacto, enunciada uma só vez e independente do que cada objeto faça com ela. Onde um encaixe diz a profundidade e uma calha diz como desliza, um perfil diz apenas como é a secção; é o tipo a que se recorre quando o ajuste é questão de silhueta e não de retenção."
+  },
+  "aliases": [
+    { "name": "profile", "repo": "yantra4d", "note": "geometry_type value; 121 declared interfaces, the second most common type in the catalog." }
+  ],
+  "embodied_by": ["yantra4d/arca-plate", "yantra4d/boxjoint-jig"],
+  "see_also": ["cdg-interface", "rail", "flange"],
+  "constraints": "A profile states the section and nothing else — an interface that also depends on depth or on engagement force is a socket or a snap wearing a profile's name, and will be checked against the wrong properties."
+}

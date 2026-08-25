@@ -1,0 +1,42 @@
+{
+  "id": "cdg-interface",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "CDG interface",
+    "es": "interfaz CDG",
+    "fr": "interface CDG",
+    "pt": "interface CDG"
+  },
+  "definition": {
+    "en": "A typed, parameterized declaration of the geometry by which one cartridge mates with another — the commons' unit of composability. A cartridge declares each interface with an id, a geometry type, the standard it follows (or 'internal'), and the manifest parameters that give the interface its dimensions. Two objects compose when they share an interface and their driving parameters agree; because the declaration is machine-readable, that agreement is checkable rather than hoped for.",
+    "es": "Declaración tipada y parametrizada de la geometría por la cual un cartucho acopla con otro: la unidad de componibilidad del procomún. Un cartucho declara cada interfaz con un id, un tipo de geometría, la norma que sigue (o 'internal') y los parámetros del manifiesto que le dan sus dimensiones. Dos objetos componen cuando comparten una interfaz y sus parámetros rectores concuerdan; y como la declaración es legible por máquina, esa concordancia se comprueba en vez de suponerse.",
+    "fr": "Déclaration typée et paramétrée de la géométrie par laquelle une cartouche s'accouple à une autre : l'unité de composabilité des communs. Une cartouche déclare chaque interface avec un identifiant, un type de géométrie, la norme qu'elle suit (ou « internal ») et les paramètres du manifeste qui lui donnent ses dimensions. Deux objets se composent lorsqu'ils partagent une interface et que leurs paramètres directeurs concordent ; la déclaration étant lisible par machine, cette concordance se vérifie au lieu de s'espérer.",
+    "pt": "Declaração tipada e parametrizada da geometria pela qual um cartucho acopla com outro: a unidade de componibilidade do comum. Um cartucho declara cada interface com um id, um tipo de geometria, a norma que segue (ou 'internal') e os parâmetros do manifesto que lhe dão as dimensões. Dois objetos compõem-se quando partilham uma interface e os seus parâmetros regentes concordam; e como a declaração é legível por máquina, essa concordância verifica-se em vez de se supor."
+  },
+  "aliases": [
+    {
+      "name": "cdg_interfaces",
+      "repo": "yantra4d",
+      "note": "The hyperobject.cdg_interfaces[] array in project-manifest.schema.json."
+    },
+    {
+      "name": "interfaces",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[] — the soft-side analogue, bound to piece edges rather than to faces, and matched by seam length rather than by fit."
+    }
+  ],
+  "embodied_by": ["yantra4d/zipper", "yantra4d/belt-buckle", "fashion-cabinet/bodice-block"],
+  "see_also": [
+    "grid",
+    "rail",
+    "thread",
+    "socket",
+    "snap",
+    "bolt-pattern",
+    "flange",
+    "sew-field",
+    "hardware-ref"
+  ],
+  "constraints": "Every parameter an interface names must be a real parameter id of the same manifest — an interface that cites a parameter neither side has declares a fit nothing dimensions.",
+  "notes": "The soft side matches interfaces by measured seam length within a tolerance, the solid side by shared geometry and standard. Same concept, two checking strategies, because cloth eases and steel does not."
+}

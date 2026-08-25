@@ -1,0 +1,22 @@
+{
+  "id": "watertight",
+  "domain": "geometry",
+  "term": {
+    "en": "watertight",
+    "es": "estanco",
+    "fr": "étanche",
+    "pt": "estanque"
+  },
+  "definition": {
+    "en": "Said of a mesh whose surface closes completely: every edge is shared by exactly two faces, leaving no boundary and no hole, so the mesh encloses a definite volume. It is the minimum bar for a solid that is going to be manufactured — a mesh with a hole has no unambiguous inside, so a slicer must guess where material goes, and what it guesses is not what the cartridge drew.",
+    "es": "Se dice de una malla cuya superficie cierra por completo: cada arista es compartida por exactamente dos caras, sin dejar frontera ni agujero, de modo que la malla encierra un volumen definido. Es la barra mínima para un sólido que va a fabricarse: una malla con un agujero no tiene un adentro inequívoco, así que el laminador debe adivinar dónde va el material, y lo que adivina no es lo que el cartucho dibujó.",
+    "fr": "Se dit d'un maillage dont la surface se referme complètement : chaque arête est partagée par exactement deux faces, sans laisser de bord ni de trou, de sorte que le maillage enferme un volume défini. C'est la barre minimale pour un solide destiné à la fabrication : un maillage troué n'a pas d'intérieur non ambigu, si bien que le trancheur doit deviner où va la matière, et ce qu'il devine n'est pas ce que la cartouche a dessiné.",
+    "pt": "Diz-se de uma malha cuja superfície fecha por completo: cada aresta é partilhada por exatamente duas faces, sem deixar fronteira nem buraco, de modo que a malha encerra um volume definido. É a barra mínima para um sólido que vai ser fabricado: uma malha com um buraco não tem um interior inequívoco, pelo que o fatiador tem de adivinhar onde vai o material, e o que adivinha não é o que o cartucho desenhou."
+  },
+  "aliases": [
+    { "name": "watertight", "repo": "yantra4d", "note": "One of the four mesh properties the render lane asserts for every (mode, part); a failure reports the boundary-edge count." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["body-count", "render-lane", "cdg-interface"],
+  "constraints": "Watertightness is asserted per rendered part, not per cartridge: a cartridge whose default mode renders closed can still have a part whose dispatch branch produces an open shell, which is why the lane renders every (mode, part) pair rather than sampling one."
+}

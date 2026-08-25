@@ -1,0 +1,31 @@
+{
+  "id": "body-measurements",
+  "domain": "cross-commons",
+  "term": {
+    "en": "body measurements",
+    "es": "medidas corporales",
+    "fr": "mensurations",
+    "pt": "medidas corporais"
+  },
+  "definition": {
+    "en": "The set of dimensions describing a body, from which a made-to-measure draft is generated. It is a cross-commons contract rather than a soft-side detail: the same measurement set drives a garment's pattern and a mannequin or form printed on the solid side, so the two commons must agree on what each name means and where on the body it is taken.",
+    "es": "El conjunto de dimensiones que describe un cuerpo, a partir del cual se genera un trazo a la medida. Es un contrato de todo el procomún y no un detalle del lado blando: el mismo conjunto de medidas alimenta el patrón de una prenda y un maniquí o forma impresos del lado sólido, así que ambos procomunes deben coincidir en qué significa cada nombre y dónde se toma sobre el cuerpo.",
+    "fr": "L'ensemble des dimensions décrivant un corps, à partir duquel un tracé sur mesure est engendré. C'est un contrat commun aux deux moitiés et non un détail du côté souple : le même jeu de mesures alimente le patron d'un vêtement et un mannequin ou une forme imprimés du côté solide, de sorte que les deux communs doivent s'accorder sur le sens de chaque nom et sur l'endroit du corps où il se prend.",
+    "pt": "O conjunto de dimensões que descreve um corpo, a partir do qual se gera um traçado à medida. É um contrato de ambos os comuns e não um detalhe do lado macio: o mesmo conjunto de medidas alimenta o molde de uma peça e um manequim ou forma impressos do lado sólido, pelo que os dois comuns têm de concordar no que significa cada nome e onde se toma sobre o corpo."
+  },
+  "aliases": [
+    { "name": "body-measurements", "repo": "fashion-cabinet", "note": "A spec v1 contract with its own schema and checkable via fc-spec check body-measurements." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/bodice-block",
+    "yantra4d/body-form",
+    "yantra4d/figure-child",
+    "yantra4d/lingerie-form"
+  ],
+  "see_also": ["ease", "cross-commons-identity", "shoulder-slope", "back-neck-rise"],
+  "constraints": "A body measurement is the body, never the garment: it carries no ease and no seam allowance. Feeding a finished-garment dimension into a measurement field silently adds the ease twice, once where the draft applies it and once where it was already baked in.",
+  "sources": [
+    "ISO 8559-1 — Size designation of clothes: anthropometric definitions for body measurement"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "neckline",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "neckline",
+    "es": "escote",
+    "fr": "encolure",
+    "pt": "decote"
+  },
+  "definition": {
+    "en": "The finished edge of a garment around the neck, taken as the front and back curves together. As an interface it is what a collar, a facing or a binding attaches to, and it composes by measured length: a collar drafted for one neckline fits another only if the two edges measure the same. Its shape is set by the neck drops and the neck widths, which is why changing either changes what will still fit it.",
+    "es": "El canto terminado de una prenda alrededor del cuello, tomado como las curvas delantera y trasera juntas. Como interfaz, es aquello a lo que se fija un cuello, una vista o un ribete, y compone por longitud medida: un cuello trazado para un escote entra en otro sólo si ambos cantos miden lo mismo. Su forma la fijan las profundidades y los anchos de escote, y por eso cambiar cualquiera de ellos cambia lo que seguirá entrando.",
+    "fr": "Le bord fini d'un vêtement autour du cou, pris comme les courbes devant et dos réunies. En tant qu'interface, c'est ce à quoi se fixe un col, une parementure ou un biais, et elle se compose par longueur mesurée : un col tracé pour une encolure convient à une autre seulement si les deux bords mesurent pareil. Sa forme est fixée par les profondeurs et les largeurs d'encolure, et c'est pourquoi modifier l'une ou l'autre change ce qui pourra encore s'y adapter.",
+    "pt": "O bordo acabado de uma peça em redor do pescoço, tomado como as curvas da frente e das costas em conjunto. Enquanto interface, é aquilo a que se fixa uma gola, um reforço ou um debrum, e compõe-se por comprimento medido: uma gola traçada para um decote serve noutro apenas se ambos os bordos medirem o mesmo. A sua forma é fixada pelas profundidades e larguras de decote, e por isso mudar qualquer uma muda o que ainda lhe servirá."
+  },
+  "aliases": [
+    { "name": "neckline", "repo": "fashion-cabinet", "note": "An interface type on 104 cartridges — the second most common declared garment interface." }
+  ],
+  "embodied_by": ["fashion-cabinet/bodice-block", "fashion-cabinet/blouse", "fashion-cabinet/huipil"],
+  "see_also": ["neck-drop", "back-neck-rise", "armscye", "cdg-interface"],
+  "constraints": "The finished neckline must still pass over the head unless the garment opens: a neckline whose measured length is smaller than the head circumference needs a placket, a zip or a stretch fabric, and the draft that omits all three produces a garment that cannot be put on."
+}

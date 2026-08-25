@@ -1,0 +1,22 @@
+{
+  "id": "socket",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "socket",
+    "es": "alojamiento",
+    "fr": "logement",
+    "pt": "encaixe"
+  },
+  "definition": {
+    "en": "A CDG interface type: a bore or cavity that receives and locates a mating body, holding it by fit rather than by a fastener. The most common interface in the solid commons, because most repairs are a matter of accepting something that already exists — a tube, a shaft, a bottle neck — at the size it already is.",
+    "es": "Tipo de interfaz CDG: un barreno o cavidad que recibe y ubica un cuerpo acoplado, sujetándolo por ajuste y no por herraje. Es la interfaz más frecuente del procomún sólido, porque la mayoría de las reparaciones consisten en aceptar algo que ya existe —un tubo, un eje, un cuello de botella— con la medida que ya tiene.",
+    "fr": "Type d'interface CDG : un alésage ou une cavité qui reçoit et positionne un corps accouplé, le retenant par ajustement et non par visserie. C'est l'interface la plus fréquente des communs solides, car la plupart des réparations consistent à accepter quelque chose qui existe déjà — un tube, un arbre, un col de bouteille — à la dimension qu'il a déjà.",
+    "pt": "Tipo de interface CDG: um furo ou cavidade que recebe e posiciona um corpo acoplado, segurando-o por ajuste e não por ferragem. É a interface mais frequente do comum sólido, porque a maioria das reparações consiste em aceitar algo que já existe — um tubo, um veio, um gargalo de garrafa — na medida que já tem."
+  },
+  "aliases": [
+    { "name": "socket", "repo": "yantra4d", "note": "geometry_type value; 160 declared interfaces, the most common type in the catalog." }
+  ],
+  "embodied_by": ["yantra4d/ball-socket", "yantra4d/boning-stay", "yantra4d/brick-tile"],
+  "see_also": ["cdg-interface", "thread", "snap", "rail"],
+  "constraints": "A socket's dimension is the mating body's, plus a clearance the cartridge must expose as a parameter — a bore drawn at the nominal size of the thing it receives does not receive it."
+}

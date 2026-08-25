@@ -1,0 +1,23 @@
+{
+  "id": "armscye",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "armscye",
+    "es": "sisa",
+    "fr": "emmanchure",
+    "pt": "cava"
+  },
+  "definition": {
+    "en": "The armhole of a bodice: the shaped opening, front and back together, into which a sleeve is set. It is the soft commons' clearest example of a composability contract — a sleeve fits a bodice when the sleeve's cap measures the armscye plus the intended cap ease, so two independently drafted cartridges compose if and only if two lengths agree within a tolerance.",
+    "es": "El agujero de manga de un corpiño: la abertura conformada, delantera y trasera juntas, en la que se monta una manga. Es el ejemplo más nítido de contrato de componibilidad en el procomún blando: una manga entra en un corpiño cuando la copa de la manga mide la sisa más la holgura de copa prevista, de modo que dos cartuchos trazados por separado componen si y sólo si dos longitudes coinciden dentro de una tolerancia.",
+    "fr": "L'emmanchure d'un corsage : l'ouverture façonnée, devant et dos réunis, dans laquelle une manche est montée. C'est l'exemple le plus net de contrat de composabilité dans les communs souples : une manche entre dans un corsage quand la tête de manche mesure l'emmanchure plus l'embu prévu, de sorte que deux cartouches tracées séparément se composent si et seulement si deux longueurs concordent à une tolérance près.",
+    "pt": "A cava de um corpete: a abertura moldada, frente e costas em conjunto, na qual se monta uma manga. É o exemplo mais nítido de contrato de componibilidade no comum macio: uma manga entra num corpete quando a copa da manga mede a cava mais a folga de copa prevista, de modo que dois cartuchos traçados em separado se compõem se e só se dois comprimentos concordarem dentro de uma tolerância."
+  },
+  "aliases": [
+    { "name": "armscye", "repo": "fashion-cabinet", "note": "An interface type on 101 cartridges, and an edge name in the explode payload; the sleeve side is measured as the cap." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": ["fashion-cabinet/bodice-block", "fashion-cabinet/blouse", "fashion-cabinet/blazer"],
+  "see_also": ["shoulder-slope", "raglan", "ease", "cdg-interface"],
+  "constraints": "The armscye is measured as the sum of the front and back edges, so it is a property of the pair of pieces and not of either one: changing a side seam or a shoulder on one piece alone changes the armscye a sleeve was drafted against."
+}

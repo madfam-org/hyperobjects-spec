@@ -204,6 +204,140 @@ Existence is a platform-side lane.
 
 ---
 
+## The Commons Lexicon
+
+**One physical thing can also have two names.** Fashion Cabinet calls the sewn margin of
+a zipper `zipper_tape`; Yantra4D calls the same surface `tape_edge`. Neither is wrong —
+one names the garment's edge, the other the solid's mating face — but a reader holding
+either word must land on the same entry. Shared vocabulary belongs to neither half of
+the commons alone, which is why it lives here (RFC 0039 §4), the same extraction this
+package already performed on the conformance bar.
+
+The cost of *not* having it is not hypothetical. A drafting term whose semantics lived
+only in five copied code comments carried a copied bug into five landed garment
+cartridges — back shoulder seams up to 83.5 mm wrong at legal parameters
+(fashion-cabinet #113). A term entry is where that definition, **and its constraint**,
+gets written once.
+
+```bash
+fc-spec lexicon                          # or: y4d-spec lexicon
+fc-spec lexicon --catalog bundled        # + resolve every embodied_by slug (hermetic)
+fc-spec lexicon --status                 # just the N/M line
+fc-spec lexicon -v                       # list every term
+```
+
+```
+$ y4d-spec lexicon --catalog bundled
+y4d-spec lexicon: terms=30 failures=0 embodied_by=resolved
+lexicon_status: 30/30 terms quadrilingual (es/en/fr/pt) domains=6
+```
+
+Without `--catalog`, the summary says `embodied_by=NOT resolved (94 refs)` — the same
+read-proof bar `--render` holds. A run that skipped a check must never read like one
+that passed it.
+
+### What a term is
+
+Terms are **born quadrilingual** — `en`, `es`, `fr`, `pt`, all four required to ship
+(RFC 0039 §7). That is a gate rather than an aspiration: four languages are only cheap
+at authoring time, and every entry that ships partial becomes a backfill nobody
+schedules. Spanish is the house register and the quality bar; French and Portuguese are
+reviewed, not merely generated.
+
+One JSON file per term in `src/hyperobjects_lexicon/terms/`, and **the filename is the
+id** — the corpus is browsable with `ls`, and the lane enforces the agreement.
+
+```jsonc
+{
+  "id": "back-neck-rise",
+  "domain": "pattern-drafting",
+  "term":       { "en": "back-neck rise", "es": "elevación del escote trasero", ... },
+  "definition": { "en": "How much higher the back neck point sits than …", ... },
+  "aliases":    [{ "name": "back_neck_rise_mm", "repo": "fashion-cabinet", "note": "…" }],
+  "standards":  ["ISO 8559-1"],
+  "embodied_by": ["fashion-cabinet/magnetic-placket-shirt", ...],  // '<repo>/<slug>'
+  "see_also":   ["shoulder-slope", "neck-drop"],                   // validated term ids
+  "constraints": "The DRAWN rise must track any flattening of the shoulder run. …",
+  "sources":    ["fashion-cabinet#113 — …"]
+}
+```
+
+`constraints` is the field that pays for the lexicon: the clamp rule or degeneracy trap
+that would otherwise live in a code comment and be copied, bug and all, into the next
+cartridge. `aliases` is how a dialect split gets absorbed rather than papered over —
+each spelling recorded with the repo where it is real.
+
+> **Why JSON, not the YAML of the RFC sketch.** This package promises manifest
+> conformance is "pure python, runs in under a second", and its base install declares
+> exactly one dependency. Adding a YAML parser so a data file can have nicer quotes
+> would tax every third party installing this package to check a cartridge. Every other
+> data file here is JSON, `json` is in the standard library, and the content is
+> unchanged. So: JSON files, YAML-shaped content, no new dependency.
+
+### What the lane checks
+
+| Check | Fails when |
+|---|---|
+| Schema | the entry violates `lexicon-term.schema.json` (unknown field, bad id shape, bad domain) |
+| Four languages | any of `en/es/fr/pt` is missing **or blank** in `term` or `definition` |
+| Cross-references | a `see_also` points at a term that does not exist, or at itself |
+| Citations | a `heritage: true` entry carries no `sources` (RFC 0039 §7) |
+| Identity | the filename and the `id` disagree, or two entries share an id |
+| `embodied_by` | a slug does not resolve — **only when a catalog is supplied** |
+
+That last row is deliberate. This package has no repo to look in, exactly as the
+identity key does not check whether a slug exists. `--catalog bundled` uses a vendored
+snapshot of both commons' slug sets, so CI runs the strict check with no platform
+checkout and no network; `--catalog <path>` takes a live `commons-catalog.json`. The
+snapshot goes stale in one direction only — a term naming a newly added cartridge fails
+here while being correct in the commons, which asks for a refresh rather than silently
+passing:
+
+```bash
+python3 scripts/refresh_catalog_snapshot.py --yantra4d ../yantra4d \
+                                            --fashion-cabinet ../fashion-cabinet
+```
+
+### How platforms consume it
+
+```python
+from hyperobjects_lexicon import load_lexicon, check_lexicon, lexicon_status
+
+lex = load_lexicon()                       # the bundled corpus, id -> term dict
+lex["tape-edge"]["term"]["pt"]             # 'debrum de fita costurado'
+lex["tape-edge"]["aliases"]                # both dialects, each with its repo
+
+check_lexicon(lex).ok                      # the lane, as a library call
+lexicon_status(lex)                        # the house N/M line
+```
+
+Each platform renders its own surfaces from this — term popovers on catalog facets and
+parameter labels, an A–Z lexicon page, and the `define(term, lang)` MCP tool — while the
+*articles* stay in each commons as each one's editorial property (RFC 0039 §2, §4).
+
+### Adding a term — the contribution bar
+
+1. **One file, `terms/<id>.json`**, id in kebab-case, filename matching.
+2. **All four languages, written not generated.** Machine translation is acceptable as a
+   draft and never as shipped copy. Write `es` to native quality; have `fr`/`pt`
+   reviewed. A partial entry does not merge — there is no "add the rest later" lane.
+3. **Point at real objects.** `embodied_by` names cartridges where the term is actually
+   real. A term nothing embodies is a term nobody needed.
+4. **Carry the constraint** if the term has one. This is the whole point.
+5. **Cite cultural or historical claims.** Set `heritage: true` and give `sources` — the
+   lane fails an uncited claim, by design, and it constrains velocity on purpose.
+6. **Link, don't dangle.** Every `see_also` must resolve.
+
+```bash
+.venv/bin/fc-spec lexicon --catalog bundled   # then run the lane
+.venv/bin/python -m pytest tests/test_lexicon.py
+```
+
+Renaming an `id` is a **breaking change**: it is what `see_also` points at and what a
+platform's `define()` resolves.
+
+---
+
 ## What is in the box
 
 | Package | What it is |
@@ -212,11 +346,13 @@ Existence is a platform-side lane.
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
+| `hyperobjects_lexicon` | the Commons Lexicon corpus and its validation lane |
 
 ```python
 import hyperobjects_schemas as hs
 hs.list_schemas()               # ['body-measurements', 'cross-commons-identity',
-                                #  'fabric-manifest', 'garment-manifest', 'project-manifest']
+                                #  'fabric-manifest', 'garment-manifest', 'lexicon-term',
+                                #  'project-manifest']
 hs.load("project-manifest")
 ```
 
@@ -229,12 +365,18 @@ permission to execute untrusted cartridges unsandboxed.
 
 ## Scope
 
-Everything here is a property of **one cartridge**, checkable by anyone, anywhere.
+The conformance checks here are properties of **one cartridge**, checkable by anyone,
+anywhere.
 
 Repo-wide checks deliberately stay in the platforms — catalog drift, cross-cartridge
 slug uniqueness, OpenSCAD↔CadQuery geometric parity, and whether a paired slug actually
 exists. They are not properties of a cartridge, so a third party could not run them
 anyway.
+
+The **lexicon** is the one thing here that is not per-cartridge, and it is here for the
+opposite reason: it is a property of *both* commons at once, so it could not live in
+either one (RFC 0039 §4). Its corpus ships with the package, so it stays checkable
+without a platform checkout like everything else.
 
 Platform maintainers: [`docs/P1B_ADOPTION.md`](docs/P1B_ADOPTION.md) is the checklist for
 making `fashion-cabinet` and `yantra4d` consume this package, including every behavior

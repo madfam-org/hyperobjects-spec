@@ -1,0 +1,32 @@
+{
+  "id": "flange",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "flange",
+    "es": "pestaña",
+    "fr": "collerette",
+    "pt": "aba"
+  },
+  "definition": {
+    "en": "A CDG interface type: a flat projecting face by which a solid is attached to something broader than itself — bolted, bonded, or, in this commons distinctively often, sewn. A flange is the solid side's answer to a soft edge: it gives cloth a plane to meet, and gives the needle somewhere to go that is not through the working geometry.",
+    "es": "Tipo de interfaz CDG: una cara plana y saliente por la cual un sólido se fija a algo más ancho que él mismo —atornillado, pegado o, de manera muy característica en este procomún, cosido. La pestaña es la respuesta del lado sólido a un canto blando: le da a la tela un plano donde encontrarse y le da a la aguja un lugar por donde pasar que no sea la geometría de trabajo.",
+    "fr": "Type d'interface CDG : une face plate en saillie par laquelle un solide se fixe à quelque chose de plus large que lui — boulonné, collé ou, de façon très caractéristique dans ces communs, cousu. La collerette est la réponse du côté solide à un bord souple : elle donne au tissu un plan où se rencontrer, et à l'aiguille un passage qui n'est pas la géométrie de travail.",
+    "pt": "Tipo de interface CDG: uma face plana e saliente pela qual um sólido se fixa a algo mais largo do que ele — aparafusado, colado ou, de forma muito característica neste comum, costurado. A aba é a resposta do lado sólido a um debrum macio: dá ao tecido um plano onde se encontrar e dá à agulha um sítio por onde passar que não seja a geometria de trabalho."
+  },
+  "aliases": [
+    {
+      "name": "flange",
+      "repo": "yantra4d",
+      "note": "geometry_type value, 48 declared interfaces across the catalog — but NOT in the project-manifest schema's geometry_type enum, which lists eleven values and omits this one. The catalog is ahead of the schema."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/sew-on-snap",
+    "yantra4d/boning-stay",
+    "yantra4d/bra-ring-slider",
+    "yantra4d/battery-pocket-frame"
+  ],
+  "see_also": ["cdg-interface", "sew-field", "tape-edge", "hardware-ref"],
+  "constraints": "A sewn flange must be wide enough to carry a seam allowance and thin enough for a machine needle to pass — a flange dimensioned only for strength is a flange nothing can attach to.",
+  "notes": "The flange type is the hinge of the whole cross-commons handshake: it is the geometry_type that hardware-ref's dimensional rule keys on, so what a soft cartridge can meet dimensionally is exactly what a solid cartridge declares as a flange."
+}

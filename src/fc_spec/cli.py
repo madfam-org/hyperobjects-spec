@@ -3,6 +3,7 @@
     fc-spec list
     fc-spec check <contract> <file> [<file> ...] [--resolve catalog.json]
     fc-spec identity <pair.json> [<pair.json> ...]
+    fc-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
 read errors. Output is read-proof: it prints how many files it checked, and
@@ -11,6 +12,8 @@ checking zero files is a usage error.
 `identity` checks a cross-commons identity pair record (RFC 0038 §9) — the same
 check `y4d-spec identity` runs, exposed on both tools so a contributor on either
 side of the commons can validate a pair with what they already have installed.
+`lexicon` (RFC 0039) is exposed on both tools for the same reason: the shared
+vocabulary belongs to neither half of the commons alone.
 `list` and `check` are unchanged: they are a published contract.
 """
 
@@ -20,6 +23,8 @@ import argparse
 import json
 import sys
 from pathlib import Path
+
+from hyperobjects_lexicon.cli import add_lexicon_parser, run_lexicon
 
 from .conformance import CONTRACTS, check, list_contracts
 
@@ -73,7 +78,12 @@ def main(argv: list[str] | None = None) -> int:
     p_id = sub.add_parser("identity", help="check a cross-commons identity pair file")
     p_id.add_argument("files", nargs="+", help="pair record JSON file(s)")
 
+    add_lexicon_parser(sub, "fc-spec")
+
     args = parser.parse_args(argv)
+
+    if args.cmd == "lexicon":
+        return run_lexicon(args, "fc-spec")
 
     if args.cmd == "list":
         for name in list_contracts():

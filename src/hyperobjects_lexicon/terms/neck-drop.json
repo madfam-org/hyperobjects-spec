@@ -1,0 +1,28 @@
+{
+  "id": "neck-drop",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "neck drop",
+    "es": "profundidad de escote",
+    "fr": "profondeur d'encolure",
+    "pt": "profundidade de decote"
+  },
+  "definition": {
+    "en": "How far the neckline is cut down from the neck point, measured on the centre line. Front and back carry different drops — the front is always deeper, because a neck is not symmetrical front to back — and the difference between the two is what a draft calls the back-neck rise. The drop is a style choice with a structural consequence, since it sets how much of the neck circumference the finished opening must still travel around.",
+    "es": "Cuánto se baja el escote desde el punto de cuello, medido sobre la línea central. El delantero y el trasero llevan profundidades distintas —el delantero siempre es más profundo, porque un cuello no es simétrico de frente a espalda— y la diferencia entre ambos es lo que un trazo llama elevación del escote trasero. La profundidad es una decisión de estilo con consecuencia estructural, pues fija cuánto del contorno de cuello debe todavía recorrer la abertura terminada.",
+    "fr": "De combien l'encolure est dégagée depuis le point de cou, mesuré sur la ligne médiane. Le devant et le dos portent des profondeurs différentes — le devant est toujours plus profond, car un cou n'est pas symétrique d'avant en arrière — et la différence entre les deux est ce qu'un tracé appelle la remontée d'encolure dos. La profondeur est un choix de style à conséquence structurelle, puisqu'elle fixe la part du tour de cou que l'ouverture finie doit encore parcourir.",
+    "pt": "Quanto o decote é aberto a partir do ponto de pescoço, medido sobre a linha central. A frente e as costas levam profundidades diferentes — a frente é sempre mais funda, porque um pescoço não é simétrico da frente para trás — e a diferença entre ambas é o que um traçado chama subida do decote das costas. A profundidade é uma escolha de estilo com consequência estrutural, pois fixa quanto do contorno do pescoço a abertura acabada ainda tem de percorrer."
+  },
+  "aliases": [
+    { "name": "neck_drop", "repo": "fashion-cabinet", "note": "A manifest parameter id; drafts that distinguish the two sides use front_neck_drop / NECK_DROP_F and NECK_DROP_B." }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/huipil",
+    "fashion-cabinet/haori",
+    "fashion-cabinet/knit-poncho-wrap",
+    "fashion-cabinet/agbada"
+  ],
+  "see_also": ["back-neck-rise", "shoulder-slope", "neckline"],
+  "constraints": "A deep front drop against a narrow shoulder is the combination that degenerates the shoulder solve: the two are only independent inside a range, and outside it the draft has to flatten the back rise rather than honour both numbers."
+}

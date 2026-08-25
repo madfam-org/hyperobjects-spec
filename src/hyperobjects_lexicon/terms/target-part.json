@@ -1,0 +1,22 @@
+{
+  "id": "target-part",
+  "domain": "manifest",
+  "term": {
+    "en": "target part",
+    "es": "parte objetivo",
+    "fr": "pièce cible",
+    "pt": "peça alvo"
+  },
+  "definition": {
+    "en": "The parameter through which a caller tells a multi-part cartridge which piece to render. It arrives as a bare global that the cartridge's code branches on, which makes it the one parameter whose value has to match an id declared elsewhere in the manifest: ask for a name the code does not branch on and the cartridge answers with its fallback body instead of an error.",
+    "es": "El parámetro con el que quien invoca le dice a un cartucho de varias partes cuál pieza renderizar. Llega como una global desnuda sobre la que ramifica el código del cartucho, lo que lo convierte en el único parámetro cuyo valor debe coincidir con un id declarado en otra parte del manifiesto: pide un nombre sobre el que el código no ramifica y el cartucho responde con su cuerpo de respaldo en vez de con un error.",
+    "fr": "Le paramètre par lequel un appelant indique à une cartouche multi-pièces laquelle rendre. Il arrive sous forme de variable globale nue sur laquelle le code de la cartouche se branche, ce qui en fait le seul paramètre dont la valeur doit correspondre à un identifiant déclaré ailleurs dans le manifeste : demandez un nom sur lequel le code ne se branche pas et la cartouche répond par son corps de repli plutôt que par une erreur.",
+    "pt": "O parâmetro pelo qual quem invoca diz a um cartucho de várias partes qual peça renderizar. Chega como uma global nua sobre a qual o código do cartucho ramifica, o que faz dele o único parâmetro cujo valor tem de coincidir com um id declarado noutro ponto do manifesto: peça um nome sobre o qual o código não ramifica e o cartucho responde com o seu corpo de recurso em vez de com um erro."
+  },
+  "aliases": [
+    { "name": "target_part", "repo": "yantra4d", "note": "The bare global the runner injects; the manifest's dispatch rules check that a single-part mode's id equals its part id, because that id is what arrives here." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["render-lane", "body-count", "cartridge"],
+  "constraints": "A single-part mode's id must equal its part id, because the mode id is what arrives as the target part. A mode named 'lid' whose part is 'lid_body' silently renders the fallback branch, and every check downstream passes on the wrong geometry."
+}

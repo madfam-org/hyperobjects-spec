@@ -1,0 +1,22 @@
+{
+  "id": "render-lane",
+  "domain": "geometry",
+  "term": {
+    "en": "render lane",
+    "es": "carril de render",
+    "fr": "voie de rendu",
+    "pt": "via de renderização"
+  },
+  "definition": {
+    "en": "The check that actually executes a cartridge and judges the mesh it produces, as opposed to the checks that only read its manifest. It renders every mode-and-part combination through the same restricted sandbox the platform uses and requires each result to enclose a volume, to have positive volume, to contain no inverted body, and to differ from the cartridge's fallback body. It is the only check that can tell whether a cartridge's declarations are true.",
+    "es": "La comprobación que ejecuta de verdad un cartucho y juzga la malla que produce, a diferencia de las comprobaciones que sólo leen su manifiesto. Renderiza cada combinación de modo y parte a través del mismo entorno restringido que usa la plataforma y exige que cada resultado encierre un volumen, tenga volumen positivo, no contenga ningún cuerpo invertido y difiera del cuerpo de respaldo del cartucho. Es la única comprobación capaz de decir si las declaraciones de un cartucho son ciertas.",
+    "fr": "Le contrôle qui exécute réellement une cartouche et juge le maillage qu'elle produit, par opposition aux contrôles qui ne lisent que son manifeste. Il rend chaque combinaison de mode et de pièce à travers le même bac à sable restreint qu'emploie la plateforme et exige que chaque résultat enferme un volume, ait un volume positif, ne contienne aucun corps inversé et diffère du corps de repli de la cartouche. C'est le seul contrôle capable de dire si les déclarations d'une cartouche sont vraies.",
+    "pt": "A verificação que executa de facto um cartucho e julga a malha que produz, ao contrário das verificações que apenas leem o seu manifesto. Renderiza cada combinação de modo e parte através do mesmo ambiente restrito que a plataforma usa e exige que cada resultado encerre um volume, tenha volume positivo, não contenha nenhum corpo invertido e difira do corpo de recurso do cartucho. É a única verificação capaz de dizer se as declarações de um cartucho são verdadeiras."
+  },
+  "aliases": [
+    { "name": "--render", "repo": "yantra4d", "note": "The y4d-spec check flag that enables it; it needs a CAD kernel, so it is opt-in and a run without it reports geometry as NOT verified." }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["watertight", "body-count", "target-part"],
+  "constraints": "A run that skipped the render lane must never read like one that passed it. The summary line states whether geometry was verified, and asking for the lane without the kernel installed is refused rather than silently downgraded."
+}
