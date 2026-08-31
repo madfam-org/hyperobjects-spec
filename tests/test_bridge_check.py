@@ -197,6 +197,7 @@ def test_expression_evaluator_refuses_anything_outside_the_grammar():
 
 # ── the handshake (geometry) ─────────────────────────────────────────────────
 @pytest.mark.geometry
+@pytest.mark.geometry
 def test_happy_path_passes(tmp_path):
     """Both mapped parameters drive the solid: renders, and both prove responsive."""
     fc, y4d = _build(
@@ -214,6 +215,7 @@ def test_happy_path_passes(tmp_path):
         assert p.delta > 1.0
 
 
+@pytest.mark.geometry
 @pytest.mark.geometry
 def test_a_params_map_key_the_script_ignores_is_caught_as_dead(tmp_path):
     """THE bug class. `plate_d` is a declared parameter of the target (so every
@@ -251,6 +253,7 @@ def test_the_structural_check_alone_passes_the_dead_link(tmp_path):
 
 
 @pytest.mark.geometry
+@pytest.mark.geometry
 def test_out_of_range_mapping_clamps_and_is_skipped_not_failed(tmp_path):
     """A mapped value sitting AT the parameter's max: +10% would leave the declared
     range, so it is clamped — and clamping back to the same value proves nothing.
@@ -272,6 +275,7 @@ def test_out_of_range_mapping_clamps_and_is_skipped_not_failed(tmp_path):
 
 
 @pytest.mark.geometry
+@pytest.mark.geometry
 def test_default_at_max_perturbs_downward(tmp_path):
     """When the mapped value IS the max, -10% is inside the range by construction —
     so the parameter is still provable, and must not be skipped."""
@@ -285,6 +289,7 @@ def test_default_at_max_perturbs_downward(tmp_path):
     assert probe.responsive is True
 
 
+@pytest.mark.geometry
 @pytest.mark.geometry
 def test_render_failure_at_mapped_values_is_reported(tmp_path):
     """A garment mapping a value the solid cannot build at. Here the mapping drives
@@ -306,6 +311,7 @@ def test_render_failure_at_mapped_values_is_reported(tmp_path):
     )
 
 
+@pytest.mark.geometry
 @pytest.mark.geometry
 def test_target_already_broken_at_its_own_defaults_is_skipped_not_failed(tmp_path):
     """THE false positive the first calibration run produced. Two real yantra4d
@@ -381,6 +387,7 @@ def test_out_of_range_mapping_is_detected():
 
 
 @pytest.mark.geometry
+@pytest.mark.geometry
 def test_out_of_range_mapping_is_a_measurement_not_a_failure(tmp_path):
     """House doctrine: a new rule lands as a measurement, gets calibrated, and only
     then may block. The range finding is counted and printed, and the link still
@@ -419,6 +426,7 @@ def test_target_cap_bounds_the_render_budget_and_says_so():
 
 
 @pytest.mark.geometry
+@pytest.mark.geometry
 def test_range_check_covers_every_key_not_just_the_probed_ones(tmp_path):
     """CALIBRATION FINDING 4. The range check is pure arithmetic — it costs no
     render — so it must not inherit the probe budget. `balconette-bra` hardcodes
@@ -437,6 +445,7 @@ def test_range_check_covers_every_key_not_just_the_probed_ones(tmp_path):
     assert "below the target parameter's declared min 20" in v.range_problems[0]
 
 
+@pytest.mark.geometry
 @pytest.mark.geometry
 def test_max_probes_caps_the_render_budget(tmp_path):
     fc, y4d = _build(
@@ -484,6 +493,7 @@ def test_cli_reports_counts_and_exits_zero(tmp_path, capsys):
     assert "geometry was NOT verified" in out
 
 
+@pytest.mark.geometry
 @pytest.mark.geometry
 def test_cli_exits_nonzero_on_a_dead_param(tmp_path, capsys):
     from bridge_check.cli import main

@@ -19,6 +19,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: System libraries for the CAD kernel (libGL for OCP)
+        # The [geometry] extra pulls OCP (OpenCascade), whose C-extension dlopen's
+        # libGL at import. The self-hosted runner image ships without it, which made
+        # the whole geometry lane import-fail. Install it so geometry ACTUALLY runs
+        # here rather than skipping — the `geometry available: True` line below is the
+        # read-proof. Never fail the build on this step: the suite skips the geometry
+        # tests cleanly when the kernel can't import, so a runner that forbids apt
+        # degrades to a (weaker) manifest-only run instead of going red.
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
+            $SUDO apt-get update -qq && \
+            $SUDO apt-get install -y --no-install-recommends libgl1 libglib2.0-0 \
+              || echo "::warning::could not install libGL — geometry tests will skip"
+          else
+            echo "::warning::apt-get unavailable — geometry tests will skip"
+          fi
+
       - name: Create a clean virtualenv
         run: python3 -m venv .venv
 

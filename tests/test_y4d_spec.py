@@ -807,6 +807,7 @@ def test_printability_is_silent_on_sew_on_snap_at_its_defaults():
     assert default_notes == [], default_notes
 
 
+@geometry_required
 def test_printability_note_on_a_marginal_preset_does_not_block():
     """The one finding the tuned thresholds keep on sew-on-snap, and it is TRUE: the
     'bodysuit_placket' preset is the 9mm snap with 1.6mm discs, and its sew-hole
