@@ -14,7 +14,7 @@ imported the API app. This package is that bar, extracted: one `pip install`, tw
 commands, no platform checkout.
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.1.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
 
 y4d-spec check ./my-cartridge --render          # a Yantra4D cartridge, geometry and all
 fc-spec check garment-manifest ./my-garment.json
@@ -28,11 +28,11 @@ Passing these checks and passing the platforms' CI are meant to be the same thin
 
 ```bash
 # Manifest conformance only — pure python, runs in under a second.
-pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@v0.1.0"
+pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
 
 # Plus geometry verification: actually renders your cartridge and inspects the mesh.
 # Pulls a CAD kernel (~400MB), so it is opt-in.
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.1.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
 ```
 
 Python 3.11+.
@@ -43,7 +43,9 @@ Python 3.11+.
 
 ```bash
 y4d-spec check ./my-cartridge              # manifest + files
-y4d-spec check ./my-cartridge --render     # + render every (mode, part) and judge the mesh
+y4d-spec check ./my-cartridge --render     # + render every (mode, part) AND every preset
+y4d-spec check ./my-cartridge --render --no-presets        # defaults only (weaker)
+y4d-spec check ./my-cartridge --render --no-printability   # skip the print-time notes
 y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 ```
@@ -70,21 +72,62 @@ through the *same restricted sandbox the platform uses*, then requires each mesh
   `target_part` dispatch is not wired, and the platform will silently serve the wrong
   body.
 
+**The preset matrix.** `--render` applies that same bar a second time: once at your
+cartridge's own defaults, and again at **every preset your manifest declares**. A
+preset is the parameter point a user actually clicks, and the defaults render says
+nothing about it — a shipped preset of `extrusion-hyperobject` crashed the CAD kernel
+at `degradation_state=5` while the default-params check stayed green. A preset that
+raises or produces broken geometry is a **failure**, with no calibration excuse: it is
+the existing rule evaluated somewhere new, not a new heuristic. A preset that renders
+geometry *identical* to the defaults while setting values that differ from them is a
+**note** — either the values never reach your script, or your `PARAM` fallbacks
+already equal them and your manifest's declared defaults drifted. Presets that merely
+restate the defaults (the UI's reset button) are exempt. `--no-presets` skips the lane;
+OpenSCAD modes are skipped there exactly as they are in the defaults pass.
+
+**Printability notes.** `--render` also *measures* each passing mesh for print-time
+trouble and says what it found — **never as a failure**:
+
+- **thin walls** — median local wall thickness below 0.8mm (two 0.4mm nozzle perimeters),
+- **overhangs** — more than 25% of surface area in unsupported downward slope (over 45°
+  from vertical, excluding the face resting on the bed),
+- **build volume** — bounding box over 256mm on any axis.
+
+Every note names the number it measured, because **every one of these thresholds is
+provisional** pending a full-commons calibration. They are measurements you can argue
+with, not rules you have to satisfy. `--no-printability` skips them.
+
 ```
 $ y4d-spec check ./sew-on-snap --render -v
-  ok sew-on-snap (./sew-on-snap, 3 render(s) verified)
+  ok sew-on-snap (./sew-on-snap, 5 render(s) verified (2 preset))
        (set, set): ok — volume 415.56mm³, 2 body/bodies, watertight
        (stud, stud): ok — volume 227.55mm³, 1 body/bodies, watertight
        (socket, socket): ok — volume 188.01mm³, 1 body/bodies, watertight
-y4d-spec check: cartridges=1 failures=0 notes=0 geometry=verified renders=3
+       (set, set, preset 'bodysuit_placket'): ok — volume 180.28mm³, 2 body/bodies, watertight
+       (set, set, preset 'varsity_placket'): ok — volume 1109.51mm³, 2 body/bodies, watertight
+  note sew-on-snap: (set, set, preset 'bodysuit_placket'): thin walls — median local
+       thickness is 0.76mm (over 400 surface samples), below 0.8mm (two 0.4mm
+       perimeters). May print under-extruded or not at all on an FDM machine.
+       Threshold is provisional.
+y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 presets=2
 ```
 
+That note is a good illustration of the posture: it is *true* — the 9mm snap's
+sew-hole webbing really does measure 0.76mm — and it is *marginal*, 0.04mm under a
+provisional bar, on a cartridge that prints fine today. So it gets said, with its
+number attached, and the exit code stays `0`.
+
 Without `--render`, the summary says `geometry=NOT verified` — a run that skipped the
-render lane must never read like one that passed it.
+render lane must never read like one that passed it. The `presets=` count is on the
+line for the same reason.
 
 **Notes vs failures.** Some things are true and worth saying but are not conformance
 failures — an `include <../../libs/BOSL2/std.scad>` works inside the Yantra4D repo and
-nowhere else. Those print as `note` and never change the exit code.
+nowhere else; a wall that measures 0.6mm may be exactly what you meant. Those print as
+`note` and never change the exit code. **New rules land here first.** A rule that flags
+healthy cartridges is not strict, it is wrong: `render_mode` uniqueness looked like a
+real bar and flagged 29 correct cartridges, so it was killed and the reason recorded in
+`rules.py`. Nothing becomes a failure until the false-positive analysis is written down.
 
 **Exit codes:** `0` all conformant · `1` a conformance problem · `2` usage/read error
 (including `--render` without the `[geometry]` extra — it refuses rather than silently
@@ -158,6 +201,76 @@ if not result.ok:
     for problem in result.problems:
         print(problem)
 ```
+
+---
+
+## `ho-bridge` — does the hardware link actually hold?
+
+`fc-spec check hardware-ref --resolve` answers the **structural** question: the slug
+resolves, every `params_map` key names a real parameter of the target, every value
+expression references real garment parameters. That is name-level conformance, and
+until now it was the whole of the bar.
+
+It is not enough. A link can be perfectly named and still be a lie:
+
+* the mapped **values** may be values the hardware solid cannot build at. The y4d
+  cartridge clamps them back into range and quietly returns a differently-sized
+  part, or OCCT raises on a degenerate fillet. The garment says *this ring passes
+  38 mm webbing*; the ring that comes out passes 25. Nothing in either manifest is
+  wrong.
+* a `params_map` key may drive **nothing**. The name resolves, the expression is
+  valid, and the script never reads it — or reads it and clamps it to a constant.
+  Dead wiring, invisible to every name-level check.
+
+`ho-bridge` renders. For each link it evaluates the mapping against the garment's
+parameter defaults, renders the yantra4d cartridge **at those values**, then perturbs
+each mapped parameter by 10 % and proves the geometry actually moves.
+
+```bash
+# every FC cartridge with a linked hardware_ref, against a local yantra4d checkout
+ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
+
+# one link, with the per-probe evidence
+ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d \
+    ./fashion-cabinet/projects/duffel-bag -v
+
+  ok   duffel-bag → strap-ring at (o_ring, o_ring) [opening=44, webbing_w=38] — 2 param(s) proven responsive
+       probe opening: 44 → 48.4, volume 8526.978 → 9321.537 (responsive)
+       probe webbing_w: 38 → 41.8, volume 8526.978 → 8556.723 (responsive)
+bridge-check: links=1 ok=1 render_fail=0 dead_params=0 skipped=0
+```
+
+Three steps per link, each strictly stronger than the last:
+
+| Step | What it proves | Needs |
+|---|---|---|
+| 1 · resolve | the slug and every mapped name exist, **and every mapped expression evaluates to a number** | nothing |
+| 2 · render at mapped values | the hardware solid actually builds at what the garment asks for, watertight | `[geometry]` |
+| 3 · responsiveness | each mapped key demonstrably **moves** the geometry | `[geometry]` |
+
+Exit code is nonzero on `render_fail` or `dead_params`. Renders are seconds each and
+a link costs `targets × (2 + probes)` of them — a full sweep of the commons is ~1080
+renders — so `--max-probes` (default 3) and `--max-targets` (default 4) bound each
+link, and every capped link says what it skipped.
+
+One rule reports without blocking: a mapped value **outside** the target parameter's
+declared `min`/`max` is printed under `MEASUREMENT (non-blocking)` and counted as
+`range_notes=N`. It is a real finding — the cartridge clamps it, so the garment gets
+a part of a size it did not order — but house doctrine is that a new rule is
+calibrated against the whole commons and has its false-positive analysis written down
+*before* it is allowed to fail a build.
+
+**What it will not blame you for.** A yantra4d cartridge that already fails
+`y4d-spec check --render` at its own defaults is skipped with a note, not reported as
+a broken link — blaming a garment's mapping for a solid that was broken before the
+garment existed is a finding nobody can act on. A perturbation that would leave the
+parameter's declared range is clamped, and a value with no room to move in either
+direction is skipped, never called dead. OpenSCAD-only targets get step 1 and an
+explicit skip for the rest. Every skip is counted in the summary, so a run that
+proved little can never read like one that proved a lot.
+
+`docs/BRIDGE_HANDSHAKE.md` records the calibration: what a full sweep of the commons
+found, which candidate rules were killed and why.
 
 ---
 
@@ -343,7 +456,8 @@ platform's `define()` resolves.
 | Package | What it is |
 |---|---|
 | `fc_spec` | the Fashion Cabinet conformance runner (`fc-spec`) |
-| `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) |
+| `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry at defaults *and* at every declared preset, plus printability notes |
+| `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus and its validation lane |
@@ -365,13 +479,15 @@ permission to execute untrusted cartridges unsandboxed.
 
 ## Scope
 
-The conformance checks here are properties of **one cartridge**, checkable by anyone,
-anywhere.
+`fc-spec` and `y4d-spec` check properties of **one cartridge**, checkable by anyone,
+anywhere. `ho-bridge` is the one deliberate exception: a link is a property of a
+*pair*, so it takes two checkouts and can only run where both are present. It is a
+separate command for exactly that reason — nothing about the single-cartridge lanes
+changed to accommodate it.
 
-Repo-wide checks deliberately stay in the platforms — catalog drift, cross-cartridge
-slug uniqueness, OpenSCAD↔CadQuery geometric parity, and whether a paired slug actually
-exists. They are not properties of a cartridge, so a third party could not run them
-anyway.
+Repo-wide checks still stay in the platforms — catalog drift, cross-cartridge slug
+uniqueness, and OpenSCAD↔CadQuery geometric parity. They are properties of a whole
+commons, not of a cartridge or a pair.
 
 The **lexicon** is the one thing here that is not per-cartridge, and it is here for the
 opposite reason: it is a property of *both* commons at once, so it could not live in

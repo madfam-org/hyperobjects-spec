@@ -1,14 +1,15 @@
 """y4d-spec command-line interface.
 
-    y4d-spec check <cartridge-dir> [<cartridge-dir> ...] [--render] [-v]
+    y4d-spec check <cartridge-dir> [...] [--render] [--no-presets] [--no-printability] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec rules
 
 Exit code 0 iff every cartridge conforms; 1 on any conformance problem; 2 on a
 usage / read error. Output is read-proof: it prints how many cartridges it checked,
-and says explicitly whether geometry was verified — a run that skipped the render
-lane must never read like one that passed it.
+and says explicitly whether geometry was verified, how many renders ran and how many
+of those were PRESETS — a run that skipped a lane must never read like one that
+passed it.
 """
 
 from __future__ import annotations
@@ -36,10 +37,16 @@ def _cmd_check(args) -> int:
 
     failures = 0
     rendered_targets = 0
+    preset_targets = 0
     total_notes = 0
     for d in args.cartridges:
         try:
-            result = check_cartridge(d, render=args.render)
+            result = check_cartridge(
+                d,
+                render=args.render,
+                presets=args.presets,
+                printability=args.printability,
+            )
         except OSError as exc:
             print(f"  ERROR {d}: cannot read — {exc}")
             failures += 1
@@ -47,10 +54,16 @@ def _cmd_check(args) -> int:
 
         name = result.slug or Path(d).name
         rendered_targets += len(result.renders)
+        preset_targets += len(result.preset_renders)
         total_notes += len(result.notes)
 
         if result.ok:
-            suffix = f", {len(result.renders)} render(s) verified" if result.rendered else ""
+            suffix = ""
+            if result.rendered:
+                suffix = f", {len(result.renders)} render(s) verified"
+                n_presets = len(result.preset_renders)
+                if n_presets:
+                    suffix += f" ({n_presets} preset)"
             print(f"  ok {name} ({d}{suffix})")
             if args.verbose:
                 for check in result.renders:
@@ -67,7 +80,8 @@ def _cmd_check(args) -> int:
     geom = "verified" if args.render else "NOT verified (pass --render)"
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
-        f"notes={total_notes} geometry={geom} renders={rendered_targets}"
+        f"notes={total_notes} geometry={geom} renders={rendered_targets} "
+        f"presets={preset_targets}"
     )
     return 1 if failures else 0
 
@@ -119,6 +133,23 @@ def _cmd_rules(args) -> int:
     print("  4. geometry (--render, needs the [geometry] extra): every (mode, part) is")
     print("       executed through the shared sandbox and the mesh must be watertight,")
     print("       have volume > 0, contain no inverted body, and be distinct per part.")
+    print("  5. the preset matrix (--render, skip with --no-presets): every declared")
+    print("       preset is rendered at that SAME bar — a preset is the parameter point")
+    print("       a user clicks, and the defaults render says nothing about it. A")
+    print("       preset that renders identically to the defaults while setting values")
+    print("       that differ from them is a note, not a failure.")
+    print("  6. printability (--render, skip with --no-printability) — NOTES ONLY,")
+    print("       never failures; every threshold is provisional pending full-commons")
+    print("       calibration. See y4d_spec.printability:")
+    from . import printability
+
+    for fn in (
+        printability.thin_wall_note,
+        printability.overhang_note,
+        printability.build_volume_note,
+    ):
+        first = (fn.__doc__ or "").strip().splitlines()[0]
+        print(f"       {fn.__name__:28} {first}")
     print("\nRepo-wide checks (catalog drift, cross-cartridge slug uniqueness,")
     print("OpenSCAD/CadQuery geometric parity) stay in the platform — they are not")
     print("properties of a single cartridge.")
@@ -136,6 +167,20 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="also render every (mode, part) and verify the mesh "
         '(needs: pip install "hyperobjects-spec[geometry]")',
+    )
+    p_check.add_argument(
+        "--no-presets",
+        dest="presets",
+        action="store_false",
+        help="under --render, skip the declared presets and check default params only "
+        "(faster, and strictly weaker — a preset is the parameter point users click)",
+    )
+    p_check.add_argument(
+        "--no-printability",
+        dest="printability",
+        action="store_false",
+        help="under --render, skip the printability measurements (thin walls, "
+        "overhangs, build volume). They are notes only and never fail a cartridge",
     )
     p_check.add_argument(
         "-v", "--verbose", action="store_true", help="print each render's measurements"

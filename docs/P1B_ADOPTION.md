@@ -95,8 +95,21 @@ its scripts. Nothing imports it yet, so adoption is additive first.
       (OpenSCAD↔CadQuery parity), and the *shipped-file* half of `check_licenses.py`'s
       nested-license scan.
 - [ ] **Decide on `--render` in CI.** It is the strongest check and the slowest: roughly
-      15–25s per part on the reference machine, so the full commons is a long job. Suggest
+      15–25s per part on the reference machine, and since 0.2.0 it renders **every
+      declared preset as well as the defaults** — the commons averages ~3 presets per
+      cartridge, so the job is several times longer than the 0.1.x figure. Suggest
       running it on changed cartridges per-PR and the full sweep nightly.
+      `--no-presets` restores roughly the 0.1.x cost and is strictly weaker; do not
+      reach for it on the nightly lane, which is where the preset matrix pays. The
+      printability notes (`--no-printability` to skip) add well under a second per
+      render and never change the exit code, so they are safe to leave on everywhere.
+- [ ] **Decide where the printability notes go.** They are notes by construction in
+      0.2.0 and every threshold is provisional (see the calibration stories in
+      `printability.py`). Before any of them is allowed to block, the full-commons
+      false-positive analysis has to be written down — the same bar that killed the
+      `render_mode` uniqueness rule. The overhang rule in particular counts a part's
+      flat bed-contact face as overhang, which is why it is an area *fraction* and why
+      it stays a note.
 
 ---
 
@@ -157,10 +170,16 @@ platform's behavior did not translate directly.
    *studio locale files* at en/es parity; the schema's `i18nString` only requires `en`.
    Applying the same bar to cartridge strings is an extension — it is the largest single
    source of findings, so it is the most likely one to want relaxed to a note.
-6. **`--render` supplies `{}` plus `target_part`.** No code path in the API sets
-   `target_part` explicitly — cartridges read it via the `PARAM` idiom, `graph_engine.py`
-   emits it, and `cq_runner.py` injects the whole params dict as bare globals. Empty
-   params exercise each cartridge's own defaults rather than a set this checker invented.
+6. **`--render` supplies `{}` plus `target_part` — and then every preset's `values`.**
+   No code path in the API sets `target_part` explicitly — cartridges read it via the
+   `PARAM` idiom, `graph_engine.py` emits it, and `cq_runner.py` injects the whole params
+   dict as bare globals. Empty params exercise each cartridge's own defaults rather than a
+   set this checker invented. Since 0.2.0 the same contract is replayed at each declared
+   preset (preset `values` merged under `target_part`), because the defaults render is
+   evidence about *one* parameter point and presets are the ones the UI ships buttons for.
+   Presets that declare no `mode` — 164 of the commons' 1219, including every preset of
+   `extrusion-hyperobject` — are scoped from `parameters[].modes` /
+   `visible_in_modes` rather than skipped or guessed; see `rules.preset_targets`.
 7. **The renderer exports STL and raises instead of `sys.exit(1)`.** `cq_runner` exits
    because it is a subprocess; a library must not. STL because that is what the mesh
    checks need.

@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-from y4d_spec import check_cartridge, check_manifest, rules, structure
+from y4d_spec import check_cartridge, check_manifest, printability, rules, structure
 
 FIXTURES = Path(__file__).parent / "fixtures" / "y4d"
 SEW_ON_SNAP = FIXTURES / "sew-on-snap"
@@ -371,6 +371,93 @@ def test_render_targets_expands_a_multi_part_mode():
     assert ("set", "stud") in targets and ("set", "socket") in targets
 
 
+# ── the preset work list ─────────────────────────────────────────────────────
+def test_preset_targets_covers_each_presets_mode_parts():
+    """sew-on-snap ships two presets, both scoped to the single-part 'set' mode."""
+    targets = rules.preset_targets(_manifest(SEW_ON_SNAP))
+    assert [(pid, mid, part) for pid, mid, part, _ in targets] == [
+        ("bodysuit_placket", "set", "set"),
+        ("varsity_placket", "set", "set"),
+    ]
+    assert all(v["snap_dia"] for _, _, _, v in targets)
+
+
+def test_preset_targets_expands_a_multi_part_mode():
+    doc = _manifest(SEW_ON_SNAP)
+    doc["modes"][0]["parts"] = ["stud", "socket"]
+    parts = {part for _, _, part, _ in rules.preset_targets(doc)}
+    assert parts == {"stud", "socket"}
+
+
+def test_preset_without_a_mode_is_scoped_from_parameter_visibility():
+    """164 of the commons' 1219 presets declare no `mode` — including every preset of
+    extrusion-hyperobject, the cartridge whose shipped preset proved this bug class.
+    Skipping them would skip the case this exists for, so they are scoped from the
+    manifest: the modes in which all of the preset's parameters are visible."""
+    doc = _manifest(SEW_ON_SNAP)
+    for preset in doc["presets"]:
+        preset.pop("mode")
+    # sew-on-snap's parameters are visible everywhere, so an unscoped preset reaches
+    # every mode.
+    modes = {mid for _, mid, _, _ in rules.preset_targets(doc)}
+    assert modes == {"set", "stud", "socket"}
+
+
+def test_unscoped_preset_is_narrowed_by_a_mode_scoped_parameter():
+    """extrusion-hyperobject's `curtain_wall` sets wall_thickness, which is
+    visible_in_modes ['frame', 'module_track'] — so it is not a 'rail' preset, and
+    rendering it as one would invent a combination the UI cannot produce."""
+    doc = _manifest(SEW_ON_SNAP)
+    for preset in doc["presets"]:
+        preset.pop("mode")
+    for param in doc["parameters"]:
+        if param["id"] == "snap_dia":
+            param["visible_in_modes"] = ["stud"]
+    modes = {mid for pid, mid, _, _ in rules.preset_targets(doc)}
+    assert modes == {"stud"}
+
+
+def test_unscoped_preset_with_no_common_mode_is_skipped():
+    """An empty intersection means the preset belongs nowhere the UI can reach — it is
+    skipped rather than forced into a mode it does not belong to."""
+    doc = _manifest(SEW_ON_SNAP)
+    for preset in doc["presets"]:
+        preset.pop("mode")
+    scopes = {"snap_dia": ["stud"], "disc_t": ["socket"]}
+    for param in doc["parameters"]:
+        if param["id"] in scopes:
+            param["visible_in_modes"] = scopes[param["id"]]
+    assert rules.preset_targets(doc) == []
+
+
+def test_preset_naming_an_unknown_mode_is_skipped():
+    doc = _manifest(SEW_ON_SNAP)
+    doc["presets"][0]["mode"] = "no-such-mode"
+    assert [pid for pid, _, _, _ in rules.preset_targets(doc)] == ["varsity_placket"]
+
+
+def test_preset_that_only_restates_defaults_changes_nothing():
+    """thimble ships a preset literally called 'default' that restates
+    finger_girth=56.0 — the UI's reset button. It SHOULD render identically."""
+    doc = _manifest(THIMBLE)
+    defaults = rules.parameter_defaults(doc)
+    values = doc["presets"][0]["values"]
+    assert values == {"finger_girth": 56.0}
+    assert not rules.preset_changes_anything(values, defaults)
+
+
+def test_preset_that_differs_from_defaults_changes_something():
+    doc = _manifest(THIMBLE)
+    defaults = rules.parameter_defaults(doc)
+    assert rules.preset_changes_anything({"finger_girth": 72.0}, defaults)
+
+
+def test_preset_value_with_no_declared_default_counts_as_a_change():
+    """The script may supply that default via the PARAM idiom, which this function
+    cannot see — so it asks the geometry rather than staying silent."""
+    assert rules.preset_changes_anything({"undeclared": 3}, {"finger_girth": 56.0})
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────────
 def test_cli_check_passes_on_real_cartridges(capsys):
     from y4d_spec.cli import main
@@ -397,12 +484,23 @@ def test_cli_check_fails_on_a_broken_cartridge(capsys, tmp_path):
     assert "FAIL" in capsys.readouterr().out
 
 
+def test_cli_summary_reports_the_preset_count(capsys):
+    """Read-proof: a run that skipped the preset lane must never read like one that
+    passed it, so the count is on the summary line whether or not presets ran."""
+    from y4d_spec.cli import main
+
+    assert main(["check", str(SEW_ON_SNAP)]) == 0
+    out = capsys.readouterr().out
+    assert "renders=0 presets=0" in out
+
+
 def test_cli_rules_explains_itself(capsys):
     from y4d_spec.cli import main
 
     assert main(["rules"]) == 0
     out = capsys.readouterr().out
     assert "dispatch_rules" in out and "vendor_rules" in out
+    assert "thin_wall_note" in out and "preset" in out
 
 
 # ── geometry (skips without the extra) ───────────────────────────────────────
@@ -416,10 +514,13 @@ geometry_required = pytest.mark.skipif(
 @geometry_required
 @pytest.mark.parametrize("cartridge", REAL_CARTRIDGES, ids=lambda p: p.name)
 def test_real_cartridge_renders_every_part(cartridge):
-    result = check_cartridge(cartridge, render=True)
+    doc = _manifest(cartridge)
+    result = check_cartridge(cartridge, render=True, printability=False)
     assert result.rendered
     assert result.ok, [c.summary for c in result.renders if not c.ok]
-    assert len(result.renders) == len(rules.render_targets(_manifest(cartridge)))
+    assert len(result.renders) == len(rules.render_targets(doc)) + len(
+        rules.preset_targets(doc)
+    )
     for check in result.renders:
         assert check.watertight
         assert check.volume > 0
@@ -427,11 +528,23 @@ def test_real_cartridge_renders_every_part(cartridge):
 
 @pytest.mark.geometry
 @geometry_required
+@pytest.mark.parametrize("cartridge", REAL_CARTRIDGES, ids=lambda p: p.name)
+def test_no_presets_renders_defaults_only(cartridge):
+    """--no-presets is strictly weaker and must SAY so by rendering fewer targets —
+    a flag that silently changes nothing is worse than no flag."""
+    result = check_cartridge(cartridge, render=True, presets=False, printability=False)
+    assert result.ok, [c.summary for c in result.renders if not c.ok]
+    assert result.preset_renders == []
+    assert len(result.renders) == len(rules.render_targets(_manifest(cartridge)))
+
+
+@pytest.mark.geometry
+@geometry_required
 def test_assembly_volume_is_the_sum_of_its_parts():
     """sew-on-snap's 'set' mode is the stud and socket side by side. If the volumes
     do not add up, target_part is not really selecting different bodies."""
-    result = check_cartridge(SEW_ON_SNAP, render=True)
-    by_part = {c.part: c.volume for c in result.renders}
+    result = check_cartridge(SEW_ON_SNAP, render=True, printability=False)
+    by_part = {c.part: c.volume for c in result.renders if c.preset is None}
     assert by_part["set"] == pytest.approx(by_part["stud"] + by_part["socket"], rel=1e-6)
 
 
@@ -509,3 +622,291 @@ def test_render_runs_in_the_shared_sandbox(tmp_path):
     result = check_cartridge(cart, render=True)
     assert not result.ok
     assert any("ImportError" in p or "not allowed" in p for p in result.problems), result.problems
+
+
+# ── the preset matrix (geometry) ─────────────────────────────────────────────
+@pytest.mark.geometry
+@geometry_required
+def test_real_cartridge_presets_render(tmp_path):
+    """sew-on-snap's two presets are real snap sizes; both must render, and both must
+    differ from the default-params body (9mm and 17mm are not the 12mm default)."""
+    result = check_cartridge(SEW_ON_SNAP, render=True, printability=False)
+    presets = {c.preset: c for c in result.preset_renders}
+    assert set(presets) == {"bodysuit_placket", "varsity_placket"}
+    baseline = next(c for c in result.renders if c.preset is None and c.part == "set")
+    for check in presets.values():
+        assert check.ok, check.summary
+        assert check.volume != pytest.approx(baseline.volume, abs=1e-6)
+    assert result.notes == []
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_a_preset_that_crashes_is_a_failure(tmp_path):
+    """The proven bug class: a SHIPPED preset of extrusion-hyperobject crashed the CAD
+    kernel at degradation_state=5 while the default-params render stayed green. Here
+    the cartridge raises only above a threshold the default never reaches, so the
+    defaults pass and only the preset render can catch it."""
+    cart = tmp_path / "crashing-preset"
+    cart.mkdir()
+    doc = _manifest(THIMBLE)
+    doc["presets"] = [
+        {
+            "id": "wide_finger",
+            "mode": "thimble",
+            "label": {"en": "Wide", "es": "Ancho"},
+            "values": {"finger_girth": 78.0},
+        }
+    ]
+    (cart / "project.json").write_text(json.dumps(doc))
+    (cart / "main.py").write_text(
+        "import cadquery as cq\n"
+        "try:\n"
+        "    girth = finger_girth\n"
+        "except NameError:\n"
+        "    girth = 56.0\n"
+        "try:\n"
+        "    which = target_part\n"
+        "except NameError:\n"
+        "    which = 'thimble'\n"
+        "# Crashes only ABOVE a girth the defaults never reach — so only the preset\n"
+        "# lane can see it, which is the whole point of this test.\n"
+        "if girth > 70:\n"
+        "    raise ValueError('OCCT: BRep_API command not done')\n"
+        "if which == 'thimble':\n"
+        "    result = cq.Workplane('XY').cylinder(20, girth / 6.0)\n"
+        "else:\n"
+        "    result = cq.Workplane('XY').cylinder(30, girth / 4.0)\n"
+    )
+
+    result = check_cartridge(cart, render=True, printability=False)
+    assert not result.ok
+    # The defaults render is green — only the preset lane sees this.
+    assert all(c.ok for c in result.renders if c.preset is None)
+    assert any(
+        "preset 'wide_finger'" in p and "ValueError" in p for p in result.problems
+    ), result.problems
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_a_preset_whose_values_never_reach_the_script_is_a_note(tmp_path):
+    """A preset that DIFFERS from the manifest defaults but renders identical geometry
+    means the parameter never arrived. A note, not a failure — it does not block."""
+    cart = tmp_path / "inert-preset"
+    cart.mkdir()
+    doc = _manifest(THIMBLE)
+    doc["presets"] = [
+        {
+            "id": "wide_finger",
+            "mode": "thimble",
+            "label": {"en": "Wide", "es": "Ancho"},
+            "values": {"finger_girth": 78.0},
+        }
+    ]
+    (cart / "project.json").write_text(json.dumps(doc))
+    # Dispatches on target_part (so the parts stay distinct) but ignores every OTHER
+    # parameter — so the preset's finger_girth changes nothing.
+    (cart / "main.py").write_text(
+        "import cadquery as cq\n"
+        "try:\n"
+        "    which = target_part\n"
+        "except NameError:\n"
+        "    which = 'thimble'\n"
+        "result = cq.Workplane('XY').cylinder(20 if which == 'thimble' else 30, 9)\n"
+    )
+
+    result = check_cartridge(cart, render=True, printability=False)
+    assert result.ok, result.problems  # a note never blocks
+    assert any(
+        "identical to the default-params render" in n and "wide_finger" in n
+        for n in result.notes
+    ), result.notes
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_a_preset_that_only_restates_the_defaults_is_silent(tmp_path):
+    """thimble's 'default' preset restates finger_girth=56.0 — the UI's reset button.
+    It renders identically BY DESIGN, and noting it would be a false positive."""
+    result = check_cartridge(THIMBLE, render=True, printability=False)
+    assert result.ok, result.problems
+    assert [c.preset for c in result.preset_renders] == ["default"]
+    assert result.notes == []
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_openscad_preset_is_skipped_like_its_mode(tmp_path):
+    """OpenSCAD modes are skipped in the defaults pass; their presets must be too —
+    this runner has no OpenSCAD kernel and never pretends otherwise."""
+    cart = tmp_path / "scad-preset"
+    cart.mkdir()
+    doc = _manifest(THIMBLE)
+    for mode in doc["modes"]:
+        mode["scad_file"] = "main.scad"
+        mode.pop("cq_file", None)
+    (cart / "project.json").write_text(json.dumps(doc))
+    (cart / "main.scad").write_text("cube([10,10,10]);\n")
+
+    result = check_cartridge(cart, render=True)
+    assert result.ok, result.problems
+    assert result.preset_renders == []
+
+
+# ── printability (notes only, never failures) ────────────────────────────────
+@pytest.mark.geometry
+@geometry_required
+def test_thin_wall_note_fires_on_a_thin_wall(tmp_path):
+    """A 0.4mm-walled open-topped box: one nozzle width, half the two-perimeter bar."""
+    cart = tmp_path / "thin-wall"
+    cart.mkdir()
+    doc = _manifest(THIMBLE)
+    doc["presets"] = []
+    # The stock parameters are mode-scoped to thimble/set; this fixture replaces the
+    # modes, so drop them rather than leave dangling scope references.
+    doc["parameters"] = []
+    doc["hyperobject"]["cdg_interfaces"] = []
+    doc["modes"] = [
+        {
+            "id": "shell",
+            "label": {"en": "Shell", "es": "Cascaron"},
+            "scad_file": "main.py",
+            "cq_file": "main.py",
+            "parts": ["shell"],
+            "estimate": {"base_time": 1},
+        }
+    ]
+    doc["parts"] = [{"id": "shell", "label": {"en": "Shell", "es": "Cascaron"}}]
+    (cart / "project.json").write_text(json.dumps(doc))
+    (cart / "main.py").write_text(
+        "import cadquery as cq\n"
+        "# 0.4mm walls — a single 0.4mm nozzle perimeter, below the two-perimeter bar.\n"
+        "result = (cq.Workplane('XY').box(20, 20, 10)\n"
+        "          .faces('>Z').shell(-0.4))\n"
+    )
+
+    result = check_cartridge(cart, render=True)
+    assert result.ok, result.problems  # printability NEVER fails a cartridge
+    assert any("thin walls" in n for n in result.notes), result.notes
+    # The note must name the measured number, not just the verdict.
+    assert any("below 0.8mm" in n and "median local thickness" in n for n in result.notes)
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_printability_is_silent_on_sew_on_snap_at_its_defaults():
+    """sew-on-snap is a correct, shipped, printed cartridge. A printability rule that
+    flags it at its own defaults is not strict — it is wrong (the doctrine rules.py
+    records for the killed render_mode rule). Both thresholds were tuned against
+    exactly this: thin walls flagged all three parts at the 25th percentile, and
+    overhangs flagged them at 32% before bed-contact faces were excluded."""
+    result = check_cartridge(SEW_ON_SNAP, render=True)
+    assert result.ok, result.problems
+    default_notes = [n for n in result.notes if "preset" not in n]
+    assert default_notes == [], default_notes
+
+
+@geometry_required
+def test_printability_note_on_a_marginal_preset_does_not_block():
+    """The one finding the tuned thresholds keep on sew-on-snap, and it is TRUE: the
+    'bodysuit_placket' preset is the 9mm snap with 1.6mm discs, and its sew-hole
+    webbing measures a stable 0.76mm median (0.74-0.78 across eight sample seeds) —
+    genuinely marginal for a 0.4mm nozzle, 0.04mm under the bar.
+
+    The point of this test is the doctrine, not the number: a true-but-marginal
+    measurement is exactly what a NOTE is for. It gets said, it names its number so a
+    reader can weigh 0.76 against 0.80 themselves, and it does not turn a shipped
+    cartridge red."""
+    result = check_cartridge(SEW_ON_SNAP, render=True)
+    assert result.ok, result.problems
+    assert any(
+        "thin walls" in n and "bodysuit_placket" in n for n in result.notes
+    ), result.notes
+
+
+@pytest.mark.geometry
+@geometry_required
+def test_no_printability_silences_the_measurements(tmp_path):
+    cart = tmp_path / "thin-wall-off"
+    cart.mkdir()
+    doc = _manifest(THIMBLE)
+    doc["presets"] = []
+    # The stock parameters are mode-scoped to thimble/set; this fixture replaces the
+    # modes, so drop them rather than leave dangling scope references.
+    doc["parameters"] = []
+    doc["hyperobject"]["cdg_interfaces"] = []
+    doc["modes"] = [
+        {
+            "id": "shell",
+            "label": {"en": "Shell", "es": "Cascaron"},
+            "scad_file": "main.py",
+            "cq_file": "main.py",
+            "parts": ["shell"],
+            "estimate": {"base_time": 1},
+        }
+    ]
+    doc["parts"] = [{"id": "shell", "label": {"en": "Shell", "es": "Cascaron"}}]
+    (cart / "project.json").write_text(json.dumps(doc))
+    (cart / "main.py").write_text(
+        "import cadquery as cq\n"
+        "result = cq.Workplane('XY').box(20, 20, 10).faces('>Z').shell(-0.4)\n"
+    )
+    result = check_cartridge(cart, render=True, printability=False)
+    assert result.ok
+    assert result.notes == []
+
+
+def test_build_volume_note_names_the_measurement():
+    """Pure-mesh rules need no cadquery — build the mesh in trimesh directly."""
+    trimesh = pytest.importorskip("trimesh")
+    big = trimesh.creation.box((300.0, 50.0, 50.0))
+    note = printability.build_volume_note(big, mode="m", part="p")
+    assert note is not None
+    assert note.measured == pytest.approx(300.0)
+    assert "300" in note.message and "256mm" in note.message
+
+
+def test_build_volume_note_is_silent_on_a_part_that_fits():
+    trimesh = pytest.importorskip("trimesh")
+    small = trimesh.creation.box((30.0, 30.0, 30.0))
+    assert printability.build_volume_note(small, mode="m", part="p") is None
+
+
+def test_overhang_note_fires_on_a_downward_facing_cone():
+    """A squat cone pointing DOWN is mostly unsupported overhang."""
+    trimesh = pytest.importorskip("trimesh")
+    import numpy as np
+
+    cone = trimesh.creation.cone(radius=20.0, height=8.0)
+    cone.apply_transform(trimesh.transformations.rotation_matrix(np.pi, [1, 0, 0]))
+    note = printability.overhang_note(cone, mode="m", part="p")
+    assert note is not None
+    assert note.measured > printability.OVERHANG_AREA_FRACTION
+    assert "unsupported downward-facing slope" in note.message
+
+
+def test_overhang_note_is_silent_on_a_sphere():
+    """A sphere is half downward-facing by area, but only the steep band counts as
+    unsupported — so the >45° share stays under the bar."""
+    trimesh = pytest.importorskip("trimesh")
+    sphere = trimesh.creation.icosphere(subdivisions=3, radius=10.0)
+    assert printability.overhang_note(sphere, mode="m", part="p") is None
+
+
+def test_a_flat_bottom_resting_on_the_bed_is_not_an_overhang():
+    """The calibration finding that tuned this rule: a plain flat plate is 42%
+    downward-facing by area, and every bit of it is the face RESTING ON THE BED, which
+    needs no support. Counting it flagged sew-on-snap — a shipped, printed cartridge —
+    at 32%. Excluding bed-contact faces takes it to 0%."""
+    trimesh = pytest.importorskip("trimesh")
+    plate = trimesh.creation.box((20.0, 20.0, 2.0))
+    assert printability.overhang_note(plate, mode="m", part="p") is None
+
+
+def test_printability_notes_name_the_preset_they_came_from():
+    trimesh = pytest.importorskip("trimesh")
+    big = trimesh.creation.box((300.0, 50.0, 50.0))
+    notes = printability.printability_notes(big, mode="rail", part="rail", preset="long")
+    assert notes
+    assert all("preset 'long'" in n.message for n in notes)

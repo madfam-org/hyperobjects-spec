@@ -40,6 +40,9 @@ __all__ = [
     "hyperobject_rules",
     "all_manifest_rules",
     "render_targets",
+    "preset_targets",
+    "parameter_defaults",
+    "preset_changes_anything",
 ]
 
 DIFFICULTIES = ("beginner", "intermediate", "advanced")
@@ -426,3 +429,123 @@ def render_targets(doc: dict) -> list[tuple[str, str]]:
             if isinstance(pid, str):
                 targets.append((mid, pid))
     return targets
+
+
+def preset_targets(doc: dict) -> list[tuple[str, str, str, dict]]:
+    """Every (preset_id, mode_id, part_id, values) a preset render must cover.
+
+    A preset is the parameter point a user actually CLICKS, and the default-params
+    render says nothing about it: a shipped preset of extrusion-hyperobject crashed
+    the CAD kernel at degradation_state=5 while the defaults render stayed green.
+    This is the work list that closes that gap — the same bar, evaluated where users
+    land.
+
+    A preset usually names one mode (`presets[].mode`); that mode's declared parts each
+    get a render, since the platform renders one part at a time via `target_part`.
+
+    The schema does NOT require `mode`, and 164 of the commons' 1219 presets omit it —
+    including every preset of extrusion-hyperobject, the cartridge whose shipped preset
+    proved this bug class. Skipping unscoped presets would therefore skip exactly the
+    case this exists for. They are instead scoped from the manifest rather than
+    guessed: a preset applies to the modes in which ALL of its parameters are visible
+    (`parameters[].modes` / `parameters[].visible_in_modes` — the same fields
+    dispatch_rules already cross-checks). That is the UI's own answer to "where can a
+    user set these values", so it renders combinations the UI can actually produce
+    instead of inventing them. A value whose parameter declares no scope is visible
+    everywhere and constrains nothing; when the intersection is empty, the preset is
+    skipped rather than forced somewhere it does not belong.
+    """
+    modes = {
+        m["id"]: m
+        for m in doc.get("modes") or []
+        if isinstance(m, dict) and isinstance(m.get("id"), str)
+    }
+    scopes = _parameter_mode_scopes(doc)
+
+    targets: list[tuple[str, str, str, dict]] = []
+    for i, preset in enumerate(doc.get("presets") or []):
+        if not isinstance(preset, dict):
+            continue
+        values = preset.get("values")
+        if not isinstance(values, dict):
+            continue
+
+        declared = preset.get("mode")
+        if isinstance(declared, str):
+            mode_ids = [declared] if declared in modes else []
+        else:
+            mode_ids = _implied_modes(values, scopes, list(modes))
+
+        pid_label = str(preset.get("id") or preset.get("slug") or f"presets[{i}]")
+        for mode_id in mode_ids:
+            for part_id in modes[mode_id].get("parts") or []:
+                if isinstance(part_id, str):
+                    targets.append((pid_label, mode_id, part_id, dict(values)))
+    return targets
+
+
+def _parameter_mode_scopes(doc: dict) -> dict:
+    """`{parameter id: set of mode ids it is visible in}`, omitting unscoped params.
+
+    Both spellings count: `modes` is the schema's field and `visible_in_modes` is what
+    several cartridges (extrusion-hyperobject among them) actually ship. dispatch_rules
+    already validates both against the declared mode ids.
+    """
+    scopes: dict = {}
+    for p in doc.get("parameters") or []:
+        if not isinstance(p, dict) or not isinstance(p.get("id"), str):
+            continue
+        for key in ("modes", "visible_in_modes"):
+            scope = p.get(key)
+            if isinstance(scope, list) and scope:
+                ids = {m for m in scope if isinstance(m, str)}
+                if ids:
+                    scopes[p["id"]] = scopes.get(p["id"], ids) & ids
+    return scopes
+
+
+def _implied_modes(values: dict, scopes: dict, all_modes: list) -> list:
+    """The modes an unscoped preset can apply to: where every value is visible."""
+    allowed = set(all_modes)
+    for key in values:
+        scope = scopes.get(key)
+        if scope is not None:
+            allowed &= scope
+    return [m for m in all_modes if m in allowed]
+
+
+def parameter_defaults(doc: dict) -> dict:
+    """`{parameter id: default}` for every parameter that declares a default.
+
+    Used to tell a preset that RESTATES the defaults apart from one that fails to
+    apply: only the second is worth a note.
+    """
+    defaults: dict = {}
+    for p in doc.get("parameters") or []:
+        if not isinstance(p, dict) or not isinstance(p.get("id"), str):
+            continue
+        if "default" in p:
+            defaults[p["id"]] = p["default"]
+    return defaults
+
+
+def preset_changes_anything(values: dict, defaults: dict) -> bool:
+    """True when a preset's values differ from the manifest defaults on some key.
+
+    A preset whose every value equals the declared default is a legitimate shape —
+    thimble ships one called 'default' that restates finger_girth=56.0, and several
+    cartridges use one as the UI's reset button. Such a preset SHOULD render
+    identically to the defaults, so identical geometry there is correct behaviour and
+    must not be noted. A preset whose values genuinely differ and still renders
+    identical geometry is the real signal: the parameter never reached the script.
+
+    A key the manifest declares no default for counts as a difference — the script
+    supplies that default via the PARAM idiom, and this function cannot see it, so it
+    errs toward asking the geometry rather than staying silent.
+    """
+    for key, value in values.items():
+        if key not in defaults:
+            return True
+        if defaults[key] != value:
+            return True
+    return False
