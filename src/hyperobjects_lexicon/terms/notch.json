@@ -1,0 +1,37 @@
+{
+  "spec_version": 2,
+  "id": "notch",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "notch",
+    "es": "piquete",
+    "fr": "cran",
+    "pt": "piquete"
+  },
+  "definition": {
+    "en": "A small mark cut into the edge of a pattern piece so that two pieces can be matched at a known point while they are sewn. Notches are the registration between one drawn curve and another: which end is which, where ease is distributed, and where a sleeve cap's fullness starts and stops. They carry no shape of their own, and they are the cheapest thing on a pattern to get wrong.",
+    "es": "Una marca pequeña practicada en el canto de una pieza de patrón para que dos piezas puedan casarse en un punto conocido al coserlas. Los piquetes son el registro entre una curva trazada y otra: cuál extremo es cuál, dónde se reparte la holgura y dónde empieza y termina la embebida de la copa de manga. No aportan forma propia, y son lo más barato de equivocar en un patrón.",
+    "fr": "Un petit repère entaillé dans le bord d'une pièce de patron pour que deux pièces puissent se raccorder en un point connu au moment de l'assemblage. Les crans sont le calage entre une courbe tracée et une autre : quelle extrémité est laquelle, où l'aisance se répartit, et où l'embu de la tête de manche commence et s'arrête. Ils n'apportent aucune forme propre, et ils sont ce qu'un patron coûte le moins cher à se tromper.",
+    "pt": "Uma marca pequena feita no bordo de uma peça de molde para que duas peças possam casar num ponto conhecido enquanto são cosidas. Os piquetes são o registo entre uma curva traçada e outra: qual extremidade é qual, onde a folga se distribui e onde a embebida da cabeça de manga começa e acaba. Não trazem forma própria, e são a coisa mais barata de errar num molde."
+  },
+  "aliases": [
+    {
+      "name": "notches",
+      "repo": "fashion-cabinet",
+      "note": "The per-piece notch count in the explode payload (docs/spec/v1/explode-json.md declares `\"notches\": 2` beside the piece's named edge lengths); 45 garment manifests describe them in their own prose, the bodice block among them."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bodice-block",
+    "fashion-cabinet/cocktail-dress",
+    "fashion-cabinet/flannel-shirt",
+    "fashion-cabinet/jeans-5-pocket",
+    "fashion-cabinet/mini-skirt"
+  ],
+  "see_also": ["sleeve-cap", "set-in-sleeve", "ease", "seam-allowance", "grainline"],
+  "constraints": "A notch is a point ON a curve, so it moves when the curve does: rescaling a piece for fabric compensation, or re-cutting an edge, relocates every notch on it — a notch copied at its old coordinate no longer matches the piece it was cut to match.",
+  "notes": "Not the `notch_lapel` of fashion-cabinet/welt-pocket-blazer. That is a lapel shape — the step where the collar meets the lapel — and shares only the word. A registration mark and a collar silhouette are unrelated claims, and merging them is exactly the false friend the controlled vocabularies record `distinct_from` pairs to prevent.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -348,8 +348,8 @@ fc-spec related tape-edge
 
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=140 failures=0 embodied_by=resolved
-lexicon_status: 140/140 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=110 unmarked=30
+y4d-spec lexicon: terms=147 failures=0 embodied_by=resolved
+lexicon_status: 147/147 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=117 unmarked=30
 ```
 
 Without `--catalog`, the summary says `embodied_by=NOT resolved (…refs)` — the same
@@ -358,7 +358,7 @@ that passed it.
 
 The `review:` clause on the status line carries the second debt, the one N/M cannot
 show: **four complete languages nobody has read are still four complete languages.** The
-110 terms of the G3 wave are marked `generated` and are waiting on a native pass; the 30
+117 terms of the G3 waves are marked `generated` and are waiting on a native pass; the 30
 seed terms predate the field and claim neither. Nothing in the corpus claims a review
 that did not happen, and the lane refuses an entry that tries to.
 
@@ -493,7 +493,7 @@ manifest writes. Two documents ship, and each fixes a different failure:
 ```
 $ fc-spec vocab
 fc-spec vocab: vocabularies=2 entries=170 failures=0
-vocabulary_status[capabilities]: entries=126 term=40 gloss=81 undefined=5 aliases=8 equivalences=0 distinct_pairs=1 provisional=1 review=generated
+vocabulary_status[capabilities]: entries=126 term=44 gloss=77 undefined=5 aliases=8 equivalences=0 distinct_pairs=1 provisional=1 review=generated
 vocabulary_status[interfaces]: entries=44 term=44 gloss=0 undefined=0 aliases=2 equivalences=5 distinct_pairs=1 provisional=10 review=generated
 ```
 

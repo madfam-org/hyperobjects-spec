@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "facing",
+  "domain": "garment-construction",
+  "term": {
+    "en": "facing",
+    "es": "vista",
+    "fr": "parementure",
+    "pt": "vista"
+  },
+  "definition": {
+    "en": "A second piece cut to the shape of an edge and turned to the inside, so the edge finishes in its own cloth and holds the line it was drawn to. A facing is the edge's own outline mirrored inward by the facing width: it is what makes a neckline, a front opening or a lapel stable without a hem showing on the face of the garment.",
+    "es": "Una segunda pieza cortada con la forma de un canto y vuelta hacia el interior, de modo que el canto se remata con su propia tela y conserva la línea con la que fue trazado. Una vista es el propio contorno del canto reflejado hacia dentro por el ancho de la vista: es lo que hace estable un escote, una abertura delantera o una solapa sin que se vea un dobladillo por el derecho.",
+    "fr": "Une seconde pièce coupée à la forme d'un bord et rabattue vers l'intérieur, de sorte que le bord se termine dans son propre tissu et conserve la ligne à laquelle il a été tracé. Une parementure est le contour même du bord reflété vers l'intérieur de la largeur de parementure : c'est ce qui rend stable une encolure, une ouverture devant ou un revers sans qu'un ourlet paraisse sur l'endroit.",
+    "pt": "Uma segunda peça cortada com a forma de um bordo e virada para o interior, de modo que o bordo remata no seu próprio tecido e mantém a linha com que foi traçado. Uma vista é o próprio contorno do bordo espelhado para dentro pela largura da vista: é o que torna estável um decote, uma abertura da frente ou uma lapela sem que se veja bainha pelo direito."
+  },
+  "aliases": [
+    {
+      "name": "facing_width",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on six cartridges — agbada, cavalier-cloak, dashiki-tunic, kaftan, peak-lapel-tuxedo and welt-pocket-blazer — the inward offset the facing piece is drawn at."
+    },
+    {
+      "name": "facing_depth",
+      "repo": "fashion-cabinet",
+      "note": "The same offset under a second spelling, on agbada-boubou and dashiki; `hem_facing` on patch-pocket names the facing at a hem rather than at an opening."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/welt-pocket-blazer",
+    "fashion-cabinet/peak-lapel-tuxedo",
+    "fashion-cabinet/kaftan",
+    "fashion-cabinet/agbada",
+    "fashion-cabinet/dashiki"
+  ],
+  "see_also": ["neckline", "hem", "placket", "seam-allowance", "vent"],
+  "constraints": "A facing is drawn from the SAME curve as the edge it faces, offset inward by the facing width. Re-deriving it from the finished edge instead of the cut edge shortens it by the seam allowance, and a facing shorter than its edge pulls the edge in rather than holding the line it was drawn to.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -185,7 +185,8 @@ The frontmatter contract is here; the surface is yours.
 Everything in the G3 wave is marked `generated`, and that is a claim about who has read
 it, not about who wrote it:
 
-* **140 terms, 110 of them from this wave**, each quadrilingual and each
+* **147 terms, 117 of them from the G3 waves** (110 from wave 1, 7 from the
+  drawing-vocabulary wave), each quadrilingual and each
   `review_status: {state: generated}`. RFC 0039 §5 is explicit that machine or agent
   drafting is acceptable as a draft and never as shipped copy without a review pass, and
   §7 asks that fr/pt be *reviewed, not merely generated* — with es as the house register

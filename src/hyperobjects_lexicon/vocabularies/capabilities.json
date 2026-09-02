@@ -689,6 +689,7 @@
       "repo": "fashion-cabinet",
       "role": "capability_flag",
       "status": "canonical",
+      "term": "godet",
       "gloss": "Flare added by inserting godets into the lower seams rather than by widening the pieces.",
       "observed": {
         "cartridges": 1,
@@ -1064,6 +1065,7 @@
       "repo": "fashion-cabinet",
       "role": "capability_flag",
       "status": "canonical",
+      "term": "pleat",
       "gloss": "Fullness folded into pleats rather than gathered.",
       "observed": {
         "cartridges": 1,
@@ -1093,6 +1095,7 @@
       "repo": "fashion-cabinet",
       "role": "capability_flag",
       "status": "canonical",
+      "term": "style-line",
       "gloss": "Shaping carried in a long seam running from shoulder or armhole over the bust to the hem, instead of in darts.",
       "aliases": [
         {
@@ -1612,6 +1615,7 @@
       "repo": "fashion-cabinet",
       "role": "capability_flag",
       "status": "canonical",
+      "term": "vent",
       "gloss": "The garment carries drafted vents for airflow.",
       "observed": {
         "cartridges": 1,
