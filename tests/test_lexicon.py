@@ -10,7 +10,11 @@ Two halves, and the split is deliberate:
 """
 
 import copy
+import importlib.util
 import json
+import re
+import subprocess
+from pathlib import Path
 
 import pytest
 
@@ -25,6 +29,8 @@ from hyperobjects_lexicon import (
     review_counts,
 )
 from hyperobjects_lexicon.cli import BUNDLED
+
+DATA_ROOT = Path(__file__).resolve().parents[1] / "src" / "hyperobjects_lexicon"
 
 
 @pytest.fixture(scope="module")
@@ -438,6 +444,169 @@ def test_catalog_loader_accepts_an_already_qualified_list(tmp_path):
     p = tmp_path / "q.json"
     p.write_text(json.dumps(["yantra4d/zipper"]), encoding="utf-8")
     assert load_catalog_slugs(p) == {"yantra4d/zipper"}
+
+
+# --------------------------------------------------------------- capture provenance
+
+
+CAPTURES = (
+    "catalogs/commons-slugs.snapshot.json",
+    "catalogs/yantra4d-catalog.snapshot.json",
+    "catalogs/fashion-cabinet-catalog.snapshot.json",
+    "catalogs/commons-bridges.snapshot.json",
+    "vocabularies/capabilities.json",
+    "vocabularies/interfaces.json",
+)
+
+FULL_SHA = re.compile(r"^[0-9a-f]{40}$")
+
+
+def _revs(node) -> list[tuple[str, str]]:
+    """Every ``rev``/``commit`` string anywhere in a document, with the key that held it."""
+    found = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key in ("rev", "commit") and isinstance(value, str):
+                found.append((key, value))
+            else:
+                found.extend(_revs(value))
+    elif isinstance(node, list):
+        for item in node:
+            found.extend(_revs(item))
+    return found
+
+
+@pytest.mark.parametrize("relative", CAPTURES)
+def test_every_vendored_capture_pins_a_full_sha(relative):
+    """Every refresh script records the FULL sha it read the commons at.
+
+    The three of them (`refresh_catalog_snapshot.py`, `refresh_reader_snapshots.py`,
+    `refresh_vocabulary_counts.py`) each vendor a slice of the two commons, and the
+    README's claim is that the recorded rev is one a later reader can resolve exactly
+    rather than guess at. An abbreviation is a guess, and the documents drifted apart on
+    exactly this — one carried a 7-character rev, one an 8, one the full sha, for the
+    same repo — so the shape is asserted rather than left to the next refresh's habits.
+    """
+    doc = json.loads((DATA_ROOT / relative).read_text(encoding="utf-8"))
+    revs = _revs(doc)
+    assert revs, f"{relative} records no source commit at all"
+    for key, value in revs:
+        assert FULL_SHA.match(value), f"{relative}: {key}={value!r} is not a full sha"
+
+
+def test_the_slug_snapshot_is_pinned_to_a_commit_of_each_commons():
+    """The lexicon lane's hermetic catalog is a statement about two specific commits."""
+    doc = json.loads((DATA_ROOT / "catalogs/commons-slugs.snapshot.json").read_text("utf-8"))
+    for repo in ("yantra4d", "fashion-cabinet"):
+        source = doc["sources"][repo]
+        assert FULL_SHA.match(source["rev"]), repo
+        assert source["count"] == len(doc[repo]) == source["cartridges"] + source["materials"]
+
+
+# --------------------------------------------------------- the refresh script itself
+
+
+def _git(repo, *args):
+    subprocess.run(["git", "-C", str(repo), *args], check=True, capture_output=True)
+
+
+def _commons(root, name, files: dict[str, str]):
+    """A throwaway git repo with `files` committed, and the same files left DIRTY on top."""
+    repo = root / name
+    repo.mkdir()
+    _git(repo, "init", "-q", "-b", "main")
+    _git(repo, "config", "user.email", "test@example.invalid")
+    _git(repo, "config", "user.name", "test")
+    for relative, text in files.items():
+        path = repo / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    _git(repo, "add", "-A")
+    _git(repo, "commit", "-qm", "capture me")
+    return repo
+
+
+def _refresh_script():
+    spec = importlib.util.spec_from_file_location(
+        "refresh_catalog_snapshot",
+        Path(__file__).resolve().parents[1] / "scripts" / "refresh_catalog_snapshot.py",
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_refresh_catalog_snapshot_pins_the_full_sha_and_reads_the_commit(tmp_path):
+    """The documented refresh procedure, end to end: read a named commit through
+    `git show`, record the full sha, and — the property that makes the pin mean
+    anything — do not capture work that is only in the working tree."""
+    y4d = _commons(
+        tmp_path,
+        "yantra4d",
+        {
+            "docs/commons-catalog.json": json.dumps({"cartridges": [{"slug": "zipper"}]}),
+            "materials/bambu-tpu-95a/material.json": "{}",
+        },
+    )
+    fc = _commons(
+        tmp_path,
+        "fashion-cabinet",
+        {
+            "projects/mini-skirt/project.json": "{}",
+            "materials/manta-cruda/material.json": "{}",
+        },
+    )
+    # Uncommitted: a cartridge that exists on disk and in no commit.
+    (fc / "projects/never-committed").mkdir()
+    (fc / "projects/never-committed/project.json").write_text("{}", encoding="utf-8")
+
+    module = _refresh_script()
+    out = tmp_path / "snapshot.json"
+    module.SNAPSHOT = out
+    assert (
+        module.main(
+            [
+                "--yantra4d", str(y4d),
+                "--fashion-cabinet", str(fc),
+                "--yantra4d-ref", "main",
+                "--fashion-cabinet-ref", "main",
+            ]
+        )
+        == 0
+    )
+
+    doc = json.loads(out.read_text(encoding="utf-8"))
+    assert doc["yantra4d"] == ["bambu-tpu-95a", "zipper"]
+    assert doc["fashion-cabinet"] == ["manta-cruda", "mini-skirt"], "read the tree, not the commit"
+    for repo, path in (("yantra4d", y4d), ("fashion-cabinet", fc)):
+        rev = doc["sources"][repo]["rev"]
+        assert FULL_SHA.match(rev), rev
+        assert rev == subprocess.run(
+            ["git", "-C", str(path), "rev-parse", "main"],
+            check=True, capture_output=True, text=True,
+        ).stdout.strip()
+
+
+def test_refresh_catalog_snapshot_refuses_a_ref_it_cannot_read(tmp_path, capsys):
+    """A ref that does not exist must be a usage error, not an empty capture written
+    over the shipped one."""
+    y4d = _commons(tmp_path, "yantra4d", {"docs/commons-catalog.json": '{"cartridges": []}'})
+    fc = _commons(tmp_path, "fashion-cabinet", {"projects/mini-skirt/project.json": "{}"})
+    module = _refresh_script()
+    out = tmp_path / "snapshot.json"
+    module.SNAPSHOT = out
+    assert (
+        module.main(
+            [
+                "--yantra4d", str(y4d),
+                "--fashion-cabinet", str(fc),
+                "--yantra4d-ref", "no-such-ref",
+            ]
+        )
+        == 2
+    )
+    assert not out.exists()
+    assert "cannot read the commons" in capsys.readouterr().err
 
 
 # ------------------------------------------------------------------------------ CLI
