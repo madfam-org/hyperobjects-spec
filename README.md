@@ -140,10 +140,14 @@ y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 pres
 That note is a good illustration of the posture: it is *true* — the 9mm snap's
 sew-hole webbing really does measure about 0.76mm — and it is *marginal*, some 0.04mm
 under a provisional bar, on a cartridge that prints fine today. So it gets said, with its
-number attached, and the exit code stays `0`. (The thickness is a median over 400 random
-surface samples, so re-running the same render moves the last digits by a few hundredths;
-on a part this close to the bar that is sometimes the difference between the note and
-silence.)
+number attached, and the exit code stays `0`.
+
+And it is *repeatable*: the thickness is a median over 400 surface samples drawn from a
+fixed seed, so the same part measures the same number on every run. That is a property
+rather than a detail — unseeded, this part's estimate wandered between 0.75mm and 0.86mm
+and the note appeared on two runs in three, which is sampling noise wearing a
+measurement's clothes. `thin_wall_note(..., seed=…)` takes another seed if you want to
+see the spread for yourself.
 
 Without `--render`, the summary says `geometry=NOT verified` — a run that skipped the
 render lane must never read like one that passed it. The `presets=` count is on the

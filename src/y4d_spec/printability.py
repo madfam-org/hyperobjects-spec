@@ -46,6 +46,12 @@ uniqueness rule flagged 29 healthy cartridges). A note costs a line of output; a
 premature failure costs the commons its green build and teaches contributors to
 ignore the runner.
 
+Every measurement here is REPRODUCIBLE: the same mesh measures the same number twice.
+The thickness rule estimates from random surface samples, so it draws them from a fixed
+seed (THICKNESS_SAMPLE_SEED) — a note that appeared on one run and not the next would be
+sampling noise wearing a measurement's clothes, and near a threshold the noise, not the
+part, would decide the verdict.
+
 Build direction is assumed +Z: the cartridges are authored with the print bed at
 Z=0, which is also what the platform's own slicing preview assumes. A part the user
 reorients on their own bed will have different overhangs, which is a second reason
@@ -61,6 +67,7 @@ __all__ = [
     "PrintabilityNote",
     "PrintabilityDependencyWarning",
     "THIN_WALL_MM",
+    "THICKNESS_SAMPLE_SEED",
     "THIN_WALL_PERCENTILE",
     "OVERHANG_ANGLE_DEG",
     "OVERHANG_AREA_FRACTION",
@@ -152,6 +159,32 @@ BUILD_VOLUME_MM = 256.0
 # (the statistic moves by <0.05mm between 400 and 1600 samples on the fixtures).
 THICKNESS_SAMPLES = 400
 
+# The seed the surface sampling draws from, so the measurement is REPRODUCIBLE: the same
+# mesh measures the same number on every run, on every machine with the same trimesh.
+#
+# Why this is not a knob but a correctness property. The thickness statistic is estimated
+# from THICKNESS_SAMPLES random surface points, so unseeded it is an estimate with noise
+# — and near the threshold the noise decides the verdict. Measured on the fixture that
+# exposed it, sew-on-snap's `bodysuit_placket` preset (a true finding, 0.04mm under the
+# bar): twelve unseeded draws of the same mesh spread 0.7534-0.8628mm and produced the
+# note on 8 of them. A note that appears on one run and not the next is not a
+# measurement, and it made `test_printability_note_on_a_marginal_preset_does_not_block`
+# fail roughly one run in four — invisible until #9, because until then the geometry lane
+# skipped on the runner and the assertion was never evaluated there.
+#
+# The fix is determinism and NOT a threshold move. Moving the bar to make a marginal part
+# read clean would be tuning to the answer, which is exactly what THIN_WALL_PERCENTILE's
+# calibration story refuses to do. Seeding changes no threshold and no rule: it fixes
+# WHICH 400 points are measured, so the same part gets the same answer twice.
+#
+# 0 is a chosen constant and nothing else — it was not searched for a verdict. At this
+# seed the calibration fixture measures 0.7614mm (it was described in the README as
+# "0.76mm" long before the seed existed) and the shipped 0.4mm-wall fixture measures
+# 0.4000mm at every seed, being uniformly one nozzle width thick. `thin_wall_note(...,
+# seed=...)` overrides it, and `seed=None` restores the old unseeded draw for anyone who
+# wants to see the estimator's spread for themselves.
+THICKNESS_SAMPLE_SEED = 0
+
 
 class PrintabilityDependencyWarning(UserWarning):
     """A printability measurement was skipped because a PACKAGE is missing.
@@ -220,13 +253,41 @@ def _prefix(mode: str, part: str, preset: str | None) -> str:
     return f"({mode}, {part})"
 
 
-def thin_wall_note(mesh, *, mode: str, part: str, preset: str | None = None):
+def _sample_surface(trimesh, np, mesh, count: int, seed):
+    """`count` surface samples, drawn from `seed` so the measurement repeats.
+
+    trimesh takes the seed directly (it builds a numpy Generator from it). Older
+    releases have no such parameter and draw from numpy's GLOBAL random state, so for
+    those the seed is applied around the call and the caller's stream is put back
+    afterwards — measuring a mesh must not move somebody else's random numbers.
+    """
+    try:
+        return trimesh.sample.sample_surface(mesh, count, seed=seed)
+    except TypeError:
+        state = np.random.get_state()
+        try:
+            np.random.seed(seed)
+            return trimesh.sample.sample_surface(mesh, count)
+        finally:
+            np.random.set_state(state)
+
+
+def thin_wall_note(
+    mesh, *, mode: str, part: str, preset: str | None = None, seed=THICKNESS_SAMPLE_SEED
+):
     """Local wall thickness: note when the part is thinner than two nozzle widths.
 
     Samples points on the surface and casts a ray inward along the local normal
     (trimesh.proximity.thickness) — the distance to the opposite wall. The sample
     count is capped at THICKNESS_SAMPLES so a large mesh still measures in under two
     seconds.
+
+    The sampling is SEEDED (THICKNESS_SAMPLE_SEED), which makes the measurement
+    reproducible: the same mesh measures the same number twice, so a note cannot appear
+    on one run and vanish on the next. That is a property of a measurement rather than a
+    convenience — the constant's comment carries the flake it was written for. `seed=`
+    takes any other seed, and `seed=None` restores the unseeded draw, which is how the
+    estimator's spread can be looked at deliberately.
 
     THRESHOLD IS PROVISIONAL, pending full-commons calibration: THIN_WALL_MM (0.8mm,
     two 0.4mm perimeters) at the THIN_WALL_PERCENTILE'th percentile. See
@@ -255,7 +316,7 @@ def thin_wall_note(mesh, *, mode: str, part: str, preset: str | None = None):
         if mesh.faces.shape[0] == 0 or float(mesh.area) <= 0:
             return None
         n = min(THICKNESS_SAMPLES, max(64, mesh.faces.shape[0]))
-        points, face_index = trimesh.sample.sample_surface(mesh, n)
+        points, face_index = _sample_surface(trimesh, np, mesh, n, seed)
         thickness = trimesh.proximity.thickness(
             mesh=mesh,
             points=points,
