@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "terms": {
+    "total": 147,
+    "domains": 9,
+    "review": {
+      "reviewed": 0,
+      "generated": 117,
+      "unmarked": 30
+    },
+    "languages": {
+      "es": 147,
+      "en": 147,
+      "fr": 147,
+      "pt": 147
+    }
+  },
+  "catalog": {
+    "yantra4d": {
+      "entries": 510,
+      "cartridges": 500,
+      "materials": 10,
+      "commit": "5562f547ba523c962527a2e2da1e9805b274ff24",
+      "captured_at": "2026-09-02",
+      "languages": {
+        "es": 485,
+        "en": 510,
+        "fr": 1,
+        "pt": 1
+      }
+    },
+    "fashion-cabinet": {
+      "entries": 527,
+      "cartridges": 516,
+      "materials": 11,
+      "commit": "00a2239cc081ac4305d7650a03ec065bcb1607f4",
+      "captured_at": "2026-09-02",
+      "languages": {
+        "es": 511,
+        "en": 527,
+        "fr": 248,
+        "pt": 200
+      }
+    }
+  },
+  "bridges": {
+    "edges": 303,
+    "resolved": 302,
+    "unresolved": 1,
+    "linked": 299,
+    "unlinked": 4,
+    "unlinked_claims": 3,
+    "back_edges": 299,
+    "back_resolved": 299,
+    "back_unresolved": 0,
+    "mirrored": 299,
+    "resolved_against": "80892074af0c17a9a6258a98d80d9b947df0756d"
+  },
+  "embodied_by_without_page": 0,
+  "pages": 1189
+}

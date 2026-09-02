@@ -5,6 +5,7 @@ contributor on either side of the commons checks the shared vocabulary with the 
 they already have installed. The command bodies live here so the two cannot drift.
 
     <tool> lexicon [--catalog bundled] [--terms DIR] [--status] [-v]
+    <tool> reader [--out DIR] [--check] [--status]
     <tool> vocab [--vocabularies DIR] [--status] [-v]
     <tool> article <path> [<path> ...] [--catalog bundled] [-v]
     <tool> define <word> [--lang es|en|fr|pt]
@@ -31,6 +32,9 @@ from .lexicon import (
     load_catalog_slugs,
     load_lexicon,
 )
+from .reader import READER_DIR, load_model, reader_counts, reader_status
+from .reader import build as build_reader
+from .reader import check as check_reader
 from .vocabulary import (
     check_vocabularies,
     equivalences,
@@ -43,6 +47,8 @@ BUNDLED = "bundled"
 
 __all__ = [
     "add_lexicon_parser",
+    "add_reader_parser",
+    "run_reader",
     "add_vocabulary_parser",
     "add_article_parser",
     "add_dictionary_parsers",
@@ -55,6 +61,7 @@ __all__ = [
 #: Every subcommand this module registers, so a host CLI can dispatch them as a group.
 LEXICON_COMMANDS: tuple[str, ...] = (
     "lexicon",
+    "reader",
     "vocab",
     "article",
     "define",
@@ -383,3 +390,82 @@ def run_article(args, prog: str) -> int:
     )
     print(article_status(articles))
     return 1 if result.problems else 0
+
+
+def add_reader_parser(sub, prog: str) -> None:
+    """Register the `reader` subcommand — the cross-commons reader (RFC 0039 G4)."""
+    p = sub.add_parser(
+        "reader",
+        help="build (or --check) the cross-commons reader: one lexicon, both "
+        "encyclopaedias, the bridge graph as navigation",
+    )
+    p.add_argument(
+        "--out",
+        metavar="DIR",
+        default=READER_DIR,
+        help=f"where the built reader goes (default: {READER_DIR}, relative to the "
+        f"working directory — that is where this repo commits it, so a clone reads the "
+        f"commons with no build step)",
+    )
+    p.add_argument(
+        "--check",
+        action="store_true",
+        help="build nothing; compare the committed reader against a rebuild and FAIL "
+        "on any difference — a missing page, a page nobody generates, or a page whose "
+        "bytes moved. This is what CI runs.",
+    )
+    p.add_argument(
+        "--status", action="store_true", help="print only the reader_status line"
+    )
+    p.set_defaults(func=lambda args: run_reader(args, prog))
+
+
+def run_reader(args, prog: str) -> int:
+    """Run the reader lane. 0 built/identical · 1 drift · 2 usage/read error."""
+    try:
+        model = load_model()
+    except (OSError, ValueError, KeyError) as exc:
+        print(f"  ERROR cannot assemble the reader — {exc}")
+        return 2
+
+    counts = reader_counts(model)
+    if args.status:
+        print(reader_status(model))
+        return 0
+
+    if args.check:
+        problems = check_reader(args.out, model)
+        for problem in problems[:20]:
+            print(f"  FAIL {problem}")
+        if len(problems) > 20:
+            print(f"  FAIL … and {len(problems) - 20} more")
+        print(
+            f"{prog} reader --check: out={args.out} pages={counts['pages']} "
+            f"differences={len(problems)}"
+        )
+        if problems:
+            print(
+                "  The committed reader does not match a rebuild. Rebuild it with "
+                f"`{prog} reader --out {args.out}` and commit the result."
+            )
+            return 1
+    else:
+        try:
+            files = build_reader(args.out, model)
+        except OSError as exc:
+            print(f"  ERROR cannot write the reader to {args.out} — {exc}")
+            return 2
+        print(f"{prog} reader: out={args.out} files={len(files)} pages={counts['pages']}")
+
+    print(reader_status(model))
+    # Read-proof: an unresolved edge is REPORTED and never fatal, matching the back-edge
+    # convention — but it must be impossible to miss in a green run.
+    bridges = counts["bridges"]
+    if bridges["unresolved"] or bridges["back_unresolved"] or counts["embodied_by_without_page"]:
+        print(
+            f"  note unresolved: bridge edges={bridges['unresolved']} "
+            f"back edges={bridges['back_unresolved']} "
+            f"embodied_by={counts['embodied_by_without_page']} "
+            f"(reported, never fatal — see the reader's bridges page)"
+        )
+    return 0

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>panel-edge — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>panel-edge</h1>
+<p class="lede">Dominio: <span class="mono">cross-commons</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="panel-edge.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+<h3>Término</h3>
+<p class="headword">canto de panel</p>
+<h3>Definición</h3>
+<p>El límite cosido de un panel textil impreso: la línea donde una lámina impresa flexible —cota de malla, escamas, celosía, plisado— deja de ser un cuerpo impreso y pasa a ser una pieza de prenda. Ambos procomunes nombran este mismo canto, el lado sólido como la interfaz de borde del propio panel y el lado blando como la costura que lo recibe, y los dos son la misma unión física sobre un mismo objeto.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge badge-generated">generated</span> written by a drafting pass, not natively reviewed</p>
+<h3>Term</h3>
+<p class="headword">panel edge</p>
+<h3>Definition</h3>
+<p>The sewn boundary of a printed textile panel: the line where a flexible printed sheet — chainmail, scale mail, lattice, pleat — stops being a printed body and becomes a piece of a garment. Both commons name this same edge, the solid side as the panel&#x27;s own boundary interface and the soft side as the seam that takes it in, and the two are the same physical join on one object.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge badge-generated">generated</span> rédigé par une passe de brouillon, sans relecture native</p>
+<h3>Terme</h3>
+<p class="headword">bord de panneau</p>
+<h3>Définition</h3>
+<p>La limite cousue d&#x27;un panneau textile imprimé : la ligne où une feuille imprimée souple — cotte de mailles, écailles, treillis, plissé — cesse d&#x27;être un corps imprimé pour devenir une pièce de vêtement. Les deux communs nomment ce même bord, le côté solide comme l&#x27;interface de contour du panneau lui-même et le côté souple comme la couture qui le reçoit, et tous deux sont le même assemblage physique sur un même objet.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redigido por uma passagem de rascunho, sem revisão nativa</p>
+<h3>Termo</h3>
+<p class="headword">bordo de painel</p>
+<h3>Definição</h3>
+<p>O limite costurado de um painel têxtil impresso: a linha onde uma folha impressa flexível — cota de malha, escamas, treliça, pregas — deixa de ser um corpo impresso e passa a ser uma peça de vestuário. Os dois comuns nomeiam este mesmo bordo, o lado sólido como a interface de contorno do próprio painel e o lado macio como a costura que o recebe, e ambos são a mesma união física sobre um mesmo objeto.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>The panel&#x27;s edge is a whole number of repeats, not a free length. The bridge resolves the garment&#x27;s panel_width_mm into an integer cell count — `round(panel_width_mm / (ring_id + wire_d))` for chainmail — so a drafted edge that is not a multiple of the cell pitch is printed to a rounded size and the sewn seam lands mid-cell.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">panel_edge</span></td><td><span class="mono">yantra4d</span></td><td>cdg_interface id on the TPU panel family (tpu-chainmail-panel, tpu-scale-mail, tpu-lattice-panel, tpu-pleat-panel, living-hinge), geometry_type &#x27;profile&#x27;.</td></tr>
+<tr><td><span class="mono">panel_edge</span></td><td><span class="mono">fashion-cabinet</span></td><td>hyperobject.interfaces id on chainmail-panel and articulated-scale-mail, declared with type &#x27;side_seam&#x27; and driven by panel_width_mm / panel_height_mm.</td></tr>
+</tbody>
+</table>
+<h2>Claves de manifiesto</h2>
+<table>
+<thead><tr><th>clave</th><th>papel</th><th>alias</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">fashion-cabinet/panel_edge</span></td><td>interface_id</td><td><span class="mono"></span></td></tr>
+<tr><td><span class="mono">yantra4d/panel_edge</span></td><td>interface_id</td><td><span class="mono"></span></td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="tape-edge.html">tape-edge</a></li><li><a href="sew-field.html">sew-field</a></li><li><a href="cross-commons-identity.html">cross-commons-identity</a></li><li><a href="hardware-ref.html">hardware-ref</a></li><li><a href="side-seam.html">side-seam</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/tpu-chainmail-panel.html"><span class="mono">yantra4d/tpu-chainmail-panel</span></a> — TPU Chainmail Panel</li>
+<li><a href="../yantra4d/tpu-scale-mail.html"><span class="mono">yantra4d/tpu-scale-mail</span></a> — TPU Scale Mail</li>
+<li><a href="../fashion-cabinet/chainmail-panel.html"><span class="mono">fashion-cabinet/chainmail-panel</span></a> — Chainmail Panel</li>
+<li><a href="../fashion-cabinet/articulated-scale-mail.html"><span class="mono">fashion-cabinet/articulated-scale-mail</span></a> — Panel de escamas articuladas (textil AM)</li>
+</ul>
+<h2>Notas</h2><p lang="en">This is the second dialect pair after `zipper_tape`/`tape_edge`, and the easier one: both repos already spell it `panel_edge`. It is also the seam under the commons&#x27; first identity pair — yantra4d/tpu-chainmail-panel and fashion-cabinet/chainmail-panel are the same object in TPU-95A (examples/chainmail-panel.identity.json).</p>
+<h2>Revisión</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

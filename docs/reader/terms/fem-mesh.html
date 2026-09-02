@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fem-mesh — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>fem-mesh</h1>
+<p class="lede">Dominio: <span class="mono">cdg-interface</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="fem-mesh.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+<h3>Término</h3>
+<p class="headword">interfaz de malla FEM</p>
+<h3>Definición</h3>
+<p>Tipo de interfaz CDG para el caso en que el ajuste no es una dimensión sino un contacto simulado: la interfaz se declara como la región de malla sobre la que actúa un solucionador de contacto por elementos finitos, y si dos cuerpos se encuentran correctamente es una pregunta que se responde ejecutando el cálculo, no comparando números en dos manifiestos. Es la única interfaz de robótica blanda del procomún, y es honesta al ser una afirmación de otra clase.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge badge-generated">generated</span> written by a drafting pass, not natively reviewed</p>
+<h3>Term</h3>
+<p class="headword">FEM mesh interface</p>
+<h3>Definition</h3>
+<p>A CDG interface type for the case where the fit is not a dimension but a simulated contact: the interface is declared as the mesh region a finite-element contact solver acts on, and whether two bodies meet correctly is a question answered by running the solve, not by comparing numbers in two manifests. It is the commons&#x27; one soft-robotics interface, and it is honest about being a different kind of claim.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge badge-generated">generated</span> rédigé par une passe de brouillon, sans relecture native</p>
+<h3>Terme</h3>
+<p class="headword">interface de maillage FEM</p>
+<h3>Définition</h3>
+<p>Type d&#x27;interface CDG pour le cas où l&#x27;ajustement n&#x27;est pas une dimension mais un contact simulé : l&#x27;interface est déclarée comme la région de maillage sur laquelle agit un solveur de contact par éléments finis, et savoir si deux corps se rencontrent correctement est une question à laquelle on répond en lançant le calcul, non en comparant des nombres dans deux manifestes. C&#x27;est l&#x27;unique interface de robotique souple des communs, et elle est honnête sur le fait d&#x27;être une affirmation d&#x27;une autre nature.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redigido por uma passagem de rascunho, sem revisão nativa</p>
+<h3>Termo</h3>
+<p class="headword">interface de malha FEM</p>
+<h3>Definição</h3>
+<p>Tipo de interface CDG para o caso em que o ajuste não é uma dimensão mas um contacto simulado: a interface é declarada como a região de malha sobre a qual atua um solucionador de contacto por elementos finitos, e saber se dois corpos se encontram corretamente é uma pergunta que se responde correndo o cálculo, não comparando números em dois manifestos. É a única interface de robótica mole do comum, e é honesta ao ser uma afirmação de outra natureza.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>A simulated contact is only a claim about the world if the solver is named. The one cartridge using this type names its solver in the interface&#x27;s `standard` field, and an entry of this type that names none is stating a result nobody can reproduce.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">fem_mesh</span></td><td><span class="mono">yantra4d</span></td><td>geometry_type value; exactly one declared interface in the 2026-09-02 catalog (sentinel-gripper-hyperobject / ppf_contact_interface), and not among the eleven values of the published geometry_type enum.</td></tr>
+</tbody>
+</table>
+<h2>Claves de manifiesto</h2>
+<table>
+<thead><tr><th>clave</th><th>papel</th><th>alias</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">yantra4d/fem_mesh</span></td><td>geometry_type</td><td><span class="mono"></span></td></tr>
+</tbody>
+</table>
+<h2>Normas citadas</h2><ul><li>ppf-contact-solver (SIGGRAPH Asia 2024)</li></ul>
+<h2>Véase también</h2><ul class="cols"><li><a href="cdg-interface.html">cdg-interface</a></li><li><a href="custom-interface.html">custom-interface</a></li><li><a href="surface.html">surface</a></li><li><a href="render-lane.html">render-lane</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sentinel-gripper-hyperobject.html"><span class="mono">yantra4d/sentinel-gripper-hyperobject</span></a> — Sentinel Soft Gripper</li>
+</ul>
+<h2>Notas</h2><p lang="en">One use, in one cartridge. It is in the lexicon because a type with a single instance is exactly the kind of vocabulary that gets re-invented under a second name — and because the interface vocabulary needs somewhere to record that the published schema enum does not contain it.</p>
+<h2>Revisión</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>
