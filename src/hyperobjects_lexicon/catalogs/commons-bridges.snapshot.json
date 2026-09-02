@@ -1,0 +1,7767 @@
+{
+  "schema_version": 1,
+  "_comment": "The cross-commons bridge graph, vendored and pinned: Fashion Cabinet garments to Yantra4D hardware through hardware_ref (the forward claims), and Yantra4D hardware to its Fashion Cabinet consumers through the back-edge fashion-cabinet publishes for yantra4d to vendor. Both directions are kept because they come from two different published files; whether they agree is checked, not assumed. unlinked_claims is fashion-cabinet's own report of the claims that do not resolve, carried verbatim — the reader reports them and never fails on them, matching the back-edge convention. Refresh with scripts/refresh_reader_snapshots.py.",
+  "captured_at": "2026-09-02",
+  "sources": {
+    "fashion-cabinet": {
+      "url": "https://github.com/madfam-org/fashion-cabinet",
+      "ref": "00a2239",
+      "commit": "00a2239cc081ac4305d7650a03ec065bcb1607f4",
+      "paths": [
+        "docs/commons-catalog.json",
+        "docs/interfaces/yantra4d-consumers.json",
+        "docs/interfaces/bridge-index.json"
+      ]
+    },
+    "yantra4d": {
+      "url": "https://github.com/madfam-org/yantra4d",
+      "ref": "5562f547",
+      "commit": "5562f547ba523c962527a2e2da1e9805b274ff24",
+      "paths": [
+        "docs/commons-catalog.json"
+      ]
+    }
+  },
+  "resolved_against": {
+    "yantra4d_commit": "80892074af0c17a9a6258a98d80d9b947df0756d"
+  },
+  "counts": {
+    "edges": 303,
+    "back_edges": 299,
+    "unlinked_claims": 3
+  },
+  "edges": [
+    {
+      "garment": "adaptive-magnetic-shirt",
+      "platform": "yantra4d",
+      "hardware": "magnetic-button-cover",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia",
+        "button_t",
+        "hole_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "adaptive-wrap-skirt",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia"
+      ]
+    },
+    {
+      "garment": "ankle-gaiter",
+      "platform": "yantra4d",
+      "hardware": "lacing-hook",
+      "linked": true,
+      "params_map_keys": [
+        "hook_count",
+        "pitch",
+        "plate_w"
+      ]
+    },
+    {
+      "garment": "anorak-smock",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "ao-tu-than",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "articulated-scale-mail",
+      "platform": "yantra4d",
+      "hardware": "tpu-scale-mail",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ]
+    },
+    {
+      "garment": "assistive-grip-glove",
+      "platform": "yantra4d",
+      "hardware": "finray-gripper",
+      "linked": true,
+      "params_map_keys": [
+        "fin_len"
+      ]
+    },
+    {
+      "garment": "baby-bib-set",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "baby-cardigan",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "baby-cocoon",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "baby-kimono-bodysuit",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "disc_t",
+        "engage_clear",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "baby-sleeper",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "backpack-panel",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "bag-clip-closure",
+      "platform": "yantra4d",
+      "hardware": "bag-clip",
+      "linked": true,
+      "params_map_keys": [
+        "clip_width"
+      ]
+    },
+    {
+      "garment": "baju-kurung",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "baju-melayu-set",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "balconette-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-underwire",
+      "linked": true,
+      "params_map_keys": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "balconette-underwire-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-underwire",
+      "linked": true,
+      "params_map_keys": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "ballet-tutu-platter",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "bandhgala-jacket",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "barong-tagalog",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "battery-pocket-liner",
+      "platform": "yantra4d",
+      "hardware": "battery-pocket-frame",
+      "linked": true,
+      "params_map_keys": [
+        "bay_h",
+        "bay_t",
+        "bay_w",
+        "corner_r",
+        "frame_t",
+        "frame_w",
+        "hole_dia",
+        "lip",
+        "sew_pitch"
+      ]
+    },
+    {
+      "garment": "bellows-elbow-sleeve",
+      "platform": "yantra4d",
+      "hardware": "bellows-actuator",
+      "linked": true,
+      "params_map_keys": [
+        "outer_dia"
+      ]
+    },
+    {
+      "garment": "belt-bag",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "belt-buckle-notion",
+      "platform": "yantra4d",
+      "hardware": "belt-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "bar_dia",
+        "strap_width"
+      ]
+    },
+    {
+      "garment": "belt-clip-notion",
+      "platform": "yantra4d",
+      "hardware": "belt-clip",
+      "linked": true,
+      "params_map_keys": [
+        "belt_w"
+      ]
+    },
+    {
+      "garment": "belt-hanger-loop-organizer",
+      "platform": "yantra4d",
+      "hardware": "belt-hanger",
+      "linked": true,
+      "params_map_keys": [
+        "hook_count",
+        "hook_reach",
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "belt-roll-keeper",
+      "platform": "yantra4d",
+      "hardware": "belt-hanger",
+      "linked": true,
+      "params_map_keys": [
+        "hook_count",
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "beret-structured",
+      "platform": "yantra4d",
+      "hardware": "hat-size-reducer",
+      "linked": true,
+      "params_map_keys": [
+        "head_circ",
+        "strip_height"
+      ]
+    },
+    {
+      "garment": "bias-tape-holder-caddy",
+      "platform": "yantra4d",
+      "hardware": "bias-tape-maker",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "throat_len",
+        "tool_len"
+      ]
+    },
+    {
+      "garment": "bib-work-apron",
+      "platform": "yantra4d",
+      "hardware": "d-ring",
+      "linked": true,
+      "params_map_keys": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "biometric-bra-band",
+      "platform": "yantra4d",
+      "hardware": "snap-electrode-carrier",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "boater-hat",
+      "platform": "yantra4d",
+      "hardware": "hat-size-reducer",
+      "linked": true,
+      "params_map_keys": [
+        "head_circ",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "boning-channel",
+      "platform": "yantra4d",
+      "hardware": "boning-stay",
+      "linked": true,
+      "params_map_keys": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ]
+    },
+    {
+      "garment": "boot-hook-pull-tab",
+      "platform": "yantra4d",
+      "hardware": "boot-hook-puller",
+      "linked": true,
+      "params_map_keys": [
+        "blade_t",
+        "blade_w",
+        "hook_r"
+      ]
+    },
+    {
+      "garment": "boot-shaper-sleeve",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ]
+    },
+    {
+      "garment": "boxer-brief-fly",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "boxing-fight-short",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "bra-ring-slider",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "bra-wireless",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows"
+      ]
+    },
+    {
+      "garment": "bralette-soft",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "bucket-bag",
+      "platform": "yantra4d",
+      "hardware": "strap-end-tip",
+      "linked": true,
+      "params_map_keys": [
+        "strap_t",
+        "strap_w",
+        "tip_len"
+      ]
+    },
+    {
+      "garment": "bustle-pad",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "button-aid-cuff-shirt",
+      "platform": "yantra4d",
+      "hardware": "button-hook-aid",
+      "linked": true,
+      "params_map_keys": [
+        "finger_scallops",
+        "grip_len",
+        "grip_t",
+        "grip_w",
+        "loop_depth",
+        "loop_dia",
+        "loop_t",
+        "neck_len"
+      ]
+    },
+    {
+      "garment": "buttonhole-spacer-guide",
+      "platform": "yantra4d",
+      "hardware": "buttonhole-spacer",
+      "linked": true,
+      "params_map_keys": [
+        "pitch",
+        "rail_len",
+        "rail_w"
+      ]
+    },
+    {
+      "garment": "camera-holster",
+      "platform": "yantra4d",
+      "hardware": "carabiner",
+      "linked": true,
+      "params_map_keys": [
+        "inner_w",
+        "opening",
+        "spine"
+      ]
+    },
+    {
+      "garment": "camera-strap",
+      "platform": "yantra4d",
+      "hardware": "tri-glide-slider",
+      "linked": true,
+      "params_map_keys": [
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "can-can-ruffle-skirt",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "cape-coat",
+      "platform": "yantra4d",
+      "hardware": "toggle",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_dia",
+        "barrel_len",
+        "cords"
+      ]
+    },
+    {
+      "garment": "cardigan-shawl-collar",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "carpenter-jean",
+      "platform": "yantra4d",
+      "hardware": "rivet",
+      "linked": true,
+      "params_map_keys": [
+        "bore_dia",
+        "burr_dia",
+        "cap_dia",
+        "cap_h",
+        "post_dia",
+        "post_h"
+      ]
+    },
+    {
+      "garment": "cavalier-cloak",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "disc_h",
+        "magnet_dia",
+        "magnet_h",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "chainmail-drape-top",
+      "platform": "yantra4d",
+      "hardware": "tpu-chainmail-panel",
+      "linked": true,
+      "params_map_keys": [
+        "clearance",
+        "cols",
+        "ring_id",
+        "rows",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "chainmail-panel",
+      "platform": "yantra4d",
+      "hardware": "tpu-chainmail-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "ring_id",
+        "rows",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "chaleco-charro",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "gap",
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "chalk-bag",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "changpao",
+      "platform": "yantra4d",
+      "hardware": "frog-closure",
+      "linked": false,
+      "params_map_keys": [
+        "knots",
+        "span"
+      ]
+    },
+    {
+      "garment": "chelsea-boot-upper",
+      "platform": "yantra4d",
+      "hardware": "side-release-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "wall_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "cheongsam-qipao",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "child-pinafore",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "chukka-boot-upper",
+      "platform": "yantra4d",
+      "hardware": "lacing-hook",
+      "linked": true,
+      "params_map_keys": [
+        "cord_dia",
+        "hook_count",
+        "pitch"
+      ]
+    },
+    {
+      "garment": "circus-aerial-unitard",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "coil_dia",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "climbing-harness-short",
+      "platform": "yantra4d",
+      "hardware": "ladder-lock",
+      "linked": true,
+      "params_map_keys": [
+        "frame_t",
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "cloche-hat",
+      "platform": "yantra4d",
+      "hardware": "hat-size-reducer",
+      "linked": true,
+      "params_map_keys": [
+        "head_circ",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "cocktail-dress",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "collar-stay",
+      "platform": "yantra4d",
+      "hardware": "collar-stay",
+      "linked": true,
+      "params_map_keys": [
+        "base_w",
+        "stay_len"
+      ]
+    },
+    {
+      "garment": "commedia-harlequin-suit",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "compression-tri-suit",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "conduit-cable-harness-tee",
+      "platform": "yantra4d",
+      "hardware": "seam-conduit-clip",
+      "linked": true,
+      "params_map_keys": [
+        "bundle_dia",
+        "clip_len",
+        "hole_dia",
+        "tab_t",
+        "tab_w"
+      ]
+    },
+    {
+      "garment": "cord-end-notion",
+      "platform": "yantra4d",
+      "hardware": "cord-end",
+      "linked": true,
+      "params_map_keys": [
+        "cord_dia",
+        "tip_length"
+      ]
+    },
+    {
+      "garment": "cord-stopper",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "cord_dia"
+      ]
+    },
+    {
+      "garment": "cotehardie",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia",
+        "wall",
+        "washer_t"
+      ]
+    },
+    {
+      "garment": "coverall",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "covert-coat",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "cummerbund-pleated",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "d-ring-slider",
+      "platform": "yantra4d",
+      "hardware": "d-ring",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "deel",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "delicates-wash-bag",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "denim-chore-apron",
+      "platform": "yantra4d",
+      "hardware": "rivet",
+      "linked": true,
+      "params_map_keys": [
+        "bore_dia",
+        "burr_dia",
+        "cap_dia",
+        "cap_h",
+        "post_dia",
+        "post_h"
+      ]
+    },
+    {
+      "garment": "denim-chore-coat",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "denim-chore-jacket",
+      "platform": "yantra4d",
+      "hardware": "rivet",
+      "linked": true,
+      "params_map_keys": [
+        "bore_dia",
+        "burr_dia",
+        "cap_h"
+      ]
+    },
+    {
+      "garment": "denim-overall-short",
+      "platform": "yantra4d",
+      "hardware": "overall-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia",
+        "depth",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "denim-western-shirt",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "derby-shoe-upper",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "inner_dia"
+      ]
+    },
+    {
+      "garment": "dirndl-bodice",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia"
+      ]
+    },
+    {
+      "garment": "dive-skin-suit",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "dog-coat",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "base_t",
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ]
+    },
+    {
+      "garment": "dopp-kit",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "double-breasted-blazer",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "drawcord-anchor",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "cord_dia"
+      ]
+    },
+    {
+      "garment": "drop-back-jumpsuit",
+      "platform": "yantra4d",
+      "hardware": "d-ring",
+      "linked": true,
+      "params_map_keys": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "duffel-bag",
+      "platform": "yantra4d",
+      "hardware": "strap-ring",
+      "linked": true,
+      "params_map_keys": [
+        "opening",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "duffle-coat",
+      "platform": "yantra4d",
+      "hardware": "toggle",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_dia",
+        "barrel_len",
+        "cords"
+      ]
+    },
+    {
+      "garment": "ecg-monitoring-vest",
+      "platform": "yantra4d",
+      "hardware": "snap-electrode-carrier",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "edwardian-walking-skirt",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "elizabethan-doublet",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "emg-sleeve-band",
+      "platform": "yantra4d",
+      "hardware": "snap-electrode-carrier",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "epaulette-dress-tunic",
+      "platform": "yantra4d",
+      "hardware": "epaulette-board",
+      "linked": true,
+      "params_map_keys": [
+        "board_len",
+        "button_dia",
+        "narrow_w",
+        "plate_t",
+        "rim_h",
+        "rim_w",
+        "wide_w"
+      ]
+    },
+    {
+      "garment": "espadrille-upper",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "inner_dia"
+      ]
+    },
+    {
+      "garment": "espadrille-upper-wrap",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "inner_dia",
+        "wall"
+      ]
+    },
+    {
+      "garment": "etextile-sensor-tee",
+      "platform": "yantra4d",
+      "hardware": "sensor-mount-plate",
+      "linked": true,
+      "params_map_keys": [
+        "base_w"
+      ]
+    },
+    {
+      "garment": "eyelet-grommet",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "flange_dia",
+        "inner_dia"
+      ]
+    },
+    {
+      "garment": "fedora-blank",
+      "platform": "yantra4d",
+      "hardware": "hat-size-reducer",
+      "linked": true,
+      "params_map_keys": [
+        "head_circ",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "field-jacket-m65",
+      "platform": "yantra4d",
+      "hardware": "snap-fit",
+      "linked": true,
+      "params_map_keys": [
+        "beam_width",
+        "bore_dia",
+        "wall"
+      ]
+    },
+    {
+      "garment": "five-panel-cap",
+      "platform": "yantra4d",
+      "hardware": "snap-fit",
+      "linked": true,
+      "params_map_keys": [
+        "bore_dia"
+      ]
+    },
+    {
+      "garment": "flamenco-bata-cola",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "flexure-cuff-glove",
+      "platform": "yantra4d",
+      "hardware": "tpu-flexure-cuff",
+      "linked": true,
+      "params_map_keys": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ]
+    },
+    {
+      "garment": "flexure-spine-harness",
+      "platform": "yantra4d",
+      "hardware": "tpu-flexure-cuff",
+      "linked": true,
+      "params_map_keys": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ]
+    },
+    {
+      "garment": "formal-bib-shirt",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "formal-tailcoat-trouser",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width",
+        "plate_t",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "frock-coat",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "garment-bag",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "garment-clip-pouch",
+      "platform": "yantra4d",
+      "hardware": "garment-clip",
+      "linked": true,
+      "params_map_keys": [
+        "jaw_len",
+        "jaw_t",
+        "jaw_w"
+      ]
+    },
+    {
+      "garment": "garment-clip-strap",
+      "platform": "yantra4d",
+      "hardware": "garment-clip",
+      "linked": true,
+      "params_map_keys": [
+        "jaw_len",
+        "jaw_w",
+        "tooth_n"
+      ]
+    },
+    {
+      "garment": "garment-hanger-cover",
+      "platform": "yantra4d",
+      "hardware": "garment-hanger",
+      "linked": true,
+      "params_map_keys": [
+        "bar_drop",
+        "shoulder_t",
+        "shoulder_w"
+      ]
+    },
+    {
+      "garment": "garment-travel-fold",
+      "platform": "yantra4d",
+      "hardware": "folding-board",
+      "linked": true,
+      "params_map_keys": [
+        "fold_h",
+        "fold_w",
+        "panel_t"
+      ]
+    },
+    {
+      "garment": "garter-belt",
+      "platform": "yantra4d",
+      "hardware": "garter-clip",
+      "linked": true,
+      "params_map_keys": [
+        "grip_clear",
+        "strap_t",
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "grip-pad-palm-mitt",
+      "platform": "yantra4d",
+      "hardware": "soft-gripper-pad",
+      "linked": true,
+      "params_map_keys": [
+        "pad_len",
+        "pad_w"
+      ]
+    },
+    {
+      "garment": "guayabera-shirt",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "gusset-flexure-legging",
+      "platform": "yantra4d",
+      "hardware": "tpu-gusset-flexure",
+      "linked": true,
+      "params_map_keys": [
+        "diag_h",
+        "diag_w",
+        "wall"
+      ]
+    },
+    {
+      "garment": "hanbok-chima",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "hanbok-magoja",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "hanger-cover-padded",
+      "platform": "yantra4d",
+      "hardware": "garment-hanger",
+      "linked": true,
+      "params_map_keys": [
+        "shoulder_w",
+        "slope"
+      ]
+    },
+    {
+      "garment": "haptic-nav-belt",
+      "platform": "yantra4d",
+      "hardware": "seam-strain-relief",
+      "linked": true,
+      "params_map_keys": [
+        "cable_dia",
+        "hole_dia",
+        "plate_len",
+        "plate_t",
+        "plate_w",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "harness-vest",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "heated-glove-liner",
+      "platform": "yantra4d",
+      "hardware": "seam-conduit-clip",
+      "linked": true,
+      "params_map_keys": [
+        "bundle_dia",
+        "clip_len",
+        "run_count",
+        "tab_w"
+      ]
+    },
+    {
+      "garment": "heated-vest",
+      "platform": "yantra4d",
+      "hardware": "battery-holder",
+      "linked": true,
+      "params_map_keys": [
+        "cell"
+      ]
+    },
+    {
+      "garment": "heated-vest-panel",
+      "platform": "yantra4d",
+      "hardware": "led-channel",
+      "linked": true,
+      "params_map_keys": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ]
+    },
+    {
+      "garment": "heel-tip-slipper",
+      "platform": "yantra4d",
+      "hardware": "heel-tip-blank",
+      "linked": true,
+      "params_map_keys": [
+        "tip_h",
+        "tip_l",
+        "tip_w"
+      ]
+    },
+    {
+      "garment": "hi-vis-vest",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": false,
+      "params_map_keys": [
+        "overlap_mm"
+      ]
+    },
+    {
+      "garment": "high-waist-shaping-brief",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "hiking-gaiter",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia"
+      ]
+    },
+    {
+      "garment": "hinge-collar-capelet",
+      "platform": "yantra4d",
+      "hardware": "tpu-hinge-collar",
+      "linked": true,
+      "params_map_keys": [
+        "band_h",
+        "collar_len",
+        "wall"
+      ]
+    },
+    {
+      "garment": "hook-loop-closure",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ]
+    },
+    {
+      "garment": "illuminated-gilet",
+      "platform": "yantra4d",
+      "hardware": "seam-conduit-clip",
+      "linked": true,
+      "params_map_keys": [
+        "bundle_dia",
+        "clip_len",
+        "hole_dia",
+        "run_pitch",
+        "tab_t",
+        "tab_w",
+        "wall"
+      ]
+    },
+    {
+      "garment": "invisible-zipper-notion",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "coil_dia",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "ironing-board-cover",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords",
+        "wall"
+      ]
+    },
+    {
+      "garment": "jalabiya",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "jeans-button",
+      "platform": "yantra4d",
+      "hardware": "jeans-button",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia"
+      ]
+    },
+    {
+      "garment": "jeogori-jacket",
+      "platform": "yantra4d",
+      "hardware": "frog-closure",
+      "linked": false,
+      "params_map_keys": [
+        "knots",
+        "span"
+      ]
+    },
+    {
+      "garment": "jewelry-roll",
+      "platform": "yantra4d",
+      "hardware": "d-ring",
+      "linked": true,
+      "params_map_keys": [
+        "bow_depth",
+        "webbing",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "kebaya-lace-blouse",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "kids-anorak",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords",
+        "lock_style",
+        "wall"
+      ]
+    },
+    {
+      "garment": "kids-raincoat",
+      "platform": "yantra4d",
+      "hardware": "snap-fit",
+      "linked": true,
+      "params_map_keys": [
+        "beam_width",
+        "bore_dia",
+        "wall"
+      ]
+    },
+    {
+      "garment": "kids-school-pinafore",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "kids-school-pinny",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "kilt-8yard",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "kiss-lock-purse",
+      "platform": "yantra4d",
+      "hardware": "kiss-lock-frame",
+      "linked": true,
+      "params_map_keys": [
+        "arch_h",
+        "channel_w",
+        "frame_w"
+      ]
+    },
+    {
+      "garment": "knife-roll",
+      "platform": "yantra4d",
+      "hardware": "cord-end",
+      "linked": true,
+      "params_map_keys": [
+        "bell_flare",
+        "cord_dia",
+        "lanyard_hole",
+        "tip_length",
+        "wall"
+      ]
+    },
+    {
+      "garment": "knit-poncho-wrap",
+      "platform": "yantra4d",
+      "hardware": "toggle",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_dia",
+        "barrel_len",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "lattice-armor-panel",
+      "platform": "yantra4d",
+      "hardware": "tpu-lattice-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ]
+    },
+    {
+      "garment": "lattice-corset",
+      "platform": "yantra4d",
+      "hardware": "tpu-lattice-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ]
+    },
+    {
+      "garment": "lattice-drape-skirt",
+      "platform": "yantra4d",
+      "hardware": "tpu-pleat-panel",
+      "linked": true,
+      "params_map_keys": [
+        "panel_width",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ]
+    },
+    {
+      "garment": "lattice-panel-skirt",
+      "platform": "yantra4d",
+      "hardware": "tpu-lattice-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ]
+    },
+    {
+      "garment": "led-costume-panel",
+      "platform": "yantra4d",
+      "hardware": "led-channel",
+      "linked": true,
+      "params_map_keys": [
+        "length",
+        "strip_width"
+      ]
+    },
+    {
+      "garment": "led-safety-sash",
+      "platform": "yantra4d",
+      "hardware": "led-channel",
+      "linked": true,
+      "params_map_keys": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ]
+    },
+    {
+      "garment": "led-trim-jacket",
+      "platform": "yantra4d",
+      "hardware": "led-channel",
+      "linked": true,
+      "params_map_keys": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ]
+    },
+    {
+      "garment": "leg-o-mutton-blouse",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "lehenga",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_thick",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "leotard-princess-seam",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "hole_dia",
+        "sew_holes",
+        "snap_dia"
+      ]
+    },
+    {
+      "garment": "lingerie-travel-pouch",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "chain_size",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "longline-bra",
+      "platform": "yantra4d",
+      "hardware": "boning-stay",
+      "linked": true,
+      "params_map_keys": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ]
+    },
+    {
+      "garment": "longline-bralette",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "longline-underwire-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-underwire",
+      "linked": true,
+      "params_map_keys": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "magnetic-clasp",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia"
+      ]
+    },
+    {
+      "garment": "magnetic-placket-shirt",
+      "platform": "yantra4d",
+      "hardware": "magnetic-button-cover",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia",
+        "button_t",
+        "hole_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "marching-band-tunic",
+      "platform": "yantra4d",
+      "hardware": "epaulette-board",
+      "linked": true,
+      "params_map_keys": [
+        "board_len",
+        "narrow_w",
+        "wide_w"
+      ]
+    },
+    {
+      "garment": "mary-jane-upper",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "mascot-body-shell",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "chain_size",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "messenger-bag",
+      "platform": "yantra4d",
+      "hardware": "cam-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "moccasin-driver-upper",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "inner_dia",
+        "wall"
+      ]
+    },
+    {
+      "garment": "mohair-cardigan",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "molle-webbing",
+      "platform": "yantra4d",
+      "hardware": "molle-clip",
+      "linked": true,
+      "params_map_keys": [
+        "col_pitch",
+        "panel_cols"
+      ]
+    },
+    {
+      "garment": "morning-coat",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "morning-coat-tailcoat",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "morning-tailcoat",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "nehru-collar-suit",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "nehru-jacket",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "nehru-sherwani",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "newsboy-cap",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "norfolk-jacket",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "rim",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "nursing-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "nursing-clip-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "nursing-sleep-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "one-hand-wrap-shirt",
+      "platform": "yantra4d",
+      "hardware": "magnetic-button-cover",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia"
+      ]
+    },
+    {
+      "garment": "one-hand-wrap-top",
+      "platform": "yantra4d",
+      "hardware": "d-ring",
+      "linked": true,
+      "params_map_keys": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "one-handed-jacket",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "opera-cape-formal",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "overall-buckle",
+      "platform": "yantra4d",
+      "hardware": "overall-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "pack-hip-belt",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "wall",
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "packable-rain-shell",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "painters-pant",
+      "platform": "yantra4d",
+      "hardware": "hammer-loop",
+      "linked": false,
+      "params_map_keys": [
+        "span",
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "panto-dame-gown",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "parametric-ruff",
+      "platform": "yantra4d",
+      "hardware": "tpu-pleat-panel",
+      "linked": true,
+      "params_map_keys": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ]
+    },
+    {
+      "garment": "pattern-weight-bag",
+      "platform": "yantra4d",
+      "hardware": "pattern-weight",
+      "linked": true,
+      "params_map_keys": [
+        "stack_clear",
+        "weight_dia",
+        "weight_h"
+      ]
+    },
+    {
+      "garment": "peak-lapel-tuxedo",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "pillbox-hat",
+      "platform": "yantra4d",
+      "hardware": "hat-size-reducer",
+      "linked": true,
+      "params_map_keys": [
+        "head_circ",
+        "strip_height"
+      ]
+    },
+    {
+      "garment": "pleat-panel-collar",
+      "platform": "yantra4d",
+      "hardware": "tpu-pleat-panel",
+      "linked": true,
+      "params_map_keys": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ]
+    },
+    {
+      "garment": "pneu-finger-splint-sleeve",
+      "platform": "yantra4d",
+      "hardware": "pneu-net-finger",
+      "linked": true,
+      "params_map_keys": [
+        "finger_len",
+        "finger_w"
+      ]
+    },
+    {
+      "garment": "pocket-hoops",
+      "platform": "yantra4d",
+      "hardware": "boning-stay",
+      "linked": true,
+      "params_map_keys": [
+        "channel_wall",
+        "stay_length",
+        "stay_t",
+        "stay_width"
+      ]
+    },
+    {
+      "garment": "point-turner-sleeve",
+      "platform": "yantra4d",
+      "hardware": "point-turner",
+      "linked": true,
+      "params_map_keys": [
+        "presser_w",
+        "tool_len",
+        "tool_t"
+      ]
+    },
+    {
+      "garment": "pollera-panamena",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ]
+    },
+    {
+      "garment": "poncho-ruana",
+      "platform": "yantra4d",
+      "hardware": "toggle",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_dia",
+        "barrel_len",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "post-surgical-access-tee",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "disc_t",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "press-folding-board-cover",
+      "platform": "yantra4d",
+      "hardware": "folding-board",
+      "linked": true,
+      "params_map_keys": [
+        "fold_h",
+        "fold_w",
+        "panel_t"
+      ]
+    },
+    {
+      "garment": "printed-corset-busk",
+      "platform": "yantra4d",
+      "hardware": "corset-busk",
+      "linked": true,
+      "params_map_keys": [
+        "busk_len",
+        "knobs",
+        "plate_t",
+        "plate_w"
+      ]
+    },
+    {
+      "garment": "printed-epaulette",
+      "platform": "yantra4d",
+      "hardware": "epaulette-board",
+      "linked": true,
+      "params_map_keys": [
+        "board_len",
+        "narrow_w",
+        "wide_w"
+      ]
+    },
+    {
+      "garment": "printed-flexure-cuff",
+      "platform": "yantra4d",
+      "hardware": "tpu-flexure-cuff",
+      "linked": true,
+      "params_map_keys": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ]
+    },
+    {
+      "garment": "printed-gusset-flexure",
+      "platform": "yantra4d",
+      "hardware": "tpu-gusset-flexure",
+      "linked": true,
+      "params_map_keys": [
+        "diag_h",
+        "diag_w",
+        "wall"
+      ]
+    },
+    {
+      "garment": "printed-hinge-collar",
+      "platform": "yantra4d",
+      "hardware": "tpu-hinge-collar",
+      "linked": true,
+      "params_map_keys": [
+        "band_h",
+        "collar_len",
+        "wall"
+      ]
+    },
+    {
+      "garment": "printed-mesh-overlay",
+      "platform": "yantra4d",
+      "hardware": "tpu-lattice-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ]
+    },
+    {
+      "garment": "printed-panel-tee",
+      "platform": "yantra4d",
+      "hardware": "tpu-lattice-panel",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ]
+    },
+    {
+      "garment": "puffer-jacket",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "puffer-vest",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "quilted-liner-jacket",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "qumbaz-coat",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "radio-chest-pack",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "wall",
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "rain-chaps",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "raincoat",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "rash-guard-zip",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "rash-guard-zip-hood",
+      "platform": "yantra4d",
+      "hardware": "invisible-zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "raw-hem-denim-short",
+      "platform": "yantra4d",
+      "hardware": "jeans-button",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ]
+    },
+    {
+      "garment": "regency-spencer",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "regency-stays",
+      "platform": "yantra4d",
+      "hardware": "corset-busk",
+      "linked": true,
+      "params_map_keys": [
+        "busk_len",
+        "knobs",
+        "plate_t",
+        "plate_w"
+      ]
+    },
+    {
+      "garment": "rehab-sensor-cuff",
+      "platform": "yantra4d",
+      "hardware": "sensor-mount-plate",
+      "linked": true,
+      "params_map_keys": [
+        "base_d",
+        "base_thick",
+        "base_w",
+        "corner_r",
+        "screw_dia",
+        "screw_holes",
+        "screw_inset"
+      ]
+    },
+    {
+      "garment": "rivet-burr",
+      "platform": "yantra4d",
+      "hardware": "rivet",
+      "linked": true,
+      "params_map_keys": [
+        "cap_dia"
+      ]
+    },
+    {
+      "garment": "roll-top-backpack",
+      "platform": "yantra4d",
+      "hardware": "side-release-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "saddle-bag",
+      "platform": "yantra4d",
+      "hardware": "twist-lock-closure",
+      "linked": true,
+      "params_map_keys": [
+        "plate_l",
+        "plate_w",
+        "turn_l"
+      ]
+    },
+    {
+      "garment": "safari-suit-jacket",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "sandal-strap-set",
+      "platform": "yantra4d",
+      "hardware": "belt-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "prong_d",
+        "strap_width"
+      ]
+    },
+    {
+      "garment": "sarafan",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "scale-mail-bodice",
+      "platform": "yantra4d",
+      "hardware": "tpu-scale-mail",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ]
+    },
+    {
+      "garment": "scale-mail-gauntlet",
+      "platform": "yantra4d",
+      "hardware": "tpu-scale-mail",
+      "linked": true,
+      "params_map_keys": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ]
+    },
+    {
+      "garment": "seated-rain-cape",
+      "platform": "yantra4d",
+      "hardware": "side-release-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "body_t",
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "seated-wear-trouser",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "seated-wrap-trouser",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia"
+      ]
+    },
+    {
+      "garment": "selvedge-jean",
+      "platform": "yantra4d",
+      "hardware": "jeans-button",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ]
+    },
+    {
+      "garment": "selvedge-jean-straight",
+      "platform": "yantra4d",
+      "hardware": "jeans-button",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ]
+    },
+    {
+      "garment": "sensor-cycling-jersey",
+      "platform": "yantra4d",
+      "hardware": "sensor-mount-plate",
+      "linked": true,
+      "params_map_keys": [
+        "base_d",
+        "base_w",
+        "corner_r",
+        "screw_holes"
+      ]
+    },
+    {
+      "garment": "sensor-hem-band",
+      "platform": "yantra4d",
+      "hardware": "sensor-mount-plate",
+      "linked": true,
+      "params_map_keys": [
+        "base_d",
+        "base_thick",
+        "base_w",
+        "corner_r",
+        "screw_dia",
+        "screw_holes",
+        "screw_inset"
+      ]
+    },
+    {
+      "garment": "sew-through-button",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "shank-button",
+      "platform": "yantra4d",
+      "hardware": "shank-button-solid",
+      "linked": true,
+      "params_map_keys": [
+        "diameter_mm"
+      ]
+    },
+    {
+      "garment": "shaping-body-suit",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows"
+      ]
+    },
+    {
+      "garment": "shaping-bodysuit",
+      "platform": "yantra4d",
+      "hardware": "hook-and-eye",
+      "linked": true,
+      "params_map_keys": [
+        "columns",
+        "rows"
+      ]
+    },
+    {
+      "garment": "shoe-bag-drawstring",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "shoe-horn-boot-sock",
+      "platform": "yantra4d",
+      "hardware": "shoe-horn",
+      "linked": true,
+      "params_map_keys": [
+        "blade_t",
+        "horn_len",
+        "scoop_w"
+      ]
+    },
+    {
+      "garment": "shop-coverall",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "chain_size",
+        "gap",
+        "tape_thick",
+        "tape_width",
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "shweshwe-pinafore",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "side-opening-top",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia"
+      ]
+    },
+    {
+      "garment": "side-opening-trousers",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ]
+    },
+    {
+      "garment": "size-marker-ring-tag",
+      "platform": "yantra4d",
+      "hardware": "size-marker-ring",
+      "linked": true,
+      "params_map_keys": [
+        "ring_w",
+        "rod_dia",
+        "tab_h"
+      ]
+    },
+    {
+      "garment": "sling-bag",
+      "platform": "yantra4d",
+      "hardware": "snap-hook-swivel",
+      "linked": true,
+      "params_map_keys": [
+        "webbing_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "snap-fastener",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "sew_holes",
+        "snap_dia"
+      ]
+    },
+    {
+      "garment": "soft-finger-mitt",
+      "platform": "yantra4d",
+      "hardware": "soft-finger",
+      "linked": true,
+      "params_map_keys": [
+        "finger_len"
+      ]
+    },
+    {
+      "garment": "spring-hook",
+      "platform": "yantra4d",
+      "hardware": "carabiner",
+      "linked": true,
+      "params_map_keys": [
+        "inner_w"
+      ]
+    },
+    {
+      "garment": "stage-quick-change-gown",
+      "platform": "yantra4d",
+      "hardware": "magnetic-clasp",
+      "linked": true,
+      "params_map_keys": [
+        "disc_dia",
+        "disc_h",
+        "magnet_dia",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "strap-buckle-notion",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "structured-corset",
+      "platform": "yantra4d",
+      "hardware": "corset-busk",
+      "linked": true,
+      "params_map_keys": [
+        "busk_len"
+      ]
+    },
+    {
+      "garment": "structured-fascinator",
+      "platform": "yantra4d",
+      "hardware": "fascinator-base",
+      "linked": true,
+      "params_map_keys": [
+        "base_dia",
+        "brim_w",
+        "dome_h",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "suit-trousers",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width"
+      ]
+    },
+    {
+      "garment": "suspender-belt",
+      "platform": "yantra4d",
+      "hardware": "garter-clip",
+      "linked": true,
+      "params_map_keys": [
+        "grip_clear",
+        "strap_t",
+        "strap_w"
+      ]
+    },
+    {
+      "garment": "suspender-clip",
+      "platform": "yantra4d",
+      "hardware": "suspender-clip",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "sweater-storage-envelope",
+      "platform": "yantra4d",
+      "hardware": "sew-on-snap",
+      "linked": true,
+      "params_map_keys": [
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ]
+    },
+    {
+      "garment": "swimsuit-one-piece",
+      "platform": "yantra4d",
+      "hardware": "bra-ring-slider",
+      "linked": true,
+      "params_map_keys": [
+        "strap_w",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "tailored-trouser-pleat",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "gap",
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "tailored-vest-back-strap",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "snap_clear",
+        "wall",
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "tendon-knuckle-brace",
+      "platform": "yantra4d",
+      "hardware": "tendon-knuckle",
+      "linked": true,
+      "params_map_keys": [
+        "seg_len"
+      ]
+    },
+    {
+      "garment": "thermal-waffle-henley",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ]
+    },
+    {
+      "garment": "thimble-finger-cot",
+      "platform": "yantra4d",
+      "hardware": "thimble",
+      "linked": true,
+      "params_map_keys": [
+        "finger_girth",
+        "thimble_h",
+        "wall_t"
+      ]
+    },
+    {
+      "garment": "three-piece-vest-back",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "snap_clear",
+        "wall",
+        "web_t",
+        "webbing"
+      ]
+    },
+    {
+      "garment": "toddler-dungaree",
+      "platform": "yantra4d",
+      "hardware": "overall-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia",
+        "depth",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "toddler-pinafore",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "card_count",
+        "dish_depth",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "toddler-play-dungarees",
+      "platform": "yantra4d",
+      "hardware": "overall-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "button_dia",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ]
+    },
+    {
+      "garment": "toe-post-sandal-strap",
+      "platform": "yantra4d",
+      "hardware": "rivet",
+      "linked": true,
+      "params_map_keys": [
+        "bore_dia",
+        "burr_dia",
+        "cap_h"
+      ]
+    },
+    {
+      "garment": "toggle-closure",
+      "platform": "yantra4d",
+      "hardware": "toggle",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_len",
+        "cord_dia"
+      ]
+    },
+    {
+      "garment": "tool-roll",
+      "platform": "yantra4d",
+      "hardware": "cord-end",
+      "linked": true,
+      "params_map_keys": [
+        "bell_flare",
+        "cord_dia",
+        "tip_length",
+        "wall"
+      ]
+    },
+    {
+      "garment": "tote-bag",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "tpu-pleat-panel",
+      "platform": "yantra4d",
+      "hardware": "tpu-pleat-panel",
+      "linked": true,
+      "params_map_keys": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ]
+    },
+    {
+      "garment": "track-jacket",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "trail-run-vest-pack",
+      "platform": "yantra4d",
+      "hardware": "side-release-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "body_t",
+        "webbing_w"
+      ]
+    },
+    {
+      "garment": "trouser-hook-notion",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "hook_width",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "tudor-kirtle",
+      "platform": "yantra4d",
+      "hardware": "garment-eyelet",
+      "linked": true,
+      "params_map_keys": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia",
+        "wall",
+        "washer_t"
+      ]
+    },
+    {
+      "garment": "turban-band",
+      "platform": "yantra4d",
+      "hardware": "headband-blank",
+      "linked": true,
+      "params_map_keys": [
+        "band_w",
+        "head_width",
+        "sew_holes"
+      ]
+    },
+    {
+      "garment": "underwire-bra",
+      "platform": "yantra4d",
+      "hardware": "bra-underwire",
+      "linked": true,
+      "params_map_keys": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "veiled-cocktail-hat",
+      "platform": "yantra4d",
+      "hardware": "veil-comb",
+      "linked": true,
+      "params_map_keys": [
+        "bar_length",
+        "slot_count",
+        "slot_pitch"
+      ]
+    },
+    {
+      "garment": "waistcoat-6button",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "waistcoat-lapelled",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "wallet-organizer",
+      "platform": "yantra4d",
+      "hardware": "chicago-screw",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia",
+        "post_dia",
+        "stack_t"
+      ]
+    },
+    {
+      "garment": "waspie",
+      "platform": "yantra4d",
+      "hardware": "boning-stay",
+      "linked": true,
+      "params_map_keys": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ]
+    },
+    {
+      "garment": "watch-strap",
+      "platform": "yantra4d",
+      "hardware": "watch-adapter",
+      "linked": true,
+      "params_map_keys": [
+        "lug_width"
+      ]
+    },
+    {
+      "garment": "wearable-compute-cap",
+      "platform": "yantra4d",
+      "hardware": "pi-hat-case",
+      "linked": true,
+      "params_map_keys": [
+        "screen_w"
+      ]
+    },
+    {
+      "garment": "webbing-belt",
+      "platform": "yantra4d",
+      "hardware": "strap-buckle",
+      "linked": true,
+      "params_map_keys": [
+        "webbing"
+      ]
+    },
+    {
+      "garment": "weekender-bag",
+      "platform": "yantra4d",
+      "hardware": "bag-feet",
+      "linked": true,
+      "params_map_keys": [
+        "foot_dia",
+        "foot_h",
+        "washer_dia"
+      ]
+    },
+    {
+      "garment": "welder-jacket",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "welt-pocket-blazer",
+      "platform": "yantra4d",
+      "hardware": "sew-through-button",
+      "linked": true,
+      "params_map_keys": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ]
+    },
+    {
+      "garment": "welt-pocket-trouser",
+      "platform": "yantra4d",
+      "hardware": "trouser-hook-bar",
+      "linked": true,
+      "params_map_keys": [
+        "gap",
+        "plate_len",
+        "wire_d"
+      ]
+    },
+    {
+      "garment": "wide-leg-jean",
+      "platform": "yantra4d",
+      "hardware": "jeans-button",
+      "linked": true,
+      "params_map_keys": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ]
+    },
+    {
+      "garment": "windbreaker",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "zip_length"
+      ]
+    },
+    {
+      "garment": "windbreaker-packable",
+      "platform": "yantra4d",
+      "hardware": "cord-lock",
+      "linked": true,
+      "params_map_keys": [
+        "cord_dia",
+        "cords"
+      ]
+    },
+    {
+      "garment": "wrap-recovery-top",
+      "platform": "yantra4d",
+      "hardware": "hook-loop-tape",
+      "linked": true,
+      "params_map_keys": [
+        "sew_margin",
+        "strip_length"
+      ]
+    },
+    {
+      "garment": "zip-pull-aid-vest",
+      "platform": "yantra4d",
+      "hardware": "zipper-loop-aid",
+      "linked": true,
+      "params_map_keys": [
+        "part_t",
+        "ring_id",
+        "ring_w",
+        "tab_t",
+        "tab_w"
+      ]
+    },
+    {
+      "garment": "zip-pull-assist-bootie",
+      "platform": "yantra4d",
+      "hardware": "zipper-pull-assist",
+      "linked": true,
+      "params_map_keys": [
+        "body_l",
+        "lever_len",
+        "lever_w"
+      ]
+    },
+    {
+      "garment": "zipper-notion",
+      "platform": "yantra4d",
+      "hardware": "zipper",
+      "linked": true,
+      "params_map_keys": [
+        "tape_width",
+        "zip_length"
+      ]
+    }
+  ],
+  "back_edges": [
+    {
+      "hardware": "bag-clip",
+      "garment": "bag-clip-closure",
+      "drives": [
+        "clip_width"
+      ],
+      "params_map": {
+        "clip_width": "clip_width"
+      }
+    },
+    {
+      "hardware": "bag-feet",
+      "garment": "weekender-bag",
+      "drives": [
+        "foot_dia",
+        "foot_h",
+        "washer_dia"
+      ],
+      "params_map": {
+        "foot_dia": "foot_diameter",
+        "foot_h": "max(6, foot_diameter / 2)",
+        "washer_dia": "foot_diameter * 0.8"
+      }
+    },
+    {
+      "hardware": "battery-holder",
+      "garment": "heated-vest",
+      "drives": [
+        "cell"
+      ],
+      "params_map": {
+        "cell": "battery_w"
+      }
+    },
+    {
+      "hardware": "battery-pocket-frame",
+      "garment": "battery-pocket-liner",
+      "drives": [
+        "bay_h",
+        "bay_t",
+        "bay_w",
+        "corner_r",
+        "frame_t",
+        "frame_w",
+        "hole_dia",
+        "lip",
+        "sew_pitch"
+      ],
+      "params_map": {
+        "bay_h": "batt_h + bay_clear",
+        "bay_t": "batt_t",
+        "bay_w": "batt_w + bay_clear",
+        "corner_r": "frame_w * 0.5",
+        "frame_t": "frame_w * 0.28",
+        "frame_w": "frame_w",
+        "hole_dia": "frame_w * 0.18",
+        "lip": "bay_clear + 1.5",
+        "sew_pitch": "sew_pitch"
+      }
+    },
+    {
+      "hardware": "bellows-actuator",
+      "garment": "bellows-elbow-sleeve",
+      "drives": [
+        "outer_dia"
+      ],
+      "params_map": {
+        "outer_dia": "elbow_girth"
+      }
+    },
+    {
+      "hardware": "belt-buckle",
+      "garment": "belt-buckle-notion",
+      "drives": [
+        "bar_dia",
+        "strap_width"
+      ],
+      "params_map": {
+        "bar_dia": "6",
+        "strap_width": "strap_width"
+      }
+    },
+    {
+      "hardware": "belt-buckle",
+      "garment": "sandal-strap-set",
+      "drives": [
+        "prong_d",
+        "strap_width"
+      ],
+      "params_map": {
+        "prong_d": "min(4, strap_w / 5)",
+        "strap_width": "strap_w"
+      }
+    },
+    {
+      "hardware": "belt-clip",
+      "garment": "belt-clip-notion",
+      "drives": [
+        "belt_w"
+      ],
+      "params_map": {
+        "belt_w": "belt_width"
+      }
+    },
+    {
+      "hardware": "belt-hanger",
+      "garment": "belt-hanger-loop-organizer",
+      "drives": [
+        "hook_count",
+        "hook_reach",
+        "strap_w"
+      ],
+      "params_map": {
+        "hook_count": "hook_count",
+        "hook_reach": "loop_reach",
+        "strap_w": "belt_width"
+      }
+    },
+    {
+      "hardware": "belt-hanger",
+      "garment": "belt-roll-keeper",
+      "drives": [
+        "hook_count",
+        "strap_w"
+      ],
+      "params_map": {
+        "hook_count": "belt_count",
+        "strap_w": "slot_width"
+      }
+    },
+    {
+      "hardware": "bias-tape-maker",
+      "garment": "bias-tape-holder-caddy",
+      "drives": [
+        "tape_width",
+        "throat_len",
+        "tool_len"
+      ],
+      "params_map": {
+        "tape_width": "tool_width * 0.5",
+        "throat_len": "tool_length * 0.4",
+        "tool_len": "tool_length"
+      }
+    },
+    {
+      "hardware": "boning-stay",
+      "garment": "boning-channel",
+      "drives": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ],
+      "params_map": {
+        "channel_clear": "channel_clear",
+        "stay_length": "stay_length",
+        "stay_width": "stay_width"
+      }
+    },
+    {
+      "hardware": "boning-stay",
+      "garment": "longline-bra",
+      "drives": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ],
+      "params_map": {
+        "channel_clear": "0.4",
+        "stay_length": "midriff_depth - 2 * bone_clearance",
+        "stay_width": "6"
+      }
+    },
+    {
+      "hardware": "boning-stay",
+      "garment": "pocket-hoops",
+      "drives": [
+        "channel_wall",
+        "stay_length",
+        "stay_t",
+        "stay_width"
+      ],
+      "params_map": {
+        "channel_wall": "hoop_depth",
+        "stay_length": "hoop_width",
+        "stay_t": "2",
+        "stay_width": "8"
+      }
+    },
+    {
+      "hardware": "boning-stay",
+      "garment": "waspie",
+      "drives": [
+        "channel_clear",
+        "stay_length",
+        "stay_width"
+      ],
+      "params_map": {
+        "channel_clear": "0.4",
+        "stay_length": "waspie_len - 2 * bone_clearance",
+        "stay_width": "7"
+      }
+    },
+    {
+      "hardware": "boot-hook-puller",
+      "garment": "boot-hook-pull-tab",
+      "drives": [
+        "blade_t",
+        "blade_w",
+        "hook_r"
+      ],
+      "params_map": {
+        "blade_t": "blade_thick",
+        "blade_w": "blade_width",
+        "hook_r": "hook_reach * 0.1"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "bra-ring-slider",
+      "drives": [
+        "strap_w"
+      ],
+      "params_map": {
+        "strap_w": "strap_width"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "bralette-soft",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_w",
+        "wire_d": "1.6"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "longline-bralette",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_width",
+        "wire_d": "2.0"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "nursing-bra",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_w",
+        "wire_d": "2.2"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "nursing-clip-bra",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_w",
+        "wire_d": "2.2"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "nursing-sleep-bra",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_width",
+        "wire_d": "2.4"
+      }
+    },
+    {
+      "hardware": "bra-ring-slider",
+      "garment": "swimsuit-one-piece",
+      "drives": [
+        "strap_w",
+        "wire_d"
+      ],
+      "params_map": {
+        "strap_w": "strap_w",
+        "wire_d": "1.8"
+      }
+    },
+    {
+      "hardware": "bra-underwire",
+      "garment": "balconette-bra",
+      "drives": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ],
+      "params_map": {
+        "cup_width": "cup_width",
+        "sweep_deg": "sweep_deg",
+        "wire_d": "1.4"
+      }
+    },
+    {
+      "hardware": "bra-underwire",
+      "garment": "balconette-underwire-bra",
+      "drives": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ],
+      "params_map": {
+        "cup_width": "cup_width",
+        "sweep_deg": "sweep_deg",
+        "wire_d": "1.4"
+      }
+    },
+    {
+      "hardware": "bra-underwire",
+      "garment": "longline-underwire-bra",
+      "drives": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ],
+      "params_map": {
+        "cup_width": "cup_width",
+        "sweep_deg": "sweep_deg",
+        "wire_d": "1.4"
+      }
+    },
+    {
+      "hardware": "bra-underwire",
+      "garment": "underwire-bra",
+      "drives": [
+        "cup_width",
+        "sweep_deg",
+        "wire_d"
+      ],
+      "params_map": {
+        "cup_width": "cup_width",
+        "sweep_deg": "sweep_deg",
+        "wire_d": "1.4"
+      }
+    },
+    {
+      "hardware": "button-hook-aid",
+      "garment": "button-aid-cuff-shirt",
+      "drives": [
+        "finger_scallops",
+        "grip_len",
+        "grip_t",
+        "grip_w",
+        "loop_depth",
+        "loop_dia",
+        "loop_t",
+        "neck_len"
+      ],
+      "params_map": {
+        "finger_scallops": "3",
+        "grip_len": "loop_tab * 3.5",
+        "grip_t": "hook_wire * 5",
+        "grip_w": "hook_loop * 0.9",
+        "loop_depth": "button_dia * 0.9",
+        "loop_dia": "hook_loop",
+        "loop_t": "hook_wire",
+        "neck_len": "loop_tab"
+      }
+    },
+    {
+      "hardware": "buttonhole-spacer",
+      "garment": "buttonhole-spacer-guide",
+      "drives": [
+        "pitch",
+        "rail_len",
+        "rail_w"
+      ],
+      "params_map": {
+        "pitch": "rail_pitch",
+        "rail_len": "rail_length",
+        "rail_w": "rail_width"
+      }
+    },
+    {
+      "hardware": "cam-buckle",
+      "garment": "messenger-bag",
+      "drives": [
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "webbing_t": "max(2, webbing_width / 12)",
+        "webbing_w": "webbing_width"
+      }
+    },
+    {
+      "hardware": "carabiner",
+      "garment": "camera-holster",
+      "drives": [
+        "inner_w",
+        "opening",
+        "spine"
+      ],
+      "params_map": {
+        "inner_w": "anchor_width",
+        "opening": "max(6.0, anchor_width * 0.5)",
+        "spine": "max(3.0, anchor_width * 0.22)"
+      }
+    },
+    {
+      "hardware": "carabiner",
+      "garment": "spring-hook",
+      "drives": [
+        "inner_w"
+      ],
+      "params_map": {
+        "inner_w": "tab_width"
+      }
+    },
+    {
+      "hardware": "chicago-screw",
+      "garment": "wallet-organizer",
+      "drives": [
+        "head_dia",
+        "post_dia",
+        "stack_t"
+      ],
+      "params_map": {
+        "head_dia": "screw_head",
+        "post_dia": "screw_head * 0.45",
+        "stack_t": "material_thickness * (3 + pocket_tiers)"
+      }
+    },
+    {
+      "hardware": "collar-stay",
+      "garment": "collar-stay",
+      "drives": [
+        "base_w",
+        "stay_len"
+      ],
+      "params_map": {
+        "base_w": "base_w",
+        "stay_len": "stay_len"
+      }
+    },
+    {
+      "hardware": "cord-end",
+      "garment": "cord-end-notion",
+      "drives": [
+        "cord_dia",
+        "tip_length"
+      ],
+      "params_map": {
+        "cord_dia": "cord_dia",
+        "tip_length": "tip_length"
+      }
+    },
+    {
+      "hardware": "cord-end",
+      "garment": "knife-roll",
+      "drives": [
+        "bell_flare",
+        "cord_dia",
+        "lanyard_hole",
+        "tip_length",
+        "wall"
+      ],
+      "params_map": {
+        "bell_flare": "cord_dia * 0.45",
+        "cord_dia": "cord_dia",
+        "lanyard_hole": "max(2.0, cord_dia * 0.5)",
+        "tip_length": "cord_dia * 4.5",
+        "wall": "max(0.9, cord_dia * 0.2)"
+      }
+    },
+    {
+      "hardware": "cord-end",
+      "garment": "tool-roll",
+      "drives": [
+        "bell_flare",
+        "cord_dia",
+        "tip_length",
+        "wall"
+      ],
+      "params_map": {
+        "bell_flare": "tie_cord_dia * 0.5",
+        "cord_dia": "tie_cord_dia",
+        "tip_length": "tie_cord_dia * 4.0",
+        "wall": "max(0.8, tie_cord_dia * 0.22)"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "anorak-smock",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "body_size": "max(14.0, cord_dia * 4.0)",
+        "cord_dia": "cord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "chalk-bag",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "body_size": "max(14.0, cord_dia * 4.0)",
+        "cord_dia": "cord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "cord-stopper",
+      "drives": [
+        "cord_dia"
+      ],
+      "params_map": {
+        "cord_dia": "cord_dia"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "drawcord-anchor",
+      "drives": [
+        "cord_dia"
+      ],
+      "params_map": {
+        "cord_dia": "cord_dia"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "ironing-board-cover",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords",
+        "wall"
+      ],
+      "params_map": {
+        "body_size": "cord_diameter * 4",
+        "cord_dia": "cord_diameter",
+        "cords": "2",
+        "wall": "cord_diameter * 0.5"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "kids-anorak",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords",
+        "lock_style",
+        "wall"
+      ],
+      "params_map": {
+        "body_size": "cord_dia * 4.0",
+        "cord_dia": "cord_dia",
+        "cords": "1",
+        "lock_style": "1",
+        "wall": "cord_dia * 0.5"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "packable-rain-shell",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "body_size": "max(14.0, cord_dia * 4.0)",
+        "cord_dia": "cord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "shoe-bag-drawstring",
+      "drives": [
+        "body_size",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "body_size": "cord_diameter * 4",
+        "cord_dia": "cord_diameter",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "cord-lock",
+      "garment": "windbreaker-packable",
+      "drives": [
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "cord_dia": "drawcord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "corset-busk",
+      "garment": "printed-corset-busk",
+      "drives": [
+        "busk_len",
+        "knobs",
+        "plate_t",
+        "plate_w"
+      ],
+      "params_map": {
+        "busk_len": "busk_len",
+        "knobs": "knobs",
+        "plate_t": "plate_t",
+        "plate_w": "plate_w"
+      }
+    },
+    {
+      "hardware": "corset-busk",
+      "garment": "regency-stays",
+      "drives": [
+        "busk_len",
+        "knobs",
+        "plate_t",
+        "plate_w"
+      ],
+      "params_map": {
+        "busk_len": "stays_length",
+        "knobs": "0",
+        "plate_t": "4",
+        "plate_w": "20"
+      }
+    },
+    {
+      "hardware": "corset-busk",
+      "garment": "structured-corset",
+      "drives": [
+        "busk_len"
+      ],
+      "params_map": {
+        "busk_len": "corset_len"
+      }
+    },
+    {
+      "hardware": "d-ring",
+      "garment": "bib-work-apron",
+      "drives": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ],
+      "params_map": {
+        "bow_depth": "dring_webbing * 0.7",
+        "webbing": "dring_webbing",
+        "wire_h": "dring_webbing * 0.5",
+        "wire_t": "dring_webbing * 0.14"
+      }
+    },
+    {
+      "hardware": "d-ring",
+      "garment": "d-ring-slider",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "d-ring",
+      "garment": "drop-back-jumpsuit",
+      "drives": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ],
+      "params_map": {
+        "bow_depth": "strap_width * 0.8",
+        "webbing": "strap_width",
+        "wire_h": "5.0",
+        "wire_t": "4.0"
+      }
+    },
+    {
+      "hardware": "d-ring",
+      "garment": "jewelry-roll",
+      "drives": [
+        "bow_depth",
+        "webbing",
+        "wire_t"
+      ],
+      "params_map": {
+        "bow_depth": "tie_width * 0.8",
+        "webbing": "tie_width",
+        "wire_t": "batting_thickness * 0.6"
+      }
+    },
+    {
+      "hardware": "d-ring",
+      "garment": "one-hand-wrap-top",
+      "drives": [
+        "bow_depth",
+        "webbing",
+        "wire_h",
+        "wire_t"
+      ],
+      "params_map": {
+        "bow_depth": "tie_width * 0.75",
+        "webbing": "tie_width",
+        "wire_h": "4.0",
+        "wire_t": "3.2"
+      }
+    },
+    {
+      "hardware": "epaulette-board",
+      "garment": "epaulette-dress-tunic",
+      "drives": [
+        "board_len",
+        "button_dia",
+        "narrow_w",
+        "plate_t",
+        "rim_h",
+        "rim_w",
+        "wide_w"
+      ],
+      "params_map": {
+        "board_len": "shoulder_len",
+        "button_dia": "board_button_dia",
+        "narrow_w": "board_narrow_w",
+        "plate_t": "2.4",
+        "rim_h": "2.0",
+        "rim_w": "1.6",
+        "wide_w": "board_wide_w"
+      }
+    },
+    {
+      "hardware": "epaulette-board",
+      "garment": "marching-band-tunic",
+      "drives": [
+        "board_len",
+        "narrow_w",
+        "wide_w"
+      ],
+      "params_map": {
+        "board_len": "board_len",
+        "narrow_w": "collar_height * 0.54",
+        "wide_w": "collar_height * 0.9"
+      }
+    },
+    {
+      "hardware": "epaulette-board",
+      "garment": "printed-epaulette",
+      "drives": [
+        "board_len",
+        "narrow_w",
+        "wide_w"
+      ],
+      "params_map": {
+        "board_len": "shoulder_len",
+        "narrow_w": "narrow_w",
+        "wide_w": "wide_w"
+      }
+    },
+    {
+      "hardware": "fascinator-base",
+      "garment": "structured-fascinator",
+      "drives": [
+        "base_dia",
+        "brim_w",
+        "dome_h",
+        "sew_holes"
+      ],
+      "params_map": {
+        "base_dia": "base_dia",
+        "brim_w": "trim_width",
+        "dome_h": "dome_height",
+        "sew_holes": "max(8, round(base_dia / 12))"
+      }
+    },
+    {
+      "hardware": "finray-gripper",
+      "garment": "assistive-grip-glove",
+      "drives": [
+        "fin_len"
+      ],
+      "params_map": {
+        "fin_len": "finger_len"
+      }
+    },
+    {
+      "hardware": "folding-board",
+      "garment": "garment-travel-fold",
+      "drives": [
+        "fold_h",
+        "fold_w",
+        "panel_t"
+      ],
+      "params_map": {
+        "fold_h": "board_length",
+        "fold_w": "board_width",
+        "panel_t": "3"
+      }
+    },
+    {
+      "hardware": "folding-board",
+      "garment": "press-folding-board-cover",
+      "drives": [
+        "fold_h",
+        "fold_w",
+        "panel_t"
+      ],
+      "params_map": {
+        "fold_h": "board_h",
+        "fold_w": "board_w",
+        "panel_t": "board_thick"
+      }
+    },
+    {
+      "hardware": "garment-clip",
+      "garment": "garment-clip-pouch",
+      "drives": [
+        "jaw_len",
+        "jaw_t",
+        "jaw_w"
+      ],
+      "params_map": {
+        "jaw_len": "clip_length",
+        "jaw_t": "clip_width * 0.3",
+        "jaw_w": "clip_width"
+      }
+    },
+    {
+      "hardware": "garment-clip",
+      "garment": "garment-clip-strap",
+      "drives": [
+        "jaw_len",
+        "jaw_w",
+        "tooth_n"
+      ],
+      "params_map": {
+        "jaw_len": "clip_jaw_len",
+        "jaw_w": "clip_jaw_width",
+        "tooth_n": "4"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "cotehardie",
+      "drives": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia",
+        "wall",
+        "washer_t"
+      ],
+      "params_map": {
+        "barrel_h": "seam_allowance * 0.25",
+        "flange_dia": "eyelet_pitch * 0.42",
+        "inner_dia": "4",
+        "wall": "1",
+        "washer_t": "1"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "derby-shoe-upper",
+      "drives": [
+        "barrel_h",
+        "inner_dia"
+      ],
+      "params_map": {
+        "barrel_h": "max(3, seam_allowance)",
+        "inner_dia": "eyelet_dia"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "dirndl-bodice",
+      "drives": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia"
+      ],
+      "params_map": {
+        "barrel_h": "3.0",
+        "flange_dia": "eyelet_dia * 2.1",
+        "inner_dia": "eyelet_dia"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "espadrille-upper",
+      "drives": [
+        "barrel_h",
+        "inner_dia"
+      ],
+      "params_map": {
+        "barrel_h": "max(3, seam_allowance)",
+        "inner_dia": "eyelet_dia"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "espadrille-upper-wrap",
+      "drives": [
+        "barrel_h",
+        "inner_dia",
+        "wall"
+      ],
+      "params_map": {
+        "barrel_h": "max(3, seam_allowance)",
+        "inner_dia": "eyelet_dia",
+        "wall": "eyelet_dia * 0.2"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "eyelet-grommet",
+      "drives": [
+        "flange_dia",
+        "inner_dia"
+      ],
+      "params_map": {
+        "flange_dia": "hole_dia * 2.2",
+        "inner_dia": "hole_dia"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "hiking-gaiter",
+      "drives": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia"
+      ],
+      "params_map": {
+        "barrel_h": "max(2.0, seam_allowance * 0.3)",
+        "flange_dia": "hook_dia * 2.2",
+        "inner_dia": "hook_dia"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "moccasin-driver-upper",
+      "drives": [
+        "barrel_h",
+        "inner_dia",
+        "wall"
+      ],
+      "params_map": {
+        "barrel_h": "max(3, seam_allowance)",
+        "inner_dia": "eyelet_dia",
+        "wall": "eyelet_dia * 0.2"
+      }
+    },
+    {
+      "hardware": "garment-eyelet",
+      "garment": "tudor-kirtle",
+      "drives": [
+        "barrel_h",
+        "flange_dia",
+        "inner_dia",
+        "wall",
+        "washer_t"
+      ],
+      "params_map": {
+        "barrel_h": "seam_allowance * 0.3",
+        "flange_dia": "eyelet_pitch * 0.40",
+        "inner_dia": "4",
+        "wall": "1",
+        "washer_t": "1"
+      }
+    },
+    {
+      "hardware": "garment-hanger",
+      "garment": "garment-hanger-cover",
+      "drives": [
+        "bar_drop",
+        "shoulder_t",
+        "shoulder_w"
+      ],
+      "params_map": {
+        "bar_drop": "shoulder_drop",
+        "shoulder_t": "pad_girth",
+        "shoulder_w": "hanger_span"
+      }
+    },
+    {
+      "hardware": "garment-hanger",
+      "garment": "hanger-cover-padded",
+      "drives": [
+        "shoulder_w",
+        "slope"
+      ],
+      "params_map": {
+        "shoulder_w": "hanger_span",
+        "slope": "shoulder_drop"
+      }
+    },
+    {
+      "hardware": "garter-clip",
+      "garment": "garter-belt",
+      "drives": [
+        "grip_clear",
+        "strap_t",
+        "strap_w"
+      ],
+      "params_map": {
+        "grip_clear": "0.3",
+        "strap_t": "strap_t",
+        "strap_w": "strap_w"
+      }
+    },
+    {
+      "hardware": "garter-clip",
+      "garment": "suspender-belt",
+      "drives": [
+        "grip_clear",
+        "strap_t",
+        "strap_w"
+      ],
+      "params_map": {
+        "grip_clear": "0.3",
+        "strap_t": "strap_t",
+        "strap_w": "strap_w"
+      }
+    },
+    {
+      "hardware": "hat-size-reducer",
+      "garment": "beret-structured",
+      "drives": [
+        "head_circ",
+        "strip_height"
+      ],
+      "params_map": {
+        "head_circ": "head_girth + ease",
+        "strip_height": "min(band_height, 32)"
+      }
+    },
+    {
+      "hardware": "hat-size-reducer",
+      "garment": "boater-hat",
+      "drives": [
+        "head_circ",
+        "strip_length"
+      ],
+      "params_map": {
+        "head_circ": "head_girth + ease",
+        "strip_length": "head_girth + ease"
+      }
+    },
+    {
+      "hardware": "hat-size-reducer",
+      "garment": "cloche-hat",
+      "drives": [
+        "head_circ",
+        "strip_length"
+      ],
+      "params_map": {
+        "head_circ": "head_girth + ease",
+        "strip_length": "head_girth + ease"
+      }
+    },
+    {
+      "hardware": "hat-size-reducer",
+      "garment": "fedora-blank",
+      "drives": [
+        "head_circ",
+        "strip_length"
+      ],
+      "params_map": {
+        "head_circ": "head_girth + ease",
+        "strip_length": "head_girth + ease"
+      }
+    },
+    {
+      "hardware": "hat-size-reducer",
+      "garment": "pillbox-hat",
+      "drives": [
+        "head_circ",
+        "strip_height"
+      ],
+      "params_map": {
+        "head_circ": "head_girth + ease",
+        "strip_height": "min(band_height, 40)"
+      }
+    },
+    {
+      "hardware": "headband-blank",
+      "garment": "turban-band",
+      "drives": [
+        "band_w",
+        "head_width",
+        "sew_holes"
+      ],
+      "params_map": {
+        "band_w": "band_width",
+        "head_width": "head_girth / 3",
+        "sew_holes": "max(4, round(blank_arc / 60))"
+      }
+    },
+    {
+      "hardware": "heel-tip-blank",
+      "garment": "heel-tip-slipper",
+      "drives": [
+        "tip_h",
+        "tip_l",
+        "tip_w"
+      ],
+      "params_map": {
+        "tip_h": "counter_height * 0.15",
+        "tip_l": "tip_length",
+        "tip_w": "tip_width"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "ao-tu-than",
+      "drives": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "1",
+        "plate_t": "1",
+        "rows": "1",
+        "size_mm": "closure_span"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "ballet-tutu-platter",
+      "drives": [
+        "columns",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "round(closure_rows)",
+        "rows": "2",
+        "size_mm": "basque_depth / 12"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "bra-wireless",
+      "drives": [
+        "columns",
+        "rows"
+      ],
+      "params_map": {
+        "columns": "3",
+        "rows": "2"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "can-can-ruffle-skirt",
+      "drives": [
+        "columns",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "round(closure_rows)",
+        "rows": "2",
+        "size_mm": "waistband_height / 6"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "cheongsam-qipao",
+      "drives": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "1",
+        "plate_t": "1",
+        "rows": "closure_count",
+        "size_mm": "closure_span"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "cummerbund-pleated",
+      "drives": [
+        "columns",
+        "rows",
+        "wire_d"
+      ],
+      "params_map": {
+        "columns": "2",
+        "rows": "hook_rows",
+        "wire_d": "seam_allowance * 0.12"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "flamenco-bata-cola",
+      "drives": [
+        "columns",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "round(closure_rows)",
+        "rows": "2",
+        "size_mm": "bodice_length / 24"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "high-waist-shaping-brief",
+      "drives": [
+        "columns",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "round(gusset_width / hook_pitch)",
+        "rows": "2",
+        "size_mm": "hook_pitch"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "kebaya-lace-blouse",
+      "drives": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "1",
+        "plate_t": "1",
+        "rows": "closure_count",
+        "size_mm": "closure_span"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "opera-cape-formal",
+      "drives": [
+        "columns",
+        "rows",
+        "wire_d"
+      ],
+      "params_map": {
+        "columns": "1",
+        "rows": "hook_rows",
+        "wire_d": "seam_allowance * 0.1"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "panto-dame-gown",
+      "drives": [
+        "columns",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "round(closure_rows)",
+        "rows": "2",
+        "size_mm": "bodice_length / 24"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "pollera-panamena",
+      "drives": [
+        "columns",
+        "plate_t",
+        "rows",
+        "size_mm"
+      ],
+      "params_map": {
+        "columns": "1",
+        "plate_t": "1",
+        "rows": "2",
+        "size_mm": "closure_span"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "shaping-body-suit",
+      "drives": [
+        "columns",
+        "rows"
+      ],
+      "params_map": {
+        "columns": "3",
+        "rows": "2"
+      }
+    },
+    {
+      "hardware": "hook-and-eye",
+      "garment": "shaping-bodysuit",
+      "drives": [
+        "columns",
+        "rows"
+      ],
+      "params_map": {
+        "columns": "3",
+        "rows": "2"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "boot-shaper-sleeve",
+      "drives": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ],
+      "params_map": {
+        "sew_margin": "seam_allowance * 0.3",
+        "strip_length": "calf_circ * 0.25",
+        "strip_width": "tab_width"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "boxing-fight-short",
+      "drives": [
+        "sew_margin",
+        "strip_length"
+      ],
+      "params_map": {
+        "sew_margin": "seam_allowance",
+        "strip_length": "waist_adjust"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "dog-coat",
+      "drives": [
+        "base_t",
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ],
+      "params_map": {
+        "base_t": "max(1.0, tape_width * 0.04)",
+        "sew_margin": "max(2.0, tape_width * 0.08)",
+        "strip_length": "tape_run",
+        "strip_width": "tape_width"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "hook-loop-closure",
+      "drives": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ],
+      "params_map": {
+        "sew_margin": "sew_margin",
+        "strip_length": "strip_length",
+        "strip_width": "strip_width"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "seated-wear-trouser",
+      "drives": [
+        "sew_margin",
+        "strip_length"
+      ],
+      "params_map": {
+        "sew_margin": "seam_allowance",
+        "strip_length": "side_adjust"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "side-opening-trousers",
+      "drives": [
+        "sew_margin",
+        "strip_length",
+        "strip_width"
+      ],
+      "params_map": {
+        "sew_margin": "seam_allowance",
+        "strip_length": "outseam_length - 42",
+        "strip_width": "tape_width"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "wrap-recovery-top",
+      "drives": [
+        "sew_margin",
+        "strip_length"
+      ],
+      "params_map": {
+        "sew_margin": "seam_allowance",
+        "strip_length": "wrap_overlap"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "circus-aerial-unitard",
+      "drives": [
+        "coil_dia",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "coil_dia": "3",
+        "tape_width": "18",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "compression-tri-suit",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "5",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "dive-skin-suit",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "5",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "invisible-zipper-notion",
+      "drives": [
+        "coil_dia",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "coil_dia": "coil_dia",
+        "tape_width": "tape_width",
+        "zip_length": "zipper_length"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "lehenga",
+      "drives": [
+        "tape_thick",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_thick": "0.6",
+        "tape_width": "tape_width",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "invisible-zipper",
+      "garment": "rash-guard-zip-hood",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "5",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "jeans-button",
+      "garment": "jeans-button",
+      "drives": [
+        "head_dia"
+      ],
+      "params_map": {
+        "head_dia": "head_dia"
+      }
+    },
+    {
+      "hardware": "jeans-button",
+      "garment": "raw-hem-denim-short",
+      "drives": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ],
+      "params_map": {
+        "head_dia": "button_head",
+        "head_h": "button_head * 0.34",
+        "socket_dia": "button_head * 0.62",
+        "socket_h": "button_head * 0.40",
+        "tack_dia": "button_head * 0.30",
+        "tack_h": "button_head * 0.55"
+      }
+    },
+    {
+      "hardware": "jeans-button",
+      "garment": "selvedge-jean",
+      "drives": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ],
+      "params_map": {
+        "head_dia": "button_head",
+        "head_h": "button_head * 0.34",
+        "socket_dia": "button_head * 0.62",
+        "socket_h": "button_head * 0.40",
+        "tack_dia": "button_head * 0.30",
+        "tack_h": "button_head * 0.55"
+      }
+    },
+    {
+      "hardware": "jeans-button",
+      "garment": "selvedge-jean-straight",
+      "drives": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ],
+      "params_map": {
+        "head_dia": "button_head",
+        "head_h": "button_head * 0.34",
+        "socket_dia": "button_head * 0.62",
+        "socket_h": "button_head * 0.40",
+        "tack_dia": "button_head * 0.30",
+        "tack_h": "button_head * 0.55"
+      }
+    },
+    {
+      "hardware": "jeans-button",
+      "garment": "wide-leg-jean",
+      "drives": [
+        "head_dia",
+        "head_h",
+        "socket_dia",
+        "socket_h",
+        "tack_dia",
+        "tack_h"
+      ],
+      "params_map": {
+        "head_dia": "button_head",
+        "head_h": "button_head * 0.34",
+        "socket_dia": "button_head * 0.62",
+        "socket_h": "button_head * 0.40",
+        "tack_dia": "button_head * 0.30",
+        "tack_h": "button_head * 0.55"
+      }
+    },
+    {
+      "hardware": "kiss-lock-frame",
+      "garment": "kiss-lock-purse",
+      "drives": [
+        "arch_h",
+        "channel_w",
+        "frame_w"
+      ],
+      "params_map": {
+        "arch_h": "frame_arch",
+        "channel_w": "channel_width",
+        "frame_w": "frame_width"
+      }
+    },
+    {
+      "hardware": "lacing-hook",
+      "garment": "ankle-gaiter",
+      "drives": [
+        "hook_count",
+        "pitch",
+        "plate_w"
+      ],
+      "params_map": {
+        "hook_count": "hook_count",
+        "pitch": "hook_pitch",
+        "plate_w": "hook_plate_w"
+      }
+    },
+    {
+      "hardware": "lacing-hook",
+      "garment": "chukka-boot-upper",
+      "drives": [
+        "cord_dia",
+        "hook_count",
+        "pitch"
+      ],
+      "params_map": {
+        "cord_dia": "lace_dia",
+        "hook_count": "lace_pairs",
+        "pitch": "ankle_height / (lace_pairs + 1)"
+      }
+    },
+    {
+      "hardware": "ladder-lock",
+      "garment": "climbing-harness-short",
+      "drives": [
+        "frame_t",
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "frame_t": "5",
+        "webbing_t": "3",
+        "webbing_w": "webbing_w"
+      }
+    },
+    {
+      "hardware": "led-channel",
+      "garment": "heated-vest-panel",
+      "drives": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ],
+      "params_map": {
+        "depth": "strip_w * 0.9",
+        "lip": "strip_w * 0.22",
+        "strip_width": "strip_w",
+        "wall": "strip_w * 0.18"
+      }
+    },
+    {
+      "hardware": "led-channel",
+      "garment": "led-costume-panel",
+      "drives": [
+        "length",
+        "strip_width"
+      ],
+      "params_map": {
+        "length": "panel_h",
+        "strip_width": "strip_w"
+      }
+    },
+    {
+      "hardware": "led-channel",
+      "garment": "led-safety-sash",
+      "drives": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ],
+      "params_map": {
+        "depth": "strip_w * 0.8",
+        "lip": "strip_w * 0.25",
+        "strip_width": "strip_w",
+        "wall": "strip_w * 0.2"
+      }
+    },
+    {
+      "hardware": "led-channel",
+      "garment": "led-trim-jacket",
+      "drives": [
+        "depth",
+        "lip",
+        "strip_width",
+        "wall"
+      ],
+      "params_map": {
+        "depth": "strip_w * 0.55",
+        "lip": "strip_w * 0.18",
+        "strip_width": "strip_w",
+        "wall": "trim_width * 0.08"
+      }
+    },
+    {
+      "hardware": "magnetic-button-cover",
+      "garment": "adaptive-magnetic-shirt",
+      "drives": [
+        "button_dia",
+        "button_t",
+        "hole_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "button_dia": "button_diameter",
+        "button_t": "3",
+        "hole_dia": "seam_allowance / 8",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "magnetic-button-cover",
+      "garment": "magnetic-placket-shirt",
+      "drives": [
+        "button_dia",
+        "button_t",
+        "hole_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "button_dia": "button_diameter",
+        "button_t": "3",
+        "hole_dia": "seam_allowance / 8",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "magnetic-button-cover",
+      "garment": "one-hand-wrap-shirt",
+      "drives": [
+        "button_dia"
+      ],
+      "params_map": {
+        "button_dia": "button_diameter"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "adaptive-wrap-skirt",
+      "drives": [
+        "disc_dia"
+      ],
+      "params_map": {
+        "disc_dia": "20"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "cavalier-cloak",
+      "drives": [
+        "disc_dia",
+        "disc_h",
+        "magnet_dia",
+        "magnet_h",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "collar_height * 0.34",
+        "disc_h": "3",
+        "magnet_dia": "10",
+        "magnet_h": "2",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "magnetic-clasp",
+      "drives": [
+        "disc_dia"
+      ],
+      "params_map": {
+        "disc_dia": "disc_dia"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "one-handed-jacket",
+      "drives": [
+        "disc_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "clasp_dia",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "seated-wrap-trouser",
+      "drives": [
+        "disc_dia"
+      ],
+      "params_map": {
+        "disc_dia": "clasp_diameter"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "side-opening-top",
+      "drives": [
+        "disc_dia"
+      ],
+      "params_map": {
+        "disc_dia": "18"
+      }
+    },
+    {
+      "hardware": "magnetic-clasp",
+      "garment": "stage-quick-change-gown",
+      "drives": [
+        "disc_dia",
+        "disc_h",
+        "magnet_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "clasp_dia",
+        "disc_h": "3",
+        "magnet_dia": "clasp_dia * 0.7",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "molle-clip",
+      "garment": "molle-webbing",
+      "drives": [
+        "col_pitch",
+        "panel_cols"
+      ],
+      "params_map": {
+        "col_pitch": "column_pitch",
+        "panel_cols": "columns"
+      }
+    },
+    {
+      "hardware": "overall-buckle",
+      "garment": "denim-overall-short",
+      "drives": [
+        "button_dia",
+        "depth",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ],
+      "params_map": {
+        "button_dia": "button_head",
+        "depth": "strap_width * 0.30",
+        "frame_h": "strap_width * 0.5",
+        "strap_w": "strap_width",
+        "wire_t": "strap_width * 0.10"
+      }
+    },
+    {
+      "hardware": "overall-buckle",
+      "garment": "overall-buckle",
+      "drives": [
+        "strap_w"
+      ],
+      "params_map": {
+        "strap_w": "strap_width"
+      }
+    },
+    {
+      "hardware": "overall-buckle",
+      "garment": "toddler-dungaree",
+      "drives": [
+        "button_dia",
+        "depth",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ],
+      "params_map": {
+        "button_dia": "strap_width * 0.45",
+        "depth": "strap_width * 0.30",
+        "frame_h": "strap_width * 0.5",
+        "strap_w": "strap_width",
+        "wire_t": "strap_width * 0.10"
+      }
+    },
+    {
+      "hardware": "overall-buckle",
+      "garment": "toddler-play-dungarees",
+      "drives": [
+        "button_dia",
+        "frame_h",
+        "strap_w",
+        "wire_t"
+      ],
+      "params_map": {
+        "button_dia": "strap_width * 0.55",
+        "frame_h": "strap_width * 0.62",
+        "strap_w": "strap_width",
+        "wire_t": "strap_width * 0.11"
+      }
+    },
+    {
+      "hardware": "pattern-weight",
+      "garment": "pattern-weight-bag",
+      "drives": [
+        "stack_clear",
+        "weight_dia",
+        "weight_h"
+      ],
+      "params_map": {
+        "stack_clear": "wall",
+        "weight_dia": "core_dia",
+        "weight_h": "core_height"
+      }
+    },
+    {
+      "hardware": "pi-hat-case",
+      "garment": "wearable-compute-cap",
+      "drives": [
+        "screen_w"
+      ],
+      "params_map": {
+        "screen_w": "case_size"
+      }
+    },
+    {
+      "hardware": "pneu-net-finger",
+      "garment": "pneu-finger-splint-sleeve",
+      "drives": [
+        "finger_len",
+        "finger_w"
+      ],
+      "params_map": {
+        "finger_len": "finger_len",
+        "finger_w": "base_girth"
+      }
+    },
+    {
+      "hardware": "point-turner",
+      "garment": "point-turner-sleeve",
+      "drives": [
+        "presser_w",
+        "tool_len",
+        "tool_t"
+      ],
+      "params_map": {
+        "presser_w": "tool_width",
+        "tool_len": "tool_length",
+        "tool_t": "tool_thick"
+      }
+    },
+    {
+      "hardware": "rivet",
+      "garment": "carpenter-jean",
+      "drives": [
+        "bore_dia",
+        "burr_dia",
+        "cap_dia",
+        "cap_h",
+        "post_dia",
+        "post_h"
+      ],
+      "params_map": {
+        "bore_dia": "rivet_cap * 0.40",
+        "burr_dia": "rivet_cap * 0.72",
+        "cap_dia": "rivet_cap",
+        "cap_h": "rivet_cap * 0.30",
+        "post_dia": "rivet_cap * 0.36",
+        "post_h": "rivet_cap * 0.42"
+      }
+    },
+    {
+      "hardware": "rivet",
+      "garment": "denim-chore-apron",
+      "drives": [
+        "bore_dia",
+        "burr_dia",
+        "cap_dia",
+        "cap_h",
+        "post_dia",
+        "post_h"
+      ],
+      "params_map": {
+        "bore_dia": "rivet_cap * 0.40",
+        "burr_dia": "rivet_cap * 0.72",
+        "cap_dia": "rivet_cap",
+        "cap_h": "rivet_cap * 0.30",
+        "post_dia": "rivet_cap * 0.36",
+        "post_h": "rivet_cap * 0.42"
+      }
+    },
+    {
+      "hardware": "rivet",
+      "garment": "denim-chore-jacket",
+      "drives": [
+        "bore_dia",
+        "burr_dia",
+        "cap_h"
+      ],
+      "params_map": {
+        "bore_dia": "rivet_cap * 0.30",
+        "burr_dia": "rivet_cap * 0.80",
+        "cap_h": "rivet_cap * 0.42"
+      }
+    },
+    {
+      "hardware": "rivet",
+      "garment": "rivet-burr",
+      "drives": [
+        "cap_dia"
+      ],
+      "params_map": {
+        "cap_dia": "cap_dia"
+      }
+    },
+    {
+      "hardware": "rivet",
+      "garment": "toe-post-sandal-strap",
+      "drives": [
+        "bore_dia",
+        "burr_dia",
+        "cap_h"
+      ],
+      "params_map": {
+        "bore_dia": "rivet_cap * 0.30",
+        "burr_dia": "rivet_cap * 0.80",
+        "cap_h": "rivet_cap * 0.42"
+      }
+    },
+    {
+      "hardware": "seam-conduit-clip",
+      "garment": "conduit-cable-harness-tee",
+      "drives": [
+        "bundle_dia",
+        "clip_len",
+        "hole_dia",
+        "tab_t",
+        "tab_w"
+      ],
+      "params_map": {
+        "bundle_dia": "bundle_dia",
+        "clip_len": "clip_pitch * 0.3",
+        "hole_dia": "2",
+        "tab_t": "tab_w * 0.2",
+        "tab_w": "tab_w"
+      }
+    },
+    {
+      "hardware": "seam-conduit-clip",
+      "garment": "heated-glove-liner",
+      "drives": [
+        "bundle_dia",
+        "clip_len",
+        "run_count",
+        "tab_w"
+      ],
+      "params_map": {
+        "bundle_dia": "conduit_tab * 0.3",
+        "clip_len": "conduit_tab",
+        "run_count": "heat_zones",
+        "tab_w": "conduit_tab * 0.6"
+      }
+    },
+    {
+      "hardware": "seam-conduit-clip",
+      "garment": "illuminated-gilet",
+      "drives": [
+        "bundle_dia",
+        "clip_len",
+        "hole_dia",
+        "run_pitch",
+        "tab_t",
+        "tab_w",
+        "wall"
+      ],
+      "params_map": {
+        "bundle_dia": "strip_w * 0.5",
+        "clip_len": "clip_tab * 1.4",
+        "hole_dia": "clip_tab * 0.14",
+        "run_pitch": "clip_pitch",
+        "tab_t": "clip_tab * 0.12",
+        "tab_w": "clip_tab",
+        "wall": "strip_w * 0.16"
+      }
+    },
+    {
+      "hardware": "seam-strain-relief",
+      "garment": "haptic-nav-belt",
+      "drives": [
+        "cable_dia",
+        "hole_dia",
+        "plate_len",
+        "plate_t",
+        "plate_w",
+        "sew_holes"
+      ],
+      "params_map": {
+        "cable_dia": "tactor_dia * 0.22",
+        "hole_dia": "relief_width * 0.14",
+        "plate_len": "relief_len",
+        "plate_t": "relief_width * 0.14",
+        "plate_w": "relief_width",
+        "sew_holes": "round(relief_len / 9)"
+      }
+    },
+    {
+      "hardware": "sensor-mount-plate",
+      "garment": "etextile-sensor-tee",
+      "drives": [
+        "base_w"
+      ],
+      "params_map": {
+        "base_w": "mount_size"
+      }
+    },
+    {
+      "hardware": "sensor-mount-plate",
+      "garment": "rehab-sensor-cuff",
+      "drives": [
+        "base_d",
+        "base_thick",
+        "base_w",
+        "corner_r",
+        "screw_dia",
+        "screw_holes",
+        "screw_inset"
+      ],
+      "params_map": {
+        "base_d": "plate_d",
+        "base_thick": "plate_d * 0.08",
+        "base_w": "plate_w",
+        "corner_r": "plate_d * 0.12",
+        "screw_dia": "plate_d * 0.09",
+        "screw_holes": "4",
+        "screw_inset": "plate_d * 0.13"
+      }
+    },
+    {
+      "hardware": "sensor-mount-plate",
+      "garment": "sensor-cycling-jersey",
+      "drives": [
+        "base_d",
+        "base_w",
+        "corner_r",
+        "screw_holes"
+      ],
+      "params_map": {
+        "base_d": "plate_d",
+        "base_w": "plate_w",
+        "corner_r": "plate_margin * 0.4",
+        "screw_holes": "4"
+      }
+    },
+    {
+      "hardware": "sensor-mount-plate",
+      "garment": "sensor-hem-band",
+      "drives": [
+        "base_d",
+        "base_thick",
+        "base_w",
+        "corner_r",
+        "screw_dia",
+        "screw_holes",
+        "screw_inset"
+      ],
+      "params_map": {
+        "base_d": "plate_d",
+        "base_thick": "plate_d * 0.09",
+        "base_w": "plate_w",
+        "corner_r": "plate_d * 0.14",
+        "screw_dia": "plate_d * 0.10",
+        "screw_holes": "4",
+        "screw_inset": "plate_d * 0.15"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "baby-bib-set",
+      "drives": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ],
+      "params_map": {
+        "disc_t": "snap_diameter * 0.12",
+        "engage_clear": "snap_diameter * 0.05",
+        "hole_dia": "snap_diameter * 0.08",
+        "sew_holes": "4",
+        "snap_dia": "snap_diameter",
+        "stud_dia": "snap_diameter * 0.4"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "baby-cocoon",
+      "drives": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ],
+      "params_map": {
+        "disc_t": "snap_diameter * 0.12",
+        "engage_clear": "snap_diameter * 0.05",
+        "hole_dia": "snap_diameter * 0.08",
+        "sew_holes": "4",
+        "snap_dia": "snap_diameter",
+        "stud_dia": "snap_diameter * 0.4"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "baby-kimono-bodysuit",
+      "drives": [
+        "disc_t",
+        "engage_clear",
+        "stud_dia"
+      ],
+      "params_map": {
+        "disc_t": "snap_disc * 0.14",
+        "engage_clear": "snap_disc * 0.08",
+        "stud_dia": "snap_disc * 0.42"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "denim-western-shirt",
+      "drives": [
+        "disc_t",
+        "engage_clear",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ],
+      "params_map": {
+        "disc_t": "1.4",
+        "engage_clear": "snap_diameter * 0.05",
+        "hole_dia": "seam_allowance / 10",
+        "sew_holes": "4",
+        "snap_dia": "snap_diameter",
+        "stud_dia": "snap_diameter * 0.40"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "leotard-princess-seam",
+      "drives": [
+        "hole_dia",
+        "sew_holes",
+        "snap_dia"
+      ],
+      "params_map": {
+        "hole_dia": "snap_dia * 0.08",
+        "sew_holes": "4",
+        "snap_dia": "snap_dia"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "post-surgical-access-tee",
+      "drives": [
+        "disc_t",
+        "hole_dia",
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ],
+      "params_map": {
+        "disc_t": "1.2",
+        "hole_dia": "seam_allowance / 8",
+        "sew_holes": "4",
+        "snap_dia": "snap_diameter",
+        "stud_dia": "snap_diameter * 0.42"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "snap-fastener",
+      "drives": [
+        "sew_holes",
+        "snap_dia"
+      ],
+      "params_map": {
+        "sew_holes": "4",
+        "snap_dia": "socket_dia"
+      }
+    },
+    {
+      "hardware": "sew-on-snap",
+      "garment": "sweater-storage-envelope",
+      "drives": [
+        "sew_holes",
+        "snap_dia",
+        "stud_dia"
+      ],
+      "params_map": {
+        "sew_holes": "4",
+        "snap_dia": "snap_diameter",
+        "stud_dia": "snap_diameter * 0.4"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "baby-cardigan",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.02",
+        "hole_count": "2",
+        "hole_dia": "button_ligne * 0.06",
+        "hole_spacing": "button_ligne * 0.18",
+        "thickness": "button_ligne * 0.09"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "baju-kurung",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "2",
+        "hole_dia": "1.6",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "baju-melayu-set",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "2",
+        "hole_spacing": "3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "barong-tagalog",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "2",
+        "hole_spacing": "3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "boxer-brief-fly",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "child-pinafore",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "commedia-harlequin-suit",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "deel",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "denim-chore-coat",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "double-breasted-blazer",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "elizabethan-doublet",
+      "drives": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "16",
+        "card_count": "round(back_length / button_pitch)",
+        "hole_count": "4",
+        "hole_spacing": "button_pitch / 8"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "formal-bib-shirt",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.02",
+        "hole_count": "2",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.18",
+        "thickness": "button_ligne * 0.12"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "frock-coat",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "guayabera-shirt",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "hanbok-chima",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "2",
+        "hole_dia": "1.6",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "hanbok-magoja",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "2",
+        "hole_dia": "2",
+        "hole_spacing": "3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "jalabiya",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "1.6",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "kids-school-pinny",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.02",
+        "hole_count": "2",
+        "hole_dia": "button_ligne * 0.06",
+        "hole_spacing": "button_ligne * 0.18",
+        "thickness": "button_ligne * 0.09"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "leg-o-mutton-blouse",
+      "drives": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "18",
+        "card_count": "round(back_length / button_pitch) + 2",
+        "hole_count": "4",
+        "hole_spacing": "button_pitch / 10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "mary-jane-upper",
+      "drives": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "card_count": "1",
+        "hole_count": "4",
+        "thickness": "button_thickness"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "mohair-cardigan",
+      "drives": [
+        "button_ligne",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "morning-coat",
+      "drives": [
+        "button_ligne",
+        "card_count",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "card_count": "9",
+        "hole_count": "4",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "morning-tailcoat",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "newsboy-cap",
+      "drives": [
+        "button_ligne",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "quilted-liner-jacket",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "qumbaz-coat",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "2",
+        "hole_dia": "2",
+        "hole_spacing": "3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "safari-suit-jacket",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "sarafan",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "sew-through-button",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "hole_count",
+        "hole_dia": "1.8",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "shweshwe-pinafore",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_dia": "2",
+        "hole_spacing": "3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "thermal-waffle-henley",
+      "drives": [
+        "button_ligne",
+        "hole_count",
+        "hole_spacing"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "hole_count": "4",
+        "hole_spacing": "button_ligne * 0.635 / 3"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "toddler-pinafore",
+      "drives": [
+        "card_count",
+        "dish_depth",
+        "thickness"
+      ],
+      "params_map": {
+        "card_count": "4",
+        "dish_depth": "button_ligne * 0.04",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "waistcoat-6button",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "waistcoat-lapelled",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "welder-jacket",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "sew-through-button",
+      "garment": "welt-pocket-blazer",
+      "drives": [
+        "button_ligne",
+        "dish_depth",
+        "hole_count",
+        "hole_dia",
+        "hole_spacing",
+        "thickness"
+      ],
+      "params_map": {
+        "button_ligne": "button_ligne",
+        "dish_depth": "button_ligne * 0.03",
+        "hole_count": "4",
+        "hole_dia": "button_ligne * 0.05",
+        "hole_spacing": "button_ligne * 0.16",
+        "thickness": "button_ligne * 0.10"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "bandhgala-jacket",
+      "drives": [
+        "diameter_mm",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "cardigan-shawl-collar",
+      "drives": [
+        "diameter_mm",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "covert-coat",
+      "drives": [
+        "diameter_mm",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "kids-school-pinafore",
+      "drives": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_ligne * 0.635",
+        "hole_dia": "button_ligne * 0.055",
+        "holes": "4",
+        "rim": "button_ligne * 0.045",
+        "thickness": "button_ligne * 0.14"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "morning-coat-tailcoat",
+      "drives": [
+        "diameter_mm",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "nehru-collar-suit",
+      "drives": [
+        "diameter_mm",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "thickness": "max(3, seam_allowance)"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "nehru-jacket",
+      "drives": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "hole_dia": "button_dia * 0.08",
+        "holes": "2",
+        "rim": "button_dia * 0.06",
+        "thickness": "button_dia * 0.28"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "nehru-sherwani",
+      "drives": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_diameter",
+        "hole_dia": "1",
+        "holes": "0",
+        "rim": "1",
+        "thickness": "3"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "norfolk-jacket",
+      "drives": [
+        "diameter_mm",
+        "rim",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "rim": "button_dia * 0.10",
+        "thickness": "button_dia * 0.28"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "peak-lapel-tuxedo",
+      "drives": [
+        "diameter_mm",
+        "hole_dia",
+        "holes",
+        "rim",
+        "thickness"
+      ],
+      "params_map": {
+        "diameter_mm": "button_dia",
+        "hole_dia": "button_dia * 0.08",
+        "holes": "2",
+        "rim": "button_dia * 0.06",
+        "thickness": "button_dia * 0.28"
+      }
+    },
+    {
+      "hardware": "shank-button-solid",
+      "garment": "shank-button",
+      "drives": [
+        "diameter_mm"
+      ],
+      "params_map": {
+        "diameter_mm": "button_ligne * 0.635"
+      }
+    },
+    {
+      "hardware": "shoe-horn",
+      "garment": "shoe-horn-boot-sock",
+      "drives": [
+        "blade_t",
+        "horn_len",
+        "scoop_w"
+      ],
+      "params_map": {
+        "blade_t": "horn_scoop * 0.06",
+        "horn_len": "horn_length",
+        "scoop_w": "horn_scoop"
+      }
+    },
+    {
+      "hardware": "side-release-buckle",
+      "garment": "chelsea-boot-upper",
+      "drives": [
+        "wall_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "wall_t": "max(2, seam_allowance)",
+        "webbing_w": "webbing_w"
+      }
+    },
+    {
+      "hardware": "side-release-buckle",
+      "garment": "roll-top-backpack",
+      "drives": [
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "webbing_t": "max(2, webbing_width / 12)",
+        "webbing_w": "webbing_width"
+      }
+    },
+    {
+      "hardware": "side-release-buckle",
+      "garment": "seated-rain-cape",
+      "drives": [
+        "body_t",
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "body_t": "seam_allowance",
+        "webbing_t": "2",
+        "webbing_w": "strap_webbing"
+      }
+    },
+    {
+      "hardware": "side-release-buckle",
+      "garment": "trail-run-vest-pack",
+      "drives": [
+        "body_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "body_t": "4",
+        "webbing_w": "webbing_w"
+      }
+    },
+    {
+      "hardware": "size-marker-ring",
+      "garment": "size-marker-ring-tag",
+      "drives": [
+        "ring_w",
+        "rod_dia",
+        "tab_h"
+      ],
+      "params_map": {
+        "ring_w": "hole_clear * 2",
+        "rod_dia": "ring_rod",
+        "tab_h": "tag_height"
+      }
+    },
+    {
+      "hardware": "snap-electrode-carrier",
+      "garment": "biometric-bra-band",
+      "drives": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "electrode_dia",
+        "disc_t": "electrode_dia * 0.06",
+        "hole_dia": "electrode_dia * 0.05",
+        "sew_holes": "round(electrode_dia / 4)"
+      }
+    },
+    {
+      "hardware": "snap-electrode-carrier",
+      "garment": "ecg-monitoring-vest",
+      "drives": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "electrode_dia",
+        "disc_t": "electrode_dia * 0.06",
+        "hole_dia": "electrode_dia * 0.05",
+        "sew_holes": "round(electrode_dia / 4)"
+      }
+    },
+    {
+      "hardware": "snap-electrode-carrier",
+      "garment": "emg-sleeve-band",
+      "drives": [
+        "disc_dia",
+        "disc_t",
+        "hole_dia",
+        "sew_holes"
+      ],
+      "params_map": {
+        "disc_dia": "electrode_dia",
+        "disc_t": "electrode_dia * 0.06",
+        "hole_dia": "electrode_dia * 0.05",
+        "sew_holes": "round(electrode_dia / 4)"
+      }
+    },
+    {
+      "hardware": "snap-fit",
+      "garment": "field-jacket-m65",
+      "drives": [
+        "beam_width",
+        "bore_dia",
+        "wall"
+      ],
+      "params_map": {
+        "beam_width": "snap_dia * 0.5",
+        "bore_dia": "snap_dia",
+        "wall": "snap_dia * 0.15"
+      }
+    },
+    {
+      "hardware": "snap-fit",
+      "garment": "five-panel-cap",
+      "drives": [
+        "bore_dia"
+      ],
+      "params_map": {
+        "bore_dia": "snap_dia"
+      }
+    },
+    {
+      "hardware": "snap-fit",
+      "garment": "kids-raincoat",
+      "drives": [
+        "beam_width",
+        "bore_dia",
+        "wall"
+      ],
+      "params_map": {
+        "beam_width": "snap_dia * 0.5",
+        "bore_dia": "snap_dia",
+        "wall": "snap_dia * 0.15"
+      }
+    },
+    {
+      "hardware": "snap-hook-swivel",
+      "garment": "sling-bag",
+      "drives": [
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "webbing_t": "max(2, webbing_width / 12)",
+        "webbing_w": "webbing_width"
+      }
+    },
+    {
+      "hardware": "soft-finger",
+      "garment": "soft-finger-mitt",
+      "drives": [
+        "finger_len"
+      ],
+      "params_map": {
+        "finger_len": "finger_len"
+      }
+    },
+    {
+      "hardware": "soft-gripper-pad",
+      "garment": "grip-pad-palm-mitt",
+      "drives": [
+        "pad_len",
+        "pad_w"
+      ],
+      "params_map": {
+        "pad_len": "pad_length",
+        "pad_w": "pad_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "backpack-panel",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "harness-vest",
+      "drives": [
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "web_t": "max(1.4, webbing * 0.06)",
+        "webbing": "webbing"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "kilt-8yard",
+      "drives": [
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "web_t": "3.0",
+        "webbing": "strap_w"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "pack-hip-belt",
+      "drives": [
+        "wall",
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "wall": "max(2.0, webbing * 0.08)",
+        "web_t": "max(1.5, webbing * 0.05)",
+        "webbing": "webbing"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "radio-chest-pack",
+      "drives": [
+        "wall",
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "wall": "max(2.0, webbing * 0.09)",
+        "web_t": "max(1.4, webbing * 0.06)",
+        "webbing": "webbing"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "rain-chaps",
+      "drives": [
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "web_t": "max(1.5, webbing * 0.06)",
+        "webbing": "webbing"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "strap-buckle-notion",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "tailored-vest-back-strap",
+      "drives": [
+        "snap_clear",
+        "wall",
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "snap_clear": "strap_width * 0.06",
+        "wall": "strap_width * 0.1",
+        "web_t": "strap_width * 0.08",
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "three-piece-vest-back",
+      "drives": [
+        "snap_clear",
+        "wall",
+        "web_t",
+        "webbing"
+      ],
+      "params_map": {
+        "snap_clear": "strap_width * 0.06",
+        "wall": "strap_width * 0.1",
+        "web_t": "strap_width * 0.08",
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "tote-bag",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-buckle",
+      "garment": "webbing-belt",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "strap_width"
+      }
+    },
+    {
+      "hardware": "strap-end-tip",
+      "garment": "bucket-bag",
+      "drives": [
+        "strap_t",
+        "strap_w",
+        "tip_len"
+      ],
+      "params_map": {
+        "strap_t": "max(2, strap_width / 10)",
+        "strap_w": "strap_width",
+        "tip_len": "strap_width * 1.6"
+      }
+    },
+    {
+      "hardware": "strap-ring",
+      "garment": "duffel-bag",
+      "drives": [
+        "opening",
+        "webbing_w"
+      ],
+      "params_map": {
+        "opening": "webbing_width + 6",
+        "webbing_w": "webbing_width"
+      }
+    },
+    {
+      "hardware": "suspender-clip",
+      "garment": "suspender-clip",
+      "drives": [
+        "webbing"
+      ],
+      "params_map": {
+        "webbing": "webbing"
+      }
+    },
+    {
+      "hardware": "tendon-knuckle",
+      "garment": "tendon-knuckle-brace",
+      "drives": [
+        "seg_len"
+      ],
+      "params_map": {
+        "seg_len": "linkage_span"
+      }
+    },
+    {
+      "hardware": "thimble",
+      "garment": "thimble-finger-cot",
+      "drives": [
+        "finger_girth",
+        "thimble_h",
+        "wall_t"
+      ],
+      "params_map": {
+        "finger_girth": "finger_girth",
+        "thimble_h": "cot_length",
+        "wall_t": "wall"
+      }
+    },
+    {
+      "hardware": "toggle",
+      "garment": "cape-coat",
+      "drives": [
+        "barrel_dia",
+        "barrel_len",
+        "cords"
+      ],
+      "params_map": {
+        "barrel_dia": "toggle_len * 0.28",
+        "barrel_len": "toggle_len",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "toggle",
+      "garment": "duffle-coat",
+      "drives": [
+        "barrel_dia",
+        "barrel_len",
+        "cords"
+      ],
+      "params_map": {
+        "barrel_dia": "toggle_len * 0.26",
+        "barrel_len": "toggle_len",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "toggle",
+      "garment": "knit-poncho-wrap",
+      "drives": [
+        "barrel_dia",
+        "barrel_len",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "barrel_dia": "cord_dia * 2.4",
+        "barrel_len": "barrel_len",
+        "cord_dia": "cord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "toggle",
+      "garment": "poncho-ruana",
+      "drives": [
+        "barrel_dia",
+        "barrel_len",
+        "cord_dia",
+        "cords"
+      ],
+      "params_map": {
+        "barrel_dia": "cord_dia * 2.4",
+        "barrel_len": "barrel_len",
+        "cord_dia": "cord_dia",
+        "cords": "2"
+      }
+    },
+    {
+      "hardware": "toggle",
+      "garment": "toggle-closure",
+      "drives": [
+        "barrel_len",
+        "cord_dia"
+      ],
+      "params_map": {
+        "barrel_len": "barrel_len",
+        "cord_dia": "cord_dia"
+      }
+    },
+    {
+      "hardware": "tpu-chainmail-panel",
+      "garment": "chainmail-drape-top",
+      "drives": [
+        "clearance",
+        "cols",
+        "ring_id",
+        "rows",
+        "wire_d"
+      ],
+      "params_map": {
+        "clearance": "clearance",
+        "cols": "round((bust_girth / 4 + drape_ease / 2) / (ring_id + wire_d))",
+        "ring_id": "ring_id",
+        "rows": "round(top_length / (ring_id + wire_d))",
+        "wire_d": "wire_d"
+      }
+    },
+    {
+      "hardware": "tpu-chainmail-panel",
+      "garment": "chainmail-panel",
+      "drives": [
+        "cols",
+        "ring_id",
+        "rows",
+        "wire_d"
+      ],
+      "params_map": {
+        "cols": "round(panel_width_mm / (ring_id + wire_d))",
+        "ring_id": "ring_id",
+        "rows": "round(panel_height_mm / ((ring_id + 2 * wire_d) * 0.62))",
+        "wire_d": "wire_d"
+      }
+    },
+    {
+      "hardware": "tpu-flexure-cuff",
+      "garment": "flexure-cuff-glove",
+      "drives": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ],
+      "params_map": {
+        "cuff_circum": "wrist_girth + cuff_ease",
+        "cuff_height": "cuff_height",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-flexure-cuff",
+      "garment": "flexure-spine-harness",
+      "drives": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ],
+      "params_map": {
+        "cuff_circum": "back_length",
+        "cuff_height": "spine_width",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-flexure-cuff",
+      "garment": "printed-flexure-cuff",
+      "drives": [
+        "cuff_circum",
+        "cuff_height",
+        "wall"
+      ],
+      "params_map": {
+        "cuff_circum": "wrist_girth",
+        "cuff_height": "cuff_height",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-gusset-flexure",
+      "garment": "gusset-flexure-legging",
+      "drives": [
+        "diag_h",
+        "diag_w",
+        "wall"
+      ],
+      "params_map": {
+        "diag_h": "gusset_h",
+        "diag_w": "gusset_w",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-gusset-flexure",
+      "garment": "printed-gusset-flexure",
+      "drives": [
+        "diag_h",
+        "diag_w",
+        "wall"
+      ],
+      "params_map": {
+        "diag_h": "gusset_h",
+        "diag_w": "gusset_w",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-hinge-collar",
+      "garment": "hinge-collar-capelet",
+      "drives": [
+        "band_h",
+        "collar_len",
+        "wall"
+      ],
+      "params_map": {
+        "band_h": "band_h",
+        "collar_len": "neck_girth + collar_ease",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-hinge-collar",
+      "garment": "printed-hinge-collar",
+      "drives": [
+        "band_h",
+        "collar_len",
+        "wall"
+      ],
+      "params_map": {
+        "band_h": "band_h",
+        "collar_len": "neck_girth",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-lattice-panel",
+      "garment": "lattice-armor-panel",
+      "drives": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ],
+      "params_map": {
+        "cols": "round(panel_width_mm / (tile_size + tile_gap))",
+        "gap": "tile_gap",
+        "rows": "round(panel_height_mm / (tile_size + tile_gap))",
+        "tile": "tile_size"
+      }
+    },
+    {
+      "hardware": "tpu-lattice-panel",
+      "garment": "lattice-corset",
+      "drives": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ],
+      "params_map": {
+        "cols": "round((bust_girth / 4 + (waist_girth / 4 - cinch / 2) + hip_girth / 4) / 3 / (tile_size + tile_gap))",
+        "gap": "tile_gap",
+        "rows": "round(torso_length / (tile_size + tile_gap))",
+        "tile": "tile_size"
+      }
+    },
+    {
+      "hardware": "tpu-lattice-panel",
+      "garment": "lattice-panel-skirt",
+      "drives": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ],
+      "params_map": {
+        "cols": "round((waist_girth / 4 + (hip_girth / 4 + hem_flare)) / 2 / (tile_size + tile_gap))",
+        "gap": "tile_gap",
+        "rows": "round(skirt_length / (tile_size + tile_gap))",
+        "tile": "tile_size"
+      }
+    },
+    {
+      "hardware": "tpu-lattice-panel",
+      "garment": "printed-mesh-overlay",
+      "drives": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ],
+      "params_map": {
+        "cols": "round(cover_width / (tile_size + tile_gap))",
+        "gap": "tile_gap",
+        "rows": "round(cover_height / (tile_size + tile_gap))",
+        "tile": "tile_size"
+      }
+    },
+    {
+      "hardware": "tpu-lattice-panel",
+      "garment": "printed-panel-tee",
+      "drives": [
+        "cols",
+        "gap",
+        "rows",
+        "tile"
+      ],
+      "params_map": {
+        "cols": "round(panel_width / (tile_size + tile_gap))",
+        "gap": "tile_gap",
+        "rows": "round(panel_height / (tile_size + tile_gap))",
+        "tile": "tile_size"
+      }
+    },
+    {
+      "hardware": "tpu-pleat-panel",
+      "garment": "lattice-drape-skirt",
+      "drives": [
+        "panel_width",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ],
+      "params_map": {
+        "panel_width": "hip_girth / 4 + hem_flare",
+        "pleat_pitch": "pleat_pitch",
+        "pleats": "round((hip_girth / 4 + hem_flare) / pleat_pitch)",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-pleat-panel",
+      "garment": "parametric-ruff",
+      "drives": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ],
+      "params_map": {
+        "panel_width": "neck_girth * fullness",
+        "pleat_depth": "pleat_depth",
+        "pleat_pitch": "pleat_pitch",
+        "pleats": "round(neck_girth * fullness / pleat_pitch)",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-pleat-panel",
+      "garment": "pleat-panel-collar",
+      "drives": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ],
+      "params_map": {
+        "panel_width": "neck_girth + collar_ease",
+        "pleat_depth": "pleat_depth",
+        "pleat_pitch": "pleat_pitch",
+        "pleats": "round((neck_girth + collar_ease) / pleat_pitch)",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-pleat-panel",
+      "garment": "tpu-pleat-panel",
+      "drives": [
+        "panel_width",
+        "pleat_depth",
+        "pleat_pitch",
+        "pleats",
+        "wall"
+      ],
+      "params_map": {
+        "panel_width": "panel_width_mm",
+        "pleat_depth": "pleat_depth",
+        "pleat_pitch": "max(4, panel_height_mm / round(panel_height_mm / (2 * pleat_depth)))",
+        "pleats": "round(panel_height_mm / (2 * pleat_depth))",
+        "wall": "wall"
+      }
+    },
+    {
+      "hardware": "tpu-scale-mail",
+      "garment": "articulated-scale-mail",
+      "drives": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ],
+      "params_map": {
+        "cols": "round(panel_width_mm / scale_size)",
+        "overlap": "overlap",
+        "rows": "round(panel_height_mm / (scale_size * 1.3 * (1 - overlap)))",
+        "scale_h": "scale_size * 1.3",
+        "scale_w": "scale_size"
+      }
+    },
+    {
+      "hardware": "tpu-scale-mail",
+      "garment": "scale-mail-bodice",
+      "drives": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ],
+      "params_map": {
+        "cols": "round(bust_girth / 4 / scale_size)",
+        "overlap": "overlap",
+        "rows": "round(bodice_length / (scale_size * 1.3 * (1 - overlap)))",
+        "scale_h": "scale_size * 1.3",
+        "scale_w": "scale_size"
+      }
+    },
+    {
+      "hardware": "tpu-scale-mail",
+      "garment": "scale-mail-gauntlet",
+      "drives": [
+        "cols",
+        "overlap",
+        "rows",
+        "scale_h",
+        "scale_w"
+      ],
+      "params_map": {
+        "cols": "round((elbow_girth / 2 + hand_width * 0.9) / 2 / scale_size)",
+        "overlap": "overlap",
+        "rows": "round(forearm_length / (scale_size * 1.3 * (1 - overlap)))",
+        "scale_h": "scale_size * 1.3",
+        "scale_w": "scale_size"
+      }
+    },
+    {
+      "hardware": "tri-glide-slider",
+      "garment": "camera-strap",
+      "drives": [
+        "webbing_t",
+        "webbing_w"
+      ],
+      "params_map": {
+        "webbing_t": "max(1.5, webbing_width / 14)",
+        "webbing_w": "webbing_width"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "bustle-pad",
+      "drives": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ],
+      "params_map": {
+        "hook_width": "12",
+        "plate_len": "hook_pitch * 0.6",
+        "plate_t": "1",
+        "sew_holes": "2",
+        "wire_d": "1"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "chaleco-charro",
+      "drives": [
+        "gap",
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ],
+      "params_map": {
+        "gap": "hook_width * 0.16",
+        "hook_width": "hook_width",
+        "plate_len": "hook_width * 2.1",
+        "plate_t": "hook_width * 0.05",
+        "sew_holes": "2",
+        "wire_d": "hook_width * 0.11"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "edwardian-walking-skirt",
+      "drives": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ],
+      "params_map": {
+        "hook_width": "band_height * 0.45",
+        "plate_len": "hook_pitch * 0.5",
+        "plate_t": "1",
+        "sew_holes": "3",
+        "wire_d": "1"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "formal-tailcoat-trouser",
+      "drives": [
+        "hook_width",
+        "plate_t",
+        "sew_holes"
+      ],
+      "params_map": {
+        "hook_width": "hook_width",
+        "plate_t": "3",
+        "sew_holes": "4"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "regency-spencer",
+      "drives": [
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ],
+      "params_map": {
+        "hook_width": "10",
+        "plate_len": "hook_pitch * 0.45",
+        "plate_t": "1",
+        "sew_holes": "3",
+        "wire_d": "1"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "suit-trousers",
+      "drives": [
+        "hook_width"
+      ],
+      "params_map": {
+        "hook_width": "fly_width"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "tailored-trouser-pleat",
+      "drives": [
+        "gap",
+        "hook_width",
+        "plate_len",
+        "plate_t",
+        "sew_holes",
+        "wire_d"
+      ],
+      "params_map": {
+        "gap": "hook_span * 0.1",
+        "hook_width": "hook_span",
+        "plate_len": "hook_span * 1.4",
+        "plate_t": "hook_span * 0.04",
+        "sew_holes": "3",
+        "wire_d": "hook_span * 0.06"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "trouser-hook-notion",
+      "drives": [
+        "hook_width",
+        "sew_holes"
+      ],
+      "params_map": {
+        "hook_width": "hook_width",
+        "sew_holes": "sew_holes"
+      }
+    },
+    {
+      "hardware": "trouser-hook-bar",
+      "garment": "welt-pocket-trouser",
+      "drives": [
+        "gap",
+        "plate_len",
+        "wire_d"
+      ],
+      "params_map": {
+        "gap": "hook_plate * 0.12",
+        "plate_len": "hook_plate",
+        "wire_d": "hook_plate * 0.05"
+      }
+    },
+    {
+      "hardware": "twist-lock-closure",
+      "garment": "saddle-bag",
+      "drives": [
+        "plate_l",
+        "plate_w",
+        "turn_l"
+      ],
+      "params_map": {
+        "plate_l": "lock_plate",
+        "plate_w": "lock_plate * 0.6",
+        "turn_l": "lock_plate * 0.7"
+      }
+    },
+    {
+      "hardware": "veil-comb",
+      "garment": "veiled-cocktail-hat",
+      "drives": [
+        "bar_length",
+        "slot_count",
+        "slot_pitch"
+      ],
+      "params_map": {
+        "bar_length": "bar_length",
+        "slot_count": "max(3, round(bar_length / 16))",
+        "slot_pitch": "bar_length / max(3, round(bar_length / 16))"
+      }
+    },
+    {
+      "hardware": "watch-adapter",
+      "garment": "watch-strap",
+      "drives": [
+        "lug_width"
+      ],
+      "params_map": {
+        "lug_width": "lug_width"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "baby-sleeper",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "belt-bag",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "bag_width"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "cocktail-dress",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "zipper_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "coverall",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "zipper_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "delicates-wash-bag",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "tape_width",
+        "zip_length": "bag_width"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "dopp-kit",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "kit_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "garment-bag",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "bag_depth / 4",
+        "zip_length": "bag_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "lingerie-travel-pouch",
+      "drives": [
+        "chain_size",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "chain_size": "5",
+        "tape_width": "corner_radius * 0.25",
+        "zip_length": "pouch_width + pouch_height * 2"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "mascot-body-shell",
+      "drives": [
+        "chain_size",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "chain_size": "8",
+        "tape_width": "20",
+        "zip_length": "zip_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "puffer-jacket",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "puffer-vest",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "raincoat",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "rash-guard-zip",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "back_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "shop-coverall",
+      "drives": [
+        "chain_size",
+        "gap",
+        "tape_thick",
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "chain_size": "zip_chain",
+        "gap": "zip_chain * 0.5",
+        "tape_thick": "zip_chain * 0.15",
+        "tape_width": "zip_chain * 3.2",
+        "zip_length": "front_rise + back_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "track-jacket",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "windbreaker",
+      "drives": [
+        "zip_length"
+      ],
+      "params_map": {
+        "zip_length": "body_length"
+      }
+    },
+    {
+      "hardware": "zipper",
+      "garment": "zipper-notion",
+      "drives": [
+        "tape_width",
+        "zip_length"
+      ],
+      "params_map": {
+        "tape_width": "tape_width",
+        "zip_length": "zipper_length"
+      }
+    },
+    {
+      "hardware": "zipper-loop-aid",
+      "garment": "zip-pull-aid-vest",
+      "drives": [
+        "part_t",
+        "ring_id",
+        "ring_w",
+        "tab_t",
+        "tab_w"
+      ],
+      "params_map": {
+        "part_t": "3.0",
+        "ring_id": "ring_inner",
+        "ring_w": "ring_inner * 0.28",
+        "tab_t": "zip_chain * 0.55",
+        "tab_w": "zip_chain * 1.4"
+      }
+    },
+    {
+      "hardware": "zipper-pull-assist",
+      "garment": "zip-pull-assist-bootie",
+      "drives": [
+        "body_l",
+        "lever_len",
+        "lever_w"
+      ],
+      "params_map": {
+        "body_l": "assist_body",
+        "lever_len": "lever_len",
+        "lever_w": "assist_body * 0.4"
+      }
+    }
+  ],
+  "unlinked_claims": [
+    {
+      "hardware": "frog-closure",
+      "garments": [
+        "changpao",
+        "jeogori-jacket"
+      ],
+      "resolves_in_snapshot": true,
+      "reason": "Co-create target, now BUILT upstream (span/knots resolve against the pinned snapshot) — but changpao and jeogori-jacket still carry linked:false. Flipping them is a cartridge change, not an index change: each needs its params_map re-checked against the solid's sew_tail flange and the dimensional handshake satisfied. Tracked as the first re-point candidate."
+    },
+    {
+      "hardware": "hammer-loop",
+      "garments": [
+        "painters-pant"
+      ],
+      "resolves_in_snapshot": false,
+      "reason": "No Yantra4D solid models a hammer loop's stiffening insert yet; the FC-400 index carries it as `yantra4d/hammer-loop (co-create)`. painters-pant keeps an honest placeholder until the solid is built upstream. This is the one claim in the repo that does not resolve against the upstream catalog at all."
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garments": [
+        "hi-vis-vest"
+      ],
+      "resolves_in_snapshot": true,
+      "reason": "The Yantra4D solid exists and is vendored, but hi-vis-vest's placeholder predates it and maps a parameter the solid does not have ('overlap_mm'; the solid exposes strip_length / strip_width / sew_margin). Honest linked:false until the placket math is re-expressed against the real parameter set — a false link would resolve by name and lie about the geometry."
+    }
+  ]
+}
