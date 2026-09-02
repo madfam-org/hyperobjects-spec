@@ -5,8 +5,8 @@
   "sources": {
     "fashion-cabinet": {
       "url": "https://github.com/madfam-org/fashion-cabinet",
-      "ref": "00a2239",
-      "commit": "00a2239cc081ac4305d7650a03ec065bcb1607f4",
+      "ref": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
+      "commit": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
       "paths": [
         "docs/commons-catalog.json",
         "docs/interfaces/yantra4d-consumers.json",
@@ -15,20 +15,20 @@
     },
     "yantra4d": {
       "url": "https://github.com/madfam-org/yantra4d",
-      "ref": "5562f547",
-      "commit": "5562f547ba523c962527a2e2da1e9805b274ff24",
+      "ref": "f0cdb74e9a97065e716aa91226da51f58db849d7",
+      "commit": "f0cdb74e9a97065e716aa91226da51f58db849d7",
       "paths": [
         "docs/commons-catalog.json"
       ]
     }
   },
   "resolved_against": {
-    "yantra4d_commit": "80892074af0c17a9a6258a98d80d9b947df0756d"
+    "yantra4d_commit": "335443c901dc4a736a309f98dd67447c68569091"
   },
   "counts": {
     "edges": 303,
-    "back_edges": 299,
-    "unlinked_claims": 3
+    "back_edges": 302,
+    "unlinked_claims": 1
   },
   "edges": [
     {
@@ -665,7 +665,7 @@
       "garment": "changpao",
       "platform": "yantra4d",
       "hardware": "frog-closure",
-      "linked": false,
+      "linked": true,
       "params_map_keys": [
         "knots",
         "span"
@@ -1480,9 +1480,10 @@
       "garment": "hi-vis-vest",
       "platform": "yantra4d",
       "hardware": "hook-loop-tape",
-      "linked": false,
+      "linked": true,
       "params_map_keys": [
-        "overlap_mm"
+        "overlap_mm",
+        "strip_length"
       ]
     },
     {
@@ -1592,7 +1593,7 @@
       "garment": "jeogori-jacket",
       "platform": "yantra4d",
       "hardware": "frog-closure",
-      "linked": false,
+      "linked": true,
       "params_map_keys": [
         "knots",
         "span"
@@ -4265,6 +4266,30 @@
       }
     },
     {
+      "hardware": "frog-closure",
+      "garment": "changpao",
+      "drives": [
+        "knots",
+        "span"
+      ],
+      "params_map": {
+        "knots": "frog_count",
+        "span": "frog_width"
+      }
+    },
+    {
+      "hardware": "frog-closure",
+      "garment": "jeogori-jacket",
+      "drives": [
+        "knots",
+        "span"
+      ],
+      "params_map": {
+        "knots": "knot_count",
+        "span": "closure_span"
+      }
+    },
+    {
       "hardware": "garment-clip",
       "garment": "garment-clip-pouch",
       "drives": [
@@ -4800,6 +4825,18 @@
         "sew_margin": "max(2.0, tape_width * 0.08)",
         "strip_length": "tape_run",
         "strip_width": "tape_width"
+      }
+    },
+    {
+      "hardware": "hook-loop-tape",
+      "garment": "hi-vis-vest",
+      "drives": [
+        "overlap_mm",
+        "strip_length"
+      ],
+      "params_map": {
+        "overlap_mm": "overlap",
+        "strip_length": "body_length - 92"
       }
     },
     {
@@ -7739,29 +7776,12 @@
   ],
   "unlinked_claims": [
     {
-      "hardware": "frog-closure",
-      "garments": [
-        "changpao",
-        "jeogori-jacket"
-      ],
-      "resolves_in_snapshot": true,
-      "reason": "Co-create target, now BUILT upstream (span/knots resolve against the pinned snapshot) — but changpao and jeogori-jacket still carry linked:false. Flipping them is a cartridge change, not an index change: each needs its params_map re-checked against the solid's sew_tail flange and the dimensional handshake satisfied. Tracked as the first re-point candidate."
-    },
-    {
       "hardware": "hammer-loop",
       "garments": [
         "painters-pant"
       ],
       "resolves_in_snapshot": false,
       "reason": "No Yantra4D solid models a hammer loop's stiffening insert yet; the FC-400 index carries it as `yantra4d/hammer-loop (co-create)`. painters-pant keeps an honest placeholder until the solid is built upstream. This is the one claim in the repo that does not resolve against the upstream catalog at all."
-    },
-    {
-      "hardware": "hook-loop-tape",
-      "garments": [
-        "hi-vis-vest"
-      ],
-      "resolves_in_snapshot": true,
-      "reason": "The Yantra4D solid exists and is vendored, but hi-vis-vest's placeholder predates it and maps a parameter the solid does not have ('overlap_mm'; the solid exposes strip_length / strip_width / sew_margin). Honest linked:false until the placket math is re-expressed against the real parameter set — a false link would resolve by name and lie about the geometry."
     }
   ]
 }

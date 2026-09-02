@@ -21,30 +21,28 @@
 <p class="lede">Cada prenda que declara <span class="mono">hardware_ref</span> resuelve un sólido de Yantra4D; cada sólido publica de vuelta las prendas que lo consumen. Esas dos aristas vienen de dos archivos publicados distintos, y aquí se guardan las dos: que coincidan es un hecho comprobado, no supuesto.</p>
 <h2>Procedencia</h2>
 <dl>
-  <dt>yantra4d</dt><dd><span class="mono">5562f547ba523c962527a2e2da1e9805b274ff24</span></dd>
-  <dt>fashion-cabinet</dt><dd><span class="mono">00a2239cc081ac4305d7650a03ec065bcb1607f4</span></dd>
-  <dt>back edge resuelta contra</dt><dd><span class="mono">80892074af0c17a9a6258a98d80d9b947df0756d</span> <span class="unresolved">— un commit de yantra4d distinto del catálogo fijado aquí; la arista de vuelta se calculó antes</span></dd>
+  <dt>yantra4d</dt><dd><span class="mono">f0cdb74e9a97065e716aa91226da51f58db849d7</span></dd>
+  <dt>fashion-cabinet</dt><dd><span class="mono">4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f</span></dd>
+  <dt>back edge resuelta contra</dt><dd><span class="mono">335443c901dc4a736a309f98dd67447c68569091</span> <span class="unresolved">— un commit de yantra4d distinto del catálogo fijado aquí; la arista de vuelta se calculó antes</span></dd>
 </dl>
 <h2>Cuentas</h2>
 <dl>
   <dt>aristas declaradas (prenda → hardware)</dt><dd>303</dd>
   <dt>con página en ambos extremos</dt><dd>302</dd>
   <dt>sin resolver</dt><dd>1</dd>
-  <dt>enlazadas</dt><dd>299</dd>
-  <dt>reclamadas pero no enlazadas</dt><dd>4</dd>
-  <dt>aristas de vuelta (hardware → prendas)</dt><dd>299</dd>
-  <dt>de vuelta con página en ambos extremos</dt><dd>299</dd>
-  <dt>coincidentes en las dos direcciones</dt><dd>299</dd>
+  <dt>enlazadas</dt><dd>302</dd>
+  <dt>reclamadas pero no enlazadas</dt><dd>1</dd>
+  <dt>aristas de vuelta (hardware → prendas)</dt><dd>302</dd>
+  <dt>de vuelta con página en ambos extremos</dt><dd>302</dd>
+  <dt>coincidentes en las dos direcciones</dt><dd>302</dd>
 </dl>
 <h2>Sin resolver (1)</h2>
 <p>Se informan, nunca hacen fallar la construcción — la misma convención que la arista de vuelta: una reclamación honesta sobre un sólido que nadie ha construido todavía vale más que un enlace que resuelve por nombre y miente sobre la geometría.</p><ul class="plain">
 <li><a href="fashion-cabinet/painters-pant.html"><span class="mono">fashion-cabinet/painters-pant</span></a> — Pantalón de pintor → <span class="unresolved"><span class="mono">yantra4d/hammer-loop</span> — sin página en esta instantánea</span><br><span class="review" lang="en">No Yantra4D solid models a hammer loop&#x27;s stiffening insert yet; the FC-400 index carries it as `yantra4d/hammer-loop (co-create)`. painters-pant keeps an honest placeholder until the solid is built upstream. This is the one claim in the repo that does not resolve against the upstream catalog at all.</span></li>
 </ul>
-<h2>Reclamaciones no enlazadas (3)</h2>
-<h3><a href="yantra4d/frog-closure.html"><span class="mono">yantra4d/frog-closure</span></a> — Frog Closure 盤扣</h3><p><a href="fashion-cabinet/changpao.html"><span class="mono">fashion-cabinet/changpao</span></a> — Changpao (長袍) — túnica larga con alamares, <a href="fashion-cabinet/jeogori-jacket.html"><span class="mono">fashion-cabinet/jeogori-jacket</span></a> — Chaqueta jeogori del hanbok</p><p class="review" lang="en">Co-create target, now BUILT upstream (span/knots resolve against the pinned snapshot) — but changpao and jeogori-jacket still carry linked:false. Flipping them is a cartridge change, not an index change: each needs its params_map re-checked against the solid&#x27;s sew_tail flange and the dimensional handshake satisfied. Tracked as the first re-point candidate.</p>
+<h2>Reclamaciones no enlazadas (1)</h2>
 <h3><span class="unresolved"><span class="mono">yantra4d/hammer-loop</span> — sin página en esta instantánea</span></h3><p><a href="fashion-cabinet/painters-pant.html"><span class="mono">fashion-cabinet/painters-pant</span></a> — Pantalón de pintor</p><p class="review" lang="en">No Yantra4D solid models a hammer loop&#x27;s stiffening insert yet; the FC-400 index carries it as `yantra4d/hammer-loop (co-create)`. painters-pant keeps an honest placeholder until the solid is built upstream. This is the one claim in the repo that does not resolve against the upstream catalog at all.</p>
-<h3><a href="yantra4d/hook-loop-tape.html"><span class="mono">yantra4d/hook-loop-tape</span></a> — Hook-and-Loop Tape</h3><p><a href="fashion-cabinet/hi-vis-vest.html"><span class="mono">fashion-cabinet/hi-vis-vest</span></a> — Chaleco de alta visibilidad</p><p class="review" lang="en">The Yantra4D solid exists and is vendored, but hi-vis-vest&#x27;s placeholder predates it and maps a parameter the solid does not have (&#x27;overlap_mm&#x27;; the solid exposes strip_length / strip_width / sew_margin). Honest linked:false until the placket math is re-expressed against the real parameter set — a false link would resolve by name and lie about the geometry.</p>
-<h2>Arista de vuelta (87 sólidos)</h2>
+<h2>Arista de vuelta (88 sólidos)</h2>
 <table>
 <thead><tr><th>sólido</th><th>n</th><th>prendas</th></tr></thead>
 <tbody>
@@ -75,6 +73,7 @@
 <tr><td><a href="yantra4d/fascinator-base.html"><span class="mono">yantra4d/fascinator-base</span></a> — Fascinator Base</td><td>1</td><td><a href="fashion-cabinet/structured-fascinator.html">structured-fascinator</a> </td></tr>
 <tr><td><a href="yantra4d/finray-gripper.html"><span class="mono">yantra4d/finray-gripper</span></a> — Fin-Ray Gripper Jaw</td><td>1</td><td><a href="fashion-cabinet/assistive-grip-glove.html">assistive-grip-glove</a> </td></tr>
 <tr><td><a href="yantra4d/folding-board.html"><span class="mono">yantra4d/folding-board</span></a> — Folding Board</td><td>2</td><td><a href="fashion-cabinet/garment-travel-fold.html">garment-travel-fold</a> <a href="fashion-cabinet/press-folding-board-cover.html">press-folding-board-cover</a> </td></tr>
+<tr><td><a href="yantra4d/frog-closure.html"><span class="mono">yantra4d/frog-closure</span></a> — Frog Closure 盤扣</td><td>2</td><td><a href="fashion-cabinet/changpao.html">changpao</a> <a href="fashion-cabinet/jeogori-jacket.html">jeogori-jacket</a> </td></tr>
 <tr><td><a href="yantra4d/garment-clip.html"><span class="mono">yantra4d/garment-clip</span></a> — Garment Clip</td><td>2</td><td><a href="fashion-cabinet/garment-clip-pouch.html">garment-clip-pouch</a> <a href="fashion-cabinet/garment-clip-strap.html">garment-clip-strap</a> </td></tr>
 <tr><td><a href="yantra4d/garment-eyelet.html"><span class="mono">yantra4d/garment-eyelet</span></a> — Garment Eyelet and Washer</td><td>9</td><td><a href="fashion-cabinet/cotehardie.html">cotehardie</a> <a href="fashion-cabinet/derby-shoe-upper.html">derby-shoe-upper</a> <a href="fashion-cabinet/dirndl-bodice.html">dirndl-bodice</a> <a href="fashion-cabinet/espadrille-upper.html">espadrille-upper</a> <a href="fashion-cabinet/espadrille-upper-wrap.html">espadrille-upper-wrap</a> <a href="fashion-cabinet/eyelet-grommet.html">eyelet-grommet</a> <a href="fashion-cabinet/hiking-gaiter.html">hiking-gaiter</a> <a href="fashion-cabinet/moccasin-driver-upper.html">moccasin-driver-upper</a> <a href="fashion-cabinet/tudor-kirtle.html">tudor-kirtle</a> </td></tr>
 <tr><td><a href="yantra4d/garment-hanger.html"><span class="mono">yantra4d/garment-hanger</span></a> — Garment Hanger</td><td>2</td><td><a href="fashion-cabinet/garment-hanger-cover.html">garment-hanger-cover</a> <a href="fashion-cabinet/hanger-cover-padded.html">hanger-cover-padded</a> </td></tr>
@@ -83,7 +82,7 @@
 <tr><td><a href="yantra4d/headband-blank.html"><span class="mono">yantra4d/headband-blank</span></a> — Headband Blank</td><td>1</td><td><a href="fashion-cabinet/turban-band.html">turban-band</a> </td></tr>
 <tr><td><a href="yantra4d/heel-tip-blank.html"><span class="mono">yantra4d/heel-tip-blank</span></a> — Heel Tip Blank</td><td>1</td><td><a href="fashion-cabinet/heel-tip-slipper.html">heel-tip-slipper</a> </td></tr>
 <tr><td><a href="yantra4d/hook-and-eye.html"><span class="mono">yantra4d/hook-and-eye</span></a> — Hook &amp; Eye</td><td>14</td><td><a href="fashion-cabinet/ao-tu-than.html">ao-tu-than</a> <a href="fashion-cabinet/ballet-tutu-platter.html">ballet-tutu-platter</a> <a href="fashion-cabinet/bra-wireless.html">bra-wireless</a> <a href="fashion-cabinet/can-can-ruffle-skirt.html">can-can-ruffle-skirt</a> <a href="fashion-cabinet/cheongsam-qipao.html">cheongsam-qipao</a> <a href="fashion-cabinet/cummerbund-pleated.html">cummerbund-pleated</a> <a href="fashion-cabinet/flamenco-bata-cola.html">flamenco-bata-cola</a> <a href="fashion-cabinet/high-waist-shaping-brief.html">high-waist-shaping-brief</a> <a href="fashion-cabinet/kebaya-lace-blouse.html">kebaya-lace-blouse</a> <a href="fashion-cabinet/opera-cape-formal.html">opera-cape-formal</a> <a href="fashion-cabinet/panto-dame-gown.html">panto-dame-gown</a> <a href="fashion-cabinet/pollera-panamena.html">pollera-panamena</a> <a href="fashion-cabinet/shaping-body-suit.html">shaping-body-suit</a> <a href="fashion-cabinet/shaping-bodysuit.html">shaping-bodysuit</a> </td></tr>
-<tr><td><a href="yantra4d/hook-loop-tape.html"><span class="mono">yantra4d/hook-loop-tape</span></a> — Hook-and-Loop Tape</td><td>7</td><td><a href="fashion-cabinet/boot-shaper-sleeve.html">boot-shaper-sleeve</a> <a href="fashion-cabinet/boxing-fight-short.html">boxing-fight-short</a> <a href="fashion-cabinet/dog-coat.html">dog-coat</a> <a href="fashion-cabinet/hook-loop-closure.html">hook-loop-closure</a> <a href="fashion-cabinet/seated-wear-trouser.html">seated-wear-trouser</a> <a href="fashion-cabinet/side-opening-trousers.html">side-opening-trousers</a> <a href="fashion-cabinet/wrap-recovery-top.html">wrap-recovery-top</a> </td></tr>
+<tr><td><a href="yantra4d/hook-loop-tape.html"><span class="mono">yantra4d/hook-loop-tape</span></a> — Hook-and-Loop Tape</td><td>8</td><td><a href="fashion-cabinet/boot-shaper-sleeve.html">boot-shaper-sleeve</a> <a href="fashion-cabinet/boxing-fight-short.html">boxing-fight-short</a> <a href="fashion-cabinet/dog-coat.html">dog-coat</a> <a href="fashion-cabinet/hi-vis-vest.html">hi-vis-vest</a> <a href="fashion-cabinet/hook-loop-closure.html">hook-loop-closure</a> <a href="fashion-cabinet/seated-wear-trouser.html">seated-wear-trouser</a> <a href="fashion-cabinet/side-opening-trousers.html">side-opening-trousers</a> <a href="fashion-cabinet/wrap-recovery-top.html">wrap-recovery-top</a> </td></tr>
 <tr><td><a href="yantra4d/invisible-zipper.html"><span class="mono">yantra4d/invisible-zipper</span></a> — Invisible Zipper</td><td>6</td><td><a href="fashion-cabinet/circus-aerial-unitard.html">circus-aerial-unitard</a> <a href="fashion-cabinet/compression-tri-suit.html">compression-tri-suit</a> <a href="fashion-cabinet/dive-skin-suit.html">dive-skin-suit</a> <a href="fashion-cabinet/invisible-zipper-notion.html">invisible-zipper-notion</a> <a href="fashion-cabinet/lehenga.html">lehenga</a> <a href="fashion-cabinet/rash-guard-zip-hood.html">rash-guard-zip-hood</a> </td></tr>
 <tr><td><a href="yantra4d/jeans-button.html"><span class="mono">yantra4d/jeans-button</span></a> — Jeans Tack Button</td><td>5</td><td><a href="fashion-cabinet/jeans-button.html">jeans-button</a> <a href="fashion-cabinet/raw-hem-denim-short.html">raw-hem-denim-short</a> <a href="fashion-cabinet/selvedge-jean.html">selvedge-jean</a> <a href="fashion-cabinet/selvedge-jean-straight.html">selvedge-jean-straight</a> <a href="fashion-cabinet/wide-leg-jean.html">wide-leg-jean</a> </td></tr>
 <tr><td><a href="yantra4d/kiss-lock-frame.html"><span class="mono">yantra4d/kiss-lock-frame</span></a> — Kiss-Lock Frame</td><td>1</td><td><a href="fashion-cabinet/kiss-lock-purse.html">kiss-lock-purse</a> </td></tr>
@@ -139,7 +138,7 @@
 </table>
 </main>
 <footer class="site">
-  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="bridges.html">Procedencia completa</a>.</p>
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">f0cdb74e9</span> · fashion-cabinet <span class="mono">4feb3ec50</span>. Sin JavaScript. <a href="bridges.html">Procedencia completa</a>.</p>
 </footer>
 </body>
 </html>

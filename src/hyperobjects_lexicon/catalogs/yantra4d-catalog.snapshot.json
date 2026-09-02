@@ -5,8 +5,8 @@
   "source": {
     "repo": "yantra4d",
     "url": "https://github.com/madfam-org/yantra4d",
-    "ref": "5562f547",
-    "commit": "5562f547ba523c962527a2e2da1e9805b274ff24",
+    "ref": "f0cdb74e9a97065e716aa91226da51f58db849d7",
+    "commit": "f0cdb74e9a97065e716aa91226da51f58db849d7",
     "paths": [
       "docs/commons-catalog.json",
       "materials/*/material.json"

@@ -5,8 +5,8 @@
   "source": {
     "repo": "fashion-cabinet",
     "url": "https://github.com/madfam-org/fashion-cabinet",
-    "ref": "00a2239",
-    "commit": "00a2239cc081ac4305d7650a03ec065bcb1607f4",
+    "ref": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
+    "commit": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
     "paths": [
       "docs/commons-catalog.json",
       "materials/*/material.json"
