@@ -24,7 +24,7 @@ Terms are born quadrilingual — en/es/fr/pt, all four required to ship (RFC 003
 That is a ship gate rather than an aspiration: the four-language rule is only free at
 authoring time, and every entry that ships partial becomes a backfill nobody schedules.
 
-Three layers ship here, and they are deliberately distinct:
+Four layers ship here, and they are deliberately distinct:
 
 * ``lexicon`` — the terms. Words, defined in four languages, each pointing at the
   cartridges that embody it and carrying the constraint that comes with it.
@@ -33,8 +33,13 @@ Three layers ship here, and they are deliberately distinct:
   equivalences recorded as explicit edges.
 * ``articles`` — the frontmatter contract (G2). The encyclopaedia layer's machine-readable
   half, pointing AT each cartridge's README rather than copying it.
+* ``reader`` — the cross-commons reader (G4). One static, JavaScript-free surface over
+  all of the above plus two pinned catalog snapshots and the pinned bridge graph, so a
+  visitor can look a word up and walk it to the objects, and walk a garment to the solid
+  it resolves and back. Built by ``<tool> reader`` into ``docs/reader/`` and committed;
+  ``--check`` fails closed when the committed tree and a rebuild disagree.
 
-``dictionary`` is how all three are read: ``define``, ``lookup`` and ``related``, the
+``dictionary`` is how the first three are read: ``define``, ``lookup`` and ``related``, the
 RFC 0039 §6.2 tools both platforms' MCP servers wrap.
 """
 
@@ -61,6 +66,17 @@ from .lexicon import (
     load_lexicon,
     load_term_file,
     review_counts,
+)
+from .reader import (
+    READER_DIR,
+    REPOS,
+    BridgeEdge,
+    ReaderModel,
+    load_bridge_graph,
+    load_model,
+    load_reader_catalog,
+    reader_counts,
+    reader_status,
 )
 from .vocabulary import (
     VOCABULARIES,
@@ -104,6 +120,15 @@ __all__ = [
     "check_articles",
     "language_coverage",
     "load_article",
+    "READER_DIR",
+    "REPOS",
+    "BridgeEdge",
+    "ReaderModel",
+    "load_bridge_graph",
+    "load_model",
+    "load_reader_catalog",
+    "reader_counts",
+    "reader_status",
     "__version__",
 ]
 

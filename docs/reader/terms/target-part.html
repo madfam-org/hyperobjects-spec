@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>target-part — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>target-part</h1>
+<p class="lede">Dominio: <span class="mono">manifest</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="target-part.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">parte objetivo</p>
+<h3>Definición</h3>
+<p>El parámetro con el que quien invoca le dice a un cartucho de varias partes cuál pieza renderizar. Llega como una global desnuda sobre la que ramifica el código del cartucho, lo que lo convierte en el único parámetro cuyo valor debe coincidir con un id declarado en otra parte del manifiesto: pide un nombre sobre el que el código no ramifica y el cartucho responde con su cuerpo de respaldo en vez de con un error.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">target part</p>
+<h3>Definition</h3>
+<p>The parameter through which a caller tells a multi-part cartridge which piece to render. It arrives as a bare global that the cartridge&#x27;s code branches on, which makes it the one parameter whose value has to match an id declared elsewhere in the manifest: ask for a name the code does not branch on and the cartridge answers with its fallback body instead of an error.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">pièce cible</p>
+<h3>Définition</h3>
+<p>Le paramètre par lequel un appelant indique à une cartouche multi-pièces laquelle rendre. Il arrive sous forme de variable globale nue sur laquelle le code de la cartouche se branche, ce qui en fait le seul paramètre dont la valeur doit correspondre à un identifiant déclaré ailleurs dans le manifeste : demandez un nom sur lequel le code ne se branche pas et la cartouche répond par son corps de repli plutôt que par une erreur.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">peça alvo</p>
+<h3>Definição</h3>
+<p>O parâmetro pelo qual quem invoca diz a um cartucho de várias partes qual peça renderizar. Chega como uma global nua sobre a qual o código do cartucho ramifica, o que faz dele o único parâmetro cujo valor tem de coincidir com um id declarado noutro ponto do manifesto: peça um nome sobre o qual o código não ramifica e o cartucho responde com o seu corpo de recurso em vez de com um erro.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>A single-part mode&#x27;s id must equal its part id, because the mode id is what arrives as the target part. A mode named &#x27;lid&#x27; whose part is &#x27;lid_body&#x27; silently renders the fallback branch, and every check downstream passes on the wrong geometry.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">target_part</span></td><td><span class="mono">yantra4d</span></td><td>The bare global the runner injects; the manifest&#x27;s dispatch rules check that a single-part mode&#x27;s id equals its part id, because that id is what arrives here.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="render-lane.html">render-lane</a></li><li><a href="body-count.html">body-count</a></li><li><a href="cartridge.html">cartridge</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sew-on-snap.html"><span class="mono">yantra4d/sew-on-snap</span></a> — Sew-On Snap</li>
+<li><a href="../yantra4d/thimble.html"><span class="mono">yantra4d/thimble</span></a> — Thimble</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

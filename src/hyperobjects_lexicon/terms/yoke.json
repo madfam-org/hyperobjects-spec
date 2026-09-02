@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "yoke",
+  "domain": "garment-construction",
+  "term": {
+    "en": "yoke",
+    "es": "canesú",
+    "fr": "empiècement",
+    "pt": "pala"
+  },
+  "definition": {
+    "en": "A separate panel across the top of a garment — the shoulders and upper back, or the top of a skirt — that carries the pieces hanging from it. Cutting a yoke moves a seam to where the body changes direction, so the panel below can gather, pleat or simply hang from one fixed edge instead of being shaped by darts.",
+    "es": "Un panel independiente en la parte alta de una prenda —los hombros y la espalda alta, o la parte superior de una falda— que sostiene las piezas que cuelgan de él. Cortar un canesú traslada una costura al punto donde el cuerpo cambia de dirección, de modo que el panel inferior puede fruncirse, plegarse o simplemente caer desde un canto fijo en lugar de conformarse con pinzas.",
+    "fr": "Un panneau distinct en haut d'un vêtement — les épaules et le haut du dos, ou le haut d'une jupe — qui porte les pièces qui y sont suspendues. Couper un empiècement déplace une couture là où le corps change de direction, si bien que le panneau du dessous peut être froncé, plissé ou simplement tomber depuis un bord fixe au lieu d'être galbé par des pinces.",
+    "pt": "Um painel separado na parte de cima de uma peça — os ombros e as costas altas, ou o topo de uma saia — que sustenta as peças que dele pendem. Cortar uma pala desloca uma costura para onde o corpo muda de direção, de modo que o painel de baixo pode franzir, pregar ou simplesmente cair a partir de um bordo fixo em vez de ser moldado por pinces."
+  },
+  "aliases": [
+    {
+      "name": "yoke_depth",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on five cartridges — chore-coat, fair-isle-yoke, harness-vest, jeans-5-pocket, smock — measuring how far down the body the panel reaches."
+    },
+    {
+      "name": "yoke_drop",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on five shirt cartridges — denim-western-shirt, dress-shirt, flannel-shirt, formal-shirt, work-shirt — the same measure under the shirtmaking spelling. Two words for one distance, both real."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/jeans-5-pocket",
+    "fashion-cabinet/denim-western-shirt",
+    "fashion-cabinet/harness-vest",
+    "fashion-cabinet/smock",
+    "fashion-cabinet/chore-coat"
+  ],
+  "see_also": ["shoulder-seam", "pleat", "gather-ratio", "dart", "placement-line"],
+  "constraints": "The yoke's lower edge and the top edge of the panel it carries are one seam drawn twice: whatever fullness the lower panel adds — gathers, pleats — is taken up before that edge is measured, so a yoke measured against the panel's flat width is short by exactly the take-up.",
+  "review_status": {
+    "state": "generated"
+  }
+}

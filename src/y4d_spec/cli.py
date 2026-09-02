@@ -5,6 +5,7 @@
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
     y4d-spec article <path> [...] [--catalog bundled]
+    y4d-spec reader [--out DIR] [--check] [--status]
     y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
     y4d-spec rules
 
@@ -25,6 +26,7 @@ from hyperobjects_lexicon.cli import (
     add_article_parser,
     add_dictionary_parsers,
     add_lexicon_parser,
+    add_reader_parser,
     add_vocabulary_parser,
 )
 from hyperobjects_schemas.identity import check_identity_file
@@ -203,6 +205,7 @@ def main(argv: list[str] | None = None) -> int:
     add_vocabulary_parser(sub, "y4d-spec")
     add_article_parser(sub, "y4d-spec")
     add_dictionary_parsers(sub, "y4d-spec")
+    add_reader_parser(sub, "y4d-spec")
 
     p_rules = sub.add_parser("rules", help="explain what gets checked, and where it came from")
     p_rules.set_defaults(func=_cmd_rules)

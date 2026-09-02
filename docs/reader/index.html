@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lector del procomún</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="terms/index.html">Términos</a>
+      <a href="yantra4d/index.html">Yantra4D</a>
+      <a href="fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>Lector del procomún</h1>
+<p class="lede">Un léxico, dos enciclopedias, y el grafo de puentes como navegación entre ellas (RFC 0039 G4). Todo se construye de instantáneas fijadas en este repositorio: sin red, sin checkout de plataforma, sin JavaScript.</p>
+<h2>Capas</h2>
+<ul class="plain"><li><a href="terms/index.html">Términos</a> — 147 términos cuadrilingües, el diccionario compartido.</li><li><a href="yantra4d/index.html">Yantra4D</a> — 510 entradas del procomún sólido.</li><li><a href="fashion-cabinet/index.html">Fashion Cabinet</a> — 527 entradas del procomún textil.</li><li><a href="bridges.html">Puentes</a> — 303 aristas declaradas, 302 con página en ambos extremos, 1 sin resolver.</li></ul>
+<h2>Lo que este lector no hace</h2>
+<p>No copia ningún artículo. El cuerpo de cada objeto vive en el <span class="mono">docs/README.md</span> de su propio procomún y es fuente única (RFC 0039 §2); aquí sólo se enlaza, fijado al commit capturado. Tampoco ofrece un idioma que la entrada no tenga: el léxico es cuadrilingüe por su puerta de publicación, los catálogos todavía no, y la deuda se ve en lugar de taparse.</p>
+<h2>Cobertura de idiomas</h2>
+<table>
+<thead><tr><th>capa</th><th>es</th><th>en</th><th>fr</th><th>pt</th></tr></thead>
+<tbody>
+<tr><td>términos</td><td>147</td><td>147</td><td>147</td><td>147</td></tr>
+<tr><td>yantra4d</td><td>485</td><td>510</td><td>1</td><td>1</td></tr>
+<tr><td>fashion-cabinet</td><td>511</td><td>527</td><td>248</td><td>200</td></tr>
+</tbody>
+</table>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

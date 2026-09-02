@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tape-edge — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>tape-edge</h1>
+<p class="lede">Dominio: <span class="mono">cross-commons</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="tape-edge.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">canto de cinta cosido</p>
+<h3>Definición</h3>
+<p>El margen tejido y plano que corre a lo largo de la cadena de un cierre, y por el cual el cierre se cose a la costura de una prenda. Es la superficie donde ambos procomunes se encuentran sobre un mismo objeto físico: Yantra4D lo modela como la cara de cosido del sólido, y Fashion Cabinet lo consume como el canto de la prenda que aloja el cierre. Su dimensión — el largo de cierre que corre por la costura — debe ser el mismo número de los dos lados.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">sewn tape edge</p>
+<h3>Definition</h3>
+<p>The flat woven margin along a zipper&#x27;s chain, by which the zipper is sewn into a garment seam. It is the surface where the two commons meet on one physical object: Yantra4D models it as the solid&#x27;s sewn mating face, Fashion Cabinet consumes it as the garment edge that carries the closure. Its dimension — the zip length running along the seam — must be the same number on both sides.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">bord de ruban cousu</p>
+<h3>Définition</h3>
+<p>La marge tissée et plate qui longe la chaîne d&#x27;une fermeture à glissière, et par laquelle la fermeture est cousue dans une couture de vêtement. C&#x27;est la surface où les deux communs se rencontrent sur un même objet physique : Yantra4D la modélise comme la face de couture du solide, Fashion Cabinet la consomme comme le bord du vêtement qui porte la fermeture. Sa dimension — la longueur de fermeture qui court le long de la couture — doit être le même nombre des deux côtés.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">debrum de fita costurado</p>
+<h3>Definição</h3>
+<p>A margem tecida e plana que corre ao longo da corrente de um fecho de correr, pela qual o fecho é costurado à costura de uma peça. É a superfície onde os dois comuns se encontram sobre um mesmo objeto físico: o Yantra4D modela-a como a face de costura do sólido, e o Fashion Cabinet consome-a como o debrum da peça que aloja o fecho. A sua dimensão — o comprimento de fecho que corre pela costura — tem de ser o mesmo número dos dois lados.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>The garment parameter that feeds this edge through a hardware_ref params_map must ALSO drive one of the garment&#x27;s own interfaces — otherwise the two sides merely resolve by name while their lengths are free to disagree.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">tape_edge</span></td><td><span class="mono">yantra4d</span></td><td>The cdg_interface id on the zipper and invisible-zipper cartridges, geometry_type &#x27;flange&#x27;, driven by tape_width / tape_thick / zip_length.</td></tr>
+<tr><td><span class="mono">zipper_tape</span></td><td><span class="mono">fashion-cabinet</span></td><td>The hyperobject.interfaces type on 39 garment cartridges, bound to a piece edge (e.g. back/center) and driven by zipper_length.</td></tr>
+</tbody>
+</table>
+<h2>Claves de manifiesto</h2>
+<table>
+<thead><tr><th>clave</th><th>papel</th><th>alias</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">fashion-cabinet/zipper_tape</span></td><td>interface_type</td><td><span class="mono"></span></td></tr>
+<tr><td><span class="mono">yantra4d/tape_edge</span></td><td>interface_id</td><td><span class="mono"></span></td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="flange.html">flange</a></li><li><a href="sew-field.html">sew-field</a></li><li><a href="hardware-ref.html">hardware-ref</a></li><li><a href="cdg-interface.html">cdg-interface</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/zipper.html"><span class="mono">yantra4d/zipper</span></a> — Zipper</li>
+<li><a href="../yantra4d/invisible-zipper.html"><span class="mono">yantra4d/invisible-zipper</span></a> — Invisible Zipper</li>
+<li><a href="../fashion-cabinet/mini-skirt.html"><span class="mono">fashion-cabinet/mini-skirt</span></a> — Minifalda</li>
+<li><a href="../fashion-cabinet/pencil-skirt.html"><span class="mono">fashion-cabinet/pencil-skirt</span></a> — Falda lápiz</li>
+<li><a href="../fashion-cabinet/puffer-vest.html"><span class="mono">fashion-cabinet/puffer-vest</span></a> — Chaleco acolchado</li>
+<li><a href="../fashion-cabinet/dopp-kit.html"><span class="mono">fashion-cabinet/dopp-kit</span></a> — Neceser</li>
+</ul>
+<h2>Notas</h2><p lang="en">This entry exists because the same object had two names. Neither repo was wrong: &#x27;tape_edge&#x27; describes the solid&#x27;s face, &#x27;zipper_tape&#x27; the notion the garment sews. Recording both dialects with their repo of origin is the lexicon&#x27;s job — a reader arriving with either word must land here.</p>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

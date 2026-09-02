@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>render-lane — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>render-lane</h1>
+<p class="lede">Dominio: <span class="mono">geometry</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="render-lane.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">carril de render</p>
+<h3>Definición</h3>
+<p>La comprobación que ejecuta de verdad un cartucho y juzga la malla que produce, a diferencia de las comprobaciones que sólo leen su manifiesto. Renderiza cada combinación de modo y parte a través del mismo entorno restringido que usa la plataforma y exige que cada resultado encierre un volumen, tenga volumen positivo, no contenga ningún cuerpo invertido y difiera del cuerpo de respaldo del cartucho. Es la única comprobación capaz de decir si las declaraciones de un cartucho son ciertas.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">render lane</p>
+<h3>Definition</h3>
+<p>The check that actually executes a cartridge and judges the mesh it produces, as opposed to the checks that only read its manifest. It renders every mode-and-part combination through the same restricted sandbox the platform uses and requires each result to enclose a volume, to have positive volume, to contain no inverted body, and to differ from the cartridge&#x27;s fallback body. It is the only check that can tell whether a cartridge&#x27;s declarations are true.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">voie de rendu</p>
+<h3>Définition</h3>
+<p>Le contrôle qui exécute réellement une cartouche et juge le maillage qu&#x27;elle produit, par opposition aux contrôles qui ne lisent que son manifeste. Il rend chaque combinaison de mode et de pièce à travers le même bac à sable restreint qu&#x27;emploie la plateforme et exige que chaque résultat enferme un volume, ait un volume positif, ne contienne aucun corps inversé et diffère du corps de repli de la cartouche. C&#x27;est le seul contrôle capable de dire si les déclarations d&#x27;une cartouche sont vraies.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">via de renderização</p>
+<h3>Definição</h3>
+<p>A verificação que executa de facto um cartucho e julga a malha que produz, ao contrário das verificações que apenas leem o seu manifesto. Renderiza cada combinação de modo e parte através do mesmo ambiente restrito que a plataforma usa e exige que cada resultado encerre um volume, tenha volume positivo, não contenha nenhum corpo invertido e difira do corpo de recurso do cartucho. É a única verificação capaz de dizer se as declarações de um cartucho são verdadeiras.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>A run that skipped the render lane must never read like one that passed it. The summary line states whether geometry was verified, and asking for the lane without the kernel installed is refused rather than silently downgraded.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">--render</span></td><td><span class="mono">yantra4d</span></td><td>The y4d-spec check flag that enables it; it needs a CAD kernel, so it is opt-in and a run without it reports geometry as NOT verified.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="watertight.html">watertight</a></li><li><a href="body-count.html">body-count</a></li><li><a href="target-part.html">target-part</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sew-on-snap.html"><span class="mono">yantra4d/sew-on-snap</span></a> — Sew-On Snap</li>
+<li><a href="../yantra4d/thimble.html"><span class="mono">yantra4d/thimble</span></a> — Thimble</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

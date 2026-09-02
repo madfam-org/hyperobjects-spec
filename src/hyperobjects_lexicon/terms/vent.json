@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "vent",
+  "domain": "garment-construction",
+  "term": {
+    "en": "vent",
+    "es": "abertura (raja)",
+    "fr": "fente",
+    "pt": "fenda"
+  },
+  "definition": {
+    "en": "A finished slit left open at the hem of a jacket, a coat or a skirt so the garment can move without straining the seam it sits in. A vent is a seam that stops short: above the vent rise the two edges are joined, below it they are faced and free, and one edge usually laps over the other so the opening does not gape.",
+    "es": "Una ranura acabada que se deja abierta en el bajo de una chaqueta, un abrigo o una falda para que la prenda pueda moverse sin forzar la costura en la que se aloja. Una abertura es una costura que se detiene antes: por encima de la altura de la abertura los dos cantos van unidos; por debajo van entretelados y libres, y normalmente uno monta sobre el otro para que el hueco no se abra.",
+    "fr": "Une fente finie laissée ouverte au bas d'une veste, d'un manteau ou d'une jupe pour que le vêtement puisse bouger sans forcer la couture où elle se loge. Une fente est une couture qui s'arrête avant : au-dessus de la hauteur de fente les deux bords sont assemblés ; au-dessous ils sont parementés et libres, et l'un croise généralement sur l'autre pour que l'ouverture ne bâille pas.",
+    "pt": "Uma fenda acabada deixada aberta na bainha de um casaco, de um sobretudo ou de uma saia para que a peça se possa mover sem forçar a costura onde assenta. Uma fenda é uma costura que para antes: acima da altura da fenda os dois bordos vão unidos; abaixo vão entretelados e livres, e normalmente um monta sobre o outro para que a abertura não abra."
+  },
+  "aliases": [
+    {
+      "name": "vent_height",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on ten cartridges — blazer, chef-coat, guayabera, lab-coat, mini-skirt and overcoat among them — measuring how far up from the finished hem the seam stays open."
+    },
+    {
+      "name": "ventilation",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities flag, glossed by the vocabulary as the garment carrying drafted vents for airflow. The flag claims the purpose; this term is the drawn feature."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/blazer",
+    "fashion-cabinet/overcoat",
+    "fashion-cabinet/mini-skirt",
+    "fashion-cabinet/chef-coat",
+    "fashion-cabinet/nehru-sherwani"
+  ],
+  "see_also": ["hem", "side-seam", "facing", "side-slits", "placket"],
+  "constraints": "The vent rise is measured from the FINISHED hem, not the cut edge: a vent drawn from the cut edge lands lower than drawn by exactly the hem allowance, and the two faced edges then differ from each other by that same amount.",
+  "review_status": {
+    "state": "generated"
+  }
+}

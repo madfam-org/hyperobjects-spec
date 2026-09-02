@@ -26,11 +26,50 @@ introduces the vocabulary has no way back if the vocabulary is wrong.
 | `fc-spec vocab` / `y4d-spec vocab` | the vocabulary lane |
 | `fc-spec article <path>…` | the article lane, which scans directories |
 | `define` / `lookup` / `related` | RFC 0039 §6.2, as library functions and as CLI subcommands |
+| `docs/reader/` + `fc-spec reader` / `y4d-spec reader` | G4's cross-commons reader: one lexicon, both encyclopaedias, the bridge graph as navigation — built from pinned snapshots, committed, `--check` in CI |
 
 The capture behind the counts: yantra4d 500 cartridges (`docs/commons-catalog.json`),
 fashion-cabinet 516 (`projects/*/project.json`), both at 2026-09-02. Re-run it with
 `scripts/refresh_vocabulary_counts.py`, which rewrites the counts, leaves every editorial
 field alone, and **fails on a key nobody has placed** — that failure is the drift alarm.
+
+## What the reader publishes about itself
+
+G4's reader is built from snapshots pinned in this repo, so its counts are a statement
+about a specific pair of commits and not about "the commons today". They are emitted by
+`scripts/refresh_reader_counts.py`, never typed.
+
+<!-- counts:reader:start -->
+| Layer | Pages | Languages present (es/en/fr/pt) |
+|---|--:|---|
+| terms | 147 | 147 / 147 / 147 / 147 |
+| yantra4d | 510 | 485 / 510 / 1 / 1 |
+| fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
+| index, bridge and catalog index pages | 5 | — |
+
+| Bridge | Count |
+|---|--:|
+| declared edges (garment → hardware) | 303 |
+| resolving to a page on both ends | 302 |
+| unresolved (reported, never fatal) | 1 |
+| linked | 299 |
+| claimed but not linked | 4 |
+| published back edges (hardware → garments) | 299 |
+| agreeing in both directions | 299 |
+
+```
+$ fc-spec reader --check
+fc-spec reader --check: out=docs/reader pages=1189 differences=0
+reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=4 back=299 mirrored=299
+```
+<!-- counts:reader:end -->
+
+The reader is the shared half of G4, the same way the frontmatter contract is the shared
+half of G2. The per-commons half is unchanged and unstarted: each platform still renders
+its own article view and its own term popovers from this package's data. What the reader
+adds is the one surface where a visitor can hold both commons at once — and, in doing so,
+a place where every unresolved cross-commons claim is visible on a page rather than only
+in a lane's output.
 
 ---
 
@@ -185,7 +224,8 @@ The frontmatter contract is here; the surface is yours.
 Everything in the G3 wave is marked `generated`, and that is a claim about who has read
 it, not about who wrote it:
 
-* **140 terms, 110 of them from this wave**, each quadrilingual and each
+* **147 terms, 117 of them from the G3 waves** (110 from wave 1, 7 from the
+  drawing-vocabulary wave), each quadrilingual and each
   `review_status: {state: generated}`. RFC 0039 §5 is explicit that machine or agent
   drafting is acceptable as a draft and never as shipped copy without a review pass, and
   §7 asks that fr/pt be *reviewed, not merely generated* — with es as the house register

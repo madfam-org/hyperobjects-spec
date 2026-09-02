@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>export-format — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>export-format</h1>
+<p class="lede">Dominio: <span class="mono">manifest</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="export-format.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+<h3>Término</h3>
+<p class="headword">formato de exportación</p>
+<h3>Definición</h3>
+<p>Uno de los tipos de archivo en que puede entregarse un cartucho, declarado en el manifiesto para que quien lo use sepa antes de renderizar si el objeto entra en su cadena de herramientas. La lista distingue malla de sólido: STL y 3MF llevan triángulos, STEP lleva geometría que un CAD todavía puede editar, y glTF lleva algo que un navegador puede mostrar.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge badge-generated">generated</span> written by a drafting pass, not natively reviewed</p>
+<h3>Term</h3>
+<p class="headword">export format</p>
+<h3>Definition</h3>
+<p>One of the file types a cartridge can be delivered in, declared in the manifest so a user knows before rendering whether the object can enter their tool chain. The list distinguishes mesh from solid: STL and 3MF carry triangles, STEP carries geometry a CAD program can still edit, and glTF carries something a browser can show.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge badge-generated">generated</span> rédigé par une passe de brouillon, sans relecture native</p>
+<h3>Terme</h3>
+<p class="headword">format d&#x27;export</p>
+<h3>Définition</h3>
+<p>L&#x27;un des types de fichiers dans lesquels une cartouche peut être livrée, déclaré dans le manifeste pour qu&#x27;on sache avant le rendu si l&#x27;objet entre dans sa chaîne d&#x27;outils. La liste distingue le maillage du solide : STL et 3MF portent des triangles, STEP porte une géométrie qu&#x27;un logiciel de CAO peut encore modifier, et glTF porte quelque chose qu&#x27;un navigateur sait afficher.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redigido por uma passagem de rascunho, sem revisão nativa</p>
+<h3>Termo</h3>
+<p class="headword">formato de exportação</p>
+<h3>Definição</h3>
+<p>Um dos tipos de ficheiro em que um cartucho pode ser entregue, declarado no manifesto para que se saiba antes de renderizar se o objeto entra na cadeia de ferramentas de quem o usa. A lista distingue malha de sólido: STL e 3MF levam triângulos, STEP leva geometria que um CAD ainda pode editar, e glTF leva algo que um navegador consegue mostrar.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>A declared format is a claim the render can actually produce it: a STEP export from a mesh-only pipeline is a promise the cartridge cannot keep, and a mesh format is only honest if the mesh passes the watertight bar.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">export_formats</span></td><td><span class="mono">yantra4d</span></td><td>Top-level manifest array; the common set across the catalog is stl / 3mf / step / glb / gltf / obj.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="render-lane.html">render-lane</a></li><li><a href="watertight.html">watertight</a></li><li><a href="cartridge.html">cartridge</a></li><li><a href="mode.html">mode</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/aerator-adapter.html"><span class="mono">yantra4d/aerator-adapter</span></a> — Faucet Aerator Adapter</li>
+<li><a href="../yantra4d/thimble.html"><span class="mono">yantra4d/thimble</span></a> — Thimble</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

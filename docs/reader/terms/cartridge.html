@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cartridge — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>cartridge</h1>
+<p class="lede">Dominio: <span class="mono">manifest</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="cartridge.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">cartucho</p>
+<h3>Definición</h3>
+<p>La unidad del procomún: un directorio que contiene un manifiesto validado, el código que genera el objeto y su documentación. Un cartucho no es un archivo de una sola forma: es un generador con parámetros declarados, así que lo que nombra es una familia de objetos y no un artefacto único, y cualquier punto de su espacio de parámetros se renderiza a petición. Todo lo que comprueba la herramienta de conformidad es una propiedad de un cartucho.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">cartridge</p>
+<h3>Definition</h3>
+<p>The unit of the commons: a directory holding a validated manifest, the code that generates the object, and its documentation. A cartridge is not a file of one shape — it is a generator with declared parameters, so what it names is a family of objects rather than a single artifact, and any point in its parameter space renders on demand. Everything the conformance tooling checks is a property of one cartridge.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">cartouche</p>
+<h3>Définition</h3>
+<p>L&#x27;unité des communs : un répertoire contenant un manifeste validé, le code qui engendre l&#x27;objet et sa documentation. Une cartouche n&#x27;est pas un fichier d&#x27;une seule forme — c&#x27;est un générateur à paramètres déclarés, de sorte que ce qu&#x27;elle nomme est une famille d&#x27;objets et non un artefact unique, et tout point de son espace de paramètres se rend à la demande. Tout ce que vérifie l&#x27;outillage de conformité est une propriété d&#x27;une cartouche.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">cartucho</p>
+<h3>Definição</h3>
+<p>A unidade do comum: um diretório que contém um manifesto validado, o código que gera o objeto e a sua documentação. Um cartucho não é um ficheiro de uma só forma — é um gerador com parâmetros declarados, pelo que o que nomeia é uma família de objetos e não um artefacto único, e qualquer ponto do seu espaço de parâmetros renderiza-se a pedido. Tudo o que a ferramenta de conformidade verifica é uma propriedade de um cartucho.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>Repo-wide properties are not cartridge properties. Catalog drift, slug uniqueness across a commons, and whether a paired slug exists cannot be checked from one cartridge, so they belong to the platform and not to the conformance tooling a third party runs.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">project.json</span></td><td><span class="mono">yantra4d</span></td><td>The manifest whose presence makes a directory a cartridge.</td></tr>
+<tr><td><span class="mono">project.json</span></td><td><span class="mono">fashion-cabinet</span></td><td>The garment manifest; the soft side&#x27;s cartridges are garments, notions and fabric cards.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="hyperobject.html">hyperobject</a></li><li><a href="target-part.html">target-part</a></li><li><a href="cdg-interface.html">cdg-interface</a></li><li><a href="render-lane.html">render-lane</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sew-on-snap.html"><span class="mono">yantra4d/sew-on-snap</span></a> — Sew-On Snap</li>
+<li><a href="../fashion-cabinet/bodice-block.html"><span class="mono">fashion-cabinet/bodice-block</span></a> — Bodice Block (Sloper)</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

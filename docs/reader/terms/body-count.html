@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>body-count — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>body-count</h1>
+<p class="lede">Dominio: <span class="mono">geometry</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="body-count.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">conteo de cuerpos</p>
+<h3>Definición</h3>
+<p>En cuántos sólidos conexos e independientes se separa una malla renderizada. Es un número barato que responde una pregunta cara: si el cartucho produjo el único objeto que pretendía. Un conteo mayor que uno no está mal por sí solo —un ensamble se renderiza en varios— pero siempre debe ser algo que el autor haya querido, y es donde un cuerpo suelto o un rasgo desprendido aparece antes de que alguien lo imprima.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">body count</p>
+<h3>Definition</h3>
+<p>How many separate connected solids a rendered mesh splits into. It is a cheap number that answers an expensive question: whether the cartridge produced the one object it meant to. A count above one is not automatically wrong — an assembly renders as several — but it is always something the author should have intended, and it is where a stray body or a detached feature shows up before anyone prints it.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">nombre de corps</p>
+<h3>Définition</h3>
+<p>En combien de solides connexes distincts se sépare un maillage rendu. C&#x27;est un nombre bon marché qui répond à une question coûteuse : la cartouche a-t-elle produit l&#x27;unique objet qu&#x27;elle visait. Un nombre supérieur à un n&#x27;est pas fautif en soi — un assemblage se rend en plusieurs — mais il doit toujours être voulu par l&#x27;auteur, et c&#x27;est là qu&#x27;un corps égaré ou un élément détaché se révèle avant que quiconque l&#x27;imprime.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">contagem de corpos</p>
+<h3>Definição</h3>
+<p>Em quantos sólidos conexos distintos se separa uma malha renderizada. É um número barato que responde a uma pergunta cara: se o cartucho produziu o único objeto que pretendia. Uma contagem maior do que um não está errada por si só — uma montagem renderiza-se em vários — mas tem de ser sempre algo que o autor quis, e é onde um corpo solto ou um elemento destacado aparece antes de alguém o imprimir.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>The split must not require its pieces to be watertight. Splitting watertight-only discards exactly the malformed bodies the count exists to find, and reports a broken cartridge as clean — a body of negative volume is an inverted shell that reads as geometry and prints as nothing.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">bodies</span></td><td><span class="mono">yantra4d</span></td><td>The RenderCheck field; obtained by splitting the mesh without requiring each piece to be watertight, so that a broken body is counted rather than silently dropped.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="watertight.html">watertight</a></li><li><a href="render-lane.html">render-lane</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sew-on-snap.html"><span class="mono">yantra4d/sew-on-snap</span></a> — Sew-On Snap</li>
+<li><a href="../yantra4d/thimble.html"><span class="mono">yantra4d/thimble</span></a> — Thimble</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

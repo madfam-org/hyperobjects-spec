@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cord-channel — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>cord-channel</h1>
+<p class="lede">Dominio: <span class="mono">cross-commons</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="cord-channel.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+<h3>Término</h3>
+<p class="headword">canal de cordón</p>
+<h3>Definición</h3>
+<p>El paso por el que corre un cordón de ajuste, en cualquiera de los dos lados del procomún: taladrado en un tope o en un cordón impreso, o cosido como jareta a lo largo de un dobladillo, una capucha o la boca de una bolsa. Ambos se dimensionan con el mismo número —el diámetro del cordón— y una prenda que cierra con cordón es siempre las dos cosas a la vez, túnel de tela y taladro de herraje.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge badge-generated">generated</span> written by a drafting pass, not natively reviewed</p>
+<h3>Term</h3>
+<p class="headword">cord channel</p>
+<h3>Definition</h3>
+<p>The passage a drawcord runs through, on either side of the commons: bored through a printed cord lock or toggle, or sewn as a casing along a hem, a hood or a bag mouth. Both are dimensioned by the same number — the cord&#x27;s diameter — and a garment that closes with a cord is always both at once, cloth tunnel and hardware bore.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge badge-generated">generated</span> rédigé par une passe de brouillon, sans relecture native</p>
+<h3>Terme</h3>
+<p class="headword">canal de cordon</p>
+<h3>Définition</h3>
+<p>Le passage dans lequel court un cordon de serrage, de chaque côté des communs : percé dans un bloqueur ou un embout imprimé, ou cousu en coulisse le long d&#x27;un ourlet, d&#x27;une capuche ou de l&#x27;ouverture d&#x27;un sac. Les deux se dimensionnent avec le même nombre — le diamètre du cordon — et un vêtement qui se ferme au cordon est toujours les deux à la fois, tunnel de tissu et perçage de quincaillerie.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redigido por uma passagem de rascunho, sem revisão nativa</p>
+<h3>Termo</h3>
+<p class="headword">canal de cordão</p>
+<h3>Definição</h3>
+<p>A passagem por onde corre um cordão de ajuste, de qualquer dos lados do comum: furada num bloqueador ou num terminal impresso, ou costurada como canal ao longo de uma bainha, de um capuz ou da boca de um saco. Ambos se dimensionam pelo mesmo número — o diâmetro do cordão — e uma peça que fecha a cordão é sempre as duas coisas ao mesmo tempo, túnel de tecido e furo de ferragem.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>The casing must clear the cord AND pass the lock. fashion-cabinet/anorak-smock maps `cord_dia` straight through to the cord lock and sizes the lock body from it (`max(14.0, cord_dia * 4.0)`); a casing drafted to the cord alone will not let the printed lock through, and the garment then has a cord it cannot adjust.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">cord_channel</span></td><td><span class="mono">yantra4d</span></td><td>cdg_interface id on cord-lock, toggle and paracord-jig, geometry_type &#x27;pocket&#x27;.</td></tr>
+<tr><td><span class="mono">hem_casing</span></td><td><span class="mono">fashion-cabinet</span></td><td>hyperobject.interfaces id (type &#x27;hem&#x27; or &#x27;custom&#x27;) on the drawcord garments — anorak-smock&#x27;s hem casing, chalk-bag&#x27;s mouth casing — driven by `cord_dia`.</td></tr>
+</tbody>
+</table>
+<h2>Claves de manifiesto</h2>
+<table>
+<thead><tr><th>clave</th><th>papel</th><th>alias</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">fashion-cabinet/hem_casing</span></td><td>interface_id</td><td><span class="mono"></span></td></tr>
+<tr><td><span class="mono">yantra4d/cord_channel</span></td><td>interface_id</td><td><span class="mono"></span></td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="hardware-ref.html">hardware-ref</a></li><li><a href="hem.html">hem</a></li><li><a href="strap-slot.html">strap-slot</a></li><li><a href="sew-field.html">sew-field</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/cord-lock.html"><span class="mono">yantra4d/cord-lock</span></a> — Cord-Lock / Toggle Stopper</li>
+<li><a href="../yantra4d/toggle.html"><span class="mono">yantra4d/toggle</span></a> — Toggle</li>
+<li><a href="../fashion-cabinet/anorak-smock.html"><span class="mono">fashion-cabinet/anorak-smock</span></a> — Anorak tipo smock</li>
+<li><a href="../fashion-cabinet/chalk-bag.html"><span class="mono">fashion-cabinet/chalk-bag</span></a> — Bolsa de magnesio</li>
+</ul>
+<h2>Revisión</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

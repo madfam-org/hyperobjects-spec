@@ -1,0 +1,46 @@
+{
+  "spec_version": 2,
+  "id": "pleat",
+  "domain": "garment-construction",
+  "term": {
+    "en": "pleat",
+    "es": "pliegue",
+    "fr": "pli",
+    "pt": "prega"
+  },
+  "definition": {
+    "en": "Fullness folded into the cloth and fixed at one edge, so that a wide flat panel becomes a narrow finished one that opens again when the body moves. A pleat differs from a gather in that it is drawn: its depth, its pitch and its count are decided on the pattern, and the cloth it consumes is the take-up those three imply.",
+    "es": "Amplitud doblada dentro de la tela y fijada en un canto, de modo que un panel plano y ancho se convierte en uno acabado y estrecho que vuelve a abrirse cuando el cuerpo se mueve. Un pliegue se distingue de un frunce en que está trazado: su profundidad, su paso y su número se deciden en el patrón, y la tela que consume es el embebido que esos tres implican.",
+    "fr": "De l'ampleur repliée dans le tissu et fixée sur un bord, si bien qu'un panneau plat et large devient un panneau fini et étroit qui se rouvre quand le corps bouge. Un pli se distingue d'un fronçage en ceci qu'il est tracé : sa profondeur, son pas et leur nombre se décident sur le patron, et le tissu qu'il consomme est l'embu que ces trois-là impliquent.",
+    "pt": "Amplitude dobrada dentro do tecido e fixada num bordo, de modo que um painel plano e largo se torna um painel acabado e estreito que volta a abrir quando o corpo se move. Uma prega distingue-se de um franzido por ser traçada: a sua profundidade, o seu passo e a sua contagem decidem-se no molde, e o tecido que consome é o embebido que esses três implicam."
+  },
+  "aliases": [
+    {
+      "name": "pleat_depth",
+      "repo": "fashion-cabinet",
+      "note": "The most widely written of the family — parameter id on eleven cartridges, among them culottes, cummerbund-pleated, dress-trousers, kilt-wrap, lattice-drape-skirt and norfolk-jacket."
+    },
+    {
+      "name": "pleat_pitch",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on four cartridges (lattice-drape-skirt, parametric-ruff, pleat-panel-collar, tudor-kirtle): the distance from one pleat to the next, which with the depth fixes the take-up."
+    },
+    {
+      "name": "pleated",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities flag, glossed by the vocabulary as fullness folded into pleats rather than gathered; `pleated_to_sett` is its narrower tartan case."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/kilt-8yard",
+    "fashion-cabinet/pleated-skirt",
+    "fashion-cabinet/tailored-trouser-pleat",
+    "fashion-cabinet/cummerbund-pleated",
+    "fashion-cabinet/tudor-kirtle"
+  ],
+  "see_also": ["gather-ratio", "sett", "waistband", "yoke", "godet"],
+  "constraints": "The take-up is a multiple of the pleat depth fixed by the pleat's type — two depths for a knife pleat, four for a box pleat — so the count solves as an INTEGER against the flat width and the finished width together. Rounding the count after both widths are fixed spends the whole rounding error on the last pleat, which is exactly where it shows.",
+  "review_status": {
+    "state": "generated"
+  }
+}

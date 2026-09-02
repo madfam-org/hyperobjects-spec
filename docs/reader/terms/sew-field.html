@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sew-field — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>sew-field</h1>
+<p class="lede">Dominio: <span class="mono">cross-commons</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="sew-field.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+<h3>Término</h3>
+<p class="headword">campo de cosido</p>
+<h3>Definición</h3>
+<p>La región de un cartucho sólido a la que efectivamente se cose una prenda: la cara de la pestaña, los barrenos o ranuras por donde pasa el hilo, y el largo de esa cara disponible para la costura. Es la lectura que el lado blando hace de una pestaña —lo que el sólido ofrece como geometría, la prenda lo consume como un tramo de canto— y nombrarlo aparte mantiene honesto el acuerdo, porque cada lado posee una mitad distinta del mismo contacto.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge ">unmarked</span> unmarked: the entry claims no review</p>
+<h3>Term</h3>
+<p class="headword">sew field</p>
+<h3>Definition</h3>
+<p>The region of a solid cartridge that a garment is actually sewn to: the flange face, the holes or slots the thread passes through, and the length of it available to the seam. It is the soft side&#x27;s reading of a flange — what the solid offers as geometry, the garment consumes as a stretch of edge — and naming it separately keeps the handshake honest, because the two sides own different halves of the same contact.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge ">unmarked</span> non marqué : l&#x27;entrée ne déclare aucune relecture</p>
+<h3>Terme</h3>
+<p class="headword">champ de couture</p>
+<h3>Définition</h3>
+<p>La région d&#x27;une cartouche solide à laquelle un vêtement est effectivement cousu : la face de la collerette, les trous ou fentes que le fil traverse, et la longueur disponible pour la couture. C&#x27;est la lecture que le côté souple fait d&#x27;une collerette — ce que le solide offre comme géométrie, le vêtement le consomme comme une portion de bord — et le nommer à part garde l&#x27;accord honnête, car chaque côté possède une moitié différente du même contact.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge ">unmarked</span> sem marca: a entrada não declara revisão</p>
+<h3>Termo</h3>
+<p class="headword">campo de costura</p>
+<h3>Definição</h3>
+<p>A região de um cartucho sólido à qual uma peça é efetivamente costurada: a face da aba, os furos ou fendas por onde o fio passa, e o comprimento dessa face disponível para a costura. É a leitura que o lado macio faz de uma aba — o que o sólido oferece como geometria, a peça consome como um troço de debrum — e nomeá-lo à parte mantém o acordo honesto, porque cada lado possui uma metade diferente do mesmo contacto.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>The dimension must flow to both sides: the garment parameter driving a sew field through a params_map has to also drive one of the garment&#x27;s own interfaces, so the same length reaches the cloth edge and the solid&#x27;s face. A mapping that only resolves by name lets the two dimensions drift apart while every check still passes.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">sew_face</span></td><td><span class="mono">yantra4d</span></td><td>The recurring cdg_interface id for this region on sewn hardware (sew-on-snap, boning-stay); geometry_type &#x27;flange&#x27;.</td></tr>
+<tr><td><span class="mono">hardware_ref</span></td><td><span class="mono">fashion-cabinet</span></td><td>The notion block through which a garment names the solid it sews to, and maps its own parameters onto that solid&#x27;s.</td></tr>
+</tbody>
+</table>
+<h2>Claves de manifiesto</h2>
+<table>
+<thead><tr><th>clave</th><th>papel</th><th>alias</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">yantra4d/sew_face</span></td><td>interface_id</td><td><span class="mono">sew_plate</span></td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="flange.html">flange</a></li><li><a href="tape-edge.html">tape-edge</a></li><li><a href="hardware-ref.html">hardware-ref</a></li><li><a href="seam-allowance.html">seam-allowance</a></li><li><a href="cdg-interface.html">cdg-interface</a></li></ul>
+<h2>Encarnado por</h2><ul class="plain">
+<li><a href="../yantra4d/sew-on-snap.html"><span class="mono">yantra4d/sew-on-snap</span></a> — Sew-On Snap</li>
+<li><a href="../yantra4d/boning-stay.html"><span class="mono">yantra4d/boning-stay</span></a> — Boning Stay and Channel</li>
+<li><a href="../fashion-cabinet/boning-channel.html"><span class="mono">fashion-cabinet/boning-channel</span></a> — Boning Channel</li>
+<li><a href="../fashion-cabinet/chainmail-panel.html"><span class="mono">fashion-cabinet/chainmail-panel</span></a> — Chainmail Panel</li>
+</ul>
+<h2>Notas</h2><p lang="en">Not a manifest field on either side — it is the concept the two manifest fields are about. That is precisely why it belongs in a lexicon rather than in a schema.</p>
+<h2>Revisión</h2>
+<p class="review"><span class="badge ">unmarked</span> sin marcar: la entrada no declara revisión</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">5562f547b</span> · fashion-cabinet <span class="mono">00a2239cc</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

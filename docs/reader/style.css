@@ -1,0 +1,76 @@
+/* The whole reader's stylesheet. No framework, no CDN, no JavaScript anywhere in this
+   build: the language switcher below is anchors and one rule.
+
+   How the switcher works, and how it fails safely. Each page carries every language it
+   HAS as a <section class="lang" id="es|en|fr|pt">. With no fragment in the URL, all of
+   them show. Selecting one from the nav targets it, and the rule hides its siblings. A
+   browser without :has() support simply never matches the rule and shows every language
+   at once — a degradation, not a break, and the reason this is CSS rather than script. */
+:root {
+  --ink: #17181c;
+  --muted: #5c6068;
+  --rule: #d8d5cd;
+  --paper: #fbfaf7;
+  --accent: #7a4a1f;
+  --warn: #8a4b16;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.55 Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+header.site, footer.site {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.8rem 1.2rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+footer.site { border-bottom: 0; border-top: 1px solid var(--rule); color: var(--muted); }
+header.site a.brand { font-weight: 700; margin-right: 1.2rem; }
+header.site nav { display: inline; }
+header.site nav a { margin-right: 0.9rem; }
+a { color: var(--accent); }
+main { max-width: 46rem; margin: 0 auto; padding: 1.4rem 1.2rem 3rem; }
+h1 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 0.2rem; }
+h2 { font-size: 1.15rem; margin: 1.8rem 0 0.4rem; }
+h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.07em;
+     color: var(--muted); margin: 1rem 0 0.2rem;
+     font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+p.lede { color: var(--muted); margin-top: 0; }
+p.headword { font-size: 1.2rem; font-weight: 700; margin: 0.1rem 0; }
+p.absent { color: var(--muted); font-style: italic; }
+nav.langs {
+  border: 1px solid var(--rule); border-radius: 3px; padding: 0.4rem 0.7rem;
+  margin: 1.2rem 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+nav.langs .langs-label { color: var(--muted); margin-right: 0.6rem; }
+nav.langs a { margin-right: 0.8rem; }
+section.lang { border-left: 3px solid var(--rule); padding-left: 0.9rem; margin: 1.2rem 0; }
+section.lang:target { border-left-color: var(--accent); }
+body:has(section.lang:target) section.lang:not(:target) { display: none; }
+span.badge {
+  display: inline-block; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;
+  border: 1px solid var(--rule); border-radius: 2px; padding: 0.05rem 0.35rem;
+  color: var(--muted);
+}
+span.badge-generated { color: var(--warn); border-color: var(--warn); }
+p.review { color: var(--muted); font-size: 0.85rem; margin: 0.3rem 0 0; }
+blockquote.constraint {
+  border-left: 3px solid var(--warn); margin: 0.4rem 0; padding: 0.2rem 0 0.2rem 0.9rem;
+}
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--rule); padding: 0.3rem 0.5rem 0.3rem 0;
+         text-align: left; vertical-align: top; }
+th { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 0.75rem;
+     text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+code, .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+              font-size: 0.85em; }
+ul.cols { columns: 2; list-style: none; padding: 0; }
+ul.cols li { break-inside: avoid; margin-bottom: 0.15rem; }
+ul.plain { list-style: none; padding: 0; }
+.unresolved { color: var(--warn); }
+@media (max-width: 34rem) { ul.cols { columns: 1; } }

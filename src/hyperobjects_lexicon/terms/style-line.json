@@ -1,0 +1,40 @@
+{
+  "spec_version": 2,
+  "id": "style-line",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "style line",
+    "es": "línea de estilo",
+    "fr": "ligne de style",
+    "pt": "linha de estilo"
+  },
+  "definition": {
+    "en": "A seam drawn across a pattern piece for shape and for appearance, rather than because the block was cut there — the princess seam is the type case, running from the shoulder or the armhole over the bust to the hem and swallowing the darts it replaces. A style line does the same shaping work as those darts (the intake is conserved) while also being a line the wearer sees, so it is drawn to both duties at once.",
+    "es": "Una costura trazada sobre una pieza del patrón por forma y por aspecto, y no porque el bloque estuviera cortado ahí — la costura princesa es el caso tipo: va del hombro o de la sisa, pasa por el busto y llega al bajo, absorbiendo las pinzas que sustituye. Una línea de estilo hace el mismo trabajo de forma que esas pinzas (el consumo se conserva) y además es una línea que se ve, así que se traza atendiendo a las dos obligaciones a la vez.",
+    "fr": "Une couture tracée sur une pièce de patron pour la forme et pour l'aspect, et non parce que le bloc y était coupé — la couture princesse en est le cas type : elle part de l'épaule ou de l'emmanchure, passe sur la poitrine et descend jusqu'à l'ourlet, absorbant les pinces qu'elle remplace. Une ligne de style fait le même travail de galbe que ces pinces (la valeur de pince est conservée) tout en étant une ligne que l'on voit : elle se trace donc pour les deux fonctions à la fois.",
+    "pt": "Uma costura traçada sobre uma peça do molde por forma e por aspeto, e não porque o bloco estivesse cortado ali — a costura princesa é o caso tipo: parte do ombro ou da cava, passa sobre o busto e desce até à bainha, absorvendo as pinces que substitui. Uma linha de estilo faz o mesmo trabalho de forma que essas pinces (o consumo conserva-se) e é também uma linha que se vê, pelo que se traça para as duas funções ao mesmo tempo."
+  },
+  "aliases": [
+    {
+      "name": "princess_seam",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities flag (with `princess_seamed` recorded as its near-duplicate spelling); the vocabulary glosses it as shaping carried in a long seam instead of in darts, which is this term with the drawing left out."
+    },
+    {
+      "name": "princess_seams",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].id, alongside `front_princess` and `princess_seam`, on four cartridges — cocktail-dress, dirndl-bodice, leotard-princess-seam and shaping-bodysuit. Declared under interface type `side_seam` on two of them and `custom` on the other two, which is itself the dialect split this entry records."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/cocktail-dress",
+    "fashion-cabinet/dirndl-bodice",
+    "fashion-cabinet/leotard-princess-seam",
+    "fashion-cabinet/shaping-bodysuit"
+  ],
+  "see_also": ["dart", "seam-allowance", "shoulder-seam", "armscye", "ease"],
+  "constraints": "A style line absorbs the intake of the dart it replaces, so the two edges it creates are not the edge it replaced: each side is measured off the drawn curve and length-matched to the other, or shaping that reads correctly on the draft becomes a seam that will not close.",
+  "review_status": {
+    "state": "generated"
+  }
+}

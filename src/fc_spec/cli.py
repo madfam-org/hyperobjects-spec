@@ -6,6 +6,7 @@
     fc-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     fc-spec vocab [--status] [-v]
     fc-spec article <path> [...] [--catalog bundled]
+    fc-spec reader [--out DIR] [--check] [--status]
     fc-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
@@ -33,6 +34,7 @@ from hyperobjects_lexicon.cli import (
     add_article_parser,
     add_dictionary_parsers,
     add_lexicon_parser,
+    add_reader_parser,
     add_vocabulary_parser,
     run_lexicon,
 )
@@ -93,13 +95,14 @@ def main(argv: list[str] | None = None) -> int:
     add_vocabulary_parser(sub, "fc-spec")
     add_article_parser(sub, "fc-spec")
     add_dictionary_parsers(sub, "fc-spec")
+    add_reader_parser(sub, "fc-spec")
 
     args = parser.parse_args(argv)
 
     if args.cmd == "lexicon":
         return run_lexicon(args, "fc-spec")
 
-    if args.cmd in ("vocab", "article", "define", "lookup", "related"):
+    if args.cmd in ("vocab", "article", "reader", "define", "lookup", "related"):
         return args.func(args)
 
     if args.cmd == "list":
