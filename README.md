@@ -14,7 +14,7 @@ imported the API app. This package is that bar, extracted: one `pip install`, tw
 commands, no platform checkout.
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@main"
 
 y4d-spec check ./my-cartridge --render          # a Yantra4D cartridge, geometry and all
 fc-spec check garment-manifest ./my-garment.json
@@ -28,14 +28,17 @@ Passing these checks and passing the platforms' CI are meant to be the same thin
 
 ```bash
 # Manifest conformance only — pure python, runs in under a second.
-pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
+pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@main"
 
 # Plus geometry verification: actually renders your cartridge and inspects the mesh.
 # Pulls a CAD kernel (~400MB), so it is opt-in.
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@main"
 ```
 
 Python 3.11+.
+
+These pin `@main` because no release tag exists for the current version; pin the tag
+instead once one is cut.
 
 **What `[geometry]` contains, and why none of it is optional inside the extra.**
 `cadquery` (pinned `<2.8`) is the kernel; `trimesh` inspects the mesh; `scipy` and
