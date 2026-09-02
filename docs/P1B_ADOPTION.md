@@ -103,13 +103,25 @@ its scripts. Nothing imports it yet, so adoption is additive first.
       reach for it on the nightly lane, which is where the preset matrix pays. The
       printability notes (`--no-printability` to skip) add well under a second per
       render and never change the exit code, so they are safe to leave on everywhere.
+- [ ] **Give the runner what the CAD kernel needs, and prove it ran.** `--render` needs
+      the `[geometry]` extra (cadquery, trimesh, scipy, networkx and **rtree**, which is
+      what trimesh builds its ray bounds tree with) *and* the system libraries OCP's C
+      extension links against — on Debian/Ubuntu `libgl1`, `libglib2.0-0` and
+      `libxrender1`. `libgl1` alone leaves `libXrender.so.1` unresolved, `import cadquery`
+      fails, and the entire render lane becomes unavailable. This repo's own CI learned
+      that the expensive way: its geometry tests skipped on every run on main while the
+      job reported green. So assert `y4d_spec.geometry.geometry_available()` in the job
+      and **fail on False** rather than trusting a summary line nobody reads.
 - [ ] **Decide where the printability notes go.** They are notes by construction in
       0.2.0 and every threshold is provisional (see the calibration stories in
-      `printability.py`). Before any of them is allowed to block, the full-commons
-      false-positive analysis has to be written down — the same bar that killed the
-      `render_mode` uniqueness rule. The overhang rule in particular counts a part's
-      flat bed-contact face as overhang, which is why it is an area *fraction* and why
-      it stays a note.
+      `printability.py`). A measurement that could not run because a package is missing
+      is not silence either: it raises a once-per-process `PrintabilityDependencyWarning`
+      naming the package, so a surface that swallows warnings will hide the difference
+      between "no thin walls" and "nothing measured them". Before any of them is allowed
+      to block, the full-commons false-positive analysis has to be written down — the
+      same bar that killed the `render_mode` uniqueness rule. The overhang rule in
+      particular counts a part's flat bed-contact face as overhang, which is why it is
+      an area *fraction* and why it stays a note.
 
 ---
 

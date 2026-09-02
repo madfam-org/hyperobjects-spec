@@ -37,6 +37,20 @@ pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyp
 
 Python 3.11+.
 
+**What `[geometry]` contains, and why none of it is optional inside the extra.**
+`cadquery` (pinned `<2.8`) is the kernel; `trimesh` inspects the mesh; `scipy` and
+`networkx` are what `mesh.split()` needs to find an inverted body at all; **`rtree`** is
+what trimesh builds the ray bounds tree with, and without it the thin-wall thickness
+measurement cannot run. A package missing from that list does not quietly remove a
+measurement — see **Printability notes** below.
+
+**On Linux the CAD kernel also needs system libraries.** OCP's C extension links against
+X and GL at import, so a Debian/Ubuntu machine needs `libgl1`, `libglib2.0-0` **and
+`libxrender1`** — `libgl1` alone is not enough, because nothing in its dependency tree
+pulls the `libXrender.so.1` that VTK's renderer asks for. Without them `import cadquery`
+fails, and `--render` then refuses with exit `2` rather than downgrading silently. The CI
+workflow installs exactly those three and fails the job if geometry still cannot import.
+
 ---
 
 ## `y4d-spec` — Yantra4D cartridges
@@ -97,6 +111,17 @@ Every note names the number it measured, because **every one of these thresholds
 provisional** pending a full-commons calibration. They are measurements you can argue
 with, not rules you have to satisfy. `--no-printability` skips them.
 
+**A measurement that could not run says so.** The thin-wall thickness needs `rtree`
+(trimesh's ray backend builds its bounds tree with it), which is why the `[geometry]`
+extra declares it. If an optional package is missing anyway, the measurement is skipped
+and `y4d_spec.printability` warns **once per process** — a `PrintabilityDependencyWarning`
+naming the package and the extra that installs it — rather than returning the same
+"nothing to report" a featureless mesh returns. It is still never a failure: a conformant
+cartridge must not turn red because the machine checking it is short a package. But *no
+thin walls* is a measurement and *the thickness measurement never ran* is a hole where one
+should be, and a reader who cannot tell them apart reads the hole as good news. A
+*geometric* failure — a degenerate mesh, a ray that lands nowhere — is still silence.
+
 ```
 $ y4d-spec check ./sew-on-snap --render -v
   ok sew-on-snap (./sew-on-snap, 5 render(s) verified (2 preset))
@@ -113,9 +138,12 @@ y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 pres
 ```
 
 That note is a good illustration of the posture: it is *true* — the 9mm snap's
-sew-hole webbing really does measure 0.76mm — and it is *marginal*, 0.04mm under a
-provisional bar, on a cartridge that prints fine today. So it gets said, with its
-number attached, and the exit code stays `0`.
+sew-hole webbing really does measure about 0.76mm — and it is *marginal*, some 0.04mm
+under a provisional bar, on a cartridge that prints fine today. So it gets said, with its
+number attached, and the exit code stays `0`. (The thickness is a median over 400 random
+surface samples, so re-running the same render moves the last digits by a few hundredths;
+on a part this close to the bar that is sometimes the difference between the note and
+silence.)
 
 Without `--render`, the summary says `geometry=NOT verified` — a run that skipped the
 render lane must never read like one that passed it. The `presets=` count is on the
@@ -427,6 +455,14 @@ python3 scripts/refresh_catalog_snapshot.py --yantra4d ../yantra4d \
                                             --fashion-cabinet ../fashion-cabinet
 ```
 
+Every capture in this repo — this snapshot, the two reader catalogs, the bridge graph and
+both controlled vocabularies — is read out of a **commit** with `git show` rather than off
+a working tree, and records the **full sha** it was read at. So a refresh never needs a
+shared clone moved off its branch, cannot capture uncommitted work, and leaves a rev a
+later reader can resolve exactly rather than guess at. Each side is named separately
+(`--yantra4d-ref` / `--fashion-cabinet-ref`, both defaulting to `origin/main`) because the
+two commons move independently.
+
 ### How platforms consume it
 
 ```python
@@ -622,6 +658,19 @@ cards) and the bridge graph — Fashion Cabinet's `hardware_ref` claims forward,
 back edge it publishes for Yantra4D to vendor. The build reads nothing else: no network,
 no platform checkout, no clock.
 
+```bash
+python3 scripts/refresh_reader_snapshots.py --yantra4d ../yantra4d \
+                                            --fashion-cabinet ../fashion-cabinet
+fc-spec reader                      # then rebuild the pages in the same commit
+python3 scripts/refresh_reader_counts.py    # and the count blocks above
+```
+
+Each snapshot records the **full sha** it was captured at, in its own `source.commit`, and
+every entry page links to its manifest at that exact commit. So the tables above are a
+statement about a specific pair of commits rather than about "the commons today", and a
+refresh is reproducible: `--yantra4d-ref` and `--fashion-cabinet-ref` name the two sides
+separately (default `origin/main`) because the commons move independently.
+
 **Four things it refuses to do.**
 
 1. **Offer a language an entry does not have.** The lexicon is quadrilingual because
@@ -714,9 +763,20 @@ cd hyperobjects-spec
 python3 -m venv .venv && .venv/bin/pip install -e ".[geometry,dev]"
 .venv/bin/python -m pytest -ra
 .venv/bin/ruff check src tests
+.venv/bin/fc-spec lexicon --catalog bundled        # the corpus lanes CI runs
+.venv/bin/y4d-spec vocab
+.venv/bin/fc-spec article examples --catalog bundled
 .venv/bin/fc-spec reader --check          # docs/reader is committed; this is the diff
 python3 scripts/refresh_reader_counts.py --check   # and so are the counts in this file
 ```
+
+**The geometry lane is meant to actually run.** Tests marked `geometry` *skip* rather
+than fail when cadquery/trimesh cannot import, so a run that installed the extra without
+the system libraries above is green and has verified none of them. Read the `-ra` summary:
+with the extra and its libraries present the suite reports **no skips**. CI does not rely
+on the reader noticing — it installs `libgl1 libglib2.0-0 libxrender1`, prints the import
+tracebacks and any unresolved soname, and **fails the job** before pytest if
+`geometry_available()` is False.
 
 `docs/reader/` and the count blocks in this README are **generated and committed**. If
 you change the corpus, a vocabulary or a snapshot, rebuild them in the same commit —

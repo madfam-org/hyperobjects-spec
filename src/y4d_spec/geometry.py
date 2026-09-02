@@ -77,7 +77,16 @@ class GeometryUnavailable(RuntimeError):
 
 
 def geometry_available() -> bool:
-    """True when cadquery and trimesh can both be imported."""
+    """True when cadquery and trimesh can both be imported.
+
+    False covers two different situations that a bool cannot tell apart: the [geometry]
+    extra is not installed, or it is and the CAD kernel's C extension cannot resolve a
+    system library it links against. The reason is deliberately swallowed here — this is
+    a predicate, and its callers (the pytest skip hook, `--render`'s refusal) only need
+    the verdict. Anything that has to report WHY must import the modules itself and show
+    the traceback, which is exactly what the CI read-proof step does before it fails the
+    job on a False.
+    """
     try:
         import cadquery  # noqa: F401
         import trimesh  # noqa: F401

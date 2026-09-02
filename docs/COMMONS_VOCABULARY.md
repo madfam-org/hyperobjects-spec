@@ -29,9 +29,13 @@ introduces the vocabulary has no way back if the vocabulary is wrong.
 | `docs/reader/` + `fc-spec reader` / `y4d-spec reader` | G4's cross-commons reader: one lexicon, both encyclopaedias, the bridge graph as navigation — built from pinned snapshots, committed, `--check` in CI |
 
 The capture behind the counts: yantra4d 500 cartridges (`docs/commons-catalog.json`),
-fashion-cabinet 516 (`projects/*/project.json`), both at 2026-09-02. Re-run it with
-`scripts/refresh_vocabulary_counts.py`, which rewrites the counts, leaves every editorial
-field alone, and **fails on a key nobody has placed** — that failure is the drift alarm.
+fashion-cabinet 516 (`projects/*/project.json`), both at 2026-09-02. Each side is read out
+of a **commit** with `git show` — never off a working tree — and each document's own
+`captured.sources` block records the **full sha** it was read at, so the capture is
+reproducible and the rev is one a later reader can resolve exactly. Re-run it with
+`scripts/refresh_vocabulary_counts.py` (`--yantra4d-ref` / `--fashion-cabinet-ref`, both
+defaulting to `origin/main`), which rewrites the counts, leaves every editorial field
+alone, and **fails on a key nobody has placed** — that failure is the drift alarm.
 
 ## What the reader publishes about itself
 

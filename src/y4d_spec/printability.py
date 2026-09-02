@@ -13,6 +13,14 @@ program sets before any rule is allowed to block. Until that is written down, th
 as measurements and every note names the number it measured so a reader can judge the
 threshold rather than trust it.
 
+A measurement that could not RUN is reported rather than returned as nothing. A missing
+optional package — trimesh reaches for `rtree` from inside its thickness measurement, and
+the [geometry] extra declares it for exactly that reason — skips the measurement and
+raises a once-per-process `PrintabilityDependencyWarning` naming the package, because
+"no thin walls" and "the thickness measurement never ran" must not read the same. A
+GEOMETRIC failure (a degenerate mesh, a ray that lands nowhere) is still silence, and
+neither case is ever a failure: see `PrintabilityDependencyWarning` below.
+
 Calibration outcome on that slice, after tuning — the story behind each number is on
 the constant it tuned:
 
