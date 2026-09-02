@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "material-awareness",
+  "domain": "materials",
+  "term": {
+    "en": "material awareness",
+    "es": "conciencia de material",
+    "fr": "conscience du matériau",
+    "pt": "consciência do material"
+  },
+  "definition": {
+    "en": "The manifest block by which a solid cartridge declares that it knows what it will be made of: whether it compensates for shrinkage, whether it exposes a recycled-material toggle, whether its tolerances change by material. It is the solid side's version of a fabric card — the admission that the same geometry in a different material is a different object.",
+    "es": "El bloque del manifiesto con el que un cartucho sólido declara que sabe de qué se hará: si compensa el encogimiento, si expone un interruptor de material reciclado, si sus tolerancias cambian según el material. Es la versión del lado sólido de una ficha de tela — la admisión de que la misma geometría en otro material es otro objeto.",
+    "fr": "Le bloc du manifeste par lequel une cartouche solide déclare qu'elle sait de quoi elle sera faite : si elle compense le retrait, si elle expose un commutateur de matériau recyclé, si ses tolérances changent selon le matériau. C'est la version du côté solide d'une fiche tissu — l'aveu que la même géométrie dans un autre matériau est un autre objet.",
+    "pt": "O bloco do manifesto pelo qual um cartucho sólido declara que sabe de que será feito: se compensa o encolhimento, se expõe um comutador de material reciclado, se as suas tolerâncias mudam com o material. É a versão do lado sólido de uma ficha de tecido — a admissão de que a mesma geometria noutro material é outro objeto."
+  },
+  "aliases": [
+    {
+      "name": "material_awareness",
+      "repo": "yantra4d",
+      "note": "Per-cartridge block with three booleans: shrinkage_compensation, recycled_material_toggle, tolerance_by_material."
+    }
+  ],
+  "embodied_by": ["yantra4d/aerator-adapter", "yantra4d/tpu-chainmail-panel"],
+  "see_also": [
+    "shrinkage-compensation",
+    "fabric-compensation",
+    "cross-commons-identity",
+    "printed-textile"
+  ],
+  "constraints": "Material awareness is a claim a fit depends on: a cartridge whose clearances were tuned in one material and which declares no tolerance-by-material is telling a maker in another material that nothing changed, when the fit did.",
+  "review_status": {
+    "state": "generated"
+  }
+}

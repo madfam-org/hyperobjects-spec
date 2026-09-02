@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "fabric-compensation",
+  "domain": "capability",
+  "term": {
+    "en": "fabric compensation",
+    "es": "compensación por tela",
+    "fr": "compensation du tissu",
+    "pt": "compensação do tecido"
+  },
+  "definition": {
+    "en": "The capability of a draft to scale its pieces by the measured behaviour of the cloth it will be cut in — shrinkage on the first wash, stretch under wear — rather than drafting to the finished measurement and hoping. The fabric card carries the numbers per axis; the draft applies them.",
+    "es": "La capacidad de un trazo de escalar sus piezas según el comportamiento medido de la tela en que se cortarán —encogimiento en el primer lavado, elasticidad en el uso— en lugar de trazar a la medida acabada y confiar. La ficha de tela lleva los números por eje; el trazo los aplica.",
+    "fr": "La capacité d'un tracé à mettre ses pièces à l'échelle du comportement mesuré du tissu dans lequel elles seront coupées — retrait au premier lavage, élasticité à l'usage — au lieu de tracer à la mesure finie en espérant. La fiche tissu porte les nombres par axe ; le tracé les applique.",
+    "pt": "A capacidade de um traçado escalar as suas peças pelo comportamento medido do tecido em que serão cortadas — encolhimento na primeira lavagem, elasticidade no uso — em vez de traçar à medida acabada e esperar. A ficha de tecido leva os números por eixo; o traçado aplica-os."
+  },
+  "aliases": [
+    {
+      "name": "fabric_compensation",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key, declared by all 516 cartridges and true on 106 as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/aran-sweater",
+    "fashion-cabinet/balaclava",
+    "fashion-cabinet/arm-warmers"
+  ],
+  "see_also": [
+    "cut-scale",
+    "shrinkage-percent",
+    "stretch-percent",
+    "grainline",
+    "shrinkage-compensation"
+  ],
+  "constraints": "Compensation is per AXIS, and the axis is a property of how the piece is laid on the cloth. The fabric card gives warp and weft separately (manta cruda: 5% warp, 3% weft), so a factor applied to the wrong axis scales the piece the wrong way and is worse than not compensating.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "The soft side's warp/weft factors deliberately mirror the solid side's `am_compensations.shrinkage` contract — the same idea, one commons in cloth and one in filament."
+}

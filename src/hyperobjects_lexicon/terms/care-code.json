@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "care-code",
+  "domain": "materials",
+  "term": {
+    "en": "care code",
+    "es": "código de cuidado",
+    "fr": "code d'entretien",
+    "pt": "código de conservação"
+  },
+  "definition": {
+    "en": "A machine-readable instruction for how a cloth is to be washed, dried and pressed — `machine_wash_30c`, `tumble_dry_low`, `iron_high` — carried on the fabric card rather than printed only on a label. Written as a code so a platform can carry it through to whoever ends up owning the garment.",
+    "es": "Una instrucción legible por máquina sobre cómo lavar, secar y planchar una tela —`machine_wash_30c`, `tumble_dry_low`, `iron_high`— llevada en la ficha de tela y no impresa solo en una etiqueta. Se escribe como código para que una plataforma pueda transmitirla a quien acabe siendo dueño de la prenda.",
+    "fr": "Une instruction lisible par machine sur la façon de laver, sécher et repasser une étoffe — `machine_wash_30c`, `tumble_dry_low`, `iron_high` — portée par la fiche tissu plutôt qu'imprimée seulement sur une étiquette. Écrite en code pour qu'une plateforme puisse la transmettre à qui finira par posséder le vêtement.",
+    "pt": "Uma instrução legível por máquina sobre como lavar, secar e passar um tecido — `machine_wash_30c`, `tumble_dry_low`, `iron_high` — levada na ficha de tecido e não impressa apenas numa etiqueta. Escrita como código para que uma plataforma a possa transmitir a quem acabe por ser dono da peça."
+  },
+  "aliases": [
+    {
+      "name": "care[]",
+      "repo": "fashion-cabinet",
+      "note": "Array of codes on the fabric card; manta cruda declares machine_wash_30c, tumble_dry_low, iron_high."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": ["fiber-composition", "shrinkage-percent", "gsm", "commons-license"],
+  "constraints": "The care code and the shrinkage figure describe the same wash: a card that says machine-wash and declares no shrinkage is claiming a cloth that does not move, which for an unwashed natural fibre is a claim that will be falsified the first time it is worn and washed.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "girth",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "girth",
+    "es": "contorno",
+    "fr": "tour",
+    "pt": "perímetro"
+  },
+  "definition": {
+    "en": "A measurement taken all the way around the body at a named place — chest, waist, hip, neck, head, wrist. Girths are the backbone of a made-to-measure draft because they are the measurements a garment has to enclose, and they are the ones a person can take on themselves with a tape and no help.",
+    "es": "Una medida tomada alrededor del cuerpo en un lugar con nombre — pecho, cintura, cadera, cuello, cabeza, muñeca. Los contornos son la columna vertebral de un trazo a medida porque son las medidas que una prenda debe rodear, y son las que una persona puede tomarse a sí misma con una cinta y sin ayuda.",
+    "fr": "Une mesure prise tout autour du corps à un endroit nommé — poitrine, taille, hanches, cou, tête, poignet. Les tours sont l'ossature d'un tracé sur mesure parce que ce sont les mesures qu'un vêtement doit enfermer, et celles qu'une personne peut prendre seule avec un mètre ruban.",
+    "pt": "Uma medida tirada à volta do corpo num lugar com nome — peito, cintura, anca, pescoço, cabeça, pulso. Os perímetros são a espinha dorsal de um traçado à medida porque são as medidas que uma peça tem de envolver, e são as que uma pessoa consegue tirar sozinha com uma fita."
+  },
+  "aliases": [
+    {
+      "name": "*_girth",
+      "repo": "fashion-cabinet",
+      "note": "The house parameter suffix: chest_girth (178 cartridges), waist_girth (145), neck_girth (131), hip_girth (114), bust_girth (61), head_girth (30) as of 2026-09-02."
+    },
+    {
+      "name": "*_ring",
+      "repo": "yantra4d",
+      "note": "The solid side's spelling on the body-form family — the same ISO 8559 places rendered as surface interfaces on a mannequin."
+    }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": ["fashion-cabinet/bodice-block", "fashion-cabinet/abaya", "yantra4d/body-form"],
+  "see_also": ["body-measurements", "ease", "made-to-measure", "surface", "waistband"],
+  "constraints": "A girth is a body measurement, never a garment one: the finished garment measures the girth plus its ease (or minus its negative ease), and a draft that treats the two as the same number produces a garment exactly one ease too small.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "mode",
+  "domain": "manifest",
+  "term": {
+    "en": "mode",
+    "es": "modo",
+    "fr": "mode",
+    "pt": "modo"
+  },
+  "definition": {
+    "en": "One way a cartridge can be rendered — a script file plus the parts it produces. Modes are how one hyperobject holds several buildable configurations at once (a snap as a set, as a stud alone, as a socket alone) without becoming several cartridges.",
+    "es": "Una manera en que un cartucho puede renderizarse — un archivo de script más las piezas que produce. Los modos son la forma en que un mismo hiperobjeto sostiene varias configuraciones construibles a la vez (un broche como juego, solo el macho, solo la hembra) sin convertirse en varios cartuchos.",
+    "fr": "Une façon dont une cartouche peut être rendue — un fichier de script plus les pièces qu'il produit. Les modes sont la manière dont un même hyperobjet tient plusieurs configurations constructibles à la fois (une pression en jeu complet, le mâle seul, la femelle seule) sans devenir plusieurs cartouches.",
+    "pt": "Uma maneira como um cartucho pode ser renderizado — um ficheiro de script mais as peças que produz. Os modos são a forma como um mesmo hiperobjeto sustenta várias configurações construíveis ao mesmo tempo (uma mola como conjunto, só o macho, só a fêmea) sem se tornar vários cartuchos."
+  },
+  "aliases": [
+    {
+      "name": "modes[]",
+      "repo": "yantra4d",
+      "note": "Required top-level array; each mode names a scad_file or cq_file, a label, its parts and an estimate, and may override the engine."
+    }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["target-part", "cartridge", "render-lane", "dual-engine", "parameter"],
+  "constraints": "Every part a mode lists must be a part the script actually dispatches on. Two parts that render identical geometry mean the target_part dispatch is not wired, and the platform will serve the wrong body without erroring.",
+  "review_status": {
+    "state": "generated"
+  }
+}

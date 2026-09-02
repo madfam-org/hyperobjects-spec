@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "notion",
+  "domain": "manifest",
+  "term": {
+    "en": "notion",
+    "es": "avío",
+    "fr": "mercerie",
+    "pt": "aviamento"
+  },
+  "definition": {
+    "en": "A small functional component a garment needs but is not made of — a snap, a buckle, a clip, an eyelet, a length of boning. In this commons a notion is a domain a cartridge can belong to, and it is also the block through which a garment names the printed hardware it uses instead of drawing it.",
+    "es": "Un componente funcional pequeño que una prenda necesita pero del que no está hecha — un broche, una hebilla, un clip, un ojal metálico, una ballena. En este procomún un avío es un dominio al que un cartucho puede pertenecer, y es también el bloque por el que una prenda nombra el herraje impreso que usa en vez de dibujarlo.",
+    "fr": "Un petit composant fonctionnel dont un vêtement a besoin sans en être fait — une pression, une boucle, un clip, un œillet, une baleine. Dans ces communs, une mercerie est un domaine auquel une cartouche peut appartenir, et c'est aussi le bloc par lequel un vêtement nomme la quincaillerie imprimée qu'il emploie au lieu de la dessiner.",
+    "pt": "Um pequeno componente funcional de que uma peça precisa mas de que não é feita — uma mola, uma fivela, um clipe, um ilhó, uma barbatana. Neste comum, um aviamento é um domínio a que um cartucho pode pertencer, e é também o bloco pelo qual uma peça nomeia a ferragem impressa que usa em vez de a desenhar."
+  },
+  "aliases": [
+    {
+      "name": "hyperobject.domain = notion",
+      "repo": "fashion-cabinet",
+      "note": "Domain value for the soft-side notion cartridges; the `notion.hardware_ref` block is where a garment names a solid cartridge."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/chainmail-panel",
+    "fashion-cabinet/boning-channel",
+    "yantra4d/sew-on-snap"
+  ],
+  "see_also": ["hardware-ref", "hardware-bridge", "block", "technique", "cross-commons-identity"],
+  "constraints": "A notion is the one garment-side object that regularly has a solid twin, so it is where an identity record belongs: the same physical thing existing as a soft cartridge and a printed one is a pair to declare, not a duplicate to remove.",
+  "review_status": {
+    "state": "generated"
+  }
+}

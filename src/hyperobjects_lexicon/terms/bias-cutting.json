@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "bias-cutting",
+  "domain": "capability",
+  "term": {
+    "en": "bias cutting",
+    "es": "corte al bies",
+    "fr": "coupe en biais",
+    "pt": "corte em viés"
+  },
+  "definition": {
+    "en": "The capability of laying pieces at 45° to the grain, where a woven cloth stretches and drapes as it does nowhere else. It buys a fitted, fluid line without a single dart — and it costs stability, length and cloth, which is why it is a decision the draft has to declare rather than a way of cutting a normal pattern.",
+    "es": "La capacidad de colocar las piezas a 45° del hilo, donde un tejido plano estira y cae como no lo hace en ninguna otra dirección. Compra una línea ceñida y fluida sin una sola pinza — y cuesta estabilidad, largo y tela, por lo que es una decisión que el trazo debe declarar y no una manera de cortar un patrón normal.",
+    "fr": "La capacité de placer les pièces à 45° du droit-fil, là où un tissu chaîne-et-trame s'étire et tombe comme nulle part ailleurs. Elle achète une ligne ajustée et fluide sans une seule pince — et elle coûte de la stabilité, de la longueur et du tissu, ce pourquoi c'est une décision que le tracé doit déclarer et non une façon de couper un patron ordinaire.",
+    "pt": "A capacidade de colocar as peças a 45° do fio, onde um tecido de teia e trama estica e cai como em mais nenhuma direção. Compra uma linha justa e fluida sem uma única pinça — e custa estabilidade, comprimento e tecido, pelo que é uma decisão que o traçado tem de declarar e não uma maneira de cortar um molde normal."
+  },
+  "aliases": [
+    {
+      "name": "bias_cutting",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (evening-gown, slip-dress)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/evening-gown", "fashion-cabinet/slip-dress"],
+  "see_also": ["grainline", "drape-class", "seam-stabilization", "hem"],
+  "constraints": "A bias-cut garment grows in length and narrows on the body as it hangs, so the hem is levelled AFTER hanging and not at the cutting table — a bias hem drafted to its finished length is a hem that will be uneven when the cloth has settled.",
+  "review_status": {
+    "state": "generated"
+  }
+}

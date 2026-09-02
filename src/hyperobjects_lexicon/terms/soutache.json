@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "soutache",
+  "domain": "garment-construction",
+  "term": {
+    "en": "soutache (greca)",
+    "es": "soutache (greca)",
+    "fr": "soutache (greca)",
+    "pt": "soutache (greca)"
+  },
+  "definition": {
+    "en": "A narrow flat braid applied in a design on the face of a garment, following its edges. On the chaleco of the traje de charro the design it forms is called the greca, and it is applied while the fronts are still flat — soutache laid over a made-up edge is a different and much harder job.",
+    "es": "Un cordón plano y estrecho aplicado formando un dibujo sobre la cara de una prenda, siguiendo sus cantos. En el chaleco del traje de charro el dibujo que forma se llama greca, y se aplica con los delanteros todavía en plano — el soutache sobre un canto ya montado es un trabajo distinto y mucho más difícil.",
+    "fr": "Un galon plat et étroit appliqué en dessin sur l'endroit d'un vêtement, en suivant ses bords. Sur le gilet du traje de charro, le dessin qu'il forme s'appelle la greca, et il s'applique tant que les devants sont encore à plat — la soutache posée sur un bord déjà monté est un tout autre travail, bien plus difficile.",
+    "pt": "Um galão plano e estreito aplicado em desenho sobre a face de uma peça, acompanhando os seus bordos. No colete do traje de charro, o desenho que forma chama-se greca, e aplica-se com as frentes ainda planas — a soutache sobre um bordo já montado é um trabalho diferente e muito mais difícil."
+  },
+  "aliases": [
+    {
+      "name": "soutache_rows",
+      "repo": "fashion-cabinet",
+      "note": "Parameter of chaleco-charro; the drafted `greca-row-N` markings are placement lines only, and `soutache_rows: 0` is the plain faena chaleco — a finished garment, not an unfinished one."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/chaleco-charro"],
+  "see_also": ["heritage", "button-stand", "tailoring", "center-front"],
+  "constraints": "The cartridge marks placement and never draws a design: the greca patterns, the silverwork and the association insignia belong to the artisans and families whose they are, and the competition dress codes to the Federación Mexicana de Charrería. A pattern generator draws the structure and stops.",
+  "heritage": true,
+  "sources": [
+    "fashion-cabinet/projects/chaleco-charro/docs/README.md — provenance (charrería recognised by UNESCO in 2016 as Intangible Cultural Heritage; the traje de charro regulated by the Federación Mexicana de Charrería) and 'What is deliberately excluded'"
+  ],
+  "review_status": {
+    "state": "generated"
+  }
+}

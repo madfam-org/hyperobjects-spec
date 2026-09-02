@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "custom-interface",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "custom interface",
+    "es": "interfaz a medida",
+    "fr": "interface sur mesure",
+    "pt": "interface à medida"
+  },
+  "definition": {
+    "en": "The escape hatch of both interface vocabularies: a declared interface whose geometry is none of the named types. It still names a real mating region and still carries the parameters that dimension it, but it tells a consumer nothing typed about HOW to meet it — so everything a type would have said has to be said by the id, the label and the parameter list instead.",
+    "es": "La válvula de escape de ambos vocabularios de interfaz: una interfaz declarada cuya geometría no es ninguno de los tipos con nombre. Sigue nombrando una región de acoplamiento real y sigue llevando los parámetros que la dimensionan, pero no le dice nada tipificado a quien la consume sobre CÓMO acoplarse — así que todo lo que habría dicho un tipo tiene que decirlo el id, la etiqueta y la lista de parámetros.",
+    "fr": "La soupape de sûreté des deux vocabulaires d'interface : une interface déclarée dont la géométrie n'est aucun des types nommés. Elle désigne toujours une région d'accouplement réelle et porte toujours les paramètres qui la dimensionnent, mais elle ne dit rien de typé à qui la consomme sur la MANIÈRE de s'y accoupler — tout ce qu'un type aurait dit doit donc être dit par l'identifiant, le libellé et la liste des paramètres.",
+    "pt": "A válvula de escape dos dois vocabulários de interface: uma interface declarada cuja geometria não é nenhum dos tipos nomeados. Continua a nomear uma região de acoplamento real e continua a levar os parâmetros que a dimensionam, mas nada diz de tipado a quem a consome sobre COMO acoplar-se — por isso tudo o que um tipo teria dito tem de ser dito pelo id, pela etiqueta e pela lista de parâmetros."
+  },
+  "aliases": [
+    {
+      "name": "custom",
+      "repo": "yantra4d",
+      "note": "geometry_type value; 13 declared interfaces as of the 2026-09-02 catalog — 1.6% of the solid side's 805."
+    },
+    {
+      "name": "custom",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 369 of 1406 declared interfaces (26%) across 516 garment cartridges, hiding 244 distinct ids."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/garment-clip",
+    "yantra4d/molecule-kit",
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/anorak-smock"
+  ],
+  "see_also": ["cdg-interface", "placket", "cuff", "hem"],
+  "constraints": "A custom interface must carry parameters. With no type to lean on, the parameter list is the whole of what a consumer can check a fit against, and a `custom` interface declaring none names a mating region that nothing dimensions.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "The soft side's 26% is where the next interface types will come from: `placement_line` (18 cartridges), `closure` (9), `head_opening` (9), `gusset` (8), `straps` (7) and `wire_line` (6) are each used by enough cartridges to be a type, and the interface vocabulary records them as promotion candidates rather than leaving them in the tail."
+}

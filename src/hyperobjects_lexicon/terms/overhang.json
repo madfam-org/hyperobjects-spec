@@ -1,0 +1,23 @@
+{
+  "spec_version": 2,
+  "id": "overhang",
+  "domain": "geometry",
+  "term": {
+    "en": "overhang",
+    "es": "voladizo",
+    "fr": "porte-à-faux",
+    "pt": "saliência"
+  },
+  "definition": {
+    "en": "Downward-facing surface steep enough that a printer has nothing to lay it on — measured here as the share of a body's area sloping more than 45° from vertical, excluding the face resting on the bed. Reported as a note above a quarter of the total area, with the share it measured.",
+    "es": "Superficie orientada hacia abajo con inclinación suficiente para que una impresora no tenga sobre qué depositarla — medida aquí como la fracción del área de un cuerpo con más de 45° respecto a la vertical, excluida la cara apoyada en la cama. Se reporta como nota por encima de un cuarto del área total, con la fracción medida.",
+    "fr": "Surface tournée vers le bas, assez inclinée pour qu'une imprimante n'ait rien sur quoi la déposer — mesurée ici comme la part de l'aire d'un corps dépassant 45° depuis la verticale, hors la face posée sur le plateau. Signalée comme une note au-delà d'un quart de l'aire totale, avec la part mesurée.",
+    "pt": "Superfície virada para baixo, inclinada o bastante para que uma impressora não tenha onde a depositar — medida aqui como a fração da área de um corpo com mais de 45° em relação à vertical, excluída a face pousada na base. Reportada como nota acima de um quarto da área total, com a fração medida."
+  },
+  "embodied_by": ["yantra4d/thimble", "yantra4d/sew-on-snap"],
+  "see_also": ["thin-wall", "build-volume", "render-lane", "positive-volume"],
+  "constraints": "Overhang is a property of an ORIENTATION, not of a body: the same geometry rotated onto another face measures differently, so the note describes how the cartridge presents itself for printing and not what it inherently is.",
+  "review_status": {
+    "state": "generated"
+  }
+}

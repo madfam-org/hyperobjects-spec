@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "made-to-measure",
+  "domain": "capability",
+  "term": {
+    "en": "made to measure",
+    "es": "a medida",
+    "fr": "sur mesure",
+    "pt": "à medida"
+  },
+  "definition": {
+    "en": "The capability of a garment cartridge to draft from a body's own measurements rather than from a size chart: the body values are parameters, and every piece is solved from them at render time. It is the soft commons' default claim — a garment that cannot be measured to a person is a garment in someone else's size.",
+    "es": "La capacidad de un cartucho de prenda para trazarse a partir de las medidas del propio cuerpo y no de una tabla de tallas: los valores del cuerpo son parámetros y cada pieza se resuelve a partir de ellos en el momento del render. Es la afirmación por defecto del procomún blando — una prenda que no puede medirse a una persona es una prenda de la talla de otra.",
+    "fr": "La capacité d'une cartouche de vêtement à se tracer d'après les mesures du corps lui-même plutôt que d'après un tableau de tailles : les valeurs du corps sont des paramètres et chaque pièce en est résolue au moment du rendu. C'est l'affirmation par défaut des communs souples — un vêtement qu'on ne peut mesurer à une personne est un vêtement à la taille d'une autre.",
+    "pt": "A capacidade de um cartucho de peça se traçar a partir das medidas do próprio corpo e não de uma tabela de tamanhos: os valores do corpo são parâmetros e cada peça é resolvida a partir deles no momento do render. É a afirmação por omissão do comum macio — uma peça que não pode ser medida a uma pessoa é uma peça do tamanho de outra."
+  },
+  "aliases": [
+    {
+      "name": "made_to_measure",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key, declared by all 516 garment cartridges and true on 479 of them as of 2026-09-02."
+    }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/a-line-dress",
+    "fashion-cabinet/blazer",
+    "fashion-cabinet/kurta"
+  ],
+  "see_also": ["body-measurements", "ease", "girth", "block"],
+  "constraints": "The claim is only true if the body values are real parameters of the manifest. Thirty-seven cartridges declare it FALSE — panels, notions and cloth-unit garments that are drafted to a bolt or a fixed size — and that false is a statement, which is why the flag is a boolean and not an omission.",
+  "review_status": {
+    "state": "generated"
+  }
+}

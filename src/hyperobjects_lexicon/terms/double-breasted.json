@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "double-breasted",
+  "domain": "capability",
+  "term": {
+    "en": "double-breasted",
+    "es": "cruzada",
+    "fr": "croisé",
+    "pt": "trespassado"
+  },
+  "definition": {
+    "en": "The capability of a front that laps well past centre front and buttons on a second row, so the garment closes across a double thickness of cloth. The lap is a real dimension carried in the draft, and it is what makes the front warm, wind-tight and — because either side can go on top — often wearable both ways.",
+    "es": "La capacidad de un delantero que monta mucho más allá del centro delantero y abotona en una segunda hilera, de modo que la prenda cierra sobre doble espesor de tela. El cruce es una dimensión real que el trazo lleva, y es lo que hace el delantero abrigado, cortaviento y —al poder montar cualquiera de los dos lados— a menudo utilizable en ambos sentidos.",
+    "fr": "La capacité d'un devant qui croise bien au-delà du milieu devant et se boutonne sur une seconde rangée, de sorte que le vêtement ferme sur une double épaisseur de tissu. Le croisement est une dimension réelle portée par le tracé, et c'est ce qui rend le devant chaud, coupe-vent et — puisque l'un ou l'autre côté peut passer dessus — souvent portable dans les deux sens.",
+    "pt": "A capacidade de uma frente que trespassa muito para além do centro da frente e abotoa numa segunda fila, de modo que a peça fecha sobre dupla espessura de tecido. O trespasse é uma dimensão real que o traçado leva, e é o que torna a frente quente, corta-vento e — por qualquer dos lados poder ficar por cima — muitas vezes usável nos dois sentidos."
+  },
+  "aliases": [
+    {
+      "name": "double_breasted",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (chef-coat, trench-coat)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/chef-coat", "fashion-cabinet/trench-coat"],
+  "see_also": ["button-stand", "button-closure", "reversible", "placket"],
+  "constraints": "The lap is added to BOTH fronts, so the flat pattern is wider than the body by twice the lap while the closed garment is not wider at all — a lap taken from one front only produces a front that buttons and a body that twists.",
+  "review_status": {
+    "state": "generated"
+  }
+}

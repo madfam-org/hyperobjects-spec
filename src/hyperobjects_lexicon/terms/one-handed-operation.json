@@ -1,0 +1,46 @@
+{
+  "spec_version": 2,
+  "id": "one-handed-operation",
+  "domain": "capability",
+  "term": {
+    "en": "one-handed operation",
+    "es": "manejo con una sola mano",
+    "fr": "manipulation à une main",
+    "pt": "operação com uma só mão"
+  },
+  "definition": {
+    "en": "The capability of a garment that can be fastened, unfastened or put on using one hand — the accessibility claim behind an adaptive cuff, a nursing clip and a magnetic placket. It is a claim about a sequence of movements, not about a component: a closure that a second hand has to steady is not one-handed however easy that closure is.",
+    "es": "La capacidad de una prenda que puede abrocharse, desabrocharse o ponerse con una sola mano — la afirmación de accesibilidad que hay detrás de un puño adaptado, un clip de lactancia y una tapeta magnética. Es una afirmación sobre una secuencia de movimientos, no sobre una pieza: un cierre que necesita una segunda mano para sujetarlo no es de una mano por fácil que sea.",
+    "fr": "La capacité d'un vêtement qui peut être fermé, ouvert ou enfilé d'une seule main — l'affirmation d'accessibilité derrière un poignet adapté, un clip d'allaitement et une patte magnétique. C'est une affirmation sur une séquence de gestes, non sur un composant : une fermeture qu'une seconde main doit maintenir n'est pas à une main, si facile soit-elle.",
+    "pt": "A capacidade de uma peça que pode ser apertada, desapertada ou vestida com uma só mão — a afirmação de acessibilidade por trás de um punho adaptado, de um clipe de amamentação e de uma carcela magnética. É uma afirmação sobre uma sequência de gestos, não sobre um componente: um fecho que precisa de uma segunda mão para o segurar não é de uma mão, por mais fácil que seja."
+  },
+  "aliases": [
+    {
+      "name": "one_handed_operation",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key on nursing-bra. Chosen as the canonical spelling because it names the act rather than one garment's version of it."
+    },
+    {
+      "name": "one_handed_dressing",
+      "repo": "fashion-cabinet",
+      "note": "The same claim about putting the whole garment on, on button-aid-cuff-shirt."
+    },
+    {
+      "name": "one_handed_clip",
+      "repo": "fashion-cabinet",
+      "note": "The same claim about one component, on nursing-clip-bra."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/nursing-bra",
+    "fashion-cabinet/nursing-clip-bra",
+    "fashion-cabinet/button-aid-cuff-shirt",
+    "fashion-cabinet/adaptive-magnetic-shirt"
+  ],
+  "see_also": ["adaptive", "cuff", "placket", "hardware-bridge", "quick-change"],
+  "constraints": "The garment must hold itself still while the one hand works, so the claim implies an anchor — a cuff that opens flat against a table, a band that stays put under tension — and a closure tested only on a table edge is a closure tested against the wrong body.",
+  "review_status": {
+    "state": "generated",
+    "note": "Three spellings, one use each, canonicalised on the evidence of the three cartridges. If the house means `one_handed_dressing` as a strictly wider claim (the whole garment, not one closure), the review pass should split this entry rather than keep the aliases."
+  }
+}

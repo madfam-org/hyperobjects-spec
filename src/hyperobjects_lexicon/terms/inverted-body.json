@@ -1,0 +1,23 @@
+{
+  "spec_version": 2,
+  "id": "inverted-body",
+  "domain": "geometry",
+  "term": {
+    "en": "inverted body",
+    "es": "cuerpo invertido",
+    "fr": "corps inversé",
+    "pt": "corpo invertido"
+  },
+  "definition": {
+    "en": "A shell inside a rendered mesh whose faces point the wrong way, so it encloses negative volume — a hole pretending to be a body. It is found by splitting the mesh into its separate bodies and looking at each one's volume, and it is invisible in a viewer because a viewer draws both sides of a face.",
+    "es": "Una cáscara dentro de una malla renderizada cuyas caras apuntan al revés, de modo que encierra volumen negativo — un hueco que finge ser un cuerpo. Se encuentra separando la malla en sus cuerpos y mirando el volumen de cada uno, y es invisible en un visor porque un visor dibuja las dos caras de una superficie.",
+    "fr": "Une coque, à l'intérieur d'un maillage rendu, dont les faces sont orientées à l'envers, si bien qu'elle enferme un volume négatif — un trou qui se fait passer pour un corps. On la trouve en séparant le maillage en ses corps et en regardant le volume de chacun, et elle est invisible dans une visionneuse, qui dessine les deux faces d'une facette.",
+    "pt": "Uma casca, dentro de uma malha renderizada, cujas faces apontam ao contrário, de modo que encerra volume negativo — um buraco a fingir-se de corpo. Encontra-se separando a malha nos seus corpos e olhando o volume de cada um, e é invisível num visualizador, porque um visualizador desenha as duas faces de uma face."
+  },
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["positive-volume", "body-count", "watertight", "render-lane"],
+  "constraints": "The check is per BODY, not per mesh: a mesh whose total volume is positive can still contain an inverted shell, and the total is exactly what hides it — which is why the lane splits before it measures.",
+  "review_status": {
+    "state": "generated"
+  }
+}

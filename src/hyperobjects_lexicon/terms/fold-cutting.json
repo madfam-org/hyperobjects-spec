@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "fold-cutting",
+  "domain": "capability",
+  "term": {
+    "en": "fold cutting",
+    "es": "corte al doblez",
+    "fr": "coupe au pli",
+    "pt": "corte ao dobre"
+  },
+  "definition": {
+    "en": "The capability of a draft to place a piece's centre line on a fold of the cloth, so the piece is cut once and opens out symmetrical with no seam on that line. It halves the pattern, removes a seam that would otherwise have to be sewn straight, and is the reason a great many garments have no centre-front seam at all.",
+    "es": "La capacidad de un trazo de colocar la línea central de una pieza sobre un doblez de la tela, de modo que la pieza se corte una sola vez y se abra simétrica sin costura en esa línea. Reduce el patrón a la mitad, elimina una costura que habría que coser recta, y es la razón de que muchísimas prendas no tengan costura de centro delantero.",
+    "fr": "La capacité d'un tracé à placer l'axe d'une pièce sur un pli du tissu, de sorte que la pièce soit coupée une seule fois et s'ouvre symétrique sans couture sur cette ligne. Elle divise le patron par deux, supprime une couture qu'il faudrait coudre droite, et c'est la raison pour laquelle bien des vêtements n'ont aucune couture milieu devant.",
+    "pt": "A capacidade de um traçado colocar o eixo de uma peça sobre um dobre do tecido, de modo que a peça seja cortada uma só vez e se abra simétrica sem costura nessa linha. Reduz o molde a metade, elimina uma costura que teria de ser cosida a direito, e é a razão pela qual muitíssimas peças não têm costura de centro da frente."
+  },
+  "aliases": [
+    {
+      "name": "fold_cutting",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key, declared by all 516 cartridges and true on 284 as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/abaya",
+    "fashion-cabinet/a-line-skirt",
+    "fashion-cabinet/ecg-monitoring-vest"
+  ],
+  "see_also": ["center-front", "center-back", "side-seam", "seam-allowance"],
+  "constraints": "A piece cut on the fold carries NO seam allowance on the fold line — the allowance belongs to edges that get sewn, and adding it to a fold makes the finished piece wider than the body it was drafted for by twice the allowance.",
+  "review_status": {
+    "state": "generated"
+  }
+}

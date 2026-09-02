@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "hardware-bridge",
+  "domain": "capability",
+  "term": {
+    "en": "hardware bridge",
+    "es": "puente de herrajes",
+    "fr": "pont de quincaillerie",
+    "pt": "ponte de ferragens"
+  },
+  "definition": {
+    "en": "The capability of a garment cartridge to reach across the commons and use a printed Yantra4D cartridge as its hardware, instead of re-drawing the buckle, clip, snap or clasp itself. It is declared as a flag and realised as a `hardware_ref` block naming the solid slug and mapping garment parameters onto its parameters.",
+    "es": "La capacidad de un cartucho de prenda de cruzar el procomún y usar un cartucho impreso de Yantra4D como su herraje, en lugar de volver a dibujar la hebilla, el clip, el broche o el cierre. Se declara como bandera y se realiza como un bloque `hardware_ref` que nombra el slug sólido y mapea parámetros de la prenda sobre los suyos.",
+    "fr": "La capacité d'une cartouche de vêtement à traverser les communs et à utiliser une cartouche imprimée Yantra4D comme sa quincaillerie, au lieu de redessiner la boucle, le clip, la pression ou le fermoir. Elle se déclare comme un drapeau et se réalise comme un bloc `hardware_ref` qui nomme le slug solide et mappe des paramètres du vêtement sur les siens.",
+    "pt": "A capacidade de um cartucho de peça atravessar o comum e usar um cartucho impresso do Yantra4D como a sua ferragem, em vez de voltar a desenhar a fivela, o clipe, a mola ou o fecho. Declara-se como bandeira e realiza-se como um bloco `hardware_ref` que nomeia o slug sólido e mapeia parâmetros da peça sobre os seus."
+  },
+  "aliases": [
+    {
+      "name": "hardware_bridge",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 307 cartridges and true on 260 as of 2026-09-02."
+    },
+    {
+      "name": "hardware_reference",
+      "repo": "fashion-cabinet",
+      "note": "The same claim under a second spelling, on exactly one cartridge (swim-trunks) — which additionally carries NO notion.hardware_ref block, so the misspelling and a missing bridge travel together."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/garter-belt",
+    "fashion-cabinet/anorak-smock",
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/button-aid-cuff-shirt"
+  ],
+  "see_also": ["hardware-ref", "params-map", "sew-field", "strap-slot", "zipper-bridge"],
+  "constraints": "A bridge is only real if a dimension crosses it: the garment parameter mapped into the solid's parameters must ALSO drive one of the garment's own interfaces, or the two cartridges agree by name while their sizes are free to disagree.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "The single `hardware_reference` spelling is the clearest argument for a controlled capability vocabulary: the drift is not only a synonym to resolve, it is a cartridge that reads as bridged and declares no bridge."
+}

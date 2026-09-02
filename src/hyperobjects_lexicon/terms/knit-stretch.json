@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "knit-stretch",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "knit stretch",
+    "es": "elasticidad del punto",
+    "fr": "élasticité de la maille",
+    "pt": "elasticidade da malha"
+  },
+  "definition": {
+    "en": "The stretch figure a knit draft works from: how far the specific knit will extend, entered as a parameter so the pattern is solved against it rather than against a category. It is what turns 'this is a knit' into a number the draft can spend.",
+    "es": "La cifra de elasticidad desde la que trabaja un trazo de punto: cuánto se extenderá ese punto concreto, introducida como parámetro para que el patrón se resuelva contra ella y no contra una categoría. Es lo que convierte «esto es de punto» en un número que el trazo puede gastar.",
+    "fr": "Le chiffre d'élasticité dont part un tracé en maille : de combien cette maille précise s'étendra, saisi comme paramètre pour que le patron soit résolu d'après lui et non d'après une catégorie. C'est ce qui transforme « c'est de la maille » en un nombre que le tracé peut dépenser.",
+    "pt": "O valor de elasticidade a partir do qual um traçado em malha trabalha: quanto essa malha concreta vai esticar, introduzido como parâmetro para que o molde seja resolvido contra ele e não contra uma categoria. É o que transforma «isto é malha» num número que o traçado pode gastar."
+  },
+  "aliases": [
+    {
+      "name": "knit_stretch / knit_ease",
+      "repo": "fashion-cabinet",
+      "note": "The two knit parameters: the stretch the cloth has, and the ease the draft leaves. `knit_ease` appears on 28 cartridges as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/baby-cardigan",
+    "fashion-cabinet/aran-sweater",
+    "fashion-cabinet/stirrup-legging-knit"
+  ],
+  "see_also": ["stretch-percent", "negative-ease", "stretch-draft", "knit", "seam-stabilization"],
+  "constraints": "The figure belongs to the cloth and not to the pattern, so it comes from the fabric card: a draft that hard-codes a stretch value fits only the knit that value was taken from, and silently mis-sizes every other.",
+  "review_status": {
+    "state": "generated"
+  }
+}

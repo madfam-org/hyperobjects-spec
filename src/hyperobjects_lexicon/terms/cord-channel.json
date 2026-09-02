@@ -1,0 +1,40 @@
+{
+  "spec_version": 2,
+  "id": "cord-channel",
+  "domain": "cross-commons",
+  "term": {
+    "en": "cord channel",
+    "es": "canal de cordón",
+    "fr": "canal de cordon",
+    "pt": "canal de cordão"
+  },
+  "definition": {
+    "en": "The passage a drawcord runs through, on either side of the commons: bored through a printed cord lock or toggle, or sewn as a casing along a hem, a hood or a bag mouth. Both are dimensioned by the same number — the cord's diameter — and a garment that closes with a cord is always both at once, cloth tunnel and hardware bore.",
+    "es": "El paso por el que corre un cordón de ajuste, en cualquiera de los dos lados del procomún: taladrado en un tope o en un cordón impreso, o cosido como jareta a lo largo de un dobladillo, una capucha o la boca de una bolsa. Ambos se dimensionan con el mismo número —el diámetro del cordón— y una prenda que cierra con cordón es siempre las dos cosas a la vez, túnel de tela y taladro de herraje.",
+    "fr": "Le passage dans lequel court un cordon de serrage, de chaque côté des communs : percé dans un bloqueur ou un embout imprimé, ou cousu en coulisse le long d'un ourlet, d'une capuche ou de l'ouverture d'un sac. Les deux se dimensionnent avec le même nombre — le diamètre du cordon — et un vêtement qui se ferme au cordon est toujours les deux à la fois, tunnel de tissu et perçage de quincaillerie.",
+    "pt": "A passagem por onde corre um cordão de ajuste, de qualquer dos lados do comum: furada num bloqueador ou num terminal impresso, ou costurada como canal ao longo de uma bainha, de um capuz ou da boca de um saco. Ambos se dimensionam pelo mesmo número — o diâmetro do cordão — e uma peça que fecha a cordão é sempre as duas coisas ao mesmo tempo, túnel de tecido e furo de ferragem."
+  },
+  "aliases": [
+    {
+      "name": "cord_channel",
+      "repo": "yantra4d",
+      "note": "cdg_interface id on cord-lock, toggle and paracord-jig, geometry_type 'pocket'."
+    },
+    {
+      "name": "hem_casing",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces id (type 'hem' or 'custom') on the drawcord garments — anorak-smock's hem casing, chalk-bag's mouth casing — driven by `cord_dia`."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/cord-lock",
+    "yantra4d/toggle",
+    "fashion-cabinet/anorak-smock",
+    "fashion-cabinet/chalk-bag"
+  ],
+  "see_also": ["hardware-ref", "hem", "strap-slot", "sew-field"],
+  "constraints": "The casing must clear the cord AND pass the lock. fashion-cabinet/anorak-smock maps `cord_dia` straight through to the cord lock and sizes the lock body from it (`max(14.0, cord_dia * 4.0)`); a casing drafted to the cord alone will not let the printed lock through, and the garment then has a cord it cannot adjust.",
+  "review_status": {
+    "state": "generated"
+  }
+}

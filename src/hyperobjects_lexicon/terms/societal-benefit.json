@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "societal-benefit",
+  "domain": "manifest",
+  "term": {
+    "en": "societal benefit",
+    "es": "beneficio social",
+    "fr": "bénéfice social",
+    "pt": "benefício social"
+  },
+  "definition": {
+    "en": "The manifest field in which a cartridge states, in every language of the commons, what it is FOR — who can now repair, adapt or make something they could not before. It is a required piece of prose in a data file, and it is how the commons refuses to be a gallery of shapes.",
+    "es": "El campo del manifiesto en el que un cartucho declara, en todos los idiomas del procomún, PARA QUÉ sirve — quién puede ahora reparar, adaptar o fabricar algo que antes no podía. Es un texto obligatorio dentro de un archivo de datos, y es la manera en que el procomún se niega a ser una galería de formas.",
+    "fr": "Le champ du manifeste où une cartouche énonce, dans chaque langue des communs, à QUOI elle sert — qui peut désormais réparer, adapter ou fabriquer quelque chose qu'il ne pouvait pas. C'est de la prose obligatoire dans un fichier de données, et c'est ainsi que les communs refusent d'être une galerie de formes.",
+    "pt": "O campo do manifesto onde um cartucho declara, em todas as línguas do comum, PARA QUE serve — quem pode agora reparar, adaptar ou fabricar algo que antes não podia. É prosa obrigatória dentro de um ficheiro de dados, e é a maneira como o comum se recusa a ser uma galeria de formas."
+  },
+  "aliases": [
+    {
+      "name": "societal_benefit",
+      "repo": "yantra4d",
+      "note": "Per-cartridge i18n block, carried into the published commons catalog for all 500 cartridges."
+    },
+    {
+      "name": "hyperobject.societal_benefit",
+      "repo": "fashion-cabinet",
+      "note": "The same field on the soft side, inside the hyperobject block."
+    }
+  ],
+  "embodied_by": ["yantra4d/aerator-adapter", "fashion-cabinet/hi-vis-vest"],
+  "see_also": ["hyperobject", "cartridge", "commons-license", "attribution-lineage"],
+  "constraints": "The claim is about a person's capability, not the object's features: 'repairs a faucet instead of replacing it' is a benefit and 'high quality threads' is not, and the field is quadrilingual for the same reason the lexicon is.",
+  "review_status": {
+    "state": "generated"
+  }
+}

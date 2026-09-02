@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "bound-neckline",
+  "domain": "capability",
+  "term": {
+    "en": "bound neckline",
+    "es": "escote ribeteado",
+    "fr": "encolure bordée",
+    "pt": "decote debruado"
+  },
+  "definition": {
+    "en": "The capability of finishing a neckline with a narrow strip of cloth wrapped around its raw edge, rather than with a facing turned inside. The binding shows on both faces, adds no bulk, and — because it is cut shorter than the edge it binds — is also what holds the neckline against the body.",
+    "es": "La capacidad de rematar un escote con una tira estrecha de tela que envuelve su canto vivo, en lugar de una vista vuelta hacia dentro. El ribete se ve por ambas caras, no añade volumen y —al cortarse más corto que el canto que ribetea— es también lo que mantiene el escote pegado al cuerpo.",
+    "fr": "La capacité de finir une encolure par une étroite bande de tissu enroulée autour de son bord vif, plutôt que par une parementure retournée à l'intérieur. Le biais se voit des deux côtés, n'ajoute pas d'épaisseur et — parce qu'il est coupé plus court que le bord qu'il borde — c'est aussi lui qui maintient l'encolure contre le corps.",
+    "pt": "A capacidade de rematar um decote com uma tira estreita de tecido enrolada no seu bordo vivo, em vez de uma vista virada para dentro. O debrum vê-se dos dois lados, não acrescenta volume e — por ser cortado mais curto do que o bordo que debrua — é também o que mantém o decote junto ao corpo."
+  },
+  "aliases": [
+    {
+      "name": "bound_neckline",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (abaya, tunic), with `binding_ratio` as the parameter that carries the ratio."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/abaya", "fashion-cabinet/tunic"],
+  "see_also": ["neckline", "elastic-finish", "hem", "neck-drop"],
+  "constraints": "The binding is cut at a RATIO of the edge it binds (`binding_ratio` below 1), and the ratio belongs to the curve: the same ratio that holds a shallow neck flat will pucker a deep one, because a deeper curve has more edge to take up.",
+  "review_status": {
+    "state": "generated"
+  }
+}

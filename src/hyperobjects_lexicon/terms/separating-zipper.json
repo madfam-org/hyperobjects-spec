@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "separating-zipper",
+  "domain": "capability",
+  "term": {
+    "en": "separating zipper",
+    "es": "cremallera separable",
+    "fr": "fermeture séparable",
+    "pt": "fecho separável"
+  },
+  "definition": {
+    "en": "The capability of a front that opens completely — a zip with a box and pin at its base, so the two sides come fully apart rather than staying joined at the bottom. It is what makes a jacket a jacket rather than a pullover with a neck opening.",
+    "es": "La capacidad de un delantero que se abre por completo — una cremallera con cursor y caja en la base, de modo que los dos lados se separan del todo en vez de quedar unidos abajo. Es lo que hace que una chaqueta sea una chaqueta y no un jersey con una abertura de cuello.",
+    "fr": "La capacité d'un devant qui s'ouvre complètement — une glissière à boîtier et picot à sa base, de sorte que les deux côtés se séparent entièrement au lieu de rester joints en bas. C'est ce qui fait d'un blouson un blouson plutôt qu'un pull avec une ouverture d'encolure.",
+    "pt": "A capacidade de uma frente que abre por completo — um fecho com caixa e pino na base, de modo que os dois lados se separam totalmente em vez de ficarem unidos em baixo. É o que faz de um casaco um casaco e não uma camisola com uma abertura de gola."
+  },
+  "aliases": [
+    {
+      "name": "separating_zipper",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (track-jacket, windbreaker)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/track-jacket", "fashion-cabinet/windbreaker"],
+  "see_also": ["zipper-bridge", "tape-edge", "hem", "button-stand"],
+  "constraints": "A separating zip is a fixed length in a garment drafted to a body, so the front edge it closes must be solved to the zip's length — or the zip chosen from the solved edge — and the hem finish below it has to clear the box, which is where the two sides no longer meet.",
+  "review_status": {
+    "state": "generated"
+  }
+}

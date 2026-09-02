@@ -1,0 +1,37 @@
+{
+  "spec_version": 2,
+  "id": "surface",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "surface",
+    "es": "superficie",
+    "fr": "surface",
+    "pt": "superfície"
+  },
+  "definition": {
+    "en": "A CDG interface type: a named region of a body's outer form that is itself the interface — what mates against it does so by lying on it over an area, not by entering it. It is the type for the cases where the fit is a shape rather than a fastening: a body form's girth ring at a measured height, a bevel gear's pitch cone, a claw that cradles a ball.",
+    "es": "Tipo de interfaz CDG: una región nombrada de la forma exterior de un cuerpo que es, ella misma, la interfaz — lo que se acopla lo hace apoyándose sobre ella en un área, no penetrándola. Es el tipo para los casos en que el ajuste es una forma y no una fijación: el anillo de contorno de un maniquí a una altura medida, el cono primitivo de un engranaje cónico, una garra que acuna una pelota.",
+    "fr": "Type d'interface CDG : une région nommée de la forme extérieure d'un corps qui est elle-même l'interface — ce qui s'y accouple le fait en reposant dessus sur une aire, non en y pénétrant. C'est le type pour les cas où l'ajustement est une forme et non une fixation : l'anneau de tour d'un mannequin à une hauteur mesurée, le cône primitif d'un engrenage conique, une griffe qui berce une balle.",
+    "pt": "Tipo de interface CDG: uma região nomeada da forma exterior de um corpo que é, ela própria, a interface — o que com ela acopla fá-lo apoiando-se sobre ela numa área, não penetrando-a. É o tipo para os casos em que o ajuste é uma forma e não uma fixação: o anel de perímetro de um manequim a uma altura medida, o cone primitivo de uma engrenagem cónica, uma garra que embala uma bola."
+  },
+  "aliases": [
+    {
+      "name": "surface",
+      "repo": "yantra4d",
+      "note": "geometry_type value; 52 declared interfaces as of the 2026-09-02 catalog, of which the body-form family's ISO 8559 girth rings are the largest single group."
+    }
+  ],
+  "standards": ["ISO 8559-1", "ISO 23509"],
+  "embodied_by": [
+    "yantra4d/body-form",
+    "yantra4d/lingerie-form",
+    "yantra4d/bevel-pair",
+    "yantra4d/coaster"
+  ],
+  "see_also": ["cdg-interface", "profile", "flange", "body-measurements"],
+  "constraints": "A surface interface must name the parameters that PLACE it as well as the ones that shape it — a girth ring is only checkable against a body measurement if the manifest says at what height it sits, and a pitch cone only meshes if the manifest says at what angle.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "The body-form family's rings are the clearest cross-commons case of this type: `bust_ring`, `waist_ring` and `hip_ring` are the solid side's rendering of exactly the ISO 8559 girths the soft side drafts from, which is why the two commons can dress one form."
+}

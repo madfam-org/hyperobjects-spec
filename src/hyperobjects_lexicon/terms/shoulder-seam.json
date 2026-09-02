@@ -1,0 +1,45 @@
+{
+  "spec_version": 2,
+  "id": "shoulder-seam",
+  "domain": "garment-construction",
+  "term": {
+    "en": "shoulder seam",
+    "es": "costura de hombro",
+    "fr": "couture d'épaule",
+    "pt": "costura de ombro"
+  },
+  "definition": {
+    "en": "The seam joining the front and back of a garment across the top of the shoulder — one short line that carries the whole garment's hang. Because the front and back are drafted separately and then sewn to each other here, it is the place where two independent formulas have to produce the same number, and the place where they most often do not.",
+    "es": "La costura que une el delantero y la espalda de una prenda por encima del hombro — una línea corta de la que cuelga toda la prenda. Como el delantero y la espalda se trazan por separado y luego se cosen aquí el uno al otro, es el lugar donde dos fórmulas independientes tienen que dar el mismo número, y el lugar donde más a menudo no lo dan.",
+    "fr": "La couture qui joint le devant et le dos d'un vêtement sur le haut de l'épaule — une courte ligne dont dépend tout l'aplomb du vêtement. Parce que le devant et le dos sont tracés séparément puis cousus l'un à l'autre ici, c'est l'endroit où deux formules indépendantes doivent produire le même nombre, et l'endroit où, le plus souvent, elles n'y parviennent pas.",
+    "pt": "A costura que une a frente e as costas de uma peça por cima do ombro — uma linha curta de que depende todo o cair da peça. Como a frente e as costas são traçadas em separado e depois costuradas uma à outra aqui, é o lugar onde duas fórmulas independentes têm de dar o mesmo número, e o lugar onde mais vezes não o dão."
+  },
+  "aliases": [
+    {
+      "name": "shoulder",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 68 declared interfaces as of 2026-09-02, usually with the id `shoulder_seam`."
+    },
+    {
+      "name": "shoulder_line",
+      "repo": "yantra4d",
+      "note": "The solid side's cdg_interface id for the same line on the body-form family (body-form, figure-child, garment-stand), geometry_type 'surface'."
+    }
+  ],
+  "standards": ["ISO 8559-1"],
+  "embodied_by": [
+    "fashion-cabinet/button-aid-cuff-shirt",
+    "fashion-cabinet/barong",
+    "fashion-cabinet/cable-knit-vest",
+    "fashion-cabinet/boat-neck-top"
+  ],
+  "see_also": ["back-neck-rise", "shoulder-slope", "neck-drop", "armscye", "side-seam"],
+  "constraints": "Front and back shoulder are sewn together and must therefore be equal by construction, not by coincidence. The measured failure is on record: five landed cartridges drew the back shoulder from an unclamped back-neck rise and produced 126.9 mm against the front's 86.3 mm at legal parameters (fashion-cabinet#113).",
+  "sources": [
+    "fashion-cabinet#113 — back-neck-rise clamp, five cartridges affected (shoulder seams up to 83.5 mm wrong at legal parameters)"
+  ],
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Not every garment has one. The kimono and cut-in-one traditions carry the cloth over the shoulder on a fold instead, which is why `fold_cutting` and this interface are alternatives rather than companions."
+}

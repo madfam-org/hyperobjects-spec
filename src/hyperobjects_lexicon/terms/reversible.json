@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "reversible",
+  "domain": "capability",
+  "term": {
+    "en": "reversible",
+    "es": "reversible",
+    "fr": "réversible",
+    "pt": "reversível"
+  },
+  "definition": {
+    "en": "The capability of a garment with two right sides — it can be worn either way out, so every seam is finished on both faces and no construction detail is allowed to be private. It doubles what a single garment is and roughly doubles what its construction has to be careful about.",
+    "es": "La capacidad de una prenda con dos derechos — puede llevarse por cualquiera de las dos caras, así que toda costura queda rematada por ambos lados y ningún detalle de construcción puede quedarse escondido. Duplica lo que una sola prenda es y casi duplica aquello que su construcción debe cuidar.",
+    "fr": "La capacité d'un vêtement à deux endroits — il se porte dans un sens comme dans l'autre, si bien que chaque couture est finie sur les deux faces et qu'aucun détail de construction n'a le droit de rester caché. Cela double ce qu'un seul vêtement est, et double à peu près ce à quoi sa construction doit faire attention.",
+    "pt": "A capacidade de uma peça com dois direitos — pode usar-se de qualquer dos lados, pelo que todas as costuras ficam rematadas nas duas faces e nenhum detalhe de construção pode ficar escondido. Duplica o que uma só peça é e quase duplica aquilo com que a sua construção tem de ter cuidado."
+  },
+  "aliases": [
+    {
+      "name": "reversible",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (chamanto-poncho, chef-coat)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/chamanto-poncho", "fashion-cabinet/chef-coat"],
+  "see_also": ["bound-neckline", "seam-allowance", "built-in-liner", "double-breasted"],
+  "constraints": "Reversibility is a property of the SEAM finish, so it constrains the draft's allowances rather than its outline: a seam that will be bound or self-enclosed needs an allowance that suits the finish on both faces, and an overlocked edge is not reversible however symmetric the pattern is.",
+  "review_status": {
+    "state": "generated"
+  }
+}

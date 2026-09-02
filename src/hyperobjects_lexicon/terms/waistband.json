@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "waistband",
+  "domain": "garment-construction",
+  "term": {
+    "en": "waistband",
+    "es": "pretina",
+    "fr": "ceinture (bande de taille)",
+    "pt": "cós"
+  },
+  "definition": {
+    "en": "The band that finishes a skirt or trouser at the waist and carries the garment's weight on the body. It is the piece where a draft has to decide what kind of closure the garment is: a rigid band is drafted at the body's girth plus ease and needs an opening to get over the hips, while an elastic one is drafted SHORTER than the body and needs none.",
+    "es": "La banda que remata una falda o un pantalón en la cintura y sostiene el peso de la prenda sobre el cuerpo. Es la pieza donde el trazo debe decidir qué clase de cierre es la prenda: una pretina rígida se traza al contorno del cuerpo más holgura y necesita una abertura para pasar por la cadera, mientras que una elástica se traza MÁS CORTA que el cuerpo y no necesita ninguna.",
+    "fr": "La bande qui finit une jupe ou un pantalon à la taille et porte le poids du vêtement sur le corps. C'est la pièce où le tracé doit décider de quelle sorte de fermeture il s'agit : une ceinture rigide se trace au tour du corps plus l'aisance et exige une ouverture pour passer les hanches, tandis qu'une ceinture élastique se trace PLUS COURTE que le corps et n'en exige aucune.",
+    "pt": "A banda que remata uma saia ou uma calça na cintura e sustenta o peso da peça sobre o corpo. É a peça onde o traçado tem de decidir que tipo de fecho é a peça: um cós rígido traça-se ao perímetro do corpo mais folga e exige uma abertura para passar a anca, enquanto um cós elástico se traça MAIS CURTO do que o corpo e não exige nenhuma."
+  },
+  "aliases": [
+    {
+      "name": "waistband",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 127 declared interfaces as of 2026-09-02, including the bra family's `underband`."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/a-line-skirt",
+    "fashion-cabinet/athletic-shorts",
+    "fashion-cabinet/bikini-bottom",
+    "fashion-cabinet/bib-overalls"
+  ],
+  "see_also": ["ease", "elastic-finish", "pull-on", "hem", "knit-negative-ease"],
+  "constraints": "A band is drafted against the measurement it must hold, not against the one below it: an elastic band at `waist_girth × elastic_ratio` with the ratio below 1 grips, and the same band at `hip_girth` does not — but a rigid band at waist girth on a pull-on garment cannot pass the hips at all, so the closure decision and the band length are one decision.",
+  "review_status": {
+    "state": "generated"
+  }
+}

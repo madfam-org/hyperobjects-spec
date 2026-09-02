@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "cuff",
+  "domain": "garment-construction",
+  "term": {
+    "en": "cuff",
+    "es": "puño",
+    "fr": "poignet",
+    "pt": "punho"
+  },
+  "definition": {
+    "en": "The band that finishes a sleeve at the wrist, and the small closure problem it always contains: the wrist is narrower than the hand, so a cuff drafted to the wrist is a cuff the hand cannot pass. Every cuff resolves that either by stretching (a knit band drafted shorter than the sleeve) or by opening (a placket and a fastening).",
+    "es": "La banda que remata una manga en la muñeca, y el pequeño problema de cierre que siempre encierra: la muñeca es más estrecha que la mano, así que un puño trazado a la muñeca es un puño por el que la mano no pasa. Todo puño lo resuelve estirando (una banda de punto trazada más corta que la manga) o abriendo (una tapeta y un cierre).",
+    "fr": "La bande qui finit une manche au poignet, et le petit problème de fermeture qu'elle contient toujours : le poignet est plus étroit que la main, si bien qu'un poignet tracé au poignet est un poignet que la main ne franchit pas. Tout poignet le résout soit en s'étirant (une bande de maille tracée plus courte que la manche), soit en s'ouvrant (une patte et une fermeture).",
+    "pt": "A banda que remata uma manga no pulso, e o pequeno problema de fecho que sempre encerra: o pulso é mais estreito do que a mão, pelo que um punho traçado ao pulso é um punho por onde a mão não passa. Todo o punho o resolve esticando (uma banda de malha traçada mais curta do que a manga) ou abrindo (uma carcela e um fecho)."
+  },
+  "aliases": [
+    {
+      "name": "cuff",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 46 declared interfaces as of 2026-09-02, driven by `wrist_girth` with either `cuff_ratio` (knit) or `cuff_height` plus a closure (woven)."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/button-aid-cuff-shirt",
+    "fashion-cabinet/bomber-jacket",
+    "fashion-cabinet/coverall",
+    "fashion-cabinet/barong-tagalog"
+  ],
+  "see_also": ["placket", "hem", "knit-negative-ease", "one-handed-operation", "elastic-finish"],
+  "constraints": "A closed cuff must clear the HAND, not the wrist. fashion-cabinet/button-aid-cuff-shirt carries `hand_girth` alongside `wrist_girth` for exactly this reason; a cuff dimensioned from wrist girth alone either does not open or does not close.",
+  "review_status": {
+    "state": "generated"
+  }
+}

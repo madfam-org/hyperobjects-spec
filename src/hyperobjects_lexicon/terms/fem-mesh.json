@@ -1,0 +1,32 @@
+{
+  "spec_version": 2,
+  "id": "fem-mesh",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "FEM mesh interface",
+    "es": "interfaz de malla FEM",
+    "fr": "interface de maillage FEM",
+    "pt": "interface de malha FEM"
+  },
+  "definition": {
+    "en": "A CDG interface type for the case where the fit is not a dimension but a simulated contact: the interface is declared as the mesh region a finite-element contact solver acts on, and whether two bodies meet correctly is a question answered by running the solve, not by comparing numbers in two manifests. It is the commons' one soft-robotics interface, and it is honest about being a different kind of claim.",
+    "es": "Tipo de interfaz CDG para el caso en que el ajuste no es una dimensión sino un contacto simulado: la interfaz se declara como la región de malla sobre la que actúa un solucionador de contacto por elementos finitos, y si dos cuerpos se encuentran correctamente es una pregunta que se responde ejecutando el cálculo, no comparando números en dos manifiestos. Es la única interfaz de robótica blanda del procomún, y es honesta al ser una afirmación de otra clase.",
+    "fr": "Type d'interface CDG pour le cas où l'ajustement n'est pas une dimension mais un contact simulé : l'interface est déclarée comme la région de maillage sur laquelle agit un solveur de contact par éléments finis, et savoir si deux corps se rencontrent correctement est une question à laquelle on répond en lançant le calcul, non en comparant des nombres dans deux manifestes. C'est l'unique interface de robotique souple des communs, et elle est honnête sur le fait d'être une affirmation d'une autre nature.",
+    "pt": "Tipo de interface CDG para o caso em que o ajuste não é uma dimensão mas um contacto simulado: a interface é declarada como a região de malha sobre a qual atua um solucionador de contacto por elementos finitos, e saber se dois corpos se encontram corretamente é uma pergunta que se responde correndo o cálculo, não comparando números em dois manifestos. É a única interface de robótica mole do comum, e é honesta ao ser uma afirmação de outra natureza."
+  },
+  "aliases": [
+    {
+      "name": "fem_mesh",
+      "repo": "yantra4d",
+      "note": "geometry_type value; exactly one declared interface in the 2026-09-02 catalog (sentinel-gripper-hyperobject / ppf_contact_interface), and not among the eleven values of the published geometry_type enum."
+    }
+  ],
+  "standards": ["ppf-contact-solver (SIGGRAPH Asia 2024)"],
+  "embodied_by": ["yantra4d/sentinel-gripper-hyperobject"],
+  "see_also": ["cdg-interface", "custom-interface", "surface", "render-lane"],
+  "constraints": "A simulated contact is only a claim about the world if the solver is named. The one cartridge using this type names its solver in the interface's `standard` field, and an entry of this type that names none is stating a result nobody can reproduce.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "One use, in one cartridge. It is in the lexicon because a type with a single instance is exactly the kind of vocabulary that gets re-invented under a second name — and because the interface vocabulary needs somewhere to record that the published schema enum does not contain it."
+}

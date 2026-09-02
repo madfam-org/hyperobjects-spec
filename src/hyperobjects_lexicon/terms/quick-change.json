@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "quick-change",
+  "domain": "capability",
+  "term": {
+    "en": "quick change",
+    "es": "cambio rápido",
+    "fr": "changement rapide",
+    "pt": "mudança rápida"
+  },
+  "definition": {
+    "en": "The capability of a stage garment engineered to come off in one motion: a breakaway seam held by a column of magnets or clasps that releases along its whole length at once. The seam has to hold through a performance and let go in a second, which makes the spacing of its fastenings the entire engineering problem.",
+    "es": "La capacidad de una prenda de escena diseñada para salir de un solo movimiento: una costura de ruptura sostenida por una columna de imanes o cierres que se libera a lo largo de todo su largo a la vez. La costura debe aguantar toda una función y soltarse en un segundo, lo que convierte el reparto de sus cierres en todo el problema de ingeniería.",
+    "fr": "La capacité d'un vêtement de scène conçu pour partir d'un seul geste : une couture à rupture tenue par une colonne d'aimants ou de fermoirs qui se libère sur toute sa longueur d'un coup. La couture doit tenir durant une représentation et lâcher en une seconde, ce qui fait de l'espacement de ses fermetures tout le problème d'ingénierie.",
+    "pt": "A capacidade de uma peça de palco concebida para sair num só movimento: uma costura de rutura sustentada por uma coluna de ímanes ou fechos que se liberta em todo o seu comprimento de uma vez. A costura tem de aguentar um espetáculo inteiro e soltar-se num segundo, o que faz do espaçamento dos seus fechos todo o problema de engenharia."
+  },
+  "aliases": [
+    {
+      "name": "quick_change",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (panto-dame-gown, stage-quick-change-gown), alongside the single-use `breakaway_seam`."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/stage-quick-change-gown",
+    "fashion-cabinet/panto-dame-gown",
+    "yantra4d/magnetic-clasp"
+  ],
+  "see_also": ["one-handed-operation", "placket", "hardware-bridge", "adaptive"],
+  "constraints": "The fastening count is solved from the seam length at a fixed pitch — `clasps = round(breakaway_length / clasp_pitch)` (fashion-cabinet/stage-quick-change-gown) — so the holding force per unit length stays constant at every size. A fixed count gaps open on a longer body.",
+  "review_status": {
+    "state": "generated"
+  }
+}

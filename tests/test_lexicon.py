@@ -22,6 +22,7 @@ from hyperobjects_lexicon import (
     lexicon_status,
     load_catalog_slugs,
     load_lexicon,
+    review_counts,
 )
 from hyperobjects_lexicon.cli import BUNDLED
 
@@ -99,6 +100,74 @@ def test_the_corpus_covers_the_b2_seam_vocabulary(lexicon):
         "body-count", "watertight",
     }
     assert required <= set(lexicon), sorted(required - set(lexicon))
+
+
+def test_the_corpus_covers_the_interface_vocabulary(lexicon):
+    """RFC 0039 §8 G3, wave 1: every name in either commons' interface vocabulary has a
+    term. The vocabulary is a closed set on both sides — Fashion Cabinet's twelve
+    manifest interface types and Yantra4D's fourteen catalog geometry types — so
+    coverage of it is checkable rather than aspirational, and `commons-vocabulary`
+    entries point at these ids."""
+    required = {
+        # fashion-cabinet interface types (garment-manifest enum, 12 values)
+        "neckline", "armscye", "shoulder-seam", "side-seam", "waistband", "cuff",
+        "placket", "hem", "tape-edge", "button-stand", "garment-pocket",
+        "custom-interface",
+        # yantra4d geometry types (catalog, 14 values)
+        "grid", "rail", "thread", "socket", "pocket-recess", "snap", "bolt-pattern",
+        "profile", "spline", "surface", "boss", "fem-mesh", "flange",
+    }
+    assert required <= set(lexicon), sorted(required - set(lexicon))
+
+
+def test_the_capability_flags_of_the_soft_commons_are_defined(lexicon):
+    """Every capability key declared by two or more cartridges has a term, which is what
+    makes the capability vocabulary quadrilingual where it is actually used. The
+    vocabulary lane asserts the same rule against the live evidence; this asserts the
+    terms exist."""
+    required = {
+        "made-to-measure", "fold-cutting", "fabric-compensation", "hardware-bridge",
+        "knit-negative-ease", "printed-textile", "heritage", "elastic-finish",
+        "tailoring", "am-fashion", "hook-closure", "e-textile", "closure-free",
+        "wire-channel", "pull-on", "compression-support", "stretch-draft",
+        "zipper-bridge", "boned", "button-closure", "side-slits", "bound-neckline",
+        "adaptive", "panel-width-native", "seam-stabilization", "reversible",
+        "double-breasted", "dead-length-solve", "bias-cutting", "shaped-ring",
+        "channel-routing", "graduated-compression", "set-in-sleeve", "quick-change",
+        "built-in-liner", "separating-zipper",
+    }
+    assert required <= set(lexicon), sorted(required - set(lexicon))
+
+
+def test_the_false_friend_pair_is_kept_apart(lexicon):
+    """`hook_closure` and `hook_loop_closure` LOOK like a near-duplicate and are not:
+    one is hook-and-eye, the other hook-and-loop, and they bridge to different solid
+    cartridges. Two entries, each naming the other, is the shape that stops a
+    de-duplication pass from merging them."""
+    assert "hook-loop-closure" in lexicon["hook-closure"]["see_also"]
+    assert "hook-closure" in lexicon["hook-loop-closure"]["see_also"]
+    assert lexicon["hook-closure"]["term"]["en"] != lexicon["hook-loop-closure"]["term"]["en"]
+
+
+def test_the_wave_declares_the_contract_it_was_written_against(lexicon):
+    """Contract 2 is additive over 1, so the G1 entries stay at 1. What must hold is the
+    other direction: an entry using a contract-2 field declares 2."""
+    for term_id, doc in lexicon.items():
+        if "review_status" in doc:
+            assert doc.get("spec_version") == 2, term_id
+        if doc.get("domain") == "capability":
+            assert doc.get("spec_version") == 2, term_id
+
+
+def test_no_entry_claims_a_review_that_did_not_happen(lexicon):
+    """RFC 0039 §5: machine or agent drafting is a DRAFT. Every entry that carries the
+    block and says `reviewed` names who reviewed it — and a corpus where that is
+    vacuously true (nothing reviewed yet) still has to pass, which is why this asserts
+    the implication and not a count."""
+    for term_id, doc in lexicon.items():
+        block = doc.get("review_status")
+        if block and block.get("state") == "reviewed":
+            assert block.get("reviewers"), f"{term_id} claims review with no reviewer"
 
 
 def test_the_dialect_split_is_recorded_with_both_repos(lexicon):
@@ -227,6 +296,48 @@ def test_duplicate_ids_are_a_corpus_level_failure(a_term):
     assert any("flange" in p for p in result.problems)
 
 
+def test_validator_catches_a_review_claim_with_no_reviewer(a_term):
+    """A review nobody signed is the failure this field exists to prevent."""
+    a_term["review_status"] = {"state": "reviewed"}
+    problems = check_term(a_term)
+    assert any("reviewers" in p for p in problems)
+
+
+def test_validator_catches_a_reviewed_state_over_a_generated_language(a_term):
+    """The state is the WORST facet: an entry cannot read as reviewed while its French
+    is still the drafting pass."""
+    a_term["review_status"] = {
+        "state": "reviewed",
+        "reviewers": ["a-native-reader"],
+        "languages": {"es": "reviewed", "en": "reviewed", "fr": "generated", "pt": "reviewed"},
+    }
+    problems = check_term(a_term)
+    assert any("fr" in p and "generated" in p for p in problems)
+
+
+def test_a_signed_full_review_passes(a_term):
+    a_term["spec_version"] = 2
+    a_term["review_status"] = {
+        "state": "reviewed",
+        "reviewers": ["a-native-reader"],
+        "languages": {"es": "reviewed", "en": "reviewed", "fr": "reviewed", "pt": "reviewed"},
+    }
+    assert not check_term(a_term)
+
+
+def test_a_generated_entry_is_shippable(a_term):
+    """Quadrilingual completeness is the ship gate; review is tracked, not gated. A
+    drafted entry that is complete in four languages passes the lane and says so."""
+    a_term["spec_version"] = 2
+    a_term["review_status"] = {"state": "generated"}
+    assert not check_term(a_term)
+
+
+def test_validator_catches_an_unknown_review_state(a_term):
+    a_term["review_status"] = {"state": "probably-fine"}
+    assert check_term(a_term)
+
+
 # --------------------------------------------------------------- round-trip & status
 
 
@@ -252,6 +363,26 @@ def test_status_line_is_the_house_n_over_m_convention(lexicon):
     line = lexicon_status(lexicon)
     assert line.startswith("lexicon_status: ")
     assert f"{len(lexicon)}/{len(lexicon)}" in line
+
+
+def test_status_line_carries_the_review_debt(lexicon):
+    """Four complete languages nobody has read are still four complete languages, so
+    N/M cannot show the second debt. The line carries both."""
+    line = lexicon_status(lexicon)
+    counts = review_counts(lexicon)
+    assert f"generated={counts['generated']}" in line
+    assert f"reviewed={counts['reviewed']}" in line
+    assert f"unmarked={counts['unmarked']}" in line
+
+
+def test_review_counts_keep_unmarked_apart_from_generated(a_term):
+    """The G1 corpus predates the block and claims neither, so counting it as generated
+    would put words in its author's mouth."""
+    drafted = copy.deepcopy(a_term)
+    drafted["id"] = "drafted"
+    drafted["review_status"] = {"state": "generated"}
+    counts = review_counts({"tape-edge": a_term, "drafted": drafted})
+    assert counts == {"reviewed": 0, "generated": 1, "unmarked": 1}
 
 
 def test_status_counts_entries_not_fragments(a_term):

@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "dual-engine",
+  "domain": "manifest",
+  "term": {
+    "en": "dual engine",
+    "es": "doble motor",
+    "fr": "double moteur",
+    "pt": "motor duplo"
+  },
+  "definition": {
+    "en": "The property of a cartridge that ships the same object in two modelling engines — an OpenSCAD script and a CadQuery one — so it can be built by whichever tool a contributor has. It is a promise of geometric parity between two independent implementations, which is a much stronger claim than having two files.",
+    "es": "La propiedad de un cartucho que publica el mismo objeto en dos motores de modelado — un script de OpenSCAD y otro de CadQuery — para que pueda construirse con la herramienta que quien colabora tenga. Es una promesa de paridad geométrica entre dos implementaciones independientes, que es una afirmación mucho más fuerte que tener dos archivos.",
+    "fr": "La propriété d'une cartouche qui publie le même objet dans deux moteurs de modélisation — un script OpenSCAD et un CadQuery — afin qu'il puisse être construit avec l'outil dont on dispose. C'est une promesse de parité géométrique entre deux implémentations indépendantes, ce qui est une affirmation bien plus forte que d'avoir deux fichiers.",
+    "pt": "A propriedade de um cartucho que publica o mesmo objeto em dois motores de modelação — um script OpenSCAD e um CadQuery — para que possa ser construído com a ferramenta que quem contribui tiver. É uma promessa de paridade geométrica entre duas implementações independentes, o que é uma afirmação muito mais forte do que ter dois ficheiros."
+  },
+  "aliases": [
+    {
+      "name": "dual_engine",
+      "repo": "yantra4d",
+      "note": "Per-cartridge boolean in the published catalog; per-mode `engine` overrides select openscad, cadquery, implicit or graph."
+    }
+  ],
+  "embodied_by": ["yantra4d/thimble", "yantra4d/sew-on-snap"],
+  "see_also": ["mode", "render-lane", "cartridge", "export-format"],
+  "constraints": "Parity between the two engines is a property of a whole cartridge and is checked in the platform, not here: single-cartridge conformance can say both files exist and both render, and only a repo-wide lane can say they render the SAME body.",
+  "review_status": {
+    "state": "generated"
+  }
+}

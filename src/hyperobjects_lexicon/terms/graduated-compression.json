@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "graduated-compression",
+  "domain": "capability",
+  "term": {
+    "en": "graduated compression",
+    "es": "compresión graduada",
+    "fr": "compression dégressive",
+    "pt": "compressão graduada"
+  },
+  "definition": {
+    "en": "The capability of a compression garment whose pressure varies along the body by design — more here, less there — rather than being one figure everywhere. The gradient is the point of the garment, and it is drafted as different reductions in different zones of the same piece.",
+    "es": "La capacidad de una prenda de compresión cuya presión varía a lo largo del cuerpo por diseño —más aquí, menos allá— en lugar de ser una sola cifra en todas partes. El gradiente es la razón de ser de la prenda, y se traza como reducciones distintas en zonas distintas de una misma pieza.",
+    "fr": "La capacité d'un vêtement de compression dont la pression varie le long du corps à dessein — plus ici, moins là — au lieu d'être un chiffre unique partout. Le gradient est la raison d'être du vêtement, et il se trace comme des réductions différentes dans des zones différentes d'une même pièce.",
+    "pt": "A capacidade de uma peça de compressão cuja pressão varia ao longo do corpo por desenho — mais aqui, menos ali — em vez de ser um único valor em todo o lado. O gradiente é a razão de ser da peça, e traça-se como reduções diferentes em zonas diferentes da mesma peça."
+  },
+  "aliases": [
+    {
+      "name": "graduated_compression",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02. A narrower claim than `compression_support`, not a spelling of it; `compression_zoned` and `distributed_compression` are two further single-use variants in the same family."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/high-waist-shaping-brief", "fashion-cabinet/shapewear-short"],
+  "see_also": ["compression-support", "knit-negative-ease", "stretch-percent"],
+  "constraints": "A gradient across a seam has to be continuous at the seam: two panels drafted at different reductions must still be the same length where they join, or the garment is graded in tension and mis-sewn in cloth.",
+  "review_status": {
+    "state": "generated"
+  }
+}

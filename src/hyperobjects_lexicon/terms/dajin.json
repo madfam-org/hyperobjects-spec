@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "dajin",
+  "domain": "garment-construction",
+  "term": {
+    "en": "dajin (diagonal front closure)",
+    "es": "dajin (cierre diagonal)",
+    "fr": "dajin (fermeture diagonale)",
+    "pt": "dajin (fecho diagonal)"
+  },
+  "definition": {
+    "en": "The diagonal overlapping front of the Chinese robe traditions — the curve that runs from the neck across the chest to the underarm, closed with knotted frog fastenings along its edge. It is the structural signature the changpao shares with the qipao, and it is a single drawn curve rather than a straight lap: biased outward near the neck and downward near the underarm.",
+    "es": "El delantero diagonal y montado de las tradiciones de túnica china — la curva que va del cuello, cruzando el pecho, hasta la axila, cerrada con alamares anudados a lo largo de su canto. Es la firma estructural que el changpao comparte con el qipao, y es una sola curva dibujada y no un cruce recto: sesgada hacia fuera cerca del cuello y hacia abajo cerca de la axila.",
+    "fr": "Le devant diagonal croisé des traditions de robe chinoise — la courbe qui va du cou, en travers de la poitrine, jusqu'au dessous de bras, fermée par des brandebourgs noués le long de son bord. C'est la signature structurelle que le changpao partage avec le qipao, et c'est une courbe unique tracée, non un croisement droit : orientée vers l'extérieur près du cou et vers le bas près de l'aisselle.",
+    "pt": "A frente diagonal sobreposta das tradições de túnica chinesa — a curva que vai do pescoço, atravessando o peito, até à axila, fechada com alamares atados ao longo do seu bordo. É a assinatura estrutural que o changpao partilha com o qipao, e é uma única curva desenhada e não um cruzamento direito: enviesada para fora junto ao pescoço e para baixo junto à axila."
+  },
+  "aliases": [
+    {
+      "name": "dajin_closure",
+      "repo": "fashion-cabinet",
+      "note": "The interface id (type 'placket') on both changpao and cheongsam-qipao, with `dajin_drop`, `dajin_reach` and the frog parameters."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/changpao", "fashion-cabinet/cheongsam-qipao"],
+  "see_also": ["placket", "panel-width-native", "heritage", "center-front", "button-closure"],
+  "constraints": "The panel underneath must carry an edge of EXACTLY the dajin's length or the overlap will not lie flat and the whole front twists. fashion-cabinet/changpao draws the curve once, measures its length off the drawn edge, and marks the underpanel's seat from the same curve; the frogs are then spaced along the measured ARC rather than the chord.",
+  "heritage": true,
+  "sources": [
+    "fashion-cabinet/projects/changpao/docs/README.md — provenance and the dajin solve (the men's robe lineage; the qipao shares the collar and the dajin and is a different draft)",
+    "fashion-cabinet/projects/cheongsam-qipao/project.json — hyperobject.interfaces['dajin_closure']"
+  ],
+  "review_status": {
+    "state": "generated"
+  }
+}

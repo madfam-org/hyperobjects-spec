@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "stretch-percent",
+  "domain": "materials",
+  "term": {
+    "en": "stretch percentage",
+    "es": "porcentaje de elasticidad",
+    "fr": "pourcentage d'élasticité",
+    "pt": "percentagem de elasticidade"
+  },
+  "definition": {
+    "en": "How far a cloth extends before it resists, measured separately along the warp and along the weft. It is the number a negative-ease draft spends: the girth the pattern leaves out is the girth the fabric has to supply, and this is the measurement that says whether it can.",
+    "es": "Cuánto se extiende una tela antes de oponerse, medido por separado a lo largo de la urdimbre y de la trama. Es el número que gasta un trazo de holgura negativa: el contorno que el patrón deja fuera es el contorno que la tela debe aportar, y esta es la medida que dice si puede.",
+    "fr": "De combien une étoffe s'étend avant de résister, mesuré séparément en chaîne et en trame. C'est le nombre que dépense un tracé à aisance négative : le tour que le patron laisse de côté est le tour que le tissu doit fournir, et c'est cette mesure qui dit s'il le peut.",
+    "pt": "Quanto um tecido estica antes de resistir, medido em separado ao longo da teia e da trama. É o número que um traçado de folga negativa gasta: o perímetro que o molde deixa de fora é o perímetro que o tecido tem de fornecer, e é esta medida que diz se consegue."
+  },
+  "aliases": [
+    {
+      "name": "physical.stretch_pct",
+      "repo": "fashion-cabinet",
+      "note": "Warp/weft pair on the fabric card, mirrored as digital_twin.physics.stretch_warp_pct / stretch_weft_pct."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": [
+    "knit-negative-ease",
+    "knit-stretch",
+    "stretch-draft",
+    "grainline",
+    "shrinkage-percent"
+  ],
+  "constraints": "Stretch is directional and a garment's girth runs one way around the body: a draft that spends 40% weft stretch on a piece laid with the warp around the body has spent stretch the cloth does not have in that direction.",
+  "review_status": {
+    "state": "generated"
+  }
+}

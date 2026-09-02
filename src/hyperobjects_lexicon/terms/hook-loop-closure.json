@@ -1,0 +1,31 @@
+{
+  "spec_version": 2,
+  "id": "hook-loop-closure",
+  "domain": "capability",
+  "term": {
+    "en": "hook-and-loop closure",
+    "es": "cierre de velcro",
+    "fr": "fermeture auto-agrippante",
+    "pt": "fecho de velcro"
+  },
+  "definition": {
+    "en": "The capability of closing a garment with hook-and-loop tape: two facing strips, one hooked and one looped, that grip anywhere along their overlap. Unlike a hook set, it has no discrete positions — the adjustment is continuous — and unlike a zip it can be opened anywhere along its length at once.",
+    "es": "La capacidad de cerrar una prenda con cinta de gancho y bucle: dos tiras enfrentadas, una de ganchos y otra de bucles, que agarran en cualquier punto de su solape. A diferencia de un juego de corchetes, no tiene posiciones discretas —el ajuste es continuo— y a diferencia de una cremallera puede abrirse de una vez en toda su longitud.",
+    "fr": "La capacité de fermer un vêtement avec une bande auto-agrippante : deux bandes en vis-à-vis, l'une à crochets et l'autre à boucles, qui accrochent en tout point de leur recouvrement. Contrairement à un jeu d'agrafes, elle n'a pas de positions discrètes — le réglage est continu — et contrairement à une glissière elle s'ouvre d'un coup sur toute sa longueur.",
+    "pt": "A capacidade de fechar uma peça com fita de gancho e argola: duas tiras frente a frente, uma de ganchos e outra de argolas, que agarram em qualquer ponto da sua sobreposição. Ao contrário de um jogo de colchetes, não tem posições discretas — o ajuste é contínuo — e ao contrário de um fecho de correr pode abrir-se de uma vez em todo o comprimento."
+  },
+  "aliases": [
+    {
+      "name": "hook_loop_closure",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; one cartridge (hi-vis-vest) as of 2026-09-02, bridging to yantra4d/hook-loop-tape."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/hi-vis-vest", "yantra4d/hook-loop-tape"],
+  "see_also": ["hook-closure", "placket", "hardware-bridge", "adaptive"],
+  "constraints": "The overlap is the adjustment range, so it is drafted from how much the closure must give and not from how much cloth is spare — and the two strips must be long enough that the closure still holds at its loosest legitimate setting.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Named nearly like `hook_closure` and not the same capability: that one is hook-and-EYE, this is hook-and-LOOP. The catalog evidence separates them cleanly — the bras bridge to yantra4d/hook-and-eye, the hi-vis vest to yantra4d/hook-loop-tape — and the capability vocabulary records the pair as distinct so an automated de-duplication cannot merge them."
+}

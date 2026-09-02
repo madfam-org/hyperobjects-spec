@@ -1,0 +1,23 @@
+{
+  "spec_version": 2,
+  "id": "thin-wall",
+  "domain": "geometry",
+  "term": {
+    "en": "thin wall",
+    "es": "pared delgada",
+    "fr": "paroi mince",
+    "pt": "parede fina"
+  },
+  "definition": {
+    "en": "A region of a printed body whose local thickness falls below what a nozzle can lay down — measured in this commons as a median local wall thickness under 0.8 mm, which is two passes of a 0.4 mm nozzle. It is reported as a note with its measured number attached and never as a conformance failure, because a 0.6 mm wall may be exactly what was meant.",
+    "es": "Una región de un cuerpo impreso cuyo espesor local cae por debajo de lo que una boquilla puede depositar — medido en este procomún como un espesor local mediano por debajo de 0.8 mm, que son dos pasadas de una boquilla de 0.4 mm. Se reporta como nota con su número medido adjunto y nunca como fallo de conformidad, porque una pared de 0.6 mm puede ser exactamente lo que se quería.",
+    "fr": "Une région d'un corps imprimé dont l'épaisseur locale tombe sous ce qu'une buse peut déposer — mesurée dans ces communs comme une épaisseur locale médiane inférieure à 0,8 mm, soit deux passes d'une buse de 0,4 mm. Elle est signalée comme une note, avec son nombre mesuré, et jamais comme un échec de conformité, car une paroi de 0,6 mm peut être exactement ce qu'on voulait.",
+    "pt": "Uma região de um corpo impresso cuja espessura local desce abaixo do que um bico consegue depositar — medida neste comum como uma espessura local mediana inferior a 0,8 mm, que são duas passagens de um bico de 0,4 mm. É reportada como nota com o seu número medido e nunca como falha de conformidade, porque uma parede de 0,6 mm pode ser exatamente o que se pretendia."
+  },
+  "embodied_by": ["yantra4d/sew-on-snap"],
+  "see_also": ["overhang", "build-volume", "render-lane", "material-awareness"],
+  "constraints": "The threshold is provisional and the measurement is not: every printability note names the number it measured (the 9 mm snap's sew-hole webbing measures 0.76 mm) precisely so the threshold can be argued with while the reading stands.",
+  "review_status": {
+    "state": "generated"
+  }
+}

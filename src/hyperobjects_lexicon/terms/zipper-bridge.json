@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "zipper-bridge",
+  "domain": "capability",
+  "term": {
+    "en": "zipper bridge",
+    "es": "puente de cremallera",
+    "fr": "pont de fermeture à glissière",
+    "pt": "ponte de fecho de correr"
+  },
+  "definition": {
+    "en": "The capability of a garment whose zipper is a cartridge from the solid commons rather than a bought notion: the zip's length and tape are parameters of a printed object, and the garment's seam is drafted against them. It is the hardware bridge specialised to the one closure that has to agree on a length exactly.",
+    "es": "La capacidad de una prenda cuya cremallera es un cartucho del procomún sólido y no un avío comprado: el largo y la cinta del cierre son parámetros de un objeto impreso, y la costura de la prenda se traza contra ellos. Es el puente de herrajes especializado en el único cierre que debe coincidir exactamente en largo.",
+    "fr": "La capacité d'un vêtement dont la fermeture à glissière est une cartouche des communs solides et non une mercerie achetée : la longueur et le ruban de la fermeture sont des paramètres d'un objet imprimé, et la couture du vêtement se trace d'après eux. C'est le pont de quincaillerie spécialisé dans la seule fermeture qui doit s'accorder exactement en longueur.",
+    "pt": "A capacidade de uma peça cujo fecho de correr é um cartucho do comum sólido e não um aviamento comprado: o comprimento e a fita do fecho são parâmetros de um objeto impresso, e a costura da peça é traçada contra eles. É a ponte de ferragens especializada no único fecho que tem de coincidir exatamente no comprimento."
+  },
+  "aliases": [
+    {
+      "name": "zipper_bridge",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 4 cartridges as of 2026-09-02, a specialisation of `hardware_bridge`."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/compression-tri-suit",
+    "fashion-cabinet/dive-skin-suit",
+    "fashion-cabinet/rash-guard-zip",
+    "yantra4d/zipper"
+  ],
+  "see_also": ["tape-edge", "hardware-bridge", "separating-zipper", "params-map"],
+  "constraints": "The zip length and the seam it closes are one number. If the garment's `zip_length` does not also drive the interface that carries it, the two are free to disagree and the seam ends where the zip does not.",
+  "review_status": {
+    "state": "generated"
+  }
+}

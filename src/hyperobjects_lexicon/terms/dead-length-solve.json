@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "dead-length-solve",
+  "domain": "capability",
+  "term": {
+    "en": "dead-length solve",
+    "es": "solución de longitud muerta",
+    "fr": "résolution de longueur morte",
+    "pt": "resolução de comprimento morto"
+  },
+  "definition": {
+    "en": "The capability of a compression draft that subtracts what cannot stretch before computing what must. A rigid component sewn into a stretch garment — an electrode carrier, a sensor island — takes no part of the compression, so its footprint is dead length and the reduction has to come out of the live remainder alone.",
+    "es": "La capacidad de un trazo de compresión que resta lo que no puede estirar antes de calcular lo que debe. Un componente rígido cosido en una prenda elástica —un porta-electrodos, una isla de sensor— no participa de la compresión, así que su huella es longitud muerta y la reducción tiene que salir solo del resto vivo.",
+    "fr": "La capacité d'un tracé de compression qui retranche ce qui ne peut pas s'étirer avant de calculer ce qui le doit. Un composant rigide cousu dans un vêtement extensible — un porte-électrodes, un îlot de capteur — ne prend aucune part à la compression : son emprise est une longueur morte et la réduction doit sortir du seul reste vivant.",
+    "pt": "A capacidade de um traçado de compressão que subtrai o que não pode esticar antes de calcular o que tem de esticar. Um componente rígido cosido numa peça elástica — um porta-elétrodos, uma ilha de sensor — não participa na compressão, pelo que a sua área é comprimento morto e a redução tem de sair apenas do resto vivo."
+  },
+  "aliases": [
+    {
+      "name": "dead_length_solve",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (ecg-monitoring-vest, emg-sleeve-band), both e-textile."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/ecg-monitoring-vest", "fashion-cabinet/emg-sleeve-band"],
+  "see_also": ["compression-support", "e-textile", "knit-negative-ease", "channel-routing"],
+  "constraints": "`dead = count · (component + 2 · margin)`, `live = ring − dead`, `shell = dead + live · (1 − compression)` (fashion-cabinet/ecg-monitoring-vest). Applying the compression to the whole ring instead makes the shell too small by the compression times the dead length, and the rigid parts are exactly where that error is felt.",
+  "review_status": {
+    "state": "generated"
+  }
+}

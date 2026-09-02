@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "shrinkage-compensation",
+  "domain": "materials",
+  "term": {
+    "en": "shrinkage compensation",
+    "es": "compensación de encogimiento",
+    "fr": "compensation du retrait",
+    "pt": "compensação do encolhimento"
+  },
+  "definition": {
+    "en": "Drawing a thing bigger than it is meant to end up, by the amount its material will lose — filament as it cools, cloth on its first wash. Both commons carry the same idea under matching contracts, and both express it as per-axis factors because neither material shrinks the same amount in every direction.",
+    "es": "Dibujar una cosa más grande de lo que debe acabar siendo, en la medida en que su material se contraerá — el filamento al enfriarse, la tela en el primer lavado. Ambos procomunes llevan la misma idea bajo contratos equivalentes, y ambos la expresan como factores por eje porque ninguno de los dos materiales encoge igual en todas direcciones.",
+    "fr": "Dessiner une chose plus grande qu'elle ne doit finir, de ce que son matériau va perdre — le filament en refroidissant, le tissu au premier lavage. Les deux communs portent la même idée sous des contrats jumeaux, et tous deux l'expriment en facteurs par axe, parce qu'aucun des deux matériaux ne rétrécit autant dans toutes les directions.",
+    "pt": "Desenhar uma coisa maior do que deve acabar por ser, na medida em que o seu material vai perder — o filamento ao arrefecer, o tecido na primeira lavagem. Os dois comuns levam a mesma ideia sob contratos gémeos, e ambos a exprimem em fatores por eixo, porque nenhum dos dois materiais encolhe o mesmo em todas as direções."
+  },
+  "aliases": [
+    {
+      "name": "am_compensations.shrinkage",
+      "repo": "yantra4d",
+      "note": "The solid side's contract, declared per cartridge through material_awareness.shrinkage_compensation."
+    },
+    {
+      "name": "physical.shrinkage_pct",
+      "repo": "fashion-cabinet",
+      "note": "The soft side's measured warp/weft percentages on the fabric card, with `compensations.cut_scale` as the factor a draft applies."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "yantra4d/tpu-chainmail-panel"],
+  "see_also": ["cut-scale", "fabric-compensation", "material-awareness", "shrinkage-percent"],
+  "constraints": "Compensation is applied once, at the cut or at the model, never at both — and it belongs to the axis it was measured on: manta cruda loses 5% on the warp and 3% on the weft, so one average factor mis-sizes the piece in both directions at once.",
+  "review_status": {
+    "state": "generated"
+  }
+}

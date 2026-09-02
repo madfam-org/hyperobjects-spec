@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "compression-support",
+  "domain": "capability",
+  "term": {
+    "en": "compression support",
+    "es": "sostén por compresión",
+    "fr": "maintien par compression",
+    "pt": "suporte por compressão"
+  },
+  "definition": {
+    "en": "The capability of a garment that supports by squeezing rather than by lifting: the cloth is drafted under the body's measurement and holds tissue still by even tension over an area. It is how a sports bra, a binder and a base layer all work, and it is a dose rather than a style — too little does nothing and too much restricts.",
+    "es": "La capacidad de una prenda que sostiene comprimiendo en vez de levantando: la tela se traza por debajo de la medida del cuerpo y sujeta el tejido por tensión uniforme sobre un área. Así funcionan un sujetador deportivo, un binder y una capa base, y es una dosis más que un estilo — poca no hace nada y demasiada restringe.",
+    "fr": "La capacité d'un vêtement qui soutient en comprimant plutôt qu'en soulevant : le tissu est tracé en dessous de la mesure du corps et maintient les tissus immobiles par une tension régulière sur une aire. C'est ainsi que fonctionnent une brassière de sport, un binder et une couche de base, et c'est une dose plutôt qu'un style — trop peu ne fait rien, trop restreint.",
+    "pt": "A capacidade de uma peça que suporta comprimindo em vez de levantar: o tecido é traçado abaixo da medida do corpo e segura o tecido corporal por tensão uniforme sobre uma área. É assim que funcionam um sutiã desportivo, um binder e uma camada base, e é uma dose mais do que um estilo — pouca não faz nada e demasiada restringe."
+  },
+  "aliases": [
+    {
+      "name": "compression_support",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 7 cartridges as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/sports-bra",
+    "fashion-cabinet/cycling-bib-short",
+    "fashion-cabinet/compression-binder",
+    "fashion-cabinet/ski-base-layer-set"
+  ],
+  "see_also": [
+    "knit-negative-ease",
+    "graduated-compression",
+    "dead-length-solve",
+    "wire-channel"
+  ],
+  "constraints": "Compression is a percentage of a girth, so it must be taken from the girth the garment actually sits on, and anything rigid inside the garment takes none of it — see `dead-length-solve` for what happens to the arithmetic when it does.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Three narrower claims exist in the catalog — `graduated_compression` (a gradient along a limb), `compression_zoned` (different amounts in different panels) and `distributed_compression` — and the vocabulary records them under this key rather than as spellings of it."
+}

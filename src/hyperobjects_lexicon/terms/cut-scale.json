@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "cut-scale",
+  "domain": "materials",
+  "term": {
+    "en": "cut scale",
+    "es": "factor de corte",
+    "fr": "facteur de coupe",
+    "pt": "fator de corte"
+  },
+  "definition": {
+    "en": "The per-axis factor a draft multiplies its pieces by before they are cut, so that after the cloth has done what it will do the finished garment is the size it was drafted at. It is shrinkage and stretch turned into an instruction the pattern can carry.",
+    "es": "El factor por eje por el que un trazo multiplica sus piezas antes de cortarlas, para que, después de que la tela haga lo que va a hacer, la prenda acabada tenga la medida con la que se trazó. Es el encogimiento y la elasticidad convertidos en una instrucción que el patrón puede llevar.",
+    "fr": "Le facteur par axe dont un tracé multiplie ses pièces avant la coupe, afin qu'une fois le tissu ayant fait ce qu'il fera, le vêtement fini ait la taille à laquelle il a été tracé. C'est le retrait et l'élasticité transformés en une instruction que le patron peut porter.",
+    "pt": "O fator por eixo pelo qual um traçado multiplica as suas peças antes do corte, para que, depois de o tecido fazer o que vai fazer, a peça acabada tenha a medida com que foi traçada. É o encolhimento e a elasticidade transformados numa instrução que o molde pode levar."
+  },
+  "aliases": [
+    {
+      "name": "compensations.cut_scale",
+      "repo": "fashion-cabinet",
+      "note": "Warp/weft factors on the fabric card, explicitly documented as mirroring Yantra4D's am_compensations.shrinkage contract."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": ["fabric-compensation", "shrinkage-percent", "shrinkage-compensation", "grainline"],
+  "constraints": "The factor applies on the axis it was measured on, and the axis is decided by how the piece is laid — so cut scale cannot be applied before the grainline is fixed, and a piece rotated on the marker changes which factor it needs.",
+  "review_status": {
+    "state": "generated"
+  }
+}

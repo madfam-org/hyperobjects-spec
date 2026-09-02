@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "export-format",
+  "domain": "manifest",
+  "term": {
+    "en": "export format",
+    "es": "formato de exportación",
+    "fr": "format d'export",
+    "pt": "formato de exportação"
+  },
+  "definition": {
+    "en": "One of the file types a cartridge can be delivered in, declared in the manifest so a user knows before rendering whether the object can enter their tool chain. The list distinguishes mesh from solid: STL and 3MF carry triangles, STEP carries geometry a CAD program can still edit, and glTF carries something a browser can show.",
+    "es": "Uno de los tipos de archivo en que puede entregarse un cartucho, declarado en el manifiesto para que quien lo use sepa antes de renderizar si el objeto entra en su cadena de herramientas. La lista distingue malla de sólido: STL y 3MF llevan triángulos, STEP lleva geometría que un CAD todavía puede editar, y glTF lleva algo que un navegador puede mostrar.",
+    "fr": "L'un des types de fichiers dans lesquels une cartouche peut être livrée, déclaré dans le manifeste pour qu'on sache avant le rendu si l'objet entre dans sa chaîne d'outils. La liste distingue le maillage du solide : STL et 3MF portent des triangles, STEP porte une géométrie qu'un logiciel de CAO peut encore modifier, et glTF porte quelque chose qu'un navigateur sait afficher.",
+    "pt": "Um dos tipos de ficheiro em que um cartucho pode ser entregue, declarado no manifesto para que se saiba antes de renderizar se o objeto entra na cadeia de ferramentas de quem o usa. A lista distingue malha de sólido: STL e 3MF levam triângulos, STEP leva geometria que um CAD ainda pode editar, e glTF leva algo que um navegador consegue mostrar."
+  },
+  "aliases": [
+    {
+      "name": "export_formats",
+      "repo": "yantra4d",
+      "note": "Top-level manifest array; the common set across the catalog is stl / 3mf / step / glb / gltf / obj."
+    }
+  ],
+  "embodied_by": ["yantra4d/aerator-adapter", "yantra4d/thimble"],
+  "see_also": ["render-lane", "watertight", "cartridge", "mode"],
+  "constraints": "A declared format is a claim the render can actually produce it: a STEP export from a mesh-only pipeline is a promise the cartridge cannot keep, and a mesh format is only honest if the mesh passes the watertight bar.",
+  "review_status": {
+    "state": "generated"
+  }
+}

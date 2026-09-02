@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "center-front",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "centre front",
+    "es": "centro delantero",
+    "fr": "milieu devant",
+    "pt": "centro da frente"
+  },
+  "definition": {
+    "en": "The vertical line down the middle of a garment's front, and the reference every front measurement is taken from. It is either a seam, a fold, or a closure — and which of the three it is determines almost everything about how the front is cut.",
+    "es": "La línea vertical por el medio del delantero de una prenda, y la referencia desde la que se toma toda medida del delantero. Es una costura, un doblez o un cierre — y cuál de las tres sea determina casi todo sobre cómo se corta el delantero.",
+    "fr": "La ligne verticale au milieu du devant d'un vêtement, et la référence d'où se prend toute mesure du devant. C'est soit une couture, soit un pli, soit une fermeture — et laquelle des trois détermine presque tout de la façon dont le devant est coupé.",
+    "pt": "A linha vertical a meio da frente de uma peça, e a referência a partir da qual se tira qualquer medida da frente. É uma costura, um dobre ou um fecho — e qual das três for determina quase tudo sobre como a frente é cortada."
+  },
+  "aliases": [
+    {
+      "name": "cf / center_front / centre_front",
+      "repo": "fashion-cabinet",
+      "note": "Three spellings of the same edge across the catalog (27, 19 and a handful of interfaces as of 2026-09-02) — the parameter space's own dialect problem."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/camp-collar-shirt",
+    "fashion-cabinet/chaleco-charro",
+    "fashion-cabinet/coverall"
+  ],
+  "see_also": ["center-back", "button-stand", "placket", "fold-cutting", "neck-drop"],
+  "constraints": "Centre front stays at centre front when the garment closes: a button stand extends BEYOND it on both fronts, a fold consumes none of it, and a closure that laps changes which side is on top without moving the line itself.",
+  "review_status": {
+    "state": "generated"
+  }
+}

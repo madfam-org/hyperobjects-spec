@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "inseam",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "inseam",
+    "es": "costura interna (entrepierna)",
+    "fr": "couture intérieure de jambe",
+    "pt": "costura interna da perna"
+  },
+  "definition": {
+    "en": "The seam running down the inside of a trouser leg from crotch to hem, and the length of it — the number a person gives when asked for their leg length. Front and back legs are joined along it, so it is one of the two seam pairs that have to come out equal for a trouser to close.",
+    "es": "La costura que baja por el interior de la pierna de un pantalón, de la entrepierna al bajo, y su largo — el número que una persona da cuando se le pregunta el largo de pierna. Las piernas delantera y trasera se unen a lo largo de ella, así que es uno de los dos pares de costuras que deben salir iguales para que un pantalón cierre.",
+    "fr": "La couture qui descend à l'intérieur de la jambe d'un pantalon, de l'entrejambe à l'ourlet, et sa longueur — le nombre qu'une personne donne quand on lui demande sa longueur de jambe. Les jambes devant et dos s'y assemblent, c'est donc l'une des deux paires de coutures qui doivent sortir égales pour qu'un pantalon se ferme.",
+    "pt": "A costura que desce pelo interior da perna de uma calça, do gancho à bainha, e o seu comprimento — o número que uma pessoa dá quando lhe perguntam o comprimento da perna. As pernas da frente e de trás unem-se ao longo dela, pelo que é um dos dois pares de costuras que têm de sair iguais para que uma calça feche."
+  },
+  "aliases": [
+    {
+      "name": "inseam_length / inside_leg",
+      "repo": "fashion-cabinet",
+      "note": "Two spellings of the same measurement, on 28 and 13 cartridges respectively as of 2026-09-02 — a near-duplicate pair in the parameter space rather than in the capability space."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/baby-sleeper",
+    "fashion-cabinet/chinos",
+    "fashion-cabinet/coverall"
+  ],
+  "see_also": ["rise", "crotch-curve", "side-seam", "hem", "girth"],
+  "constraints": "Front and back inseams are sewn to each other, so they are one length — and because the back leg is cut fuller through the thigh, they are equal only after the back's shaping is walked against the front's rather than measured straight.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "`inseam_length` and `inside_leg` are the same measurement under two names, in 41 cartridges between them. The capability vocabulary's canonicalisation stops at capability keys; the parameter space has the same problem and is a candidate for the next wave."
+}

@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "closure-free",
+  "domain": "capability",
+  "term": {
+    "en": "closure-free",
+    "es": "sin cierres",
+    "fr": "sans fermeture",
+    "pt": "sem fecho"
+  },
+  "definition": {
+    "en": "The capability of a garment that stays on the body with no fastening at all — wrapped, tied, or simply wide enough to pass. It is a whole design tradition rather than an omission: a garment with nothing to break, nothing to source, and nothing to fit but the cloth.",
+    "es": "La capacidad de una prenda que se sostiene en el cuerpo sin cierre alguno — envuelta, atada, o sencillamente lo bastante amplia para pasar. Es toda una tradición de diseño y no una carencia: una prenda sin nada que se rompa, nada que haya que conseguir y nada que ajustar salvo la tela.",
+    "fr": "La capacité d'un vêtement qui tient sur le corps sans aucune fermeture — enroulé, noué, ou simplement assez ample pour passer. C'est toute une tradition de conception et non un manque : un vêtement sans rien qui casse, rien à se procurer et rien à ajuster que le tissu.",
+    "pt": "A capacidade de uma peça que se mantém no corpo sem qualquer fecho — enrolada, atada, ou simplesmente larga o bastante para passar. É toda uma tradição de desenho e não uma falta: uma peça sem nada que parta, nada que seja preciso arranjar e nada a ajustar além do tecido."
+  },
+  "aliases": [
+    {
+      "name": "closure_free",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 10 cartridges and true on 9 as of 2026-09-02, concentrated in the wrap and heritage lanes."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/kaftan",
+    "fashion-cabinet/kente-wrap-cloth",
+    "fashion-cabinet/chamanto-poncho",
+    "fashion-cabinet/aymara-pollera-skirt"
+  ],
+  "see_also": ["pull-on", "hook-closure", "button-closure", "fold-cutting"],
+  "constraints": "With no fastening, every dimension that would have been adjustable is now fixed at draft time: the opening must clear the widest part it has to pass, and the wrap must have enough overlap to stay closed in movement rather than at rest.",
+  "review_status": {
+    "state": "generated"
+  }
+}

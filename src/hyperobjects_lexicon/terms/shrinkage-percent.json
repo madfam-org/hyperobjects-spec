@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "shrinkage-percent",
+  "domain": "materials",
+  "term": {
+    "en": "shrinkage percentage",
+    "es": "porcentaje de encogimiento",
+    "fr": "pourcentage de retrait",
+    "pt": "percentagem de encolhimento"
+  },
+  "definition": {
+    "en": "How much a cloth loses on its first wash, measured per axis. It is the difference between a garment that fits when finished and a garment that fits after it has been washed once, and it is why unwashed cotton is either pre-washed or drafted bigger.",
+    "es": "Cuánto pierde una tela en su primer lavado, medido por eje. Es la diferencia entre una prenda que queda bien al terminarla y una que queda bien después de lavarla una vez, y es la razón por la que el algodón sin lavar se prelava o se traza más grande.",
+    "fr": "Ce qu'une étoffe perd au premier lavage, mesuré par axe. C'est la différence entre un vêtement qui va une fois fini et un vêtement qui va après un premier lavage, et c'est pourquoi le coton non lavé est soit prélavé, soit tracé plus grand.",
+    "pt": "Quanto um tecido perde na primeira lavagem, medido por eixo. É a diferença entre uma peça que assenta quando acabada e uma peça que assenta depois de lavada uma vez, e é por isso que o algodão não lavado ou se pré-lava ou se traça maior."
+  },
+  "aliases": [
+    {
+      "name": "physical.shrinkage_pct",
+      "repo": "fashion-cabinet",
+      "note": "Warp/weft pair on the fabric card; manta cruda declares 5.0 warp / 3.0 weft and a matching cut_scale of 1.05 / 1.03."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": ["cut-scale", "shrinkage-compensation", "fabric-compensation", "care-code"],
+  "constraints": "Shrinkage is compensated once: pre-wash the cloth OR apply the cut scale, never both — doing both delivers a garment oversized by the compensation it did not need.",
+  "review_status": {
+    "state": "generated"
+  }
+}

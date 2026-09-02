@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "built-in-liner",
+  "domain": "capability",
+  "term": {
+    "en": "built-in liner",
+    "es": "forro integrado",
+    "fr": "doublure intégrée",
+    "pt": "forro integrado"
+  },
+  "definition": {
+    "en": "The capability of a garment carrying a second, complete garment inside it — the mesh brief inside running shorts, the liner inside swim trunks. It is not a lining: a lining follows the shell, while a liner is drafted to the body on its own terms and only meets the shell at the waist.",
+    "es": "La capacidad de una prenda que lleva dentro una segunda prenda completa — la braga de malla dentro de un pantalón de correr, el forro dentro de un bañador. No es un forro de vista: un forro sigue a la cáscara, mientras que esta prenda interior se traza al cuerpo por su cuenta y solo se encuentra con la cáscara en la cintura.",
+    "fr": "La capacité d'un vêtement portant à l'intérieur un second vêtement complet — le slip en filet d'un short de course, la doublure intérieure d'un short de bain. Ce n'est pas une doublure de propreté : celle-ci suit la coque, tandis que ce vêtement intérieur est tracé au corps pour lui-même et ne rejoint la coque qu'à la taille.",
+    "pt": "A capacidade de uma peça que leva por dentro uma segunda peça completa — a cueca de rede dentro de uns calções de corrida, o forro dentro de uns calções de banho. Não é um forro de acabamento: um forro segue a casca, enquanto esta peça interior é traçada ao corpo por si mesma e só encontra a casca na cintura."
+  },
+  "aliases": [
+    {
+      "name": "built_in_liner",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (running-shorts, swim-trunks). Distinct from the lining family (`lined`, `fully_lined`, `self_lined`, `drafted_lining`), which follows the shell."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/running-shorts", "fashion-cabinet/swim-trunks"],
+  "see_also": ["waistband", "knit-negative-ease", "hem", "reversible"],
+  "constraints": "The liner and the shell are two drafts that meet at one edge, so only that edge has to agree: a liner cut to the shell's own pattern is a liner in the shell's ease, which is the wrong ease for the layer against the skin.",
+  "review_status": {
+    "state": "generated"
+  }
+}

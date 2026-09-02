@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "preset",
+  "domain": "manifest",
+  "term": {
+    "en": "preset",
+    "es": "preajuste",
+    "fr": "préréglage",
+    "pt": "predefinição"
+  },
+  "definition": {
+    "en": "A named point in a cartridge's parameter space that a manifest ships as a starting place — the values a user actually clicks. A preset is a promise that the object works there, which is why the render lane replays every conformance check at each declared preset instead of only at the defaults.",
+    "es": "Un punto con nombre en el espacio de parámetros de un cartucho que el manifiesto publica como punto de partida — los valores que quien usa realmente pulsa. Un preajuste es una promesa de que el objeto funciona ahí, y por eso el carril de render repite cada comprobación de conformidad en cada preajuste declarado y no solo en los valores por defecto.",
+    "fr": "Un point nommé de l'espace des paramètres d'une cartouche que le manifeste publie comme point de départ — les valeurs que l'on clique réellement. Un préréglage est une promesse que l'objet fonctionne là, et c'est pourquoi le rendu rejoue chaque contrôle de conformité à chaque préréglage déclaré, et pas seulement aux valeurs par défaut.",
+    "pt": "Um ponto nomeado no espaço de parâmetros de um cartucho que o manifesto publica como ponto de partida — os valores em que alguém realmente clica. Uma predefinição é uma promessa de que o objeto funciona ali, e é por isso que a via de render repete cada verificação de conformidade em cada predefinição declarada e não apenas nos valores por omissão."
+  },
+  "aliases": [
+    {
+      "name": "presets",
+      "repo": "yantra4d",
+      "note": "Top-level manifest block; `grid_presets` is its matrix form. Both are replayed by the preset-matrix pass of `y4d-spec check --render`."
+    }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/extrusion-hyperobject"],
+  "see_also": ["preset-matrix", "parameter", "render-lane", "cartridge"],
+  "constraints": "A preset that raises or produces broken geometry is a FAILURE with no calibration excuse — it is the existing bar evaluated somewhere new. A shipped preset of yantra4d/extrusion-hyperobject crashed the CAD kernel while the defaults render stayed green, which is the case that put presets in the lane.",
+  "review_status": {
+    "state": "generated"
+  }
+}

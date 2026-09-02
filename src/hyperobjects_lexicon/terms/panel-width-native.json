@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "panel-width-native",
+  "domain": "capability",
+  "term": {
+    "en": "panel-width native",
+    "es": "nativo al ancho de paño",
+    "fr": "natif à la largeur de lé",
+    "pt": "nativo à largura do pano"
+  },
+  "definition": {
+    "en": "The capability of a draft whose unit is the CLOTH rather than the body: the loom's panel width is a parameter, the pieces are whole panels used as woven, and the body measurement is checked against the resulting circuit instead of setting it. It is how the robe traditions of narrow handloom cloth are actually built, and it inverts the usual direction of a made-to-measure draft.",
+    "es": "La capacidad de un trazo cuya unidad es la TELA y no el cuerpo: el ancho del paño del telar es un parámetro, las piezas son paños enteros usados tal como se tejieron, y la medida del cuerpo se comprueba contra el circuito resultante en lugar de fijarlo. Así se construyen de verdad las tradiciones de túnica en telar angosto, y eso invierte la dirección habitual de un trazo a medida.",
+    "fr": "La capacité d'un tracé dont l'unité est le TISSU et non le corps : la largeur du lé du métier est un paramètre, les pièces sont des lés entiers employés tels que tissés, et la mesure du corps est vérifiée contre le circuit obtenu au lieu de le fixer. C'est ainsi que se construisent réellement les traditions de robe en tissu étroit, et cela inverse le sens habituel d'un tracé sur mesure.",
+    "pt": "A capacidade de um traçado cuja unidade é o TECIDO e não o corpo: a largura do pano do tear é um parâmetro, as peças são panos inteiros usados tal como foram tecidos, e a medida do corpo é verificada contra o circuito resultante em vez de o fixar. É assim que se constroem realmente as tradições de túnica em tear estreito, e isso inverte o sentido habitual de um traçado à medida."
+  },
+  "aliases": [
+    {
+      "name": "panel_width_native",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (ao-tu-than, changpao), each carrying a `panel_width` parameter."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/changpao", "fashion-cabinet/ao-tu-than"],
+  "see_also": ["made-to-measure", "fabric-width", "fold-cutting", "dajin", "uncut-cloth"],
+  "constraints": "The body is CHECKED against the cloth, never used to widen it: fashion-cabinet/changpao computes `BODY_CIRCUIT = panel_width * 2 + DAJIN_X` and reports `panel_sufficient: false` when the circuit will not cover the chest, rather than quietly inventing a wider loom.",
+  "review_status": {
+    "state": "generated"
+  }
+}

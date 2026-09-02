@@ -1,0 +1,37 @@
+{
+  "spec_version": 2,
+  "id": "button-stand",
+  "domain": "garment-construction",
+  "term": {
+    "en": "button stand",
+    "es": "tapeta de botonadura",
+    "fr": "sous-patte de boutonnage",
+    "pt": "carcela de botões"
+  },
+  "definition": {
+    "en": "The strip of cloth extended BEYOND centre front so a button and its hole have somewhere to sit while the two fronts still meet at centre front when the garment is closed. It is added to each front, its width is set by the button, and it is the reason a buttoned garment is wider flat than it is on the body.",
+    "es": "La tira de tela prolongada MÁS ALLÁ del centro delantero para que el botón y su ojal tengan dónde alojarse mientras los dos delanteros siguen encontrándose en el centro delantero al cerrar la prenda. Se añade a cada delantero, su ancho lo fija el botón, y es la razón por la que una prenda abotonada es más ancha en plano que sobre el cuerpo.",
+    "fr": "La bande de tissu prolongée AU-DELÀ du milieu devant pour que le bouton et sa boutonnière aient où se loger tandis que les deux devants se rejoignent toujours au milieu devant une fois le vêtement fermé. Elle s'ajoute à chaque devant, sa largeur est fixée par le bouton, et c'est la raison pour laquelle un vêtement boutonné est plus large à plat que sur le corps.",
+    "pt": "A tira de tecido prolongada PARA ALÉM do centro da frente para que o botão e a sua casa tenham onde assentar enquanto as duas frentes continuam a encontrar-se no centro da frente quando a peça fecha. Acrescenta-se a cada frente, a sua largura é fixada pelo botão, e é a razão pela qual uma peça abotoada é mais larga em plano do que sobre o corpo."
+  },
+  "aliases": [
+    {
+      "name": "button_stand",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value (73 declared interfaces) and also a parameter id on 17 cartridges — the type names the edge, the parameter gives its width."
+    }
+  ],
+  "standards": ["ligne (button size)"],
+  "embodied_by": [
+    "fashion-cabinet/blazer",
+    "fashion-cabinet/camp-collar-shirt",
+    "fashion-cabinet/cardigan",
+    "fashion-cabinet/chaleco-charro"
+  ],
+  "see_also": ["placket", "button-closure", "center-front", "double-breasted"],
+  "constraints": "The stand is an extension beyond centre front, so it is added to BOTH fronts and the closed garment's centre front is still centre front. A front that closes edge to edge has no stand at all — fashion-cabinet/chaleco-charro closes at centre front on hooks — and drafting one there adds a lap the garment does not have.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "`button_ligne` is the house parameter for button size (37 cartridges), and the stand is dimensioned from it rather than from a fixed number: a 40-ligne coat button and a 16-ligne shirt button do not want the same stand."
+}
