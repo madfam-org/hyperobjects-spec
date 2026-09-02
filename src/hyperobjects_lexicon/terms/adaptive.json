@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "adaptive",
+  "domain": "capability",
+  "term": {
+    "en": "adaptive",
+    "es": "adaptativa",
+    "fr": "adaptée",
+    "pt": "adaptativa"
+  },
+  "definition": {
+    "en": "The capability of a garment drafted for a body that dresses differently — seated, one-handed, with limited reach, around a line or a port. The adaptation is structural rather than cosmetic: an opening moved to where a hand can reach it, a closure changed for one that does not need two hands, a seam that opens fully instead of pulling over the head.",
+    "es": "La capacidad de una prenda trazada para un cuerpo que se viste de otra manera — sentado, con una sola mano, con alcance limitado, alrededor de una vía o un puerto. La adaptación es estructural y no cosmética: una abertura llevada a donde la mano llega, un cierre cambiado por otro que no exige dos manos, una costura que se abre entera en lugar de pasar por la cabeza.",
+    "fr": "La capacité d'un vêtement tracé pour un corps qui s'habille autrement — assis, à une main, avec une portée limitée, autour d'une ligne ou d'un cathéter. L'adaptation est structurelle et non cosmétique : une ouverture déplacée là où la main atteint, une fermeture remplacée par une qui n'exige pas deux mains, une couture qui s'ouvre entièrement au lieu de passer par la tête.",
+    "pt": "A capacidade de uma peça traçada para um corpo que se veste de outra maneira — sentado, com uma só mão, com alcance limitado, à volta de uma linha ou de um cateter. A adaptação é estrutural e não cosmética: uma abertura movida para onde a mão chega, um fecho trocado por outro que não exige duas mãos, uma costura que se abre por inteiro em vez de passar pela cabeça."
+  },
+  "aliases": [
+    {
+      "name": "adaptive",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02, while the adaptive lane itself is larger — several cartridges make the claim through `one_handed_*` keys instead."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/adaptive-wrap-skirt",
+    "fashion-cabinet/side-opening-top",
+    "fashion-cabinet/adaptive-magnetic-shirt"
+  ],
+  "see_also": ["one-handed-operation", "quick-change", "placket", "hook-loop-closure"],
+  "constraints": "An adaptive opening is dimensioned by the reach of the person wearing it, not by the garment's symmetry — an opening that is beautifully placed on the pattern and behind the wearer's shoulder is not an adaptation.",
+  "review_status": {
+    "state": "generated"
+  }
+}

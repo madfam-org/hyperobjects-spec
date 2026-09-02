@@ -1,0 +1,661 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interfaces",
+  "description": "The interface names of both commons: Yantra4D's cdg_interfaces geometry types, Fashion Cabinet's hyperobject.interfaces types, and the per-cartridge interface ids that recur often enough to be vocabulary. Both type sets are closed enums in their own schema, so the drift this document exists for is not inside a repo but ACROSS the two — the B2 problem, `zipper_tape` against `tape_edge` — plus the two within-repo dialect splits the capture turned up (sew_face/sew_plate, strap_slot/webbing_slot). The 805 y4d and 577 FC interface ids are not enumerated here: an id is a cartridge's own name for its own feature, and only the ones that recur across cartridges, or that carry a cross-commons equivalence, are vocabulary.",
+  "captured": {
+    "date": "2026-09-02",
+    "sources": {
+      "yantra4d": {
+        "path": "docs/commons-catalog.json",
+        "rev": "80892074",
+        "cartridges": 500
+      },
+      "fashion-cabinet": {
+        "path": "projects/*/project.json",
+        "rev": "fdb88c5",
+        "cartridges": 516
+      }
+    }
+  },
+  "review": {
+    "state": "generated",
+    "note": "Assembled from the capture below by an agent pass, 2026-09-02. The COUNTS are measurements and the CANONICALISATIONS are proposals: every alias asserts that two spellings make one claim, and every distinct_from asserts that two similar spellings do not. Those are rulings a maintainer should read before the vocabulary is used to rewrite anything."
+  },
+  "entries": [
+    {
+      "key": "socket",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "socket",
+      "observed": {
+        "cartridges": 195,
+        "interfaces": 220
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "profile",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "profile",
+      "observed": {
+        "cartridges": 144,
+        "interfaces": 160
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "bolt_pattern",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "bolt-pattern",
+      "observed": {
+        "cartridges": 110,
+        "interfaces": 124
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "snap",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "snap",
+      "observed": {
+        "cartridges": 96,
+        "interfaces": 100
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "pocket",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "pocket-recess",
+      "distinct_from": [
+        {
+          "key": "pocket",
+          "repo": "fashion-cabinet",
+          "reason": "A false friend. Here it is a recess cut into a solid to receive a part; there it is a garment pocket — an opening with a bag behind it. Identical spelling, opposite topology."
+        }
+      ],
+      "observed": {
+        "cartridges": 62,
+        "interfaces": 64
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "surface",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "surface",
+      "observed": {
+        "cartridges": 32,
+        "interfaces": 52
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "thread",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "thread",
+      "observed": {
+        "cartridges": 45,
+        "interfaces": 49
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "flange",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "flange",
+      "observed": {
+        "cartridges": 49,
+        "interfaces": 49
+      },
+      "manifest_enum": false,
+      "note": "Used by the catalog and absent from the published project-manifest geometry_type enum — the catalog is ahead of its schema."
+    },
+    {
+      "key": "grid",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "grid",
+      "observed": {
+        "cartridges": 45,
+        "interfaces": 48
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "rail",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "rail",
+      "observed": {
+        "cartridges": 46,
+        "interfaces": 48
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "custom",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "custom-interface",
+      "equivalent_to": [
+        {
+          "key": "custom",
+          "repo": "fashion-cabinet",
+          "note": "The same escape hatch on both sides: an interface that is real but not one of the named types."
+        }
+      ],
+      "observed": {
+        "cartridges": 13,
+        "interfaces": 13
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "spline",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "spline",
+      "observed": {
+        "cartridges": 11,
+        "interfaces": 12
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "boss",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "boss",
+      "observed": {
+        "cartridges": 2,
+        "interfaces": 2
+      },
+      "manifest_enum": false,
+      "note": "Used by the catalog and absent from the published project-manifest geometry_type enum — the catalog is ahead of its schema."
+    },
+    {
+      "key": "fem_mesh",
+      "repo": "yantra4d",
+      "role": "geometry_type",
+      "status": "canonical",
+      "term": "fem-mesh",
+      "observed": {
+        "cartridges": 1,
+        "interfaces": 1
+      },
+      "manifest_enum": false,
+      "note": "Used by the catalog and absent from the published project-manifest geometry_type enum — the catalog is ahead of its schema."
+    },
+    {
+      "key": "tape_edge",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "canonical",
+      "term": "tape-edge",
+      "observed": {
+        "cartridges": 2,
+        "interfaces": 2
+      },
+      "equivalent_to": [
+        {
+          "key": "zipper_tape",
+          "repo": "fashion-cabinet",
+          "note": "RFC 0038 §5 B2, the pair that named the dialect problem: one physical seam, two dialects."
+        }
+      ],
+      "note": "geometry_type 'flange' on both zipper cartridges."
+    },
+    {
+      "key": "panel_edge",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "canonical",
+      "term": "panel-edge",
+      "observed": {
+        "cartridges": 5,
+        "interfaces": 5
+      },
+      "equivalent_to": [
+        {
+          "key": "panel_edge",
+          "repo": "fashion-cabinet",
+          "note": "Same spelling on both sides, and the same seam: the soft cartridges bridge to these very panels through notion.hardware_ref."
+        }
+      ],
+      "note": "geometry_type 'profile' on the TPU panel family."
+    },
+    {
+      "key": "sew_face",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "canonical",
+      "term": "sew-field",
+      "observed": {
+        "cartridges": 6,
+        "interfaces": 6
+      },
+      "aliases": [
+        {
+          "name": "sew_plate",
+          "repo": "yantra4d",
+          "note": "The same region on the hook-and-eye family under a second name — a dialect split INSIDE one repo.",
+          "observed": {
+            "cartridges": 3,
+            "interfaces": 3
+          }
+        }
+      ],
+      "note": "geometry_type 'flange'. The soft side has no interface name for this region; it consumes it through notion.hardware_ref."
+    },
+    {
+      "key": "strap_slot",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "canonical",
+      "term": "strap-slot",
+      "observed": {
+        "cartridges": 4,
+        "interfaces": 4
+      },
+      "aliases": [
+        {
+          "name": "webbing_slot",
+          "repo": "yantra4d",
+          "note": "The same passage on the webbing hardware — a second within-repo spelling.",
+          "observed": {
+            "cartridges": 4,
+            "interfaces": 4
+          }
+        }
+      ],
+      "equivalent_to": [
+        {
+          "key": "strap_edge",
+          "repo": "fashion-cabinet",
+          "note": "The cloth side of the same passage; the bridge maps strap_w onto strap_w with a declared clearance."
+        }
+      ]
+    },
+    {
+      "key": "cord_channel",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "canonical",
+      "term": "cord-channel",
+      "observed": {
+        "cartridges": 3,
+        "interfaces": 3
+      },
+      "equivalent_to": [
+        {
+          "key": "hem_casing",
+          "repo": "fashion-cabinet",
+          "note": "The sewn casing the same cord runs through; the bridge maps cord_dia onto cord_dia and sizes the lock body from it."
+        }
+      ]
+    },
+    {
+      "key": "custom",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "custom-interface",
+      "observed": {
+        "cartridges": 269,
+        "interfaces": 369
+      },
+      "manifest_enum": true,
+      "equivalent_to": [
+        {
+          "key": "custom",
+          "repo": "yantra4d",
+          "note": "The same escape hatch on both sides: an interface that is real but not one of the named types."
+        }
+      ]
+    },
+    {
+      "key": "hem",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "hem",
+      "observed": {
+        "cartridges": 160,
+        "interfaces": 162
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "side_seam",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "side-seam",
+      "observed": {
+        "cartridges": 144,
+        "interfaces": 146
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "armscye",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "armscye",
+      "observed": {
+        "cartridges": 143,
+        "interfaces": 143
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "neckline",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "neckline",
+      "observed": {
+        "cartridges": 140,
+        "interfaces": 140
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "waistband",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "waistband",
+      "observed": {
+        "cartridges": 124,
+        "interfaces": 127
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "button_stand",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "button-stand",
+      "observed": {
+        "cartridges": 73,
+        "interfaces": 73
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "shoulder",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "shoulder-seam",
+      "observed": {
+        "cartridges": 68,
+        "interfaces": 68
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "zipper_tape",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "tape-edge",
+      "observed": {
+        "cartridges": 47,
+        "interfaces": 47
+      },
+      "manifest_enum": true,
+      "equivalent_to": [
+        {
+          "key": "tape_edge",
+          "repo": "yantra4d",
+          "note": "RFC 0038 §5 B2: two dialects for one physical seam. The soft side names what it sews, the solid side the face it offers."
+        }
+      ]
+    },
+    {
+      "key": "cuff",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "cuff",
+      "observed": {
+        "cartridges": 46,
+        "interfaces": 46
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "pocket",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "garment-pocket",
+      "observed": {
+        "cartridges": 39,
+        "interfaces": 44
+      },
+      "manifest_enum": true,
+      "distinct_from": [
+        {
+          "key": "pocket",
+          "repo": "yantra4d",
+          "reason": "A false friend. Here it is a garment pocket — an opening with a bag behind it; there it is a recess cut into a solid to receive a part. Identical spelling, opposite topology."
+        }
+      ]
+    },
+    {
+      "key": "placket",
+      "repo": "fashion-cabinet",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "placket",
+      "observed": {
+        "cartridges": 41,
+        "interfaces": 41
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "panel_edge",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "canonical",
+      "observed": {
+        "cartridges": 10,
+        "interfaces": 10
+      },
+      "term": "panel-edge",
+      "equivalent_to": [
+        {
+          "key": "panel_edge",
+          "repo": "yantra4d"
+        }
+      ],
+      "note": "Declared with interface type 'side_seam' on the printed-panel cartridges."
+    },
+    {
+      "key": "strap_edge",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "canonical",
+      "observed": {
+        "cartridges": 5,
+        "interfaces": 5
+      },
+      "term": "strap-slot",
+      "equivalent_to": [
+        {
+          "key": "strap_slot",
+          "repo": "yantra4d"
+        }
+      ],
+      "note": "Declared with interface type 'custom'."
+    },
+    {
+      "key": "hem_casing",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "canonical",
+      "observed": {
+        "cartridges": 1,
+        "interfaces": 1
+      },
+      "term": "cord-channel",
+      "equivalent_to": [
+        {
+          "key": "cord_channel",
+          "repo": "yantra4d"
+        }
+      ],
+      "note": "Declared with interface type 'hem' or 'custom'; `mouth_casing` on the bag cartridges is the same feature at another opening."
+    },
+    {
+      "key": "placement_line",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 18,
+        "interfaces": 18
+      },
+      "term": "placement-line",
+      "gloss": "A marked line that places something the cartridge does not draft — a trim, a fastening row, a print.",
+      "note": "The largest single id in the soft side's `custom` tail (18 cartridges). A promotion candidate: it is a marking rather than a seam, which no current interface type expresses."
+    },
+    {
+      "key": "closure",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 9,
+        "interfaces": 9
+      },
+      "term": "closure",
+      "gloss": "The generic closure region of a garment, where the cartridge does not name the fastening in the id.",
+      "note": "Promotion candidate; today it is spelled as `custom` and overlaps with the `placket` type."
+    },
+    {
+      "key": "head_opening",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 9,
+        "interfaces": 9
+      },
+      "term": "head-opening",
+      "gloss": "The opening a head passes through on a garment with no neckline seam — a poncho slit, a tunic's neck hole.",
+      "note": "Promotion candidate; distinct from `neckline`, which is a drafted and finished edge."
+    },
+    {
+      "key": "gusset",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 8,
+        "interfaces": 8
+      },
+      "term": "gusset",
+      "note": "A recurring `custom` id with a term already in the lexicon — the clearest promotion candidate of the tail."
+    },
+    {
+      "key": "straps",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 7,
+        "interfaces": 7
+      },
+      "term": "strap",
+      "gloss": "The strap set of an intimates or swim cartridge, taken as one interface rather than one per strap."
+    },
+    {
+      "key": "wire_line",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 6,
+        "interfaces": 6
+      },
+      "term": "wire-channel",
+      "gloss": "The line an underwire follows under the bust, as an interface of the bra cartridges."
+    },
+    {
+      "key": "collar",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 7,
+        "interfaces": 7
+      },
+      "term": "collar",
+      "gloss": "The collar's attachment to the neckline, as a declared interface."
+    },
+    {
+      "key": "crotch_join",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 5,
+        "interfaces": 5
+      },
+      "term": "crotch-curve",
+      "gloss": "The join at the crotch of a bodysuit, brief or sleeper."
+    },
+    {
+      "key": "cup_seam",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 4,
+        "interfaces": 4
+      },
+      "term": "cup-seam",
+      "gloss": "The seam that shapes a bra cup, and the line the cradle and wire follow."
+    },
+    {
+      "key": "inseam",
+      "repo": "fashion-cabinet",
+      "role": "interface_id",
+      "status": "provisional",
+      "observed": {
+        "cartridges": 7,
+        "interfaces": 7
+      },
+      "term": "inseam",
+      "gloss": "The inside leg seam of a trouser cartridge, as a declared interface."
+    }
+  ]
+}

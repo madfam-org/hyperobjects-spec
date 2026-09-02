@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "grainline",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "grainline",
+    "es": "hilo (línea de hilo)",
+    "fr": "droit-fil",
+    "pt": "fio (linha de fio)"
+  },
+  "definition": {
+    "en": "The line marked on a pattern piece that must be laid parallel to the warp of the cloth. It is what fixes the piece's orientation on the fabric, and therefore which of the cloth's two very different behaviours — the stable direction, the stretchy one — the piece will have.",
+    "es": "La línea marcada en una pieza de patrón que debe colocarse paralela a la urdimbre de la tela. Es lo que fija la orientación de la pieza sobre el tejido y, por tanto, cuál de los dos comportamientos muy distintos de la tela —la dirección estable o la elástica— tendrá la pieza.",
+    "fr": "La ligne tracée sur une pièce de patron qui doit être placée parallèle à la chaîne du tissu. C'est elle qui fixe l'orientation de la pièce sur l'étoffe, et donc lequel des deux comportements très différents du tissu — la direction stable ou l'élastique — la pièce aura.",
+    "pt": "A linha marcada numa peça de molde que tem de ser colocada paralela à teia do tecido. É o que fixa a orientação da peça sobre o tecido e, portanto, qual dos dois comportamentos muito diferentes do tecido — a direção estável ou a elástica — a peça vai ter."
+  },
+  "aliases": [
+    {
+      "name": "warp / weft",
+      "repo": "fashion-cabinet",
+      "note": "The axes every fabric-card figure is given on — stretch_pct, shrinkage_pct and cut_scale are all warp/weft pairs, and the grainline is what decides which of the pair a piece gets."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/manta-cruda",
+    "fashion-cabinet/slip-dress",
+    "fashion-cabinet/evening-gown"
+  ],
+  "see_also": ["woven", "bias-cutting", "cut-scale", "stretch-percent", "fold-cutting"],
+  "constraints": "Every per-axis figure on a fabric card is meaningless until the grainline is fixed: compensation, stretch and shrinkage all attach to the piece through its grainline, so a piece rotated on the marker needs its factors swapped, not just its outline moved.",
+  "review_status": {
+    "state": "generated"
+  }
+}

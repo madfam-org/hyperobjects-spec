@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "pocket-recess",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "pocket (recess)",
+    "es": "alojamiento",
+    "fr": "logement",
+    "pt": "alojamento"
+  },
+  "definition": {
+    "en": "A CDG interface type: a closed recess cut into a solid to receive and hold a part that already exists — a hex nut, a battery cell, a PCB, a caliper beam. Where a socket accepts something long and locates it by its walls, a pocket accepts something whole and surrounds it, and its whole job is to be the right shape for an object nobody in this commons designed.",
+    "es": "Tipo de interfaz CDG: un alojamiento cerrado, vaciado en un sólido, que recibe y retiene una pieza que ya existe —una tuerca hexagonal, una celda de batería, una placa, la regla de un calibre—. Mientras que un casquillo acepta algo alargado y lo posiciona por sus paredes, el alojamiento acepta algo entero y lo rodea, y todo su trabajo consiste en tener la forma exacta de un objeto que nadie en este procomún diseñó.",
+    "fr": "Type d'interface CDG : un logement fermé, creusé dans un solide, qui reçoit et retient une pièce qui existe déjà — un écrou six pans, un élément de batterie, une carte électronique, la règle d'un pied à coulisse. Là où une douille accepte quelque chose d'allongé et le positionne par ses parois, le logement accepte quelque chose d'entier et l'entoure, et tout son travail est d'avoir la forme exacte d'un objet que personne dans ces communs n'a dessiné.",
+    "pt": "Tipo de interface CDG: um alojamento fechado, escavado num sólido, que recebe e retém uma peça que já existe — uma porca sextavada, uma célula de bateria, uma placa eletrónica, a régua de um paquímetro. Enquanto um encaixe aceita algo alongado e o posiciona pelas paredes, o alojamento aceita algo inteiro e envolve-o, e todo o seu trabalho é ter a forma exata de um objeto que ninguém neste comum desenhou."
+  },
+  "aliases": [
+    {
+      "name": "pocket",
+      "repo": "yantra4d",
+      "note": "geometry_type value; 64 declared interfaces in the 500-cartridge catalog of 2026-09-02. Distinct from Fashion Cabinet's interface type of the same name, which is a garment pocket."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/captive-nut",
+    "yantra4d/battery-pocket-frame",
+    "yantra4d/caliper-stand",
+    "yantra4d/din-module"
+  ],
+  "see_also": ["socket", "cdg-interface", "garment-pocket", "boss"],
+  "constraints": "A pocket is dimensioned from the part it receives PLUS a clearance the manifest exposes as a parameter — a recess drawn at the nominal size of a hex nut does not accept that hex nut, and the tolerance class of the standard part is what sets the clearance, not the printer.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "A false friend across the commons: Yantra4D's `pocket` is a cavity in a solid and Fashion Cabinet's `pocket` is a pocket on a garment. The interface vocabulary records the two as distinct rather than equivalent, because a tool that unified them would map a battery bay onto a cargo pocket."
+}

@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "knit",
+  "domain": "materials",
+  "term": {
+    "en": "knit",
+    "es": "tejido de punto",
+    "fr": "maille",
+    "pt": "malha"
+  },
+  "definition": {
+    "en": "Cloth made of interlocking loops rather than crossed threads. Loops can pull straight, so a knit stretches in the direction it is pulled and recovers — which lets a garment be drafted smaller than the body and lets whole categories exist with no fastening at all.",
+    "es": "Tela hecha de bucles entrelazados en vez de hilos cruzados. Los bucles pueden estirarse rectos, así que un punto estira en la dirección en que se tira y recupera — lo que permite trazar una prenda más pequeña que el cuerpo y permite que existan categorías enteras sin ningún cierre.",
+    "fr": "Étoffe faite de boucles entrelacées plutôt que de fils croisés. Les boucles peuvent se tendre, si bien qu'une maille s'étire dans le sens où on la tire puis revient — ce qui permet de tracer un vêtement plus petit que le corps et fait exister des catégories entières sans aucune fermeture.",
+    "pt": "Tecido feito de laçadas entrelaçadas em vez de fios cruzados. As laçadas podem esticar-se, pelo que uma malha estica na direção em que é puxada e recupera — o que permite traçar uma peça mais pequena do que o corpo e faz existir categorias inteiras sem fecho nenhum."
+  },
+  "aliases": [
+    {
+      "name": "fabric.class = knit",
+      "repo": "fashion-cabinet",
+      "note": "Fabric class on the material card; the knit cartridges pair it with `knit_ease`, `knit_stretch` or `negative_ease_pct` parameters."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/jersey-algodon", "fashion-cabinet/aran-sweater"],
+  "see_also": [
+    "woven",
+    "knit-stretch",
+    "knit-negative-ease",
+    "stretch-percent",
+    "seam-stabilization"
+  ],
+  "constraints": "A knit that stretches also GROWS under its own weight, which is why a knit garment's load-bearing seams are stabilised rather than left to the cloth — the shoulder that holds the garment up is the first place the growth shows.",
+  "review_status": {
+    "state": "generated"
+  }
+}

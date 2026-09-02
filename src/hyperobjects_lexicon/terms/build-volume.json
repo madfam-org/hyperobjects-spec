@@ -1,0 +1,23 @@
+{
+  "spec_version": 2,
+  "id": "build-volume",
+  "domain": "geometry",
+  "term": {
+    "en": "build volume",
+    "es": "volumen de impresión",
+    "fr": "volume d'impression",
+    "pt": "volume de impressão"
+  },
+  "definition": {
+    "en": "The space a printer can actually build in, and the bound a cartridge's bounding box has to live inside. The commons notes anything over 256 mm on any axis — not as a failure, because a large object may be meant to be sectioned, but as the fact that most desktop machines cannot print it whole.",
+    "es": "El espacio en el que una impresora puede construir realmente, y el límite dentro del cual debe caber la caja envolvente de un cartucho. El procomún anota cualquier cosa por encima de 256 mm en cualquier eje — no como fallo, porque un objeto grande puede estar pensado para seccionarse, sino como el hecho de que la mayoría de las máquinas de escritorio no pueden imprimirlo entero.",
+    "fr": "L'espace dans lequel une imprimante peut réellement construire, et la borne à l'intérieur de laquelle la boîte englobante d'une cartouche doit tenir. Les communs signalent tout ce qui dépasse 256 mm sur un axe — non comme un échec, car un grand objet peut être prévu pour être sectionné, mais comme le fait que la plupart des machines de bureau ne l'impriment pas d'un seul tenant.",
+    "pt": "O espaço em que uma impressora consegue de facto construir, e o limite dentro do qual a caixa envolvente de um cartucho tem de caber. O comum anota tudo o que passe de 256 mm em qualquer eixo — não como falha, porque um objeto grande pode estar pensado para ser seccionado, mas como o facto de a maioria das máquinas de secretária não o imprimir inteiro."
+  },
+  "embodied_by": ["yantra4d/body-form", "yantra4d/garment-stand"],
+  "see_also": ["thin-wall", "overhang", "render-lane", "export-format"],
+  "constraints": "The bound applies to the bounding box at the parameters being rendered, so it is a preset-by-preset property: a cartridge that fits at its defaults and not at its largest declared preset has a print-size problem exactly where a user is most likely to meet it.",
+  "review_status": {
+    "state": "generated"
+  }
+}

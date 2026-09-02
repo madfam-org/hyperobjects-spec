@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "technique",
+  "domain": "manifest",
+  "term": {
+    "en": "technique",
+    "es": "técnica",
+    "fr": "technique",
+    "pt": "técnica"
+  },
+  "definition": {
+    "en": "A cartridge whose object is a WAY OF DOING rather than a thing to wear: a construction method, a finish, a marking system, parameterised and rendered like any other object. It is how a commons of objects holds knowledge that is not itself an object.",
+    "es": "Un cartucho cuyo objeto es una MANERA DE HACER y no una cosa que se lleva puesta: un método de construcción, un acabado, un sistema de marcado, parametrizado y renderizado como cualquier otro objeto. Es la forma en que un procomún de objetos guarda saber que no es, él mismo, un objeto.",
+    "fr": "Une cartouche dont l'objet est une MANIÈRE DE FAIRE plutôt qu'une chose à porter : une méthode de construction, une finition, un système de marquage, paramétré et rendu comme tout autre objet. C'est ainsi que des communs d'objets conservent un savoir qui n'est pas lui-même un objet.",
+    "pt": "Um cartucho cujo objeto é uma MANEIRA DE FAZER e não uma coisa para vestir: um método de construção, um acabamento, um sistema de marcação, parametrizado e renderizado como qualquer outro objeto. É como um comum de objetos guarda saber que não é, ele próprio, um objeto."
+  },
+  "aliases": [
+    {
+      "name": "hyperobject.domain = technique",
+      "repo": "fashion-cabinet",
+      "note": "Domain value in the garment manifest schema, alongside garment, block, notion, material_system, e_textile and am_fashion."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/boning-channel", "fashion-cabinet/bodice-block"],
+  "see_also": ["block", "notion", "cartridge", "hyperobject"],
+  "constraints": "A technique cartridge still has to render something a maker can hold in their hand — a marked piece, a sample, a guide. A technique that renders nothing is documentation with a manifest attached, and the render lane is what tells the two apart.",
+  "review_status": {
+    "state": "generated"
+  }
+}

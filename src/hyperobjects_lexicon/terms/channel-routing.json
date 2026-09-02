@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "channel-routing",
+  "domain": "capability",
+  "term": {
+    "en": "channel routing",
+    "es": "encaminamiento por canal",
+    "fr": "acheminement par canal",
+    "pt": "encaminhamento por canal"
+  },
+  "definition": {
+    "en": "The capability of a garment that carries a linear element — a heating strip, a light strip, a conductor — along a drafted path through the cloth, so the element slides into a channel instead of being sewn permanently in place. The garment routes and houses; the element stays a separate, replaceable thing.",
+    "es": "La capacidad de una prenda que lleva un elemento lineal —una cinta calefactora, una tira de luz, un conductor— por un recorrido trazado a través de la tela, de modo que el elemento se introduce en un canal en lugar de coserse fijo. La prenda encamina y aloja; el elemento sigue siendo una cosa aparte y reemplazable.",
+    "fr": "La capacité d'un vêtement qui porte un élément linéaire — un ruban chauffant, une bande lumineuse, un conducteur — le long d'un chemin tracé à travers le tissu, de sorte que l'élément se glisse dans un canal au lieu d'être cousu à demeure. Le vêtement achemine et loge ; l'élément reste une chose séparée et remplaçable.",
+    "pt": "A capacidade de uma peça que leva um elemento linear — uma fita de aquecimento, uma tira de luz, um condutor — ao longo de um percurso traçado através do tecido, de modo que o elemento entra num canal em vez de ser cosido fixo. A peça encaminha e aloja; o elemento continua a ser uma coisa separada e substituível."
+  },
+  "aliases": [
+    {
+      "name": "channel_routing",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (heated-vest-panel, led-safety-sash)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/heated-vest-panel", "fashion-cabinet/led-safety-sash"],
+  "see_also": ["e-textile", "cord-channel", "dead-length-solve", "hardware-bridge"],
+  "constraints": "A strip has a LENGTH and a panel has an AREA, so the serpentine run must cover the panel at the strip's own pitch — the pass count is solved from the area and the pitch, and a routing drawn to look even is not the same as one that covers evenly.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "params-map",
+  "domain": "cross-commons",
+  "term": {
+    "en": "parameter map",
+    "es": "mapa de parámetros",
+    "fr": "table de correspondance de paramètres",
+    "pt": "mapa de parâmetros"
+  },
+  "definition": {
+    "en": "The block inside a hardware reference that says which of the garment's parameters drive which of the solid cartridge's — the actual arithmetic of a bridge, written as expressions rather than as a promise. It is where `strap_w` becomes the buckle's `strap_w`, and where `round(panel_width_mm / (ring_id + wire_d))` turns a garment's centimetres into a printed panel's cell count.",
+    "es": "El bloque dentro de una referencia de herraje que dice qué parámetros de la prenda gobiernan cuáles del cartucho sólido — la aritmética real de un puente, escrita como expresiones y no como una promesa. Es donde `strap_w` se convierte en el `strap_w` de la hebilla, y donde `round(panel_width_mm / (ring_id + wire_d))` convierte los centímetros de una prenda en el número de celdas de un panel impreso.",
+    "fr": "Le bloc, à l'intérieur d'une référence de quincaillerie, qui dit quels paramètres du vêtement pilotent lesquels de la cartouche solide — l'arithmétique réelle d'un pont, écrite en expressions et non en promesse. C'est là que `strap_w` devient le `strap_w` de la boucle, et que `round(panel_width_mm / (ring_id + wire_d))` transforme les centimètres d'un vêtement en nombre de cellules d'un panneau imprimé.",
+    "pt": "O bloco, dentro de uma referência de ferragem, que diz que parâmetros da peça governam quais do cartucho sólido — a aritmética real de uma ponte, escrita como expressões e não como promessa. É onde `strap_w` se torna o `strap_w` da fivela, e onde `round(panel_width_mm / (ring_id + wire_d))` transforma os centímetros de uma peça no número de células de um painel impresso."
+  },
+  "aliases": [
+    {
+      "name": "params_map",
+      "repo": "fashion-cabinet",
+      "note": "The mapping inside notion.hardware_ref; values are either a parameter id or an expression over the garment's parameters."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/garter-belt",
+    "fashion-cabinet/chainmail-panel",
+    "fashion-cabinet/anorak-smock"
+  ],
+  "see_also": ["hardware-ref", "hardware-bridge", "parameter", "strap-slot", "panel-edge"],
+  "constraints": "Both ends must exist: every key must be a parameter of the referenced solid cartridge and every identifier in the expression a parameter of this garment. A map naming a parameter neither side has resolves by name and disagrees by dimension.",
+  "review_status": {
+    "state": "generated"
+  }
+}

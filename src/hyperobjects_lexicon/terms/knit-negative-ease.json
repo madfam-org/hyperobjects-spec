@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "knit-negative-ease",
+  "domain": "capability",
+  "term": {
+    "en": "knit negative ease",
+    "es": "holgura negativa en punto",
+    "fr": "aisance négative en maille",
+    "pt": "folga negativa em malha"
+  },
+  "definition": {
+    "en": "The capability of a draft to make the garment SMALLER than the body and let the knit stretch to fit — the fit strategy of every close knit, from a bodysuit to a swim brief. It is the deliberate opposite of ease: the fabric supplies the missing girth, and the fit is a tension rather than a clearance.",
+    "es": "La capacidad de un trazo de hacer la prenda MÁS PEQUEÑA que el cuerpo y dejar que el punto se estire hasta ajustar — la estrategia de ajuste de todo tejido de punto ceñido, del body a la braga de baño. Es lo contrario deliberado de la holgura: la tela aporta el contorno que falta y el ajuste es una tensión, no un margen.",
+    "fr": "La capacité d'un tracé à faire le vêtement PLUS PETIT que le corps et à laisser la maille s'étirer pour aller — la stratégie d'ajustement de tout tricot près du corps, du body au bas de maillot. C'est l'inverse délibéré de l'aisance : le tissu fournit le tour qui manque, et l'ajustement est une tension, non un jeu.",
+    "pt": "A capacidade de um traçado tornar a peça MAIS PEQUENA do que o corpo e deixar a malha esticar até assentar — a estratégia de ajuste de todo o tricô justo, do body à cueca de banho. É o contrário deliberado da folga: o tecido fornece o perímetro que falta e o ajuste é uma tensão, não uma margem."
+  },
+  "aliases": [
+    {
+      "name": "knit_negative_ease",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 119 cartridges and true on 41 as of 2026-09-02. The canonical spelling."
+    },
+    {
+      "name": "negative_ease_knit",
+      "repo": "fashion-cabinet",
+      "note": "The same claim with the words reversed, on 12 cartridges (11 true) — the largest near-duplicate pair in the capability tail, and the reason the capability vocabulary exists."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bikini-bottom",
+    "fashion-cabinet/aran-sweater",
+    "fashion-cabinet/baby-bodysuit",
+    "fashion-cabinet/chunky-turtleneck"
+  ],
+  "see_also": ["negative-ease", "ease", "knit-stretch", "stretch-percent", "waistband"],
+  "constraints": "Negative ease is only legitimate against a DECLARED stretch: the reduction has to come out of the fabric card's measured stretch percentage, and the same reduction cut in a woven is a garment nobody can put on.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "One cartridge (kids-t-shirt) declares the opposite, `knit_positive_ease` — a knit deliberately drafted with room. It is a different claim, not a misspelling of this one."
+}

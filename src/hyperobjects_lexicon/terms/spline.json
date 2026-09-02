@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "spline",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "spline",
+    "es": "estriado",
+    "fr": "cannelure",
+    "pt": "estriado"
+  },
+  "definition": {
+    "en": "A CDG interface type: a repeated tooth or flute form running around a shaft or a wheel, by which two parts transmit rotation without slipping. The commons uses it for both halves of that idea — the involute tooth of a gear pair, and the fine serrated hub a hobby servo turns.",
+    "es": "Tipo de interfaz CDG: una forma dentada o acanalada, repetida alrededor de un eje o de una rueda, por la que dos piezas se transmiten el giro sin patinar. El procomún lo usa para las dos mitades de esa idea: el diente de evolvente de un par de engranajes y el cubo finamente estriado que gira un servo de modelismo.",
+    "fr": "Type d'interface CDG : une forme de dent ou de cannelure répétée autour d'un arbre ou d'une roue, par laquelle deux pièces se transmettent la rotation sans glisser. Les communs l'emploient pour les deux moitiés de cette idée : la dent à développante d'un couple d'engrenages, et le moyeu finement cannelé que fait tourner un servomoteur de modélisme.",
+    "pt": "Tipo de interface CDG: uma forma de dente ou estria repetida em torno de um veio ou de uma roda, pela qual duas peças transmitem a rotação sem patinar. O comum usa-a para as duas metades dessa ideia: o dente de envolvente de um par de engrenagens e o cubo finamente estriado que um servo de modelismo faz girar."
+  },
+  "aliases": [
+    {
+      "name": "spline",
+      "repo": "yantra4d",
+      "note": "geometry_type value; 12 declared interfaces as of the 2026-09-02 catalog, split between gear tooth forms and the 24T Futaba / 25T Spektrum servo series."
+    }
+  ],
+  "standards": ["ISO 53", "DIN 867", "DIN 3975", "ISO 23509"],
+  "embodied_by": [
+    "yantra4d/gears",
+    "yantra4d/gear-rack",
+    "yantra4d/servo-horn",
+    "yantra4d/worm-gear"
+  ],
+  "see_also": ["cdg-interface", "thread", "profile", "socket"],
+  "constraints": "A tooth form is a triple — module (or pitch), pressure angle, and tooth count — or, for a proprietary series, the named series itself. Two parts mesh only when the whole triple agrees; an interface dimensioned by outside diameter alone names a wheel that will not run against anything.",
+  "review_status": {
+    "state": "generated"
+  }
+}

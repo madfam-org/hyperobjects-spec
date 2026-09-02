@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "collar",
+  "domain": "garment-construction",
+  "term": {
+    "en": "collar",
+    "es": "cuello",
+    "fr": "col",
+    "pt": "gola"
+  },
+  "definition": {
+    "en": "The piece that stands or falls at the neckline, sewn to it along its neck edge. Its shape is a consequence of one relationship: how much longer or shorter its neck edge is than its outer edge decides whether it stands up, rolls over or lies flat.",
+    "es": "La pieza que se levanta o cae en el escote, cosida a él por su canto de cuello. Su forma es consecuencia de una sola relación: cuánto más largo o más corto sea su canto de cuello respecto a su canto exterior decide si se para, si se voltea o si queda plano.",
+    "fr": "La pièce qui se dresse ou retombe à l'encolure, cousue à celle-ci par son bord de cou. Sa forme découle d'une seule relation : de combien son bord de cou est plus long ou plus court que son bord extérieur décide s'il se tient droit, s'il se rabat ou s'il reste plat.",
+    "pt": "A peça que se levanta ou cai no decote, cosida a ele pelo seu bordo de pescoço. A sua forma é consequência de uma só relação: quanto mais comprido ou mais curto for o seu bordo de pescoço em relação ao bordo exterior decide se fica de pé, se dobra ou se assenta plano."
+  },
+  "aliases": [
+    {
+      "name": "collar",
+      "repo": "fashion-cabinet",
+      "note": "Interface id in the `custom` tail (7 cartridges as of 2026-09-02) and a piece name on 58; `collar_height` is a parameter on 51."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/camp-collar-shirt",
+    "fashion-cabinet/baju-melayu-set",
+    "fashion-cabinet/track-jacket"
+  ],
+  "see_also": ["neckline", "neck-drop", "placket", "button-stand", "center-front"],
+  "constraints": "The collar's neck edge is sewn to the neckline and must therefore be the same length as it, measured off the drawn curve — a collar drafted to a formula while the neckline is drafted to a body meets it only at the sizes where the two happen to agree.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -27,7 +27,12 @@ What the lane checks (each failure class has a test)
 3. **No dangling ``see_also``** — every cross-reference resolves to a term in the corpus.
 4. **Citations where §7 demands them** — a ``heritage: true`` entry with no ``sources``
    fails. Uncited cultural claims are the one thing the commons' doctrine will not ship.
-5. **``embodied_by`` slugs resolve** — but only when a catalog is supplied. Absent one,
+5. **Review claims are honest** — an entry whose ``review_status`` says ``reviewed``
+   names at least one reviewer, and never claims review while one of its four language
+   facets is still ``generated``. A generated entry ships (quadrilingual completeness is
+   the gate, not review) but is counted separately, so a corpus drafted in one pass can
+   never read as a corpus that a native speaker has been over.
+6. **``embodied_by`` slugs resolve** — but only when a catalog is supplied. Absent one,
    the lane reports the count as unresolved and stays green: this package has no repo to
    look in, exactly as the identity key's existence check does not. CI passes
    ``--catalog`` and gets the strict version; a third party without a catalog checkout
@@ -45,11 +50,13 @@ from hyperobjects_schemas import load as load_schema
 
 __all__ = [
     "LANGUAGES",
+    "REVIEW_STATES",
     "LEXICON_DIR",
     "LexiconResult",
     "check_lexicon",
     "check_term",
     "lexicon_status",
+    "review_counts",
     "load_lexicon",
     "load_term_file",
     "load_catalog_slugs",
@@ -60,6 +67,11 @@ __all__ = [
 # The four languages of the commons, ruled 2026-08-25 (RFC 0039 §5). Order is not
 # alphabetical: `es` leads because it is the house register and the quality bar.
 LANGUAGES: tuple[str, ...] = ("es", "en", "fr", "pt")
+
+#: The review states an entry may declare, worst first. ``unmarked`` is not a declarable
+#: value — it is what an entry with no ``review_status`` counts as, and it is deliberately
+#: distinct from ``generated``: the G1 corpus predates the block and claims neither.
+REVIEW_STATES: tuple[str, ...] = ("generated", "reviewed")
 
 SCHEMA_NAME = "lexicon-term"
 
@@ -244,6 +256,38 @@ def _text_missing(block: object, field_name: str) -> list[str]:
     return problems
 
 
+def _review_problems(doc: dict) -> list[str]:
+    """The review claim's own integrity, which the schema cannot express.
+
+    Two failures, and both are the same failure wearing different clothes: an entry
+    reading as reviewed when nobody reviewed it. A `reviewed` state with no named
+    reviewer is a review nobody signed, and a `reviewed` state over a language facet
+    still marked `generated` is a review that skipped a language.
+    """
+    block = doc.get("review_status")
+    if not isinstance(block, dict):
+        return []
+    problems = []
+    state = block.get("state")
+    langs = block.get("languages") or {}
+    if state == "reviewed":
+        if not block.get("reviewers"):
+            problems.append(
+                "review_status: state is 'reviewed' with no reviewers — a review "
+                "nobody signed is not a review (RFC 0039 §5)"
+            )
+        still_generated = sorted(
+            lang for lang, value in langs.items() if value == "generated"
+        )
+        if still_generated:
+            problems.append(
+                f"review_status: state is 'reviewed' while {', '.join(still_generated)} "
+                f"{'is' if len(still_generated) == 1 else 'are'} still 'generated' — "
+                f"the state is the WORST facet, never the best"
+            )
+    return problems
+
+
 def check_term(
     doc: object,
     *,
@@ -283,6 +327,8 @@ def check_term(
             "heritage is true but sources is empty — a cultural or historical claim "
             "ships with a citation or not at all (RFC 0039 §7)"
         )
+
+    problems.extend(_review_problems(doc))
 
     if known_ids is not None:
         for ref in doc.get("see_also") or []:
@@ -345,6 +391,27 @@ def check_lexicon(
     )
 
 
+def review_counts(lexicon: dict[str, dict] | None = None) -> dict[str, int]:
+    """How many entries are reviewed, how many are a drafting pass, how many say neither.
+
+    ``unmarked`` is its own bucket rather than being folded into ``generated``: the G1
+    corpus was written before the block existed and makes no claim, and quietly counting
+    it as either would put words in its author's mouth.
+    """
+    if lexicon is None:
+        lexicon = load_lexicon()
+    counts = {"reviewed": 0, "generated": 0, "unmarked": 0}
+    for doc in lexicon.values():
+        block = doc.get("review_status") if isinstance(doc, dict) else None
+        if not isinstance(block, dict):
+            counts["unmarked"] += 1
+        else:
+            counts[block.get("state", "generated")] = (
+                counts.get(block.get("state", "generated"), 0) + 1
+            )
+    return counts
+
+
 def lexicon_status(lexicon: dict[str, dict] | None = None) -> str:
     """The house N/M line: how many terms are shippable out of how many exist.
 
@@ -352,6 +419,11 @@ def lexicon_status(lexicon: dict[str, dict] | None = None) -> str:
     counts entries and never fragments. A corpus where the two numbers differ has a
     translation debt, and the point of the line is that the debt is impossible to
     not see.
+
+    The review clause carries the second debt, which N/M cannot show: four complete
+    languages that nobody has read are still four complete languages. A corpus that is
+    130/130 and ``generated=100`` is quadrilingual and has a hundred entries waiting on
+    a native pass, and both facts belong on the same line.
     """
     if lexicon is None:
         lexicon = load_lexicon()
@@ -364,7 +436,10 @@ def lexicon_status(lexicon: dict[str, dict] | None = None) -> str:
         and not _text_missing(doc.get("definition"), "definition")
     )
     domains = len({doc.get("domain") for doc in lexicon.values() if isinstance(doc, dict)})
+    review = review_counts(lexicon)
     return (
         f"lexicon_status: {complete}/{total} terms quadrilingual "
-        f"({'/'.join(LANGUAGES)}) domains={domains}"
+        f"({'/'.join(LANGUAGES)}) domains={domains} "
+        f"review: reviewed={review['reviewed']} generated={review['generated']} "
+        f"unmarked={review['unmarked']}"
     )

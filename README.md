@@ -14,7 +14,7 @@ imported the API app. This package is that bar, extracted: one `pip install`, tw
 commands, no platform checkout.
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
 
 y4d-spec check ./my-cartridge --render          # a Yantra4D cartridge, geometry and all
 fc-spec check garment-manifest ./my-garment.json
@@ -28,11 +28,11 @@ Passing these checks and passing the platforms' CI are meant to be the same thin
 
 ```bash
 # Manifest conformance only — pure python, runs in under a second.
-pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
+pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
 
 # Plus geometry verification: actually renders your cartridge and inspects the mesh.
 # Pulls a CAD kernel (~400MB), so it is opt-in.
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.2.0"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@v0.3.0"
 ```
 
 Python 3.11+.
@@ -337,17 +337,30 @@ fc-spec lexicon                          # or: y4d-spec lexicon
 fc-spec lexicon --catalog bundled        # + resolve every embodied_by slug (hermetic)
 fc-spec lexicon --status                 # just the N/M line
 fc-spec lexicon -v                       # list every term
+
+fc-spec vocab                            # the controlled vocabularies (keys, not words)
+fc-spec article <path> --catalog bundled # article frontmatter
+
+fc-spec define zipper_tape --lang pt     # the dictionary, on a command line
+fc-spec lookup fashion-cabinet/garter-belt
+fc-spec related tape-edge
 ```
 
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=30 failures=0 embodied_by=resolved
-lexicon_status: 30/30 terms quadrilingual (es/en/fr/pt) domains=6
+y4d-spec lexicon: terms=140 failures=0 embodied_by=resolved
+lexicon_status: 140/140 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=110 unmarked=30
 ```
 
-Without `--catalog`, the summary says `embodied_by=NOT resolved (94 refs)` — the same
+Without `--catalog`, the summary says `embodied_by=NOT resolved (…refs)` — the same
 read-proof bar `--render` holds. A run that skipped a check must never read like one
 that passed it.
+
+The `review:` clause on the status line carries the second debt, the one N/M cannot
+show: **four complete languages nobody has read are still four complete languages.** The
+110 terms of the G3 wave are marked `generated` and are waiting on a native pass; the 30
+seed terms predate the field and claim neither. Nothing in the corpus claims a review
+that did not happen, and the lane refuses an entry that tries to.
 
 ### What a term is
 
@@ -396,6 +409,7 @@ each spelling recorded with the repo where it is real.
 | Cross-references | a `see_also` points at a term that does not exist, or at itself |
 | Citations | a `heritage: true` entry carries no `sources` (RFC 0039 §7) |
 | Identity | the filename and the `id` disagree, or two entries share an id |
+| Review claims | an entry says `reviewed` with no named reviewer, or over a language facet still marked `generated` |
 | `embodied_by` | a slug does not resolve — **only when a catalog is supplied** |
 
 That last row is deliberate. This package has no repo to look in, exactly as the
@@ -424,9 +438,27 @@ check_lexicon(lex).ok                      # the lane, as a library call
 lexicon_status(lex)                        # the house N/M line
 ```
 
+**The dictionary tools** (RFC 0039 §6.2) are the same three calls both platforms' MCP
+servers wrap, so a definition cannot differ depending on which half of the commons you
+asked — or on whether you asked a server or a shell:
+
+```python
+from hyperobjects_lexicon.dictionary import define, lookup, related
+
+define("zipper_tape", "pt")                # -> the tape-edge entry, in Portuguese
+define("negative_ease_knit")               # a near-duplicate key resolves too
+lookup("fashion-cabinet/garter-belt")      # every term that cartridge embodies
+related("tape-edge")                       # see_also, referenced_by, and the keys
+```
+
+`define` accepts a term id, a headword in any of the four languages (accents optional),
+a repo spelling, or a controlled-vocabulary key — and every answer says which route
+found it, and whether a human has read the entry. "I found this by a fuzzy alias" and
+"you named it" are different claims.
+
 Each platform renders its own surfaces from this — term popovers on catalog facets and
-parameter labels, an A–Z lexicon page, and the `define(term, lang)` MCP tool — while the
-*articles* stay in each commons as each one's editorial property (RFC 0039 §2, §4).
+parameter labels, an A–Z lexicon page, the MCP tools above — while the *articles* stay in
+each commons as each one's editorial property (RFC 0039 §2, §4).
 
 ### Adding a term — the contribution bar
 
@@ -440,6 +472,10 @@ parameter labels, an A–Z lexicon page, and the `define(term, lang)` MCP tool �
 5. **Cite cultural or historical claims.** Set `heritage: true` and give `sources` — the
    lane fails an uncited claim, by design, and it constrains velocity on purpose.
 6. **Link, don't dangle.** Every `see_also` must resolve.
+7. **Say whether it has been read.** A drafted entry carries
+   `"review_status": {"state": "generated"}` and ships — quadrilingual completeness is
+   the gate, review is not. Claiming `reviewed` requires naming a reviewer, and the
+   state is the *worst* of its four language facets, never the best.
 
 ```bash
 .venv/bin/fc-spec lexicon --catalog bundled   # then run the lane
@@ -448,6 +484,96 @@ parameter labels, an A–Z lexicon page, and the `define(term, lang)` MCP tool �
 
 Renaming an `id` is a **breaking change**: it is what `see_also` points at and what a
 platform's `define()` resolves.
+
+### The controlled vocabularies
+
+The lexicon defines **words**. The vocabularies define **keys** — the literal strings a
+manifest writes. Two documents ship, and each fixes a different failure:
+
+```
+$ fc-spec vocab
+fc-spec vocab: vocabularies=2 entries=170 failures=0
+vocabulary_status[capabilities]: entries=126 term=40 gloss=81 undefined=5 aliases=8 equivalences=0 distinct_pairs=1 provisional=1 review=generated
+vocabulary_status[interfaces]: entries=44 term=44 gloss=0 undefined=0 aliases=2 equivalences=5 distinct_pairs=1 provisional=10 review=generated
+```
+
+**`interfaces`** — both commons' interface names. Each repo's type set is already a
+closed enum in its own schema, so the drift is not *inside* a repo but **across** the
+two, which is exactly RFC 0038's B2 workstream. Those pairs are explicit, symmetric
+`equivalent_to` edges:
+
+| Fashion Cabinet | | Yantra4D | what agrees across the bridge |
+|---|---|---|---|
+| `zipper_tape` | ≡ | `tape_edge` | the zip length that runs along the seam |
+| `panel_edge` | ≡ | `panel_edge` | the printed panel's cell count and its sewn edge |
+| `strap_edge` | ≡ | `strap_slot` | `strap_w`, plus a declared clearance |
+| `hem_casing` | ≡ | `cord_channel` | `cord_dia`, and the lock body sized from it |
+| `custom` | ≡ | `custom` | the escape hatch, on both sides |
+
+And one pair that looks like a sixth and is not: **`pocket` ≢ `pocket`**. On the soft
+side it is a garment pocket — an opening with a bag behind it; on the solid side a recess
+cut into a body to receive a part. Identical spelling, opposite topology, recorded as
+`distinct_from` on both entries so no de-duplication pass can merge them from either
+direction. The capture also turned up two dialect splits *inside* Yantra4D
+(`sew_face`/`sew_plate`, `strap_slot`/`webbing_slot`), recorded as aliases.
+
+**`capabilities`** — Fashion Cabinet's `hyperobject.capabilities` keys. The garment
+manifest types that block as `additionalProperties: {type: boolean}`: every key is legal
+and none is defined. 516 cartridges wrote **134 distinct keys**, most of them once. This
+document is the missing enum, and it is additive by construction — every observed key is
+present, so a compliance lane can adopt it today without failing a single cartridge that
+is correct:
+
+| relation | what it means | examples |
+|---|---|---|
+| `aliases` | the same claim, another spelling → rewrite it | `negative_ease_knit` → `knit_negative_ease`; `hardware_reference` → `hardware_bridge`; `one_handed_dressing`, `one_handed_clip` → `one_handed_operation`; `tailored` → `tailoring`; `uncut` → `uncut_cloth`; `insulated_quilting` → `quilted_insulation`; `princess_seamed` → `princess_seam` |
+| `narrower_than` | a *more specific* claim → keep both | `graduated_compression`, `compression_zoned`, `distributed_compression` under `compression_support`; `structured_tailoring` under `tailoring`; `fully_lined`, `self_lined`, `drafted_lining` under `lined` |
+| `distinct_from` | a false friend → never merge | `hook_closure` (hook-and-**eye**, 13 bras and belts) against `hook_loop_closure` (hook-and-**loop**, one hi-vis vest). They bridge to different solid cartridges |
+| `needs_definition` | used, and nobody has defined it | 5 keys, named on the status line so the gap is countable rather than invisible |
+
+The rule that keeps the two layers in step: **a key two or more cartridges write must
+carry a lexicon term**, so the vocabulary a commons actually reads is quadrilingual or
+it does not ship. That rule is enforced by the lane, and it is what the last six terms of
+the G3 wave were written for.
+
+```python
+from hyperobjects_lexicon import canonical_key, equivalences
+
+canonical_key("negative_ease_knit")   # 'knit_negative_ease'
+canonical_key("hook_loop_closure")    # unchanged — not a duplicate of hook_closure
+canonical_key("a_key_nobody_wrote")   # unchanged — never rename what you have not seen
+equivalences()                        # every cross-commons pair, once each
+```
+
+[`docs/COMMONS_VOCABULARY.md`](docs/COMMONS_VOCABULARY.md) is the adoption checklist for
+both platforms.
+
+### Article frontmatter
+
+The lexicon is the dictionary layer; the **encyclopaedia** layer is the per-cartridge
+`docs/README.md` that both commons already write. RFC 0039 §2 is emphatic that those
+READMEs are **single-source — no parallel corpus** — so `article-frontmatter.schema.json`
+holds no article body. It holds what a catalog surface needs to render and navigate one:
+the object, where the prose lives, era, provenance with named custodians, the lexicon
+terms its popovers resolve, and what the cartridge **deliberately does not draw**.
+
+```
+$ fc-spec article examples --catalog bundled -v
+  ok fashion-cabinet/chaleco-charro [heritage] (examples/chaleco-charro.article.json)
+fc-spec article: articles=1 failures=0 objects=resolved
+article_status: 1 article(s) heritage=1 cited+bounded=1/1 titles: es=1 en=1 fr=0 pt=0
+```
+
+A `heritage: true` article pays two prices, not one: the citation RFC 0039 §7 requires,
+**and** an `excludes` list. The heritage cartridges already write that section in prose —
+*"No botonadura de plata. No escudo… The competition dress codes belong to the Federación
+Mexicana de Charrería"* — and it is machine-readable here because a boundary a platform
+cannot read is a boundary a platform will cross.
+
+Language coverage is **reported, never failed**: the lexicon is born quadrilingual
+because four languages are free at authoring time, but the catalogs are en/es today and
+RFC 0039's phase G-L is the backfill. The status line prints the per-language counts so
+the debt is visible instead of permanent.
 
 ---
 
@@ -460,11 +586,12 @@ platform's `define()` resolves.
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
-| `hyperobjects_lexicon` | the Commons Lexicon corpus and its validation lane |
+| `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, and their lanes |
 
 ```python
 import hyperobjects_schemas as hs
-hs.list_schemas()               # ['body-measurements', 'cross-commons-identity',
+hs.list_schemas()               # ['article-frontmatter', 'body-measurements',
+                                #  'commons-vocabulary', 'cross-commons-identity',
                                 #  'fabric-manifest', 'garment-manifest', 'lexicon-term',
                                 #  'project-manifest']
 hs.load("project-manifest")
@@ -492,11 +619,19 @@ commons, not of a cartridge or a pair.
 The **lexicon** is the one thing here that is not per-cartridge, and it is here for the
 opposite reason: it is a property of *both* commons at once, so it could not live in
 either one (RFC 0039 §4). Its corpus ships with the package, so it stays checkable
-without a platform checkout like everything else.
+without a platform checkout like everything else. The same argument carries its two
+neighbours: the **controlled vocabularies** are about how the two repos spell one thing,
+which no single repo can settle, and the **article frontmatter** is a contract both
+catalog surfaces render from — while the articles themselves stay in each commons, as
+each one's editorial property.
 
 Platform maintainers: [`docs/P1B_ADOPTION.md`](docs/P1B_ADOPTION.md) is the checklist for
 making `fashion-cabinet` and `yantra4d` consume this package, including every behavior
-that had to be interpreted rather than copied.
+that had to be interpreted rather than copied, and
+[`docs/COMMONS_VOCABULARY.md`](docs/COMMONS_VOCABULARY.md) is the checklist for the
+per-commons half of the vocabulary, dictionary and article work — including the eight
+capability spellings to rewrite, the one cartridge whose rename would have hidden a
+missing bridge, and the review pass all of it is waiting on.
 
 ---
 

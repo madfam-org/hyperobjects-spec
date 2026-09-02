@@ -17,9 +17,11 @@ These files are copies of the schemas each platform repo publishes:
   * ``project-manifest``   ← yantra4d/packages/schemas/
   * ``garment-manifest``, ``fabric-manifest``, ``body-measurements``
                            ← fashion-cabinet/packages/schemas/
-  * ``cross-commons-identity``, ``lexicon-term`` — authored HERE; this package is
-    their home. The lexicon term schema formalizes RFC 0039 §3; the corpus it
-    validates ships in ``hyperobjects_lexicon``.
+  * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
+    ``article-frontmatter`` — authored HERE; this package is their home. The lexicon
+    term schema formalizes RFC 0039 §3, the vocabulary schema its G3 controlled
+    vocabularies, and the article schema its G2 elevation of the per-cartridge README;
+    the corpus and the vocabularies they validate ship in ``hyperobjects_lexicon``.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -37,7 +39,7 @@ from pathlib import Path
 
 __all__ = ["load", "schema_path", "list_schemas", "SCHEMAS", "__version__"]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # The schemas this package bundles: name -> the repo that publishes it.
 SCHEMAS: dict[str, str] = {
@@ -47,6 +49,8 @@ SCHEMAS: dict[str, str] = {
     "body-measurements": "fashion-cabinet",
     "cross-commons-identity": "hyperobjects-spec",
     "lexicon-term": "hyperobjects-spec",
+    "commons-vocabulary": "hyperobjects-spec",
+    "article-frontmatter": "hyperobjects-spec",
 }
 
 

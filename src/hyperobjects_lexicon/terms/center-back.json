@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "center-back",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "centre back",
+    "es": "centro espalda",
+    "fr": "milieu dos",
+    "pt": "centro das costas"
+  },
+  "definition": {
+    "en": "The vertical line down the middle of a garment's back. It carries less of a garment's design than centre front and more of its fit: it is where a back-length measurement is taken, where a fitted garment's back shaping is often placed, and where the zip goes when the front is not to be interrupted.",
+    "es": "La línea vertical por el medio de la espalda de una prenda. Lleva menos diseño que el centro delantero y más ajuste: es donde se toma el largo de espalda, donde a menudo se coloca el entalle trasero de una prenda ajustada, y donde va la cremallera cuando no se quiere interrumpir el delantero.",
+    "fr": "La ligne verticale au milieu du dos d'un vêtement. Elle porte moins de dessin que le milieu devant et davantage d'ajustement : c'est là qu'on prend la longueur de dos, là qu'on place souvent le cintrage arrière d'un vêtement ajusté, et là que passe la fermeture quand on ne veut pas interrompre le devant.",
+    "pt": "A linha vertical a meio das costas de uma peça. Leva menos desenho do que o centro da frente e mais ajuste: é onde se tira o comprimento das costas, onde muitas vezes se coloca o entalhe traseiro de uma peça justa, e por onde passa o fecho quando não se quer interromper a frente."
+  },
+  "aliases": [
+    {
+      "name": "center_back / cb",
+      "repo": "fashion-cabinet",
+      "note": "Edge and id prefix across the catalog — `cb_zipper` and `cb_zip` are the standard ids for a centre-back closure."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/a-line-dress",
+    "fashion-cabinet/cocktail-dress",
+    "fashion-cabinet/stage-quick-change-gown"
+  ],
+  "see_also": ["center-front", "zipper-bridge", "tape-edge", "back-neck-rise", "fold-cutting"],
+  "constraints": "A centre-back seam and a centre-back fold are different garments: the seam can be shaped and the fold cannot, so a draft that shapes the back centre must also stop declaring the back cut on the fold.",
+  "review_status": {
+    "state": "generated"
+  }
+}

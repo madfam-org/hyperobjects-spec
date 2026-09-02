@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "printed-textile",
+  "domain": "capability",
+  "term": {
+    "en": "printed textile",
+    "es": "textil impreso",
+    "fr": "textile imprimé",
+    "pt": "têxtil impresso"
+  },
+  "definition": {
+    "en": "The capability of a cartridge whose CLOTH is printed: a flexible sheet of interlocked rings, scales, lattice or pleats, produced on a printer in an elastomer and then cut, sewn and worn as fabric. It is the point where the solid commons stops being hardware attached to a garment and becomes the garment's material.",
+    "es": "La capacidad de un cartucho cuya TELA es impresa: una lámina flexible de anillos entrelazados, escamas, celosía o pliegues, producida en impresora con un elastómero y luego cortada, cosida y llevada como tejido. Es el punto donde el procomún sólido deja de ser herrajería sujeta a una prenda y pasa a ser el material de la prenda.",
+    "fr": "La capacité d'une cartouche dont le TISSU est imprimé : une feuille souple d'anneaux entrelacés, d'écailles, de treillis ou de plis, produite sur une imprimante dans un élastomère puis coupée, cousue et portée comme du tissu. C'est le point où les communs solides cessent d'être de la quincaillerie fixée à un vêtement pour devenir la matière du vêtement.",
+    "pt": "A capacidade de um cartucho cujo TECIDO é impresso: uma folha flexível de anéis entrelaçados, escamas, treliça ou pregas, produzida numa impressora em elastómero e depois cortada, costurada e usada como tecido. É o ponto em que o comum sólido deixa de ser ferragem presa a uma peça e passa a ser o material da peça."
+  },
+  "aliases": [
+    {
+      "name": "printed_textile",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key (declared by 43 cartridges, true on 23) and also a `fabric.class` enum value on the material cards."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/chainmail-panel",
+    "fashion-cabinet/articulated-scale-mail",
+    "fashion-cabinet/lattice-armor-panel",
+    "yantra4d/tpu-chainmail-panel"
+  ],
+  "see_also": ["panel-edge", "am-fashion", "cross-commons-identity", "fiber-composition"],
+  "constraints": "Printed cloth drapes only in the material it was verified in: the same geometry in a rigid filament is a plate, not a fabric, which is why the identity record pairing a printed panel with its garment names a MATERIAL identity and not just two slugs.",
+  "review_status": {
+    "state": "generated"
+  }
+}

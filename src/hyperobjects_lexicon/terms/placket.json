@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "placket",
+  "domain": "garment-construction",
+  "term": {
+    "en": "placket",
+    "es": "tapeta",
+    "fr": "patte",
+    "pt": "carcela"
+  },
+  "definition": {
+    "en": "A finished opening in a garment — the slit that lets a head, a hand or a body through, faced or bound so it can be closed again. Where a button stand is the extension a closure sits on, the placket is the opening itself: the two edges, which one laps over which, and how far.",
+    "es": "Una abertura acabada en una prenda — la ranura que deja pasar una cabeza, una mano o un cuerpo, entretelada o ribeteada para poder volver a cerrarse. Mientras la tapeta de botonadura es la prolongación donde se aloja el cierre, la tapeta de abertura es la abertura misma: los dos cantos, cuál monta sobre cuál y hasta dónde.",
+    "fr": "Une ouverture finie dans un vêtement — la fente qui laisse passer une tête, une main ou un corps, parementée ou bordée pour pouvoir se refermer. Là où la sous-patte de boutonnage est le prolongement sur lequel s'assoit la fermeture, la patte est l'ouverture elle-même : les deux bords, lequel croise sur lequel, et jusqu'où.",
+    "pt": "Uma abertura acabada numa peça — a fenda que deixa passar uma cabeça, uma mão ou um corpo, entretelada ou debruada para poder voltar a fechar-se. Onde a carcela de botões é o prolongamento em que assenta o fecho, a carcela de abertura é a própria abertura: os dois bordos, qual monta sobre qual, e até onde."
+  },
+  "aliases": [
+    {
+      "name": "placket",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 41 declared interfaces as of 2026-09-02, spanning front plackets, wrap fronts, and the heritage diagonal closures (changpao and cheongsam-qipao both declare `dajin_closure` here)."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/button-aid-cuff-shirt",
+    "fashion-cabinet/adaptive-magnetic-shirt",
+    "fashion-cabinet/changpao",
+    "fashion-cabinet/hi-vis-vest"
+  ],
+  "see_also": ["button-stand", "cuff", "dajin", "hook-closure", "quick-change"],
+  "constraints": "The two edges of a placket are sewn to a body that has to close: the underlap must carry an edge of exactly the overlap's length, measured off the drawn curve rather than computed twice — fashion-cabinet/changpao draws its dajin once and marks the underpanel from the SAME curve, so the two are equal by construction.",
+  "review_status": {
+    "state": "generated"
+  }
+}

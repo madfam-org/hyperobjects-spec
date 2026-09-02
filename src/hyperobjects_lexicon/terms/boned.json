@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "boned",
+  "domain": "capability",
+  "term": {
+    "en": "boned",
+    "es": "con ballenas",
+    "fr": "baleiné",
+    "pt": "com barbatanas"
+  },
+  "definition": {
+    "en": "The capability of a garment carrying rigid stays in sewn channels, so the cloth holds a shape under tension instead of collapsing into the body. It is the structure of corsetry and of a shaped bodice, and it is what lets a strapless garment stay up at all.",
+    "es": "La capacidad de una prenda que lleva ballenas rígidas en canales cosidos, de modo que la tela sostiene una forma bajo tensión en vez de ceder sobre el cuerpo. Es la estructura de la corsetería y de un corpiño entallado, y es lo que permite que una prenda sin tirantes se sostenga.",
+    "fr": "La capacité d'un vêtement portant des baleines rigides dans des coulisses cousues, de sorte que le tissu tient une forme sous tension au lieu de s'affaisser sur le corps. C'est la structure de la corseterie et d'un corsage galbé, et c'est ce qui permet à un vêtement sans bretelles de tenir.",
+    "pt": "A capacidade de uma peça que leva barbatanas rígidas em canais cosidos, de modo que o tecido mantém uma forma sob tensão em vez de ceder sobre o corpo. É a estrutura da corseteria e de um corpete entalhado, e é o que permite que uma peça sem alças se aguente."
+  },
+  "aliases": [
+    {
+      "name": "boned",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 4 cartridges as of 2026-09-02. Two neighbouring keys exist — `boning_channels` (the channels alone) and `boning_optional` (a garment that works with or without) — and the vocabulary keeps them distinct."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/dirndl-bodice",
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/waspie",
+    "yantra4d/boning-stay"
+  ],
+  "see_also": ["wire-channel", "sew-field", "hardware-bridge", "tailoring"],
+  "constraints": "A bone is straight and a body is not, so the channel is drafted on the seam line and the bone is cut SHORTER than the channel — a stay cut to the full channel length works its way out through the end of it.",
+  "review_status": {
+    "state": "generated"
+  }
+}

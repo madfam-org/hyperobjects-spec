@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "cup-seam",
+  "domain": "garment-construction",
+  "term": {
+    "en": "cup seam",
+    "es": "costura de copa",
+    "fr": "couture de bonnet",
+    "pt": "costura da taça"
+  },
+  "definition": {
+    "en": "The seam that gives a bra cup its shape, and the line the cradle and any underwire follow beneath it. It is where a flat piece becomes a three-dimensional volume with no dart to hide the shaping in, which is why cup drafting is its own craft rather than a variation on a bodice.",
+    "es": "La costura que da forma a la copa de un sujetador, y la línea que siguen el cazo y, en su caso, el aro por debajo. Es donde una pieza plana se convierte en un volumen tridimensional sin ninguna pinza donde esconder el entalle, y por eso el trazo de copas es un oficio propio y no una variación de un corpiño.",
+    "fr": "La couture qui donne sa forme au bonnet d'un soutien-gorge, et la ligne que suivent le berceau et, le cas échéant, l'armature en dessous. C'est là qu'une pièce plate devient un volume en trois dimensions sans aucune pince où cacher le galbe, et c'est pourquoi le tracé des bonnets est un métier à part et non une variante du corsage.",
+    "pt": "A costura que dá forma à taça de um soutien, e a linha que o berço e, quando existe, o aro seguem por baixo. É onde uma peça plana se torna um volume tridimensional sem nenhuma pinça onde esconder a modelação, e é por isso que o traçado de taças é um ofício próprio e não uma variação de um corpete."
+  },
+  "aliases": [
+    {
+      "name": "cup_seam",
+      "repo": "fashion-cabinet",
+      "note": "Interface id in the `custom` tail — 4 cartridges as of 2026-09-02, with `cup_seam_drop` and `cup_rise` as the parameters around it."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/balconette-underwire-bra",
+    "fashion-cabinet/underwire-bra",
+    "yantra4d/bra-underwire"
+  ],
+  "see_also": ["wire-channel", "dart", "compression-support", "hardware-bridge", "girth"],
+  "constraints": "The cup seam sets the cradle line, and the cradle line is what the wire must lie in: a cup reshaped without re-measuring the seam leaves a wire drafted for the old curve, which is a rigid part in the wrong place against the body.",
+  "review_status": {
+    "state": "generated"
+  }
+}

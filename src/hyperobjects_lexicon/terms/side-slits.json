@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "side-slits",
+  "domain": "capability",
+  "term": {
+    "en": "side slits",
+    "es": "aberturas laterales",
+    "fr": "fentes latérales",
+    "pt": "aberturas laterais"
+  },
+  "definition": {
+    "en": "The capability of a long straight garment left open at the lower side seam, so the wearer can walk and sit in a tube that would otherwise bind. It is a construction answer to a movement problem, and its height is the whole design: too low and it does nothing, too high and the garment is a different garment.",
+    "es": "La capacidad de una prenda larga y recta que se deja abierta en la parte baja de la costura lateral, para que quien la lleva pueda caminar y sentarse en un tubo que si no la apretaría. Es una respuesta constructiva a un problema de movimiento, y su altura es todo el diseño: muy baja no hace nada, muy alta y la prenda es otra prenda.",
+    "fr": "La capacité d'un vêtement long et droit laissé ouvert au bas de la couture de côté, pour que la personne puisse marcher et s'asseoir dans un tube qui, sinon, entraverait. C'est une réponse constructive à un problème de mouvement, et sa hauteur est tout le dessin : trop basse elle ne fait rien, trop haute et le vêtement en devient un autre.",
+    "pt": "A capacidade de uma peça longa e direita deixada aberta na parte baixa da costura lateral, para que quem a veste possa andar e sentar-se num tubo que de outro modo apertaria. É uma resposta construtiva a um problema de movimento, e a sua altura é todo o desenho: baixa demais não faz nada, alta demais e a peça passa a ser outra."
+  },
+  "aliases": [
+    {
+      "name": "side_slits",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 3 cartridges as of 2026-09-02 (kaftan, kurta, tunic), all of them long straight garments."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/kaftan", "fashion-cabinet/kurta", "fashion-cabinet/tunic"],
+  "see_also": ["side-seam", "hem", "closure-free", "gusset"],
+  "constraints": "A slit is a seam that stops, so its top is a stress point: the seam above it takes the whole load that the two edges below no longer share, and a slit drafted without a reinforced head is where the garment tears first.",
+  "review_status": {
+    "state": "generated"
+  }
+}

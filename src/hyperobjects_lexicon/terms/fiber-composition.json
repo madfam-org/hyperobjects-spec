@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "fiber-composition",
+  "domain": "materials",
+  "term": {
+    "en": "fibre composition",
+    "es": "composición de fibras",
+    "fr": "composition en fibres",
+    "pt": "composição de fibras"
+  },
+  "definition": {
+    "en": "What a cloth is made of, as fibres and percentages. It is the field the rest of the card depends on: how the cloth may be pressed, whether it can be shaped with heat, how it should be washed, and what happens to it at the end of the garment's life.",
+    "es": "De qué está hecha una tela, en fibras y porcentajes. Es el campo del que depende el resto de la ficha: cómo puede plancharse, si puede conformarse con calor, cómo debe lavarse y qué le ocurre al final de la vida de la prenda.",
+    "fr": "Ce dont une étoffe est faite, en fibres et en pourcentages. C'est le champ dont dépend le reste de la fiche : comment le tissu peut être repassé, s'il peut être mis en forme à la chaleur, comment il doit être lavé, et ce qu'il devient à la fin de la vie du vêtement.",
+    "pt": "De que é feito um tecido, em fibras e percentagens. É o campo de que depende o resto da ficha: como o tecido pode ser passado a ferro, se pode ser moldado com calor, como deve ser lavado, e o que lhe acontece no fim da vida da peça."
+  },
+  "aliases": [
+    {
+      "name": "fabric.composition[]",
+      "repo": "fashion-cabinet",
+      "note": "Array of {fiber, pct} on the fabric card; manta cruda is 100% cotton."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": ["care-code", "tailoring", "drape-class", "woven", "knit"],
+  "constraints": "The percentages describe one cloth, so they total 100 — and a blend's behaviour follows its most demanding fibre, which is why an iron temperature is set by the synthetic in the mix and not by the majority.",
+  "review_status": {
+    "state": "generated"
+  }
+}

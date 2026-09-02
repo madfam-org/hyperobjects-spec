@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "button-closure",
+  "domain": "capability",
+  "term": {
+    "en": "button closure",
+    "es": "cierre de botones",
+    "fr": "fermeture à boutons",
+    "pt": "fecho de botões"
+  },
+  "definition": {
+    "en": "The capability of closing a garment with buttons through worked holes or loops. It is a closure made of three separate agreements — the button's size, the stand it sits on, and the spacing down the front — and every one of them is a number the draft has to solve rather than a detail to be added later.",
+    "es": "La capacidad de cerrar una prenda con botones a través de ojales trabajados o presillas. Es un cierre hecho de tres acuerdos distintos —el tamaño del botón, la tapeta donde se aloja y el reparto a lo largo del delantero— y cada uno es un número que el trazo debe resolver y no un detalle que se añade después.",
+    "fr": "La capacité de fermer un vêtement avec des boutons passant par des boutonnières travaillées ou des brides. C'est une fermeture faite de trois accords distincts — la taille du bouton, la sous-patte qui le porte et l'espacement le long du devant — et chacun est un nombre que le tracé doit résoudre, non un détail à ajouter après coup.",
+    "pt": "A capacidade de fechar uma peça com botões através de casas trabalhadas ou presilhas. É um fecho feito de três acordos distintos — o tamanho do botão, a carcela onde assenta e o espaçamento ao longo da frente — e cada um é um número que o traçado tem de resolver, não um detalhe a acrescentar depois."
+  },
+  "aliases": [
+    {
+      "name": "button_closure",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 3 cartridges as of 2026-09-02, while `button_stand` as an interface type appears on 73 — the flag is declared far less often than the feature is drafted."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/cardigan",
+    "fashion-cabinet/guayabera-shirt",
+    "fashion-cabinet/jalabiya",
+    "yantra4d/shank-button-solid"
+  ],
+  "see_also": ["button-stand", "placket", "hook-closure", "hardware-bridge"],
+  "constraints": "The button count is solved from the length it has to close, not chosen: a fixed count on a made-to-measure garment spaces its buttons further apart on every longer body, and the gap between them is where a front gapes.",
+  "review_status": {
+    "state": "generated"
+  }
+}

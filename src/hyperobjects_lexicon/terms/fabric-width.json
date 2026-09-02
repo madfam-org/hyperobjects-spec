@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "fabric-width",
+  "domain": "materials",
+  "term": {
+    "en": "fabric width",
+    "es": "ancho de tela",
+    "fr": "laize",
+    "pt": "largura do tecido"
+  },
+  "definition": {
+    "en": "How wide the cloth comes off the loom, selvedge to selvedge. It is the hard boundary every pattern layout has to live inside: a piece wider than the cloth cannot be cut whole however clever the marker, which is why whole garment traditions are built around the width of their looms.",
+    "es": "Cuánto mide la tela de orillo a orillo tal como sale del telar. Es el límite duro dentro del cual debe caber toda distribución de patrón: una pieza más ancha que la tela no puede cortarse entera por hábil que sea el trazado, y por eso hay tradiciones enteras de prenda construidas alrededor del ancho de sus telares.",
+    "fr": "La largeur du tissu tel qu'il sort du métier, lisière à lisière. C'est la frontière dure à l'intérieur de laquelle tout placement de patron doit tenir : une pièce plus large que le tissu ne peut être coupée d'un seul tenant, si habile que soit le placement — d'où des traditions vestimentaires entières bâties sur la laize de leurs métiers.",
+    "pt": "A largura do tecido tal como sai do tear, de ourela a ourela. É a fronteira dura dentro da qual todo o encaixe de moldes tem de caber: uma peça mais larga do que o tecido não pode ser cortada inteira por mais hábil que seja o risco — e daí tradições inteiras de vestuário construídas em torno da largura dos seus teares."
+  },
+  "aliases": [
+    {
+      "name": "physical.width_mm",
+      "repo": "fashion-cabinet",
+      "note": "Required field on every fabric card (manta cruda: 900 mm)."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/manta-cruda",
+    "fashion-cabinet/jersey-algodon",
+    "fashion-cabinet/changpao"
+  ],
+  "see_also": ["panel-width-native", "gsm", "fold-cutting", "grainline", "uncut-cloth"],
+  "constraints": "A piece cut on the fold needs HALF its finished width in cloth but the full width in a single panel — so a fold layout does not rescue a piece that is wider than the cloth, it only halves how much of the roll is spent.",
+  "review_status": {
+    "state": "generated"
+  }
+}

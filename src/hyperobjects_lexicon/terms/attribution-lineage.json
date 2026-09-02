@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "attribution-lineage",
+  "domain": "licensing",
+  "term": {
+    "en": "attribution lineage",
+    "es": "linaje de atribución",
+    "fr": "lignée d'attribution",
+    "pt": "linhagem de atribuição"
+  },
+  "definition": {
+    "en": "The record of where a cartridge came from — what it was derived from, adapted from, or drafted after — carried in the manifest as a non-empty list rather than as a sentence in a README. It is the field that makes a commons auditable rather than merely permissive.",
+    "es": "El registro de dónde viene un cartucho —de qué se derivó, de qué se adaptó o según qué se trazó— llevado en el manifiesto como una lista no vacía y no como una frase en un README. Es el campo que hace que un procomún sea auditable y no solo permisivo.",
+    "fr": "Le relevé de la provenance d'une cartouche — ce dont elle dérive, ce qu'elle adapte, ce d'après quoi elle est tracée — porté dans le manifeste comme une liste non vide, et non comme une phrase dans un README. C'est le champ qui rend des communs vérifiables plutôt que seulement permissifs.",
+    "pt": "O registo de onde veio um cartucho — do que derivou, do que foi adaptado, segundo o que foi traçado — levado no manifesto como uma lista não vazia e não como uma frase num README. É o campo que torna um comum auditável e não apenas permissivo."
+  },
+  "aliases": [
+    {
+      "name": "project.attribution.lineage[]",
+      "repo": "fashion-cabinet",
+      "note": "Required non-empty by the compliance lane; the rule exists because of a relabeling debt found on object #1."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/chaleco-charro", "fashion-cabinet/bodice-block"],
+  "see_also": ["commons-license", "heritage", "cartridge", "societal-benefit"],
+  "constraints": "The lineage must be non-empty, and 'original draft' is a legitimate entry: what is not legitimate is silence, because silence is indistinguishable from a copy whose source was forgotten.",
+  "review_status": {
+    "state": "generated"
+  }
+}

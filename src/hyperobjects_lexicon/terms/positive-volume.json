@@ -1,0 +1,23 @@
+{
+  "spec_version": 2,
+  "id": "positive-volume",
+  "domain": "geometry",
+  "term": {
+    "en": "positive volume",
+    "es": "volumen positivo",
+    "fr": "volume positif",
+    "pt": "volume positivo"
+  },
+  "definition": {
+    "en": "The property of a rendered mesh enclosing a real amount of space — a body that could be printed rather than a surface, a sliver, or an inside-out shell reporting a negative figure. It is the cheapest geometric bar there is and it catches the failure that looks most like success: a render that completed and produced nothing.",
+    "es": "La propiedad de una malla renderizada que encierra una cantidad real de espacio — un cuerpo que podría imprimirse y no una superficie, una lasca o una cáscara invertida que reporta una cifra negativa. Es el listón geométrico más barato que existe y atrapa el fallo que más se parece al éxito: un render que terminó y no produjo nada.",
+    "fr": "La propriété d'un maillage rendu qui enferme une quantité réelle d'espace — un corps imprimable plutôt qu'une surface, un éclat, ou une coque retournée annonçant un chiffre négatif. C'est la barre géométrique la moins coûteuse qui soit, et elle attrape l'échec qui ressemble le plus à une réussite : un rendu qui s'est terminé et n'a rien produit.",
+    "pt": "A propriedade de uma malha renderizada que encerra uma quantidade real de espaço — um corpo que poderia ser impresso e não uma superfície, uma lasca ou uma casca invertida a reportar um valor negativo. É a fasquia geométrica mais barata que existe e apanha a falha que mais se parece com um sucesso: um render que terminou e não produziu nada."
+  },
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/thimble"],
+  "see_also": ["watertight", "body-count", "inverted-body", "render-lane"],
+  "constraints": "Volume is measured on the rendered mesh and not on the CAD model: a boolean that removed more than it should still produces a model, and the volume figure is where that becomes visible.",
+  "review_status": {
+    "state": "generated"
+  }
+}

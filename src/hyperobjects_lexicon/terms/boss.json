@@ -1,0 +1,31 @@
+{
+  "spec_version": 2,
+  "id": "boss",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "boss",
+    "es": "resalte",
+    "fr": "bossage",
+    "pt": "ressalto"
+  },
+  "definition": {
+    "en": "A CDG interface type: a raised pad or stud standing proud of a face, which locates or carries what mates with it — the positive to a pocket's negative. It is the small solid a button is built on, or the seat that lifts a fastening clear of the surface behind it.",
+    "es": "Tipo de interfaz CDG: un resalte o taco que sobresale de una cara y que posiciona o sostiene lo que se acopla a él — el positivo del que un alojamiento es el negativo. Es el pequeño sólido sobre el que se construye un botón, o el asiento que separa una fijación de la superficie que tiene detrás.",
+    "fr": "Type d'interface CDG : un bossage ou téton en saillie sur une face, qui positionne ou porte ce qui vient s'y accoupler — le positif dont un logement est le négatif. C'est le petit solide sur lequel se construit un bouton, ou l'assise qui écarte une fixation de la surface située derrière elle.",
+    "pt": "Tipo de interface CDG: um ressalto ou pino saliente numa face, que posiciona ou sustenta o que nele acopla — o positivo de que um alojamento é o negativo. É o pequeno sólido sobre o qual se constrói um botão, ou o assento que afasta uma fixação da superfície que tem atrás."
+  },
+  "aliases": [
+    {
+      "name": "boss",
+      "repo": "yantra4d",
+      "note": "geometry_type value, 2 declared interfaces as of the 2026-09-02 catalog, and NOT among the eleven values of the project-manifest schema's geometry_type enum — one of three types the catalog uses ahead of the published schema, with `flange` and `fem_mesh`."
+    }
+  ],
+  "embodied_by": ["yantra4d/epaulette-board", "yantra4d/shank-button-solid"],
+  "see_also": ["pocket-recess", "cdg-interface", "flange", "snap"],
+  "constraints": "A boss stands on something, so its height is measured from the face it rises out of and not from the build plate — a boss dimensioned in absolute coordinates moves whenever the wall behind it changes thickness.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Two uses is a thin sample, and the entry is written from those two plus the general engineering sense. If a third cartridge uses `boss` for something else, this is the entry to argue with."
+}

@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "e-textile",
+  "domain": "capability",
+  "term": {
+    "en": "e-textile",
+    "es": "textil electrónico",
+    "fr": "textile électronique",
+    "pt": "têxtil eletrónico"
+  },
+  "definition": {
+    "en": "The capability of a garment cartridge that routes and houses electronics — electrode seats, conductor channels, a recorder pocket — while drafting no circuit and containing no device. The cartridge draws where the electronics go and stops there, which is both an engineering boundary and a regulatory one.",
+    "es": "La capacidad de un cartucho de prenda que encamina y aloja electrónica —asientos de electrodo, canales de conductor, una bolsa de grabador— sin trazar circuito alguno ni contener dispositivo alguno. El cartucho dibuja dónde va la electrónica y ahí se detiene, lo que es a la vez una frontera de ingeniería y una frontera regulatoria.",
+    "fr": "La capacité d'une cartouche de vêtement qui achemine et loge de l'électronique — assises d'électrodes, canaux de conducteurs, poche d'enregistreur — sans tracer aucun circuit ni contenir aucun appareil. La cartouche dessine où va l'électronique et s'arrête là, ce qui est à la fois une frontière d'ingénierie et une frontière réglementaire.",
+    "pt": "A capacidade de um cartucho de peça que encaminha e aloja eletrónica — assentos de elétrodo, canais de condutor, um bolso de gravador — sem traçar circuito algum nem conter dispositivo algum. O cartucho desenha onde vai a eletrónica e para aí, o que é ao mesmo tempo uma fronteira de engenharia e uma fronteira regulatória."
+  },
+  "aliases": [
+    {
+      "name": "e_textile",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key (true on 12 cartridges) and a hyperobject.domain enum value; the material cards carry a matching `e_textile` block."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/ecg-monitoring-vest",
+    "fashion-cabinet/heated-vest-panel",
+    "fashion-cabinet/emg-sleeve-band",
+    "fashion-cabinet/led-costume-panel"
+  ],
+  "see_also": ["dead-length-solve", "channel-routing", "garment-pocket", "societal-benefit"],
+  "constraints": "The cartridge draws the housing and never the device: 'a garment pattern, not an appliance' is the line the e-textile lane holds, and a cartridge that drafted a heater or a circuit would be making a product claim its manifest cannot support.",
+  "review_status": {
+    "state": "generated"
+  }
+}

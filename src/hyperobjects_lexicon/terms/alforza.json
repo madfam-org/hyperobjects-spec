@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "alforza",
+  "domain": "garment-construction",
+  "term": {
+    "en": "alforza (horizontal hem tuck)",
+    "es": "alforza",
+    "fr": "alforza (pli horizontal d'ourlet)",
+    "pt": "alforza (prega horizontal de bainha)"
+  },
+  "definition": {
+    "en": "One of the horizontal tucks running around a pollera near its hem — the full gathered skirt of Aymara and Quechua women of the Bolivian and Peruvian altiplano. The tucks ornament the skirt and are practical at the same time: letting them out lengthens the pollera as it is passed down or as fashion shifts.",
+    "es": "Uno de los pliegues horizontales que recorren una pollera cerca del ruedo — la falda amplia y fruncida de las mujeres aymaras y quechuas del altiplano boliviano y peruano. Las alforzas adornan la falda y a la vez son prácticas: soltarlas alarga la pollera cuando se hereda o cuando cambia la moda.",
+    "fr": "L'un des plis horizontaux qui font le tour d'une pollera près de son ourlet — la jupe ample et froncée des femmes aymaras et quechuas de l'altiplano bolivien et péruvien. Les plis ornent la jupe et sont en même temps pratiques : les défaire rallonge la pollera quand elle est transmise ou quand la mode change.",
+    "pt": "Uma das pregas horizontais que percorrem uma pollera junto à bainha — a saia ampla e franzida das mulheres aimarás e quíchuas do altiplano boliviano e peruano. As pregas ornamentam a saia e são ao mesmo tempo práticas: desfazê-las alonga a pollera quando é passada adiante ou quando a moda muda."
+  },
+  "aliases": [
+    {
+      "name": "alforza_count / alforza_depth",
+      "repo": "fashion-cabinet",
+      "note": "Parameters of aymara-pollera-skirt, whose `alforza_hem` interface (type 'hem') carries them."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/aymara-pollera-skirt"],
+  "see_also": ["hem", "gather-ratio", "heritage", "waistband"],
+  "constraints": "Each tuck eats twice its depth in cloth, so the cut length must include the take-up: `CUT_LENGTH = finished_length + alforza_count * alforza_depth * 2 + hem_allowance`. A draft that adds the tucks after solving the length delivers a skirt short by exactly the take-up.",
+  "heritage": true,
+  "sources": [
+    "fashion-cabinet/projects/aymara-pollera-skirt/docs/README.md — provenance (the pollera of the cholita, worn over an enagua with a manta and a bowler hat; once imposed by colonial dress codes, now a deliberate marker of Aymara and Quechua identity) and the tuck take-up solve"
+  ],
+  "review_status": {
+    "state": "generated"
+  }
+}

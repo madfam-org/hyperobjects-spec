@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "commons-license",
+  "domain": "licensing",
+  "term": {
+    "en": "commons license",
+    "es": "licencia del procomún",
+    "fr": "licence des communs",
+    "pt": "licença do comum"
+  },
+  "definition": {
+    "en": "The open-hardware licence under which a cartridge's object is released, declared in the manifest as machine-readable data rather than left to a file in the repository. Both commons ship CERN-OHL-W-2.0 for their objects, which is what makes a bridge between them safe to build on.",
+    "es": "La licencia de hardware abierto bajo la que se publica el objeto de un cartucho, declarada en el manifiesto como dato legible por máquina en lugar de dejarse a un archivo del repositorio. Ambos procomunes publican sus objetos bajo CERN-OHL-W-2.0, que es lo que hace seguro construir un puente entre ellos.",
+    "fr": "La licence de matériel libre sous laquelle l'objet d'une cartouche est publié, déclarée dans le manifeste comme une donnée lisible par machine plutôt que laissée à un fichier du dépôt. Les deux communs publient leurs objets sous CERN-OHL-W-2.0, ce qui rend sûr d'y bâtir un pont.",
+    "pt": "A licença de hardware aberto sob a qual o objeto de um cartucho é publicado, declarada no manifesto como dado legível por máquina em vez de ficar entregue a um ficheiro do repositório. Os dois comuns publicam os seus objetos sob CERN-OHL-W-2.0, que é o que torna seguro construir uma ponte entre eles."
+  },
+  "aliases": [
+    {
+      "name": "hyperobject.commons_license",
+      "repo": "fashion-cabinet",
+      "note": "Declared in BOTH project.attribution.license and hyperobject.commons_license, and the compliance lane fails a disagreement between them."
+    },
+    {
+      "name": "commons_license",
+      "repo": "yantra4d",
+      "note": "Per-cartridge field carried through into the published commons catalog."
+    }
+  ],
+  "standards": ["CERN-OHL-W-2.0"],
+  "embodied_by": ["yantra4d/aerator-adapter", "fashion-cabinet/chaleco-charro"],
+  "see_also": ["attribution-lineage", "cartridge", "hyperobject", "cross-commons-identity"],
+  "constraints": "A published open-hardware grant is irrevocable for the versions it was published on, so a 'pending' licence is a one-way door: fashion-cabinet's compliance lane treats the old `LicenseRef-FC1-pending` sentinel as a hard error from the ruling date forward.",
+  "review_status": {
+    "state": "generated"
+  }
+}

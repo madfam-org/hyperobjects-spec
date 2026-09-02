@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "rise",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "rise",
+    "es": "tiro",
+    "fr": "hauteur de fourche",
+    "pt": "gancho"
+  },
+  "definition": {
+    "en": "The distance from the crotch to the waist on a trouser, drafted separately at the front and at the back because a seated body needs more length behind than in front. It is what decides where a trouser sits on the body, and it is the measurement most often wrong on a trouser that fits everywhere else.",
+    "es": "La distancia de la entrepierna a la cintura en un pantalón, trazada por separado delante y detrás porque un cuerpo sentado necesita más largo por detrás que por delante. Es lo que decide dónde se asienta un pantalón en el cuerpo, y es la medida que más a menudo está mal en un pantalón que ajusta bien en todo lo demás.",
+    "fr": "La distance de l'entrejambe à la taille sur un pantalon, tracée séparément devant et derrière parce qu'un corps assis a besoin de plus de longueur à l'arrière qu'à l'avant. C'est ce qui décide où un pantalon se place sur le corps, et c'est la mesure la plus souvent fausse sur un pantalon qui va partout ailleurs.",
+    "pt": "A distância do gancho à cintura numa calça, traçada em separado à frente e atrás porque um corpo sentado precisa de mais comprimento atrás do que à frente. É o que decide onde uma calça assenta no corpo, e é a medida que mais vezes está errada numa calça que serve em tudo o resto."
+  },
+  "aliases": [
+    {
+      "name": "front_rise / back_rise",
+      "repo": "fashion-cabinet",
+      "note": "Parameter ids on 39 and 30 cartridges respectively as of 2026-09-02 — always a pair, never one number."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/chinos",
+    "fashion-cabinet/cargo-pants",
+    "fashion-cabinet/bermuda-shorts"
+  ],
+  "see_also": ["crotch-curve", "inseam", "waistband", "girth", "made-to-measure"],
+  "constraints": "Front and back rise are two measurements, and the difference between them is the fit: taking one number and splitting it evenly produces a trouser that is tight sitting down and low in front standing up.",
+  "review_status": {
+    "state": "generated"
+  }
+}

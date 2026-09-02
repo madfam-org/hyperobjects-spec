@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "armhole-depth",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "armhole depth",
+    "es": "altura de sisa",
+    "fr": "hauteur d'emmanchure",
+    "pt": "altura da cava"
+  },
+  "definition": {
+    "en": "How far below the shoulder the armhole is cut, measured down from the shoulder point to the underarm. It sets the trade every garment makes between a high armhole, which lets the arm lift without dragging the body of the garment with it, and a low one, which is easy to sew and comfortable at rest.",
+    "es": "Cuánto baja la sisa por debajo del hombro, medido desde el punto de hombro hasta la axila. Fija el compromiso que hace toda prenda entre una sisa alta, que deja levantar el brazo sin arrastrar el cuerpo de la prenda, y una baja, fácil de coser y cómoda en reposo.",
+    "fr": "De combien l'emmanchure descend sous l'épaule, mesuré du point d'épaule au dessous de bras. Elle fixe le compromis que fait tout vêtement entre une emmanchure haute, qui laisse lever le bras sans entraîner le corps du vêtement, et une basse, facile à coudre et confortable au repos.",
+    "pt": "Quanto a cava desce abaixo do ombro, medido do ponto de ombro à axila. Fixa o compromisso que toda a peça faz entre uma cava alta, que deixa levantar o braço sem arrastar o corpo da peça, e uma baixa, fácil de coser e confortável em repouso."
+  },
+  "aliases": [
+    {
+      "name": "armhole_depth / sleeve_depth",
+      "repo": "fashion-cabinet",
+      "note": "Parameter ids on 21 and 19 cartridges respectively as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bandhgala-jacket",
+    "fashion-cabinet/baju-melayu-set",
+    "fashion-cabinet/chaleco-charro"
+  ],
+  "see_also": ["armscye", "sleeve-cap", "gusset", "ease", "side-seam"],
+  "constraints": "The armhole depth is also a floor on the garment's length: a waistcoat whose length solves to less than its armhole depth plus a margin has no waistcoat left below the arm, which is why fashion-cabinet/chaleco-charro floors its length at `ARMHOLE_DEPTH + 70`.",
+  "review_status": {
+    "state": "generated"
+  }
+}

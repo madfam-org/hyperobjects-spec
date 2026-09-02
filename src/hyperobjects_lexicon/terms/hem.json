@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "hem",
+  "domain": "garment-construction",
+  "term": {
+    "en": "hem",
+    "es": "dobladillo",
+    "fr": "ourlet",
+    "pt": "bainha"
+  },
+  "definition": {
+    "en": "The finished lower edge of a garment, and the cloth turned up to make it. A hem is two numbers, not one: the finished length, which is where the garment ends on the body, and the allowance turned under, which is cloth that must be cut but will never be seen. The commons' most-declared garment interface, because almost everything a body wears has to stop somewhere.",
+    "es": "El canto inferior acabado de una prenda, y la tela remetida para formarlo. Un dobladillo son dos números, no uno: el largo acabado, que es donde la prenda termina sobre el cuerpo, y el margen que se dobla hacia dentro, que es tela que hay que cortar y que nunca se verá. Es la interfaz de prenda más declarada del procomún, porque casi todo lo que viste un cuerpo tiene que terminar en alguna parte.",
+    "fr": "Le bord inférieur fini d'un vêtement, et le tissu replié qui le forme. Un ourlet, ce sont deux nombres et non un : la longueur finie, qui est là où le vêtement s'arrête sur le corps, et le rentré replié dessous, qui est du tissu qu'il faut couper et qu'on ne verra jamais. C'est l'interface de vêtement la plus déclarée des communs, parce que presque tout ce que porte un corps doit s'arrêter quelque part.",
+    "pt": "O bordo inferior acabado de uma peça, e o tecido dobrado que o forma. Uma bainha são dois números, não um: o comprimento acabado, que é onde a peça termina sobre o corpo, e a margem dobrada por dentro, que é tecido que é preciso cortar e que nunca se verá. É a interface de vestuário mais declarada do comum, porque quase tudo o que um corpo veste tem de acabar nalgum sítio."
+  },
+  "aliases": [
+    {
+      "name": "hem",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 162 declared interfaces across 516 garment cartridges as of 2026-09-02, and `hem_allowance` is a parameter on 151 of them."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/a-line-dress",
+    "fashion-cabinet/athletic-shorts",
+    "fashion-cabinet/abaya",
+    "fashion-cabinet/aymara-pollera-skirt"
+  ],
+  "see_also": ["seam-allowance", "cuff", "waistband", "side-seam", "cord-channel"],
+  "constraints": "The allowance is ADDED to the cut length and never taken out of the finished one — `CUT_LENGTH = finished_length + take_up + hem_allowance` (fashion-cabinet/aymara-pollera-skirt). A draft that turns the allowance up out of the finished length delivers a garment shorter than the length its own manifest reports.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "A flared hem's allowance cannot be a straight turn-up: the turned edge is wider than the line it folds against, so it must be shaped or faced. The cartridges that flare (`flare_mm`, `hem_flare`) carry this in their own drafting; the interface only records that the edge exists."
+}

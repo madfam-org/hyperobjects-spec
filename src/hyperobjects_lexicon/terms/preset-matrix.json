@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "preset-matrix",
+  "domain": "geometry",
+  "term": {
+    "en": "preset matrix",
+    "es": "matriz de preajustes",
+    "fr": "matrice de préréglages",
+    "pt": "matriz de predefinições"
+  },
+  "definition": {
+    "en": "The render lane's second pass: every conformance check re-run at every preset a manifest declares, rather than only at the cartridge's defaults. It exists because the defaults are the one parameter point a user is least likely to keep, and a green run there says nothing about the point they will actually click.",
+    "es": "La segunda pasada del carril de render: cada comprobación de conformidad repetida en cada preajuste que declara un manifiesto, y no solo en los valores por defecto del cartucho. Existe porque los valores por defecto son el punto del espacio de parámetros que menos probablemente conserve quien usa, y una pasada verde ahí no dice nada del punto que realmente pulsará.",
+    "fr": "La seconde passe du rendu : chaque contrôle de conformité rejoué à chaque préréglage déclaré par le manifeste, et pas seulement aux valeurs par défaut. Elle existe parce que les valeurs par défaut sont le point de l'espace des paramètres qu'on gardera le moins, et qu'un rendu vert là-bas ne dit rien du point qu'on cliquera vraiment.",
+    "pt": "A segunda passagem da via de render: cada verificação de conformidade repetida em cada predefinição que o manifesto declara, e não apenas nos valores por omissão do cartucho. Existe porque os valores por omissão são o ponto do espaço de parâmetros que menos provavelmente se mantém, e uma passagem verde ali nada diz sobre o ponto em que se vai realmente clicar."
+  },
+  "aliases": [
+    {
+      "name": "--render (presets pass)",
+      "repo": "yantra4d",
+      "note": "Run by `y4d-spec check --render`; `--no-presets` skips it and the summary prints the preset count so a weaker run cannot read as a full one."
+    }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "yantra4d/extrusion-hyperobject"],
+  "see_also": ["preset", "render-lane", "watertight", "parameter", "positive-volume"],
+  "constraints": "A preset that renders geometry IDENTICAL to the defaults while setting different values is a note, not a pass: either the values never reach the script or the manifest's declared defaults have drifted from the script's own fallbacks.",
+  "review_status": {
+    "state": "generated"
+  }
+}

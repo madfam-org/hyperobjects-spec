@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "woven",
+  "domain": "materials",
+  "term": {
+    "en": "woven",
+    "es": "tejido plano",
+    "fr": "tissé (chaîne et trame)",
+    "pt": "tecido plano"
+  },
+  "definition": {
+    "en": "Cloth made by crossing two sets of threads at right angles — warp along the roll, weft across it. A woven barely stretches along either thread and stretches a great deal on the diagonal between them, and that single fact is why woven patterns need darts, ease and seams that knit patterns do not.",
+    "es": "Tela hecha cruzando dos conjuntos de hilos en ángulo recto — urdimbre a lo largo de la pieza, trama a lo ancho. Un tejido plano apenas estira en la dirección de cualquiera de los dos hilos y estira mucho en la diagonal entre ellos, y ese solo hecho es la razón de que los patrones de plano necesiten pinzas, holgura y costuras que los de punto no necesitan.",
+    "fr": "Étoffe faite en croisant deux ensembles de fils à angle droit — chaîne dans la longueur, trame en travers. Un tissé ne s'étire presque pas dans le sens de l'un ou l'autre fil et s'étire beaucoup dans la diagonale entre les deux, et ce seul fait explique pourquoi les patrons en tissé demandent des pinces, de l'aisance et des coutures dont ceux en maille se passent.",
+    "pt": "Tecido feito cruzando dois conjuntos de fios em ângulo reto — teia ao longo da peça, trama ao través. Um tecido plano quase não estica na direção de qualquer dos fios e estica muito na diagonal entre eles, e só esse facto explica por que os moldes em plano precisam de pinças, folga e costuras de que os de malha não precisam."
+  },
+  "aliases": [
+    {
+      "name": "fabric.class = woven",
+      "repo": "fashion-cabinet",
+      "note": "One of six fabric classes on the material card (woven, knit, nonwoven, leather, technical, printed_textile), with `weave` naming the structure (plain, twill…)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/mezclilla-denim"],
+  "see_also": ["knit", "grainline", "bias-cutting", "drape-class", "ease"],
+  "constraints": "A woven's stretch lives on the bias, so any ease a woven garment needs has to be drafted in: a woven cut with negative ease does not stretch to fit, it fails to close.",
+  "review_status": {
+    "state": "generated"
+  }
+}

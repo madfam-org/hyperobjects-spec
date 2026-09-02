@@ -8,9 +8,10 @@
   "required": ["id", "domain", "term", "definition"],
   "properties": {
     "spec_version": {
-      "description": "Version of THIS term contract the entry is written against. Absent means 1.",
+      "description": "Version of THIS term contract the entry is written against. Absent means 1. Contract 2 (RFC 0039 G2/G3) is ADDITIVE over 1: it adds the optional `review_status` block and the `capability` domain, so every contract-1 entry is still valid and unchanged. An entry declares 2 when it uses either.",
       "type": "integer",
       "minimum": 1,
+      "maximum": 2,
       "default": 1
     },
     "id": {
@@ -28,6 +29,7 @@
         "materials",
         "cross-commons",
         "manifest",
+        "capability",
         "licensing"
       ]
     },
@@ -74,12 +76,52 @@
       "type": "array",
       "items": { "type": "string", "minLength": 4 }
     },
+    "review_status": {
+      "description": "Whether the four language facets have had a native review pass, or are still the drafting pass that wrote them. RFC 0039 §5 allows machine or agent drafting as a DRAFT and never as shipped copy without a review; §7 asks that fr/pt be reviewed rather than merely generated. A generated entry is still shippable — quadrilingual completeness is the ship gate, not review — but it must never read as reviewed, so an entry drafted in one pass says so here and the status line counts it separately. Absent means unmarked: the G1 corpus predates this block and does not claim either way.",
+      "$ref": "#/$defs/reviewStatus"
+    },
     "notes": {
       "description": "Anything true and worth saying that is not the definition — where the equivalence stops, what the term is often confused with.",
       "type": "string"
     }
   },
   "$defs": {
+    "reviewState": {
+      "description": "`generated` — written in a drafting pass (by a contributor or an agent) and not yet checked by a speaker of the language. `reviewed` — a named reviewer has read it in that language and let it stand.",
+      "type": "string",
+      "enum": ["generated", "reviewed"]
+    },
+    "reviewStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": {
+          "description": "The entry's overall state — the WORST of its language facets, never the best. Claiming `reviewed` also requires at least one named reviewer: a review nobody signed is the failure mode this field exists to prevent.",
+          "$ref": "#/$defs/reviewState"
+        },
+        "languages": {
+          "description": "Per-language state, for the ordinary case where the review pass lands one language at a time. Optional; absent means `state` speaks for all four.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "es": { "$ref": "#/$defs/reviewState" },
+            "en": { "$ref": "#/$defs/reviewState" },
+            "fr": { "$ref": "#/$defs/reviewState" },
+            "pt": { "$ref": "#/$defs/reviewState" }
+          }
+        },
+        "reviewers": {
+          "description": "Who reviewed, as a name or handle a reader can ask. Required for `state: reviewed`.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "note": {
+          "description": "What the drafting pass was unsure of — the sentence a reviewer should look at first.",
+          "type": "string"
+        }
+      }
+    },
     "termId": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",

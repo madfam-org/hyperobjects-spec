@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "sett",
+  "domain": "garment-construction",
+  "term": {
+    "en": "sett (tartan repeat)",
+    "es": "sett (repetición del tartán)",
+    "fr": "sett (rapport du tartan)",
+    "pt": "sett (repetição do tartã)"
+  },
+  "definition": {
+    "en": "The repeat of a tartan — the block of colours after which the pattern starts again. In a kilt it stops being decoration and becomes a dimension: an eight-yard kilt is pleated so that each pleat shows one full repeat, which makes the pleat depth the sett's width and the pleat count a whole number rather than a chosen fullness.",
+    "es": "La repetición de un tartán — el bloque de colores tras el cual el dibujo vuelve a empezar. En un kilt deja de ser decoración y se vuelve dimensión: un kilt de ocho yardas se plisa de modo que cada pliegue muestre una repetición completa, lo que hace que la profundidad del pliegue sea el ancho del sett y que el número de pliegues sea un entero y no un vuelo elegido.",
+    "fr": "Le rapport d'un tartan — le bloc de couleurs après lequel le motif recommence. Dans un kilt, il cesse d'être un ornement et devient une dimension : un kilt de huit yards est plissé de sorte que chaque pli montre un rapport entier, ce qui fait de la profondeur du pli la largeur du sett et du nombre de plis un entier, non une ampleur choisie.",
+    "pt": "A repetição de um tartã — o bloco de cores após o qual o padrão recomeça. Num kilt deixa de ser decoração e torna-se dimensão: um kilt de oito jardas é pregueado de modo que cada prega mostre uma repetição inteira, o que faz da profundidade da prega a largura do sett e do número de pregas um inteiro, e não uma amplitude escolhida."
+  },
+  "aliases": [
+    {
+      "name": "pleated_to_sett",
+      "repo": "fashion-cabinet",
+      "note": "The capability key on kilt-8yard; the cartridge takes the sett as a size parameter and solves an integer pleat count from it."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/kilt-8yard"],
+  "see_also": ["gather-ratio", "heritage", "waistband", "strap-slot"],
+  "constraints": "The pleat count is an INTEGER solved from the back width over the pleat face, and the cloth those pleats consume follows from it — so the sett is an input to the cut length, and 'about eight yards' is a result the draft reports rather than a quantity it assumes.",
+  "heritage": true,
+  "sources": [
+    "fashion-cabinet/projects/kilt-8yard/docs/README.md — provenance and scope (the sett is treated as a SIZE, not a specific clan pattern; no tartan is drawn, invented or assigned) and the integer pleat-count solve"
+  ],
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "The cartridge deliberately draws no tartan. The sett enters the draft as a width, which is exactly the part of the tradition a pattern generator can honestly hold: the pattern itself belongs to the weavers and the families whose it is."
+}

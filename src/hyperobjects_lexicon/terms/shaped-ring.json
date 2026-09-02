@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "shaped-ring",
+  "domain": "capability",
+  "term": {
+    "en": "shaped ring",
+    "es": "anillo conformado",
+    "fr": "anneau galbé",
+    "pt": "anel moldado"
+  },
+  "definition": {
+    "en": "The capability of a band drafted as a flattened truncated cone rather than a straight strip: its top edge sums to one body girth and its lower edge to another, so it sits between two different measurements and stays where it is put. It is the difference between a belt that follows the taper from waist to hip and one that rides up or falls down.",
+    "es": "La capacidad de una banda trazada como un cono truncado desarrollado en plano en vez de una tira recta: su canto superior suma un contorno del cuerpo y el inferior otro, de modo que se asienta entre dos medidas distintas y se queda donde se la pone. Es la diferencia entre un cinturón que sigue el afilado de la cintura a la cadera y otro que sube o cae.",
+    "fr": "La capacité d'une bande tracée comme un tronc de cône développé à plat plutôt que comme une bande droite : son bord supérieur totalise un tour de corps et son bord inférieur un autre, si bien qu'elle se place entre deux mesures différentes et reste où on la met. C'est la différence entre une ceinture qui suit la conicité de la taille à la hanche et une qui remonte ou tombe.",
+    "pt": "A capacidade de uma banda traçada como um tronco de cone planificado em vez de uma tira direita: o seu bordo superior soma um perímetro do corpo e o inferior outro, pelo que assenta entre duas medidas diferentes e fica onde é posta. É a diferença entre um cinto que segue o afunilamento da cintura para a anca e outro que sobe ou cai."
+  },
+  "aliases": [
+    {
+      "name": "shaped_ring",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02 (garter-belt, suspender-belt)."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/garter-belt", "fashion-cabinet/suspender-belt"],
+  "see_also": ["waistband", "girth", "side-seam", "strap-slot"],
+  "constraints": "Every panel takes the SAME flare, not a flare proportional to its width. fashion-cabinet/garter-belt's verifier caught the proportional version during drafting: with proportional flare the wide panels slant harder than the narrow ones and the slanted seams cannot meet.",
+  "review_status": {
+    "state": "generated"
+  }
+}

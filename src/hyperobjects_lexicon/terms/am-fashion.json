@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "am-fashion",
+  "domain": "capability",
+  "term": {
+    "en": "additive-manufactured fashion",
+    "es": "moda de fabricación aditiva",
+    "fr": "mode en fabrication additive",
+    "pt": "moda de fabrico aditivo"
+  },
+  "definition": {
+    "en": "The capability of a garment cartridge that includes printed bodies as garment pieces — not as fastenings on the garment, but as parts of it. It is the soft commons' name for the region where the two halves overlap so completely that the cartridge belongs to both.",
+    "es": "La capacidad de un cartucho de prenda que incorpora cuerpos impresos como piezas de la prenda — no como cierres sobre ella, sino como partes de ella. Es el nombre que el procomún blando da a la región donde las dos mitades se solapan tanto que el cartucho pertenece a ambas.",
+    "fr": "La capacité d'une cartouche de vêtement qui intègre des corps imprimés comme pièces du vêtement — non comme fermetures posées dessus, mais comme parties de celui-ci. C'est le nom que les communs souples donnent à la zone où les deux moitiés se recouvrent au point que la cartouche appartient aux deux.",
+    "pt": "A capacidade de um cartucho de peça que integra corpos impressos como peças da própria peça — não como fechos sobre ela, mas como partes dela. É o nome que o comum macio dá à região onde as duas metades se sobrepõem ao ponto de o cartucho pertencer a ambas."
+  },
+  "aliases": [
+    {
+      "name": "am_fashion",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key (true on 21 cartridges) and a hyperobject.domain enum value in the garment manifest schema."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/flexure-cuff-glove",
+    "fashion-cabinet/hinge-collar-capelet",
+    "fashion-cabinet/gusset-flexure-legging",
+    "fashion-cabinet/chainmail-drape-top"
+  ],
+  "see_also": ["printed-textile", "panel-edge", "cross-commons-identity", "hardware-bridge"],
+  "constraints": "A printed piece is still a piece: it has to be sewn to something, so an AM-fashion cartridge must declare the edge where the printed body meets cloth. Without that edge the two materials are in the same photograph and not in the same garment.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "gather-ratio",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "gather ratio",
+    "es": "proporción de fruncido",
+    "fr": "ratio de fronçage",
+    "pt": "rácio de franzido"
+  },
+  "definition": {
+    "en": "How many times longer the gathered edge is than the band it is sewn onto — the number that turns fullness into a dimension. At 1.5 it reads as a soft gather, at 6 it is the volume of an altiplano pollera, and either way the gathered edge is solved from the band rather than guessed.",
+    "es": "Cuántas veces más largo es el canto fruncido que la banda a la que se cose — el número que convierte el vuelo en una dimensión. En 1.5 se lee como un fruncido suave, en 6 es el volumen de una pollera altiplánica, y en cualquier caso el canto fruncido se resuelve a partir de la banda y no se adivina.",
+    "fr": "Combien de fois le bord froncé est plus long que la bande sur laquelle il est cousu — le nombre qui transforme l'ampleur en dimension. À 1,5 cela se lit comme un fronçage souple, à 6 c'est le volume d'une pollera de l'altiplano, et dans les deux cas le bord froncé est résolu à partir de la bande, non deviné.",
+    "pt": "Quantas vezes o bordo franzido é mais comprido do que a banda a que é cosido — o número que transforma a amplitude numa dimensão. A 1,5 lê-se como um franzido suave, a 6 é o volume de uma pollera do altiplano, e em qualquer dos casos o bordo franzido é resolvido a partir da banda e não adivinhado."
+  },
+  "aliases": [
+    {
+      "name": "gather_ratio",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on 15 cartridges as of 2026-09-02; `binding_ratio`, `cuff_ratio`, `hemband_ratio` and `neckband_ratio` are the same idea below 1, where the band is shorter than the edge."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/aymara-pollera-skirt",
+    "fashion-cabinet/can-can-ruffle-skirt",
+    "fashion-cabinet/ballet-tutu-platter"
+  ],
+  "see_also": ["waistband", "alforza", "hem", "elastic-finish", "bound-neckline"],
+  "constraints": "The ratio is applied to the BAND to get the panel, so the gathered top matches the band by construction; and the cloth it costs is real — fashion-cabinet/aymara-pollera-skirt solves panel width from the waist at 2.5–6.5× and reports the true cloth volume rather than leaving it to the cutting table.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "spec_version": 1,
+  "object": "fashion-cabinet/chaleco-charro",
+  "title": {
+    "en": "Chaleco Charro",
+    "es": "Chaleco charro"
+  },
+  "summary": {
+    "en": "The waistcoat of the traje de charro — the Mexican horseman's suit. Short, close, cut in worsted wool, with peaked lapels and a hook-and-bar front that closes edge to edge. Its length is set by the trouser, not by the torso.",
+    "es": "El chaleco del traje de charro. Corto, ceñido, cortado en lana peinada, con solapa de pico y un frente de corchete y barra que cierra a tope. Su largo lo fija el pantalón, no el torso."
+  },
+  "article": {
+    "path": "projects/chaleco-charro/docs/README.md",
+    "sections": [
+      "Provenance",
+      "Why it earns its rank — and why it is not the waistcoat",
+      "The two things that must solve",
+      "The hook column rounds up",
+      "Clamping",
+      "Hardware bridge",
+      "Construction notes",
+      "What is deliberately excluded",
+      "Honest simplifications"
+    ]
+  },
+  "era": "Contemporary, in continuous use; the dress of a living regulated practice",
+  "provenance": {
+    "tradition": "Charrería",
+    "regions": ["Mexico", "the Mexican diaspora"],
+    "custodians": [
+      "the sastres and artisans who make the traje de charro",
+      "the families who own their greca designs and silverwork",
+      "Federación Mexicana de Charrería (competition dress codes)"
+    ],
+    "note": {
+      "en": "Charrería is Mexico's national sport and a living practice, recognised by UNESCO in 2016 as Intangible Cultural Heritage. The traje de charro is its working and formal dress, worn by charros and charras, by mariachi musicians, and at weddings and civic occasions.",
+      "es": "La charrería es el deporte nacional de México y una práctica viva, reconocida por la UNESCO en 2016 como Patrimonio Cultural Inmaterial. El traje de charro es su vestimenta de trabajo y de gala, y lo visten charros y charras, músicos de mariachi, y quienes acuden a bodas y actos cívicos."
+    }
+  },
+  "heritage": true,
+  "excludes": [
+    "No botonadura de plata: the silverwork of the gala categories is the work and the property of the artisans who make it.",
+    "No greca designs: the braid patterns themselves belong to the makers, the regions and the families whose they are. The cartridge marks placement rows and draws no pattern.",
+    "No escudo, and no association or team insignia.",
+    "No competition dress code: what may be worn in which category belongs to the Federación Mexicana de Charrería, not to a pattern generator."
+  ],
+  "sources": [
+    "fashion-cabinet/projects/chaleco-charro/docs/README.md — Provenance, and 'What is deliberately excluded'",
+    "UNESCO Representative List of the Intangible Cultural Heritage of Humanity — charrería, inscribed 2016 (as cited by the cartridge's provenance section)"
+  ],
+  "related": {
+    "terms": [
+      "soutache",
+      "button-stand",
+      "placement-line",
+      "tailoring",
+      "hook-closure",
+      "center-front",
+      "heritage"
+    ],
+    "objects": [
+      "fashion-cabinet/waistcoat",
+      "fashion-cabinet/sarape-poncho"
+    ]
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Assembled by reading the cartridge's own README, as the G2 exemplar for the frontmatter contract. Every claim here is the README's; the editorial decisions — which sections a reader should be able to jump to, which neighbouring objects are worth reading next — are proposals for the commons' editors, and the provenance note deserves a reader who knows the tradition."
+  },
+  "notes": "The exemplar for RFC 0039 G2. It is a heritage article on purpose: heritage entries are the set that exercises every rule the contract has — the citation bar, the excludes bar, provenance with named custodians — and the rank-300 chaleco is the entry whose README set the documentation standard the bar was written from."
+}

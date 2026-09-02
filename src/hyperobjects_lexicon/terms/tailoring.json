@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "tailoring",
+  "domain": "capability",
+  "term": {
+    "en": "tailoring",
+    "es": "sastrería",
+    "fr": "tailleur (construction)",
+    "pt": "alfaiataria"
+  },
+  "definition": {
+    "en": "The capability of a cartridge whose garment is built rather than merely sewn: canvassed and padded fronts, a pressed lapel roll, shaped seams that hold a form the body does not supply. The distinguishing mark is that the shape is in the construction — take the inner structure out and a tailored garment stops standing up.",
+    "es": "La capacidad de un cartucho cuya prenda se construye en lugar de solo coserse: delanteros entretelados y pespunteados, un cuello y solapa planchados en su quiebre, costuras conformadas que sostienen una forma que el cuerpo no da. La marca distintiva es que la forma está en la construcción — quítale la estructura interior y una prenda de sastrería deja de sostenerse.",
+    "fr": "La capacité d'une cartouche dont le vêtement est construit et non simplement cousu : devants entoilés et picqués, cassure de col repassée, coutures galbées qui tiennent une forme que le corps ne fournit pas. Le signe distinctif est que la forme est dans la construction — ôtez la structure intérieure et un vêtement de tailleur cesse de tenir debout.",
+    "pt": "A capacidade de um cartucho cuja peça é construída e não apenas cosida: frentes entreteladas e pespontadas, uma quebra de lapela passada a ferro, costuras moldadas que sustentam uma forma que o corpo não dá. A marca distintiva é que a forma está na construção — tire-se a estrutura interior e uma peça de alfaiataria deixa de se aguentar."
+  },
+  "aliases": [
+    {
+      "name": "tailoring",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 27 cartridges as of 2026-09-02. The canonical spelling."
+    },
+    {
+      "name": "tailored",
+      "repo": "fashion-cabinet",
+      "note": "The same claim as an adjective, on one cartridge (nehru-sherwani)."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/blazer",
+    "fashion-cabinet/covert-coat",
+    "fashion-cabinet/frock-coat",
+    "fashion-cabinet/chaleco-charro"
+  ],
+  "see_also": ["button-stand", "shoulder-seam", "dart", "drape-class", "block"],
+  "constraints": "A tailored front holds its roll only if the cloth can be shaped with heat and moisture, so the claim implies a fibre: a fused synthetic will not take a pressed lapel roll, and the cartridge's fabric card is where that gets stated rather than assumed.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "One cartridge (marching-band-tunic) declares `structured_tailoring`, which is a narrower claim — a tunic built over a rigid front — rather than a spelling of this one."
+}

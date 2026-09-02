@@ -1,0 +1,42 @@
+{
+  "spec_version": 2,
+  "id": "hook-closure",
+  "domain": "capability",
+  "term": {
+    "en": "hook-and-eye closure",
+    "es": "cierre de corchete",
+    "fr": "fermeture par agrafe",
+    "pt": "fecho de colchete"
+  },
+  "definition": {
+    "en": "The capability of closing a garment with hooks engaging eyes or bars — the flat, strong, adjustable closure of structured intimates and of edge-to-edge fronts. It closes without a lap and without a zip, which is why it is what a bra band and a charro waistcoat both use.",
+    "es": "La capacidad de cerrar una prenda con corchetes que enganchan en presillas o barras — el cierre plano, resistente y regulable de la lencería estructurada y de los delanteros a tope. Cierra sin montar una parte sobre otra y sin cremallera, y por eso lo usan tanto la banda de un sujetador como un chaleco charro.",
+    "fr": "La capacité de fermer un vêtement avec des agrafes qui s'engagent dans des portes ou des barrettes — la fermeture plate, solide et réglable de la lingerie structurée et des devants bord à bord. Elle ferme sans croisure et sans glissière, et c'est pourquoi la bande d'un soutien-gorge et un gilet de charro l'emploient toutes deux.",
+    "pt": "A capacidade de fechar uma peça com colchetes que engatam em presilhas ou barras — o fecho plano, resistente e regulável da lingerie estruturada e das frentes topo a topo. Fecha sem sobreposição e sem fecho de correr, e é por isso que tanto a banda de um soutien como um colete charro o usam."
+  },
+  "aliases": [
+    {
+      "name": "hook_closure",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 15 cartridges and true on 13 as of 2026-09-02, concentrated in the structured-intimates lane."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/garter-belt",
+    "fashion-cabinet/nursing-bra",
+    "fashion-cabinet/chaleco-charro"
+  ],
+  "see_also": [
+    "hook-loop-closure",
+    "placket",
+    "button-closure",
+    "hardware-bridge",
+    "closure-free"
+  ],
+  "constraints": "A hook set closes on a band that is under tension, so the rows of eyes are a range and not a point: the band is drafted at the tightest row, and the looser rows are what the garment gives back as it is worn in.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "NOT the same capability as `hook_loop_closure`, despite the shared word — that is hook-and-LOOP tape. The two bridge to different solid cartridges (yantra4d/hook-and-eye against yantra4d/hook-loop-tape), and the vocabulary records them as explicitly distinct so that a de-duplication pass cannot merge them."
+}

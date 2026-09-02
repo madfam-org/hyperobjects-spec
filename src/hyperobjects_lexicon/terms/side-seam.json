@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "side-seam",
+  "domain": "garment-construction",
+  "term": {
+    "en": "side seam",
+    "es": "costura lateral",
+    "fr": "couture de côté",
+    "pt": "costura lateral"
+  },
+  "definition": {
+    "en": "The seam joining the front of a garment to its back down the side of the body, and the shaping that lives in it. It is where a draft puts the difference between a bust girth and a waist girth, because it is the one vertical line on a simple garment that can be curved without showing as a design feature.",
+    "es": "La costura que une el delantero de una prenda con su espalda por el costado del cuerpo, y el entalle que vive en ella. Es donde un trazo coloca la diferencia entre un contorno de busto y uno de cintura, porque es la única línea vertical de una prenda sencilla que puede curvarse sin leerse como un recurso de diseño.",
+    "fr": "La couture qui joint le devant d'un vêtement à son dos le long du côté du corps, et le cintrage qui y loge. C'est là qu'un tracé place la différence entre un tour de poitrine et un tour de taille, parce que c'est la seule ligne verticale d'un vêtement simple qui puisse être galbée sans se lire comme un parti pris de style.",
+    "pt": "A costura que une a frente de uma peça às costas pelo lado do corpo, e o entalhe que nela vive. É onde um traçado coloca a diferença entre um perímetro de busto e um de cintura, porque é a única linha vertical de uma peça simples que pode ser curvada sem se ler como um recurso de desenho."
+  },
+  "aliases": [
+    {
+      "name": "side_seam",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 146 declared interfaces as of 2026-09-02, and the type the printed-panel cartridges reuse for their `panel_edge`."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/ao-dai-tunic",
+    "fashion-cabinet/barong",
+    "fashion-cabinet/garter-belt",
+    "fashion-cabinet/articulated-scale-mail"
+  ],
+  "see_also": ["hem", "armscye", "waistband", "panel-edge", "ease"],
+  "constraints": "The two edges are sewn to each other, so they are one length: front side and back side must measure the same from underarm to hem, and shaping taken from only one of them is shaping that will not close.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "A garment can legitimately have no side seam — the cut-in-one and uncut-cloth traditions run the body around the figure without one, and `fold_cutting` is how a cartridge says so. The absence is a construction choice, not a missing interface."
+}

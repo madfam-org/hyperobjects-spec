@@ -1,0 +1,48 @@
+{
+  "spec_version": 2,
+  "id": "strap-slot",
+  "domain": "cross-commons",
+  "term": {
+    "en": "strap slot",
+    "es": "pasador de cinta",
+    "fr": "passant de sangle",
+    "pt": "passador de fita"
+  },
+  "definition": {
+    "en": "The rectangular opening through a piece of solid hardware that a strap or webbing passes through, together with the garment edge that passes through it. Buckles, clips and sliders are made almost entirely of this feature: the slot is the whole reason the object exists, and its width is a garment measurement wearing hardware clothing.",
+    "es": "La abertura rectangular de una pieza de herrajería sólida por la que pasa una cinta o correa, junto con el canto de prenda que la atraviesa. Hebillas, clips y reguladores están hechos casi por completo de este rasgo: el pasador es toda la razón de ser del objeto, y su ancho es una medida de prenda vestida de herraje.",
+    "fr": "L'ouverture rectangulaire d'une pièce de quincaillerie solide par laquelle passe une sangle ou une bride, ainsi que le bord de vêtement qui la traverse. Boucles, clips et coulisseaux sont faits presque entièrement de ce détail : le passant est toute la raison d'être de l'objet, et sa largeur est une mesure de vêtement déguisée en quincaillerie.",
+    "pt": "A abertura retangular de uma peça de ferragem sólida pela qual passa uma fita ou correia, juntamente com o bordo de peça que a atravessa. Fivelas, clipes e reguladores são feitos quase inteiramente deste detalhe: o passador é toda a razão de ser do objeto, e a sua largura é uma medida de vestuário vestida de ferragem."
+  },
+  "aliases": [
+    {
+      "name": "strap_slot",
+      "repo": "yantra4d",
+      "note": "cdg_interface id on belt-buckle, garter-clip, overall-buckle and watch-adapter, geometry_type 'rail'."
+    },
+    {
+      "name": "webbing_slot",
+      "repo": "yantra4d",
+      "note": "The same feature under a second name on the webbing hardware (strap-buckle, suspender-clip, nebulizer-mask-strap, paracord-jig) — a within-repo dialect split, not a different interface."
+    },
+    {
+      "name": "strap_edge",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces id (type 'custom') on garter-belt, suspender-belt and nursing-clip-bra — the cloth side of the same passage."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/belt-buckle",
+    "yantra4d/garter-clip",
+    "yantra4d/strap-buckle",
+    "fashion-cabinet/garter-belt",
+    "fashion-cabinet/suspender-belt",
+    "fashion-cabinet/kilt-8yard"
+  ],
+  "see_also": ["rail", "hardware-ref", "sew-field", "tape-edge"],
+  "constraints": "One parameter drives both sides or the strap does not thread. The garment's finished strap width and the hardware's slot width must come from the same number plus a declared clearance — fashion-cabinet/garter-belt maps `strap_w` to the clip's `strap_w` with `grip_clear: 0.3`, and a bridge that maps neither is two objects agreeing only by name.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Yantra4D says this two ways — `strap_slot` on the buckle family and `webbing_slot` on the webbing family — which is the same class of drift as `zipper_tape`/`tape_edge` happening inside one repo rather than across two."
+}

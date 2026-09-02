@@ -1,0 +1,40 @@
+{
+  "spec_version": 2,
+  "id": "elastic-finish",
+  "domain": "capability",
+  "term": {
+    "en": "elastic finish",
+    "es": "acabado elástico",
+    "fr": "finition élastique",
+    "pt": "acabamento elástico"
+  },
+  "definition": {
+    "en": "The capability of finishing an edge with elastic cut SHORTER than the edge it is sewn to, so the finished edge gathers and grips. The ratio between the two lengths is the whole design: it is what makes a leg opening hold without a fastening and a band stay where it is put.",
+    "es": "La capacidad de rematar un canto con elástico cortado MÁS CORTO que el canto al que se cose, de modo que el borde acabado frunza y agarre. La proporción entre ambos largos es todo el diseño: es lo que hace que una abertura de pierna sujete sin cierre y que una banda se quede donde se la pone.",
+    "fr": "La capacité de finir un bord avec un élastique coupé PLUS COURT que le bord auquel il est cousu, de sorte que le bord fini fronce et serre. Le rapport entre les deux longueurs est tout le dessin : c'est ce qui fait qu'une ouverture de jambe tient sans fermeture et qu'une bande reste où on la met.",
+    "pt": "A capacidade de rematar um bordo com elástico cortado MAIS CURTO do que o bordo a que é cosido, de modo que a orla acabada franza e agarre. A razão entre os dois comprimentos é todo o desenho: é o que faz uma abertura de perna segurar sem fecho e uma banda ficar onde é posta."
+  },
+  "aliases": [
+    {
+      "name": "elastic_finish",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 28 cartridges and true on 27 as of 2026-09-02, usually alongside an `elastic_ratio` or `elastic_width` parameter."
+    },
+    {
+      "name": "elastic_drawcord_finish",
+      "repo": "fashion-cabinet",
+      "note": "One cartridge (windbreaker) combines this with a drawcord in a single key — a compound claim rather than a synonym."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bikini-bottom",
+    "fashion-cabinet/boxer-briefs",
+    "fashion-cabinet/briefs",
+    "fashion-cabinet/swim-trunks"
+  ],
+  "see_also": ["waistband", "hem", "knit-negative-ease", "pull-on", "cord-channel"],
+  "constraints": "The ratio is applied to the ELASTIC, not to the cloth: the cloth edge stays at its drafted length and the elastic is cut at that length times a ratio below one. Cutting both short takes the gather out and leaves a garment a size smaller than it says.",
+  "review_status": {
+    "state": "generated"
+  }
+}

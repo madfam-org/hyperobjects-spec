@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "id": "garment-pocket",
+  "domain": "garment-construction",
+  "term": {
+    "en": "pocket",
+    "es": "bolsillo",
+    "fr": "poche",
+    "pt": "bolso"
+  },
+  "definition": {
+    "en": "An opening in a garment with a bag behind it. The interface is really the mouth: where it is, how wide it is, and which edge of which piece it is cut into. The bag is consequence — it hangs from the mouth, and everything it can hold has to pass through it first.",
+    "es": "Una abertura en una prenda con una bolsa detrás. La interfaz es en realidad la boca: dónde está, cuánto mide y en qué canto de qué pieza está abierta. La bolsa es consecuencia — cuelga de la boca, y todo lo que puede contener tiene que pasar antes por ella.",
+    "fr": "Une ouverture dans un vêtement avec un sac derrière. L'interface, c'est en réalité l'entrée : où elle se trouve, sa largeur, et dans quel bord de quelle pièce elle est ouverte. Le sac est une conséquence — il pend de l'entrée, et tout ce qu'il peut contenir doit d'abord passer par elle.",
+    "pt": "Uma abertura numa peça com um saco por trás. A interface é, na verdade, a boca: onde está, quanto mede e em que bordo de que peça está aberta. O saco é consequência — pende da boca, e tudo o que pode conter tem primeiro de passar por ela."
+  },
+  "aliases": [
+    {
+      "name": "pocket",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces[].type value; 44 declared interfaces as of 2026-09-02. NOT the same concept as Yantra4D's geometry_type of the same spelling, which is a recess in a solid."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/cargo-pants",
+    "fashion-cabinet/chore-coat",
+    "fashion-cabinet/bib-work-apron",
+    "fashion-cabinet/battery-pocket-liner"
+  ],
+  "see_also": ["pocket-recess", "hem", "placket", "side-seam"],
+  "constraints": "The mouth is the dimension that matters, and it is a dimension about a hand: a bag wider than its own opening is usable, a bag narrower than its opening is a bag whose corners nothing reaches.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "A false friend with Yantra4D's `pocket`, and the pair the interface vocabulary records as explicitly distinct. The two do meet in one real case — fashion-cabinet/battery-pocket-liner's framed bay is drafted around yantra4d/battery-pocket-frame — but there the garment pocket CONTAINS the solid, which is the opposite of the two names being the same thing."
+}

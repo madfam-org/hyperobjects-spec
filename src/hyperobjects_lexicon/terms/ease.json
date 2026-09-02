@@ -14,8 +14,11 @@
     "pt": "A diferença entre a medida acabada de uma peça e a medida do corpo que vai por baixo. A folga positiva é espaço: para o movimento, para respirar, para a silhueta que a peça procura. A folga negativa é o contrário e não é um erro: uma malha cortada mais pequena do que o corpo estica para entrar e mantém-se lá, e é assim que fatos de banho, roupa interior e roupa desportiva se aguentam no sítio. A folga é o que separa uma peça de um molde do corpo."
   },
   "aliases": [
-    { "name": "ease", "repo": "fashion-cabinet", "note": "The most widespread parameter family in the soft commons — chest_ease, hip_ease, wrap_ease, drape_ease and others across 180 cartridges." },
-    { "name": "knit_negative_ease", "repo": "fashion-cabinet", "note": "The hyperobject capability flag declaring that a cartridge's draft is designed to be cut smaller than the body; set on 32 cartridges." }
+    {
+      "name": "ease",
+      "repo": "fashion-cabinet",
+      "note": "The most widespread parameter family in the soft commons — chest_ease, hip_ease, wrap_ease, drape_ease and others across 180 cartridges."
+    }
   ],
   "standards": ["ISO 8559-1"],
   "embodied_by": [
@@ -24,7 +27,14 @@
     "fashion-cabinet/blouse",
     "fashion-cabinet/abaya"
   ],
-  "see_also": ["seam-allowance", "dart", "body-measurements", "shoulder-slope"],
+  "see_also": [
+    "seam-allowance",
+    "dart",
+    "body-measurements",
+    "shoulder-slope",
+    "knit-negative-ease",
+    "negative-ease"
+  ],
   "constraints": "Negative ease is a claim about the fabric, not about the pattern: it only holds for a knit with enough recovery to return, and applying it to a woven produces a garment that does not close. A cartridge drafting negative ease declares the capability so the claim is checkable rather than implied.",
-  "notes": "Ease is not seam allowance. Ease changes the size of the finished garment; seam allowance is consumed by the sewing and does not appear in the finished measurement at all. Confusing the two is the classic first-draft error, and it compounds at every seam."
+  "notes": "Ease is not seam allowance. Ease changes the size of the finished garment; seam allowance is consumed by the sewing and does not appear in the finished measurement at all. Confusing the two is the classic first-draft error, and it compounds at every seam. The capability flag `knit_negative_ease`, which was recorded here as an alias when this was the only entry about ease, now has its own entry: negative ease is a different move rather than a smaller amount of this one."
 }

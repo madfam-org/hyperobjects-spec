@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "set-in-sleeve",
+  "domain": "capability",
+  "term": {
+    "en": "set-in sleeve",
+    "es": "manga montada",
+    "fr": "manche montée",
+    "pt": "manga montada"
+  },
+  "definition": {
+    "en": "The capability of a garment whose sleeve is a separate piece sewn into a closed armhole, its cap eased around the curve. It is the construction that gives a shoulder its shape and a garment its tailored line, and it is the one that asks most of the draft: the cap's length must match the armhole it goes into, with a stated amount of ease and no more.",
+    "es": "La capacidad de una prenda cuya manga es una pieza aparte cosida a una sisa cerrada, con la copa embebida alrededor de la curva. Es la construcción que da forma al hombro y línea de sastrería a la prenda, y la que más exige al trazo: el largo de la copa debe corresponder a la sisa en la que entra, con una cantidad declarada de embebido y ni una más.",
+    "fr": "La capacité d'un vêtement dont la manche est une pièce séparée cousue dans une emmanchure fermée, sa tête embue autour de la courbe. C'est la construction qui donne sa forme à l'épaule et sa ligne de tailleur au vêtement, et celle qui exige le plus du tracé : la longueur de la tête doit correspondre à l'emmanchure où elle entre, avec une quantité d'embu déclarée et pas davantage.",
+    "pt": "A capacidade de uma peça cuja manga é uma peça separada cosida a uma cava fechada, com a cabeça embebida à volta da curva. É a construção que dá forma ao ombro e linha de alfaiataria à peça, e a que mais exige do traçado: o comprimento da cabeça tem de corresponder à cava em que entra, com uma quantidade declarada de embebido e não mais."
+  },
+  "aliases": [
+    {
+      "name": "set_in_sleeve",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 2 cartridges as of 2026-09-02, and an interface id on many more — the flag is declared far less often than the construction is drafted."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/marching-band-tunic",
+    "fashion-cabinet/thermal-waffle-henley",
+    "fashion-cabinet/baju-melayu-set"
+  ],
+  "see_also": ["armscye", "sleeve-cap", "raglan", "shoulder-seam", "gusset"],
+  "constraints": "Cap length equals armhole length plus the declared cap ease, measured off the drawn curves rather than computed from two formulas — the cartridges that solve the cap by bisection do so precisely because a formula-and-formula pair drifts apart at the extremes of the parameter range.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Its alternatives are a family, not a fallback: raglan, cut-in-one, kimono and dropped-shoulder each solve the same join differently, and the catalog declares each of them under its own key."
+}

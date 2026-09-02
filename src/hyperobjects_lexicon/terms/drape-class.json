@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "drape-class",
+  "domain": "materials",
+  "term": {
+    "en": "drape class",
+    "es": "clase de caída",
+    "fr": "classe de tombé",
+    "pt": "classe de cair"
+  },
+  "definition": {
+    "en": "Where a cloth sits on the scale from fluid to stiff — how it falls when it is not held. It is recorded as a class rather than a number because drape is a behaviour rather than a measurement, and it is the property that decides whether a shape has to be cut into the pattern or will be made by the cloth itself.",
+    "es": "Dónde se sitúa una tela en la escala de fluida a rígida — cómo cae cuando nada la sostiene. Se registra como clase y no como número porque la caída es un comportamiento y no una medida, y es la propiedad que decide si una forma hay que cortarla en el patrón o la hará la propia tela.",
+    "fr": "Où une étoffe se situe sur l'échelle du fluide au raide — comment elle tombe quand rien ne la retient. On l'enregistre comme une classe et non comme un nombre, parce que le tombé est un comportement et non une mesure, et c'est la propriété qui décide si une forme doit être coupée dans le patron ou sera faite par le tissu lui-même.",
+    "pt": "Onde um tecido se situa na escala do fluido ao rígido — como cai quando nada o segura. Regista-se como classe e não como número porque o cair é um comportamento e não uma medida, e é a propriedade que decide se uma forma tem de ser cortada no molde ou será feita pelo próprio tecido."
+  },
+  "aliases": [
+    {
+      "name": "physical.drape_class",
+      "repo": "fashion-cabinet",
+      "note": "Enum on the fabric card: fluid, soft, medium, crisp, stiff. The digital twin carries a parallel bend_stiffness_class."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/manta-cruda",
+    "fashion-cabinet/jersey-algodon",
+    "fashion-cabinet/evening-gown"
+  ],
+  "see_also": ["gsm", "bias-cutting", "tailoring", "woven"],
+  "constraints": "Drape substitutes for shaping, so it is part of the pattern's assumptions: a fluid cloth will fall into a line a crisp one must be darted into, and the same pattern cut in the other class is a different garment rather than the same garment in another colour.",
+  "review_status": {
+    "state": "generated"
+  }
+}

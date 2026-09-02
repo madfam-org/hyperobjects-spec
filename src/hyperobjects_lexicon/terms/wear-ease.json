@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "wear-ease",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "wearing ease",
+    "es": "holgura de uso",
+    "fr": "aisance de confort",
+    "pt": "folga de uso"
+  },
+  "definition": {
+    "en": "The part of a garment's ease that exists so a body can move and breathe inside it, as distinct from the part that exists because the garment is meant to look loose. Keeping the two separate is what lets a coat be drafted over a jacket without becoming a different silhouette.",
+    "es": "La parte de la holgura de una prenda que existe para que un cuerpo pueda moverse y respirar dentro de ella, distinta de la parte que existe porque la prenda quiere verse amplia. Mantener las dos separadas es lo que permite trazar un abrigo sobre una chaqueta sin cambiar de silueta.",
+    "fr": "La part de l'aisance d'un vêtement qui existe pour qu'un corps puisse bouger et respirer dedans, distincte de celle qui existe parce que le vêtement est censé paraître ample. Garder les deux séparées est ce qui permet de tracer un manteau par-dessus une veste sans changer de silhouette.",
+    "pt": "A parte da folga de uma peça que existe para que um corpo se possa mover e respirar dentro dela, distinta da parte que existe porque a peça quer parecer larga. Manter as duas separadas é o que permite traçar um casaco sobre um blazer sem mudar de silhueta."
+  },
+  "aliases": [
+    {
+      "name": "wear_ease / woven_ease / coat_ease",
+      "repo": "fashion-cabinet",
+      "note": "Named ease parameters — 20, 19 and 17 cartridges respectively as of 2026-09-02 — alongside the generic `ease` (47)."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/blazer",
+    "fashion-cabinet/cocoon-coat",
+    "fashion-cabinet/chore-coat"
+  ],
+  "see_also": ["ease", "girth", "negative-ease", "knit-stretch", "made-to-measure"],
+  "constraints": "Ease is added to the BODY measurement and layers do not add up linearly: a coat drafted over a jacket needs the jacket's finished girth as its body measurement, not the wearer's girth plus two eases.",
+  "review_status": {
+    "state": "generated"
+  }
+}

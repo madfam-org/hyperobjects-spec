@@ -1,0 +1,40 @@
+{
+  "spec_version": 2,
+  "id": "heritage",
+  "domain": "capability",
+  "term": {
+    "en": "heritage (capability flag)",
+    "es": "patrimonio (bandera de capacidad)",
+    "fr": "patrimoine (drapeau de capacité)",
+    "pt": "património (bandeira de capacidade)"
+  },
+  "definition": {
+    "en": "The capability flag by which a cartridge declares that the garment it drafts belongs to a living cultural tradition — and, by declaring it, accepts a documentation bar the rest of the catalog does not carry: provenance written out, the tradition's own words used, and an explicit statement of what the cartridge deliberately does not draw.",
+    "es": "La bandera de capacidad con la que un cartucho declara que la prenda que traza pertenece a una tradición cultural viva — y, al declararlo, acepta un listón de documentación que el resto del catálogo no lleva: procedencia escrita, las palabras propias de la tradición, y una declaración explícita de lo que el cartucho deliberadamente no dibuja.",
+    "fr": "Le drapeau de capacité par lequel une cartouche déclare que le vêtement qu'elle trace appartient à une tradition culturelle vivante — et, ce faisant, accepte une exigence de documentation que le reste du catalogue ne porte pas : provenance rédigée, mots propres de la tradition, et énoncé explicite de ce que la cartouche choisit délibérément de ne pas dessiner.",
+    "pt": "A bandeira de capacidade pela qual um cartucho declara que a peça que traça pertence a uma tradição cultural viva — e, ao declará-lo, aceita um nível de documentação que o resto do catálogo não carrega: proveniência escrita, as palavras próprias da tradição, e uma declaração explícita do que o cartucho deliberadamente não desenha."
+  },
+  "aliases": [
+    {
+      "name": "heritage",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 33 cartridges as of 2026-09-02 and never declared false — a cartridge either makes the claim or omits it."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/chaleco-charro",
+    "fashion-cabinet/changpao",
+    "fashion-cabinet/aymara-pollera-skirt",
+    "fashion-cabinet/kilt-8yard"
+  ],
+  "see_also": ["dajin", "alforza", "sett", "soutache", "societal-benefit"],
+  "constraints": "The flag engages a citation bar in both directions: a heritage cartridge documents its provenance, and a lexicon entry that repeats a heritage cartridge's cultural claim sets `heritage: true` and carries sources — RFC 0039 §7 fails an uncited cultural or historical claim, by design.",
+  "sources": [
+    "RFC 0039 §7 — no uncited cultural or historical claim (ratified 2026-08-25)",
+    "fashion-cabinet/projects/chaleco-charro/docs/README.md — 'What is deliberately excluded'"
+  ],
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "This entry defines the FLAG and makes no cultural claim of its own, so it does not itself set `heritage: true`. The entries that do — dajin, alforza, sett, soutache — each carry their sources."
+}

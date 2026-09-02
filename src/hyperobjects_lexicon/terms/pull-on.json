@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "pull-on",
+  "domain": "capability",
+  "term": {
+    "en": "pull-on",
+    "es": "de poner por la cabeza o los pies",
+    "fr": "à enfiler",
+    "pt": "de enfiar"
+  },
+  "definition": {
+    "en": "The capability of a garment that is put on by passing over the body rather than by opening: no zip, no buttons, nothing to undo. The whole fit question becomes one measurement — the narrowest opening against the widest part it must pass — and the fabric's stretch is what reconciles them.",
+    "es": "La capacidad de una prenda que se pone pasándola por el cuerpo en lugar de abrirla: sin cremallera, sin botones, sin nada que desabrochar. Toda la cuestión del ajuste se reduce a una medida —la abertura más estrecha frente a la parte más ancha que debe pasar— y la elasticidad de la tela es lo que las reconcilia.",
+    "fr": "La capacité d'un vêtement qu'on enfile en le faisant passer sur le corps plutôt qu'en l'ouvrant : pas de glissière, pas de boutons, rien à défaire. Toute la question de l'ajustement se réduit à une mesure — l'ouverture la plus étroite face à la partie la plus large qu'elle doit franchir — et l'élasticité du tissu est ce qui les réconcilie.",
+    "pt": "A capacidade de uma peça que se veste passando-a pelo corpo em vez de a abrir: sem fecho, sem botões, sem nada para desapertar. Toda a questão do ajuste se reduz a uma medida — a abertura mais estreita face à parte mais larga que tem de passar — e a elasticidade do tecido é o que as reconcilia."
+  },
+  "aliases": [
+    {
+      "name": "pull_on",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 9 cartridges and true on 7 as of 2026-09-02."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/high-waist-brief",
+    "fashion-cabinet/lounge-wide-pant",
+    "fashion-cabinet/racerback-sports-bra",
+    "fashion-cabinet/ski-base-layer-set"
+  ],
+  "see_also": ["closure-free", "knit-negative-ease", "waistband", "cuff", "elastic-finish"],
+  "constraints": "The opening must clear the widest point ON THE WAY IN, which is rarely the point it will sit on: a waistband that fits the waist has to pass the hip, and a neck opening that fits the neck has to pass the head — `head_girth` appears on 30 cartridges for exactly this reason.",
+  "review_status": {
+    "state": "generated"
+  }
+}

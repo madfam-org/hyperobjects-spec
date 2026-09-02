@@ -1,0 +1,41 @@
+{
+  "spec_version": 2,
+  "id": "panel-edge",
+  "domain": "cross-commons",
+  "term": {
+    "en": "panel edge",
+    "es": "canto de panel",
+    "fr": "bord de panneau",
+    "pt": "bordo de painel"
+  },
+  "definition": {
+    "en": "The sewn boundary of a printed textile panel: the line where a flexible printed sheet — chainmail, scale mail, lattice, pleat — stops being a printed body and becomes a piece of a garment. Both commons name this same edge, the solid side as the panel's own boundary interface and the soft side as the seam that takes it in, and the two are the same physical join on one object.",
+    "es": "El límite cosido de un panel textil impreso: la línea donde una lámina impresa flexible —cota de malla, escamas, celosía, plisado— deja de ser un cuerpo impreso y pasa a ser una pieza de prenda. Ambos procomunes nombran este mismo canto, el lado sólido como la interfaz de borde del propio panel y el lado blando como la costura que lo recibe, y los dos son la misma unión física sobre un mismo objeto.",
+    "fr": "La limite cousue d'un panneau textile imprimé : la ligne où une feuille imprimée souple — cotte de mailles, écailles, treillis, plissé — cesse d'être un corps imprimé pour devenir une pièce de vêtement. Les deux communs nomment ce même bord, le côté solide comme l'interface de contour du panneau lui-même et le côté souple comme la couture qui le reçoit, et tous deux sont le même assemblage physique sur un même objet.",
+    "pt": "O limite costurado de um painel têxtil impresso: a linha onde uma folha impressa flexível — cota de malha, escamas, treliça, pregas — deixa de ser um corpo impresso e passa a ser uma peça de vestuário. Os dois comuns nomeiam este mesmo bordo, o lado sólido como a interface de contorno do próprio painel e o lado macio como a costura que o recebe, e ambos são a mesma união física sobre um mesmo objeto."
+  },
+  "aliases": [
+    {
+      "name": "panel_edge",
+      "repo": "yantra4d",
+      "note": "cdg_interface id on the TPU panel family (tpu-chainmail-panel, tpu-scale-mail, tpu-lattice-panel, tpu-pleat-panel, living-hinge), geometry_type 'profile'."
+    },
+    {
+      "name": "panel_edge",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.interfaces id on chainmail-panel and articulated-scale-mail, declared with type 'side_seam' and driven by panel_width_mm / panel_height_mm."
+    }
+  ],
+  "embodied_by": [
+    "yantra4d/tpu-chainmail-panel",
+    "yantra4d/tpu-scale-mail",
+    "fashion-cabinet/chainmail-panel",
+    "fashion-cabinet/articulated-scale-mail"
+  ],
+  "see_also": ["tape-edge", "sew-field", "cross-commons-identity", "hardware-ref", "side-seam"],
+  "constraints": "The panel's edge is a whole number of repeats, not a free length. The bridge resolves the garment's panel_width_mm into an integer cell count — `round(panel_width_mm / (ring_id + wire_d))` for chainmail — so a drafted edge that is not a multiple of the cell pitch is printed to a rounded size and the sewn seam lands mid-cell.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "This is the second dialect pair after `zipper_tape`/`tape_edge`, and the easier one: both repos already spell it `panel_edge`. It is also the seam under the commons' first identity pair — yantra4d/tpu-chainmail-panel and fashion-cabinet/chainmail-panel are the same object in TPU-95A (examples/chainmail-panel.identity.json)."
+}

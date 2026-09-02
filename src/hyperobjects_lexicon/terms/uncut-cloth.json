@@ -1,0 +1,47 @@
+{
+  "spec_version": 2,
+  "id": "uncut-cloth",
+  "domain": "capability",
+  "term": {
+    "en": "uncut cloth",
+    "es": "tela sin cortar",
+    "fr": "étoffe non coupée",
+    "pt": "pano por cortar"
+  },
+  "definition": {
+    "en": "The capability of a garment made from cloth that is not cut at all, or barely — a woven length worn whole, wrapped, tied or draped, sometimes with a single slit for the head. It is a whole family of garments in which the loom's output is the garment, and the pattern is a set of instructions for the body rather than a set of pieces.",
+    "es": "La capacidad de una prenda hecha de tela que no se corta, o apenas — un largo tejido llevado entero, envuelto, atado o drapeado, a veces con una sola abertura para la cabeza. Es toda una familia de prendas en la que lo que sale del telar es la prenda, y el patrón es un conjunto de instrucciones para el cuerpo y no un conjunto de piezas.",
+    "fr": "La capacité d'un vêtement fait d'une étoffe qu'on ne coupe pas, ou à peine — une longueur tissée portée entière, enroulée, nouée ou drapée, parfois avec une seule fente pour la tête. C'est toute une famille de vêtements où la sortie du métier est le vêtement, et où le patron est un jeu d'instructions pour le corps plutôt qu'un jeu de pièces.",
+    "pt": "A capacidade de uma peça feita de tecido que não se corta, ou quase — um comprimento tecido usado inteiro, enrolado, atado ou drapeado, por vezes com uma única fenda para a cabeça. É toda uma família de peças em que o que sai do tear é a peça, e o molde é um conjunto de instruções para o corpo e não um conjunto de peças."
+  },
+  "aliases": [
+    {
+      "name": "uncut_cloth",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key on kente-wrap-cloth. Canonical spelling of this claim."
+    },
+    {
+      "name": "uncut",
+      "repo": "fashion-cabinet",
+      "note": "The same claim shortened, on kente-wrap."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/kente-wrap-cloth",
+    "fashion-cabinet/kente-wrap",
+    "fashion-cabinet/dhoti",
+    "fashion-cabinet/poncho-mexicano"
+  ],
+  "see_also": [
+    "panel-width-native",
+    "fabric-width",
+    "closure-free",
+    "fold-cutting",
+    "made-to-measure"
+  ],
+  "constraints": "With nothing cut, the cloth's own dimensions ARE the pattern: the loom width and the woven length are the parameters, and a body is fitted by how the cloth is folded and tied rather than by any line drawn on it.",
+  "review_status": {
+    "state": "generated"
+  },
+  "notes": "Three neighbouring single-use keys make narrower claims and are kept distinct in the vocabulary: `uncut_body` (the body panel uncut, on huipil-blouse), `unstitched` (no seams at all, on dhoti) and `closed_rectangle` (a rectangle closed with a head slit, on poncho-mexicano)."
+}

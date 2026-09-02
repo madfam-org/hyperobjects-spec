@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "wire-channel",
+  "domain": "capability",
+  "term": {
+    "en": "wire channel",
+    "es": "canal de aro",
+    "fr": "coulisse d'armature",
+    "pt": "canal de aro"
+  },
+  "definition": {
+    "en": "The capability of a garment to carry a rigid support wire inside a sewn channel — the underwire of a bra, running along the cradle seam under the bust. The channel is cloth; the wire is hardware; the garment's job is to hold the wire on a line that follows the body and to keep its ends from working out.",
+    "es": "La capacidad de una prenda de alojar un aro rígido de sostén dentro de un canal cosido — el aro de un sujetador, que recorre la costura del cazo bajo el pecho. El canal es tela, el aro es herraje, y el trabajo de la prenda es sostener el aro sobre una línea que siga al cuerpo e impedir que sus extremos se salgan.",
+    "fr": "La capacité d'un vêtement à porter une armature rigide dans une coulisse cousue — l'armature d'un soutien-gorge, qui suit la couture de bonnet sous la poitrine. La coulisse est du tissu, l'armature de la quincaillerie, et le travail du vêtement est de tenir l'armature sur une ligne qui suit le corps et d'empêcher ses extrémités de sortir.",
+    "pt": "A capacidade de uma peça alojar um aro rígido de suporte dentro de um canal cosido — o aro de um soutien, que segue a costura da taça por baixo do peito. O canal é tecido, o aro é ferragem, e o trabalho da peça é segurar o aro numa linha que acompanha o corpo e impedir que as pontas saiam."
+  },
+  "aliases": [
+    {
+      "name": "wire_channel",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; declared by 10 cartridges and true on 6 as of 2026-09-02 — the wire-free cartridges declare it false rather than omitting it."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/underwire-bra",
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/balconette-underwire-bra",
+    "fashion-cabinet/nursing-bra"
+  ],
+  "see_also": ["boned", "hardware-bridge", "sew-field", "compression-support"],
+  "constraints": "The channel is drafted along the seam the wire follows, so its length is the SEAM's measured length and not a straight span — a channel cut to the chord of a curved cradle is shorter than the wire it must hold.",
+  "review_status": {
+    "state": "generated"
+  }
+}

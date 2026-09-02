@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "sleeve-cap",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "sleeve cap",
+    "es": "copa de manga",
+    "fr": "tête de manche",
+    "pt": "cabeça de manga"
+  },
+  "definition": {
+    "en": "The curved top of a sleeve, which is sewn into the armhole. Its edge is longer than the armhole it enters by a deliberate amount — the cap ease — which is eased in around the shoulder so the sleeve has room for the arm's forward reach without pulling.",
+    "es": "La parte superior curva de una manga, que se cose a la sisa. Su canto es más largo que la sisa en la que entra por una cantidad deliberada —el embebido de copa— que se distribuye alrededor del hombro para que la manga tenga sitio para el alcance del brazo hacia delante sin tirar.",
+    "fr": "Le haut arrondi d'une manche, qui se coud dans l'emmanchure. Son bord est plus long que l'emmanchure où il entre d'une quantité délibérée — l'embu de tête — que l'on répartit autour de l'épaule pour que la manche laisse au bras sa portée vers l'avant sans tirer.",
+    "pt": "O topo curvo de uma manga, que é cosido à cava. O seu bordo é mais comprido do que a cava em que entra numa quantidade deliberada — o embebido da cabeça — distribuída à volta do ombro para que a manga dê espaço ao alcance do braço para a frente sem repuxar."
+  },
+  "aliases": [
+    {
+      "name": "cap / sleevehead",
+      "repo": "fashion-cabinet",
+      "note": "Edge names on the armscye interfaces (`cap` on 88 interfaces as of 2026-09-02), with `cap_ease` as the parameter on 12 cartridges."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/cardigan",
+    "fashion-cabinet/crewneck-sweater",
+    "fashion-cabinet/baju-melayu-set"
+  ],
+  "see_also": ["armscye", "armhole-depth", "set-in-sleeve", "raglan", "shoulder-seam"],
+  "constraints": "Cap length is MEASURED off the drawn curve and matched to the drawn armhole, not computed by a second formula — the knitwear cartridges solve the cap by bisection for exactly this reason, because two closed-form expressions drift apart at the ends of the parameter range.",
+  "review_status": {
+    "state": "generated"
+  }
+}

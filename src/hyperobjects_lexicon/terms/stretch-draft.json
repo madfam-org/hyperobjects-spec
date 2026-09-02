@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "stretch-draft",
+  "domain": "capability",
+  "term": {
+    "en": "stretch draft",
+    "es": "trazo elástico",
+    "fr": "tracé élastique",
+    "pt": "traçado elástico"
+  },
+  "definition": {
+    "en": "The capability of a draft whose geometry is computed against the fabric's stretch rather than against the body alone: the pattern is a function of how far the cloth will go, so the same cartridge in a 20%-stretch rib and in a 60%-stretch jersey is two different patterns for one garment.",
+    "es": "La capacidad de un trazo cuya geometría se calcula contra la elasticidad de la tela y no solo contra el cuerpo: el patrón es función de cuánto dará de sí el tejido, de modo que el mismo cartucho en un canalé del 20% y en un jersey del 60% son dos patrones distintos para una misma prenda.",
+    "fr": "La capacité d'un tracé dont la géométrie est calculée d'après l'élasticité du tissu et non d'après le seul corps : le patron est fonction de ce que la maille peut donner, si bien que la même cartouche dans une côte à 20 % et dans un jersey à 60 % fait deux patrons différents pour un même vêtement.",
+    "pt": "A capacidade de um traçado cuja geometria é calculada contra a elasticidade do tecido e não apenas contra o corpo: o molde é função do quanto a malha dá, pelo que o mesmo cartucho num canelado de 20% e num jérsei de 60% são dois moldes diferentes para uma mesma peça."
+  },
+  "aliases": [
+    {
+      "name": "stretch_draft",
+      "repo": "fashion-cabinet",
+      "note": "hyperobject.capabilities key; true on 5 cartridges as of 2026-09-02, alongside a `knit_stretch` or `negative_ease_pct` parameter."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/cable-knit-vest",
+    "fashion-cabinet/knit-balaclava-hood",
+    "fashion-cabinet/stirrup-legging-knit",
+    "fashion-cabinet/baby-kimono-bodysuit"
+  ],
+  "see_also": ["knit-stretch", "knit-negative-ease", "stretch-percent", "fabric-compensation"],
+  "constraints": "The stretch figure the draft uses must be the fabric card's measured value and not a class name: 'jersey' is not a number, and a pattern solved from an assumed stretch fits only the cloth that happened to be assumed.",
+  "review_status": {
+    "state": "generated"
+  }
+}

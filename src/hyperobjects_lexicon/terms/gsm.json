@@ -1,0 +1,30 @@
+{
+  "spec_version": 2,
+  "id": "gsm",
+  "domain": "materials",
+  "term": {
+    "en": "GSM (grams per square metre)",
+    "es": "gramaje (g/m²)",
+    "fr": "grammage (g/m²)",
+    "pt": "gramagem (g/m²)"
+  },
+  "definition": {
+    "en": "The mass of one square metre of a cloth, and the single number that most reliably says what a fabric is for: shirting sits low, suiting in the middle, coating high. It is required on every fabric card because almost every other property — drape, warmth, how a seam behaves — correlates with it.",
+    "es": "La masa de un metro cuadrado de tela, y el número que con más fiabilidad dice para qué sirve un tejido: la camisería queda baja, la sastrería en medio, el abrigo alto. Es obligatorio en toda ficha de tela porque casi cualquier otra propiedad —la caída, el abrigo, el comportamiento de una costura— se correlaciona con él.",
+    "fr": "La masse d'un mètre carré de tissu, et le nombre qui dit le plus sûrement à quoi sert une étoffe : la chemiserie est basse, le costume au milieu, le manteau haut. Il est obligatoire sur toute fiche tissu parce que presque toute autre propriété — le tombé, la chaleur, le comportement d'une couture — lui est corrélée.",
+    "pt": "A massa de um metro quadrado de tecido, e o número que com mais fiabilidade diz para que serve um tecido: a camisaria fica baixa, a alfaiataria a meio, o casaco alto. É obrigatório em qualquer ficha de tecido porque quase todas as outras propriedades — o cair, o agasalho, o comportamento de uma costura — lhe estão correlacionadas."
+  },
+  "aliases": [
+    {
+      "name": "physical.gsm",
+      "repo": "fashion-cabinet",
+      "note": "Required field on every fabric card (manta cruda: 140), and repeated as digital_twin.physics.weight_gsm for the simulator."
+    }
+  ],
+  "embodied_by": ["fashion-cabinet/manta-cruda", "fashion-cabinet/jersey-algodon"],
+  "see_also": ["drape-class", "fabric-width", "woven", "knit"],
+  "constraints": "GSM is mass per area, not per running metre, so it says nothing until the cloth's width is also known — the two numbers together are what tell a maker how much cloth a garment costs.",
+  "review_status": {
+    "state": "generated"
+  }
+}

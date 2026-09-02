@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "negative-ease",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "negative ease",
+    "es": "holgura negativa",
+    "fr": "aisance négative",
+    "pt": "folga negativa"
+  },
+  "definition": {
+    "en": "Ease with the sign reversed: the finished garment measures LESS than the body, and the difference is taken up by the fabric stretching over it. It is expressed as a percentage rather than as millimetres because what the cloth can give is proportional to how much cloth there is.",
+    "es": "Holgura con el signo cambiado: la prenda acabada mide MENOS que el cuerpo, y la diferencia la absorbe la tela al estirarse sobre él. Se expresa en porcentaje y no en milímetros porque lo que la tela puede dar es proporcional a cuánta tela hay.",
+    "fr": "De l'aisance au signe inversé : le vêtement fini mesure MOINS que le corps, et la différence est reprise par le tissu qui s'étire dessus. Elle s'exprime en pourcentage plutôt qu'en millimètres, parce que ce que le tissu peut donner est proportionnel à la quantité de tissu.",
+    "pt": "Folga com o sinal invertido: a peça acabada mede MENOS do que o corpo, e a diferença é absorvida pelo tecido ao esticar sobre ele. Exprime-se em percentagem e não em milímetros porque o que o tecido pode dar é proporcional à quantidade de tecido."
+  },
+  "aliases": [
+    {
+      "name": "negative_ease_pct",
+      "repo": "fashion-cabinet",
+      "note": "Parameter id on 40 cartridges as of 2026-09-02, and the numeric side of the `knit_negative_ease` capability flag."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/bikini-bottom",
+    "fashion-cabinet/balconette-bra",
+    "fashion-cabinet/assistive-grip-glove"
+  ],
+  "see_also": ["knit-negative-ease", "ease", "stretch-percent", "compression-support", "knit"],
+  "constraints": "The percentage must be spent against a fabric that has it, and never twice: a garment drafted at 15% negative ease in a cloth measured at 15% stretch has used the cloth's whole range, so the pattern is at the limit of what any body can put on.",
+  "review_status": {
+    "state": "generated"
+  }
+}

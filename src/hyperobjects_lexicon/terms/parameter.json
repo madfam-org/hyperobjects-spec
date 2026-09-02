@@ -1,0 +1,35 @@
+{
+  "spec_version": 2,
+  "id": "parameter",
+  "domain": "manifest",
+  "term": {
+    "en": "parameter",
+    "es": "parámetro",
+    "fr": "paramètre",
+    "pt": "parâmetro"
+  },
+  "definition": {
+    "en": "One dimension of the region of parameter space a hyperobject occupies: a named, typed, bounded input that a user moves and the cartridge renders from. A parameter is not a variable in a script — it is a published part of the object's contract, with an id other manifests reference, a range that says what is legal, and a label in every language the commons speaks.",
+    "es": "Una dimensión de la región del espacio de parámetros que ocupa un hiperobjeto: una entrada nombrada, tipada y acotada que quien usa mueve y desde la que el cartucho renderiza. Un parámetro no es una variable de un script — es parte publicada del contrato del objeto, con un id que otros manifiestos referencian, un rango que dice qué es legal y una etiqueta en todos los idiomas del procomún.",
+    "fr": "Une dimension de la région de l'espace des paramètres qu'occupe un hyperobjet : une entrée nommée, typée et bornée que l'on déplace et à partir de laquelle la cartouche effectue son rendu. Un paramètre n'est pas une variable de script — c'est une part publiée du contrat de l'objet, avec un identifiant que d'autres manifestes référencent, une plage qui dit ce qui est légal, et un libellé dans chaque langue des communs.",
+    "pt": "Uma dimensão da região do espaço de parâmetros que um hiperobjeto ocupa: uma entrada nomeada, tipada e limitada que alguém move e a partir da qual o cartucho renderiza. Um parâmetro não é uma variável de um script — é parte publicada do contrato do objeto, com um id que outros manifestos referenciam, um intervalo que diz o que é legal, e uma etiqueta em todas as línguas do comum."
+  },
+  "aliases": [
+    {
+      "name": "parameters[]",
+      "repo": "yantra4d",
+      "note": "Top-level manifest array; each entry carries id, type (slider/checkbox/text/select), default, min/max/step and an i18n label."
+    },
+    {
+      "name": "parameters[]",
+      "repo": "fashion-cabinet",
+      "note": "The soft-side analogue; 1090 distinct parameter ids across 516 cartridges as of 2026-09-02, led by `seam_allowance` (417 cartridges)."
+    }
+  ],
+  "embodied_by": ["yantra4d/sew-on-snap", "fashion-cabinet/bodice-block"],
+  "see_also": ["cartridge", "preset", "params-map", "mode", "hyperobject"],
+  "constraints": "Every id an interface, a preset or a bridge names must be a real parameter of the SAME manifest — a reference to a parameter that does not exist declares a fit nothing dimensions, and it is the cheapest failure in the commons to check.",
+  "review_status": {
+    "state": "generated"
+  }
+}
