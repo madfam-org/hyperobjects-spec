@@ -176,7 +176,7 @@
     },
     "export_formats": {
       "type": "array",
-      "items": { "type": "string", "enum": ["svg", "dxf", "json", "pdf"] }
+      "items": { "type": "string", "enum": ["svg", "dxf", "dxf-aama", "json", "pdf"] }
     },
     "fabrics": {
       "type": "array",
@@ -206,7 +206,7 @@
     },
     "hyperobject": {
       "type": "object",
-      "required": ["is_hyperobject", "domain"],
+      "required": ["is_hyperobject", "domain", "commons_license"],
       "properties": {
         "is_hyperobject": { "type": "boolean" },
         "domain": {
@@ -239,7 +239,11 @@
           "additionalProperties": { "type": "boolean" }
         },
         "societal_benefit": { "$ref": "#/$defs/i18n" },
-        "commons_license": { "type": "string" }
+        "commons_license": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SPDX id of the commons license this object is published under. Required: the FC1 ruling (2026-08-25) is CERN-OHL-W-2.0 for every object; a genuinely third-party-licensed object needs a registered carve-out (docs/licenses/CARVE-OUTS.md), never a lone differing manifest. Must equal project.attribution.license — verify_compliance.py checks the value and the agreement."
+        }
       }
     }
   }
