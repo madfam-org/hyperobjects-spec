@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "strap",
+  "domain": "garment-construction",
+  "term": {
+    "en": "strap",
+    "es": "tirante",
+    "fr": "bretelle",
+    "pt": "alça"
+  },
+  "definition": {
+    "en": "A narrow band that carries a garment's load over the shoulder or around the body — a bra strap, a dungaree strap, a bag strap. It is the part of a garment most likely to end in hardware, and therefore the part whose width is a number two cartridges have to agree on.",
+    "es": "Una banda estrecha que soporta la carga de una prenda sobre el hombro o alrededor del cuerpo — el tirante de un sujetador, el de un peto, el asa de una bolsa. Es la parte de una prenda que con más probabilidad termina en un herraje y, por tanto, aquella cuyo ancho es un número en el que dos cartuchos deben coincidir.",
+    "fr": "Une bande étroite qui porte la charge d'un vêtement sur l'épaule ou autour du corps — bretelle de soutien-gorge, bretelle de salopette, sangle de sac. C'est la partie d'un vêtement qui finit le plus souvent dans une pièce de quincaillerie, et donc celle dont la largeur est un nombre sur lequel deux cartouches doivent s'accorder.",
+    "pt": "Uma banda estreita que suporta a carga de uma peça sobre o ombro ou à volta do corpo — a alça de um soutien, a de umas jardineiras, a correia de um saco. É a parte de uma peça que mais provavelmente acaba numa ferragem e, por isso, aquela cuja largura é um número em que dois cartuchos têm de concordar."
+  },
+  "aliases": [
+    {
+      "name": "straps",
+      "repo": "fashion-cabinet",
+      "note": "Interface id in the `custom` tail — 7 cartridges as of 2026-09-02; `strap_edge` is the same band where it meets hardware, and `strap_width` is a parameter on 52 cartridges."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/bib-overalls",
+    "fashion-cabinet/swimsuit-one-piece"
+  ],
+  "see_also": ["strap-slot", "hardware-bridge", "cup-seam", "shoulder-seam", "elastic-finish"],
+  "constraints": "A strap that adjusts is longer than the path it takes: the drafted length must include the take-up at the hardware and the range the adjustment needs, and the finished WIDTH has to be the slot's width less a clearance or the strap will not thread.",
+  "review_status": {
+    "state": "generated"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "spec_version": 2,
+  "id": "closure",
+  "domain": "garment-construction",
+  "term": {
+    "en": "closure",
+    "es": "cierre",
+    "fr": "fermeture",
+    "pt": "fecho"
+  },
+  "definition": {
+    "en": "The place where a garment opens to be put on and closes to be worn, taken as one interface regardless of what fastens it. Naming the region separately from the fastening is what lets a cartridge change from hooks to snaps to magnets without redrafting the opening, and it is where the accessibility of a garment actually lives.",
+    "es": "El lugar donde una prenda se abre para ponerse y se cierra para llevarse, tomado como una sola interfaz sea cual sea lo que la sujeta. Nombrar la región aparte del cierre concreto es lo que permite que un cartucho pase de corchetes a broches o a imanes sin volver a trazar la abertura, y es donde de verdad reside la accesibilidad de una prenda.",
+    "fr": "L'endroit où un vêtement s'ouvre pour être enfilé et se ferme pour être porté, pris comme une seule interface quel que soit ce qui l'attache. Nommer la région séparément de la fermeture est ce qui permet à une cartouche de passer des agrafes aux pressions ou aux aimants sans retracer l'ouverture, et c'est là que réside vraiment l'accessibilité d'un vêtement.",
+    "pt": "O lugar onde uma peça se abre para ser vestida e fecha para ser usada, tomado como uma só interface seja qual for o que a prende. Nomear a região à parte do fecho concreto é o que permite a um cartucho passar de colchetes a molas ou a ímanes sem voltar a traçar a abertura, e é onde reside de facto a acessibilidade de uma peça."
+  },
+  "aliases": [
+    {
+      "name": "closure",
+      "repo": "fashion-cabinet",
+      "note": "A recurring interface id in the `custom` tail — 9 cartridges as of 2026-09-02, mostly the structured-intimates back closure."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/longline-bra",
+    "fashion-cabinet/nursing-clip-bra",
+    "fashion-cabinet/biometric-bra-band"
+  ],
+  "see_also": [
+    "placket",
+    "hook-closure",
+    "button-closure",
+    "one-handed-operation",
+    "closure-free"
+  ],
+  "constraints": "The two edges that meet are sewn to a body that has to close, so they are equal in length and their lap direction is a stated fact — an opening whose overlap is left to the maker is an opening that will be made both ways and fit one of them.",
+  "review_status": {
+    "state": "generated"
+  }
+}

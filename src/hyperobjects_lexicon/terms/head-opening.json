@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "head-opening",
+  "domain": "pattern-drafting",
+  "term": {
+    "en": "head opening",
+    "es": "abertura de cabeza",
+    "fr": "ouverture de tête",
+    "pt": "abertura de cabeça"
+  },
+  "definition": {
+    "en": "The hole a head passes through in a garment that has no fastening — a poncho's slit, a tunic's neck hole, a smock's opening. It is a different problem from a neckline: a neckline is a finished edge sized to sit on the body, and a head opening is sized by what has to get through it.",
+    "es": "El hueco por el que pasa la cabeza en una prenda sin cierre — la abertura de un poncho, el escote de una túnica, la boca de un blusón. Es un problema distinto del de un escote: un escote es un canto acabado dimensionado para asentarse en el cuerpo, y una abertura de cabeza se dimensiona por lo que tiene que pasar por ella.",
+    "fr": "Le trou par lequel passe la tête dans un vêtement sans fermeture — la fente d'un poncho, l'encolure d'une tunique, l'ouverture d'un sarrau. C'est un autre problème qu'une encolure : une encolure est un bord fini dimensionné pour se poser sur le corps, une ouverture de tête est dimensionnée par ce qui doit la franchir.",
+    "pt": "O buraco por onde passa a cabeça numa peça sem fecho — a fenda de um poncho, o decote de uma túnica, a abertura de uma bata. É um problema diferente do de um decote: um decote é um bordo acabado dimensionado para assentar no corpo, e uma abertura de cabeça é dimensionada pelo que tem de passar por ela."
+  },
+  "aliases": [
+    {
+      "name": "head_opening",
+      "repo": "fashion-cabinet",
+      "note": "Interface id in the `custom` tail — 9 cartridges as of 2026-09-02, and `head_slit_only` is the capability key of the poncho case."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/poncho-mexicano",
+    "fashion-cabinet/anorak-smock",
+    "fashion-cabinet/kaftan"
+  ],
+  "see_also": ["neckline", "neck-drop", "pull-on", "closure-free", "girth"],
+  "constraints": "It is sized from `head_girth`, never from `neck_girth` — the two differ by enough that a neck-sized opening on a garment with no fastening simply does not go on, which is why 30 cartridges carry the head measurement.",
+  "review_status": {
+    "state": "generated"
+  }
+}

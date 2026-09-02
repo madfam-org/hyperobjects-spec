@@ -1,0 +1,34 @@
+{
+  "spec_version": 2,
+  "id": "placement-line",
+  "domain": "garment-construction",
+  "term": {
+    "en": "placement line",
+    "es": "línea de colocación",
+    "fr": "ligne de placement",
+    "pt": "linha de colocação"
+  },
+  "definition": {
+    "en": "A line marked on a pattern piece that positions something the cartridge deliberately does not draft — a row of trim, a column of fastenings, an electrode seat, a pocket mouth. It is the commons' way of stopping exactly where a pattern generator should stop: it says WHERE, and leaves what to the maker and to the tradition the design belongs to.",
+    "es": "Una línea marcada en una pieza de patrón que coloca algo que el cartucho deliberadamente no traza — una hilera de pasamanería, una columna de cierres, un asiento de electrodo, la boca de un bolsillo. Es la manera que tiene el procomún de detenerse justo donde un generador de patrones debe detenerse: dice DÓNDE y deja el qué a quien lo hace y a la tradición a la que pertenece el diseño.",
+    "fr": "Une ligne tracée sur une pièce de patron qui positionne quelque chose que la cartouche choisit délibérément de ne pas dessiner — une rangée de galon, une colonne de fermetures, une assise d'électrode, l'entrée d'une poche. C'est la façon qu'ont les communs de s'arrêter là où un générateur de patrons doit s'arrêter : elle dit OÙ, et laisse le quoi à la personne qui fabrique et à la tradition à qui le dessin appartient.",
+    "pt": "Uma linha marcada numa peça de molde que posiciona algo que o cartucho deliberadamente não traça — uma fila de galão, uma coluna de fechos, um assento de elétrodo, a boca de um bolso. É a maneira do comum de parar exatamente onde um gerador de moldes deve parar: diz ONDE, e deixa o quê a quem faz e à tradição a que o desenho pertence."
+  },
+  "aliases": [
+    {
+      "name": "placement_line",
+      "repo": "fashion-cabinet",
+      "note": "The most-used interface id in the soft side's `custom` tail — 18 cartridges as of 2026-09-02, from greca rows to electrode seats."
+    }
+  ],
+  "embodied_by": [
+    "fashion-cabinet/chaleco-charro",
+    "fashion-cabinet/ecg-monitoring-vest",
+    "fashion-cabinet/hi-vis-vest"
+  ],
+  "see_also": ["soutache", "custom-interface", "e-textile", "garment-pocket", "heritage"],
+  "constraints": "A placement line is a marking and not a seam, so it carries no allowance and must be marked on every piece it crosses — a line marked on the front alone stops being a position the moment the front is joined to anything.",
+  "review_status": {
+    "state": "generated"
+  }
+}

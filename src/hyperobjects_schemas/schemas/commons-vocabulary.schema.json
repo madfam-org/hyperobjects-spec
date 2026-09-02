@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/commons-vocabulary.schema.json",
+  "title": "Commons Controlled Vocabulary",
+  "description": "A controlled vocabulary over the identifiers the two commons' manifests actually use (RFC 0039 §8 G3, absorbing RFC 0038 §5 B2). Where the lexicon defines WORDS, this defines KEYS: the literal strings a manifest writes, each one recorded with the repo it is real in, what it means, which spellings canonicalise onto it, and which key in the other commons is the same physical thing. Two documents ship: `interfaces` (both commons' interface names — the B2 dialect problem, `zipper_tape` against `tape_edge`) and `capabilities` (Fashion Cabinet's hyperobject.capabilities keys, which the garment manifest schema types as `additionalProperties: boolean` and therefore never constrained — 134 distinct keys across 516 cartridges by 2026-09-02, most of them used once). A vocabulary entry is not a dictionary entry: it carries an English gloss at most, and points at a lexicon term for the quadrilingual definition. The rule that keeps the two in step is that a key used by two or more cartridges must have a term.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "vocabulary", "entries"],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS vocabulary contract the document is written against.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "vocabulary": {
+      "description": "Which vocabulary this document is. One file per vocabulary, named for it.",
+      "type": "string",
+      "enum": ["interfaces", "capabilities"]
+    },
+    "description": {
+      "description": "What this vocabulary covers and what it deliberately does not.",
+      "type": "string",
+      "minLength": 20
+    },
+    "captured": {
+      "description": "The evidence the counts come from. A vocabulary is a reading of a corpus at a moment, and a reading with no date is a claim nobody can check or refresh.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "sources"],
+      "properties": {
+        "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "sources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "yantra4d": { "$ref": "#/$defs/captureSource" },
+            "fashion-cabinet": { "$ref": "#/$defs/captureSource" }
+          }
+        }
+      }
+    },
+    "review": {
+      "description": "Whether the canonicalisation rulings in this document have had a human pass. A vocabulary assembled from evidence is a PROPOSAL about meaning — that two spellings are one claim, that two identical spellings are two claims — and those are rulings, not measurements.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "type": "string", "enum": ["generated", "reviewed"] },
+        "reviewers": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+        "note": { "type": "string" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "captureSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "cartridges"],
+      "properties": {
+        "path": { "type": "string", "minLength": 3 },
+        "rev": { "type": "string" },
+        "cartridges": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "key": {
+      "description": "The identifier exactly as a manifest writes it — snake_case, because that is what both repos write.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "repo": {
+      "type": "string",
+      "enum": ["yantra4d", "fashion-cabinet"]
+    },
+    "termId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "reference": {
+      "description": "A pointer at another entry of this vocabulary: (repo, key) is what identifies an entry, because the same key can be real in both repos and mean different things.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "repo"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "repo": { "$ref": "#/$defs/repo" },
+        "note": { "type": "string" }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "repo", "role", "status"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "repo": { "$ref": "#/$defs/repo" },
+        "role": {
+          "description": "Where in a manifest the key appears. `geometry_type` and `interface_type` are closed enums in the two schemas; `interface_id` is a per-cartridge name that recurs often enough to be vocabulary; `capability_flag` is a hyperobject.capabilities key.",
+          "type": "string",
+          "enum": ["geometry_type", "interface_type", "interface_id", "capability_flag"]
+        },
+        "status": {
+          "description": "`canonical` — the spelling to write. `provisional` — a key that is real and used, whose relation to a neighbour or promotion to a type is a ruling nobody has made yet.",
+          "type": "string",
+          "enum": ["canonical", "provisional"]
+        },
+        "term": {
+          "description": "The lexicon term that defines this key, quadrilingually. Validated against the corpus, and REQUIRED for a key two or more cartridges use.",
+          "$ref": "#/$defs/termId"
+        },
+        "gloss": {
+          "description": "A one-line English gloss, for keys whose meaning is clear but which do not (yet) carry a term. It is deliberately English-only: a vocabulary is a machine-key registry, and the quadrilingual definition belongs to the lexicon entry.",
+          "type": "string",
+          "minLength": 10
+        },
+        "needs_definition": {
+          "description": "Set when the key is in the vocabulary because it is USED, and what it means is not established from the evidence. It exists so the honest state is a countable one — inventing a gloss for a key nobody documented would be worse than recording that it needs one.",
+          "type": "boolean"
+        },
+        "aliases": {
+          "description": "Spellings that mean the same claim and canonicalise onto this key — the near-duplicates. Each alias names the repo it is real in, so a consumer can rewrite what it finds.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "repo"],
+            "properties": {
+              "name": { "$ref": "#/$defs/key" },
+              "repo": { "$ref": "#/$defs/repo" },
+              "observed": { "$ref": "#/$defs/observed" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "equivalent_to": {
+          "description": "The same physical thing under the OTHER commons' name — RFC 0038 §5 B2's dialect problem, as an explicit edge. Cross-repo by definition: two spellings of one thing inside a single repo are an alias, not an equivalence, and the lane says so.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/reference" }
+        },
+        "distinct_from": {
+          "description": "A key this one LOOKS like and is not. Recorded explicitly so a de-duplication pass — human or automated — cannot merge a false-friend pair (`hook_closure` is hook-and-eye; `hook_loop_closure` is hook-and-loop).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key", "repo", "reason"],
+            "properties": {
+              "key": { "$ref": "#/$defs/key" },
+              "repo": { "$ref": "#/$defs/repo" },
+              "reason": { "type": "string", "minLength": 10 }
+            }
+          }
+        },
+        "narrower_than": {
+          "description": "A key that makes a MORE specific version of another key's claim — `graduated_compression` under `compression_support`. It is not an alias: collapsing it would lose the distinction the author was making.",
+          "$ref": "#/$defs/reference"
+        },
+        "observed": { "$ref": "#/$defs/observed" },
+        "manifest_enum": {
+          "description": "Whether the repo's published manifest schema constrains this key. False on an interface type means the catalog is ahead of its schema; on a capability key it is false everywhere, because the garment manifest types capabilities as additionalProperties: boolean.",
+          "type": "boolean"
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "observed": {
+      "description": "What the capture actually counted. `cartridges` is how many manifests carry the key at all; `true` is how many set it to true, and the gap is itself information — a key declared false is a statement.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cartridges": { "type": "integer", "minimum": 0 },
+        "interfaces": { "type": "integer", "minimum": 0 },
+        "true": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

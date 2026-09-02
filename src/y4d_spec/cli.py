@@ -3,6 +3,8 @@
     y4d-spec check <cartridge-dir> [...] [--render] [--no-presets] [--no-printability] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
+    y4d-spec vocab [--status] [-v]
+    y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
     y4d-spec rules
 
 Exit code 0 iff every cartridge conforms; 1 on any conformance problem; 2 on a
@@ -18,7 +20,11 @@ import argparse
 import sys
 from pathlib import Path
 
-from hyperobjects_lexicon.cli import add_lexicon_parser
+from hyperobjects_lexicon.cli import (
+    add_dictionary_parsers,
+    add_lexicon_parser,
+    add_vocabulary_parser,
+)
 from hyperobjects_schemas.identity import check_identity_file
 
 from .conformance import check_cartridge
@@ -192,6 +198,8 @@ def main(argv: list[str] | None = None) -> int:
     p_id.set_defaults(func=_cmd_identity)
 
     add_lexicon_parser(sub, "y4d-spec")
+    add_vocabulary_parser(sub, "y4d-spec")
+    add_dictionary_parsers(sub, "y4d-spec")
 
     p_rules = sub.add_parser("rules", help="explain what gets checked, and where it came from")
     p_rules.set_defaults(func=_cmd_rules)

@@ -1,0 +1,1707 @@
+{
+  "spec_version": 1,
+  "vocabulary": "capabilities",
+  "description": "Fashion Cabinet's hyperobject.capabilities keys. The garment manifest schema types the block as `additionalProperties: {type: boolean}` — every key is legal and none is defined — and 516 cartridges have written 134 distinct ones, most of them once. This document is the missing enum, but assembled additively rather than imposed: every observed key is here, the near-duplicates canonicalise onto a spelling through `aliases`, the narrower claims hang off their broader key through `narrower_than` instead of collapsing into it, and the one pair that LOOKS like a duplicate and is not is recorded through `distinct_from`. A consumer can therefore validate against this vocabulary today without failing a single existing cartridge.",
+  "captured": {
+    "date": "2026-09-02",
+    "sources": {
+      "yantra4d": {
+        "path": "docs/commons-catalog.json",
+        "rev": "8089207",
+        "cartridges": 500
+      },
+      "fashion-cabinet": {
+        "path": "projects/*/project.json",
+        "rev": "fdb88c5",
+        "cartridges": 516
+      }
+    }
+  },
+  "review": {
+    "state": "generated",
+    "note": "Assembled from the capture below by an agent pass, 2026-09-02. The COUNTS are measurements and the CANONICALISATIONS are proposals: every alias asserts that two spellings make one claim, and every distinct_from asserts that two similar spellings do not. Those are rulings a maintainer should read before the vocabulary is used to rewrite anything."
+  },
+  "entries": [
+    {
+      "key": "adaptive",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "adaptive",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "adjustable_fit",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment's fit can be changed after it is made, by the wearer.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "adjustable_straps",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The straps adjust in length through hardware.",
+      "narrower_than": {
+        "key": "adjustable_fit",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "am_fashion",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "am-fashion",
+      "observed": {
+        "cartridges": 21,
+        "true": 21
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "band_collar",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A straight standing band at the neck, with no collar leaf.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "bias_cutting",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "bias-cutting",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "bolt_unit",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The draft's unit is the bolt of cloth as woven — the kimono tradition's tanmono — rather than the body.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "A cloth-as-unit claim like `panel_width_native`; whether the two are one claim is a ruling nobody has made."
+    },
+    {
+      "key": "boned",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "boned",
+      "observed": {
+        "cartridges": 4,
+        "true": 4
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "boning_channels",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment carries sewn channels for bones, whether or not bones are supplied.",
+      "narrower_than": {
+        "key": "boned",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "boning_optional",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment is drafted to work with or without bones, so the bones are a choice rather than the structure.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "bound_edges",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Edges finished with a binding strip rather than a facing or a turn-up.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "bound_neckline",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "bound-neckline",
+      "narrower_than": {
+        "key": "bound_edges",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "breakaway_seam",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A seam engineered to release under a deliberate pull.",
+      "narrower_than": {
+        "key": "quick_change",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "built_in_liner",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "built-in-liner",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "busk_free",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A corsetry garment with no front busk: it closes another way, or does not open at the front at all.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "button_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "button-closure",
+      "observed": {
+        "cartridges": 3,
+        "true": 3
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "channel_routing",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "channel-routing",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "closed_rectangle",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A rectangle closed on itself, worn over the head — the poncho construction.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "closure_free",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "closure-free",
+      "observed": {
+        "cartridges": 10,
+        "true": 9
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "co_create",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The cartridge is offered for co-creation with the tradition or community it comes from.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "compression_support",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "compression-support",
+      "observed": {
+        "cartridges": 7,
+        "true": 7
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "compression_zoned",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Different panels compress by different amounts.",
+      "narrower_than": {
+        "key": "compression_support",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "contrast_colorblocking",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Panels are cut in contrasting colours as the design.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "contrast_trim",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Trim in a contrasting colour along the garment's edges.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "curved_collar",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A collar drafted on a curve rather than as a straight band.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "cut_in_one_sleeve",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The sleeve is cut in one with the body, with no armhole seam.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "dead_length_solve",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "dead-length-solve",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "diamond_lattice",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A diamond lattice laid out across the garment as its pattern — the harlequin construction.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "distributed_compression",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Compression spread evenly over an area rather than concentrated in a band.",
+      "narrower_than": {
+        "key": "compression_support",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "double_breasted",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "double-breasted",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "drafted_lining",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The lining is drafted as its own set of pieces rather than cut from the shell's.",
+      "narrower_than": {
+        "key": "lined",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "drop_cup",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A cup that drops away from the band for feeding, and returns.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "dropped_shoulder",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The shoulder seam sits down the arm rather than on the shoulder point, widening and lowering the armhole.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "e_textile",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "e-textile",
+      "observed": {
+        "cartridges": 12,
+        "true": 12
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "edge_to_edge_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The two fronts meet at centre front with no lap and no stand, closing on hooks or bars behind the edge.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "elastic_drawcord_finish",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "An edge finished with both elastic and a drawcord.",
+      "narrower_than": {
+        "key": "elastic_finish",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "elastic_finish",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "elastic-finish",
+      "observed": {
+        "cartridges": 28,
+        "true": 27
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "embroidery_ground",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A panel drafted to be embroidered, with the ground and its margins marked.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "envelope_neckline",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A neck opening that overlaps at the shoulders so it stretches to pass a head.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "exaggerated_proportion",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Proportions deliberately pushed beyond the body's, as a costume choice.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "fabric_compensation",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "fabric-compensation",
+      "observed": {
+        "cartridges": 516,
+        "true": 106
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "faced_neckline",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The neckline is finished with a shaped facing turned inside.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "flatlock_seams",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Seams joined flat, with no ridge against the skin.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "foam_clearance",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The draft leaves clearance for a foam layer between the body and the shell.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "fold_cutting",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "fold-cutting",
+      "observed": {
+        "cartridges": 516,
+        "true": 284
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "footed_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A sleepsuit whose legs end in enclosed feet, so the closure runs to the foot rather than to an ankle opening.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "front_open",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The front does not close: the garment is worn open over what is under it.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "front_placket",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A finished front opening carrying the closure.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "full_fashioned_marking",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "needs_definition": true,
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Used once (raglan-knit-pullover). Full-fashioning is a knitting term; what the cartridge MARKS is what needs stating."
+    },
+    {
+      "key": "fully_lined",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Lined throughout rather than in part.",
+      "narrower_than": {
+        "key": "lined",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "gathered_net",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Net or tulle gathered into a seam or band, where the fullness is in the net rather than in the drafted piece.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "gathered_skirt",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A skirt whose fullness comes from gathering a wider panel onto a band.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "godet_flare",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Flare added by inserting godets into the lower seams rather than by widening the pieces.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "gored_skirt",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A skirt built from tapered gores rather than from rectangles or a circle.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "graduated_compression",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "graduated-compression",
+      "narrower_than": {
+        "key": "compression_support",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "hardware_bridge",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "hardware-bridge",
+      "aliases": [
+        {
+          "name": "hardware_reference",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim on one cartridge (swim-trunks), which additionally carries no notion.hardware_ref block — the misspelling and a missing bridge travel together."
+        }
+      ],
+      "observed": {
+        "cartridges": 307,
+        "true": 260
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "head_slit_only",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The only cut made in the cloth is the slit the head passes through.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "heritage",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "heritage",
+      "observed": {
+        "cartridges": 33,
+        "true": 33
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "hooded",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment carries a hood.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "hook_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "hook-closure",
+      "distinct_from": [
+        {
+          "key": "hook_loop_closure",
+          "repo": "fashion-cabinet",
+          "reason": "hook-and-EYE against hook-and-LOOP. They bridge to different solid cartridges (yantra4d/hook-and-eye against yantra4d/hook-loop-tape), so merging the two spellings would merge two closures."
+        }
+      ],
+      "observed": {
+        "cartridges": 15,
+        "true": 13
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "hook_loop_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "hook-loop-closure",
+      "distinct_from": [
+        {
+          "key": "hook_closure",
+          "repo": "fashion-cabinet",
+          "reason": "hook-and-LOOP against hook-and-EYE. The shared word is the trap: one is a continuous tape closure, the other a set of discrete hooks."
+        }
+      ],
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "insulated",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment carries an insulating layer.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "integrated_sleeve",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "provisional",
+      "gloss": "The sleeve is part of the body piece rather than set in.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Possibly the same claim as `cut_in_one_sleeve`; the two are used once each, on different cartridges, and merging them is a ruling for the review pass."
+    },
+    {
+      "key": "kimono_construction",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Built as the kimono is: straight panels, a sleeve carried on the fold, no shaped armhole.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "knit_negative_ease",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "knit-negative-ease",
+      "aliases": [
+        {
+          "name": "negative_ease_knit",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 12,
+            "true": 11
+          },
+          "note": "The same claim with the words reversed — the largest near-duplicate pair in the tail."
+        }
+      ],
+      "observed": {
+        "cartridges": 119,
+        "true": 41
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "knit_positive_ease",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A knit deliberately drafted with room rather than with negative ease.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "The opposite claim to `knit_negative_ease`, not a spelling of it."
+    },
+    {
+      "key": "knot_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed with knotted fastenings — a knotted button and its loop.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "laced",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed by lacing through eyelets.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "lined",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment carries a lining that follows its shell.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "made_to_measure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "made-to-measure",
+      "observed": {
+        "cartridges": 516,
+        "true": 479
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "maru_corner",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "needs_definition": true,
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Used once (kimono-haori). A named corner treatment of the kimono tradition; the cartridge's own documentation is where the definition should come from, and inventing one here would be worse than recording that it is missing."
+    },
+    {
+      "key": "multi_garment",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The cartridge renders more than one garment as a set.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "one_handed_operation",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "one-handed-operation",
+      "aliases": [
+        {
+          "name": "one_handed_dressing",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim about putting the whole garment on (button-aid-cuff-shirt)."
+        },
+        {
+          "name": "one_handed_clip",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim about one component (nursing-clip-bra)."
+        }
+      ],
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "one_piece_body",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The body of the garment is one continuous piece from shoulder to crotch.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "panel_width_native",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "panel-width-native",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "pieced_garment",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment is built from many small pieces as its design, not as a cloth economy.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "plaid_matching",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The pieces are laid so the cloth's pattern continues across the seams.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "pleat_spreading",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The pleats are spread from a solved distribution rather than placed at fixed intervals.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "pleated",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Fullness folded into pleats rather than gathered.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "pleated_to_sett",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "sett",
+      "gloss": "Pleated so that each pleat shows one full tartan repeat, making the pleat count an integer.",
+      "narrower_than": {
+        "key": "pleated",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "princess_seam",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Shaping carried in a long seam running from shoulder or armhole over the bust to the hem, instead of in darts.",
+      "aliases": [
+        {
+          "name": "princess_seamed",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim as a participle."
+        }
+      ],
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "printed_textile",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "printed-textile",
+      "observed": {
+        "cartridges": 43,
+        "true": 23
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "pull_on",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "pull-on",
+      "observed": {
+        "cartridges": 9,
+        "true": 7
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "quick_change",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "quick-change",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "quilted_insulation",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Insulation held in place by quilting through the shell.",
+      "aliases": [
+        {
+          "name": "insulated_quilting",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim with the words reversed."
+        }
+      ],
+      "narrower_than": {
+        "key": "insulated",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "raglan_construction",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The sleeve runs to the neckline in one piece with a diagonal seam from underarm to neck.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "reflective_tape_layout",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The placement of retro-reflective tape is drafted rather than left to the maker.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "reversible",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "reversible",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "seam_ease_shaping",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "needs_definition": true,
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Used once (balconette-bra). Probably shaping taken by easing one edge onto its pair rather than by a dart, but 'probably' is not a definition."
+    },
+    {
+      "key": "seam_routing",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A conductor or cable is routed along a seam rather than across a panel.",
+      "narrower_than": {
+        "key": "channel_routing",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "seam_stabilization",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "seam-stabilization",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "self_band",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A band cut from the garment's own cloth rather than from a rib or a contrast.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "self_lined",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Lined in its own cloth rather than in a lining fabric.",
+      "narrower_than": {
+        "key": "lined",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "separating_zipper",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "separating-zipper",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "set_in_sleeve",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "set-in-sleeve",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "shaped_ring",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "shaped-ring",
+      "observed": {
+        "cartridges": 2,
+        "true": 2
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "shelf_bra",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "An inner shelf that supports the bust inside another garment.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "side_slits",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "side-slits",
+      "observed": {
+        "cartridges": 3,
+        "true": 3
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "side_tie_option",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment can be made with side ties instead of a closed side seam.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "sleeveless",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment has no sleeve, and the armhole is finished as an edge.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "snap_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed with snap fasteners rather than buttons, hooks or a zip.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "solved_stand_collar",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A stand collar whose height and curve are solved from the neckline rather than taken from a fixed block.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "solved_two_panel_hood",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A two-panel hood whose panels are solved from head girth and neckline length.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "stabilised_island",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "needs_definition": true,
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Used once (sensor-cycling-jersey), in the e-textile lane. Related to `dead_length_solve`, but the relation is a ruling."
+    },
+    {
+      "key": "strap_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed with straps through buckles rather than with a continuous fastening.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "stretch_draft",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "stretch-draft",
+      "observed": {
+        "cartridges": 5,
+        "true": 5
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "strip_woven",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Made from narrow woven strips sewn edge to edge, as the loom produced them.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "structured_tailoring",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Tailoring built over an inner structure that holds the garment's shape.",
+      "narrower_than": {
+        "key": "tailoring",
+        "repo": "fashion-cabinet"
+      },
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "swept_hem",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A hem that sweeps longer at the back than at the front.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "tailoring",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "tailoring",
+      "aliases": [
+        {
+          "name": "tailored",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim as an adjective."
+        }
+      ],
+      "observed": {
+        "cartridges": 27,
+        "true": 27
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "three_web",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "needs_definition": true,
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false,
+      "note": "Used once (huipil-blouse), alongside `uncut_body`. Plausibly the three woven webs a huipil is made from, but the vocabulary should not guess at a tradition's own term."
+    },
+    {
+      "key": "tie_closure",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed by tying, with no hardware at all.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "tiered_ruffle",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Fullness built in stacked tiers, each gathered onto the tier above it.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "uncut_body",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The body panel is used as woven, with no shaping cut into it.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "uncut_cloth",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "uncut-cloth",
+      "aliases": [
+        {
+          "name": "uncut",
+          "repo": "fashion-cabinet",
+          "observed": {
+            "cartridges": 1,
+            "true": 1
+          },
+          "note": "The same claim shortened (kente-wrap)."
+        }
+      ],
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "unlined_shell",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A shell deliberately left unlined, with its seams finished to be seen from inside.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "unstitched",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment is not sewn at all: it is a length of cloth worn by wrapping and tying.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "uv_protective",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The cloth and the coverage are chosen for sun protection.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "ventilation",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The garment carries drafted vents for airflow.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "waterproof_construction",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Seams and openings are built to keep water out, not merely to look weatherproof.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "wide_leg",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "The leg is drafted wide through its whole length.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "wire_channel",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "wire-channel",
+      "observed": {
+        "cartridges": 10,
+        "true": 6
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "wire_free_support",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Support achieved without an underwire, by cut, band tension and seaming.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "working_fly",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "A fly that actually opens, drafted with its underlap, shield and closure rather than marked as a detail.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "zip_front",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "gloss": "Closed by a zip running down the front.",
+      "observed": {
+        "cartridges": 1,
+        "true": 1
+      },
+      "manifest_enum": false
+    },
+    {
+      "key": "zipper_bridge",
+      "repo": "fashion-cabinet",
+      "role": "capability_flag",
+      "status": "canonical",
+      "term": "zipper-bridge",
+      "observed": {
+        "cartridges": 4,
+        "true": 4
+      },
+      "manifest_enum": false
+    }
+  ]
+}

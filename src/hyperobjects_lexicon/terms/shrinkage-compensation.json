@@ -19,11 +19,6 @@
       "name": "am_compensations.shrinkage",
       "repo": "yantra4d",
       "note": "The solid side's contract, declared per cartridge through material_awareness.shrinkage_compensation."
-    },
-    {
-      "name": "physical.shrinkage_pct",
-      "repo": "fashion-cabinet",
-      "note": "The soft side's measured warp/weft percentages on the fabric card, with `compensations.cut_scale` as the factor a draft applies."
     }
   ],
   "embodied_by": ["fashion-cabinet/manta-cruda", "yantra4d/tpu-chainmail-panel"],
@@ -31,5 +26,6 @@
   "constraints": "Compensation is applied once, at the cut or at the model, never at both — and it belongs to the axis it was measured on: manta cruda loses 5% on the warp and 3% on the weft, so one average factor mis-sizes the piece in both directions at once.",
   "review_status": {
     "state": "generated"
-  }
+  },
+  "notes": "The soft side's half of this contract is measured on the fabric card as `physical.shrinkage_pct` and applied as `compensations.cut_scale`; both have their own entries, and this one is the idea the two commons share."
 }

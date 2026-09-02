@@ -41,6 +41,18 @@ from .lexicon import (
     load_term_file,
     review_counts,
 )
+from .vocabulary import (
+    VOCABULARIES,
+    VOCABULARY_DIR,
+    VocabularyResult,
+    canonical_key,
+    check_vocabularies,
+    check_vocabulary,
+    equivalences,
+    load_vocabularies,
+    load_vocabulary,
+    vocabulary_status,
+)
 
 __all__ = [
     "LANGUAGES",
@@ -55,6 +67,16 @@ __all__ = [
     "load_lexicon",
     "load_term_file",
     "review_counts",
+    "VOCABULARIES",
+    "VOCABULARY_DIR",
+    "VocabularyResult",
+    "canonical_key",
+    "check_vocabularies",
+    "check_vocabulary",
+    "equivalences",
+    "load_vocabularies",
+    "load_vocabulary",
+    "vocabulary_status",
     "__version__",
 ]
 
