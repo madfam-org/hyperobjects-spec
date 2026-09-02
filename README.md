@@ -346,11 +346,13 @@ fc-spec lookup fashion-cabinet/garter-belt
 fc-spec related tape-edge
 ```
 
+<!-- counts:lexicon-status:start -->
 ```
 $ y4d-spec lexicon --catalog bundled
 y4d-spec lexicon: terms=147 failures=0 embodied_by=resolved
 lexicon_status: 147/147 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=117 unmarked=30
 ```
+<!-- counts:lexicon-status:end -->
 
 Without `--catalog`, the summary says `embodied_by=NOT resolved (…refs)` — the same
 read-proof bar `--render` holds. A run that skipped a check must never read like one
@@ -490,12 +492,14 @@ platform's `define()` resolves.
 The lexicon defines **words**. The vocabularies define **keys** — the literal strings a
 manifest writes. Two documents ship, and each fixes a different failure:
 
+<!-- counts:vocabulary-status:start -->
 ```
 $ fc-spec vocab
 fc-spec vocab: vocabularies=2 entries=170 failures=0
 vocabulary_status[capabilities]: entries=126 term=44 gloss=77 undefined=5 aliases=8 equivalences=0 distinct_pairs=1 provisional=1 review=generated
 vocabulary_status[interfaces]: entries=44 term=44 gloss=0 undefined=0 aliases=2 equivalences=5 distinct_pairs=1 provisional=10 review=generated
 ```
+<!-- counts:vocabulary-status:end -->
 
 **`interfaces`** — both commons' interface names. Each repo's type set is already a
 closed enum in its own schema, so the drift is not *inside* a repo but **across** the
@@ -575,6 +579,73 @@ because four languages are free at authoring time, but the catalogs are en/es to
 RFC 0039's phase G-L is the backfill. The status line prints the per-language counts so
 the debt is visible instead of permanent.
 
+### The cross-commons reader
+
+RFC 0039 G4: **one lexicon, both encyclopaedias, and the bridge graph as the navigation
+between them.** `docs/reader/` is a static, JavaScript-free reader built from data
+vendored in this repo, and committed, so a clone reads both commons with no build step.
+
+```bash
+fc-spec reader                 # or: y4d-spec reader — build into docs/reader
+fc-spec reader --check         # fail closed if the committed tree ≠ a rebuild (CI)
+fc-spec reader --status        # just the reader_status line
+```
+
+<!-- counts:reader:start -->
+| Layer | Pages | Languages present (es/en/fr/pt) |
+|---|--:|---|
+| terms | 147 | 147 / 147 / 147 / 147 |
+| yantra4d | 510 | 485 / 510 / 1 / 1 |
+| fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
+| index, bridge and catalog index pages | 5 | — |
+
+| Bridge | Count |
+|---|--:|
+| declared edges (garment → hardware) | 303 |
+| resolving to a page on both ends | 302 |
+| unresolved (reported, never fatal) | 1 |
+| linked | 299 |
+| claimed but not linked | 4 |
+| published back edges (hardware → garments) | 299 |
+| agreeing in both directions | 299 |
+
+```
+$ fc-spec reader --check
+fc-spec reader --check: out=docs/reader pages=1189 differences=0
+reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=4 back=299 mirrored=299
+```
+<!-- counts:reader:end -->
+
+**Where the pages come from.** The term corpus, plus three pinned snapshots refreshed by
+`scripts/refresh_reader_snapshots.py`: each commons' published catalog (with its material
+cards) and the bridge graph — Fashion Cabinet's `hardware_ref` claims forward, and the
+back edge it publishes for Yantra4D to vendor. The build reads nothing else: no network,
+no platform checkout, no clock.
+
+**Four things it refuses to do.**
+
+1. **Offer a language an entry does not have.** The lexicon is quadrilingual because
+   that is its ship gate; the catalogs are not, and phase G-L is the backfill. So the
+   switcher on a page lists exactly the languages that page carries, the index chips
+   show which languages a row has, and where a facet is missing the page says so *in
+   that language*. A reader that filled the gap silently would make the debt invisible.
+2. **Let a `generated` definition read as a reviewed one.** Every language section of a
+   term carries its own review state.
+3. **Copy an article.** RFC 0039 §2 makes each cartridge's `docs/README.md`
+   single-source; every entry page links to its manifest at the exact pinned commit
+   instead.
+4. **Hide an edge it cannot resolve.** An unresolved bridge target or `embodied_by` is
+   written out as unresolved, with the reason its author published — reported, never
+   fatal, the same convention the back edge itself keeps.
+
+`--check` renders the same pure `{path: text}` mapping the build writes and compares it
+byte for byte, so a missing page, a page nobody generates and a page whose bytes moved
+all fail. There is no second code path that could drift from the build.
+
+Every count above, and in the two transcripts earlier on this page, is emitted by
+`scripts/refresh_reader_counts.py` (`--check` in CI) rather than typed — the same reason
+`refresh_vocabulary_counts.py` exists one layer down.
+
 ---
 
 ## What is in the box
@@ -643,7 +714,13 @@ cd hyperobjects-spec
 python3 -m venv .venv && .venv/bin/pip install -e ".[geometry,dev]"
 .venv/bin/python -m pytest -ra
 .venv/bin/ruff check src tests
+.venv/bin/fc-spec reader --check          # docs/reader is committed; this is the diff
+python3 scripts/refresh_reader_counts.py --check   # and so are the counts in this file
 ```
+
+`docs/reader/` and the count blocks in this README are **generated and committed**. If
+you change the corpus, a vocabulary or a snapshot, rebuild them in the same commit —
+`fc-spec reader` and `scripts/refresh_reader_counts.py` — or CI will say so.
 
 The test fixtures are **real cartridges** copied from both commons. They are correct
 today, so a rule that flags them is wrong — which is how three false-positive rules were
