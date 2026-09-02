@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-count the controlled vocabularies against local platform checkouts.
+"""Re-count the controlled vocabularies against a commit of each platform repo.
 
 A vocabulary is a reading of a corpus at a moment. The COUNTS in it go stale the day a
 wave lands, and — more importantly — a new key can appear that the vocabulary has never
@@ -7,6 +7,18 @@ heard of, which is exactly the drift the vocabulary exists to stop.
 
     python3 scripts/refresh_vocabulary_counts.py \\
         --yantra4d ../yantra4d --fashion-cabinet ../fashion-cabinet
+
+**Why it reads through ``git show`` rather than the working tree**, and why the recorded
+rev is the FULL sha. Both are the posture ``refresh_reader_snapshots.py`` already takes
+for the G4 snapshots next door, adopted here so the two capture blocks in this repo mean
+the same thing. Naming the ref (``--yantra4d-ref`` / ``--fashion-cabinet-ref``, both
+defaulting to ``origin/main``) and reading every file out of that commit means the
+capture records the commit it was actually built from, so a refresh never needs a shared
+platform clone to be moved off its branch, cannot silently capture uncommitted work, and
+never has to materialise a private submodule the superproject merely points at. The sha
+is written in full because an abbreviation is a guess a later reader has to resolve, and
+because a 7- and an 8-character rev of the same repo (which is what these two documents
+carried) do not even look like the same kind of fact.
 
 What it does:
 
@@ -36,13 +48,17 @@ VOCAB_DIR = (
 )
 
 
-def _rev(repo: Path) -> str:
-    try:
-        return subprocess.check_output(
-            ["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], text=True
-        ).strip()
-    except (OSError, subprocess.CalledProcessError):
-        return "unknown"
+def _run(repo: Path, *args: str) -> str:
+    return subprocess.check_output(["git", "-C", str(repo), *args], text=True)
+
+
+def _commit(repo: Path, ref: str) -> str:
+    """The full sha ``ref`` resolves to in ``repo``."""
+    return _run(repo, "rev-parse", ref).strip()
+
+
+def _show_json(repo: Path, ref: str, path: str) -> object:
+    return json.loads(_run(repo, "show", f"{ref}:{path}"))
 
 
 class _Tally:
@@ -67,11 +83,12 @@ class _Tally:
         return {"cartridges": len(self.carts.get(key, ())), "interfaces": self.ifaces.get(key, 0)}
 
 
-def _y4d_counts(repo: Path):
+def _y4d_catalog(repo: Path, ref: str) -> list[dict]:
+    return _show_json(repo, ref, "docs/commons-catalog.json")["cartridges"]
+
+
+def _y4d_counts(catalog: list[dict]):
     """Interface counts from the published commons catalog: types, and ids."""
-    catalog = json.loads(
-        (repo / "docs/commons-catalog.json").read_text(encoding="utf-8")
-    )["cartridges"]
     types, ids = _Tally(), _Tally()
     for cart in catalog:
         for iface in cart.get("cdg_interfaces") or []:
@@ -80,15 +97,27 @@ def _y4d_counts(repo: Path):
     return len(catalog), types, ids
 
 
-def _fc_counts(repo: Path):
+def _fc_manifest_paths(repo: Path, ref: str) -> list[str]:
+    """``projects/<slug>/project.json`` in that commit, in slug order."""
+    listing = _run(repo, "ls-tree", "-r", "--name-only", ref, "projects/")
+    return sorted(
+        line
+        for line in listing.splitlines()
+        if line.startswith("projects/")
+        and line.endswith("/project.json")
+        and line.count("/") == 2
+    )
+
+
+def _fc_counts(repo: Path, ref: str):
     """Interface and capability counts from the garment manifests."""
     types, ids = _Tally(), _Tally()
     cap_carts = collections.Counter()
     cap_true = collections.Counter()
-    projects = sorted((repo / "projects").glob("*/project.json"))
+    projects = _fc_manifest_paths(repo, ref)
     for path in projects:
-        slug = path.parent.name
-        block = json.loads(path.read_text(encoding="utf-8")).get("hyperobject") or {}
+        slug = path.split("/")[1]
+        block = (_show_json(repo, ref, path) or {}).get("hyperobject") or {}
         for iface in block.get("interfaces") or []:
             types.add(iface.get("type"), slug)
             ids.add(iface.get("id"), slug)
@@ -113,14 +142,30 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--yantra4d", required=True, type=Path)
     ap.add_argument("--fashion-cabinet", required=True, type=Path)
     ap.add_argument(
+        "--yantra4d-ref",
+        default="origin/main",
+        help="the commit-ish to read yantra4d at (default: origin/main)",
+    )
+    ap.add_argument(
+        "--fashion-cabinet-ref",
+        default="origin/main",
+        help="the commit-ish to read fashion-cabinet at (default: origin/main)",
+    )
+    ap.add_argument(
         "--check",
         action="store_true",
         help="report drift and change nothing (what a CI lane would run)",
     )
     args = ap.parse_args(argv)
 
-    y4d_total, y4d_types, y4d_ids = _y4d_counts(args.yantra4d)
-    fc_total, fc_types, fc_ids, cap_carts, cap_true = _fc_counts(args.fashion_cabinet)
+    y4d_sha = _commit(args.yantra4d, args.yantra4d_ref)
+    fc_sha = _commit(args.fashion_cabinet, args.fashion_cabinet_ref)
+
+    catalog = _y4d_catalog(args.yantra4d, y4d_sha)
+    y4d_total, y4d_types, y4d_ids = _y4d_counts(catalog)
+    fc_total, fc_types, fc_ids, cap_carts, cap_true = _fc_counts(
+        args.fashion_cabinet, fc_sha
+    )
     tallies = {
         "yantra4d": {"types": y4d_types, "ids": y4d_ids},
         "fashion-cabinet": {"types": fc_types, "ids": fc_ids},
@@ -132,12 +177,12 @@ def main(argv: list[str] | None = None) -> int:
         "sources": {
             "yantra4d": {
                 "path": "docs/commons-catalog.json",
-                "rev": _rev(args.yantra4d),
+                "rev": y4d_sha,
                 "cartridges": y4d_total,
             },
             "fashion-cabinet": {
                 "path": "projects/*/project.json",
-                "rev": _rev(args.fashion_cabinet),
+                "rev": fc_sha,
                 "cartridges": fc_total,
             },
         },
@@ -178,9 +223,7 @@ def main(argv: list[str] | None = None) -> int:
     unknown = sorted(k for k in cap_carts if k not in covered["fashion-cabinet"])
     y4d_types = {
         i.get("geometry_type")
-        for cart in json.loads(
-            (args.yantra4d / "docs/commons-catalog.json").read_text(encoding="utf-8")
-        )["cartridges"]
+        for cart in catalog
         for i in cart.get("cdg_interfaces") or []
     }
     unknown_types = sorted(t for t in y4d_types if t and t not in covered["yantra4d"])
@@ -188,8 +231,8 @@ def main(argv: list[str] | None = None) -> int:
     for line in changed:
         print(f"  count {line}")
     print(
-        f"vocabulary counts: yantra4d={y4d_total} cartridges fashion-cabinet={fc_total} "
-        f"cartridges changed={len(changed)} "
+        f"vocabulary counts: yantra4d={y4d_total} cartridges ({y4d_sha[:8]}) "
+        f"fashion-cabinet={fc_total} cartridges ({fc_sha[:8]}) changed={len(changed)} "
         f"{'(checked, not written)' if args.check else '(written)'}"
     )
 
