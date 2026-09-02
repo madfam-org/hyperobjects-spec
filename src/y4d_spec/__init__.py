@@ -31,6 +31,8 @@ opts out); their thresholds are provisional pending full-commons calibration.
 
 from __future__ import annotations
 
+from hyperobjects_version import distribution_version
+
 from . import printability, rules, structure
 from .conformance import CartridgeResult, check_cartridge, check_manifest
 
@@ -44,4 +46,7 @@ __all__ = [
     "__version__",
 ]
 
-__version__ = "0.2.0"
+# One distribution, one version. Read from the installed metadata (or, in an
+# uninstalled checkout, from pyproject.toml) rather than typed here — see
+# hyperobjects_version for why a hand-written literal is the bug this ends.
+__version__ = distribution_version()

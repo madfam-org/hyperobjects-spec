@@ -45,6 +45,8 @@ RFC 0039 §6.2 tools both platforms' MCP servers wrap.
 
 from __future__ import annotations
 
+from hyperobjects_version import distribution_version
+
 from .articles import (
     ArticleResult,
     article_status,
@@ -132,4 +134,7 @@ __all__ = [
     "__version__",
 ]
 
-__version__ = "0.2.0"
+# One distribution, one version. Read from the installed metadata (or, in an
+# uninstalled checkout, from pyproject.toml) rather than typed here — see
+# hyperobjects_version for why a hand-written literal is the bug this ends.
+__version__ = distribution_version()

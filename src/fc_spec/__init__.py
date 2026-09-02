@@ -19,8 +19,13 @@ hardware-ref, explode-json.
 
 from __future__ import annotations
 
+from hyperobjects_version import distribution_version
+
 from .conformance import CONTRACTS, ConformanceResult, check, list_contracts
 
 __all__ = ["CONTRACTS", "ConformanceResult", "check", "list_contracts", "__version__"]
 
-__version__ = "1.0.0"
+# One distribution, one version. Read from the installed metadata (or, in an
+# uninstalled checkout, from pyproject.toml) rather than typed here — see
+# hyperobjects_version for why a hand-written literal is the bug this ends.
+__version__ = distribution_version()

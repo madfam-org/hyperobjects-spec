@@ -37,9 +37,14 @@ from functools import cache
 from importlib import resources
 from pathlib import Path
 
+from hyperobjects_version import distribution_version
+
 __all__ = ["load", "schema_path", "list_schemas", "SCHEMAS", "__version__"]
 
-__version__ = "0.2.0"
+# One distribution, one version. Read from the installed metadata (or, in an
+# uninstalled checkout, from pyproject.toml) rather than typed here — see
+# hyperobjects_version for why a hand-written literal is the bug this ends.
+__version__ = distribution_version()
 
 # The schemas this package bundles: name -> the repo that publishes it.
 SCHEMAS: dict[str, str] = {
