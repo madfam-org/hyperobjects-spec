@@ -27,6 +27,14 @@ authoring time, and every entry that ships partial becomes a backfill nobody sch
 
 from __future__ import annotations
 
+from .articles import (
+    ArticleResult,
+    article_status,
+    check_article,
+    check_articles,
+    language_coverage,
+    load_article,
+)
 from .lexicon import (
     LANGUAGES,
     LEXICON_DIR,
@@ -77,6 +85,12 @@ __all__ = [
     "load_vocabularies",
     "load_vocabulary",
     "vocabulary_status",
+    "ArticleResult",
+    "article_status",
+    "check_article",
+    "check_articles",
+    "language_coverage",
+    "load_article",
     "__version__",
 ]
 

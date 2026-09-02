@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/article-frontmatter.schema.json",
+  "title": "Commons Article Frontmatter",
+  "description": "The encyclopaedia layer's machine-readable half (RFC 0039 §2, phase G2 'article elevation'). Every cartridge in both commons already carries an article — its `docs/README.md`, written to encyclopaedic standard — and the RFC's rule about it is emphatic: SINGLE-SOURCE, no parallel corpus. So this contract deliberately holds no article body. It holds what a catalog surface needs in order to RENDER that README as an article and to navigate between articles: which object it is about, where the prose lives, the era and provenance of the thing, what the cartridge deliberately does not draw, the lexicon terms it uses, and — for anything heritage-flagged — the citations RFC 0039 §7 requires. Where the lexicon is born quadrilingual, an article is not: the catalogs carry en/es today and phase G-L backfills fr/pt, so this contract accepts any subset of the four languages and the lane REPORTS the coverage rather than failing it. Hiding that debt would be the only way to make it permanent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["object", "title", "article"],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS frontmatter contract the record is written against. Absent means 1.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "object": {
+      "description": "The cartridge or material card the article is about, as '<repo>/<slug>' — the same addressing the lexicon's `embodied_by` uses, so an article and a term point at objects the same way.",
+      "$ref": "#/$defs/objectSlug"
+    },
+    "title": {
+      "description": "The article's title, in whichever of the four languages the commons has so far. At least one is required; four is where G-L lands.",
+      "$ref": "#/$defs/i18n"
+    },
+    "summary": {
+      "description": "One or two sentences a catalog card can show. Not the article — the article is the README.",
+      "$ref": "#/$defs/i18n"
+    },
+    "article": {
+      "description": "Where the prose lives. A POINTER, never a copy: the README is the single source, and an article body duplicated here would be a second corpus to keep in step (RFC 0039 §2).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": {
+        "path": {
+          "description": "Repo-relative path to the article's Markdown, e.g. 'projects/chaleco-charro/docs/README.md'.",
+          "type": "string",
+          "pattern": "^[^/][^\\u0000]*\\.(md|markdown)$",
+          "minLength": 5
+        },
+        "sections": {
+          "description": "Named headings a reader (or a renderer) should be able to jump to. Optional, and never a substitute for the prose.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 }
+        }
+      }
+    },
+    "era": {
+      "description": "When the thing is from, in the words the tradition itself uses — 'contemporary, in continuous use', a century, a period. Free text on purpose: a date range would force a precision the evidence usually does not support.",
+      "type": "string",
+      "minLength": 3
+    },
+    "provenance": {
+      "description": "Where the thing comes from and who it belongs to. Filled in for anything with a cultural or historical dimension; omitted for a bracket.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tradition": {
+          "description": "The named practice or dress tradition, in its own language where it has one — 'Charrería', 'kente'.",
+          "type": "string",
+          "minLength": 2
+        },
+        "regions": {
+          "description": "Where it is worn or made. Plain names, not codes: a diaspora is a region too.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "custodians": {
+          "description": "Who holds the practice — the artisans, families, bodies or communities whose it is. Naming them is what makes `excludes` meaningful rather than decorative.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "note": { "$ref": "#/$defs/i18n" }
+      }
+    },
+    "heritage": {
+      "description": "True when the article makes a cultural or historical claim. It engages RFC 0039 §7's citation bar — sources become required — and this contract's own rule that a heritage article must say what it does not draw.",
+      "type": "boolean",
+      "default": false
+    },
+    "excludes": {
+      "description": "What the cartridge deliberately does NOT draw, and why that is a decision rather than a gap: a silverwork pattern, a clan tartan, an association's insignia, a workshop's own draft. The heritage cartridges already write this section in prose; here it is the machine-readable form, because a boundary a platform cannot read is a boundary a platform will cross.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 4 }
+    },
+    "sources": {
+      "description": "Citations a reader can follow. REQUIRED when `heritage` is true (RFC 0039 §7: no uncited cultural or historical claim).",
+      "type": "array",
+      "items": { "type": "string", "minLength": 4 }
+    },
+    "standards": {
+      "description": "Published standards the object is made against, cited by identifier.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 }
+    },
+    "related": {
+      "description": "The graph the reader navigates by. Terms are validated against the lexicon; objects against a catalog when one is supplied.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "terms": {
+          "description": "Lexicon term ids the article's vocabulary rests on — what a term popover in this article would resolve.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/termId" }
+        },
+        "objects": {
+          "description": "Other cartridges or cards worth reading next, as '<repo>/<slug>'. A contrast is as useful as a sibling: the charro waistcoat's most useful neighbour is the English one it is not.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/objectSlug" }
+        },
+        "identity": {
+          "description": "The cross-commons identity id, when this object is one half of a pair (RFC 0038 §9).",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "review_status": {
+      "description": "Whether this frontmatter has had a human pass. Same shape and same posture as the lexicon's: a record assembled by reading a README is a draft of an editorial claim.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "type": "string", "enum": ["generated", "reviewed"] },
+        "reviewers": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+        "note": { "type": "string" }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "objectSlug": {
+      "type": "string",
+      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "termId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "i18n": {
+      "description": "Text in any subset of the commons' four languages, at least one. Unlike a lexicon entry, an article is NOT gated on all four — the catalogs are en/es today and G-L is the backfill — but the lane counts what is present so the gap is visible.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

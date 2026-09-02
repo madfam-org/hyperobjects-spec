@@ -4,6 +4,7 @@
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
+    y4d-spec article <path> [...] [--catalog bundled]
     y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
     y4d-spec rules
 
@@ -21,6 +22,7 @@ import sys
 from pathlib import Path
 
 from hyperobjects_lexicon.cli import (
+    add_article_parser,
     add_dictionary_parsers,
     add_lexicon_parser,
     add_vocabulary_parser,
@@ -199,6 +201,7 @@ def main(argv: list[str] | None = None) -> int:
 
     add_lexicon_parser(sub, "y4d-spec")
     add_vocabulary_parser(sub, "y4d-spec")
+    add_article_parser(sub, "y4d-spec")
     add_dictionary_parsers(sub, "y4d-spec")
 
     p_rules = sub.add_parser("rules", help="explain what gets checked, and where it came from")

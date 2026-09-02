@@ -5,6 +5,7 @@
     fc-spec identity <pair.json> [<pair.json> ...]
     fc-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     fc-spec vocab [--status] [-v]
+    fc-spec article <path> [...] [--catalog bundled]
     fc-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
@@ -29,6 +30,7 @@ import sys
 from pathlib import Path
 
 from hyperobjects_lexicon.cli import (
+    add_article_parser,
     add_dictionary_parsers,
     add_lexicon_parser,
     add_vocabulary_parser,
@@ -89,6 +91,7 @@ def main(argv: list[str] | None = None) -> int:
 
     add_lexicon_parser(sub, "fc-spec")
     add_vocabulary_parser(sub, "fc-spec")
+    add_article_parser(sub, "fc-spec")
     add_dictionary_parsers(sub, "fc-spec")
 
     args = parser.parse_args(argv)
@@ -96,7 +99,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "lexicon":
         return run_lexicon(args, "fc-spec")
 
-    if args.cmd in ("vocab", "define", "lookup", "related"):
+    if args.cmd in ("vocab", "article", "define", "lookup", "related"):
         return args.func(args)
 
     if args.cmd == "list":

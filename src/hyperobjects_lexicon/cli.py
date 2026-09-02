@@ -6,6 +6,7 @@ they already have installed. The command bodies live here so the two cannot drif
 
     <tool> lexicon [--catalog bundled] [--terms DIR] [--status] [-v]
     <tool> vocab [--vocabularies DIR] [--status] [-v]
+    <tool> article <path> [<path> ...] [--catalog bundled] [-v]
     <tool> define <word> [--lang es|en|fr|pt]
     <tool> lookup <repo/slug>
     <tool> related <term-id>
@@ -20,6 +21,7 @@ from __future__ import annotations
 
 import json
 
+from .articles import article_status, check_articles, load_article
 from .dictionary import define, lookup, related
 from .lexicon import (
     LANGUAGES,
@@ -42,14 +44,26 @@ BUNDLED = "bundled"
 __all__ = [
     "add_lexicon_parser",
     "add_vocabulary_parser",
+    "add_article_parser",
     "add_dictionary_parsers",
     "LEXICON_COMMANDS",
     "run_lexicon",
     "run_vocabulary",
+    "run_article",
 ]
 
 #: Every subcommand this module registers, so a host CLI can dispatch them as a group.
-LEXICON_COMMANDS: tuple[str, ...] = ("lexicon", "vocab", "define", "lookup", "related")
+LEXICON_COMMANDS: tuple[str, ...] = (
+    "lexicon",
+    "vocab",
+    "article",
+    "define",
+    "lookup",
+    "related",
+)
+
+#: What an article frontmatter file is called, when a directory is scanned for them.
+ARTICLE_SUFFIX = ".article.json"
 
 
 def add_lexicon_parser(sub, prog: str) -> None:
@@ -280,3 +294,92 @@ def _run_related(args, prog: str) -> int:
         print(f"  key: {key['repo']}/{key['key']} [{key['role']}]{aliases}")
     print(f"  embodied_by: {len(record['embodied_by'])} object(s)")
     return 0
+
+
+def add_article_parser(sub, prog: str) -> None:
+    """Register the `article` subcommand — article frontmatter (RFC 0039 G2)."""
+    p = sub.add_parser(
+        "article",
+        help="check article frontmatter — the encyclopaedia layer's machine-readable half",
+    )
+    p.add_argument(
+        "paths",
+        nargs="+",
+        help=f"frontmatter file(s), or director(ies) to scan for *{ARTICLE_SUFFIX}",
+    )
+    p.add_argument(
+        "--catalog",
+        metavar="CATALOG",
+        action="append",
+        help="a commons catalog to resolve the object slugs against (repeatable; the "
+        "literal 'bundled' uses the vendored snapshot). Without one, slugs are NOT "
+        "resolved and the summary says so.",
+    )
+    p.add_argument("-v", "--verbose", action="store_true", help="list every article")
+    p.set_defaults(func=lambda args: run_article(args, prog))
+
+
+def _collect_articles(paths) -> dict[str, dict]:
+    """Read every frontmatter file named, and every one inside a directory named."""
+    from pathlib import Path
+
+    out: dict[str, dict] = {}
+    for raw_path in paths:
+        path = Path(raw_path)
+        files = (
+            sorted(path.rglob(f"*{ARTICLE_SUFFIX}")) if path.is_dir() else [path]
+        )
+        for f in files:
+            out[str(f)] = load_article(f)
+    return out
+
+
+def run_article(args, prog: str) -> int:
+    """Run the article lane. 0 conformant · 1 a problem · 2 usage/read error."""
+    try:
+        articles = _collect_articles(args.paths)
+    except (OSError, ValueError) as exc:
+        print(f"  ERROR cannot read the article frontmatter — {exc}")
+        return 2
+
+    if not articles:
+        # Read-proof: scanning a directory that holds no frontmatter passes every check
+        # vacuously, which must not read like a corpus that passed.
+        print(f"  ERROR articles=0 — nothing to check under {', '.join(args.paths)}")
+        return 2
+
+    catalog = None
+    if args.catalog:
+        catalog = set()
+        for path in args.catalog:
+            try:
+                catalog |= (
+                    bundled_catalog_slugs() if path == BUNDLED else load_catalog_slugs(path)
+                )
+            except (OSError, ValueError) as exc:
+                print(f"  ERROR {path}: cannot read catalog — {exc}")
+                return 2
+
+    result = check_articles(articles, catalog=catalog)
+
+    if args.verbose:
+        for name in sorted(articles):
+            doc = articles[name]
+            obj = doc.get("object", "?") if isinstance(doc, dict) else "?"
+            flag = " [heritage]" if isinstance(doc, dict) and doc.get("heritage") else ""
+            print(f"  ok {obj}{flag} ({name})")
+
+    for prob in result.problems:
+        print(f"  FAIL {prob}")
+
+    objects = (
+        "resolved"
+        if result.catalog_checked
+        else f"NOT resolved ({result.unresolved_objects} refs; pass --catalog)"
+    )
+    print(
+        f"{prog} article: articles={result.articles} failures={len(result.problems)} "
+        f"objects={objects}"
+    )
+    print(article_status(articles))
+    return 1 if result.problems else 0
