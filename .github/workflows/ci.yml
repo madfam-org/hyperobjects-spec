@@ -47,8 +47,38 @@ jobs:
 
       - name: Report what is installed
         # Read-proof: the summary below claims geometry ran, so say what is present.
+        #
+        # `geometry available: False` on its own is unreadable: geometry_available()
+        # catches Exception and returns a bool, so the ONE fact a dark lane needs to
+        # report — which import failed and why — is exactly the fact it swallows. So
+        # import each piece here and print the traceback it actually raised, and scan
+        # the installed extension modules for shared libraries the loader cannot find.
+        # Neither is allowed to fail the step: this is the diagnosis, and the read-proof
+        # line below is the verdict.
         run: |
           .venv/bin/python -c "import fc_spec, y4d_spec, commons_sandbox, hyperobjects_schemas; print('packages ok')"
+          .venv/bin/python - <<'PY' || true
+          import platform, sys, traceback
+
+          print("python:", sys.version.replace("\n", " "))
+          print("platform:", platform.platform())
+          for name in ("OCP", "vtkmodules.all", "cadquery", "trimesh", "rtree", "scipy", "networkx"):
+              try:
+                  __import__(name)
+              except BaseException:
+                  print(f"import {name}: FAILED")
+                  traceback.print_exc()
+              else:
+                  print(f"import {name}: ok")
+          PY
+          echo "--- shared libraries the CAD stack asks for and cannot find ---"
+          SP=$(echo .venv/lib/python*/site-packages)
+          find "$SP/OCP" "$SP/cadquery_ocp.libs" "$SP/vtkmodules" "$SP/vtk.libs" \
+               -name '*.so*' 2>/dev/null \
+            | xargs -r -n1 ldd 2>/dev/null \
+            | awk '/not found/ {print $1}' | sort -u \
+            | tee /tmp/missing-sonames.txt
+          test -s /tmp/missing-sonames.txt || echo "(none)"
           .venv/bin/python -c "from y4d_spec.geometry import geometry_available; print('geometry available:', geometry_available())"
 
       - name: Lint
