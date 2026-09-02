@@ -70,5 +70,27 @@ jobs:
 
       - name: Lexicon lane
         # Hermetic (bundled slug snapshot): schema-valid, quadrilingual-complete,
-        # zero dangling cross-refs, embodied_by resolved. Sub-second.
+        # zero dangling cross-refs, embodied_by resolved, no unsigned review claims.
+        # Sub-second.
         run: .venv/bin/fc-spec lexicon --catalog bundled
+
+      - name: Vocabulary lane
+        # The controlled vocabularies (RFC 0039 G3): every key defined or explicitly
+        # undefined, every cross-commons equivalence symmetric, every false-friend pair
+        # recorded on both halves, every widely-written key carrying a term. Run on the
+        # OTHER tool than the lexicon lane above, so both console scripts are exercised.
+        run: .venv/bin/y4d-spec vocab
+
+      - name: Article lane
+        # The G2 frontmatter contract, against the shipped exemplar. --catalog bundled
+        # resolves the object and its neighbours hermetically.
+        run: .venv/bin/fc-spec article examples --catalog bundled
+
+      - name: Dictionary tools
+        # RFC 0039 §6.2, exercised exactly as an MCP server calls them. The greps are the
+        # read-proof: a `define` that resolved nothing would still exit 0 on its own.
+        run: |
+          .venv/bin/fc-spec define zipper_tape --lang pt | grep -q "debrum de fita"
+          .venv/bin/y4d-spec define negative_ease_knit | grep -q "knit-negative-ease"
+          .venv/bin/fc-spec lookup fashion-cabinet/garter-belt | grep -q "strap-slot"
+          .venv/bin/y4d-spec related tape-edge | grep -q "zipper_tape"

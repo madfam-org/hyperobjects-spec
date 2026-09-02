@@ -23,6 +23,19 @@ On the command line, on either tool a contributor already has installed::
 Terms are born quadrilingual — en/es/fr/pt, all four required to ship (RFC 0039 §7).
 That is a ship gate rather than an aspiration: the four-language rule is only free at
 authoring time, and every entry that ships partial becomes a backfill nobody schedules.
+
+Three layers ship here, and they are deliberately distinct:
+
+* ``lexicon`` — the terms. Words, defined in four languages, each pointing at the
+  cartridges that embody it and carrying the constraint that comes with it.
+* ``vocabulary`` — the controlled vocabularies (G3). KEYS rather than words: the literal
+  strings a manifest writes, with the near-duplicates canonicalised and the cross-commons
+  equivalences recorded as explicit edges.
+* ``articles`` — the frontmatter contract (G2). The encyclopaedia layer's machine-readable
+  half, pointing AT each cartridge's README rather than copying it.
+
+``dictionary`` is how all three are read: ``define``, ``lookup`` and ``related``, the
+RFC 0039 §6.2 tools both platforms' MCP servers wrap.
 """
 
 from __future__ import annotations
@@ -94,4 +107,4 @@ __all__ = [
     "__version__",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

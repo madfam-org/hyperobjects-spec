@@ -39,7 +39,7 @@ from pathlib import Path
 
 __all__ = ["load", "schema_path", "list_schemas", "SCHEMAS", "__version__"]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # The schemas this package bundles: name -> the repo that publishes it.
 SCHEMAS: dict[str, str] = {
