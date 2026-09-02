@@ -34,6 +34,8 @@ python and always runs.
 
 from __future__ import annotations
 
+from hyperobjects_version import distribution_version
+
 from .core import (
     BridgeLink,
     LinkVerdict,
@@ -52,6 +54,10 @@ __all__ = [
     "check_link",
     "discover_links",
     "load_y4d_index",
+    "__version__",
 ]
 
-__version__ = "0.1.0"
+# One distribution, one version. Read from the installed metadata (or, in an
+# uninstalled checkout, from pyproject.toml) rather than typed here — see
+# hyperobjects_version for why a hand-written literal is the bug this ends.
+__version__ = distribution_version()
