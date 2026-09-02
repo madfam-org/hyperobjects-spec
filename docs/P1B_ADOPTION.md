@@ -127,7 +127,8 @@ its scripts. Nothing imports it yet, so adoption is additive first.
 
 ## Shared decisions to make before either side deletes anything
 
-- [ ] **Distribution.** These install instructions use a git URL and a tag. If
+- [ ] **Distribution.** These install instructions use a git URL and a branch ref —
+      no release tag exists for the current version, so `@main` is what resolves. If
       `hyperobjects-spec` goes to a registry (PyPI or the MADFAM registry), update the
       README, both repos' dependency pins, and the CI setup steps together.
 - [ ] **Versioning policy.** Downstream CI will pin this package. Decide what a minor
