@@ -657,7 +657,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
-| `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, and their lanes |
+| `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 
 ```python
 import hyperobjects_schemas as hs
