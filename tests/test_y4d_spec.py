@@ -761,7 +761,12 @@ def test_openscad_preset_is_skipped_like_its_mode(tmp_path):
 @pytest.mark.geometry
 @geometry_required
 def test_thin_wall_note_fires_on_a_thin_wall(tmp_path):
-    """A 0.4mm-walled open-topped box: one nozzle width, half the two-perimeter bar."""
+    """A 0.4mm-walled open-topped box: one nozzle width, half the two-perimeter bar.
+
+    Unambiguously thin, and unambiguously so at every seed: the shell is uniformly one
+    nozzle width thick, so the thickness measurement reads 0.4000mm whichever surface
+    points it samples. This test proves the MECHANISM fires, with no dependence on the
+    draw — which is why it stayed green all the way through the flake next door."""
     cart = tmp_path / "thin-wall"
     cart.mkdir()
     doc = _manifest(THIMBLE)
@@ -803,7 +808,11 @@ def test_printability_is_silent_on_sew_on_snap_at_its_defaults():
     flags it at its own defaults is not strict — it is wrong (the doctrine rules.py
     records for the killed render_mode rule). Both thresholds were tuned against
     exactly this: thin walls flagged all three parts at the 25th percentile, and
-    overhangs flagged them at 32% before bed-contact faces were excluded."""
+    overhangs flagged them at 32% before bed-contact faces were excluded.
+
+    Unambiguously thick, and by a wide margin: the set part measures 1.18mm at the
+    shipped seed and 1.08-1.22mm across unseeded draws, against a 0.8mm bar. Silence
+    here is the mechanism working, not a sample that happened to land high."""
     result = check_cartridge(SEW_ON_SNAP, render=True)
     assert result.ok, result.problems
     default_notes = [n for n in result.notes if "preset" not in n]
@@ -814,8 +823,21 @@ def test_printability_is_silent_on_sew_on_snap_at_its_defaults():
 def test_printability_note_on_a_marginal_preset_does_not_block():
     """The one finding the tuned thresholds keep on sew-on-snap, and it is TRUE: the
     'bodysuit_placket' preset is the 9mm snap with 1.6mm discs, and its sew-hole
-    webbing measures ~0.76mm median — genuinely marginal for a 0.4mm nozzle, a few
-    hundredths under the bar.
+    webbing measures 0.7614mm — genuinely marginal for a 0.4mm nozzle, 0.04mm under
+    the bar.
+
+    That number is now a MEASUREMENT and not a draw. The docstring used to call it "a
+    stable 0.76mm median (0.74-0.78 across eight sample seeds)" and it was not stable:
+    twelve unseeded draws of this same mesh spread 0.7534-0.8628mm and produced the note
+    on 8 of them, so this assertion failed about one run in four. Nobody saw it because
+    until #9 the geometry lane skipped on the runner and it was never evaluated there.
+    The sampling is seeded now (printability.THICKNESS_SAMPLE_SEED), so the same mesh
+    measures 0.7614mm every time.
+
+    If a trimesh upgrade ever moves that draw over the bar, the fix is a fixture or a
+    seed — never the threshold. Moving a provisional bar so a marginal part reads clean
+    is tuning to the answer, which is exactly what THIN_WALL_PERCENTILE's calibration
+    story refuses to do.
 
     KNOWN FLAKE, and the docstring used to hide it: this said "a stable 0.76mm median
     (0.74-0.78 across eight sample seeds)", and it is not stable. `thin_wall_note`
@@ -889,9 +911,15 @@ class _StubMesh:
 
 
 def _stub_trimesh(thickness):
+    """A stand-in trimesh, with the real signatures.
+
+    `sample_surface` takes `seed` because the real one does and the measurement passes
+    it: a stand-in that refused the keyword would send the production call down its
+    old-trimesh fallback and test a path this environment never takes.
+    """
     return types.SimpleNamespace(
         sample=types.SimpleNamespace(
-            sample_surface=lambda mesh, n: ("points", "face-index")
+            sample_surface=lambda mesh, n, seed=None: ("points", "face-index")
         ),
         proximity=types.SimpleNamespace(thickness=thickness),
     )
@@ -957,6 +985,98 @@ def test_a_geometric_failure_still_gets_silence(monkeypatch):
     with warnings.catch_warnings():
         warnings.simplefilter("error", printability.PrintabilityDependencyWarning)
         assert printability.thin_wall_note(_StubMesh(), mode="m", part="p") is None
+
+
+# ── the thickness measurement repeats ────────────────────────────────────────
+# These need trimesh and no CAD kernel, like the build-volume tests below. The mesh is
+# a slender cone on purpose: its thickness varies continuously from nothing at the tip
+# to 1.2mm at the base, so the median of a sample really does move with the draw —
+# which is what makes "the same seed measures the same number" a claim worth testing
+# rather than one a uniform-walled fixture would satisfy by accident.
+
+
+def _tapered_mesh(trimesh):
+    """A cone measuring 0.27-0.38mm depending on the sample: always a note, never the
+    same number twice unless the sampling is pinned."""
+    return trimesh.creation.cone(radius=0.6, height=20.0, sections=48)
+
+
+def test_the_thickness_measurement_is_reproducible():
+    """A note that appears on one run and not the next is not a measurement.
+
+    This is the property the seed exists for. Before it, the marginal-preset test above
+    failed about one run in four: the statistic is estimated from random surface
+    samples, and near the threshold the noise decided the verdict rather than the part.
+    """
+    trimesh = pytest.importorskip("trimesh")
+    mesh = _tapered_mesh(trimesh)
+
+    first = printability.thin_wall_note(mesh, mode="m", part="p")
+    second = printability.thin_wall_note(mesh, mode="m", part="p")
+
+    assert first is not None and second is not None, "the cone is well under the bar"
+    assert first.measured == second.measured
+    assert first.message == second.message
+
+
+def test_the_shipped_default_is_the_documented_seed():
+    """The default is THICKNESS_SAMPLE_SEED and nothing else, so a change to the
+    constant cannot be masked by a different default at the call site."""
+    trimesh = pytest.importorskip("trimesh")
+    mesh = _tapered_mesh(trimesh)
+
+    default = printability.thin_wall_note(mesh, mode="m", part="p")
+    explicit = printability.thin_wall_note(
+        mesh, mode="m", part="p", seed=printability.THICKNESS_SAMPLE_SEED
+    )
+    assert default is not None and explicit is not None
+    assert default.measured == explicit.measured
+
+
+def test_a_different_seed_draws_a_different_sample():
+    """The seed is really plumbed through to the sampler.
+
+    Without this, `thin_wall_note` could be reproducible for the wrong reason — a
+    sampler that ignored the argument entirely would pass the two tests above.
+    """
+    trimesh = pytest.importorskip("trimesh")
+    mesh = _tapered_mesh(trimesh)
+
+    notes = [
+        printability.thin_wall_note(mesh, mode="m", part="p", seed=seed)
+        for seed in range(4)
+    ]
+    assert all(n is not None for n in notes), "every seed must fire on a 0.3mm cone"
+    assert len({n.measured for n in notes}) > 1, [n.measured for n in notes]
+
+
+def test_the_seed_still_works_where_trimesh_has_no_seed_parameter():
+    """The declared floor is trimesh>=4.0, and the `seed` parameter is newer than that.
+
+    Older releases draw from numpy's GLOBAL random state, so the fallback seeds it
+    around the call — and puts the caller's stream back afterwards, because measuring a
+    mesh must not move somebody else's random numbers.
+    """
+    np = pytest.importorskip("numpy")
+    drawn = []
+
+    class _OldTrimeshSample:
+        @staticmethod
+        def sample_surface(mesh, count):  # no `seed` parameter, as trimesh 4.0 had none
+            drawn.append(float(np.random.random()))
+            return ("points", "face_index")
+
+    old_trimesh = types.SimpleNamespace(sample=_OldTrimeshSample)
+    before = np.random.get_state()
+
+    first = printability._sample_surface(old_trimesh, np, object(), 8, 3)
+    second = printability._sample_surface(old_trimesh, np, object(), 8, 3)
+    after = np.random.get_state()
+
+    assert first == second == ("points", "face_index")
+    assert drawn[0] == drawn[1], "the same seed must produce the same draw"
+    assert before[0] == after[0] and np.array_equal(before[1], after[1])
+    assert before[2:] == after[2:], "the caller's random stream was left where it was"
 
 
 def test_build_volume_note_names_the_measurement():
