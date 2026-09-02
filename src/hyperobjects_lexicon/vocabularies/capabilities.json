@@ -7,12 +7,12 @@
     "sources": {
       "yantra4d": {
         "path": "docs/commons-catalog.json",
-        "rev": "80892074",
+        "rev": "c38863379903abc1cbdba4090942ae077bb4fdaa",
         "cartridges": 500
       },
       "fashion-cabinet": {
         "path": "projects/*/project.json",
-        "rev": "fdb88c5",
+        "rev": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
         "cartridges": 516
       }
     }

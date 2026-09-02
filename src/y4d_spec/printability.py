@@ -46,10 +46,12 @@ the overhang measurement is a note.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 
 __all__ = [
     "PrintabilityNote",
+    "PrintabilityDependencyWarning",
     "THIN_WALL_MM",
     "THIN_WALL_PERCENTILE",
     "OVERHANG_ANGLE_DEG",
@@ -143,6 +145,50 @@ BUILD_VOLUME_MM = 256.0
 THICKNESS_SAMPLES = 400
 
 
+class PrintabilityDependencyWarning(UserWarning):
+    """A printability measurement was skipped because a PACKAGE is missing.
+
+    Not a failure, deliberately. The module contract above is that printability
+    measures and never blocks — `y4d-spec check --render` must not turn a conformant
+    cartridge red because the machine running it is short an optional package — so a
+    missing dependency cannot raise here. But it must not be SILENT either: without
+    this warning a missing package is indistinguishable from a mesh that had nothing
+    to say, and the difference matters enormously. "No thin walls" is a measurement.
+    "The thickness measurement never ran" is a hole where a measurement should be, and
+    a reader who cannot tell the two apart will read the hole as the good news.
+
+    This is exactly how the `rtree` gap hid: trimesh's default `max_sphere` thickness
+    reaches for `rtree` through `mesh.ray`, the `[geometry]` extra did not declare it,
+    and the broad `except Exception` below turned the ModuleNotFoundError into the same
+    `None` a featureless mesh returns. Two tests asserting the note FIRES went green
+    everywhere the geometry lane was skipped, and said nothing anywhere else.
+    """
+
+
+# Missing-package reports already made, keyed by (rule, package). The report is
+# once-per-process: a cartridge measures every (mode, part, preset), so a 40-render
+# cartridge would otherwise bury the one line that matters under forty copies of it.
+_REPORTED_MISSING: set[tuple[str, str]] = set()
+
+
+def _report_missing_dependency(rule: str, exc: ImportError) -> None:
+    """Warn ONCE that `rule` was skipped for a missing package, naming the package."""
+    package = (getattr(exc, "name", None) or "").split(".")[0]
+    if not package:
+        package = "an optional package"
+    if (rule, package) in _REPORTED_MISSING:
+        return
+    _REPORTED_MISSING.add((rule, package))
+    warnings.warn(
+        f"printability: the {rule} measurement was SKIPPED because the package "
+        f"{package!r} is not installed — this is a missing dependency, not a mesh "
+        f"with nothing to report. Install the geometry extra to measure it: "
+        f'pip install "hyperobjects-spec[geometry]"',
+        PrintabilityDependencyWarning,
+        stacklevel=3,
+    )
+
+
 @dataclass
 class PrintabilityNote:
     """One printability observation about one rendered mesh.
@@ -181,12 +227,19 @@ def thin_wall_note(mesh, *, mode: str, part: str, preset: str | None = None):
     and flagged three cartridges that print correctly today.
 
     Returns None when nothing is worth saying, or when the measurement cannot be
-    made (no ray engine, degenerate mesh) — an unmeasurable part gets silence, not a
-    guess.
+    made (degenerate mesh, a ray that never lands) — an unmeasurable part gets
+    silence, not a guess. A missing PACKAGE is not that case: it also returns None,
+    because this module never blocks, but it says so first through
+    PrintabilityDependencyWarning. `max_sphere` thickness needs `rtree` (trimesh's
+    ray backend builds its bounds tree with it), which is why the [geometry] extra
+    declares it.
     """
     try:
         import numpy as np
         import trimesh
+    except ImportError as exc:
+        _report_missing_dependency("thin_wall", exc)
+        return None
     except Exception:
         return None
 
@@ -208,6 +261,11 @@ def thin_wall_note(mesh, *, mode: str, part: str, preset: str | None = None):
         if thickness.size < 16:
             return None
         measured = float(np.percentile(thickness, THIN_WALL_PERCENTILE))
+    except ImportError as exc:
+        # trimesh reaches for rtree lazily, from inside proximity.thickness — so the
+        # missing-package case surfaces HERE, not at the import block above.
+        _report_missing_dependency("thin_wall", exc)
+        return None
     except Exception:
         return None
 
@@ -244,6 +302,9 @@ def overhang_note(mesh, *, mode: str, part: str, preset: str | None = None):
     """
     try:
         import numpy as np
+    except ImportError as exc:
+        _report_missing_dependency("overhang", exc)
+        return None
     except Exception:
         return None
 
@@ -258,6 +319,9 @@ def overhang_note(mesh, *, mode: str, part: str, preset: str | None = None):
         limit = -np.cos(np.radians(OVERHANG_ANGLE_DEG))
         down = (normals[:, 2] < limit) & (normals[:, 2] > -BED_FACE_COS)
         measured = float(areas[down].sum() / total)
+    except ImportError as exc:
+        _report_missing_dependency("overhang", exc)
+        return None
     except Exception:
         return None
 
@@ -288,6 +352,9 @@ def build_volume_note(mesh, *, mode: str, part: str, preset: str | None = None):
     """
     try:
         extents = [float(x) for x in mesh.extents]
+    except ImportError as exc:
+        _report_missing_dependency("build_volume", exc)
+        return None
     except Exception:
         return None
     if not extents:
