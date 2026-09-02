@@ -30,6 +30,7 @@ from __future__ import annotations
 from .lexicon import (
     LANGUAGES,
     LEXICON_DIR,
+    REVIEW_STATES,
     LexiconResult,
     bundled_catalog_slugs,
     check_lexicon,
@@ -38,11 +39,13 @@ from .lexicon import (
     load_catalog_slugs,
     load_lexicon,
     load_term_file,
+    review_counts,
 )
 
 __all__ = [
     "LANGUAGES",
     "LEXICON_DIR",
+    "REVIEW_STATES",
     "LexiconResult",
     "bundled_catalog_slugs",
     "check_lexicon",
@@ -51,6 +54,7 @@ __all__ = [
     "load_catalog_slugs",
     "load_lexicon",
     "load_term_file",
+    "review_counts",
     "__version__",
 ]
 
