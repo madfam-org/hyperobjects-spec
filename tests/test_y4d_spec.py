@@ -10,6 +10,9 @@ Geometry tests are marked `geometry` and skip unless cadquery + trimesh import.
 
 import copy
 import json
+import sys
+import types
+import warnings
 from pathlib import Path
 
 import pytest
@@ -855,6 +858,92 @@ def test_no_printability_silences_the_measurements(tmp_path):
     result = check_cartridge(cart, render=True, printability=False)
     assert result.ok
     assert result.notes == []
+
+
+# ── a missing PACKAGE is not an unmeasurable mesh ────────────────────────────
+# These run everywhere, in every install, with nothing skipped: they substitute a
+# stand-in `trimesh` (and `numpy`) into sys.modules, so they need neither the
+# [geometry] extra nor a CAD kernel to pin what the module does when a package the
+# measurement reaches for is absent.
+
+
+class _StubMesh:
+    """The little a printability measurement asks of a mesh before it measures."""
+
+    faces = types.SimpleNamespace(shape=(128,))
+    area = 10.0
+    face_normals = {"face-index": "normals"}
+
+
+def _stub_trimesh(thickness):
+    return types.SimpleNamespace(
+        sample=types.SimpleNamespace(
+            sample_surface=lambda mesh, n: ("points", "face-index")
+        ),
+        proximity=types.SimpleNamespace(thickness=thickness),
+    )
+
+
+def _install_stub_trimesh(monkeypatch, thickness):
+    monkeypatch.setattr(printability, "_REPORTED_MISSING", set())
+    monkeypatch.setitem(sys.modules, "numpy", types.SimpleNamespace())
+    monkeypatch.setitem(sys.modules, "trimesh", _stub_trimesh(thickness))
+
+
+def test_a_missing_package_is_named_rather_than_measured_as_silence(monkeypatch):
+    """The bug this pins, and the reason the [geometry] extra now declares rtree.
+
+    trimesh.proximity.thickness at its default method='max_sphere' reaches for `rtree`
+    (through mesh.ray -> triangles_tree -> util.bounds_tree). The extra did not declare
+    it, and the broad `except Exception` turned the resulting ModuleNotFoundError into
+    the same None a featureless mesh returns — so `thin_wall` silently never fired, and
+    the two tests that assert it DOES fire were green only where the geometry lane was
+    skipped wholesale. A missing package must be distinguishable from a mesh with
+    nothing to say."""
+
+    def _missing(**kwargs):
+        raise ModuleNotFoundError("No module named 'rtree'", name="rtree")
+
+    _install_stub_trimesh(monkeypatch, _missing)
+
+    with pytest.warns(printability.PrintabilityDependencyWarning) as caught:
+        note = printability.thin_wall_note(_StubMesh(), mode="m", part="p")
+
+    assert note is None  # printability still never blocks — it reports and moves on
+    message = str(caught[0].message)
+    assert "rtree" in message, message
+    assert "thin_wall" in message and "SKIPPED" in message, message
+    assert "hyperobjects-spec[geometry]" in message, message
+
+
+def test_the_missing_package_is_named_once_per_process_not_once_per_render(monkeypatch):
+    """A cartridge measures every (mode, part, preset). Saying it forty times would
+    bury the one line that matters."""
+
+    def _missing(**kwargs):
+        raise ModuleNotFoundError("No module named 'rtree'", name="rtree")
+
+    _install_stub_trimesh(monkeypatch, _missing)
+
+    with pytest.warns(printability.PrintabilityDependencyWarning) as caught:
+        for part in ("a", "b", "c"):
+            assert printability.thin_wall_note(_StubMesh(), mode="m", part=part) is None
+    assert len(caught) == 1, [str(w.message) for w in caught]
+
+
+def test_a_geometric_failure_still_gets_silence(monkeypatch):
+    """The swallow stays where it belongs. A ray that lands nowhere, a degenerate
+    mesh, an OCCT tantrum — those are unmeasurable PARTS, and an unmeasurable part
+    gets silence rather than a guess or a warning nobody can act on."""
+
+    def _degenerate(**kwargs):
+        raise ValueError("could not cast rays through a degenerate mesh")
+
+    _install_stub_trimesh(monkeypatch, _degenerate)
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", printability.PrintabilityDependencyWarning)
+        assert printability.thin_wall_note(_StubMesh(), mode="m", part="p") is None
 
 
 def test_build_volume_note_names_the_measurement():

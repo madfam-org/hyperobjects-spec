@@ -36,7 +36,23 @@ dependencies = ["jsonschema>=4.21"]
 # split-into-bodies check is exactly how an inverted shell is caught. networkx is
 # additionally what trimesh's submesh() reaches for on a mesh WITH holes — i.e. on
 # precisely the broken cartridges this lane exists to report.
-geometry = ["cadquery>=2.4,<2.8", "trimesh>=4.0", "scipy>=1.10", "networkx>=3.0"]
+#
+# rtree is here for the same reason and was missing for the same reason. The
+# printability thin-wall measurement calls trimesh.proximity.thickness at its default
+# method="max_sphere", which goes max_tangent_sphere -> longest_ray -> mesh.ray ->
+# Trimesh.triangles_tree -> trimesh.util.bounds_tree -> `import rtree` (verified
+# against trimesh 5.1.0's proximity.py:583, ray/ray_triangle.py:59, util.py:1896).
+# Without it the call raised ModuleNotFoundError on every mesh, the note never fired,
+# and the two tests that assert it fires passed only where the geometry lane skipped
+# entirely. Declaring it here is what the code already required; y4d_spec.printability
+# now also names the package out loud rather than swallowing its absence.
+geometry = [
+  "cadquery>=2.4,<2.8",
+  "trimesh>=4.0",
+  "scipy>=1.10",
+  "networkx>=3.0",
+  "rtree>=1.0",
+]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.urls]
