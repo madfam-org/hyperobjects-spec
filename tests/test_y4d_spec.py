@@ -814,12 +814,25 @@ def test_printability_is_silent_on_sew_on_snap_at_its_defaults():
 def test_printability_note_on_a_marginal_preset_does_not_block():
     """The one finding the tuned thresholds keep on sew-on-snap, and it is TRUE: the
     'bodysuit_placket' preset is the 9mm snap with 1.6mm discs, and its sew-hole
-    webbing measures a stable 0.76mm median (0.74-0.78 across eight sample seeds) —
-    genuinely marginal for a 0.4mm nozzle, 0.04mm under the bar.
+    webbing measures ~0.76mm median — genuinely marginal for a 0.4mm nozzle, a few
+    hundredths under the bar.
 
-    The point of this test is the doctrine, not the number: a true-but-marginal
+    KNOWN FLAKE, and the docstring used to hide it: this said "a stable 0.76mm median
+    (0.74-0.78 across eight sample seeds)", and it is not stable. `thin_wall_note`
+    estimates the median from 400 UNSEEDED random surface samples, so on a part sitting
+    0.04mm under the threshold the estimate wanders across it: 12 consecutive renders
+    here measured 0.75-0.80mm and produced NO note on 3 of them. Until PR #9 the
+    geometry lane skipped on the runner and nobody could see it; now that the lane
+    actually runs, this assertion fails roughly one run in four.
+
+    Fixing it is a calibration decision and not a test edit — seed the sampler so the
+    measurement is reproducible, or move the statistic — and it belongs with whoever
+    owns the provisional thresholds (printability.py). Do NOT "fix" it by weakening the
+    assertion: the assertion is the doctrine, and the doctrine is right.
+
+    The point of this test is that doctrine, not the number: a true-but-marginal
     measurement is exactly what a NOTE is for. It gets said, it names its number so a
-    reader can weigh 0.76 against 0.80 themselves, and it does not turn a shipped
+    reader can weigh it against 0.80 themselves, and it does not turn a shipped
     cartridge red."""
     result = check_cartridge(SEW_ON_SNAP, render=True)
     assert result.ok, result.problems

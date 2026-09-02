@@ -127,6 +127,11 @@ jobs:
       - name: Test
         # -ra so skipped geometry tests are named in the summary rather than hidden —
         # a green run that silently skipped the render lane must not read as a full one.
+        #
+        # Since the read-proof step above now FAILS the job when the CAD kernel will not
+        # import, the geometry lane cannot skip here at all and this job reports 0
+        # skipped. -ra stays because that is what would make a regression back to
+        # skipping legible in the log instead of invisible inside a green run.
         run: .venv/bin/python -m pytest -ra
 
       - name: Self-check against the bundled fixtures

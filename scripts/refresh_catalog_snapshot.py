@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the vendored commons slug snapshot from local platform checkouts.
+"""Refresh the vendored commons slug snapshot from a commit of each platform repo.
 
 The lexicon lane resolves every ``embodied_by`` slug against a snapshot of both
 commons' slug sets, so CI can run the strict check with no platform checkout and no
@@ -7,13 +7,26 @@ network. A snapshot goes stale in exactly one direction: a term naming a cartrid
 added after the capture fails the lane while being correct in the commons. That is the
 safe direction — it asks for this script rather than silently passing.
 
-    python3 scripts/refresh_catalog_snapshot.py \
+    python3 scripts/refresh_catalog_snapshot.py \\
         --yantra4d ../yantra4d --fashion-cabinet ../fashion-cabinet
+
+**Why it reads through ``git show`` rather than the working tree**, and why the recorded
+rev is the FULL sha. Both are the posture its two siblings already take —
+``refresh_reader_snapshots.py`` for the G4 catalogs and ``refresh_vocabulary_counts.py``
+for the G3 vocabularies — adopted here so every capture block in this repo means the same
+thing. Naming the ref (``--yantra4d-ref`` / ``--fashion-cabinet-ref``, both defaulting to
+``origin/main``) and reading every file out of that commit means the capture records the
+commit it was actually built from: a refresh never needs a shared platform clone to be
+moved off its branch, cannot silently capture uncommitted work, and never has to
+materialise a private submodule the superproject merely points at. The sha is written in
+full because an abbreviation is a guess a later reader has to resolve — and because this
+file carrying a 7-character rev while the documents one directory over carried the full
+one made the same fact about the same repo look like two different kinds of fact.
 
 Reads yantra4d's published ``docs/commons-catalog.json`` and enumerates fashion-cabinet's
 ``projects/*/project.json``, adds each repo's ``materials/*/material.json`` cards, records
-the git revision of each so a reader can tell exactly what was captured, and rewrites the
-bundled snapshot in place.
+the commit each was read at so a reader can tell exactly what was captured, and rewrites
+the bundled snapshot in place.
 
 Material cards are in the snapshot because they are commons objects with slugs like any
 other: an identity record already pairs two of them by name (``bambu-tpu-95a`` and
@@ -46,56 +59,72 @@ COMMENT = (
 )
 
 
-def _rev(repo: Path) -> str:
-    try:
-        return subprocess.check_output(
-            ["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], text=True
-        ).strip()
-    except (OSError, subprocess.CalledProcessError):
-        return "unknown"
+def _run(repo: Path, *args: str) -> str:
+    return subprocess.check_output(["git", "-C", str(repo), *args], text=True)
 
 
-def _materials(repo: Path) -> list[str]:
-    """The repo's material-card slugs — ``materials/<slug>/material.json``.
+def _commit(repo: Path, ref: str) -> str:
+    """The full sha ``ref`` resolves to in ``repo``."""
+    return _run(repo, "rev-parse", ref).strip()
 
-    Both commons carry cards; a missing directory is not an error here because the
-    empty-capture guard below only refuses an empty CARTRIDGE side, and a repo may
-    legitimately arrive without cards.
+
+def _show_json(repo: Path, ref: str, path: str) -> object:
+    return json.loads(_run(repo, "show", f"{ref}:{path}"))
+
+
+def _slugs_at(repo: Path, ref: str, directory: str, filename: str) -> list[str]:
+    """``<directory>/<slug>/<filename>`` in that commit, as sorted slugs.
+
+    ``git ls-tree`` rather than a directory walk: the whole point of reading through the
+    commit is that a slug nobody committed is not a slug the commons has. A missing
+    directory is not an error — ls-tree simply lists nothing, and both commons are
+    entitled to arrive without material cards.
     """
-    directory = repo / "materials"
-    if not directory.is_dir():
+    try:
+        listing = _run(repo, "ls-tree", "-r", "--name-only", ref, f"{directory}/")
+    except subprocess.CalledProcessError:
         return []
-    return sorted(
-        p.name for p in directory.iterdir() if p.is_dir() and (p / "material.json").is_file()
-    )
+    out = []
+    for line in listing.splitlines():
+        parts = line.split("/")
+        if len(parts) == 3 and parts[0] == directory and parts[2] == filename:
+            out.append(parts[1])
+    return sorted(out)
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--yantra4d", required=True, type=Path, help="path to a yantra4d checkout")
+    ap.add_argument("--yantra4d", required=True, type=Path, help="path to a yantra4d clone")
     ap.add_argument(
-        "--fashion-cabinet", required=True, type=Path, help="path to a fashion-cabinet checkout"
+        "--fashion-cabinet", required=True, type=Path, help="path to a fashion-cabinet clone"
+    )
+    ap.add_argument(
+        "--yantra4d-ref",
+        default="origin/main",
+        help="the commit-ish to read yantra4d at (default: origin/main)",
+    )
+    ap.add_argument(
+        "--fashion-cabinet-ref",
+        default="origin/main",
+        help="the commit-ish to read fashion-cabinet at (default: origin/main)",
     )
     args = ap.parse_args(argv)
 
-    catalog = args.yantra4d / "docs/commons-catalog.json"
-    if not catalog.is_file():
-        print(f"ERROR: no commons catalog at {catalog}", file=sys.stderr)
+    try:
+        y4d_sha = _commit(args.yantra4d, args.yantra4d_ref)
+        fc_sha = _commit(args.fashion_cabinet, args.fashion_cabinet_ref)
+        y4d_catalog = _show_json(args.yantra4d, y4d_sha, "docs/commons-catalog.json")
+        y4d_cartridges = sorted(c["slug"] for c in y4d_catalog["cartridges"])
+        y4d_materials = _slugs_at(args.yantra4d, y4d_sha, "materials", "material.json")
+        fc_cartridges = _slugs_at(args.fashion_cabinet, fc_sha, "projects", "project.json")
+        fc_materials = _slugs_at(args.fashion_cabinet, fc_sha, "materials", "material.json")
+    except (OSError, subprocess.CalledProcessError, ValueError, KeyError, TypeError) as exc:
+        print(
+            f"ERROR: cannot read the commons (yantra4d@{args.yantra4d_ref}, "
+            f"fashion-cabinet@{args.fashion_cabinet_ref}) — {exc}",
+            file=sys.stderr,
+        )
         return 2
-    y4d_cartridges = sorted(
-        c["slug"] for c in json.loads(catalog.read_text(encoding="utf-8"))["cartridges"]
-    )
-
-    projects = args.fashion_cabinet / "projects"
-    if not projects.is_dir():
-        print(f"ERROR: no projects directory at {projects}", file=sys.stderr)
-        return 2
-    fc_cartridges = sorted(
-        p.name for p in projects.iterdir() if p.is_dir() and (p / "project.json").is_file()
-    )
-
-    y4d_materials = _materials(args.yantra4d)
-    fc_materials = _materials(args.fashion_cabinet)
 
     # Read-proof: a slug that means two things would make an embodied_by reference
     # ambiguous, and the check is one line, so do it rather than assume it.
@@ -131,14 +160,14 @@ def main(argv: list[str] | None = None) -> int:
         "sources": {
             "yantra4d": {
                 "path": "docs/commons-catalog.json + materials/*/material.json",
-                "rev": _rev(args.yantra4d),
+                "rev": y4d_sha,
                 "count": len(y4d),
                 "cartridges": len(y4d_cartridges),
                 "materials": len(y4d_materials),
             },
             "fashion-cabinet": {
                 "path": "projects/*/project.json + materials/*/material.json",
-                "rev": _rev(args.fashion_cabinet),
+                "rev": fc_sha,
                 "count": len(fc),
                 "cartridges": len(fc_cartridges),
                 "materials": len(fc_materials),
@@ -152,8 +181,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     print(
         f"refreshed {SNAPSHOT}: "
-        f"yantra4d={len(y4d)} ({len(y4d_cartridges)} cartridges + {len(y4d_materials)} cards) "
-        f"fashion-cabinet={len(fc)} ({len(fc_cartridges)} cartridges + {len(fc_materials)} cards)"
+        f"yantra4d {y4d_sha[:9]} {len(y4d)} "
+        f"({len(y4d_cartridges)} cartridges + {len(y4d_materials)} cards) "
+        f"fashion-cabinet {fc_sha[:9]} {len(fc)} "
+        f"({len(fc_cartridges)} cartridges + {len(fc_materials)} cards)"
     )
     return 0
 

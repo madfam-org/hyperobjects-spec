@@ -5,14 +5,14 @@
   "sources": {
     "yantra4d": {
       "path": "docs/commons-catalog.json + materials/*/material.json",
-      "rev": "8089207",
+      "rev": "950bf1d06582fae7a239386b149fa894487a1606",
       "count": 510,
       "cartridges": 500,
       "materials": 10
     },
     "fashion-cabinet": {
       "path": "projects/*/project.json + materials/*/material.json",
-      "rev": "fdb88c5",
+      "rev": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
       "count": 527,
       "cartridges": 516,
       "materials": 11
