@@ -19,22 +19,41 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: System libraries for the CAD kernel (libGL for OCP)
-        # The [geometry] extra pulls OCP (OpenCascade), whose C-extension dlopen's
-        # libGL at import. The self-hosted runner image ships without it, which made
-        # the whole geometry lane import-fail. Install it so geometry ACTUALLY runs
+      - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
+        # The [geometry] extra pulls OCP (OpenCascade), whose C-extension links against
+        # system X and GL libraries at import. Install them so geometry ACTUALLY runs
         # here rather than skipping — the `geometry available: True` line below is the
-        # read-proof. Never fail the build on this step: the suite skips the geometry
-        # tests cleanly when the kernel can't import, so a runner that forbids apt
-        # degrades to a (weaker) manifest-only run instead of going red.
+        # read-proof, and it is now enforced rather than merely printed.
+        #
+        # libgl1 alone was not enough, and the gap was invisible because this step still
+        # succeeded. Run 33635600083 on this branch printed the import that libGL cannot
+        # satisfy:
+        #
+        #   File ".venv/lib/python3.12/site-packages/OCP/__init__.py", line 1
+        #     from OCP.OCP import *
+        #   ImportError: libXrender.so.1: cannot open shared object file
+        #
+        # libXrender is asked for by the VTK renderer OCP.so links (libvtkRenderingOpenGL2
+        # NEEDs libXrender.so.1, as does the libXcursor vendored beside it), and NOTHING in
+        # the libgl1 dependency tree pulls it in: libgl1 -> libglx0/libglvnd0 -> libX11,
+        # libxcb, libxxf86vm — no libxrender1 anywhere. So it must be named here. libX11
+        # itself does arrive with libgl1, which is why libXrender was the only soname the
+        # loader could not resolve.
+        #
+        # apt is bounded (retries, timeout, a hard cap on update) so a slow mirror costs a
+        # minute rather than the job's twenty. The step still never fails on its own: a
+        # runner that forbids apt should reach the read-proof below and be told exactly
+        # which library is missing, not die here with the reason unprinted.
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
-            $SUDO apt-get update -qq && \
-            $SUDO apt-get install -y --no-install-recommends libgl1 libglib2.0-0 \
-              || echo "::warning::could not install libGL — geometry tests will skip"
+            APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
+            timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
+            $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
+              libgl1 libglib2.0-0 libxrender1 \
+              || echo "::warning::could not install the CAD kernel's system libraries — the read-proof below will say which one is missing"
           else
-            echo "::warning::apt-get unavailable — geometry tests will skip"
+            echo "::warning::apt-get unavailable — the read-proof below will say which library is missing"
           fi
 
       - name: Create a clean virtualenv
@@ -53,8 +72,16 @@ jobs:
         # report — which import failed and why — is exactly the fact it swallows. So
         # import each piece here and print the traceback it actually raised, and scan
         # the installed extension modules for shared libraries the loader cannot find.
-        # Neither is allowed to fail the step: this is the diagnosis, and the read-proof
-        # line below is the verdict.
+        # Neither of those two may fail the step: they are the diagnosis, and the
+        # `geometry available:` line is the verdict — which is now enforced, because a
+        # lane that reports its own absence in one word and then goes on to print
+        # `passed` is how this went unnoticed for every run on main.
+        #
+        # One caveat when reading the soname list: auditwheel's vendored copies carry a
+        # hash in the name (`libXfixes-d274cb03.so.3.1.0`), and those resolve through the
+        # RPATH of the library that actually loads them, so they can appear here on a
+        # perfectly healthy install. A bare system soname — `libXrender.so.1` — is the
+        # real signal.
         run: |
           .venv/bin/python -c "import fc_spec, y4d_spec, commons_sandbox, hyperobjects_schemas; print('packages ok')"
           .venv/bin/python - <<'PY' || true
@@ -79,7 +106,20 @@ jobs:
             | awk '/not found/ {print $1}' | sort -u \
             | tee /tmp/missing-sonames.txt
           test -s /tmp/missing-sonames.txt || echo "(none)"
-          .venv/bin/python -c "from y4d_spec.geometry import geometry_available; print('geometry available:', geometry_available())"
+          .venv/bin/python - <<'PY'
+          from y4d_spec.geometry import geometry_available
+
+          available = geometry_available()
+          print("geometry available:", available)
+          if not available:
+              raise SystemExit(
+                  "FATAL: the geometry lane cannot run on this runner. The tracebacks and the "
+                  "missing-soname list above name the cause. Failing here on purpose: the suite "
+                  "skips the geometry, preset-matrix and printability tests cleanly when the CAD "
+                  "kernel will not import, so the alternative is a green run that verified none "
+                  "of them and said so only in a line nobody reads."
+              )
+          PY
 
       - name: Lint
         run: .venv/bin/ruff check src tests
