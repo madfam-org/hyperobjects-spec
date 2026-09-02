@@ -52,15 +52,15 @@ about a specific pair of commits and not about "the commons today". They are emi
 | declared edges (garment → hardware) | 303 |
 | resolving to a page on both ends | 302 |
 | unresolved (reported, never fatal) | 1 |
-| linked | 299 |
-| claimed but not linked | 4 |
-| published back edges (hardware → garments) | 299 |
-| agreeing in both directions | 299 |
+| linked | 302 |
+| claimed but not linked | 1 |
+| published back edges (hardware → garments) | 302 |
+| agreeing in both directions | 302 |
 
 ```
 $ fc-spec reader --check
 fc-spec reader --check: out=docs/reader pages=1189 differences=0
-reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=4 back=299 mirrored=299
+reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 

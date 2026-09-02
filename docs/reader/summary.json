@@ -20,7 +20,7 @@
       "entries": 510,
       "cartridges": 500,
       "materials": 10,
-      "commit": "5562f547ba523c962527a2e2da1e9805b274ff24",
+      "commit": "f0cdb74e9a97065e716aa91226da51f58db849d7",
       "captured_at": "2026-09-02",
       "languages": {
         "es": 485,
@@ -33,7 +33,7 @@
       "entries": 527,
       "cartridges": 516,
       "materials": 11,
-      "commit": "00a2239cc081ac4305d7650a03ec065bcb1607f4",
+      "commit": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
       "captured_at": "2026-09-02",
       "languages": {
         "es": 511,
@@ -47,14 +47,14 @@
     "edges": 303,
     "resolved": 302,
     "unresolved": 1,
-    "linked": 299,
-    "unlinked": 4,
-    "unlinked_claims": 3,
-    "back_edges": 299,
-    "back_resolved": 299,
+    "linked": 302,
+    "unlinked": 1,
+    "unlinked_claims": 1,
+    "back_edges": 302,
+    "back_resolved": 302,
     "back_unresolved": 0,
-    "mirrored": 299,
-    "resolved_against": "80892074af0c17a9a6258a98d80d9b947df0756d"
+    "mirrored": 302,
+    "resolved_against": "335443c901dc4a736a309f98dd67447c68569091"
   },
   "embodied_by_without_page": 0,
   "pages": 1189
