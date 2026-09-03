@@ -49,7 +49,7 @@ def _schema_errors(schema_name: str, doc: dict) -> list[str]:
     try:
         from jsonschema import Draft202012Validator
     except ImportError as exc:  # pragma: no cover - dependency is declared
-        raise RuntimeError("jsonschema is required (pip install fashion-cabinet-spec)") from exc
+        raise RuntimeError("jsonschema is required (pip install hyperobjects-spec)") from exc
     validator = Draft202012Validator(_bundled_schema(schema_name))
     problems = []
     for err in sorted(validator.iter_errors(doc), key=lambda e: list(e.absolute_path)):
