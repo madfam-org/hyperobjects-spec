@@ -47,6 +47,7 @@ def _cmd_check(args) -> int:
 
     failures = 0
     rendered_targets = 0
+    skipped_targets = 0
     preset_targets = 0
     total_notes = 0
     for d in args.cartridges:
@@ -63,17 +64,24 @@ def _cmd_check(args) -> int:
             continue
 
         name = result.slug or Path(d).name
-        rendered_targets += len(result.renders)
+        rendered_targets += len(result.verified_renders)
+        skipped_targets += len(result.skipped_renders)
         preset_targets += len(result.preset_renders)
         total_notes += len(result.notes)
 
         if result.ok:
             suffix = ""
             if result.rendered:
-                suffix = f", {len(result.renders)} render(s) verified"
+                suffix = f", {len(result.verified_renders)} render(s) verified"
                 n_presets = len(result.preset_renders)
                 if n_presets:
                     suffix += f" ({n_presets} preset)"
+                # A skipped target is not a verified one, and the difference has to be
+                # on the ok line — not only under -v — or an all-OpenSCAD cartridge
+                # reads exactly like a fully rendered one.
+                n_skipped = len(result.skipped_renders)
+                if n_skipped:
+                    suffix += f", {n_skipped} skipped (no OpenSCAD kernel)"
             print(f"  ok {name} ({d}{suffix})")
             if args.verbose:
                 for check in result.renders:
@@ -91,7 +99,7 @@ def _cmd_check(args) -> int:
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
-        f"presets={preset_targets}"
+        f"presets={preset_targets} skipped={skipped_targets}"
     )
     return 1 if failures else 0
 

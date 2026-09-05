@@ -67,7 +67,12 @@ y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 ```
 
-A cartridge directory is anything with a `project.json`.
+A cartridge directory is anything with a `project.json`. A directory you name that has
+none is a **failure**, not a skip — deliberately: `check` verifies the paths you asked
+it to verify, and an argument that silently checks nothing is how a typo'd cartridge
+path reads green. So glob the level the cartridges are actually on
+(`y4d-spec check ./projects/*/`, where every entry has a manifest) rather than a level
+up, where a glob also sweeps in siblings like `libs/` that were never cartridges.
 
 **What `check` does**
 
@@ -137,7 +142,21 @@ $ y4d-spec check ./sew-on-snap --render -v
        thickness is 0.76mm (over 400 surface samples), below 0.8mm (two 0.4mm
        perimeters). May print under-extruded or not at all on an FDM machine.
        Threshold is provisional.
-y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 presets=2
+y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 presets=2 skipped=0
+```
+
+**A target that was not rendered says so.** This package has no OpenSCAD kernel, so an
+OpenSCAD mode is *skipped*, not judged. A skip is not a failure — a cartridge is not
+non-conformant for being OpenSCAD — but it is not a verified render either, and the two
+must never print the same. Under `-v` each skip names the source that went unmeasured,
+`renders=` counts only meshes actually judged, and `skipped=` counts the rest:
+
+```
+$ y4d-spec check ./custom-msh --render -v
+  ok custom-msh (./custom-msh, 0 render(s) verified, 9 skipped (no OpenSCAD kernel))
+       (holder, holder_body): skip — OpenSCAD mode ('holder.scad') — this checker has
+       no OpenSCAD kernel, so the mesh was NOT verified here; the platform renders it
+y4d-spec check: cartridges=1 failures=0 notes=0 geometry=verified renders=0 presets=0 skipped=9
 ```
 
 That note is a good illustration of the posture: it is *true* — the 9mm snap's

@@ -1132,3 +1132,124 @@ def test_printability_notes_name_the_preset_they_came_from():
     notes = printability.printability_notes(big, mode="rail", part="rail", preset="long")
     assert notes
     assert all("preset 'long'" in n.message for n in notes)
+
+
+# ── an unmeasured render is reported, never a TypeError ──────────────────────
+# Regression for a fail-open crash in a fail-closed gate: `y4d-spec check --render -v`
+# over the commons ABORTED with `TypeError: unsupported format string passed to
+# NoneType.__format__` on custom-msh (holder.scad) and rugged-box — both pure-OpenSCAD
+# cartridges. check_geometry emits an `ok=True, volume=None` placeholder for every
+# non-CadQuery mode (this package has no OpenSCAD kernel), and RenderCheck.summary
+# formatted that None. The run died on cartridge N and said nothing about N+1..end.
+# These tests need no CAD kernel — that is the point: the crashing path never had one.
+def _render_check(**kw):
+    from y4d_spec.geometry import RenderCheck
+
+    kw.setdefault("mode", "holder")
+    kw.setdefault("part", "holder_body")
+    kw.setdefault("ok", True)
+    return RenderCheck(**kw)
+
+
+def test_summary_does_not_raise_on_a_none_volume():
+    """The crash itself: an ok RenderCheck carrying no volume must summarise."""
+    text = _render_check(volume=None).summary
+    assert "holder" in text and "holder_body" in text
+    assert "UNVERIFIED" in text
+
+
+def test_a_skipped_render_summarises_as_a_skip_naming_the_reason():
+    check = _render_check(volume=None, skipped="OpenSCAD mode ('holder.scad') — no kernel")
+    assert check.summary.startswith("(holder, holder_body): skip —")
+    assert "holder.scad" in check.summary
+
+
+def test_an_openscad_mode_is_a_named_skip_not_a_silent_pass(tmp_path):
+    """The producer, not just the formatter: check_geometry's non-CadQuery placeholder
+    must record WHY it did not render. Reproduces custom-msh's shape (scad_file only)."""
+    from y4d_spec.geometry import check_geometry
+
+    doc = _manifest(SEW_ON_SNAP)
+    for mode in doc["modes"]:
+        mode.pop("cq_file", None)
+        mode["scad_file"] = "holder.scad"
+
+    checks = check_geometry(tmp_path, doc, presets=True, printability=False)
+    assert checks, "the manifest declares targets"
+    for check in checks:
+        assert check.ok           # OpenSCAD is not non-conformance
+        assert check.volume is None
+        assert check.skipped      # ...but it is NOT a verified render
+        assert "holder.scad" in check.skipped
+        assert "no OpenSCAD kernel" in check.skipped
+        assert check.summary      # must not raise
+
+
+def test_an_all_openscad_cartridge_does_not_report_renders_as_verified(
+    capsys, tmp_path, monkeypatch
+):
+    """Read-proof, the same property the geometry= line already has: a cartridge whose
+    every mode was skipped must not print "N render(s) verified" and must say how many
+    were skipped. Counting skips as verified is how nothing-was-measured reads green.
+
+    `geometry_available` is stubbed True only to get past --render's refusal: no
+    CadQuery mode exists here, so no kernel is ever reached — which is exactly the
+    property that made this crash reachable without one."""
+    from y4d_spec import geometry
+    from y4d_spec.cli import main
+
+    monkeypatch.setattr(geometry, "geometry_available", lambda: True)
+
+    cart = tmp_path / "scad-only"
+    cart.mkdir()
+    doc = _manifest(SEW_ON_SNAP)
+    doc["project"]["slug"] = "scad-only"
+    doc["project"]["engine"] = "openscad"
+    for mode in doc["modes"]:
+        mode.pop("cq_file", None)
+        mode["scad_file"] = "main.scad"
+    doc.pop("presets", None)
+    (cart / "project.json").write_text(json.dumps(doc))
+    (cart / "main.scad").write_text("cube([1,1,1]);\n")
+
+    rc = main(["check", str(cart), "--render", "-v"])
+    out = capsys.readouterr().out
+    assert rc == 0                              # skipping is not a failure
+    assert "0 render(s) verified" in out
+    assert "skipped (no OpenSCAD kernel)" in out
+    assert "renders=0" in out and "skipped=" in out
+    assert "main.scad" in out                   # -v names what went unverified
+
+
+def test_a_render_with_no_measurable_volume_fails_the_run_by_name(capsys, tmp_path, monkeypatch):
+    """End-to-end: a cartridge whose CadQuery render produces an unmeasurable mesh
+    exits 1 with a message naming the cartridge, mode and part — and the run reaches
+    the cartridges after it rather than aborting. The kernel is mocked so this stays
+    hermetic; CI's geometry lane covers the real one."""
+    from y4d_spec import cli, geometry
+
+    def _empty_render(cartridge_dir, script_file, mode, part, **kw):
+        return geometry.RenderCheck(
+            mode=mode,
+            part=part,
+            ok=False,
+            preset=kw.get("preset"),
+            problems=["rendered an empty mesh (no faces)"],
+        )
+
+    monkeypatch.setattr(geometry, "render_part", _empty_render)
+    monkeypatch.setattr(geometry, "geometry_available", lambda: True)
+
+    later = tmp_path / "later"
+    later.mkdir()
+    (later / "project.json").write_text(json.dumps(_manifest(THIMBLE)))
+    (later / "main.py").write_text((THIMBLE / "main.py").read_text(encoding="utf-8"))
+
+    rc = cli.main(["check", str(SEW_ON_SNAP), str(later), "--render", "--no-printability"])
+    out = capsys.readouterr().out
+
+    assert rc == 1
+    assert "FAIL sew-on-snap" in out
+    assert "empty mesh" in out
+    assert "(set, set)" in out                  # names mode and part
+    assert "cartridges=2" in out                # the run continued past the failure
