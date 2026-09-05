@@ -55,6 +55,22 @@ def test_openscad_version_is_a_snapshot_date():
     assert re.fullmatch(r"\d{4}\.\d{2}\.\d{2}", env.OPENSCAD_VERSION)
 
 
+def test_openscad_version_is_at_or_above_the_bosl2_floor():
+    """BOSL2 v2.0.753 (fcfce7c7) does not render under snapshots older than 2026.02.13.
+
+    2026.02.01 aborts on every *anchored* primitive with
+    ``Assertion '(is_list($tags_shown) || ($tags_shown == "ALL"))' failed in
+    libs/BOSL2/attachments.scad, line 3809``, leaving an empty top-level object —
+    an empty STL, not a build error, which is how it reached CI unnoticed
+    (yantra4d PR #125, ruling G31).
+
+    Snapshot versions are ``YYYY.MM.DD``, so the string comparison IS the date
+    comparison. Bumping forward is fine; going back below the floor is not, while
+    the BOSL2 pin stands.
+    """
+    assert env.OPENSCAD_VERSION >= "2026.02.13"
+
+
 def test_appimage_url_is_built_from_the_pinned_version():
     assert env.OPENSCAD_VERSION in env.OPENSCAD_APPIMAGE_URL
     assert env.OPENSCAD_APPIMAGE_URL.startswith("https://")
