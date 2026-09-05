@@ -53,6 +53,23 @@ class CartridgeResult:
         """Just the preset renders — the parameter points a user clicks."""
         return [c for c in self.renders if getattr(c, "preset", None)]
 
+    @property
+    def verified_renders(self) -> list:
+        """The renders whose mesh was actually judged.
+
+        `renders` also holds SKIPPED targets (an OpenSCAD mode — this package has no
+        OpenSCAD kernel). Those are `ok` and must not fail a cartridge, but counting
+        them as verified is how a cartridge nothing measured reads as one that passed:
+        an all-OpenSCAD cartridge would report "6 render(s) verified" having rendered
+        nothing at all.
+        """
+        return [c for c in self.renders if not getattr(c, "skipped", None)]
+
+    @property
+    def skipped_renders(self) -> list:
+        """The targets geometry did NOT judge, each carrying its reason."""
+        return [c for c in self.renders if getattr(c, "skipped", None)]
+
 
 def _schema_errors(doc: object) -> list[str]:
     try:

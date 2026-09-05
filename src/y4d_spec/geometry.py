@@ -124,6 +124,12 @@ class RenderCheck:
     preset: str | None = None
     #: Non-blocking printability observations (printability.py). Never affects `ok`.
     notes: list[str] = field(default_factory=list)
+    #: Why this target was NOT rendered, or None when it was. A skip is `ok` — it is
+    #: not a conformance failure that this checker has no OpenSCAD kernel — but it is
+    #: NOT a verified render either, and the difference has to survive into the output
+    #: or a reader counts a skipped lane as a passed one. Same posture as
+    #: bridge_check.LinkVerdict.geometry_skipped.
+    skipped: str | None = None
 
     def __bool__(self) -> bool:
         return self.ok
@@ -139,6 +145,19 @@ class RenderCheck:
     def summary(self) -> str:
         if not self.ok:
             return f"{self.target}: FAIL — {'; '.join(self.problems)}"
+        if self.skipped:
+            return f"{self.target}: skip — {self.skipped}"
+        if self.volume is None:
+            # An `ok` render with no volume is not a thing this module produces on
+            # purpose: a measured render always carries a float, and an unmeasured one
+            # carries `skipped`. Reaching here means a producer forgot to say which,
+            # so say THAT rather than formatting a None into a TypeError and taking
+            # the whole run down with it. A verification tool that crashes on an
+            # unexpected value reports nothing about the other cartridges.
+            return (
+                f"{self.target}: ok — volume not measured (no reason recorded); "
+                f"this render is UNVERIFIED"
+            )
         return (
             f"{self.target}: ok — volume {self.volume:.2f}mm³, "
             f"{self.bodies} body/bodies, watertight"
@@ -358,6 +377,28 @@ def render_part(
     return check
 
 
+def _skip_reason(mode_id: str, modes: list[dict]) -> str:
+    """Why a mode was not rendered here, naming the source that would have been run.
+
+    Two shapes reach this: an OpenSCAD mode (the common one — this runner has no
+    OpenSCAD kernel and never pretends otherwise), and a mode whose source is neither
+    .py/.cq nor declared at all, which is a manifest problem structure.py already
+    reports. Either way the message names the mode so a reader knows what was left
+    unverified rather than seeing a bare "skip".
+    """
+    mode = next((m for m in modes if m.get("id") == mode_id), {})
+    scad = mode.get("scad_file")
+    if isinstance(scad, str):
+        return (
+            f"OpenSCAD mode ('{scad}') — this checker has no OpenSCAD kernel, so the "
+            f"mesh was NOT verified here; the platform renders it"
+        )
+    return (
+        "no CadQuery source (.py/.cq) declared for this mode — nothing to render, so "
+        "the mesh was NOT verified"
+    )
+
+
 def check_geometry(
     cartridge_dir: Path,
     manifest: dict,
@@ -391,13 +432,18 @@ def check_geometry(
     for mode_id, part_id in render_targets(manifest):
         script_file = _script_for(mode_id)
         if script_file is None:
+            # Not a CadQuery mode; the OpenSCAD kernel is the platform's job. That is
+            # a SKIP, not a pass: `ok` stays True because an OpenSCAD cartridge is not
+            # non-conformant for being OpenSCAD, but `skipped` records why no mesh was
+            # judged, so nothing downstream can read this as a verified render (and
+            # nothing formats its absent volume).
             results.append(
                 RenderCheck(
                     mode=mode_id,
                     part=part_id,
                     ok=True,
                     problems=[],
-                    # Not a CadQuery mode; the OpenSCAD kernel is the platform's job.
+                    skipped=_skip_reason(mode_id, modes),
                 )
             )
             continue
