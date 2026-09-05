@@ -63,6 +63,9 @@ y4d-spec check ./my-cartridge              # manifest + files
 y4d-spec check ./my-cartridge --render     # + render every (mode, part) AND every preset
 y4d-spec check ./my-cartridge --render --no-presets        # defaults only (weaker)
 y4d-spec check ./my-cartridge --render --no-printability   # skip the print-time notes
+y4d-spec check ./my-cartridge --render --openscad-path ./libs   # where OpenSCAD includes resolve
+y4d-spec check ./my-cartridge --render --require-openscad       # a missing binary is a FAILURE
+y4d-spec render-env                        # the render environment: packages, OpenSCAD, fonts
 y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 ```
@@ -84,8 +87,8 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
 3. Checks the files: mode sources exist, no includes escaping the cartridge, no
    vendored tree, no shipped LICENSE contradicting the declared one.
 
-**What `--render` adds.** It executes your cartridge for every `(mode, part)` pair
-through the *same restricted sandbox the platform uses*, then requires each mesh to be
+**What `--render` adds.** It executes your cartridge for every `(mode, part)` pair —
+**on every engine the mode declares** — then requires each mesh to be
 
 - **watertight** — it encloses a volume,
 - **positive volume**,
@@ -93,6 +96,37 @@ through the *same restricted sandbox the platform uses*, then requires each mesh
 - **distinct per part** — two parts rendering identical geometry means your
   `target_part` dispatch is not wired, and the platform will silently serve the wrong
   body.
+
+**Both engines.** A CadQuery mode (`.py`/`.cq`) runs in the *same restricted sandbox the
+platform uses*. An OpenSCAD mode (`.scad`) runs through the platform's own command line —
+`-o out.stl --backend=Manifold -D k=v … file.scad`, booleans as `1`/`0`, strings quoted,
+`render_mode` sent only when nonzero — and its STL goes through the *same* mesh bar. A
+mode that declares **both** renders **both sides**, and each is judged separately.
+
+That last case is the reason this exists. The platform picks one engine per mode when it
+serves a render, so on a dual-engine cartridge the other side is exercised by nothing —
+and an OpenSCAD regression there ships unseen, because the side the platform serves stays
+green. Every render line names the engine that produced it:
+
+```
+$ y4d-spec check ./superformula --render -v --openscad-path ../libs
+  openscad: OpenSCAD version 2026.02.13 (/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD)
+  ok superformula (./superformula, 12 render(s) verified (10 preset))
+       (vase, vase, cadquery): ok — volume 60484.99mm³, 1 body/bodies, watertight
+       (vase, vase, openscad): ok — volume 60484.99mm³, 1 body/bodies, watertight
+       ...
+```
+
+`--openscad-path DIR` (repeatable) names the library roots an `include <>` resolves
+against — the commons' `libs/`, and `commons-lib/` once it exists. Your cartridge's own
+directory is always first, and a `libs/dotSCAD/src` beside a root is added for you.
+
+**No OpenSCAD binary?** The OpenSCAD targets are **skipped**, with the reason on each
+line — a cartridge is not non-conformant because the machine checking it is short a tool.
+`--require-openscad` turns that same absence into a **failure**; CI passes it once the
+runner image carries the binary, so a lane that rendered nothing can no longer report
+green. `$OPENSCAD` (or `$OPENSCAD_PATH`) picks a specific binary, otherwise `openscad` on
+`PATH`, otherwise the macOS app bundle.
 
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A
@@ -104,8 +138,10 @@ the existing rule evaluated somewhere new, not a new heuristic. A preset that re
 geometry *identical* to the defaults while setting values that differ from them is a
 **note** — either the values never reach your script, or your `PARAM` fallbacks
 already equal them and your manifest's declared defaults drifted. Presets that merely
-restate the defaults (the UI's reset button) are exempt. `--no-presets` skips the lane;
-OpenSCAD modes are skipped there exactly as they are in the defaults pass.
+restate the defaults (the UI's reset button) are exempt. `--no-presets` skips the lane.
+Presets run on **every engine the mode declares**, exactly as the defaults pass does — a
+preset that crashes the OpenSCAD side is the same class of bug as one that crashes the
+CadQuery side.
 
 **Printability notes.** `--render` also *measures* each passing mesh for print-time
 trouble and says what it found — **never as a failure**:
@@ -145,17 +181,19 @@ $ y4d-spec check ./sew-on-snap --render -v
 y4d-spec check: cartridges=1 failures=0 notes=1 geometry=verified renders=5 presets=2 skipped=0
 ```
 
-**A target that was not rendered says so.** This package has no OpenSCAD kernel, so an
-OpenSCAD mode is *skipped*, not judged. A skip is not a failure — a cartridge is not
-non-conformant for being OpenSCAD — but it is not a verified render either, and the two
-must never print the same. Under `-v` each skip names the source that went unmeasured,
-`renders=` counts only meshes actually judged, and `skipped=` counts the rest:
+**A target that was not rendered says so.** A skip is not a failure, but it is not a
+verified render either, and the two must never print the same. Under `-v` each skip names
+the source that went unmeasured, `renders=` counts only meshes actually judged, and
+`skipped=` counts the rest:
 
 ```
 $ y4d-spec check ./custom-msh --render -v
-  ok custom-msh (./custom-msh, 0 render(s) verified, 9 skipped (no OpenSCAD kernel))
-       (holder, holder_body): skip — OpenSCAD mode ('holder.scad') — this checker has
-       no OpenSCAD kernel, so the mesh was NOT verified here; the platform renders it
+  openscad: not found — OpenSCAD modes will be skipped
+  ok custom-msh (./custom-msh, 0 render(s) verified, 9 skipped)
+       (holder, holder_body, openscad): skip — OpenSCAD mode ('holder.scad') — no
+       OpenSCAD binary on this machine, so the mesh was NOT verified here. Install
+       OpenSCAD (`y4d-spec render-env` says which version) or set $OPENSCAD; pass
+       --require-openscad to make this a failure instead of a skip
 y4d-spec check: cartridges=1 failures=0 notes=0 geometry=verified renders=0 presets=0 skipped=9
 ```
 
@@ -222,6 +260,60 @@ A **single-part mode's id must equal its part id**, because that id is what arri
 Multi-part modes are exempt — they render an assembly through the default branch.
 
 ---
+
+## Render environment
+
+Three places have to agree about what a machine needs installed before it can render
+this commons — the **platform image**, the **commons CI**, and the **CI runner image** —
+and until now each carried its own copy of the answer. Three copies of a version number
+is three chances to drift, and the drift is invisible in the direction that matters: a
+runner one OpenSCAD release behind renders a cartridge that uses newer syntax as a
+*failure*, and a runner one release ahead renders geometry the platform cannot reproduce.
+Neither reads as an environment problem in the log; both read as the cartridge being
+broken.
+
+So this repo — the thing all of them already pin by SHA — owns the answer, and the others
+read it:
+
+```bash
+y4d-spec render-env                     # the whole contract, annotated
+y4d-spec render-env --apt               # just the package names, space-separated
+y4d-spec render-env --apt --ci          # ...plus what the [geometry] extra's CAD kernel needs
+y4d-spec render-env --openscad-version  # 2026.02.01
+y4d-spec render-env --openscad-sha256   # the AppImage checksum to verify a download
+y4d-spec render-env --json              # all of it, for a provisioning script
+```
+
+Shaped so a provisioning script consumes it without parsing prose:
+
+```bash
+apt-get install -y $(y4d-spec render-env --apt --ci)
+wget -q "$(y4d-spec render-env --json | jq -r .openscad_appimage_url)" -O openscad.AppImage
+echo "$(y4d-spec render-env --openscad-sha256)  openscad.AppImage" | sha256sum -c -
+```
+
+**OpenSCAD is pinned to a snapshot, not a release** (`2026.02.01`), because the commons
+uses syntax no tagged release has yet. The SHA-256 is part of the contract: snapshot URLs
+are not immutable the way a release tag is, so a script that downloads without checking it
+is trusting whatever the mirror serves today.
+
+**Fonts.** A cartridge may bundle typefaces in its own `fonts/` directory, and only under
+**OFL-1.1 or CC0-1.0** — both redistributable with attribution, neither restricting
+commercial or derivative use, which is the bar a cartridge anyone may fork has to clear.
+Any other licence, "free for personal use" and every foundry EULA included, makes the
+cartridge undistributable. Name each bundled face and its licence in your `NOTICE`.
+
+The platform copies `*/fonts/*.ttf` and `*.otf` into system fontconfig at image build time
+and runs `fc-cache`. **A render environment that copies fonts and does not run `fc-cache`
+has installed nothing fontconfig can find** — a `text()` cartridge then renders in the
+fallback face and the geometry is wrong in a way no mesh check can see: watertight,
+positive-volume, and the wrong shape. At render time `y4d-spec` also points
+`FONTCONFIG_FILE` at a config naming the cartridge's own `fonts/` first, so a bundled face
+wins over a system one of the same name — the same thing the platform does.
+
+The contract lives in `y4d_spec.render_environment` as plain constants
+(`APT_PACKAGES`, `OPENSCAD_VERSION`, `OPENSCAD_SHA256`, `OPENSCAD_APPIMAGE_URL`,
+`FONTS_POLICY`), each annotated with the line of the platform Dockerfile it mirrors.
 
 ## `fc-spec` — Fashion Cabinet contracts
 
@@ -728,7 +820,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | Package | What it is |
 |---|---|
 | `fc_spec` | the Fashion Cabinet conformance runner (`fc-spec`) |
-| `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry at defaults *and* at every declared preset, plus printability notes |
+| `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry on **both engines** (CadQuery *and* OpenSCAD) at defaults *and* at every declared preset, printability notes, and the render-environment contract (`render-env`) |
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |

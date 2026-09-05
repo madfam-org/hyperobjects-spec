@@ -246,11 +246,17 @@ class PrintabilityNote:
         return self.message
 
 
-def _prefix(mode: str, part: str, preset: str | None) -> str:
-    """Where the note came from, in the same shape RenderCheck.summary uses."""
+def _prefix(mode: str, part: str, preset: str | None, engine: str | None = None) -> str:
+    """Where the note came from, in the same shape RenderCheck.target uses.
+
+    The engine is named whenever one is known, because a dual-engine cartridge measures
+    the SAME (mode, part) twice and two notes that differ in nothing a reader can see
+    look like the tool printed one thing twice.
+    """
+    suffix = f", {engine}" if engine else ""
     if preset:
-        return f"({mode}, {part}, preset '{preset}')"
-    return f"({mode}, {part})"
+        return f"({mode}, {part}, preset '{preset}'{suffix})"
+    return f"({mode}, {part}{suffix})"
 
 
 def _sample_surface(trimesh, np, mesh, count: int, seed):
@@ -273,7 +279,13 @@ def _sample_surface(trimesh, np, mesh, count: int, seed):
 
 
 def thin_wall_note(
-    mesh, *, mode: str, part: str, preset: str | None = None, seed=THICKNESS_SAMPLE_SEED
+    mesh,
+    *,
+    mode: str,
+    part: str,
+    preset: str | None = None,
+    engine: str | None = None,
+    seed=THICKNESS_SAMPLE_SEED,
 ):
     """Local wall thickness: note when the part is thinner than two nozzle widths.
 
@@ -345,7 +357,7 @@ def thin_wall_note(
         rule="thin_wall",
         measured=measured,
         message=(
-            f"{_prefix(mode, part, preset)}: thin walls — median local thickness is "
+            f"{_prefix(mode, part, preset, engine)}: thin walls — median local thickness is "
             f"{measured:.2f}mm (over {THICKNESS_SAMPLES} surface samples), below "
             f"{THIN_WALL_MM}mm (two 0.4mm perimeters). May print under-extruded or not "
             f"at all on an FDM machine. Threshold is provisional."
@@ -353,7 +365,9 @@ def thin_wall_note(
     )
 
 
-def overhang_note(mesh, *, mode: str, part: str, preset: str | None = None):
+def overhang_note(
+    mesh, *, mode: str, part: str, preset: str | None = None, engine: str | None = None
+):
     """Downward-facing area: note when a large fraction may need supports.
 
     Measures the share of total surface area whose face normal points downward by
@@ -401,7 +415,7 @@ def overhang_note(mesh, *, mode: str, part: str, preset: str | None = None):
         rule="overhang",
         measured=measured,
         message=(
-            f"{_prefix(mode, part, preset)}: overhangs — {measured * 100:.0f}% of "
+            f"{_prefix(mode, part, preset, engine)}: overhangs — {measured * 100:.0f}% of "
             f"surface area is unsupported downward-facing slope (more than "
             f"{OVERHANG_ANGLE_DEG:.0f}° from vertical, excluding the bed-contact "
             f"face); may need supports, or reorienting on the bed. Threshold is "
@@ -410,7 +424,9 @@ def overhang_note(mesh, *, mode: str, part: str, preset: str | None = None):
     )
 
 
-def build_volume_note(mesh, *, mode: str, part: str, preset: str | None = None):
+def build_volume_note(
+    mesh, *, mode: str, part: str, preset: str | None = None, engine: str | None = None
+):
     """Bounding box: note when the part will not fit a common printer bed.
 
     THRESHOLD IS PROVISIONAL, pending full-commons calibration: BUILD_VOLUME_MM
@@ -438,7 +454,7 @@ def build_volume_note(mesh, *, mode: str, part: str, preset: str | None = None):
         rule="build_volume",
         measured=measured,
         message=(
-            f"{_prefix(mode, part, preset)}: build volume — bounding box is {dims}mm, "
+            f"{_prefix(mode, part, preset, engine)}: build volume — bounding box is {dims}mm, "
             f"exceeding {BUILD_VOLUME_MM:.0f}mm on at least one axis (a common bed). "
             f"Will not fit a consumer printer without splitting. Threshold is "
             f"provisional."
@@ -447,7 +463,7 @@ def build_volume_note(mesh, *, mode: str, part: str, preset: str | None = None):
 
 
 def printability_notes(
-    mesh, *, mode: str, part: str, preset: str | None = None
+    mesh, *, mode: str, part: str, preset: str | None = None, engine: str | None = None
 ) -> list[PrintabilityNote]:
     """Every printability measurement on one rendered mesh, in cost order.
 
@@ -457,7 +473,7 @@ def printability_notes(
     """
     notes: list[PrintabilityNote] = []
     for fn in (build_volume_note, overhang_note, thin_wall_note):
-        note = fn(mesh, mode=mode, part=part, preset=preset)
+        note = fn(mesh, mode=mode, part=part, preset=preset, engine=engine)
         if note is not None:
             notes.append(note)
     return notes

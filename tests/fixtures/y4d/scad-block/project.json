@@ -1,0 +1,162 @@
+{
+  "project": {
+    "name": "SCAD Block",
+    "slug": "scad-block",
+    "version": "1.0.0",
+    "engine": "openscad",
+    "description": {
+      "en": "A minimal OpenSCAD test cartridge: one cube, one drilled cube. Exists so the OpenSCAD runner is exercised end to end against a real binary.",
+      "es": "Un cartucho de prueba OpenSCAD mínimo: un cubo y un cubo perforado. Existe para ejercitar el motor OpenSCAD de extremo a extremo con un binario real."
+    },
+    "thumbnail": "/projects/scad-block.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "openscad",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "scad_file": "block.scad",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "drilled",
+      "label": {
+        "en": "Drilled block",
+        "es": "Bloque perforado"
+      },
+      "scad_file": "block.scad",
+      "parts": [
+        "drilled"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    },
+    {
+      "id": "drilled",
+      "label": {
+        "en": "Drilled block",
+        "es": "Bloque perforado"
+      },
+      "render_mode": 2,
+      "color": "#aa8899"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "block_size",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Block size (mm)",
+        "es": "Tamaño del bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Edge length of the cube.",
+        "es": "Longitud de la arista del cubo."
+      }
+    },
+    {
+      "id": "hole_d",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "size",
+      "modes": [
+        "drilled"
+      ],
+      "label": {
+        "en": "Hole diameter (mm)",
+        "es": "Diámetro del agujero (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the through hole.",
+        "es": "Diámetro del agujero pasante."
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "big_block",
+      "mode": "block",
+      "label": {
+        "en": "Big block",
+        "es": "Bloque grande"
+      },
+      "values": {
+        "block_size": 20.0
+      }
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "tool",
+    "cdg_interfaces": [
+      {
+        "id": "through_hole",
+        "label": {
+          "en": "Through hole",
+          "es": "Agujero pasante"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "hole_d",
+          "block_size"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None — this is a test fixture, not a design. It exists so the OpenSCAD renderer is exercised against a real binary in CI rather than only on the maintainer's laptop.",
+      "es": "Ninguno — es un accesorio de prueba, no un diseño. Existe para ejercitar el motor OpenSCAD contra un binario real en CI y no solo en la máquina del mantenedor."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

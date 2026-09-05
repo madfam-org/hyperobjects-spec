@@ -102,6 +102,9 @@ def check_cartridge(
     render: bool = False,
     presets: bool = True,
     printability: bool = True,
+    library_paths: list[Path] | None = None,
+    require_openscad: bool = False,
+    openscad_timeout: int | None = None,
 ) -> CartridgeResult:
     """Check a cartridge DIRECTORY: its manifest, its files, and optionally its geometry.
 
@@ -113,6 +116,11 @@ def check_cartridge(
     ON so the strongest available check is the one a caller gets by asking for
     geometry — the same reason `--render` refuses rather than downgrading. Presets are
     part of the conformance verdict; printability is notes only and never is.
+
+    `library_paths` are the OpenSCAD library roots (`--openscad-path`) an OpenSCAD
+    cartridge's `include <>` resolves against; `require_openscad=True` makes a missing
+    OpenSCAD binary a failure rather than a skip. Both only mean anything under
+    `render=True`.
     """
     path = Path(cartridge_dir).resolve()
     manifest_path = path / "project.json"
@@ -144,10 +152,20 @@ def check_cartridge(
     result.notes.extend(notes)
 
     if render:
-        from .geometry import check_geometry  # imports cadquery; keep it lazy
+        # Lazy: geometry pulls cadquery on first render, and a manifest-only check
+        # must not pay for a CAD kernel it never uses.
+        from .geometry import OPENSCAD_TIMEOUT_S, check_geometry
 
         result.renders = check_geometry(
-            path, doc, presets=presets, printability=printability
+            path,
+            doc,
+            presets=presets,
+            printability=printability,
+            library_paths=library_paths,
+            require_openscad=require_openscad,
+            openscad_timeout=(
+                OPENSCAD_TIMEOUT_S if openscad_timeout is None else openscad_timeout
+            ),
         )
         result.rendered = True
         for check in result.renders:
