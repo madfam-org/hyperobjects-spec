@@ -740,9 +740,17 @@ def test_a_preset_that_only_restates_the_defaults_is_silent(tmp_path):
 
 @pytest.mark.geometry
 @geometry_required
-def test_openscad_preset_is_skipped_like_its_mode(tmp_path):
-    """OpenSCAD modes are skipped in the defaults pass; their presets must be too —
-    this runner has no OpenSCAD kernel and never pretends otherwise."""
+def test_openscad_presets_render_on_the_openscad_side(tmp_path):
+    """Presets run on every engine the mode declares (G31).
+
+    Before G31 this asserted the opposite — that an OpenSCAD preset was skipped
+    because the checker had no OpenSCAD kernel. It has one now, so the preset is a
+    parameter point that gets rendered like any other. Without a binary the preset
+    carries the same skip the defaults pass does, which is what the no-binary branch
+    below asserts.
+    """
+    from y4d_spec.geometry import openscad_binary
+
     cart = tmp_path / "scad-preset"
     cart.mkdir()
     doc = _manifest(THIMBLE)
@@ -750,11 +758,22 @@ def test_openscad_preset_is_skipped_like_its_mode(tmp_path):
         mode["scad_file"] = "main.scad"
         mode.pop("cq_file", None)
     (cart / "project.json").write_text(json.dumps(doc))
-    (cart / "main.scad").write_text("cube([10,10,10]);\n")
+    # Each part gets its own body, so the fallback-body rule has nothing to flag.
+    (cart / "main.scad").write_text(
+        'target_part = "thimble";\n'
+        'if (target_part == "set") cube([20,20,20]);\n'
+        "else cube([10,10,10]);\n"
+    )
 
     result = check_cartridge(cart, render=True)
     assert result.ok, result.problems
-    assert result.preset_renders == []
+    assert result.preset_renders, "a declared preset must produce a render record"
+
+    if openscad_binary() is None:
+        assert all(c.skipped for c in result.preset_renders)
+    else:
+        assert all(c.engine == "openscad" for c in result.preset_renders)
+        assert all(c.volume and c.volume > 0 for c in result.preset_renders)
 
 
 # ── printability (notes only, never failures) ────────────────────────────────
@@ -1164,9 +1183,9 @@ def test_a_skipped_render_summarises_as_a_skip_naming_the_reason():
     assert "holder.scad" in check.summary
 
 
-def test_an_openscad_mode_is_a_named_skip_not_a_silent_pass(tmp_path):
-    """The producer, not just the formatter: check_geometry's non-CadQuery placeholder
-    must record WHY it did not render. Reproduces custom-msh's shape (scad_file only)."""
+def test_an_openscad_mode_without_a_binary_is_a_named_skip(tmp_path, monkeypatch):
+    """The producer, not just the formatter: an unrendered target must record WHY.
+    Reproduces custom-msh's shape (scad_file only) on a machine with no OpenSCAD."""
     from y4d_spec.geometry import check_geometry
 
     doc = _manifest(SEW_ON_SNAP)
@@ -1174,14 +1193,22 @@ def test_an_openscad_mode_is_a_named_skip_not_a_silent_pass(tmp_path):
         mode.pop("cq_file", None)
         mode["scad_file"] = "holder.scad"
 
+    # Force the no-binary machine: with a binary present these targets would RENDER
+    # (G31), and the property under test is what happens when they cannot.
+    monkeypatch.delenv("OPENSCAD", raising=False)
+    monkeypatch.delenv("OPENSCAD_PATH", raising=False)
+    monkeypatch.setattr("shutil.which", lambda _n: None)
+    monkeypatch.setattr("os.path.isfile", lambda _p: False)
+
     checks = check_geometry(tmp_path, doc, presets=True, printability=False)
     assert checks, "the manifest declares targets"
     for check in checks:
-        assert check.ok           # OpenSCAD is not non-conformance
+        assert check.ok           # a missing binary is not the cartridge's fault
         assert check.volume is None
         assert check.skipped      # ...but it is NOT a verified render
         assert "holder.scad" in check.skipped
-        assert "no OpenSCAD kernel" in check.skipped
+        assert "NOT verified" in check.skipped
+        assert "--require-openscad" in check.skipped
         assert check.summary      # must not raise
 
 
@@ -1199,6 +1226,13 @@ def test_an_all_openscad_cartridge_does_not_report_renders_as_verified(
     from y4d_spec.cli import main
 
     monkeypatch.setattr(geometry, "geometry_available", lambda: True)
+    # No binary: the property under test is that a cartridge nothing measured does not
+    # read as one that passed. With a binary these targets render (G31) and the count
+    # is no longer zero.
+    monkeypatch.delenv("OPENSCAD", raising=False)
+    monkeypatch.delenv("OPENSCAD_PATH", raising=False)
+    monkeypatch.setattr("shutil.which", lambda _n: None)
+    monkeypatch.setattr("os.path.isfile", lambda _p: False)
 
     cart = tmp_path / "scad-only"
     cart.mkdir()
@@ -1216,7 +1250,7 @@ def test_an_all_openscad_cartridge_does_not_report_renders_as_verified(
     out = capsys.readouterr().out
     assert rc == 0                              # skipping is not a failure
     assert "0 render(s) verified" in out
-    assert "skipped (no OpenSCAD kernel)" in out
+    assert "skipped" in out
     assert "renders=0" in out and "skipped=" in out
     assert "main.scad" in out                   # -v names what went unverified
 
@@ -1251,5 +1285,5 @@ def test_a_render_with_no_measurable_volume_fails_the_run_by_name(capsys, tmp_pa
     assert rc == 1
     assert "FAIL sew-on-snap" in out
     assert "empty mesh" in out
-    assert "(set, set)" in out                  # names mode and part
+    assert "(set, set, cadquery)" in out        # names mode, part and engine
     assert "cartridges=2" in out                # the run continued past the failure

@@ -1,12 +1,14 @@
 """y4d-spec command-line interface.
 
-    y4d-spec check <cartridge-dir> [...] [--render] [--no-presets] [--no-printability] [-v]
+    y4d-spec check <cartridge-dir> [...] [--render] [--no-presets] [--no-printability]
+                   [--openscad-path DIR] [--require-openscad] [--openscad-timeout S] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
     y4d-spec article <path> [...] [--catalog bundled]
     y4d-spec reader [--out DIR] [--check] [--status]
     y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
+    y4d-spec render-env [--apt] [--openscad-version] [--openscad-sha256] [--json]
     y4d-spec rules
 
 Exit code 0 iff every cartridge conforms; 1 on any conformance problem; 2 on a
@@ -32,11 +34,14 @@ from hyperobjects_lexicon.cli import (
 from hyperobjects_schemas.identity import check_identity_file
 
 from .conformance import check_cartridge
+from .geometry import OPENSCAD_TIMEOUT_S
 
 
 def _cmd_check(args) -> int:
+    library_paths = [Path(p) for p in (args.openscad_path or [])]
+
     if args.render:
-        from .geometry import geometry_available
+        from .geometry import geometry_available, openscad_binary, openscad_version
 
         if not geometry_available():
             print(
@@ -44,6 +49,33 @@ def _cmd_check(args) -> int:
                 'pip install "hyperobjects-spec[geometry]"'
             )
             return 2
+
+        # Say which OpenSCAD is about to be used, BEFORE any cartridge is checked. The
+        # commons uses snapshot syntax no tagged release has, so a machine one release
+        # behind reports a cartridge failure for what is an environment problem — and
+        # the version is the only thing in the output that can tell those apart.
+        binary = openscad_binary()
+        if args.verbose:
+            if binary:
+                print(f"  openscad: {openscad_version() or 'unknown version'} ({binary})")
+            else:
+                print("  openscad: not found — OpenSCAD modes will be skipped")
+        if binary is None and args.require_openscad:
+            print(
+                "  ERROR --require-openscad: no OpenSCAD binary found. Set $OPENSCAD, "
+                "put `openscad` on PATH, or install OpenSCAD "
+                "(`y4d-spec render-env` says which version the platform pins)"
+            )
+            return 2
+        for lib in library_paths:
+            if not lib.is_dir():
+                print(f"  ERROR --openscad-path {lib}: not a directory")
+                return 2
+    elif args.require_openscad or args.openscad_path:
+        # These only mean something under --render, and silently ignoring them is how
+        # a CI job that MEANT to require OpenSCAD passes having rendered nothing.
+        print("  ERROR --require-openscad/--openscad-path only apply with --render")
+        return 2
 
     failures = 0
     rendered_targets = 0
@@ -57,6 +89,9 @@ def _cmd_check(args) -> int:
                 render=args.render,
                 presets=args.presets,
                 printability=args.printability,
+                library_paths=library_paths,
+                require_openscad=args.require_openscad,
+                openscad_timeout=args.openscad_timeout,
             )
         except OSError as exc:
             print(f"  ERROR {d}: cannot read — {exc}")
@@ -81,7 +116,7 @@ def _cmd_check(args) -> int:
                 # reads exactly like a fully rendered one.
                 n_skipped = len(result.skipped_renders)
                 if n_skipped:
-                    suffix += f", {n_skipped} skipped (no OpenSCAD kernel)"
+                    suffix += f", {n_skipped} skipped"
             print(f"  ok {name} ({d}{suffix})")
             if args.verbose:
                 for check in result.renders:
@@ -124,6 +159,31 @@ def _cmd_identity(args) -> int:
     return 1 if failures else 0
 
 
+def _cmd_render_env(args) -> int:
+    """Print the render-environment contract, whole or one field at a time.
+
+    The single-field forms exist so a provisioning script can consume this without
+    parsing prose:
+
+        apt-get install -y $(y4d-spec render-env --apt --ci)
+        wget "$(y4d-spec render-env --json | jq -r .openscad_appimage_url)"
+        echo "$(y4d-spec render-env --openscad-sha256)  openscad.AppImage" | sha256sum -c -
+    """
+    from . import render_environment as env
+
+    if args.apt:
+        print(env.apt_install_line(ci=args.ci))
+        return 0
+    if args.openscad_version:
+        print(env.OPENSCAD_VERSION)
+        return 0
+    if args.openscad_sha256:
+        print(env.OPENSCAD_SHA256)
+        return 0
+    print(env.render_env_report(as_json=args.json))
+    return 0
+
+
 def _cmd_rules(args) -> int:
     from . import rules, structure
 
@@ -149,8 +209,12 @@ def _cmd_rules(args) -> int:
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
     print("  4. geometry (--render, needs the [geometry] extra): every (mode, part) is")
-    print("       executed through the shared sandbox and the mesh must be watertight,")
+    print("       executed on EVERY engine the mode declares — CadQuery through the")
+    print("       shared sandbox, OpenSCAD through the platform's own command line, and")
+    print("       a dual-engine mode on BOTH sides — and each mesh must be watertight,")
     print("       have volume > 0, contain no inverted body, and be distinct per part.")
+    print("       Without an OpenSCAD binary those targets are SKIPPED (never counted as")
+    print("       verified); --require-openscad makes the absence a failure instead.")
     print("  5. the preset matrix (--render, skip with --no-presets): every declared")
     print("       preset is rendered at that SAME bar — a preset is the parameter point")
     print("       a user clicks, and the defaults render says nothing about it. A")
@@ -168,8 +232,13 @@ def _cmd_rules(args) -> int:
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
+    print("  7. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
+    print("       version + AppImage checksum, and fonts policy that the platform image,")
+    print("       the commons CI and the CI runner image all read from here instead of")
+    print("       each keeping their own copy. See y4d_spec.render_environment.")
     print("\nRepo-wide checks (catalog drift, cross-cartridge slug uniqueness,")
-    print("OpenSCAD/CadQuery geometric parity) stay in the platform — they are not")
+    print("OpenSCAD/CadQuery geometric PARITY — this checker renders both sides but does")
+    print("not compare them to each other) stay in the platform — they are not")
     print("properties of a single cartridge.")
     return 0
 
@@ -201,6 +270,28 @@ def main(argv: list[str] | None = None) -> int:
         "overhangs, build volume). They are notes only and never fail a cartridge",
     )
     p_check.add_argument(
+        "--openscad-path",
+        action="append",
+        metavar="DIR",
+        help="an OpenSCAD library root for OPENSCADPATH (the commons' libs/ and, once "
+        "it exists, commons-lib/). Repeatable; the cartridge's own directory is always "
+        "prepended, and a libs/dotSCAD/src beside it is added automatically",
+    )
+    p_check.add_argument(
+        "--require-openscad",
+        action="store_true",
+        help="fail instead of skipping when no OpenSCAD binary is available. Turn this "
+        "on in CI once the runner image carries OpenSCAD — without it an OpenSCAD lane "
+        "that rendered nothing still reports green",
+    )
+    p_check.add_argument(
+        "--openscad-timeout",
+        type=int,
+        default=None,
+        metavar="S",
+        help=f"seconds one OpenSCAD render may take (default {OPENSCAD_TIMEOUT_S})",
+    )
+    p_check.add_argument(
         "-v", "--verbose", action="store_true", help="print each render's measurements"
     )
     p_check.set_defaults(func=_cmd_check)
@@ -214,6 +305,34 @@ def main(argv: list[str] | None = None) -> int:
     add_article_parser(sub, "y4d-spec")
     add_dictionary_parsers(sub, "y4d-spec")
     add_reader_parser(sub, "y4d-spec")
+
+    p_env = sub.add_parser(
+        "render-env",
+        help="the render environment this commons is verified against (packages, "
+        "OpenSCAD version, fonts policy)",
+    )
+    p_env.add_argument(
+        "--apt",
+        action="store_true",
+        help="just the apt package names, space-separated, ready to paste after "
+        "`apt-get install -y`",
+    )
+    p_env.add_argument(
+        "--ci",
+        action="store_true",
+        help="with --apt, also include the packages a CI machine needs for the "
+        "[geometry] extra's CAD kernel",
+    )
+    p_env.add_argument(
+        "--openscad-version", action="store_true", help="just the pinned OpenSCAD version"
+    )
+    p_env.add_argument(
+        "--openscad-sha256",
+        action="store_true",
+        help="just the sha256 of the pinned AppImage, to verify a download",
+    )
+    p_env.add_argument("--json", action="store_true", help="the whole contract as JSON")
+    p_env.set_defaults(func=_cmd_render_env)
 
     p_rules = sub.add_parser("rules", help="explain what gets checked, and where it came from")
     p_rules.set_defaults(func=_cmd_rules)
