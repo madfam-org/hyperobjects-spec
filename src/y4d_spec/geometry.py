@@ -164,6 +164,38 @@ class RenderCheck:
         )
 
 
+def _bodies(mesh) -> list[tuple[int, float]]:
+    """Connected components of a (vertex-merged) mesh with their signed volumes.
+
+    Deliberately NOT ``mesh.split()``: split() rebuilds every component through
+    ``submesh()``, which copies faces per body, re-processes each new Trimesh and
+    runs a repair pass on the way out. On a large multi-body render that is the
+    whole budget — a 2.5 M-face chainmail panel of 80 rings took over 7 GB and
+    15+ minutes there and killed a 6 GiB CI runner twice, while the component
+    labelling itself takes seconds. The signed volume of a component is the sum
+    of its faces' signed tetrahedron volumes (the divergence-theorem formula
+    ``mesh.volume`` uses), so an inverted shell still reads negative and the
+    count still reads bodies, without materialising a Trimesh per body.
+    """
+    import numpy as np
+
+    _, trimesh = _require_geometry()
+    faces = mesh.faces
+    if faces.shape[0] == 0:
+        return []
+    try:
+        components = trimesh.graph.connected_components(
+            mesh.face_adjacency, nodes=np.arange(faces.shape[0]), engine="scipy"
+        )
+    except BaseException:  # scipy missing or refusing — let trimesh pick an engine
+        components = trimesh.graph.connected_components(
+            mesh.face_adjacency, nodes=np.arange(faces.shape[0])
+        )
+    tri = mesh.triangles
+    signed = np.einsum("ij,ij->i", tri[:, 0], np.cross(tri[:, 1], tri[:, 2])) / 6.0
+    return [(int(len(c)), float(signed[c].sum())) for c in components]
+
+
 def _boundary_edges(mesh) -> int:
     """Edges used by exactly one face — the holes. Mirrors yantra4d's
     mesh_integrity._edge_face_counts, without the graph-engine dependency."""
@@ -318,13 +350,13 @@ def render_part(
     watertight = bool(mesh.is_watertight)
     volume = float(mesh.volume)
 
-    # trimesh's split() runs each component through submesh(), which REPAIRS
-    # (fill_holes) on the way out — and that repair needs a graph engine it may not
-    # have. Neither the repair nor its absence may decide the verdict, so a failure
-    # here degrades to "could not split" and the watertight/volume findings stand on
-    # their own rather than the whole check erroring out.
+    # Bodies = connected components of the merged mesh, each with its signed
+    # volume — computed directly (see _bodies) rather than via split()/submesh(),
+    # whose per-body rebuild and repair pass cost 7 GB on a large multi-body render
+    # and could never decide the verdict anyway. A failure here degrades to
+    # "could not split" and the watertight/volume findings stand on their own.
     try:
-        bodies = list(mesh.split(only_watertight=False))
+        bodies = _bodies(mesh)
     except Exception as exc:
         bodies = []
         problems.append(f"could not split into bodies ({type(exc).__name__}: {exc})")
@@ -341,11 +373,7 @@ def render_part(
 
     # A negative-volume body is an inverted shell: a solid turned inside out. It reads
     # as geometry to a naive check and prints as nothing.
-    for i, body in enumerate(bodies):
-        try:
-            bvol = float(body.volume)
-        except Exception:
-            continue
+    for i, (_faces, bvol) in enumerate(bodies):
         if bvol < 0:
             problems.append(
                 f"body {i} has negative volume ({bvol:.4f}) — an inverted/inside-out "
