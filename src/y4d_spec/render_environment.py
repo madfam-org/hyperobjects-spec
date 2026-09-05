@@ -101,14 +101,27 @@ CI_EXTRA_APT_PACKAGES = (
 #: A snapshot, not a release: the commons uses syntax (Gridfinity's extended forms among
 #: them) that no tagged release has yet. Mirrors ``ARG OPENSCAD_VERSION`` in the platform
 #: Dockerfile.
-OPENSCAD_VERSION = "2026.02.01"
+#:
+#: 2026-09-05, ruling G31 — bumped 2026.02.01 -> 2026.02.13. 2026.02.01 CANNOT RENDER the
+#: platform's pinned BOSL2 v2.0.753 (``fcfce7c7``). Two lines are enough::
+#:
+#:     include <BOSL2/std.scad>
+#:     cube([1,1,1], anchor=[-1,-1,-1]);
+#:
+#: aborts with ``Assertion '(is_list($tags_shown) || ($tags_shown == "ALL"))' failed in
+#: libs/BOSL2/attachments.scad, line 3809`` and an empty top-level object — i.e. every
+#: *anchored* BOSL2 primitive, which is most of the library. The same file renders a
+#: 1443-byte STL under 2026.02.13. The floor is therefore the library, not taste: BOSL2
+#: v2.0.753 requires a snapshot newer than 2026.02.01, so this value may be bumped
+#: forward but must never go back below 2026.02.13 while that BOSL2 pin stands.
+OPENSCAD_VERSION = "2026.02.13"
 
 #: SHA-256 of the x86_64 AppImage for OPENSCAD_VERSION. Mirrors ``ARG OPENSCAD_SHA256``.
 #:
 #: Snapshot URLs are not immutable the way a release tag is, so a provisioning script that
 #: downloads without checking this is trusting whatever the mirror serves today. The
 #: platform Dockerfile pipes it through ``sha256sum -c -``; so should anything else.
-OPENSCAD_SHA256 = "dad3a8d19e63c543129eabef314676ac9348ffcab727544f4283b2ae9000277c"
+OPENSCAD_SHA256 = "01e4bdeb00518b20ba00d5acc1d3df9c62813d9f64bb68a1fd0a546c7e46ab28"
 
 #: Where the AppImage comes from. ``{version}`` and ``{arch}`` are the substitutions.
 OPENSCAD_APPIMAGE_URL_TEMPLATE = (
