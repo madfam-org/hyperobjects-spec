@@ -404,10 +404,6 @@ class ParityPolicy:
     #: Where this came from: "default", "base", or "mode_overrides.<mode>".
     source: str = "default"
 
-    @property
-    def is_default(self) -> bool:
-        return self.enabled and self.tolerance is None
-
 
 def _policy_from(block: object, source: str) -> ParityPolicy | None:
     """One declared parity object → a ParityPolicy, or None if it is not one.
