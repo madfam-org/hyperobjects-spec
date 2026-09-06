@@ -130,6 +130,33 @@ runner image carries the binary, so a lane that rendered nothing can no longer r
 green. `$OPENSCAD` (or `$OPENSCAD_PATH`) picks a specific binary, otherwise `openscad` on
 `PATH`, otherwise the macOS app bundle.
 
+**B-Rep validity (always, with `--render`).** The mesh bar above judges the STL, and
+tessellation is where the evidence dies: OCCT will happily triangulate an *invalid* solid
+— an inverted shell, a bad fuse — into triangles that merge, seal, and measure like a
+real body. So before anything is exported, the built shape itself goes through two gates:
+
+1. **`BRepCheck_Analyzer(shape).IsValid()`** — OCCT's own topological and geometric
+   audit. A failure names the offending sub-shapes readably (`face: UnorientableShape`,
+   `edge: FreeEdge ×3`), capped to a few lines with the remainder counted.
+2. **Signed volume** (`BRepGProp.VolumeProperties_s`) — negative on the total, or on
+   **any** solid inside a compound, is an inverted shell. This is not redundant with
+   gate 1: a solid whose orientation is merely reversed is *topologically perfect*, so
+   `IsValid()` returns **True** for it, while its signed volume is exactly minus the
+   right answer. Each gate catches what the other cannot.
+
+A failure is a conformance failure, but **the STL is still exported** — a gate that
+withheld the artefact would be asking you to debug a shape you cannot open. A
+`cq.Assembly` is checked per member, so the report names the broken part rather than the
+tree.
+
+Why this is a gate and not a note: `tripod-hub` swept its thread ribs along
+`cq.Wire.makeHelix(radius=1e-6)`, and at 4.5 turns the fuse returned one inverted shell
+that macOS OCCT tessellated into a watertight STL with the right body count and a
+plausible volume — every mesh check passed — while the Linux OCP build **segfaulted on
+the next boolean with no Python traceback**, costing two CI runners to a failure that was
+blamed on the runners (solid #45). The same `radius=1e-6` idiom appears in 28 other
+commons cartridges, so this had to fail on the author's machine, before tessellation.
+
 **Cross-kernel parity (`--parity`).** Rendering both sides proves each is a solid. It
 does not prove they are the **same** solid — a cartridge whose OpenSCAD side quietly
 models a different part passes both halves of the mesh bar and hands two different

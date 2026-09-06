@@ -85,12 +85,23 @@ from pathlib import Path
 
 from commons_sandbox import build_sandbox_builtins, read_script, validate_script_path
 
+# The B-Rep gate. Its own module because this one is already 960 lines and the check is
+# a self-contained contract with the CAD kernel — everything OCP-shaped lives there, and
+# every OCP import inside a function so a manifest-only install never touches the C
+# extension (brep.py imports nothing at module scope either).
+from .brep import brep_available
+from .brep import check_result as brep_check_result
+
 __all__ = [
     "GeometryUnavailable",
     "RenderCheck",
+    "brep_available",
     "geometry_available",
     "render_part",
     "check_geometry",
+    # The pre-tessellation gate, re-exported for the same reason as the OpenSCAD half:
+    # one import for the render lane.
+    "brep_check_result",
     # Re-exported from .openscad so callers have ONE import for the render lane. The
     # OpenSCAD half lives in its own module because it is a subprocess contract with a
     # foreign binary, not a variation on executing Python.
@@ -118,6 +129,12 @@ MACOS_OPENSCAD = "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
 # pathological cartridge cannot blow past, and 10 minutes is far above the slowest
 # render measured in the P2 sweep.
 OPENSCAD_TIMEOUT_S = 600
+
+# How many inverted bodies a failure names individually. One degenerate boolean can
+# shatter a shape into hundreds of inverted shells, and a report that prints a line per
+# body is a report whose actual finding — usually the B-Rep status naming the cause —
+# scrolls off the top. The total is always stated.
+MAX_INVERTED_BODY_LINES = 3
 
 # The sandbox label cq_runner passes, kept identical so a blocked-import error message
 # reads the same here as on the platform (cq_runner.py:34).
@@ -366,6 +383,40 @@ def stl_name(engine: str, mode: str, part: str, preset: str | None) -> str:
     return stem + ".stl"
 
 
+def _brep_problems(result) -> list[str]:
+    """The B-Rep gate's findings on a cartridge's result, ready for a RenderCheck.
+
+    Lives here rather than in brep.py because the shape of a *message* is this module's
+    business — brep.py returns verdicts, geometry.py decides how a verdict reads in a
+    report. An Assembly's members are named, since one broken part in a tree of eight is
+    unactionable if the report only names the tree.
+
+    Missing OCP is silence, not a finding. The [geometry] extra installs it alongside
+    cadquery, so an install that got this far has it; if some future packaging splits
+    them, a checker that could not run one gate must not invent a cartridge failure out
+    of its own incompleteness. `geometry_available()` already gates the whole lane.
+    """
+    if not brep_available():
+        return []
+
+    problems: list[str] = []
+    try:
+        verdicts = brep_check_result(result)
+    except Exception as exc:
+        # The gate itself failing is worth saying — a silent skip here would restore
+        # exactly the blind spot the gate exists to close — but it is not the
+        # cartridge's failure, and it does not fail the render.
+        return [
+            f"B-Rep validity gate did not run ({type(exc).__name__}: {exc}) — "
+            f"this shape is UNVERIFIED at the B-Rep level"
+        ]
+
+    for label, verdict in verdicts:
+        prefix = f"part '{label}': " if label else ""
+        problems.extend(f"{prefix}{problem}" for problem in verdict.problems)
+    return problems
+
+
 def render_part(
     cartridge_dir: Path,
     script_file: str,
@@ -425,6 +476,19 @@ def render_part(
             ],
         )
 
+    # THE B-REP GATE, before tessellation (brep.py; solid #45, tripod-hub).
+    # Order matters and is the whole point: the mesh bar below judges the STL, and
+    # tessellation is where the evidence dies — OCCT triangulates an inverted or
+    # self-inconsistent shell into triangles that merge, seal and measure like a solid,
+    # so the STL passes while the shape that produced it segfaults the next boolean on
+    # a Linux OCP build. The shape is judged here, while it still exists.
+    #
+    # The findings are collected into `problems` rather than returned: the STL is still
+    # exported below so the author can OPEN what the kernel produced, and a gate that
+    # withheld the artefact would be asking someone to debug a shape they cannot see.
+    # `_judge_stl` carries these into its verdict, so the render still fails.
+    problems.extend(_brep_problems(result))
+
     with _stl_target(stl_dir, "cadquery", mode, part, preset) as stl:
         try:
             _export_stl(result, stl)
@@ -434,7 +498,7 @@ def render_part(
                 part=part,
                 ok=False,
                 preset=preset,
-                problems=[f"STL export failed: {type(exc).__name__}: {exc}"],
+                problems=problems + [f"STL export failed: {type(exc).__name__}: {exc}"],
             )
 
         return _judge_stl(
@@ -519,12 +583,22 @@ def _judge_stl(
 
     # A negative-volume body is an inverted shell: a solid turned inside out. It reads
     # as geometry to a naive check and prints as nothing.
-    for i, (_faces, bvol) in enumerate(bodies):
-        if bvol < 0:
-            problems.append(
-                f"body {i} has negative volume ({bvol:.4f}) — an inverted/inside-out "
-                f"shell, not a printable solid"
-            )
+    #
+    # Capped, because a single bad fuse produces them by the hundred: the tripod-hub
+    # shape yields 200+ identical lines that push every OTHER finding — including the
+    # B-Rep status that names the CAUSE — off the top of the report. The count and the
+    # worst offenders are what a reader acts on; the remaining repetitions are not.
+    inverted = [(i, bvol) for i, (_faces, bvol) in enumerate(bodies) if bvol < 0]
+    for i, bvol in inverted[:MAX_INVERTED_BODY_LINES]:
+        problems.append(
+            f"body {i} has negative volume ({bvol:.4f}) — an inverted/inside-out "
+            f"shell, not a printable solid"
+        )
+    if len(inverted) > MAX_INVERTED_BODY_LINES:
+        problems.append(
+            f"(+{len(inverted) - MAX_INVERTED_BODY_LINES} further inverted "
+            f"body/bodies, {len(inverted)} of {len(bodies)} in total)"
+        )
 
     check = RenderCheck(
         mode=mode,
