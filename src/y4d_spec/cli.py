@@ -96,6 +96,7 @@ def _cmd_check(args) -> int:
     parity_pairs = 0
     parity_ok = 0
     parity_warned = 0
+    parity_exempt = 0
     parity_failed = 0
     for d in args.cartridges:
         try:
@@ -122,8 +123,11 @@ def _cmd_check(args) -> int:
         total_notes += len(result.notes)
         parity_pairs += len(result.parity)
         parity_warned += len(result.parity_warnings)
+        parity_exempt += len(result.parity_exemptions)
         parity_failed += len(result.parity_failures)
-        parity_ok += len([c for c in result.parity if c.ok and not c.warn])
+        parity_ok += len(
+            [c for c in result.parity if c.ok and not c.warn and not c.exempt]
+        )
 
         if result.ok:
             suffix = ""
@@ -146,9 +150,17 @@ def _cmd_check(args) -> int:
                     n_pairs = len(result.parity)
                     if n_pairs:
                         suffix += f", {n_pairs} parity pair(s) agree"
+                        tiers = []
                         n_warn = len(result.parity_warnings)
                         if n_warn:
-                            suffix += f" ({n_warn} faceting warn)"
+                            tiers.append(f"{n_warn} faceting warn")
+                        # An exemption is not agreement, and the ok line must not let
+                        # it read as one (G38).
+                        n_exempt = len(result.parity_exemptions)
+                        if n_exempt:
+                            tiers.append(f"{n_exempt} exempt")
+                        if tiers:
+                            suffix += f" ({', '.join(tiers)})"
                     else:
                         suffix += ", no dual-engine pair to compare"
             print(f"  ok {name} ({d}{suffix})")
@@ -172,15 +184,17 @@ def _cmd_check(args) -> int:
             print(f"  note {name}: {note}")
 
     geom = "verified" if args.render else "NOT verified (pass --render)"
-    # `parity=N/M ok, warn=K, failures=J` — N+K+J = M by construction, so a reader can
-    # see at a glance that every pair is accounted for. Absent without --parity rather
-    # than printed as zero: "parity=0/0" on a run that never compared anything reads
-    # like a run that compared and found nothing wrong.
+    # `parity=N/M ok, warn=K, exempt=E, failures=J` — N+K+E+J = M by construction, so a
+    # reader can see at a glance that every pair is accounted for, exemptions included:
+    # a manifest that switches the comparison off for a part cannot thereby shrink the
+    # denominator and make the bar look cleaner than it is (G38). Absent without
+    # --parity rather than printed as zero: "parity=0/0" on a run that never compared
+    # anything reads like a run that compared and found nothing wrong.
     parity_part = ""
     if args.parity:
         parity_part = (
             f" parity={parity_ok}/{parity_pairs} ok, warn={parity_warned}, "
-            f"failures={parity_failed}"
+            f"exempt={parity_exempt}, failures={parity_failed}"
         )
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
@@ -314,6 +328,26 @@ def _cmd_rules(args) -> int:
     print("            ruled 2026-09-05. A warn is a NOTE, never a failure.")
     print("       A pair exists only where two meshes exist: a skipped OpenSCAD lane")
     print("       yields no pairs, and the ok line says so rather than staying silent.")
+    print("       PER-PART EXEMPTIONS (G38, ruled 2026-09-06). A manifest may declare")
+    print("       that this comparison does not apply to one part, when the two kernels")
+    print("       use different idioms by design and no repair is available:")
+    print('         verification.stages.geometry.checks.parity = {"enabled": bool,')
+    print('           "tolerance": <mm, optional>, "reason": "<why>"}   (base), and')
+    print('         verification.mode_overrides.<mode>.part_overrides.<part>')
+    print('           ["geometry.parity"] = <the same object>            (per part,')
+    print("           which replaces the base object whole rather than merging).")
+    print("       An exemption or a widened tolerance WITHOUT a non-empty `reason` is a")
+    print("       CONFORMANCE FAILURE, caught with no --render at all. `enabled: false`")
+    print("       skips the comparison and prints `parity (mode, part): exempt —")
+    print("       <reason>` as a note on every run; a widened `tolerance` applies to")
+    print("       gate (a) ONLY, exactly like --parity-tolerance, and the effective")
+    print("       value is printed in the line. The summary counts them separately")
+    print("       (`exempt=E`) so an exemption cannot shrink the denominator.")
+    print("       An exemption is VISIBLE DEBT, not an absolution: the reason must name")
+    print("       the KERNEL IDIOM that differs (a BOSL2 helical thread against a")
+    print('       revolved sawtooth ring stack — not "known issue"), and every')
+    print("       exemption is expected to be reviewed when either kernel changes,")
+    print("       since a cheaper OCC sweep or a rewritten .scad retires it.")
     print("  8. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
     print("       version + AppImage checksum, and fonts policy that the platform image,")
     print("       the commons CI and the CI runner image all read from here instead of")

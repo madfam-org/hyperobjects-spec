@@ -611,6 +611,11 @@
             "properties": {
               "checks": {
                 "type": "object",
+                "properties": {
+                  "parity": {
+                    "$ref": "#/$defs/parityPolicy"
+                  }
+                },
                 "additionalProperties": {
                   "type": "object",
                   "properties": {
@@ -666,7 +671,16 @@
               },
               "part_overrides": {
                 "type": "object",
-                "additionalProperties": true
+                "description": "Per-part check overrides, keyed by part id. A key is a dotted \"<stage>.<check>\" path; the value replaces the base check object whole rather than merging into it.",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "geometry.parity": {
+                      "$ref": "#/$defs/parityPolicy"
+                    }
+                  },
+                  "additionalProperties": true
+                }
               }
             }
           }
@@ -1233,6 +1247,43 @@
     }
   },
   "$defs": {
+    "parityPolicy": {
+      "type": "object",
+      "description": "Cross-kernel parity policy for a part (G38, ruled 2026-09-06). Declared at verification.stages.geometry.checks.parity for every part, or per part at verification.mode_overrides.<mode>.part_overrides.<part>[\"geometry.parity\"], where it replaces the base object whole rather than merging into it. An exemption is visible debt: `reason` is required whenever this departs from the default, must name the kernel idiom that differs, and is expected to be reviewed when either kernel changes.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "false skips the cross-kernel comparison for this part. The pair is still reported, as `parity (mode, part): exempt — <reason>`, and still counted in the summary (`exempt=E`)."
+        },
+        "tolerance": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "AABB extents tolerance in mm for this part, replacing the run-wide default (0.001mm). Applies to that gate ONLY, exactly like --parity-tolerance: the 0.05mm faceting band and the 2% volume allowance are not scaled with it."
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Why this part departs from the default. REQUIRED when `enabled` is false or when `tolerance` is widened above 0.001mm; a departure without one is a conformance failure."
+        }
+      },
+      "if": {
+        "properties": {
+          "enabled": {
+            "const": false
+          }
+        },
+        "required": [
+          "enabled"
+        ]
+      },
+      "then": {
+        "required": [
+          "reason"
+        ]
+      },
+      "additionalProperties": false
+    },
     "i18nString": {
       "oneOf": [
         {
