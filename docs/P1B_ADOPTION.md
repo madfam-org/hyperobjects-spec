@@ -91,9 +91,22 @@ its scripts. Nothing imports it yet, so adoption is additive first.
       - the declared half of `scripts/qa/check_licenses.py`
 - [ ] **Keep the repo-wide lanes exactly where they are.** They are out of scope for this
       package by design: `generate_commons_catalog.py` (catalog drift), cross-cartridge
-      slug uniqueness in `discover_projects`, `tests/scripts/geometric_regression.py`
-      (OpenSCAD↔CadQuery parity), and the *shipped-file* half of `check_licenses.py`'s
-      nested-license scan.
+      slug uniqueness in `discover_projects`, and the *shipped-file* half of
+      `check_licenses.py`'s nested-license scan.
+- [ ] **Retire `tests/scripts/geometric_regression.py` in favour of `--parity`.** This one
+      came OFF the list above: whether one cartridge's two kernels model the same solid is
+      a property of that cartridge, so it belongs on the merge path rather than in a
+      repo-wide sweep. `y4d-spec check --render --parity` mirrors
+      `scripts/qa/verify_parity.py` gate for gate and with the platform's own numbers
+      (0.001mm AABB, the 2% volume allowance, the 0.05mm faceting band), so the two cannot
+      disagree about what "agree" means. Point the platform at the package or add a drift
+      guard — two copies with neither is how they diverge, exactly as for the rules above.
+      Note the two things the platform's sweep did NOT have: the 0.05mm **faceting warn**
+      tier (G27) and the **placement/shape split** (G39), so expect pairs the old lane
+      called clean to surface as placement notes, and pairs it passed as `identical within
+      65mm` to fail on shape. Per-part exemptions
+      (`verification…checks.parity`, `mode_overrides.<mode>.part_overrides.<part>
+      ["geometry.parity"]`) are the escape hatch, and each needs a non-empty `reason`.
 - [ ] **Decide on `--render` in CI.** It is the strongest check and the slowest: roughly
       15–25s per part on the reference machine, and since 0.2.0 it renders **every
       declared preset as well as the defaults** — the commons averages ~3 presets per
@@ -103,6 +116,11 @@ its scripts. Nothing imports it yet, so adoption is additive first.
       reach for it on the nightly lane, which is where the preset matrix pays. The
       printability notes (`--no-printability` to skip) add well under a second per
       render and never change the exit code, so they are safe to leave on everywhere.
+      Two flags belong on the same line once the runner image carries OpenSCAD:
+      `--require-openscad`, without which a lane that rendered no OpenSCAD target still
+      reports green, and `--parity`, which is what makes "both kernels agree" a property
+      of the merge path. The runner's OpenSCAD must match `y4d-spec render-env
+      --openscad-version` — read it from there rather than pinning a fourth copy.
 - [ ] **Give the runner what the CAD kernel needs, and prove it ran.** `--render` needs
       the `[geometry]` extra (cadquery, trimesh, scipy, networkx and **rtree**, which is
       what trimesh builds its ray bounds tree with) *and* the system libraries OCP's C

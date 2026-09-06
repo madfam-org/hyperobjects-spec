@@ -1,0 +1,103 @@
+# Hyperobjects Spec Full LLM Context
+
+Generated: 2026-09-06
+
+## Purpose
+
+A stable, tool-agnostic map for working in this repository without depending on
+vendor-specific instruction files.
+
+## Canonical instruction order
+
+1. `AGENTS.md`
+2. `README.md`
+3. `llms.txt`
+4. `docs/`, `.github/workflows/`, and the relevant module under `src/`
+
+`AGENTS.md` is the source of truth. `CLAUDE.md` exists only to redirect Claude
+and other legacy agent integrations to it.
+
+## Repo boundary
+
+PUBLIC, Apache-2.0, installed by third parties. No secrets, no credentials, no
+internal hostnames or IPs, no client names, no private-repo paths, no
+operational runbook content. Every rule cites a public yantra4d or
+fashion-cabinet source. Cite a commons ruling by id and public effect, never by
+runbook.
+
+## Package map (`src/`)
+
+- `y4d_spec` — the Yantra4D cartridge runner (`y4d-spec`).
+  - `rules.py` — pure manifest rules. Each cites its yantra4d origin (file and
+    line) in the module docstring; keeping the citation current is what makes a
+    divergence from the platform visible instead of silent.
+  - `structure.py` — the on-disk rules (mode sources, escaping includes,
+    vendored trees, shipped LICENSE).
+  - `conformance.py` — orchestration; owns the result object and the tiers.
+  - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
+    body counting, STL export.
+  - `openscad.py` — the platform's own OpenSCAD command line and env.
+  - `brep.py` — the B-Rep validity gate, run BEFORE tessellation.
+  - `parity.py` — cross-kernel comparison; mirrors the platform's
+    `scripts/qa/verify_parity.py` gate for gate.
+  - `printability.py` — measurements, never failures; every threshold
+    provisional.
+  - `render_environment.py` — the render environment as data.
+  - `cli.py` — argument surface and the `rules` explainer.
+- `fc_spec` — the Fashion Cabinet contracts (`fc-spec`).
+- `bridge_check` — the FC↔Yantra4D hardware-link handshake (`ho-bridge`).
+- `commons_sandbox` — the restricted-execution core both platforms run
+  cartridges through. Defense in depth, NOT a security boundary on its own.
+- `hyperobjects_schemas` — every bundled JSON Schema, plus the identity key.
+- `hyperobjects_lexicon` — the Commons Lexicon corpus, the controlled
+  vocabularies, the article contract, the dictionary tools and the reader.
+
+## Durable contracts
+
+**The render environment is single-source.** `y4d_spec/render_environment.py`
+owns the OpenSCAD version, the AppImage SHA-256, the apt set and the fonts
+policy. The platform image, the commons CI and the CI runner image all read it
+rather than keeping their own copy; three copies of a version number is three
+chances to drift, and the drift reads as the cartridge being broken. Never add a
+fourth copy — read `y4d-spec render-env --openscad-version`. The pin is a FLOOR:
+BOSL2 v2.0.753 does not render below `2026.02.13`.
+
+**Both engines are judged.** A mode that declares both a `.py`/`.cq` and a
+`.scad` renders and is judged on both sides. The platform serves only one, so
+the other is exercised by nothing else.
+
+**Parity is per-cartridge.** `--render --parity` compares the two kernels of
+every dual-engine target that rendered on both: AABB extents, volume,
+placement, shape. Placement and shape are separate numbers because extents and
+volume cannot tell "same part, different origin" from "different part".
+
+**Exemptions are visible debt.** A per-part parity exemption or a widened
+tolerance requires a non-empty `reason`, enforced with no `--render` at all —
+otherwise a cartridge could switch off the check by switching off the
+comparison. Exemptions are counted separately (`exempt=`) so they cannot shrink
+the denominator.
+
+**A skip is never a pass.** `renders=` counts meshes actually judged and
+`skipped=` counts the rest; `--require-openscad` turns a missing binary from a
+skip into a failure so a lane that rendered nothing cannot report green.
+
+**Generated artefacts are committed.** `docs/reader/` and the count blocks in
+`README.md` are built from the corpus and checked byte-for-byte in CI
+(`fc-spec reader --check`, `scripts/refresh_reader_counts.py --check`). Rebuild
+them in the same commit as any corpus, vocabulary or snapshot change.
+
+**Geometry tests skip, never fail.** They carry `@pytest.mark.geometry` and
+`conftest.py` skips them when the CAD kernel cannot import. Put
+`pytest.importorskip` BEFORE any module-scope `numpy`/`trimesh` import or the
+run is interrupted at collection instead of skipping. CI installs the extra and
+fails the job when `geometry_available()` is False, so nothing skips there.
+
+## Local development
+
+    python3 -m venv .venv && .venv/bin/pip install -e ".[geometry,dev]"
+    .venv/bin/python -m pytest -ra
+    .venv/bin/ruff check src tests
+
+Python 3.11+. The `[geometry]` extra pulls a CAD kernel (~400 MB) and on
+Debian/Ubuntu additionally needs `libgl1`, `libglib2.0-0` and `libxrender1`.
+Manifest-only work needs none of it and runs in under a second.

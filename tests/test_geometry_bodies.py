@@ -2,12 +2,22 @@
 without materialising a Trimesh per body (which cost 7 GB on a 2.5 M-face
 multi-body render and killed CI runners)."""
 
-import numpy as np
 import pytest
 
+# importorskip BEFORE numpy, not after: numpy arrives with the [geometry] extra (trimesh
+# depends on it) and on a base install it is absent, so a module-scope `import numpy`
+# raises at COLLECTION time and interrupts the whole run — not the skip the README
+# promises ("tests marked geometry skip rather than fail when cadquery/trimesh cannot
+# import"). A collection error is not a skip: pytest reports it as an error and stops,
+# so the base-install lane loses every other test in the suite too.
 trimesh = pytest.importorskip("trimesh")
+np = pytest.importorskip("numpy")
 
 from y4d_spec.geometry import _bodies  # noqa: E402
+
+# The suite-wide marker conftest.py keys its skip off, so this module is named in the
+# `-ra` summary alongside the other geometry modules instead of quietly vanishing.
+pytestmark = pytest.mark.geometry
 
 
 def _three_bodies_one_inverted():

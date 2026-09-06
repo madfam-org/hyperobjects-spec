@@ -97,6 +97,12 @@ def test_require_openscad_records_no_skips(no_binary):
     assert result.skipped_renders == []
 
 
+# Marked `geometry`: the flag/argument errors these assert are raised AFTER the
+# geometry-extra check in _cmd_check, so on a base install the exit code is still 2
+# but the message is the extra's refusal. The siblings above validate BEFORE that
+# check and so hold everywhere. Without the marker these went red on any machine
+# without [geometry] — a lane the README promises is green.
+@pytest.mark.geometry
 def test_cli_require_openscad_without_a_binary_exits_2(no_binary, capsys):
     """A usage/environment error, not a conformance verdict — the same exit code
     `--render` without the geometry extra uses."""
@@ -113,6 +119,7 @@ def test_cli_require_openscad_needs_render(capsys):
     assert "only apply with --render" in capsys.readouterr().out
 
 
+@pytest.mark.geometry
 def test_cli_openscad_path_must_be_a_directory(tmp_path, capsys):
     missing = tmp_path / "nope"
     code = main(["check", str(SCAD_BLOCK), "--render", "--openscad-path", str(missing)])

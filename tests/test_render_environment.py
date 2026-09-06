@@ -47,6 +47,37 @@ def test_ci_extras_carry_the_soname_that_actually_broke_ci():
     assert "libxrender1" in env.CI_EXTRA_APT_PACKAGES
 
 
+def test_apt_packages_carry_the_two_the_runner_image_was_missing():
+    """libcomerr2 and libgpg-error0 are transitive loads the EXTRACTED AppImage asks
+    for, and nothing else in the list pulls them in.
+
+    They are in this contract because the runner image did not have them: the
+    render-environment drift check added to the runner's image lane (enclii #520,
+    2026-09-06) compares that image's apt layers against APT_PACKAGES as a subset and
+    found exactly these two missing. A contract the consumer silently under-installs
+    is not a contract, so name them here — a well-meaning prune of "sonames nobody
+    recognizes" is the failure mode this test exists to stop.
+    """
+    assert "libcomerr2" in env.APT_PACKAGES
+    assert "libgpg-error0" in env.APT_PACKAGES
+
+
+def test_the_gl_stack_openscad_resolves_at_load_is_named():
+    """OpenSCAD links its Qt/OpenCSG GL stack at LOAD, so `-o out.stl` — which draws
+    nothing — still needs them. Dropping one turns every OpenSCAD render into a
+    launch failure that reads nothing like a missing library."""
+    for pkg in ("libgl1", "libglu1-mesa", "libegl1"):
+        assert pkg in env.APT_PACKAGES, pkg
+
+
+def test_fontconfig_and_a_fallback_face_are_both_present():
+    """FONTS_POLICY says an environment that copies fonts without running fc-cache has
+    installed nothing fontconfig can find — which needs fontconfig installed, and a
+    fallback face for the text() cartridges that bundle none."""
+    assert "fontconfig" in env.APT_PACKAGES
+    assert "fonts-liberation" in env.APT_PACKAGES
+
+
 def test_openscad_sha256_is_a_sha256():
     assert re.fullmatch(r"[0-9a-f]{64}", env.OPENSCAD_SHA256)
 
