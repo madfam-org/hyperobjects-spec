@@ -77,6 +77,19 @@ otherwise a cartridge could switch off the check by switching off the
 comparison. Exemptions are counted separately (`exempt=`) so they cannot shrink
 the denominator.
 
+**A declared parameter must reach geometry.** Every `parameters[].id` is
+referenced by a source of a mode that lists it, or the cartridge fails
+(G-DEADPARAM). `.py`/`.cq` by the bare identifier — parameters are injected as
+bare globals, so `PARAM(lambda: x, d)` counts because `x` is in it and `PARAM`
+is a cartridge idiom rather than the accessor; `.scad` by a use outside the
+identifier's own declaration line, because OpenSCAD accepts an unknown `-D` in
+silence and the declaration is the thing being overridden; `.graph.json` by a
+`parameters[].binding` naming a node param. Judged only against the modes that
+list the parameter. A reference in a library the cartridge SHIPS counts;
+unresolvable includes are skipped, never assumed. `target_part` is exempt.
+`intentionally_unused: {"reason": …}` allow-lists one, reason required and
+non-empty — visible debt, same convention as a parity exemption.
+
 **A skip is never a pass.** `renders=` counts meshes actually judged and
 `skipped=` counts the rest; `--require-openscad` turns a missing binary from a
 skip into a failure so a lane that rendered nothing cannot report green.

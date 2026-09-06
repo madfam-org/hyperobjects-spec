@@ -1,0 +1,233 @@
+{
+  "project": {
+    "name": "Dead Param",
+    "slug": "dead-param",
+    "version": "1.0.0",
+    "engine": "openscad",
+    "description": {
+      "en": "A fixture reproducing the four real dead-parameter shapes found in the solid commons, plus the three shapes that must NOT be flagged. Every parameter here is named for the commons cartridge it stands in for.",
+      "es": "Un cartucho de prueba que reproduce las cuatro formas reales de parametro muerto halladas en el commons solido, mas las tres formas que NO deben marcarse. Cada parametro lleva el nombre del cartucho que representa."
+    },
+    "thumbnail": "/projects/dead-param.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "openscad",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "stand",
+      "label": {
+        "en": "Stand",
+        "es": "Soporte"
+      },
+      "scad_file": "stand.scad",
+      "cq_file": "stand.py",
+      "parts": [
+        "stand"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "lever",
+      "label": {
+        "en": "Lever",
+        "es": "Palanca"
+      },
+      "scad_file": "lever.scad",
+      "parts": [
+        "lever"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "stand",
+      "label": {
+        "en": "Stand",
+        "es": "Soporte"
+      },
+      "render_mode": 0
+    },
+    {
+      "id": "lever",
+      "label": {
+        "en": "Lever",
+        "es": "Palanca"
+      },
+      "render_mode": 1
+    }
+  ],
+  "parameters": [
+    {
+      "id": "base_w",
+      "type": "slider",
+      "default": 40.0,
+      "min": 10.0,
+      "max": 80.0,
+      "label": {
+        "en": "Base width (mm)",
+        "es": "Ancho de la base (mm)"
+      },
+      "tooltip": {
+        "en": "Used in both sources of the stand mode.",
+        "es": "Usado en ambas fuentes del modo soporte."
+      }
+    },
+    {
+      "id": "lever_length",
+      "type": "slider",
+      "default": 30.0,
+      "min": 10.0,
+      "max": 60.0,
+      "visible_in_modes": [
+        "lever"
+      ],
+      "label": {
+        "en": "Lever length (mm)",
+        "es": "Longitud de la palanca (mm)"
+      },
+      "tooltip": {
+        "en": "Scoped to the lever mode, and used there — alive.",
+        "es": "Limitado al modo palanca, y usado ahi — vivo."
+      }
+    },
+    {
+      "id": "drainage_angle",
+      "type": "slider",
+      "default": 5.0,
+      "min": 0.0,
+      "max": 20.0,
+      "intentionally_unused": {
+        "reason": "reserved for the fluid-drainage mode that is not written yet; kept so the preset files that already set it keep validating."
+      },
+      "label": {
+        "en": "Drainage angle (deg)",
+        "es": "Angulo de drenaje (grados)"
+      },
+      "tooltip": {
+        "en": "Declared, deliberately unwired.",
+        "es": "Declarado, deliberadamente sin conectar."
+      }
+    },
+    {
+      "id": "target_part",
+      "type": "select",
+      "default": "stand",
+      "options": [
+        {
+          "value": "stand",
+          "label": {
+            "en": "Stand",
+            "es": "Soporte"
+          }
+        },
+        {
+          "value": "lever",
+          "label": {
+            "en": "Lever",
+            "es": "Palanca"
+          }
+        }
+      ],
+      "label": {
+        "en": "Part",
+        "es": "Pieza"
+      },
+      "tooltip": {
+        "en": "Injected by the runner, never read by these sources.",
+        "es": "Inyectado por el runner, nunca leido por estas fuentes."
+      }
+    },
+    {
+      "id": "phone_angle",
+      "type": "slider",
+      "default": 65.0,
+      "min": 45.0,
+      "max": 80.0,
+      "label": {
+        "en": "Phone angle (deg)",
+        "es": "Angulo del celular (grados)"
+      },
+      "tooltip": {
+        "en": "Assigned at the top of stand.scad and never read.",
+        "es": "Asignado al inicio de stand.scad y nunca leido."
+      }
+    },
+    {
+      "id": "mat_width",
+      "type": "slider",
+      "default": 50.0,
+      "min": 0.0,
+      "max": 200.0,
+      "label": {
+        "en": "Mat width (mm)",
+        "es": "Ancho del passepartout (mm)"
+      },
+      "tooltip": {
+        "en": "Declared in the scad, absent from the py.",
+        "es": "Declarado en el scad, ausente del py."
+      }
+    },
+    {
+      "id": "drive_type",
+      "type": "select",
+      "default": "harmonic",
+      "options": [
+        {
+          "value": "harmonic",
+          "label": {
+            "en": "Harmonic",
+            "es": "Armonico"
+          }
+        },
+        {
+          "value": "cycloidal",
+          "label": {
+            "en": "Cycloidal",
+            "es": "Cicloidal"
+          }
+        }
+      ],
+      "label": {
+        "en": "Drive type",
+        "es": "Tipo de transmision"
+      },
+      "tooltip": {
+        "en": "Named by no source at all.",
+        "es": "No nombrado por ninguna fuente."
+      }
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "step"
+  ],
+  "hyperobject": {
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "base",
+        "parameters": [
+          "base_w"
+        ]
+      }
+    ]
+  }
+}

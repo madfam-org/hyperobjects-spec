@@ -49,6 +49,12 @@ nothing becomes a failure until its false-positive analysis against the whole
 commons is written down. Test fixtures are real cartridges — a rule that flags
 them is the rule's bug.
 
+G-DEADPARAM lands as a FAILURE, and the analysis is why: swept over all 500
+solid cartridges it fires on 10, naming 20 parameters, and every one was
+confirmed by hand to be genuinely unreferenced. A parameter scoped to one mode
+and used there is alive; a reference in a shipped library counts; an
+unresolvable include is skipped rather than assumed. See `AGENTS.md`.
+
 ## Not here
 
 Repo-wide checks (catalog drift, cross-cartridge slug uniqueness) stay in the

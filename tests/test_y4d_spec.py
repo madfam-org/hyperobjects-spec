@@ -1244,7 +1244,11 @@ def test_an_all_openscad_cartridge_does_not_report_renders_as_verified(
         mode["scad_file"] = "main.scad"
     doc.pop("presets", None)
     (cart / "project.json").write_text(json.dumps(doc))
-    (cart / "main.scad").write_text("cube([1,1,1]);\n")
+    # The source must actually READ the manifest's parameters, or G-DEADPARAM fails the
+    # cartridge for a reason that has nothing to do with the property under test. The
+    # geometry is still the simplest thing that renders; only the identifiers matter.
+    reads = " + ".join(p["id"] for p in doc["parameters"])
+    (cart / "main.scad").write_text(f"cube([1, 1, {reads}]);\n")
 
     rc = main(["check", str(cart), "--render", "-v"])
     out = capsys.readouterr().out

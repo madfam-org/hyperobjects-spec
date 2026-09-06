@@ -272,6 +272,7 @@ def _cmd_rules(args) -> int:
         rules.hyperobject_rules,
         rules.i18n_rules,
         rules.license_rules,
+        rules.verification_rules,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
@@ -281,6 +282,7 @@ def _cmd_rules(args) -> int:
         structure.source_path_rules,
         structure.vendor_rules,
         structure.shipped_license_rules,
+        structure.dead_parameter_rules,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")

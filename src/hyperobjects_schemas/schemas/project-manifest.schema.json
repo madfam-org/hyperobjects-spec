@@ -373,6 +373,19 @@
             ],
             "description": "Graph-engine cartridges only: binds this parameter to one or more node params as 'nodeId.param'. The graph transpiler reads the bound value at render time; the graph's own value becomes the default. One parameter may drive several node params; each node param has at most one driving parameter."
           },
+          "intentionally_unused": {
+            "type": "object",
+            "description": "Allow-list for the dead-parameter rule (G-DEADPARAM): declares that this parameter is deliberately NOT referenced by any source of a mode that lists it. Without it, an unreferenced parameter is a conformance failure — the UI would offer a control that changes nothing. The reason is required and must be non-empty: an exemption that is kept on purpose is visible debt, and debt with no reason attached cannot be reviewed when either the cartridge or the rule next changes. Mirrors the parity-exemption convention (G38).",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Why this parameter is declared but never referenced — e.g. reserved for a mode not yet written, or read by a consumer other than the geometry sources."
+              }
+            },
+            "required": ["reason"],
+            "additionalProperties": false
+          },
           "widget": {
             "type": "object",
             "description": "Custom widget plugin for this parameter.",

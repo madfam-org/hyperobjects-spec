@@ -8,12 +8,19 @@ Ported from yantra4d/scripts/audit_compliance.py:
   (declared-vs-shipped license, shipped half; scripts/qa/check_licenses.py)
                                                     -> shipped_license_rules
 
+Plus one rule this package originates: `dead_parameter_rules` (G-DEADPARAM), which
+needs the mode SOURCES and so cannot live in `rules.py` with the pure manifest checks.
+It reads the files and hands their text to `rules.dead_parameter_problems`, where the
+decision is made — the same split the render lane uses, so the judgement stays testable
+without a directory.
+
 Each returns a list of problems; empty means conformant. Paths are reported relative
 to the cartridge directory so the output is the same wherever the cartridge lives.
 """
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 __all__ = [
@@ -22,6 +29,7 @@ __all__ = [
     "vendor_rules",
     "shipped_license_rules",
     "mode_source_rules",
+    "dead_parameter_rules",
     "all_structure_rules",
 ]
 
@@ -205,6 +213,94 @@ def mode_source_rules(cartridge_dir: Path, manifest: dict) -> list[str]:
     return problems
 
 
+def _include_targets(text: str) -> list[str]:
+    """The `include <>` / `use <>` targets named by one OpenSCAD source."""
+    return re.findall(r"^\s*(?:include|use)\s*<([^>]+)>", text, flags=re.M)
+
+
+def _read_mode_source(
+    cartridge_dir: Path, name: str, *, _depth: int = 0, _seen: set[str] | None = None
+) -> str | None:
+    """One mode source's text, with the text of the in-cartridge files it includes.
+
+    THE LIBRARY DECISION (G-DEADPARAM). A reference from a library file DOES count, and
+    only from a library the cartridge SHIPS.
+
+    Why it counts: `include <>` in OpenSCAD is textual inclusion into the same variable
+    scope, so an identifier read inside `profiles/classic.scad` is reading the very
+    global the platform's `-D` sets. That parameter reaches geometry. Calling it dead
+    because the read happens one file along would be false, and this rule's whole
+    premise is that a parameter which reaches geometry is alive wherever it does so.
+
+    Why only a shipped one: a target outside the cartridge (`BOSL2/std.scad`,
+    `../../libs/...`) resolves against an OpenSCAD library path this package does not
+    have and the cartridge does not carry — `source_path_rules` already notes that such
+    a cartridge will not render anywhere that does not provide `libs/`. Reading a file
+    that is not there is impossible; treating its ABSENCE as a reference would exempt
+    every parameter of every BOSL2 cartridge — 43 of them — and turn the rule off where
+    it is most needed. Unresolvable targets are therefore skipped, and the rule stays
+    conservative in the one direction that matters: it can only ever miss a dead
+    parameter, never invent one.
+
+    Measured before it was decided: following in-cartridge includes changes the verdict
+    on ZERO of the solid commons' 500 cartridges, and rescues none of the 20 dead
+    parameters found there. So this is not what produced the measurement — it is what
+    keeps the rule right for the cartridge that has not been written yet.
+
+    Depth-bounded and cycle-safe: `portacosas` both `include <desk_organizer.scad>` and
+    `use <desk_organizer.scad>`, and a pair of files that include each other is legal.
+    """
+    if _seen is None:
+        _seen = set()
+    path = cartridge_dir / name
+    key = str(path)
+    if key in _seen or not path.is_file():
+        return None
+    _seen.add(key)
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+
+    if path.suffix != ".scad" or _depth >= _MAX_DEPTH:
+        return text
+
+    parts = [text]
+    for target in _include_targets(text):
+        if target.startswith("/") or ".." in target:
+            continue  # outside the cartridge — see the docstring
+        included = _read_mode_source(
+            cartridge_dir, target, _depth=_depth + 1, _seen=_seen
+        )
+        if included is not None:
+            parts.append(included)
+    return "\n".join(parts)
+
+
+def dead_parameter_rules(cartridge_dir: Path, manifest: dict) -> list[str]:
+    """Every declared parameter must be referenced by a source of a mode that lists it.
+
+    G-DEADPARAM. The disk half: resolve each mode's declared sources (plus the
+    in-cartridge files they include, per `_read_mode_source`) and hand the text to
+    `rules.dead_parameter_problems`, which owns the decision and is testable without a
+    directory.
+    """
+    from . import rules as _rules
+
+    sources: dict[str, str] = {}
+    for mode in manifest.get("modes") or []:
+        if not isinstance(mode, dict):
+            continue
+        for key in ("cq_file", "scad_file", "graph_file"):
+            name = mode.get(key)
+            if not isinstance(name, str) or not name or name in sources:
+                continue
+            text = _read_mode_source(cartridge_dir, name)
+            if text is not None:
+                sources[name] = text
+    return _rules.dead_parameter_problems(manifest, sources)
+
+
 def all_structure_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], list[str]]:
     """Every on-disk rule, in one call. Returns (problems, notes)."""
     problems: list[str] = []
@@ -213,4 +309,5 @@ def all_structure_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str],
     problems.extend(path_problems)
     problems.extend(vendor_rules(cartridge_dir))
     problems.extend(shipped_license_rules(cartridge_dir, manifest))
+    problems.extend(dead_parameter_rules(cartridge_dir, manifest))
     return problems, notes
