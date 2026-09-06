@@ -90,7 +90,7 @@
             "geometry.parity": {
               "enabled": true,
               "tolerance": 0.2,
-              "reason": "the OpenSCAD side rounds this block's X extent to its own grid while CadQuery carries it analytically, a 0.1mm difference that no repair on either side removes. 0.2mm is the smallest tolerance that clears it; the volume allowance and the faceting band are untouched, so a real dimensional error still fails. Review if the OpenSCAD side is re-authored."
+              "reason": "TEST FIXTURE — block.py sets SHIFT_MM = 0.1 on purpose, so this reason describes a deliberate divergence rather than a kernel idiom, which is what a real cartridge's reason must name (see spiral-planter's saucer, where CadQuery's $fn-equivalent faceting costs 0.0566mm and only a ~quadratic-cost refinement clears it). 0.2mm is the smallest tolerance above that 0.1mm; the volume allowance and the faceting band are untouched, so a real dimensional error still fails gates 2 and 3."
             }
           }
         }
