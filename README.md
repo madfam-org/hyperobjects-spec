@@ -88,7 +88,51 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
    completeness, license declaration. Every rule names its source in the Yantra4D repo;
    run `y4d-spec rules` to see them.
 3. Checks the files: mode sources exist, no includes escaping the cartridge, no
-   vendored tree, no shipped LICENSE contradicting the declared one.
+   vendored tree, no shipped LICENSE contradicting the declared one, and **every
+   declared parameter is actually referenced by a source** (below).
+
+**Every declared parameter must reach geometry.** A parameter the sources never read is
+a control the UI offers that changes nothing, and it fails the check. OpenSCAD is where
+this hides: the platform passes every parameter as `-D name=value`, and OpenSCAD accepts
+a `-D` for a name the file never mentions **in silence** — so a `.scad` that declares
+`phone_angle = 65;` at the top and never reads it renders the same solid at every
+position of the slider, with no error anywhere. Four such dead sliders shipped in the
+solid commons for exactly that reason.
+
+Each dialect is asked the question its own way:
+
+- `.py` / `.cq` — the bare identifier appears in the executable text. Parameters are
+  injected as **bare globals** (`exec_globals.update(params)`), so `PARAM(lambda: wall,
+  4.0)` counts because `wall` is in it, not because `PARAM` is special. Comments and
+  string literals are stripped: naming a parameter in a docstring is not wiring it.
+- `.scad` — the identifier is used **outside its own declaration line**, since the `-D`
+  overrides that line. A use on the declaration's own right-hand side (`w = w * 2;`)
+  counts; a mention in a `//` or `/* */` comment does not.
+- `.graph.json` — the parameter carries a `binding` naming a node param
+  (`"outline.r"`, or a list). Graph cartridges bind from the manifest side, so a graph
+  parameter with no binding drives nothing.
+
+A parameter is judged only against the modes that **list** it (`modes` /
+`visible_in_modes`), so a parameter scoped to one mode and used there is alive even
+though the cartridge's other modes never mention it. A reference from a library file the
+cartridge **ships** counts — `include <>` is textual inclusion into the same variable
+scope — while a target that resolves outside the cartridge (`BOSL2/std.scad`) is skipped
+rather than assumed, so the rule can only ever miss a dead parameter, never invent one.
+`target_part` is exempt: the runner injects it to select a body.
+
+The deliberate case has a door, with the same shape and the same argument as a parity
+exemption (G38) — an object whose `reason` is required and must be non-empty:
+
+```json
+{
+  "id": "drainage_angle",
+  "type": "slider",
+  "default": 5.0,
+  "intentionally_unused": {
+    "reason": "reserved for the fluid-drainage mode that is not written yet"
+  }
+}
+```
 
 **What `--render` adds.** It executes your cartridge for every `(mode, part)` pair —
 **on every engine the mode declares** — then requires each mesh to be

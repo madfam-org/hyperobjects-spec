@@ -146,6 +146,16 @@ jobs:
           # reasoned shape is accepted by the shipped console script, not only in-process.
           .venv/bin/y4d-spec check tests/fixtures/y4d/dual-block-exempt \
             tests/fixtures/y4d/dual-block-widened
+          # G-DEADPARAM, the other way round: this fixture MUST fail, and must name the
+          # three dead parameters. A rule whose only proof is that healthy cartridges
+          # pass is a rule that could be switched off without anything going red.
+          ! .venv/bin/y4d-spec check tests/fixtures/y4d/dead-param > dead-param.out 2>&1
+          grep -q "phone_angle" dead-param.out
+          grep -q "mat_width" dead-param.out
+          grep -q "drive_type" dead-param.out
+          # …and must NOT name the ones that are alive, scoped, or allow-listed.
+          ! grep -qE "'(base_w|lever_length|drainage_angle|target_part)'" dead-param.out
+          rm -f dead-param.out
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
 

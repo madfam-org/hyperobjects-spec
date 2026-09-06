@@ -175,6 +175,57 @@ switched off by switching the comparison off:
   a departure. An explicit `--parity-tolerance` beats a manifest one; no number
   overrides an exemption.
 
+## Every declared parameter must be referenced (G-DEADPARAM)
+
+A `parameters[]` entry no source reads is a **conformance failure**: the UI offers a
+control that changes nothing. Enforced by `y4d-spec check` with no `--render`.
+
+**Why OpenSCAD is where this hides.** The platform passes every parameter as
+`-D name=value`, and OpenSCAD accepts a `-D` for an identifier the file never
+mentions **without any error**. So a `.scad` whose top says `phone_angle = 65;`
+and which never reads it again renders an identical solid at every position of
+the slider. Four dead sliders reached the solid commons this way.
+
+How each dialect is asked:
+
+- `.py` / `.cq` — the **bare identifier** in the executable text. Parameters
+  arrive as bare globals (`cq_runner.py:43 exec_globals.update(params)`), so
+  `PARAM(lambda: wall, 4.0)` counts because `wall` is inside it. `PARAM` is a
+  cartridge-side idiom, **not** the accessor. Comments and string literals are
+  stripped — naming a parameter in a docstring does not wire it. The
+  `params["x"]` minority form is matched on the raw text.
+- `.scad` — the identifier **outside its own declaration line**, because the
+  `-D` overrides that line. `w = w * 2;` counts (the RHS reads the injected
+  value); a `//` or `/* */` mention does not.
+- `.graph.json` — a `parameters[].binding` naming a node param
+  (`"outline.r"`, or a list of them). Graph cartridges bind from the **manifest**
+  side; a graph parameter with no binding drives nothing.
+
+Scope and exemptions:
+
+- A parameter is judged **only against the modes that list it** (`modes` /
+  `visible_in_modes`, intersected). One scoped to `over_center` and used there is
+  alive even though six sibling modes never mention it.
+- A reference in a library the cartridge **ships** counts — `include <>` is
+  textual inclusion into the same variable scope. A target resolving outside the
+  cartridge (`BOSL2/std.scad`, `../../libs/…`) is **skipped, never assumed**:
+  treating an unreadable file as a reference would exempt every parameter of all
+  43 BOSL2 cartridges. The rule can miss a dead parameter; it cannot invent one.
+- `target_part` is exempt — the runner injects it to select a body.
+- A mode whose sources are missing is not evidence; `mode_source_rules` already
+  fails that cartridge.
+
+The deliberate case, same shape and same argument as a parity exemption:
+
+```jsonc
+"intentionally_unused": { "reason": "reserved for a mode not yet written" }
+```
+
+The `reason` is **required and non-empty**, in the rule and in the schema. A
+`reason` that is blank or absent is itself a failure. Do not reach for this to
+quiet a finding you have not read: the three honest answers to a dead parameter
+are **wire it, remove it, or allow-list it with a reason someone can review**.
+
 ## The `constraints[]` dialect — `safeFormula`, not expr-eval
 
 `project.json`'s `constraints[]` are evaluated **client-side in the Studio** by a

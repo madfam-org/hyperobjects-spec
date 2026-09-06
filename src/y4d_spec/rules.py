@@ -22,6 +22,9 @@ Provenance — each rule and where it comes from in the yantra4d repo:
   i18n en/es completeness     scripts/qa/i18n_audit.py  (locale parity, applied to manifests)
   commons_license declared    scripts/qa/check_licenses.py  (declared-vs-shipped, declared half)
   parity exemption reason     THIS PACKAGE (G38, 2026-09-06) — see verification_rules
+  declared params referenced  THIS PACKAGE (G-DEADPARAM, 2026-09-06) — see
+                              dead_parameter_rules; needs the SOURCES, so the disk half
+                              is structure.dead_parameter_rules and the decision is here
 
 Deliberately NOT here — these are repo-wide, not per-cartridge, and stay in the
 platform: catalog drift (generate_commons_catalog.py), cross-cartridge slug
@@ -40,6 +43,8 @@ ran could be switched off by switching the comparison off.
 
 from __future__ import annotations
 
+import re
+
 __all__ = [
     "DIFFICULTIES",
     "manifest_structural_rules",
@@ -49,6 +54,14 @@ __all__ = [
     "hyperobject_rules",
     "verification_rules",
     "all_manifest_rules",
+    "GRAPH_SUFFIX",
+    "SCRIPT_SUFFIXES",
+    "SCAD_SUFFIX",
+    "parameter_mode_listings",
+    "graph_bound_parameters",
+    "scad_references",
+    "script_references",
+    "dead_parameter_problems",
     "render_targets",
     "preset_targets",
     "parameter_defaults",
@@ -529,6 +542,325 @@ def verification_rules(doc: dict) -> list[str]:
                 )
 
     return problems
+
+
+# ── dead parameters (G-DEADPARAM, 2026-09-06) ────────────────────────────────
+#
+# The three source dialects a mode can name, and how a parameter reaches each.
+SCRIPT_SUFFIXES = (".py", ".cq")
+SCAD_SUFFIX = ".scad"
+GRAPH_SUFFIX = ".graph.json"
+
+#: `intentionally_unused` — the allow-list object, mirroring the parity exemption (G38):
+#: an object with a REQUIRED, non-empty `reason`. Same shape and same argument — a
+#: departure from a gate is visible debt, and debt with no reason attached cannot be
+#: reviewed when the cartridge next changes.
+UNUSED_ALLOWLIST_KEY = "intentionally_unused"
+
+
+def _identifier_pattern(ident: str) -> re.Pattern[str]:
+    """`ident` as a whole word. `wall` must not match inside `wall_thickness`."""
+    return re.compile(r"(?<![A-Za-z0-9_])" + re.escape(ident) + r"(?![A-Za-z0-9_])")
+
+
+def _strip_scad_comments(text: str) -> str:
+    """`//` and `/* */` removed. A parameter named only in a comment is not wired.
+
+    `custom-msh`'s `drainage_angle = 5; // Tilt angle (reserved for future fluid
+    drainage features)` is the case this exists for: the comment names the identifier,
+    and counting that as a reference would let every dead slider document itself alive.
+    """
+    text = re.sub(r"/\*.*?\*/", " ", text, flags=re.S)
+    return "\n".join(re.sub(r"//.*$", "", line) for line in text.splitlines())
+
+
+def _strip_script_comments(text: str) -> str:
+    """Comments AND string literals removed from a Python/CadQuery source.
+
+    Both, for one reason: prose is not a reference. A cartridge whose module docstring
+    explains "`mat_width` is not wired yet" would otherwise read as one that wires it,
+    and the whole point of the rule is that saying a parameter's name is not the same as
+    using it — the same argument that strips `//` from the OpenSCAD half.
+
+    Tokenised rather than pattern-matched, because triple-quoted strings span lines and
+    a regex over them is how a rule ends up depending on quoting style. A source too
+    broken to tokenise falls back to line-wise `#` stripping: a syntax error is
+    `mode_source_rules`' business and a render-time failure, not a reason for this rule
+    to guess.
+    """
+    try:
+        return _strip_script_tokens(text)
+    except Exception:
+        return "\n".join(line.split("#", 1)[0] for line in text.splitlines())
+
+
+def _strip_script_tokens(text: str) -> str:
+    """`text` with every COMMENT and STRING token blanked, positions preserved."""
+    import io
+    import tokenize
+
+    lines = text.splitlines(keepends=True)
+    drop: list[tuple[int, int, int, int]] = []
+    for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+        if tok.type in (tokenize.COMMENT, tokenize.STRING):
+            drop.append((tok.start[0], tok.start[1], tok.end[0], tok.end[1]))
+        elif hasattr(tokenize, "FSTRING_START") and tok.type in (
+            tokenize.FSTRING_START,
+            tokenize.FSTRING_MIDDLE,
+            tokenize.FSTRING_END,
+        ):
+            # An f-string's literal text is prose; its `{...}` expressions tokenise
+            # separately and are deliberately left in place — `f"{wall}"` is a read.
+            drop.append((tok.start[0], tok.start[1], tok.end[0], tok.end[1]))
+
+    for srow, scol, erow, ecol in reversed(drop):
+        if srow == erow:
+            line = lines[srow - 1]
+            lines[srow - 1] = line[:scol] + " " * (ecol - scol) + line[ecol:]
+        else:
+            lines[srow - 1] = lines[srow - 1][:scol] + "\n"
+            for row in range(srow, erow - 1):
+                lines[row] = "\n"
+            lines[erow - 1] = " " * ecol + lines[erow - 1][ecol:]
+    return "".join(lines)
+
+
+def scad_references(text: str, ident: str) -> bool:
+    """Is `ident` USED in this OpenSCAD source — not merely declared?
+
+    This is the heart of the rule and the reason the rule exists. OpenSCAD accepts an
+    unknown `-D name=value` in silence: the platform passes every manifest parameter on
+    the command line, so a `.scad` that never mentions the identifier renders exactly
+    the same solid at every position of the slider, and nothing anywhere says so.
+
+    A cartridge declares its defaults at the top of the file (`phone_angle = 65;`), and
+    the `-D` on the command line overrides that declaration. So the declaration LINE is
+    not a use — it is the thing being overridden. A reference is any occurrence outside
+    it: inside a module body, an expression, a call. The right-hand side counts too
+    (`w = w * 2;` reads the injected value), which is why the assignment is split rather
+    than the whole line discarded.
+
+    `portacosas.phone_angle`, `framing-hyperobject.mat_width` and `portacosas.card_angle`
+    are each exactly this shape: one `name = literal;` line, no other occurrence, a
+    slider the UI offers that moves nothing.
+    """
+    pattern = _identifier_pattern(ident)
+    assignment = re.compile(r"^\s*" + re.escape(ident) + r"\s*=")
+    for line in _strip_scad_comments(text).splitlines():
+        if not pattern.search(line):
+            continue
+        match = assignment.match(line)
+        if match is None:
+            return True  # an occurrence that is not this identifier's own declaration
+        # Its own declaration line — but the RHS may still read the injected value.
+        if pattern.search(line.split("=", 1)[1]):
+            return True
+    return False
+
+
+def script_references(text: str, ident: str) -> bool:
+    """Is `ident` referenced by a CadQuery source (`.py`/`.cq`)?
+
+    The accessor is NOT a `PARAM(...)` library call, and reading it as one would be
+    reading from memory rather than from the runner. cq_runner.py:43 does
+    `exec_globals.update(params)`: **parameters arrive as BARE GLOBALS**. `PARAM(lambda:
+    name, default)` is a cartridge-side idiom for probing one of those globals and
+    falling back when it is absent — useful, near-universal in the commons (490 of the
+    500 solid cartridges define it), and still just a lambda closing over the bare name.
+    So the thing to look for is the IDENTIFIER, and `PARAM(lambda: x, 4)` is caught
+    because `x` is in it.
+
+    Unlike the OpenSCAD half there is no declaration line to discount. A Python source
+    that says `wall = 4.0` and never reads it again is dead code the same way, but
+    `wall = float(PARAM(lambda: wall, 4.0))` — the commons' actual idiom — is an
+    assignment whose RHS reads the global, and every subsequent use is a plain read.
+    Requiring a use outside the assignment would therefore be right in principle and
+    unmeasurable in practice on this dialect; a bare-name occurrence anywhere in the
+    executable text is the honest bar, and it is the bar that catches the real failure
+    (`prosthetic-socket` declares `wall_thickness` while the script reads `wall`).
+
+    The seven commons cartridges that index a `params` dict instead are matched on that
+    form too. That match runs against the RAW text, before comments and string literals
+    are stripped, because the whole subscript IS a string literal — stripping first
+    would erase the only evidence this dialect leaves.
+    """
+    # `params["x"]` / `params.get("x")` — the dict-indexing minority form, matched on
+    # the raw text (see the docstring).
+    for quote in ('"', "'"):
+        needle = f"{quote}{ident}{quote}"
+        if re.search(r"params\s*(?:\[\s*|\.\s*get\s*\(\s*)" + re.escape(needle), text):
+            return True
+    return bool(_identifier_pattern(ident).search(_strip_script_comments(text)))
+
+
+def graph_bound_parameters(doc: dict) -> set[str]:
+    """The parameter ids a `.graph.json` mode can actually be driven by.
+
+    A graph cartridge binds from the MANIFEST side, not from inside the graph: the
+    schema's `parameters[].binding` holds `"nodeId.param"` (or a list of them), and the
+    transpiler reads the bound value at render time while the graph's own literal
+    becomes the default. Both graph cartridges in the solid commons — `flange-plate` and
+    `spacer-block` — are wired this way, and neither `.graph.json` contains the string
+    `"param"` at all.
+
+    So for a graph mode the reference to look for is a `binding` on the parameter, and
+    a graph parameter with no binding is precisely the dead slider this rule is about:
+    the graph renders its own literal, the UI offers a control, and the control is
+    connected to nothing.
+    """
+    bound: set[str] = set()
+    for p in doc.get("parameters") or []:
+        if not isinstance(p, dict) or not isinstance(p.get("id"), str):
+            continue
+        binding = p.get("binding")
+        if isinstance(binding, str) and binding.strip():
+            bound.add(p["id"])
+        elif isinstance(binding, list) and any(
+            isinstance(b, str) and b.strip() for b in binding
+        ):
+            bound.add(p["id"])
+    return bound
+
+
+def parameter_mode_listings(doc: dict) -> dict:
+    """`{parameter id: [the mode dicts that list it]}` — the sources it must reach.
+
+    A parameter is judged against the modes it is SCOPED to, never against all of them.
+    `locking-mechanism-hyperobject.lever_length` is the case that fixes the semantics:
+    it is `visible_in_modes: ["over_center"]`, it is used throughout `over_center.scad`
+    and `over_center.py`, and it appears in none of the cartridge's other six modes —
+    which is correct, not dead. Judging it against every mode would call a properly
+    scoped parameter a failure, and a rule that fires on healthy cartridges is not
+    strict, it is wrong.
+
+    An UNSCOPED parameter is visible everywhere, so any one mode's sources referencing
+    it is enough. Both spellings of the scope are honoured and intersected, exactly as
+    `_parameter_mode_scopes` already does for the preset work list.
+    """
+    modes = [m for m in (doc.get("modes") or []) if isinstance(m, dict)]
+    scopes = _parameter_mode_scopes(doc)
+
+    listings: dict = {}
+    for p in doc.get("parameters") or []:
+        if not isinstance(p, dict) or not isinstance(p.get("id"), str):
+            continue
+        scope = scopes.get(p["id"])
+        listings[p["id"]] = [
+            m for m in modes if scope is None or m.get("id") in scope
+        ]
+    return listings
+
+
+def dead_parameter_problems(doc: dict, sources: dict) -> list[str]:
+    """Every declared parameter must be referenced by a source of a mode that lists it.
+
+    `sources` is `{filename: text}` for the mode source files that exist on disk — the
+    caller reads them (structure.dead_parameter_rules), so this stays a pure function
+    over already-parsed data like every other rule here.
+
+    A parameter reaches geometry through exactly one of three doors, and the rule asks
+    the door the mode actually uses:
+
+      * `.py`/`.cq`  — the bare identifier, because params are injected as bare globals.
+      * `.scad`      — the identifier outside its own declaration line, because
+                       OpenSCAD accepts an unknown `-D` in silence.
+      * `.graph.json` — a `parameters[].binding` naming a node param.
+
+    A mode whose sources are all missing from `sources` is not evidence either way and
+    is skipped: `mode_source_rules` already fails a mode that names a file it does not
+    ship, and reporting the same cartridge twice for one fault helps nobody.
+
+    ALLOW-LIST. `intentionally_unused: {"reason": "..."}` exempts a parameter, and the
+    reason is required and must be non-empty after stripping — the G38 convention,
+    unchanged: an exemption from a gate is visible debt, and a `true` with no sentence
+    attached is an exemption nobody can review. `custom-msh.drainage_angle` ("reserved
+    for future fluid drainage features") is what the door is for.
+
+    `target_part` is exempt unconditionally. It is not a shape parameter at all: the
+    RUNNER injects it to select which body to render (geometry.render_part sets
+    `call_params["target_part"] = part`), so a cartridge whose single-part modes are
+    dispatched by the mode id never reads it, and `dispatch_rules` already governs its
+    options separately.
+    """
+    problems: list[str] = []
+    listings = parameter_mode_listings(doc)
+    bound_in_graph = graph_bound_parameters(doc)
+
+    for p in doc.get("parameters") or []:
+        if not isinstance(p, dict) or not isinstance(p.get("id"), str):
+            continue
+        pid = p["id"]
+
+        allow = p.get(UNUSED_ALLOWLIST_KEY)
+        if allow is not None:
+            if not isinstance(allow, dict):
+                problems.append(
+                    f"parameter '{pid}': {UNUSED_ALLOWLIST_KEY} must be an object with "
+                    f"a 'reason'"
+                )
+                continue
+            reason = allow.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                problems.append(
+                    f"parameter '{pid}': {UNUSED_ALLOWLIST_KEY} without a non-empty "
+                    f"'reason' — an unreferenced parameter that is deliberate is "
+                    f"visible debt and must say why it is kept, so it can be reviewed "
+                    f"when the cartridge next changes (G-DEADPARAM)"
+                )
+            # Allow-listed either way: a malformed exemption is reported once, as
+            # itself, and does not also produce a dead-parameter failure for the same
+            # parameter — two lines for one fault is noise.
+            continue
+
+        if pid == "target_part":
+            continue
+
+        checked: list[str] = []
+        for mode in listings.get(pid) or []:
+            for name in _mode_source_names(mode):
+                text = sources.get(name)
+                if text is None:
+                    continue
+                checked.append(name)
+                if name.endswith(GRAPH_SUFFIX):
+                    if pid in bound_in_graph:
+                        break
+                elif name.endswith(SCRIPT_SUFFIXES):
+                    if script_references(text, pid):
+                        break
+                elif name.endswith(SCAD_SUFFIX):
+                    if scad_references(text, pid):
+                        break
+            else:
+                continue
+            break
+        else:
+            if checked:
+                where = ", ".join(sorted(set(checked)))
+                problems.append(
+                    f"parameter '{pid}': declared but never referenced by any source of "
+                    f"a mode that lists it ({where}) — the UI offers a control that "
+                    f"changes nothing. Wire it, remove it, or declare "
+                    f'{UNUSED_ALLOWLIST_KEY}: {{"reason": "..."}} (G-DEADPARAM)'
+                )
+
+    return problems
+
+
+def _mode_source_names(mode: dict) -> list[str]:
+    """The source filenames one mode names, in a stable order.
+
+    Mirrors `geometry.mode_sources` on the fields it reads (`cq_file` then `scad_file`)
+    and adds `graph_file`, because a graph mode may name its document in either
+    `scad_file` — which is what both commons graph cartridges do, the field holding
+    whatever the mode's primary source is — or in a dedicated field.
+    """
+    names: list[str] = []
+    for key in ("cq_file", "scad_file", "graph_file"):
+        value = mode.get(key)
+        if isinstance(value, str) and value and value not in names:
+            names.append(value)
+    return names
 
 
 def all_manifest_rules(doc: dict) -> list[str]:
