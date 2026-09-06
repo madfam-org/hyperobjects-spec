@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "units": "mm",
+  "meta": {
+    "title": "Graph Block",
+    "notes": "A minimal GRAPH test cartridge: a centred cube and a plate, as a node document. Exists so the keystone's graph render path is exercised end to end on a shape whose volume is exact."
+  },
+  "nodes": [
+    { "id": "block", "type": "box", "params": { "w": 10, "d": 10, "h": 10 } },
+    { "id": "plate", "type": "box", "params": { "w": 20, "d": 20, "h": 2 } }
+  ],
+  "outputs": {
+    "block": "block",
+    "plate": "plate"
+  }
+}

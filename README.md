@@ -66,7 +66,8 @@ y4d-spec check ./my-cartridge --render --no-presets        # defaults only (weak
 y4d-spec check ./my-cartridge --render --no-printability   # skip the print-time notes
 y4d-spec check ./my-cartridge --render --openscad-path ./libs   # where OpenSCAD includes resolve
 y4d-spec check ./my-cartridge --render --require-openscad       # a missing binary is a FAILURE
-y4d-spec check ./my-cartridge --render --parity                 # + COMPARE both kernels of a dual-engine mode
+y4d-spec check ./my-cartridge --render --parity                 # + COMPARE both kernels of a dual-engine mode,
+                                                                #   and a graph against its script twin
 y4d-spec check ./my-cartridge --render --parity --parity-tolerance 0.01   # widen the AABB gate only
 y4d-spec render-env                        # the render environment: packages, OpenSCAD, fonts
 y4d-spec check ./cartridges/*/ -v          # many at once
@@ -118,11 +119,13 @@ return assemblies. It is not a behaviour change: `Assembly.save` forwards to
 read the same deflection defaults. Verified byte-identical on `zipper` `closed/tape_left`
 (36 bodies, 2 163 284 bytes, same sha256 either way).
 
-**Both engines.** A CadQuery mode (`.py`/`.cq`) runs in the *same restricted sandbox the
+**Every engine.** A CadQuery mode (`.py`/`.cq`) runs in the *same restricted sandbox the
 platform uses*. An OpenSCAD mode (`.scad`) runs through the platform's own command line —
 `-o out.stl --backend=Manifold -D k=v … file.scad`, booleans as `1`/`0`, strings quoted,
 `render_mode` sent only when nonzero — and its STL goes through the *same* mesh bar. A
-mode that declares **both** renders **both sides**, and each is judged separately.
+**graph** mode (`.graph.json`) is transpiled into a CadQuery script by the platform's own
+transpiler, vendored here, and then rendered on the CadQuery path above. A mode that
+declares **more than one** renders **every side**, and each is judged separately.
 
 That last case is the reason this exists. The platform picks one engine per mode when it
 serves a render, so on a dual-engine cartridge the other side is exercised by nothing —
@@ -284,7 +287,7 @@ printed so a reader can see how many passes owe themselves to nothing but a re-c
 
 A failure is a **conformance failure** and exits nonzero; a faceting warn is a **note**
 and never is. A pair exists only where two meshes exist, so a skipped OpenSCAD lane
-yields none — and the `ok` line says `no dual-engine pair to compare` rather than staying
+yields none — and the `ok` line says `no comparable pair` rather than staying
 silent, because silence there reads exactly like a cartridge whose kernels were compared
 and agreed. **How CI uses it:** the commons render jobs pass `--parity` alongside
 `--require-openscad`, which is what makes "both kernels agree" a property of the merge
@@ -341,6 +344,94 @@ idiom* that differs — "BOSL2 helical thread against a revolved sawtooth ring s
 "known issue" — and every exemption is expected to be reviewed whenever either kernel
 changes, since a cheaper OCC sweep or a rewritten `.scad` retires it. (G38, ruled
 2026-09-06.)
+
+### Graph cartridges (`.graph.json`) and the golden-twin rule
+
+A **graph cartridge** does not hold its geometry in a script. `flange-plate/flange.graph.json`
+is a node document — typed nodes (`profile_circle`, `extrude`, `cut`, `pattern_polar`,
+`chamfer`), an `outputs` map from part id to node, and a manifest whose sliders `binding`
+into node params (`"binding": "outline.r"`). The geometry only exists once the document is
+**transpiled** into a CadQuery script, and it is that script this package judges.
+
+So a graph is not a fourth renderer here. It is one step in front of the CadQuery one:
+
+```text
+.graph.json ──transpile──▶ .py ──▶ the same sandbox, the same bar
+```
+
+and everything downstream is untouched: bare-global parameter injection, `target_part`
+dispatch, the B-Rep gate before tessellation, `toCompound()` assembly export, watertight
+/ volume / body counts, the preset matrix, and `--parity`. **A graph cartridge clears the
+identical bar, because after the transpile it is a CadQuery cartridge.** Until this lane
+existed, `mode_sources()` returned `[]` for a `.graph.json` and the two graph cartridges
+were the only two of the commons' 500 outside that bar.
+
+```text
+$ y4d-spec check ./flange-plate ./spacer-block --render --parity -v
+  ok flange-plate (./flange-plate, 2 render(s) verified, no comparable pair)
+       (flange, flange, graph): ok — volume 44363.67mm³, 1 body/bodies, watertight
+       (blank, blank, graph): ok — volume 47140.54mm³, 1 body/bodies, watertight
+  ok spacer-block (./spacer-block, 2 render(s) verified, no comparable pair)
+       (spacer, spacer, graph): ok — volume 17081.68mm³, 1 body/bodies, watertight
+       (solid, spacer_solid, graph): ok — volume 17932.50mm³, 1 body/bodies, watertight
+```
+
+**The transpiler is vendored, not re-implemented.** `src/y4d_spec/graph/graph_engine.py` is
+a **byte-identical** copy of the platform's `apps/api/services/engine/graph_engine.py`,
+pinned by sha256 in `graph.lock.json` and enforced by the blocking
+`scripts/qa/check_graph_sync.py` lane (`--update` re-pins after a re-vendor). A keystone
+that transpiled a graph with its own re-implementation would be judging a *different
+script* than the one the platform serves — the exact class of silent disagreement this
+package exists to prevent. The copy is possible because the engine is stdlib-only and its
+platform package `__init__.py` is empty; the precedent is yantra4d's own
+`packages/commons-sandbox`, which vendors Fashion Cabinet's sandbox core the same way.
+The loop is closed on both sides: yantra4d's `spec-conformance` asserts the **installed**
+keystone's hashes equal the platform's live files, so an engine change there goes red
+until the copy here is refreshed and re-pinned. See `src/y4d_spec/graph/VENDORED.md`.
+
+**The parameter contract needed no adapter.** `.py` cartridges receive parameters as
+*bare globals* (`exec_globals.update(params)`, mirroring `cq_runner`), which is why they
+use the `PARAM(lambda: name, default)` idiom, and `target_part` is one of those params.
+The transpiler emits against exactly that contract:
+
+```python
+_n_outline = cq.Workplane("XY").center(0.0, 0.0).circle(
+    float(_param(lambda: plate_radius, 45.0)))
+...
+_target = str(_param(lambda: target_part, "flange"))
+result = _outputs.get(_target)
+```
+
+`plate_radius` is the manifest parameter, reached through its `binding`; the literal is
+the node's own value. `result` is the first of the names the runner looks for. The only
+keystone-side work is finding the bindings and materialising the transpiled script as a
+real `.py` (the sandbox gates on the suffix) — and both are done by calling the platform's
+own `extract_bindings` and `prepare_graph_script`.
+
+**The golden-twin rule (write-up §3.7).** A graph is an *authoring format verified through
+its transpiled output*, not a peer engine. But where a graph is authored for a cartridge
+that **already has a script**, the script is the **oracle**: the graph must agree with it,
+at the parity bar, on every preset, before the script may be retired. Declare both on the
+mode (`"cq_file": "block.py"`, `"graph_file": "block.graph.json"`) and `--parity` compares
+them — the *same* comparison as the cross-kernel one, gate for gate, tolerances, faceting
+warn tier and per-part exemptions included, because "agrees with its script" must not mean
+something weaker than "agrees with the other kernel". The pairing is named in the line
+whenever it is not the cross-kernel one:
+
+```text
+  ok graph-twin (…, 6 render(s) verified (2 preset), 3 parity pair(s) agree)
+       parity (block, block, cadquery vs graph): ok — Meshes are identical within 0.000000mm tolerance.
+  FAIL graph-twin-divergent: parity (block, block, cadquery vs graph): FAIL —
+       Bounding boxes differ by 2.000000mm (A: [10.0, 10.0, 10.0], B: [12.0, 12.0, 12.0])
+```
+
+This turns the commons' 494 verified scripts into the test set for the graphs, which is
+the strongest oracle available and already paid for. Neither commons graph cartridge has a
+twin today — both were authored graph-first — so the rule currently fires on nothing; it
+is here *before* the back-fill wave rather than after, because a rule added once the twins
+exist is a rule the twins were never checked by. `(openscad, graph)` is deliberately **not**
+compared: on a cartridge with all three, the graph is pinned to its CadQuery script and
+that script to the OpenSCAD one, so a third edge only reports one of the other two twice.
 
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A
@@ -1052,6 +1143,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry on **both engines** (CadQuery *and* OpenSCAD) at defaults *and* at every declared preset, printability notes, and the render-environment contract (`render-env`) |
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
+| `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 

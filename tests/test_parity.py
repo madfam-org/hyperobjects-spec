@@ -605,9 +605,14 @@ def test_a_parity_failure_is_counted_and_exits_nonzero(capsys):
 @pytest.mark.geometry
 @needs_openscad
 def test_a_single_engine_cartridge_says_it_had_nothing_to_compare(capsys):
-    """Silence would read exactly like a cartridge whose kernels were compared."""
+    """Silence would read exactly like a cartridge whose kernels were compared.
+
+    The wording is "no comparable pair" rather than "no dual-engine pair" since the
+    golden-twin rule landed: a graph cartridge with no script twin also has nothing to
+    compare, and it is not a dual-engine cartridge.
+    """
     assert main(["check", "--render", "--parity", str(FIXTURES / "scad-block")]) == 0
-    assert "no dual-engine pair to compare" in capsys.readouterr().out
+    assert "no comparable pair" in capsys.readouterr().out
 
 
 @pytest.mark.geometry

@@ -178,6 +178,11 @@
             "type": "string",
             "pattern": "\\.py$"
           },
+          "graph_file": {
+            "type": "string",
+            "pattern": "\\.graph\\.json$",
+            "description": "Optional node-graph document for this mode, named explicitly alongside a script source. A graph-only mode declares its document in scad_file (the historical field holds whatever the mode's primary source is); this field is for a GOLDEN TWIN — a mode that carries both a script and the graph authored to reproduce it, so y4d-spec renders both and --parity compares the graph against its script oracle before the script is retired."
+          },
           "engine": {
             "type": "string",
             "enum": [
