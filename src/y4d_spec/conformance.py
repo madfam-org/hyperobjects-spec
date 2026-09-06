@@ -93,6 +93,20 @@ class CartridgeResult:
         """The pairs the manifest declared exempt, with the reason it gave (G38)."""
         return [c for c in self.parity if getattr(c, "exempt", False)]
 
+    @property
+    def parity_placement_notes(self) -> list:
+        """The pairs whose shapes agree but whose two kernels place them apart (G39).
+
+        Agreement, not debt: a slicer re-centres the part. Counted and printed anyway,
+        because an assembly does not, and a cartridge that means to be assembled
+        should be able to see the number before it declares `placement: "strict"`.
+        """
+        return [
+            c
+            for c in self.parity
+            if c.ok and getattr(c, "placement_note", False) and not c.exempt and not c.warn
+        ]
+
 
 def _schema_errors(doc: object) -> list[str]:
     try:
@@ -248,10 +262,12 @@ def check_cartridge(
                 result.notes.append(pc.summary)
             elif not pc.ok:
                 result.problems.append(pc.summary)
-            elif pc.warn:
+            elif pc.warn or getattr(pc, "placement_note", False):
                 # A faceting warn is TRUE and worth saying — the two kernels do differ,
                 # by chord error — but it is not a conformance failure, so it lands
-                # where the other true-but-not-fatal findings do.
+                # where the other true-but-not-fatal findings do. A placement offset
+                # (G39) is in the same tier and for the same reason: real, printed on
+                # every run, and not fatal unless the manifest asked for it to be.
                 result.notes.append(pc.summary)
 
     result.ok = not result.problems

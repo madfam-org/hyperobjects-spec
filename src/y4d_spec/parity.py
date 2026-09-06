@@ -20,11 +20,12 @@ not new ones:
      warn band (below).
   2. Volume        — delta > max(tolerance*100, 2% of the larger volume) FAILS.
                      Checked only when BOTH sides are watertight.
-  3. Hausdorff proxy — max surface divergence, both directions, via
-                     `trimesh.nearest.on_surface`. Above max(tolerance, 0.5mm) it is
-                     a WARN on a pair that already passed 1 and 2 — the platform logs
-                     "Assuming tessellation noise" and still returns True — but it is
-                     the *deciding* gate inside the warn band.
+  3. PLACEMENT + SHAPE — the surface comparison, split in two (G39, below).
+                     `placement` is the offset between the two meshes' AABB centres;
+                     `shape` is the Hausdorff proxy measured AFTER that offset is
+                     removed. Shape divergence above max(tolerance, 0.5mm) FAILS. A
+                     placement offset above 0.05mm is a note by default and a FAIL
+                     only under `"placement": "strict"`.
 
 THE FACETING WARN TIER (G27, ruled 2026-09-05)
 ----------------------------------------------
@@ -47,6 +48,55 @@ the band, any volume delta over 2%, or any Hausdorff failure still FAILS outrigh
 
 A proxy that could not be MEASURED is not a pass. None is the absence of evidence,
 and the warn tier requires positive evidence that the surfaces coincide.
+
+SHAPE AFTER ALIGNMENT, PLACEMENT AS ITS OWN NUMBER (G39, ruled 2026-09-06)
+-------------------------------------------------------------------------
+Gate 3 used to be what the platform makes it: recorded, never failing on its own. On
+the first full `--parity` sweep that let NINETEEN pairs through reporting
+`ok - Meshes are identical within X mm tolerance` with X up to 65mm. "Identical within
+65mm" is not a sentence anybody should read as agreement, and the pairs behind it were
+not one problem but two:
+
+  (a) a genuine SHAPE difference - `gears` `spur_gear` at 2.5-5.0mm was a trapezoid
+      tooth on one kernel against a true involute on the other (since repaired);
+  (b) a PLACEMENT offset - one kernel centres the part at the origin, the other anchors
+      a corner or a face. `relief`'s 44.72mm is exactly sqrt(40^2 + 20^2), the
+      half-diagonal of its plate; `soft-jaw`'s 9.525mm is 3/8 inch. The part is the
+      same part, moved.
+
+Both hid behind ONE number because the proxy samples raw vertices with no alignment,
+so a rigid translation reads exactly like a deformation - and gate 1 cannot separate
+them either, since translating a solid changes neither its extents nor its volume.
+Extents and volume together cannot distinguish "same part, different origin" from
+"different part". Only a measurement that removes the offset can.
+
+So the measurement is split:
+
+  placement = the vector between the two meshes' AABB centres, reported as
+              `placement offset d=(dx,dy,dz) |d|=... mm`.
+  shape     = the Hausdorff proxy with B translated by -d first, i.e. the two surfaces
+              brought to a common origin. Same sampling as before.
+
+and the two get different verdicts, because they mean different things to different
+consumers. A slicer re-centres the part on the bed, so a placement offset costs a print
+nothing; an ASSEMBLY or an animation places parts by their model origin, and there an
+offset is the whole bug. A cartridge therefore OPTS IN: placement is a NOTE above
+`PLACEMENT_NOTE_BAND` (0.05mm - the same faceting band, below which an offset is chord
+error in the AABB rather than a decision) and a FAIL only when the manifest's parity
+policy says `"placement": "strict"`.
+
+Shape has no such excuse. Two surfaces that still diverge once they are sitting on top
+of each other are two different objects, and that is a FAIL at the same
+max(tolerance, 0.5mm) the proxy always used. The warn tier (G27) is unchanged in
+meaning: an AABB delta inside the band is still downgraded only when the surfaces
+agree - now measured after alignment, which is strictly more honest, since a pair
+inside the band cannot be rescued by an offset it never had (an offset that large would
+have moved the AABB out of the band).
+
+The `ok` wording changes with it. "Meshes are identical within X mm tolerance" is
+retired for any X above the tolerance in favour of "surfaces agree to X mm" - the
+phrase the warn tier already used - because a line that says "identical" about a 65mm
+gap misleads every reader of it, including the ones who wrote it.
 
 THE PER-PART EXEMPTION (G38, ruled 2026-09-06)
 ----------------------------------------------
@@ -87,7 +137,13 @@ WHERE IT IS DECLARED
 Base, applying to every part::
 
     "verification": {"stages": {"geometry": {"checks": {"parity": {
-        "enabled": true, "tolerance": 0.05, "reason": "..."}}}}}
+        "enabled": true, "tolerance": 0.05, "placement": "strict",
+        "reason": "..."}}}}}
+
+`placement` is `"free"` (the default - an offset above the band is a note) or
+`"strict"` (an offset above the band is a FAIL). It needs no `reason`: strict is a
+TIGHTENING, and a tightening owes no explanation, exactly like a tolerance below the
+default.
 
 Per (mode, part), mirroring how the other geometry checks are overridden::
 
@@ -113,6 +169,8 @@ from dataclasses import dataclass, field
 
 __all__ = [
     "AABB_WARN_BAND",
+    "PLACEMENT_NOTE_BAND",
+    "PLACEMENT_MODES",
     "PARITY_CHECK_KEY",
     "PARITY_OVERRIDE_KEY",
     "PARITY_TOLERANCE",
@@ -120,6 +178,7 @@ __all__ = [
     "ParityPolicy",
     "check_mesh_parity",
     "compare_meshes",
+    "placement_offset",
     "pair_renders",
     "parity_checks",
     "resolve_parity_policy",
@@ -134,8 +193,19 @@ AABB_WARN_BAND = 0.05
 #: The platform's relative volume allowance.
 VOLUME_REL = 0.02
 
-#: The platform's Hausdorff floor: max(tolerance, 0.5mm).
+#: The shape floor: max(tolerance, 0.5mm). The platform's Hausdorff number, now a
+#: FAIL rather than a note, and measured after alignment (G39).
 HAUSDORFF_FLOOR = 0.5
+
+#: Above this, a placement offset is said out loud. The same 0.05mm as the faceting
+#: band, and for the same reason: below it an AABB-centre difference is chord error in
+#: the two bounding boxes, not a decision anybody made (G39).
+PLACEMENT_NOTE_BAND = 0.05
+
+#: What a manifest may say about placement. "free" (default): an offset above the band
+#: is a note. "strict": it is a failure — for assemblies and animations, which place
+#: parts by their model origin.
+PLACEMENT_MODES = ("free", "strict")
 
 #: Where the base policy lives: verification.stages.geometry.checks.<this>.
 PARITY_CHECK_KEY = "parity"
@@ -156,6 +226,11 @@ class ParityCheck:
     ok: bool = True
     #: True when gate 1 was inside the faceting band and the surfaces agreed.
     warn: bool = False
+    #: True when the two meshes sit at different origins by more than
+    #: PLACEMENT_NOTE_BAND and the manifest left placement "free" (G39). A NOTE: the
+    #: pair still counts as agreement, because a slicer re-centres the part anyway —
+    #: but the offset is printed on every run, never folded into the shape number.
+    placement_note: bool = False
     #: True when the manifest declared this part exempt (G38). The comparison did not
     #: run; `reason` carries the manifest's own words for why.
     exempt: bool = False
@@ -196,6 +271,10 @@ class ParityCheck:
             return f"parity {self.target}: FAIL{self._tolerance_note} — {self.reason}"
         if self.warn:
             return f"parity {self.target}: warn (faceting){self._tolerance_note} — {self.reason}"
+        if self.placement_note:
+            # The shape agreed; the part sits somewhere else. Its own tier, so a reader
+            # scanning for "ok" does not have to parse the reason to notice (G39).
+            return f"parity {self.target}: ok (placement){self._tolerance_note} — {self.reason}"
         return f"parity {self.target}: ok{self._tolerance_note} — {self.reason}"
 
 
@@ -210,28 +289,76 @@ def _extents(mesh) -> list[float]:
     return [float(x) for x in mesh.extents]
 
 
-def _hausdorff_proxy(m1, m2) -> float | None:
+def placement_offset(m1, m2) -> tuple[float, float, float]:
+    """The vector from m1's AABB centre to m2's — how far B sits from A (G39).
+
+    AABB centres rather than centroids on purpose. A centroid is a volume-weighted
+    quantity, so a genuine shape difference moves it and the "placement" number would
+    absorb part of the shape error it exists to separate out. The AABB centre depends
+    only on the extremes of the surface, which gate 1 has already compared: when the
+    extents agree (the case this exists for), a centre difference is a pure rigid
+    translation and nothing else.
+    """
+    import numpy as np
+
+    c1 = (np.asarray(m1.bounds[0], dtype=float) + np.asarray(m1.bounds[1], dtype=float)) / 2.0
+    c2 = (np.asarray(m2.bounds[0], dtype=float) + np.asarray(m2.bounds[1], dtype=float)) / 2.0
+    delta = c2 - c1
+    return (float(delta[0]), float(delta[1]), float(delta[2]))
+
+
+def _hausdorff_proxy(m1, m2, offset: tuple[float, float, float] | None = None) -> float | None:
     """Max surface divergence in both directions, or None if it cannot be had.
 
-    verify_parity._hausdorff_proxy. None is not zero and must never be read as a
+    verify_parity._hausdorff_proxy, plus alignment: `offset` is the placement vector
+    from `placement_offset`, and m2's sample points are moved by -offset (and m1's by
+    +offset) before the query, so the number that comes back is SHAPE divergence with
+    the rigid translation taken out. None is not zero and must never be read as a
     pass — see the module docstring.
+
+    The meshes themselves are never mutated; only the sampled vertex arrays are
+    shifted. `nearest.on_surface` is a query against m1/m2's own trees, so shifting
+    the query points one way is exactly equivalent to shifting the other mesh the
+    other way, at no copy cost.
     """
     try:
         import numpy as np
 
-        _, d_m1_to_m2, _ = m2.nearest.on_surface(m1.vertices)
-        _, d_m2_to_m1, _ = m1.nearest.on_surface(m2.vertices)
+        if offset is None:
+            v1, v2 = m1.vertices, m2.vertices
+        else:
+            shift = np.asarray(offset, dtype=float)
+            # m1's points into m2's frame (+shift); m2's into m1's frame (-shift).
+            v1 = np.asarray(m1.vertices, dtype=float) + shift
+            v2 = np.asarray(m2.vertices, dtype=float) - shift
+        _, d_m1_to_m2, _ = m2.nearest.on_surface(v1)
+        _, d_m2_to_m1, _ = m1.nearest.on_surface(v2)
         return float(max(np.max(d_m1_to_m2), np.max(d_m2_to_m1)))
     except Exception:
         # verify_parity swallows this too ("Falling back to AABB and Volume").
         return None
 
 
-def compare_meshes(m1, m2, tolerance: float = PARITY_TOLERANCE) -> tuple[bool, bool, str, dict]:
-    """The three gates, on two loaded trimesh meshes.
+def _offset_note(offset: tuple[float, float, float], magnitude: float) -> str:
+    """`placement offset d=(dx,dy,dz) |d|=X mm` — the G39 wording, one place."""
+    dx, dy, dz = offset
+    return f"placement offset d=({dx:.6f}, {dy:.6f}, {dz:.6f}) |d|={magnitude:.6f}mm"
+
+
+def compare_meshes(
+    m1,
+    m2,
+    tolerance: float = PARITY_TOLERANCE,
+    *,
+    placement: str = "free",
+) -> tuple[bool, bool, str, dict]:
+    """The gates, on two loaded trimesh meshes.
 
     Returns ``(agree, warn, reason, report)``. `m1` is the A side (OpenSCAD by
     convention, matching the platform's message shape), `m2` the B side.
+    `placement` is the manifest's policy for gate 3a — ``"free"`` (an offset above
+    PLACEMENT_NOTE_BAND is a note) or ``"strict"`` (it is a failure). See G39 in the
+    module docstring.
 
     The "Bounding boxes differ by X mm (A: […], B: […])" and "Volumes differ by X mm^3
     (Y %)" wordings are load-bearing: the sweep harness, the platform's PR bodies and
@@ -245,9 +372,26 @@ def compare_meshes(m1, m2, tolerance: float = PARITY_TOLERANCE) -> tuple[bool, b
         "hausdorff_proxy_mm": None,
         "hausdorff_warn": False,
         "volume_delta_mm3": None,
+        # G39. `hausdorff_proxy_mm` keeps its name and now carries the ALIGNED number,
+        # because every consumer of it wanted shape and was being handed shape+offset.
+        "placement_offset_mm": None,
+        "placement_delta_mm": None,
+        "placement_note": False,
+        "placement_mode": placement,
     }
 
     dist_threshold = max(tolerance, HAUSDORFF_FLOOR)
+    strict_placement = placement == "strict"
+
+    # --- gate 3a: placement, measured first so gate 3b can subtract it -------
+    # Cheap (six numbers off two bounding boxes) and needed by every path that
+    # consults the surfaces, so it is taken once, up front, unconditionally.
+    offset = placement_offset(m1, m2)
+    offset_mm = float(np.linalg.norm(np.asarray(offset, dtype=float)))
+    report["placement_offset_mm"] = list(offset)
+    report["placement_delta_mm"] = offset_mm
+    offset_over_band = offset_mm > PLACEMENT_NOTE_BAND
+    offset_note = _offset_note(offset, offset_mm)
 
     # --- gate 1: AABB extents -------------------------------------------------
     extents_diff = float(np.max(np.abs(np.asarray(m1.extents) - np.asarray(m2.extents))))
@@ -267,8 +411,8 @@ def compare_meshes(m1, m2, tolerance: float = PARITY_TOLERANCE) -> tuple[bool, b
                 ),
                 report,
             )
-        # Inside the band: the surfaces decide. Gate 3, brought forward.
-        max_divergence = _hausdorff_proxy(m1, m2)
+        # Inside the band: the surfaces decide. Gate 3b, brought forward.
+        max_divergence = _hausdorff_proxy(m1, m2, offset)
         report["hausdorff_proxy_mm"] = max_divergence
         if max_divergence is None or max_divergence > dist_threshold:
             report["hausdorff_warn"] = max_divergence is not None
@@ -304,17 +448,55 @@ def compare_meshes(m1, m2, tolerance: float = PARITY_TOLERANCE) -> tuple[bool, b
                 report,
             )
 
-    # --- gate 3: Hausdorff proxy ---------------------------------------------
+    # --- gate 3b: shape, after alignment -------------------------------------
     # Already measured when gate 1 warned — that path only reaches here having proved
     # the surfaces agree, so do not pay for the query twice.
     if report["hausdorff_proxy_mm"] is None:
-        report["hausdorff_proxy_mm"] = _hausdorff_proxy(m1, m2)
-    max_divergence = report["hausdorff_proxy_mm"] or 0.0
+        report["hausdorff_proxy_mm"] = _hausdorff_proxy(m1, m2, offset)
+    max_divergence = report["hausdorff_proxy_mm"]
+
+    if max_divergence is None:
+        # Unmeasurable is not a pass here either: this is now the deciding gate, and
+        # None is the absence of evidence for the property it is supposed to prove.
+        report["hausdorff_warn"] = True
+        return (
+            False,
+            False,
+            (
+                "FAIL — surface divergence could not be measured, so the two kernels "
+                f"were never shown to model the same shape ({offset_note})"
+            ),
+            report,
+        )
 
     if max_divergence > dist_threshold:
-        # Warn only, exactly as the platform: AABB and volume already agreed, so this
-        # is tessellation noise on a pair that passed.
+        # G39: a shape difference the alignment did NOT explain. This used to be a
+        # note; nineteen pairs rode through on it, one of them at 65mm.
         report["hausdorff_warn"] = True
+        return (
+            False,
+            False,
+            (
+                f"surfaces diverge by {max_divergence:.6f}mm after alignment "
+                f"({offset_note})"
+            ),
+            report,
+        )
+
+    # The shape agrees. What remains is where the part sits.
+    if offset_over_band:
+        if strict_placement:
+            return (
+                False,
+                False,
+                (
+                    f"the two kernels place this part differently — {offset_note}, "
+                    f"above {PLACEMENT_NOTE_BAND}mm, and the manifest declares "
+                    f'placement "strict" (surfaces agree to {max_divergence:.6f}mm)'
+                ),
+                report,
+            )
+        report["placement_note"] = True
 
     if aabb_warn:
         return (
@@ -327,11 +509,35 @@ def compare_meshes(m1, m2, tolerance: float = PARITY_TOLERANCE) -> tuple[bool, b
             ),
             report,
         )
-    return True, False, f"Meshes are identical within {max_divergence:.6f}mm tolerance.", report
+
+    if report["placement_note"]:
+        # Shape agreed; the part sits somewhere else. The offset leads, because it is
+        # the finding — a line that opened with "surfaces agree" and buried a 44.72mm
+        # origin difference after a semicolon would repeat the mistake G39 fixes.
+        return (
+            True,
+            False,
+            (
+                f"{offset_note} — the same shape at a different origin "
+                f"(surfaces agree to {max_divergence:.6f}mm after alignment)"
+            ),
+            report,
+        )
+
+    # "identical within X" survives only where it is TRUE: a divergence the tolerance
+    # itself covers. Above that it is the exact sentence that made a 65mm gap read as
+    # agreement, so the warn tier's honest wording takes over (G39).
+    if max_divergence <= tolerance:
+        return True, False, f"Meshes are identical within {max_divergence:.6f}mm tolerance.", report
+    return True, False, f"surfaces agree to {max_divergence:.6f}mm.", report
 
 
 def check_mesh_parity(
-    mesh1_path: str, mesh2_path: str, tolerance: float = PARITY_TOLERANCE
+    mesh1_path: str,
+    mesh2_path: str,
+    tolerance: float = PARITY_TOLERANCE,
+    *,
+    placement: str = "free",
 ) -> tuple[bool, bool, str, dict]:
     """`compare_meshes` on two STLs on disk. Loading failures are failures, not warns."""
     import trimesh
@@ -342,6 +548,10 @@ def check_mesh_parity(
         "hausdorff_proxy_mm": None,
         "hausdorff_warn": False,
         "volume_delta_mm3": None,
+        "placement_offset_mm": None,
+        "placement_delta_mm": None,
+        "placement_note": False,
+        "placement_mode": placement,
     }
     try:
         m1 = trimesh.load(mesh1_path, force="mesh")
@@ -352,7 +562,7 @@ def check_mesh_parity(
     if not isinstance(m1, trimesh.Trimesh) or not isinstance(m2, trimesh.Trimesh):
         return False, False, "Exported files are not valid 3D polygon meshes.", report
 
-    return compare_meshes(m1, m2, tolerance)
+    return compare_meshes(m1, m2, tolerance, placement=placement)
 
 
 def pair_renders(renders) -> list[tuple[object, object]]:
@@ -398,6 +608,9 @@ class ParityPolicy:
     enabled: bool = True
     #: A manifest-declared AABB tolerance in mm, or None for the run-wide one.
     tolerance: float | None = None
+    #: "free" (default) or "strict" — whether a placement offset above the band is a
+    #: note or a failure (G39). Strict is a TIGHTENING and needs no `reason`.
+    placement: str = "free"
     #: The manifest's own words. Required whenever this policy departs from the
     #: default — enforced as a conformance rule, not here (rules.verification_rules).
     reason: str = ""
@@ -418,9 +631,13 @@ def _policy_from(block: object, source: str) -> ParityPolicy | None:
     tolerance = block.get("tolerance")
     numeric = isinstance(tolerance, (int, float)) and not isinstance(tolerance, bool)
     reason = block.get("reason")
+    placement = block.get("placement")
+    # An unrecognised value falls back to "free", the default — never to "strict". A
+    # typo must not turn a note into a failure any more than it may turn the gate off.
     return ParityPolicy(
         enabled=block.get("enabled") is not False,
         tolerance=float(tolerance) if numeric else None,
+        placement=placement if placement in PLACEMENT_MODES else "free",
         reason=reason if isinstance(reason, str) else "",
         source=source,
     )
@@ -520,7 +737,10 @@ def parity_checks(
             effective = policy.tolerance
             declared_tolerance = policy.tolerance
         agree, warn, reason, report = check_mesh_parity(
-            scad_check.stl_path, cq_check.stl_path, effective
+            scad_check.stl_path,
+            cq_check.stl_path,
+            effective,
+            placement=policy.placement,
         )
         out.append(
             ParityCheck(
@@ -529,6 +749,7 @@ def parity_checks(
                 preset=preset,
                 ok=agree,
                 warn=warn,
+                placement_note=bool(report.get("placement_note")),
                 effective_tolerance=declared_tolerance,
                 reason=reason,
                 report=report,

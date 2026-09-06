@@ -165,7 +165,7 @@ def test_delta_above_the_band_fails():
 @pytest.mark.geometry
 def test_an_unmeasurable_surface_is_not_a_pass(monkeypatch):
     """None is the absence of evidence, and the warn tier needs positive evidence."""
-    monkeypatch.setattr("y4d_spec.parity._hausdorff_proxy", lambda _a, _b: None)
+    monkeypatch.setattr("y4d_spec.parity._hausdorff_proxy", lambda *_a, **_k: None)
     a, b = _faceted_pair(0.03)
     agree, warn, reason, _report = compare_meshes(a, b)
     assert not agree
@@ -234,9 +234,11 @@ def test_volume_delta_over_two_percent_fails():
 def test_volume_delta_under_two_percent_passes():
     """The 2% allowance is real: a 1% pinch is agreement, not divergence.
 
-    Note the surfaces here diverge by more than 0.5mm, so gate 3 records a warn — and
-    the pair still PASSES, which is exactly the platform's posture: gate 3 on its own
-    never fails anything.
+    The pinch moves a surface by 0.2mm, which is inside the 0.5mm shape floor, so the
+    pair passes gate 3 as well as gate 2 — and passes it on the merits, not because
+    gate 3 declines to fail. Since G39 it would fail: a 4% pinch fails gate 2 first,
+    but `test_shape_divergence_with_equal_aabb_and_volume_fails` below is the same
+    idea taken past the shape floor with the volume left alone.
     """
     outer = _box(10, 10, 10)
     stepped = _stepped(0.01)
@@ -247,6 +249,186 @@ def test_volume_delta_under_two_percent_passes():
     assert agree, reason
     assert not warn  # a gate-3 note is not the gate-1 faceting warn
     assert report["volume_delta_mm3"] is not None
+
+
+# --- gate 3: placement and shape, separately (G39) ----------------------------
+
+
+def _y_prism(xz):
+    """Sweep a closed XZ polygon along Y from -5 to 5 into a watertight solid.
+
+    The same hand-built sweep `_stepped` uses, and for the same reason: trimesh's
+    boolean engines live outside the `[geometry]` extra, and adding a dependency so a
+    test can build a fixture is the wrong trade.
+    """
+    import numpy as np
+    import trimesh
+
+    n = len(xz)
+    verts = np.array([(x, y, z) for y in (-5.0, 5.0) for (x, z) in xz], dtype=float)
+    faces = []
+    for i in range(n):  # the swept side walls
+        j = (i + 1) % n
+        faces += [[i, n + j, j], [i, n + i, n + j]]
+    for i in range(1, n - 1):  # the two end caps, fan-triangulated
+        faces += [[0, i, i + 1], [n, n + i + 1, n + i]]
+    mesh = trimesh.Trimesh(vertices=verts, faces=np.array(faces), process=False)
+    mesh.merge_vertices()
+    assert mesh.is_watertight and mesh.volume > 0, "fixture is not a closed solid"
+    return mesh
+
+
+def _notched_twins(depth: float = 2.0):
+    """Two DIFFERENT shapes with identical AABBs, identical volumes, one origin.
+
+    A 10mm cube with a `depth` x 5mm notch cut out of its +X/top quadrant, and the
+    same cube with the same notch cut out of its -X/bottom quadrant instead. Corner to
+    corner both still span 10 x 10 x 10 and both enclose exactly 900mm^3, so gates 1
+    and 2 see two identical solids — and they are not the same solid at all. This is
+    the shape of the bug G39 exists for: `gears` `spur_gear` was a trapezoid tooth
+    against a true involute, agreeing on extents and volume while the flanks sat
+    millimetres apart.
+    """
+    a = _y_prism([(-5, -5), (5, -5), (5, 0), (5 - depth, 0), (5 - depth, 5), (-5, 5)])
+    b = _y_prism([(-5, -5), (5, -5), (5, 5), (-5 + depth, 5), (-5 + depth, 0), (-5, 0)])
+    return a, b
+
+
+@pytest.mark.geometry
+def test_a_pure_translation_is_a_placement_note_not_a_shape_failure():
+    """The same box, 10mm along X. Before G39 this read `identical within 10mm`."""
+    a = _box(10, 10, 10)
+    b = _box(10, 10, 10)
+    b.apply_translation((10.0, 0.0, 0.0))
+
+    agree, warn, reason, report = compare_meshes(a, b)
+    assert agree, reason
+    assert not warn
+    # Gates 1 and 2 cannot see a translation at all: same extents, same volume.
+    assert report["aabb_delta_mm"] == pytest.approx(0.0, abs=1e-9)
+    assert report["volume_delta_mm3"] == pytest.approx(0.0, abs=1e-9)
+    # But the offset is measured, named and printed.
+    assert report["placement_delta_mm"] == pytest.approx(10.0)
+    assert report["placement_offset_mm"] == pytest.approx([10.0, 0.0, 0.0])
+    assert report["placement_note"] is True
+    # And the SHAPE, once aligned, is identical — which is the whole point.
+    assert report["hausdorff_proxy_mm"] == pytest.approx(0.0, abs=1e-9)
+    assert reason.startswith(
+        "placement offset d=(10.000000, 0.000000, 0.000000) |d|=10.000000mm"
+    )
+    assert "the same shape at a different origin" in reason
+    # The retired wording must not come back for a 10mm gap. This pair reported
+    # `Meshes are identical within 10.000000mm tolerance.` before G39.
+    assert "identical" not in reason
+
+
+@pytest.mark.geometry
+def test_placement_strict_turns_that_note_into_a_failure():
+    """An assembly places parts by their model origin, so it may opt in."""
+    a = _box(10, 10, 10)
+    b = _box(10, 10, 10)
+    b.apply_translation((10.0, 0.0, 0.0))
+
+    agree, warn, reason, report = compare_meshes(a, b, placement="strict")
+    assert not agree, reason
+    assert not warn
+    assert report["placement_mode"] == "strict"
+    assert "place this part differently" in reason
+    assert "|d|=10.000000mm" in reason
+    # It failed on PLACEMENT, and the line says the shape was fine — a reader must be
+    # able to tell this from a shape failure without rerunning anything.
+    assert "surfaces agree to 0.000000mm" in reason
+
+
+@pytest.mark.geometry
+def test_a_placement_offset_inside_the_band_is_not_even_a_note():
+    """0.02mm of origin difference is chord error in two AABBs, not a decision."""
+    a = _box(10, 10, 10)
+    b = _box(10, 10, 10)
+    b.apply_translation((0.02, 0.0, 0.0))
+
+    agree, _warn, reason, report = compare_meshes(a, b)
+    assert agree, reason
+    assert report["placement_delta_mm"] == pytest.approx(0.02)
+    assert report["placement_note"] is False
+    assert "placement offset" not in reason
+
+
+@pytest.mark.geometry
+def test_shape_divergence_with_equal_aabb_and_volume_fails():
+    """The 19-pair hole, closed: same extents, same volume, different part."""
+    a, b = _notched_twins()
+    assert a.volume == pytest.approx(b.volume), "fixture must not move gate 2"
+
+    agree, warn, reason, report = compare_meshes(a, b)
+    assert not agree, reason
+    assert not warn
+    assert report["aabb_delta_mm"] == pytest.approx(0.0, abs=1e-9)
+    assert report["volume_delta_mm3"] == pytest.approx(0.0, abs=1e-9)
+    assert report["placement_delta_mm"] == pytest.approx(0.0, abs=1e-9)
+    assert report["hausdorff_warn"] is True
+    assert reason.startswith("surfaces diverge by 2.000000mm after alignment")
+    # Before G39 this exact pair reported `Meshes are identical within 2.000000mm`.
+    assert "identical" not in reason
+
+
+@pytest.mark.geometry
+def test_a_moved_and_deformed_pair_fails_on_shape_not_on_placement():
+    """Alignment must not launder a real shape difference into a placement note."""
+    a, b = _notched_twins()
+    b.apply_translation((10.0, 0.0, 0.0))
+
+    agree, _warn, reason, report = compare_meshes(a, b)
+    assert not agree, reason
+    assert report["placement_delta_mm"] == pytest.approx(10.0)
+    # The offset is subtracted before the surfaces are compared, so what is left is
+    # the 2mm of shape — not 12mm, and not 0mm.
+    assert report["hausdorff_proxy_mm"] == pytest.approx(2.0, abs=1e-6)
+    assert reason.startswith("surfaces diverge by 2.000000mm after alignment")
+    # And the offset is still named, so the reader gets both numbers from one line.
+    assert "|d|=10.000000mm" in reason
+
+
+@pytest.mark.geometry
+def test_shape_just_under_the_floor_still_agrees():
+    """The floor is max(tolerance, 0.5mm) and it is a real allowance, not a formality."""
+    a, b = _notched_twins(depth=0.4)
+    agree, _warn, reason, report = compare_meshes(a, b)
+    assert agree, reason
+    assert report["hausdorff_proxy_mm"] == pytest.approx(0.4, abs=1e-6)
+    assert reason == "surfaces agree to 0.400000mm."
+
+
+@pytest.mark.geometry
+def test_an_unmeasurable_shape_is_a_failure_not_a_pass(monkeypatch):
+    """Gate 3 decides now, so `None` is a failure rather than a silent pass."""
+    monkeypatch.setattr("y4d_spec.parity._hausdorff_proxy", lambda *_a, **_k: None)
+    agree, warn, reason, report = compare_meshes(_box(10, 10, 10), _box(10, 10, 10))
+    assert not agree
+    assert not warn
+    assert report["hausdorff_warn"] is True
+    assert "could not be measured" in reason
+    assert "never shown to model the same shape" in reason
+
+
+@pytest.mark.geometry
+def test_identical_meshes_still_say_identical():
+    """The old wording survives where it is TRUE: divergence within the tolerance."""
+    _agree, _warn, reason, _report = compare_meshes(_box(10, 10, 10), _box(10, 10, 10))
+    assert reason == "Meshes are identical within 0.000000mm tolerance."
+
+
+@pytest.mark.geometry
+def test_placement_offsets_are_reported_per_axis():
+    """`d=(dx,dy,dz)` — a reader who recognises 3/8 inch or a half-diagonal can say so."""
+    a = _box(40, 20, 5)
+    b = _box(40, 20, 5)
+    b.apply_translation((20.0, 10.0, 0.0))
+    _agree, _warn, reason, report = compare_meshes(a, b)
+    assert report["placement_offset_mm"] == pytest.approx([20.0, 10.0, 0.0])
+    # sqrt(20^2 + 10^2) = 22.36 — half the diagonal of the plate, relief's signature.
+    assert report["placement_delta_mm"] == pytest.approx(22.360680, abs=1e-5)
+    assert "d=(20.000000, 10.000000, 0.000000) |d|=22.360680mm" in reason
 
 
 # --- tolerance ----------------------------------------------------------------
@@ -400,7 +582,7 @@ def test_the_divergent_twin_fails_parity_while_both_sides_render():
 def test_parity_summary_line_counts_the_pairs(capsys):
     assert main(["check", "--render", "--parity", "-v", str(DUAL_BLOCK)]) == 0
     out = capsys.readouterr().out
-    assert "parity=3/3 ok, warn=0, exempt=0, failures=0" in out
+    assert "parity=3/3 ok, warn=0, exempt=0, placement=0, failures=0" in out
     assert "3 parity pair(s) agree" in out
     assert "parity (block, block): ok" in out
 
@@ -410,7 +592,7 @@ def test_parity_summary_line_counts_the_pairs(capsys):
 def test_a_parity_failure_is_counted_and_exits_nonzero(capsys):
     assert main(["check", "--render", "--parity", str(DUAL_DIVERGENT)]) == 1
     out = capsys.readouterr().out
-    assert "parity=0/1 ok, warn=0, exempt=0, failures=1" in out
+    assert "parity=0/1 ok, warn=0, exempt=0, placement=0, failures=1" in out
 
 
 @pytest.mark.geometry
@@ -700,7 +882,7 @@ def test_the_summary_counts_exemptions_separately_from_agreement(capsys):
     """N+K+E+J = M — an exemption must not shrink the denominator."""
     assert main(["check", "--render", "--parity", "-v", str(DUAL_EXEMPT)]) == 0
     out = capsys.readouterr().out
-    assert "parity=0/1 ok, warn=0, exempt=1, failures=0" in out
+    assert "parity=0/1 ok, warn=0, exempt=1, placement=0, failures=0" in out
     assert "1 parity pair(s) agree (1 exempt)" in out
     assert "parity (block, block): exempt — " in out
 
@@ -726,7 +908,7 @@ def test_a_widened_tolerance_turns_a_real_failure_into_an_ok(capsys):
 
     assert main(["check", "--render", "--parity", "-v", str(DUAL_WIDENED)]) == 0
     out = capsys.readouterr().out
-    assert "parity=1/1 ok, warn=0, exempt=0, failures=0" in out
+    assert "parity=1/1 ok, warn=0, exempt=0, placement=0, failures=0" in out
     assert "parity (block, block): ok (tolerance 0.2mm) — " in out
 
 
@@ -754,7 +936,7 @@ def test_the_widened_fixture_fails_at_the_default_tolerance(capsys):
         == 1
     )
     out = capsys.readouterr().out
-    assert "parity=0/1 ok, warn=0, exempt=0, failures=1" in out
+    assert "parity=0/1 ok, warn=0, exempt=0, placement=0, failures=1" in out
     assert "Bounding boxes differ by 0.100000mm" in out
 
 
@@ -763,7 +945,7 @@ def test_the_widened_fixture_fails_at_the_default_tolerance(capsys):
 def test_the_divergent_twin_still_fails_with_the_new_summary(capsys):
     """The default path is unchanged: no verification block, no exemption, still red."""
     assert main(["check", "--render", "--parity", str(DUAL_DIVERGENT)]) == 1
-    assert "parity=0/1 ok, warn=0, exempt=0, failures=1" in capsys.readouterr().out
+    assert "parity=0/1 ok, warn=0, exempt=0, placement=0, failures=1" in capsys.readouterr().out
 
 
 @pytest.mark.geometry
@@ -791,3 +973,55 @@ def test_a_cli_tolerance_does_not_override_an_exemption():
     doc = _manifest_with(_per_part("block", "block", {"enabled": False, "reason": "idiom"}))
     checks = parity_checks(renders, 10.0, doc, tolerance_is_explicit=True)
     assert checks[0].exempt
+
+
+# --- the placement policy key (G39) -------------------------------------------
+
+
+@pytest.mark.geometry
+def test_the_default_placement_policy_is_free():
+    assert resolve_parity_policy({}, "m", "p").placement == "free"
+
+
+def test_a_manifest_may_declare_strict_placement():
+    doc = _manifest_with(_base({"enabled": True, "placement": "strict"}))
+    assert resolve_parity_policy(doc, "m", "p").placement == "strict"
+
+
+def test_strict_placement_needs_no_reason():
+    """It only tightens the bar, exactly like a tolerance below the default."""
+    doc = _manifest_with(_base({"enabled": True, "placement": "strict"}))
+    assert verification_rules(doc) == []
+
+
+def test_a_misspelled_placement_is_reported_and_falls_back_to_free():
+    """A typo must not silently switch a gate — in either direction."""
+    doc = _manifest_with(_base({"enabled": True, "placement": "Strict"}))
+    problems = verification_rules(doc)
+    assert any("placement: must be one of free, strict" in p for p in problems)
+    # Reported, and NOT obeyed as if it said strict.
+    assert resolve_parity_policy(doc, "m", "p").placement == "free"
+
+
+def test_the_schema_accepts_strict_placement():
+    assert _schema_errors(_manifest_with(_base({"placement": "strict"}))) == []
+
+
+def test_the_schema_rejects_an_unknown_placement_value():
+    errors = _schema_errors(_manifest_with(_base({"placement": "loose"})))
+    assert errors, "the enum must be enforced by the schema, not only by the rules"
+
+
+def test_a_part_override_may_declare_placement():
+    doc = _manifest_with(_per_part("assembly", "arm", {"placement": "strict"}))
+    assert resolve_parity_policy(doc, "assembly", "arm").placement == "strict"
+    # And the base default still applies to every other part, whole-object precedence.
+    assert resolve_parity_policy(doc, "assembly", "other").placement == "free"
+
+
+@pytest.mark.geometry
+def test_a_placement_note_prints_its_own_tier_in_the_summary():
+    check = ParityCheck(
+        mode="m", part="p", ok=True, placement_note=True, reason="surfaces agree to 0.000000mm"
+    )
+    assert check.summary == "parity (m, p): ok (placement) — surfaces agree to 0.000000mm"

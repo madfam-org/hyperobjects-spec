@@ -1249,7 +1249,7 @@
   "$defs": {
     "parityPolicy": {
       "type": "object",
-      "description": "Cross-kernel parity policy for a part (G38, ruled 2026-09-06). Declared at verification.stages.geometry.checks.parity for every part, or per part at verification.mode_overrides.<mode>.part_overrides.<part>[\"geometry.parity\"], where it replaces the base object whole rather than merging into it. An exemption is visible debt: `reason` is required whenever this departs from the default, must name the kernel idiom that differs, and is expected to be reviewed when either kernel changes.",
+      "description": "Cross-kernel parity policy for a part (G38, ruled 2026-09-06). Declared at verification.stages.geometry.checks.parity for every part, or per part at verification.mode_overrides.<mode>.part_overrides.<part>[\"geometry.parity\"], where it replaces the base object whole rather than merging into it. An exemption is visible debt: `reason` is required whenever this departs from the default, must name the kernel idiom that differs, and is expected to be reviewed when either kernel changes. `placement` (G39) opts the part into failing on a cross-kernel origin offset rather than noting it.",
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -1261,10 +1261,16 @@
           "exclusiveMinimum": 0,
           "description": "AABB extents tolerance in mm for this part, replacing the run-wide default (0.001mm). Applies to that gate ONLY, exactly like --parity-tolerance: the 0.05mm faceting band and the 2% volume allowance are not scaled with it."
         },
+        "placement": {
+          "type": "string",
+          "enum": ["free", "strict"],
+          "default": "free",
+          "description": "Whether the two kernels must place this part at the same origin (G39, ruled 2026-09-06). \"free\" (the default): an AABB-centre offset above 0.05mm is reported as a note and the pair still agrees, because a slicer re-centres the part on the bed. \"strict\": the same offset is a FAILURE — for assemblies and animations, which place parts by their model origin. Needs no `reason`: strict is a tightening."
+        },
         "reason": {
           "type": "string",
           "minLength": 1,
-          "description": "Why this part departs from the default. REQUIRED when `enabled` is false or when `tolerance` is widened above 0.001mm; a departure without one is a conformance failure."
+          "description": "Why this part departs from the default. REQUIRED when `enabled` is false or when `tolerance` is widened above 0.001mm; a departure without one is a conformance failure. A `placement` of \"strict\" is a tightening and needs none."
         }
       },
       "if": {

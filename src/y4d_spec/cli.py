@@ -35,7 +35,7 @@ from hyperobjects_schemas.identity import check_identity_file
 
 from .conformance import check_cartridge
 from .geometry import OPENSCAD_TIMEOUT_S
-from .parity import AABB_WARN_BAND, PARITY_TOLERANCE
+from .parity import AABB_WARN_BAND, PARITY_TOLERANCE, PLACEMENT_NOTE_BAND
 
 
 def _cmd_check(args) -> int:
@@ -97,6 +97,7 @@ def _cmd_check(args) -> int:
     parity_ok = 0
     parity_warned = 0
     parity_exempt = 0
+    parity_placement = 0
     parity_failed = 0
     for d in args.cartridges:
         try:
@@ -124,6 +125,7 @@ def _cmd_check(args) -> int:
         parity_pairs += len(result.parity)
         parity_warned += len(result.parity_warnings)
         parity_exempt += len(result.parity_exemptions)
+        parity_placement += len(result.parity_placement_notes)
         parity_failed += len(result.parity_failures)
         parity_ok += len(
             [c for c in result.parity if c.ok and not c.warn and not c.exempt]
@@ -159,6 +161,11 @@ def _cmd_check(args) -> int:
                         n_exempt = len(result.parity_exemptions)
                         if n_exempt:
                             tiers.append(f"{n_exempt} exempt")
+                        # A pair that agrees in SHAPE but sits at another origin is
+                        # agreement — and the ok line says which kind (G39).
+                        n_placed = len(result.parity_placement_notes)
+                        if n_placed:
+                            tiers.append(f"{n_placed} placement offset")
                         if tiers:
                             suffix += f" ({', '.join(tiers)})"
                     else:
@@ -184,7 +191,10 @@ def _cmd_check(args) -> int:
             print(f"  note {name}: {note}")
 
     geom = "verified" if args.render else "NOT verified (pass --render)"
-    # `parity=N/M ok, warn=K, exempt=E, failures=J` — N+K+E+J = M by construction, so a
+    # `parity=N/M ok, warn=K, exempt=E, placement=P, failures=J` — N+K+E+J = M by
+    # construction (P is a SUBSET of N, not a fifth bucket: a placement offset on a pair
+    # whose shape agrees is agreement, reported so a reader can see how many pairs owe
+    # their pass to nothing but a re-centring), so a
     # reader can see at a glance that every pair is accounted for, exemptions included:
     # a manifest that switches the comparison off for a part cannot thereby shrink the
     # denominator and make the bar look cleaner than it is (G38). Absent without
@@ -194,7 +204,8 @@ def _cmd_check(args) -> int:
     if args.parity:
         parity_part = (
             f" parity={parity_ok}/{parity_pairs} ok, warn={parity_warned}, "
-            f"exempt={parity_exempt}, failures={parity_failed}"
+            f"exempt={parity_exempt}, placement={parity_placement}, "
+            f"failures={parity_failed}"
         )
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
@@ -317,22 +328,45 @@ def _cmd_rules(args) -> int:
     print("            --parity-tolerance overrides this gate and only this gate.")
     print("         b. volume — delta > max(tolerance*100, 2% of the larger) FAILS,")
     print("            checked only when both sides are watertight.")
-    print("         c. Hausdorff surface proxy (max divergence, both directions). An")
-    print("            AABB delta inside the band is downgraded from FAIL to a WARN")
-    print("            only when this gate ALSO passes (surfaces within 0.5mm): an")
-    print("            OpenSCAD $fn polygon is a chord approximation of a circle")
-    print("            CadQuery models analytically, and the largest such delta in")
-    print("            the commons (0.036674mm) sits an order of magnitude below the")
-    print("            smallest genuine divergence (0.516728mm). A dimensional error")
-    print("            inside the band moves a surface and still fails here. G27,")
-    print("            ruled 2026-09-05. A warn is a NOTE, never a failure.")
+    print("         c. PLACEMENT — the offset between the two meshes' AABB centres,")
+    print("            printed as `placement offset d=(dx,dy,dz) |d|=X mm`. Above")
+    print(f"            {PLACEMENT_NOTE_BAND}mm it is a NOTE by default (a slicer re-centres the")
+    print("            part, so the print is unaffected) and a FAILURE only when the")
+    print('            manifest declares `"placement": "strict"` — assemblies and')
+    print("            animations place parts by their model origin, so there an")
+    print("            offset is the bug. Strict is a tightening and needs no reason.")
+    print("         d. SHAPE — the Hausdorff surface proxy (max divergence, both")
+    print("            directions) measured AFTER removing the placement offset.")
+    print("            Above max(tolerance, 0.5mm) it FAILS: two surfaces that still")
+    print("            diverge once they sit on top of each other are two different")
+    print("            objects. An unmeasurable proxy is a failure too — this is the")
+    print("            deciding gate, and None is the absence of evidence.")
+    print("            An AABB delta inside the band (a) is downgraded from FAIL to a")
+    print("            WARN only when this gate ALSO passes: an OpenSCAD $fn polygon")
+    print("            is a chord approximation of a circle CadQuery models")
+    print("            analytically, and the largest such delta in the commons")
+    print("            (0.036674mm) sits an order of magnitude below the smallest")
+    print("            genuine divergence (0.516728mm). A dimensional error inside")
+    print("            the band moves a surface and still fails here. G27, ruled")
+    print("            2026-09-05. A faceting warn is a NOTE, never a failure.")
+    print("            WHY (c) AND (d) ARE SEPARATE (G39, ruled 2026-09-06): the")
+    print("            unaligned proxy reported a rigid translation as if it were a")
+    print("            deformation, and extents and volume cannot tell `same part,")
+    print("            different origin` from `different part` — translating a solid")
+    print("            changes neither. On the first full sweep that let 19 pairs")
+    print("            through as `identical within X mm` with X up to 65mm, half of")
+    print("            them mere origins (relief's 44.72mm is sqrt(40^2+20^2), the")
+    print("            half-diagonal of its plate; soft-jaw's 9.525mm is 3/8 inch).")
+    print("            The `ok` line no longer says `identical within X` for any X the")
+    print("            tolerance did not cover; it says `surfaces agree to X mm`.")
     print("       A pair exists only where two meshes exist: a skipped OpenSCAD lane")
     print("       yields no pairs, and the ok line says so rather than staying silent.")
     print("       PER-PART EXEMPTIONS (G38, ruled 2026-09-06). A manifest may declare")
     print("       that this comparison does not apply to one part, when the two kernels")
     print("       use different idioms by design and no repair is available:")
     print('         verification.stages.geometry.checks.parity = {"enabled": bool,')
-    print('           "tolerance": <mm, optional>, "reason": "<why>"}   (base), and')
+    print('           "tolerance": <mm, optional>, "placement": "free"|"strict",')
+    print('           "reason": "<why>"}                                (base), and')
     print('         verification.mode_overrides.<mode>.part_overrides.<part>')
     print('           ["geometry.parity"] = <the same object>            (per part,')
     print("           which replaces the base object whole rather than merging).")
