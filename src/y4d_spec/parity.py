@@ -48,6 +48,56 @@ the band, any volume delta over 2%, or any Hausdorff failure still FAILS outrigh
 A proxy that could not be MEASURED is not a pass. None is the absence of evidence,
 and the warn tier requires positive evidence that the surfaces coincide.
 
+THE PER-PART EXEMPTION (G38, ruled 2026-09-06)
+----------------------------------------------
+Two commons cartridges cannot pass this comparison without a design change that is a
+RULING, not a repair:
+
+  fasteners `bolt`  — OpenSCAD uses BOSL2's real helical thread, CadQuery a revolved
+                      sawtooth ring stack, deliberately. The divergence is 0.902 x the
+                      ISO thread depth on every preset; a real CadQuery helix takes
+                      262 s to build and is still wrong.
+  spiral-planter    — the CadQuery side has no spiral groove. Cutting one yields a
+                      valid B-Rep whose tessellation carries 125 bodies / 116 boundary
+                      edges, which the mesh bar rejects (six variants tried); and the
+                      saucer's 0.0566mm is CadQuery's `$fn`-equivalent faceting, which
+                      only a ~quadratic-cost refinement clears.
+
+The alternative to an exemption is a permanently red nightly, and a gate that is always
+red is a gate nobody reads. So a manifest may declare, per part, that this comparison
+does not apply — but only OUT LOUD:
+
+  * an exemption or a widened tolerance WITHOUT a non-empty `reason` is a CONFORMANCE
+    FAILURE, caught by `y4d-spec check` with no `--render` at all. Silence is the thing
+    being outlawed, so the reason is the whole mechanism and not a courtesy field.
+  * `enabled: false` skips the comparison for that part and is reported as
+    `parity (mode, part): exempt — <reason>`, a NOTE. It never vanishes from output,
+    and it is counted separately in the summary (`exempt=E`) so a run with three
+    exemptions cannot be read as a run with none.
+  * a widened `tolerance` applies to the AABB gate ONLY, exactly as
+    `--parity-tolerance` does, and the effective value is printed in the line.
+    Widening one gate must not silently move the volume allowance or the warn band.
+
+An exemption is VISIBLE DEBT, not an absolution: it must name the kernel idiom that
+differs (not "known issue"), and it is expected to be reviewed whenever either kernel
+changes — a helix OCC can sweep cheaply, or a BOSL2 rewrite, retires it.
+
+WHERE IT IS DECLARED
+--------------------
+Base, applying to every part::
+
+    "verification": {"stages": {"geometry": {"checks": {"parity": {
+        "enabled": true, "tolerance": 0.05, "reason": "..."}}}}}
+
+Per (mode, part), mirroring how the other geometry checks are overridden::
+
+    "verification": {"mode_overrides": {"<mode>": {"part_overrides": {"<part>": {
+        "geometry.parity": {"enabled": false, "reason": "..."}}}}}}
+
+The part override WINS WHOLE — it replaces the base object rather than merging into it,
+so reading one block tells a reader the entire policy for that part. Absent both, the
+default is `enabled: true` at the CLI tolerance.
+
 WHICH PAIRS ARE COMPARED
 ------------------------
 Only a (mode, part, preset) that actually RENDERED on both engines. That is a
@@ -63,12 +113,16 @@ from dataclasses import dataclass, field
 
 __all__ = [
     "AABB_WARN_BAND",
+    "PARITY_CHECK_KEY",
+    "PARITY_OVERRIDE_KEY",
     "PARITY_TOLERANCE",
     "ParityCheck",
+    "ParityPolicy",
     "check_mesh_parity",
     "compare_meshes",
     "pair_renders",
     "parity_checks",
+    "resolve_parity_policy",
 ]
 
 #: The platform's default AABB tolerance (verify_parity.check_mesh_parity).
@@ -83,6 +137,13 @@ VOLUME_REL = 0.02
 #: The platform's Hausdorff floor: max(tolerance, 0.5mm).
 HAUSDORFF_FLOOR = 0.5
 
+#: Where the base policy lives: verification.stages.geometry.checks.<this>.
+PARITY_CHECK_KEY = "parity"
+
+#: Where a per-part policy lives:
+#: verification.mode_overrides.<mode>.part_overrides.<part>.<this>.
+PARITY_OVERRIDE_KEY = "geometry.parity"
+
 
 @dataclass
 class ParityCheck:
@@ -91,10 +152,16 @@ class ParityCheck:
     mode: str
     part: str
     preset: str | None = None
-    #: False only for a genuine disagreement. A warn is `ok`.
+    #: False only for a genuine disagreement. A warn is `ok`, and so is an exemption.
     ok: bool = True
     #: True when gate 1 was inside the faceting band and the surfaces agreed.
     warn: bool = False
+    #: True when the manifest declared this part exempt (G38). The comparison did not
+    #: run; `reason` carries the manifest's own words for why.
+    exempt: bool = False
+    #: The AABB tolerance this pair was actually judged at, when the manifest widened
+    #: it. None means the run-wide tolerance, which the line does not need to repeat.
+    effective_tolerance: float | None = None
     reason: str = ""
     #: What each gate measured. Keys mirror verify_parity.check_mesh_parity_report.
     report: dict = field(default_factory=dict)
@@ -109,12 +176,27 @@ class ParityCheck:
         return f"({self.mode}, {self.part})"
 
     @property
+    def _tolerance_note(self) -> str:
+        """`" (tolerance 0.06mm)"` when the manifest widened it, else empty.
+
+        Printed because a pair that passed at a widened bar did not pass at the bar
+        every other pair was held to, and a line that does not say so is a line that
+        overstates what was proven.
+        """
+        if self.effective_tolerance is None:
+            return ""
+        return f" (tolerance {self.effective_tolerance:g}mm)"
+
+    @property
     def summary(self) -> str:
+        if self.exempt:
+            # Never silent: an exemption prints on every run, exactly like a warn.
+            return f"parity {self.target}: exempt — {self.reason}"
         if not self.ok:
-            return f"parity {self.target}: FAIL — {self.reason}"
+            return f"parity {self.target}: FAIL{self._tolerance_note} — {self.reason}"
         if self.warn:
-            return f"parity {self.target}: warn (faceting) — {self.reason}"
-        return f"parity {self.target}: ok — {self.reason}"
+            return f"parity {self.target}: warn (faceting){self._tolerance_note} — {self.reason}"
+        return f"parity {self.target}: ok{self._tolerance_note} — {self.reason}"
 
 
 def _extents(mesh) -> list[float]:
@@ -304,20 +386,154 @@ def pair_renders(renders) -> list[tuple[object, object]]:
     return pairs
 
 
-def parity_checks(renders, tolerance: float = PARITY_TOLERANCE) -> list[ParityCheck]:
-    """Compare every dual-engine (mode, part, preset) that rendered on both sides."""
+@dataclass(frozen=True)
+class ParityPolicy:
+    """What a manifest says about comparing ONE part's two kernels (G38).
+
+    `enabled=True` with `tolerance=None` is the default every part gets when the
+    manifest is silent, so a cartridge that declares nothing behaves exactly as it did
+    before this existed.
+    """
+
+    enabled: bool = True
+    #: A manifest-declared AABB tolerance in mm, or None for the run-wide one.
+    tolerance: float | None = None
+    #: The manifest's own words. Required whenever this policy departs from the
+    #: default — enforced as a conformance rule, not here (rules.verification_rules).
+    reason: str = ""
+    #: Where this came from: "default", "base", or "mode_overrides.<mode>".
+    source: str = "default"
+
+    @property
+    def is_default(self) -> bool:
+        return self.enabled and self.tolerance is None
+
+
+def _policy_from(block: object, source: str) -> ParityPolicy | None:
+    """One declared parity object → a ParityPolicy, or None if it is not one.
+
+    Lenient about shape on purpose: a malformed block is the schema's problem and the
+    conformance rules', and reporting it twice in two vocabularies helps nobody. What
+    this must never do is read a malformed block as PERMISSION — an unparseable
+    `enabled` stays True, so a typo cannot silently switch the gate off.
+    """
+    if not isinstance(block, dict):
+        return None
+    tolerance = block.get("tolerance")
+    numeric = isinstance(tolerance, (int, float)) and not isinstance(tolerance, bool)
+    reason = block.get("reason")
+    return ParityPolicy(
+        enabled=block.get("enabled") is not False,
+        tolerance=float(tolerance) if numeric else None,
+        reason=reason if isinstance(reason, str) else "",
+        source=source,
+    )
+
+
+def resolve_parity_policy(doc: object, mode: str, part: str) -> ParityPolicy:
+    """The policy in force for one (mode, part), mirroring the geometry overrides.
+
+    Precedence, most specific first:
+
+      1. `verification.mode_overrides.<mode>.part_overrides.<part>["geometry.parity"]`
+      2. `verification.stages.geometry.checks.parity`
+      3. the default — enabled, run-wide tolerance
+
+    The part override replaces the base object WHOLE rather than merging field by
+    field. Merging would let a base `reason` justify an override that never said
+    anything, and the reason is the entire mechanism: one block must carry the whole
+    policy for that part, so a reader who finds it need not go looking for a second.
+    """
+    if not isinstance(doc, dict):
+        return ParityPolicy()
+    verification = doc.get("verification")
+    if not isinstance(verification, dict):
+        return ParityPolicy()
+
+    mode_overrides = verification.get("mode_overrides")
+    if isinstance(mode_overrides, dict):
+        entry = mode_overrides.get(mode)
+        if isinstance(entry, dict):
+            part_overrides = entry.get("part_overrides")
+            if isinstance(part_overrides, dict):
+                for_part = part_overrides.get(part)
+                if isinstance(for_part, dict):
+                    declared = _policy_from(
+                        for_part.get(PARITY_OVERRIDE_KEY), f"mode_overrides.{mode}"
+                    )
+                    if declared is not None:
+                        return declared
+
+    stages = verification.get("stages")
+    if isinstance(stages, dict):
+        geometry = stages.get("geometry")
+        if isinstance(geometry, dict):
+            checks = geometry.get("checks")
+            if isinstance(checks, dict):
+                declared = _policy_from(checks.get(PARITY_CHECK_KEY), "base")
+                if declared is not None:
+                    return declared
+
+    return ParityPolicy()
+
+
+def parity_checks(
+    renders,
+    tolerance: float = PARITY_TOLERANCE,
+    doc: object = None,
+    *,
+    tolerance_is_explicit: bool = False,
+) -> list[ParityCheck]:
+    """Compare every dual-engine (mode, part, preset) that rendered on both sides.
+
+    `doc` is the parsed manifest, consulted only for its per-part parity policy (G38).
+    Omitted, every pair is compared at `tolerance` — the behaviour before exemptions
+    existed.
+
+    `tolerance_is_explicit` says the caller NAMED that tolerance (`--parity-tolerance`)
+    rather than inheriting the package default. When it did, the command line wins over
+    a manifest's widened tolerance: an operator asking to see the cartridge at 0.001mm
+    must actually see it at 0.001mm, or the flag cannot answer the question it exists
+    for. An exemption is not a tolerance and is NOT overridden by it — `enabled: false`
+    says the comparison is meaningless for that part, which no number answers; run
+    without the manifest (or fix it) to see that pair compared.
+    """
     out: list[ParityCheck] = []
     for scad_check, cq_check in pair_renders(renders):
+        policy = resolve_parity_policy(doc, scad_check.mode, scad_check.part)
+        preset = getattr(scad_check, "preset", None)
+
+        if not policy.enabled:
+            # The comparison does not run — but the pair is still REPORTED, and still
+            # counted. That is the difference between an exemption and a deletion.
+            out.append(
+                ParityCheck(
+                    mode=scad_check.mode,
+                    part=scad_check.part,
+                    preset=preset,
+                    ok=True,
+                    exempt=True,
+                    reason=policy.reason or "no reason declared",
+                )
+            )
+            continue
+
+        effective = tolerance
+        declared_tolerance = None
+        if policy.tolerance is not None and not tolerance_is_explicit:
+            effective = policy.tolerance
+            declared_tolerance = policy.tolerance
         agree, warn, reason, report = check_mesh_parity(
-            scad_check.stl_path, cq_check.stl_path, tolerance
+            scad_check.stl_path, cq_check.stl_path, effective
         )
         out.append(
             ParityCheck(
                 mode=scad_check.mode,
                 part=scad_check.part,
-                preset=getattr(scad_check, "preset", None),
+                preset=preset,
                 ok=agree,
                 warn=warn,
+                effective_tolerance=declared_tolerance,
                 reason=reason,
                 report=report,
             )

@@ -1,0 +1,131 @@
+{
+  "project": {
+    "name": "Dual Block (widened tolerance)",
+    "slug": "dual-block-widened",
+    "version": "1.0.0",
+    "engine": "openscad",
+    "description": {
+      "en": "A CadQuery side 0.1mm wider than its OpenSCAD side — above the 0.05mm faceting band, so `--parity` fails it outright — with a manifest `tolerance` of 0.2mm and a reason, which turns the pair green at gate 1 alone. Exists so the widened-tolerance path is exercised in the direction it is allowed to change: FAIL to ok.",
+      "es": "Un lado CadQuery 0.1mm más ancho que su lado OpenSCAD — por encima de la banda de facetado de 0.05mm, así que `--parity` lo reprueba de plano — con una `tolerance` de 0.2mm y un motivo en el manifiesto, que aprueba el par sólo en la compuerta 1. Existe para ejercitar la vía de tolerancia ampliada en la dirección en que se le permite cambiar el veredicto: de FALLO a ok."
+    },
+    "thumbnail": "/projects/dual-block-widened.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "openscad",
+      "cadquery",
+      "parity",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "scad_file": "block.scad",
+      "cq_file": "block.py",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "block_size",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Block size (mm)",
+        "es": "Tamaño del bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Edge length of the cube.",
+        "es": "Longitud de la arista del cubo."
+      }
+    }
+  ],
+  "presets": [],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "block": {
+        "part_overrides": {
+          "block": {
+            "geometry.parity": {
+              "enabled": true,
+              "tolerance": 0.2,
+              "reason": "the OpenSCAD side rounds this block's X extent to its own grid while CadQuery carries it analytically, a 0.1mm difference that no repair on either side removes. 0.2mm is the smallest tolerance that clears it; the volume allowance and the faceting band are untouched, so a real dimensional error still fails. Review if the OpenSCAD side is re-authored."
+            }
+          }
+        }
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "tool",
+    "cdg_interfaces": [
+      {
+        "id": "block_face",
+        "label": {
+          "en": "Block face",
+          "es": "Cara del bloque"
+        },
+        "geometry_type": "plate",
+        "standard": "internal",
+        "parameters": [
+          "block_size"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None — this is a test fixture, not a design. It is the evidence that a widened tolerance moves the AABB gate and only the AABB gate: the same 0.1mm passes gate 2 (0.99% of volume, under the 2% bar) and gate 3 (under the 0.5mm floor) on its own merits, and a larger shift would still fail them.",
+      "es": "Ninguno — es un accesorio de prueba, no un diseño. Es la evidencia de que una tolerancia ampliada mueve la compuerta AABB y sólo esa: los mismos 0.1mm pasan la compuerta 2 (0.99% del volumen, bajo el 2%) y la 3 (bajo el piso de 0.5mm) por mérito propio, y un desplazamiento mayor seguiría reprobándolas."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

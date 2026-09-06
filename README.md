@@ -207,6 +207,53 @@ and agreed. **How CI uses it:** the commons render jobs pass `--parity` alongsid
 `--require-openscad`, which is what makes "both kernels agree" a property of the merge
 path rather than of a sweep somebody remembers to run.
 
+**Per-part exemptions — visible debt, not a red nightly (G38).** Some pairs cannot agree
+without a design change that is a *ruling*, not a repair. `fasteners` `bolt` uses BOSL2's
+real helical thread on the OpenSCAD side and a revolved sawtooth ring stack on the
+CadQuery one, deliberately: the divergence is 0.902 × the ISO thread depth on every
+preset, and a real CadQuery helix takes 262 s to build and is still wrong. `spiral-planter`
+has no spiral groove on the CadQuery side at all; cutting one yields a valid B-Rep whose
+tessellation carries 125 bodies and 116 boundary edges, which the mesh bar rejects (six
+variants tried). The alternative to an exemption there is a permanently red nightly, and
+a gate that is always red is a gate nobody reads. So a manifest may declare, **per part**,
+that this comparison does not apply — but only out loud:
+
+```jsonc
+"verification": {
+  "stages": { "geometry": { "checks": {
+    "parity": { "enabled": true, "tolerance": 0.05, "reason": "…" }   // the base
+  } } },
+  "mode_overrides": { "<mode>": { "part_overrides": { "<part>": {
+    "geometry.parity": { "enabled": false, "reason": "…" }            // per part
+  } } } }
+}
+```
+
+The part override **replaces** the base object whole rather than merging into it, so one
+block carries the entire policy for that part and a reader need not go hunting for a
+second. Then:
+
+- An exemption or a widened tolerance **without a non-empty `reason` is a conformance
+  failure** — caught by `y4d-spec check` with no `--render` at all, in seconds, with no
+  CAD kernel. Silence is the thing being outlawed, so the reason is the whole mechanism.
+  If it were checked only where the comparison runs, a cartridge could switch the
+  comparison off and thereby switch off the check on switching it off.
+- `enabled: false` skips the comparison and prints `parity (mode, part): exempt —
+  <reason>` as a **note**, on every run. It is counted separately in the summary
+  (`exempt=E`, so `N+K+E+J = M`), because an exemption that shrank the denominator would
+  let a manifest make the bar look cleaner than it is.
+- A widened `tolerance` applies to **gate 1 only**, exactly as `--parity-tolerance` does,
+  and the effective value is printed in the line: `parity (planter, saucer): ok
+  (tolerance 0.06mm) — …`. An explicit `--parity-tolerance` beats a manifest one (an
+  operator asking to see the cartridge at 0.001 mm must actually see it at 0.001 mm); an
+  exemption is not a tolerance and no number overrides it.
+
+An exemption is **visible debt, not an absolution.** The reason must name the *kernel
+idiom* that differs — "BOSL2 helical thread against a revolved sawtooth ring stack", not
+"known issue" — and every exemption is expected to be reviewed whenever either kernel
+changes, since a cheaper OCC sweep or a rewritten `.scad` retires it. (G38, ruled
+2026-09-06.)
+
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A
 preset is the parameter point a user actually clicks, and the defaults render says

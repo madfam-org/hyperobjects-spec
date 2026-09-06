@@ -1,0 +1,130 @@
+{
+  "project": {
+    "name": "Dual Block (exempt)",
+    "slug": "dual-block-exempt",
+    "version": "1.0.0",
+    "engine": "openscad",
+    "description": {
+      "en": "The divergent fixture's geometry — a CadQuery side 0.6mm wider than its OpenSCAD side — with the part declared EXEMPT from `--parity` in the manifest, with a reason. Exists so the G38 exemption is exercised on a pair that would genuinely fail: an exemption over geometry that would have passed anyway proves nothing.",
+      "es": "La geometría del accesorio divergente — un lado CadQuery 0.6mm más ancho que su lado OpenSCAD — con la pieza declarada EXENTA de `--parity` en el manifiesto, con motivo. Existe para ejercitar la exención G38 sobre un par que realmente fallaría: una exención sobre geometría que habría pasado de todos modos no demuestra nada."
+    },
+    "thumbnail": "/projects/dual-block-exempt.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "openscad",
+      "cadquery",
+      "parity",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "scad_file": "block.scad",
+      "cq_file": "block.py",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "block_size",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Block size (mm)",
+        "es": "Tamaño del bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Edge length of the cube.",
+        "es": "Longitud de la arista del cubo."
+      }
+    }
+  ],
+  "presets": [],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "block": {
+        "part_overrides": {
+          "block": {
+            "geometry.parity": {
+              "enabled": false,
+              "reason": "the two kernels model this block with different idioms by design: block.scad extrudes a centred cube, block.py a box 0.6mm wider. It stands in for fasteners/bolt, where OpenSCAD uses BOSL2's real helical thread and CadQuery a revolved sawtooth ring stack; a real CadQuery helix costs 262s to build and is still wrong. Review when either kernel can sweep the other's idiom cheaply."
+            }
+          }
+        }
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "tool",
+    "cdg_interfaces": [
+      {
+        "id": "block_face",
+        "label": {
+          "en": "Block face",
+          "es": "Cara del bloque"
+        },
+        "geometry_type": "plate",
+        "standard": "internal",
+        "parameters": [
+          "block_size"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None — this is a test fixture, not a design. It is the positive control for the parity exemption: a declared exemption that is never exercised over a failing pair is an exemption nobody can trust.",
+      "es": "Ninguno — es un accesorio de prueba, no un diseño. Es el control positivo de la exención de paridad: una exención declarada que nunca se ejercita sobre un par que falla es una exención en la que nadie puede confiar."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

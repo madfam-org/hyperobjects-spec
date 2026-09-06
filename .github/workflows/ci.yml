@@ -140,6 +140,12 @@ jobs:
           .venv/bin/fc-spec list
           .venv/bin/fc-spec check garment-manifest tests/fixtures/fc/bodice-block.project.json
           .venv/bin/y4d-spec check tests/fixtures/y4d/sew-on-snap tests/fixtures/y4d/thimble
+          # The G38 exemption fixtures, manifest-only: a declared exemption and a
+          # widened tolerance both carry a reason, so both are conformant here. The
+          # unreasoned versions are the pytest cases; this step is the proof that the
+          # reasoned shape is accepted by the shipped console script, not only in-process.
+          .venv/bin/y4d-spec check tests/fixtures/y4d/dual-block-exempt \
+            tests/fixtures/y4d/dual-block-widened
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
 

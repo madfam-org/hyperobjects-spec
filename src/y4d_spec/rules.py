@@ -21,6 +21,7 @@ Provenance — each rule and where it comes from in the yantra4d repo:
   material-aware coherence    scripts/audit_compliance.py:106 (check_rule_5_...)
   i18n en/es completeness     scripts/qa/i18n_audit.py  (locale parity, applied to manifests)
   commons_license declared    scripts/qa/check_licenses.py  (declared-vs-shipped, declared half)
+  parity exemption reason     THIS PACKAGE (G38, 2026-09-06) — see verification_rules
 
 Deliberately NOT here — these are repo-wide, not per-cartridge, and stay in the
 platform: catalog drift (generate_commons_catalog.py), cross-cartridge slug
@@ -38,6 +39,7 @@ __all__ = [
     "i18n_rules",
     "license_rules",
     "hyperobject_rules",
+    "verification_rules",
     "all_manifest_rules",
     "render_targets",
     "preset_targets",
@@ -399,6 +401,115 @@ def license_rules(doc: dict) -> list[str]:
     return problems
 
 
+# ── verification policy (G38, ruled 2026-09-06) ──────────────────────────────
+def verification_rules(doc: dict) -> list[str]:
+    """A parity exemption or a widened tolerance must say WHY, in the manifest.
+
+    This is the enforcement half of the per-part parity policy (parity.py). It is a
+    MANIFEST rule and not a geometry one on purpose: `y4d-spec check` with no
+    `--render` — the thing a PR bot runs on a diff, in seconds, with no CAD kernel —
+    is what catches a cartridge that switched the comparison off in silence. If the
+    reason were only checked where the comparison runs, a cartridge could turn the
+    comparison off and thereby turn off the check on turning it off.
+
+    Two departures from the default need a reason, and nothing else does:
+
+      * `enabled: false` — the comparison will not run for that part.
+      * a `tolerance` above the package default — the pair is judged at a wider AABB
+        bar than every other pair in the run.
+
+    A tolerance at or BELOW the default is a tightening: it makes the bar stricter, so
+    it owes no explanation. `enabled: true` with no tolerance is the default written
+    out longhand and is not a departure either.
+
+    The reason must be non-empty after stripping. It is not otherwise policed here —
+    "must name the kernel idiom that differs" is a review standard (`y4d-spec rules`),
+    and a rule that tried to grade prose would be a rule that could be satisfied by
+    padding.
+    """
+    from .parity import PARITY_CHECK_KEY, PARITY_OVERRIDE_KEY, PARITY_TOLERANCE
+
+    problems: list[str] = []
+    verification = doc.get("verification")
+    if not isinstance(verification, dict):
+        return problems
+
+    def _judge(block: object, where: str) -> None:
+        if not isinstance(block, dict):
+            problems.append(f"{where}: must be an object")
+            return
+        enabled = block.get("enabled")
+        tolerance = block.get("tolerance")
+        reason = block.get("reason")
+
+        if enabled is not None and not isinstance(enabled, bool):
+            problems.append(f"{where}.enabled: must be a boolean")
+        if tolerance is not None and (
+            isinstance(tolerance, bool) or not isinstance(tolerance, (int, float))
+        ):
+            problems.append(f"{where}.tolerance: must be a number (mm)")
+            tolerance = None
+        elif isinstance(tolerance, (int, float)) and not isinstance(tolerance, bool):
+            if tolerance <= 0:
+                problems.append(f"{where}.tolerance: must be > 0")
+        if reason is not None and not isinstance(reason, str):
+            problems.append(f"{where}.reason: must be a string")
+            reason = None
+
+        has_reason = isinstance(reason, str) and reason.strip() != ""
+        widened = (
+            isinstance(tolerance, (int, float))
+            and not isinstance(tolerance, bool)
+            and tolerance > PARITY_TOLERANCE
+        )
+
+        if enabled is False and not has_reason:
+            problems.append(
+                f"{where}: parity is disabled without a `reason` — an exemption from "
+                "the cross-kernel comparison is visible debt and must name the kernel "
+                "idiom that differs, so that it can be reviewed when either kernel "
+                "changes (G38)"
+            )
+        elif widened and not has_reason:
+            problems.append(
+                f"{where}: parity tolerance is widened to {tolerance}mm (default "
+                f"{PARITY_TOLERANCE}mm) without a `reason` — a pair judged at a wider "
+                "bar than every other pair must say why (G38)"
+            )
+
+    stages = verification.get("stages")
+    if isinstance(stages, dict):
+        geometry = stages.get("geometry")
+        if isinstance(geometry, dict):
+            checks = geometry.get("checks")
+            if isinstance(checks, dict) and PARITY_CHECK_KEY in checks:
+                _judge(
+                    checks[PARITY_CHECK_KEY],
+                    f"verification.stages.geometry.checks.{PARITY_CHECK_KEY}",
+                )
+
+    mode_overrides = verification.get("mode_overrides")
+    if isinstance(mode_overrides, dict):
+        for mode_id in sorted(mode_overrides):
+            entry = mode_overrides[mode_id]
+            if not isinstance(entry, dict):
+                continue
+            part_overrides = entry.get("part_overrides")
+            if not isinstance(part_overrides, dict):
+                continue
+            for part_id in sorted(part_overrides):
+                block = part_overrides[part_id]
+                if not isinstance(block, dict) or PARITY_OVERRIDE_KEY not in block:
+                    continue
+                _judge(
+                    block[PARITY_OVERRIDE_KEY],
+                    f'verification.mode_overrides.{mode_id}.part_overrides.'
+                    f'{part_id}["{PARITY_OVERRIDE_KEY}"]',
+                )
+
+    return problems
+
+
 def all_manifest_rules(doc: dict) -> list[str]:
     """Every per-cartridge manifest rule, in one call. Schema validation is separate
     (conformance.py); nothing short-circuits, so a caller sees all problems at once."""
@@ -408,6 +519,7 @@ def all_manifest_rules(doc: dict) -> list[str]:
     problems.extend(hyperobject_rules(doc))
     problems.extend(i18n_rules(doc))
     problems.extend(license_rules(doc))
+    problems.extend(verification_rules(doc))
     return problems
 
 

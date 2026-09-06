@@ -81,12 +81,17 @@ class CartridgeResult:
     @property
     def parity_warnings(self) -> list:
         """The pairs that agreed only through the faceting warn tier (G27)."""
-        return [c for c in self.parity if c.ok and c.warn]
+        return [c for c in self.parity if c.ok and c.warn and not c.exempt]
 
     @property
     def parity_failures(self) -> list:
         """The pairs whose two kernels genuinely disagree."""
-        return [c for c in self.parity if not c.ok]
+        return [c for c in self.parity if not c.ok and not c.exempt]
+
+    @property
+    def parity_exemptions(self) -> list:
+        """The pairs the manifest declared exempt, with the reason it gave (G38)."""
+        return [c for c in self.parity if getattr(c, "exempt", False)]
 
 
 def _schema_errors(doc: object) -> list[str]:
@@ -147,7 +152,13 @@ def check_cartridge(
     parity.py. Rendering both sides proves each is a solid; parity is what proves they
     are the SAME solid. A genuine disagreement is a conformance failure; a delta
     inside the faceting band whose surfaces agree is a note (G27).
-    `parity_tolerance` overrides the AABB tolerance (default 0.001mm).
+    `parity_tolerance` overrides the AABB tolerance (default 0.001mm) for EVERY pair,
+    manifest policy included: an operator who names a bar on the command line is asking
+    to see the cartridge measured at that bar, and a manifest that could quietly widen
+    it again would make `--parity-tolerance 0.001` unable to say what the cartridge
+    looks like at 0.001mm. A part the manifest declares exempt is not compared at all
+    and is reported as a note (G38 — see parity.py); an exemption is a declaration that
+    the comparison is meaningless for that part, which no tolerance answers.
     """
     path = Path(cartridge_dir).resolve()
     manifest_path = path / "project.json"
@@ -211,9 +222,14 @@ def check_cartridge(
             if parity:
                 from .parity import PARITY_TOLERANCE, parity_checks
 
+                # `parity_tolerance is None` is passed on rather than collapsed here:
+                # parity_checks needs to tell "the default" from "the operator asked
+                # for this bar", because only the second overrides a manifest policy.
                 result.parity = parity_checks(
                     result.renders,
                     PARITY_TOLERANCE if parity_tolerance is None else parity_tolerance,
+                    doc,
+                    tolerance_is_explicit=parity_tolerance is not None,
                 )
                 result.parity_ran = True
 
@@ -225,7 +241,12 @@ def check_cartridge(
             result.notes.extend(check.notes)
 
         for pc in result.parity:
-            if not pc.ok:
+            if pc.exempt:
+                # An exemption is TRUE, declared, and never a failure — but it is also
+                # never silent: it lands where the other true-but-not-fatal findings
+                # do, so every run prints the debt it is carrying (G38).
+                result.notes.append(pc.summary)
+            elif not pc.ok:
                 result.problems.append(pc.summary)
             elif pc.warn:
                 # A faceting warn is TRUE and worth saying — the two kernels do differ,
