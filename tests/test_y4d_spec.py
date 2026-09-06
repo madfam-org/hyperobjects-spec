@@ -30,6 +30,22 @@ def _manifest(cartridge: Path) -> dict:
     return json.loads((cartridge / "project.json").read_text(encoding="utf-8"))
 
 
+def _allow_unused(doc: dict, reason: str) -> dict:
+    """Allow-list every parameter against G-DEADPARAM, for a synthetic fixture whose
+    stand-in source deliberately reads none of them.
+
+    Several geometry fixtures replace a real cartridge's source with three lines that
+    isolate one property — an open shell, a crashing preset, a blocked import. Those
+    lines cannot read six parameters without becoming the cartridge they replaced, so
+    the manifest says the omission is deliberate. This keeps each test failing for its
+    own reason and no other, which is the same thing the fixtures were already doing by
+    hand for every other rule.
+    """
+    for p in doc.get("parameters") or []:
+        p["intentionally_unused"] = {"reason": f"test fixture: {reason}"}
+    return doc
+
+
 # ── the real cartridges conform ──────────────────────────────────────────────
 @pytest.mark.parametrize("cartridge", REAL_CARTRIDGES, ids=lambda p: p.name)
 def test_real_cartridge_conforms(cartridge):
@@ -707,6 +723,14 @@ def test_a_preset_whose_values_never_reach_the_script_is_a_note(tmp_path):
             "values": {"finger_girth": 78.0},
         }
     ]
+    # The script below deliberately ignores every parameter — that is the whole point of
+    # this fixture. G-DEADPARAM would therefore fail it, correctly and for a different
+    # reason than the one under test, so they are allow-listed here. The GEOMETRY note is
+    # what this test is about, and the allow-list does not touch it: a manifest can
+    # declare a parameter deliberately unwired, and the render still says the preset
+    # changed nothing.
+    _allow_unused(doc, "the script ignores it on purpose, so the preset-vs-defaults "
+                       "render note is the only thing under test")
     (cart / "project.json").write_text(json.dumps(doc))
     # Dispatches on target_part (so the parts stay distinct) but ignores every OTHER
     # parameter — so the preset's finger_girth changes nothing.
@@ -757,6 +781,10 @@ def test_openscad_presets_render_on_the_openscad_side(tmp_path):
     for mode in doc["modes"]:
         mode["scad_file"] = "main.scad"
         mode.pop("cq_file", None)
+    # This test is about which ENGINE renders a preset, not about wiring; the stand-in
+    # .scad below reads none of thimble's six parameters, so the omission is declared.
+    _allow_unused(doc, "a three-line stand-in .scad; the property under test is which "
+                       "engine renders a preset")
     (cart / "project.json").write_text(json.dumps(doc))
     # Each part gets its own body, so the fallback-body rule has nothing to flag.
     (cart / "main.scad").write_text(
