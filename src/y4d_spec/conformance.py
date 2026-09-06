@@ -16,7 +16,9 @@ every problem at once.
 
 from __future__ import annotations
 
+import contextlib
 import json
+import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -44,6 +46,12 @@ class CartridgeResult:
     renders: list = field(default_factory=list)
     #: True when geometry verification actually executed.
     rendered: bool = False
+    #: One ParityCheck per (mode, part, preset) that rendered on BOTH kernels. Empty
+    #: unless `parity=True` — and empty on a single-engine cartridge even then, which
+    #: is why `parity_ran` exists to say the pass happened at all.
+    parity: list = field(default_factory=list)
+    #: True when the cross-kernel parity pass ran (whether or not it found any pairs).
+    parity_ran: bool = False
 
     def __bool__(self) -> bool:
         return self.ok
@@ -69,6 +77,16 @@ class CartridgeResult:
     def skipped_renders(self) -> list:
         """The targets geometry did NOT judge, each carrying its reason."""
         return [c for c in self.renders if getattr(c, "skipped", None)]
+
+    @property
+    def parity_warnings(self) -> list:
+        """The pairs that agreed only through the faceting warn tier (G27)."""
+        return [c for c in self.parity if c.ok and c.warn]
+
+    @property
+    def parity_failures(self) -> list:
+        """The pairs whose two kernels genuinely disagree."""
+        return [c for c in self.parity if not c.ok]
 
 
 def _schema_errors(doc: object) -> list[str]:
@@ -105,6 +123,8 @@ def check_cartridge(
     library_paths: list[Path] | None = None,
     require_openscad: bool = False,
     openscad_timeout: int | None = None,
+    parity: bool = False,
+    parity_tolerance: float | None = None,
 ) -> CartridgeResult:
     """Check a cartridge DIRECTORY: its manifest, its files, and optionally its geometry.
 
@@ -121,6 +141,13 @@ def check_cartridge(
     cartridge's `include <>` resolves against; `require_openscad=True` makes a missing
     OpenSCAD binary a failure rather than a skip. Both only mean anything under
     `render=True`.
+
+    `parity=True` (also `render=True` only) additionally COMPARES the two kernels of
+    every dual-engine target that rendered on both, at the platform's own gates — see
+    parity.py. Rendering both sides proves each is a solid; parity is what proves they
+    are the SAME solid. A genuine disagreement is a conformance failure; a delta
+    inside the faceting band whose surfaces agree is a note (G27).
+    `parity_tolerance` overrides the AABB tolerance (default 0.001mm).
     """
     path = Path(cartridge_dir).resolve()
     manifest_path = path / "project.json"
@@ -156,24 +183,55 @@ def check_cartridge(
         # must not pay for a CAD kernel it never uses.
         from .geometry import OPENSCAD_TIMEOUT_S, check_geometry
 
-        result.renders = check_geometry(
-            path,
-            doc,
-            presets=presets,
-            printability=printability,
-            library_paths=library_paths,
-            require_openscad=require_openscad,
-            openscad_timeout=(
-                OPENSCAD_TIMEOUT_S if openscad_timeout is None else openscad_timeout
-            ),
-        )
-        result.rendered = True
+        timeout = OPENSCAD_TIMEOUT_S if openscad_timeout is None else openscad_timeout
+
+        # Under --parity the STLs must outlive their own renders so the two kernels
+        # can be put side by side. This directory is where they go, and it dies with
+        # this call: the meshes are evidence for one comparison, not an artifact.
+        # Without --parity nothing is retained and the render path is byte-for-byte
+        # what it was.
+        with contextlib.ExitStack() as stack:
+            stl_dir = (
+                Path(stack.enter_context(tempfile.TemporaryDirectory(prefix="y4d-parity-")))
+                if parity
+                else None
+            )
+            result.renders = check_geometry(
+                path,
+                doc,
+                presets=presets,
+                printability=printability,
+                library_paths=library_paths,
+                require_openscad=require_openscad,
+                openscad_timeout=timeout,
+                stl_dir=stl_dir,
+            )
+            result.rendered = True
+
+            if parity:
+                from .parity import PARITY_TOLERANCE, parity_checks
+
+                result.parity = parity_checks(
+                    result.renders,
+                    PARITY_TOLERANCE if parity_tolerance is None else parity_tolerance,
+                )
+                result.parity_ran = True
+
         for check in result.renders:
             if not check.ok:
                 result.problems.append(f"render {check.summary}")
             # Per-render notes (preset-vs-default sameness, printability
             # measurements) join the cartridge's notes and never touch `ok`.
             result.notes.extend(check.notes)
+
+        for pc in result.parity:
+            if not pc.ok:
+                result.problems.append(pc.summary)
+            elif pc.warn:
+                # A faceting warn is TRUE and worth saying — the two kernels do differ,
+                # by chord error — but it is not a conformance failure, so it lands
+                # where the other true-but-not-fatal findings do.
+                result.notes.append(pc.summary)
 
     result.ok = not result.problems
     return result

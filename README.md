@@ -65,6 +65,8 @@ y4d-spec check ./my-cartridge --render --no-presets        # defaults only (weak
 y4d-spec check ./my-cartridge --render --no-printability   # skip the print-time notes
 y4d-spec check ./my-cartridge --render --openscad-path ./libs   # where OpenSCAD includes resolve
 y4d-spec check ./my-cartridge --render --require-openscad       # a missing binary is a FAILURE
+y4d-spec check ./my-cartridge --render --parity                 # + COMPARE both kernels of a dual-engine mode
+y4d-spec check ./my-cartridge --render --parity --parity-tolerance 0.01   # widen the AABB gate only
 y4d-spec render-env                        # the render environment: packages, OpenSCAD, fonts
 y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
@@ -127,6 +129,56 @@ line — a cartridge is not non-conformant because the machine checking it is sh
 runner image carries the binary, so a lane that rendered nothing can no longer report
 green. `$OPENSCAD` (or `$OPENSCAD_PATH`) picks a specific binary, otherwise `openscad` on
 `PATH`, otherwise the macOS app bundle.
+
+**Cross-kernel parity (`--parity`).** Rendering both sides proves each is a solid. It
+does not prove they are the **same** solid — a cartridge whose OpenSCAD side quietly
+models a different part passes both halves of the mesh bar and hands two different
+objects to two different users. `--parity` (only with `--render`) is the comparison: for
+every `(mode, part, preset)` that rendered on **both** kernels, the two meshes go through
+the platform's own three gates, with the platform's own numbers
+(`yantra4d/scripts/qa/verify_parity.py`), so the keystone and the platform cannot
+disagree about what "agree" means:
+
+1. **AABB extents** — the largest per-axis difference. Over `0.001mm` fails, except
+   inside the faceting band below. `--parity-tolerance MM` overrides this gate, and only
+   this gate: the band and the volume allowance are the platform's and are not scaled
+   with it, so widening one gate cannot silently move the others.
+2. **Volume** — over `max(tolerance × 100, 2% of the larger)` fails. Checked only when
+   both sides are watertight.
+3. **Hausdorff surface proxy** — the maximum divergence between the two surfaces, both
+   directions. Over `max(tolerance, 0.5mm)` on a pair that already passed 1 and 2 is
+   tessellation noise and is recorded, not failed.
+
+**Why the warn tier exists.** An OpenSCAD `$fn` polygon is a chord approximation of the
+circle CadQuery models analytically, so a perfectly correct dual-engine cartridge has two
+AABBs that differ by the chord error and by nothing else. Five commons pairs sit there —
+`faircap-filter`, `gears`, `glia-diagnostic`, `julia-vase`, `spiral-planter` — at
+0.0028–0.0367mm, while the smallest **genuine** divergence measured across the whole
+commons is 0.516728mm (`maze` coaster). The `0.05mm` band separates two non-overlapping
+populations rather than being tuned to either. It is deliberately **not** enough on its
+own: a real 0.04mm dimensional error would fit inside it, so the tier is conjunctive — a
+delta is downgraded to a warn only when it is inside the band **and** the surfaces agree
+(gate 3). Chord error satisfies both; a dimensional error moves a surface and still
+fails. A surface divergence that could not be *measured* is not a pass either. (G27,
+ruled 2026-09-05.)
+
+```
+$ y4d-spec check ./spiral-planter ./maze --render --parity -v --openscad-path ../libs
+  ok spiral-planter (./spiral-planter, 4 render(s) verified, 2 parity pair(s) agree (2 faceting warn))
+       parity (planter, planter): warn (faceting) — Bounding boxes differ by 0.033569mm
+         (faceting warn, within 0.05mm; surfaces agree to 0.033569mm).
+  FAIL maze: parity (coaster, coaster): FAIL — Bounding boxes differ by 0.516728mm
+         (A: [100.0, 99.45218953682733, 5.0], B: [100.0, 99.96891784667969, 5.0])
+y4d-spec check: ... parity=1/4 ok, warn=2, failures=1
+```
+
+A failure is a **conformance failure** and exits nonzero; a faceting warn is a **note**
+and never is. A pair exists only where two meshes exist, so a skipped OpenSCAD lane
+yields none — and the `ok` line says `no dual-engine pair to compare` rather than staying
+silent, because silence there reads exactly like a cartridge whose kernels were compared
+and agreed. **How CI uses it:** the commons render jobs pass `--parity` alongside
+`--require-openscad`, which is what makes "both kernels agree" a property of the merge
+path rather than of a sweep somebody remembers to run.
 
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A

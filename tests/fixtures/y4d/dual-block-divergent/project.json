@@ -1,0 +1,107 @@
+{
+  "project": {
+    "name": "Dual Block (divergent)",
+    "slug": "dual-block-divergent",
+    "version": "1.0.0",
+    "engine": "openscad",
+    "description": {
+      "en": "The dual-block fixture with its CadQuery side deliberately 0.6mm wider than its OpenSCAD side. Exists so `--parity` is exercised in the FAILING direction: both kernels render a valid solid, and they are not the same solid.",
+      "es": "El accesorio dual-block con su lado CadQuery deliberadamente 0.6mm más ancho que su lado OpenSCAD. Existe para ejercitar `--parity` en la dirección de FALLO: ambos motores renderizan un sólido válido, y no son el mismo sólido."
+    },
+    "thumbnail": "/projects/dual-block-divergent.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "openscad",
+      "cadquery",
+      "parity",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "scad_file": "block.scad",
+      "cq_file": "block.py",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "block_size",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Block size (mm)",
+        "es": "Tamaño del bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Edge length of the cube.",
+        "es": "Longitud de la arista del cubo."
+      }
+    }
+  ],
+  "presets": [],
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "tool",
+    "cdg_interfaces": [
+      {
+        "id": "block_face",
+        "label": {
+          "en": "Block face",
+          "es": "Cara del bloque"
+        },
+        "geometry_type": "plate",
+        "standard": "internal",
+        "parameters": [
+          "block_size"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None — this is a test fixture, not a design. It is the negative control for cross-kernel parity: a gate never exercised in the failing direction is a gate nobody can trust.",
+      "es": "Ninguno — es un accesorio de prueba, no un diseño. Es el control negativo de la paridad entre motores: una compuerta nunca ejercitada en la dirección de fallo es una compuerta en la que nadie puede confiar."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}
