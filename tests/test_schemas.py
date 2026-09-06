@@ -50,3 +50,23 @@ def test_loaded_schemas_are_cached_by_identity():
 def test_schema_files_are_utf8_and_parse():
     for name in hs.list_schemas():
         json.loads(hs.schema_path(name).read_text(encoding="utf-8"))
+
+
+def test_the_constraints_description_names_the_real_evaluator():
+    """`constraints[]` is evaluated by the Studio's hand-rolled `safeFormula` parser,
+    NOT by expr-eval, which the Studio dropped on 2026-05-14.
+
+    This is not pedantry about a dependency name. The two dialects differ in exactly
+    the way that matters to a cartridge author: expr-eval has function calls
+    (`min`, `max`, `abs`, `sqrt`) and safeFormula has none. A rule written against the
+    stale description does not error — `useConstraints` swallows the exception — it
+    silently never fires, so an unenforceable constraint is indistinguishable from a
+    satisfied one. A description that misnames the evaluator therefore teaches authors
+    to write rules that protect nothing.
+    """
+    description = hs.load("project-manifest")["properties"]["constraints"]["description"]
+    assert "safeFormula" in description
+    assert "expr-eval" not in description.replace("NOT expr-eval", "")
+    # The three limits an author actually trips over.
+    assert "NO function calls" in description or "no function calls" in description.lower()
+    assert "256" in description and "128" in description

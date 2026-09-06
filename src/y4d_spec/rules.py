@@ -25,9 +25,17 @@ Provenance — each rule and where it comes from in the yantra4d repo:
 
 Deliberately NOT here — these are repo-wide, not per-cartridge, and stay in the
 platform: catalog drift (generate_commons_catalog.py), cross-cartridge slug
-uniqueness (manifest.py discover_projects), OpenSCAD/CadQuery geometric parity
-(tests/scripts/geometric_regression.py), and the declared-vs-SHIPPED half of the
+uniqueness (manifest.py discover_projects), and the declared-vs-SHIPPED half of the
 license cross-check (needs the LICENSE file on disk; see structure.py).
+
+OpenSCAD/CadQuery geometric parity USED to be on that list (the platform's
+tests/scripts/geometric_regression.py). It came off it: whether one cartridge's two
+kernels model the same solid is a property of that cartridge, so it belongs on the
+merge path and now runs here under `--render --parity` (parity.py, mirroring
+scripts/qa/verify_parity.py gate for gate). The manifest half of that policy — the
+per-part exemption and its required reason — is `verification_rules` below, and it is
+checked with no --render at all, because a check that only ran where the comparison
+ran could be switched off by switching the comparison off.
 """
 
 from __future__ import annotations

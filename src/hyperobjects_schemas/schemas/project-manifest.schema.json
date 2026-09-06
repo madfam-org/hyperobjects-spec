@@ -956,7 +956,7 @@
     },
     "constraints": {
       "type": "array",
-      "description": "Cross-parameter validation rules evaluated client-side via expr-eval.",
+      "description": "Cross-parameter validation rules, evaluated CLIENT-SIDE by the Studio's own `safeFormula` parser (apps/studio/src/lib/safeFormula.ts via hooks/editor/useConstraints.ts) — NOT expr-eval, which the Studio dropped on 2026-05-14. The dialect is a strict subset: numbers and bare parameter identifiers; `+ - * / %`; `< <= > >= == != === !==`; `&& || !`; `c ? a : b`; parentheses. There are NO function calls (no min/max/abs/sqrt/floor), NO string literals (so a select parameter cannot be compared), and the source is capped at 256 characters and 128 tokens. A rule is SATISFIED when it evaluates truthy; a falsy result raises the `message` at the declared `severity`. An expression that throws — an unknown identifier, a non-numeric parameter, division by zero, an unsupported token — is SWALLOWED by useConstraints and silently never fires, so an untestable rule is indistinguishable from a satisfied one.",
       "items": {},
       "anyOf": [
         {

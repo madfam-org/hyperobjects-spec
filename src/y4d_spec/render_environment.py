@@ -20,7 +20,7 @@ So the spec — the thing all four repos already pin by SHA — owns the answer,
 others read it:
 
     y4d-spec render-env --apt               # the apt-get install line
-    y4d-spec render-env --openscad-version  # 2026.02.01
+    y4d-spec render-env --openscad-version  # 2026.02.13
     y4d-spec render-env --openscad-sha256   # the AppImage checksum to verify
     y4d-spec render-env --json              # all of it, for a provisioning script
 

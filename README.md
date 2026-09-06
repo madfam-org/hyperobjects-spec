@@ -42,10 +42,11 @@ instead once one is cut.
 
 **What `[geometry]` contains, and why none of it is optional inside the extra.**
 `cadquery` (pinned `<2.8`) is the kernel; `trimesh` inspects the mesh; `scipy` and
-`networkx` are what `mesh.split()` needs to find an inverted body at all; **`rtree`** is
-what trimesh builds the ray bounds tree with, and without it the thin-wall thickness
-measurement cannot run. A package missing from that list does not quietly remove a
-measurement — see **Printability notes** below.
+`networkx` are the graph engines trimesh labels a mesh's connected components with, which
+is how a body is counted and an inverted one found at all; **`rtree`** is what trimesh
+builds the ray bounds tree with, and without it the thin-wall thickness measurement cannot
+run. A package missing from that list does not quietly remove a measurement — see
+**Printability notes** below.
 
 **On Linux the CAD kernel also needs system libraries.** OCP's C extension links against
 X and GL at import, so a Debian/Ubuntu machine needs `libgl1`, `libglib2.0-0` **and
@@ -94,10 +95,28 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
 
 - **watertight** — it encloses a volume,
 - **positive volume**,
-- **free of inverted bodies** — no negative-volume shell in `split()`,
+- **free of inverted bodies** — no connected component of negative signed volume,
 - **distinct per part** — two parts rendering identical geometry means your
   `target_part` dispatch is not wired, and the platform will silently serve the wrong
   body.
+
+**How a body is counted, and why it is not `mesh.split()`.** A body is a connected
+component of the vertex-merged mesh, and its volume is the sum of its faces' signed
+tetrahedron volumes — the same divergence-theorem formula `mesh.volume` uses, so an
+inverted shell reads negative and the count reads bodies. `trimesh`'s own `mesh.split()`
+returns the same answer and cannot be used for it: it rebuilds every component through
+`submesh()`, copying faces per body, re-processing each new `Trimesh` and running a repair
+pass on the way out. On a 2.5 M-face chainmail panel of 80 rings that took over 7 GB and
+15+ minutes and killed a 6 GiB CI runner twice, while labelling the components takes
+seconds. The measurement is identical; only the budget differs.
+
+**A `cq.Assembly` result is flattened with `toCompound()`**, then exported through the
+same `cq.exporters.export` a `Workplane` uses — not `Assembly.save`, which CadQuery 2.7
+marks `@deprecate()`d ("will be removed in the next release") while 22 commons cartridges
+return assemblies. It is not a behaviour change: `Assembly.save` forwards to
+`Assembly.export`, whose STL arm *is* `self.toCompound().exportStl(...)`, and both paths
+read the same deflection defaults. Verified byte-identical on `zipper` `closed/tape_left`
+(36 bodies, 2 163 284 bytes, same sha256 either way).
 
 **Both engines.** A CadQuery mode (`.py`/`.cq`) runs in the *same restricted sandbox the
 platform uses*. An OpenSCAD mode (`.scad`) runs through the platform's own command line —
@@ -474,7 +493,7 @@ read it:
 y4d-spec render-env                     # the whole contract, annotated
 y4d-spec render-env --apt               # just the package names, space-separated
 y4d-spec render-env --apt --ci          # ...plus what the [geometry] extra's CAD kernel needs
-y4d-spec render-env --openscad-version  # 2026.02.01
+y4d-spec render-env --openscad-version  # 2026.02.13
 y4d-spec render-env --openscad-sha256   # the AppImage checksum to verify a download
 y4d-spec render-env --json              # all of it, for a provisioning script
 ```
@@ -487,10 +506,25 @@ wget -q "$(y4d-spec render-env --json | jq -r .openscad_appimage_url)" -O opensc
 echo "$(y4d-spec render-env --openscad-sha256)  openscad.AppImage" | sha256sum -c -
 ```
 
-**OpenSCAD is pinned to a snapshot, not a release** (`2026.02.01`), because the commons
+**OpenSCAD is pinned to a snapshot, not a release** (`2026.02.13`), because the commons
 uses syntax no tagged release has yet. The SHA-256 is part of the contract: snapshot URLs
 are not immutable the way a release tag is, so a script that downloads without checking it
 is trusting whatever the mirror serves today.
+
+That version is a **floor, not a preference** (G31). The commons pins BOSL2 v2.0.753
+(`fcfce7c7`), and the previous pin `2026.02.01` cannot render it — two lines are enough:
+
+```openscad
+include <BOSL2/std.scad>
+cube([1,1,1], anchor=[-1,-1,-1]);
+```
+
+aborts with `Assertion '(is_list($tags_shown) || ($tags_shown == "ALL"))' failed in
+libs/BOSL2/attachments.scad, line 3809`, leaving an **empty top-level object** — an empty
+STL rather than a build error, which is how it reached CI unnoticed. That is every
+*anchored* BOSL2 primitive, i.e. most of the library. The same file renders under
+`2026.02.13`. So this value may be bumped forward and must never go back below
+`2026.02.13` while that BOSL2 pin stands; `test_render_environment.py` holds the floor.
 
 **Fonts.** A cartridge may bundle typefaces in its own `fonts/` directory, and only under
 **OFL-1.1 or CC0-1.0** — both redistributable with attribution, neither restricting
@@ -1045,9 +1079,16 @@ anywhere. `ho-bridge` is the one deliberate exception: a link is a property of a
 separate command for exactly that reason — nothing about the single-cartridge lanes
 changed to accommodate it.
 
-Repo-wide checks still stay in the platforms — catalog drift, cross-cartridge slug
-uniqueness, and OpenSCAD↔CadQuery geometric parity. They are properties of a whole
-commons, not of a cartridge or a pair.
+Repo-wide checks still stay in the platforms — catalog drift and cross-cartridge slug
+uniqueness. They are properties of a whole commons, not of a cartridge or a pair.
+
+**Cross-kernel parity moved.** It used to be on that list, as a repo-wide lane
+(`tests/scripts/geometric_regression.py`), and that was the wrong shelf: whether a
+cartridge's two kernels model the same solid is a property of **that cartridge**, not of
+the commons around it — which is why `--parity` lives here now and runs on the merge
+path. The platform's own numbers and gates are mirrored from
+`yantra4d/scripts/qa/verify_parity.py`, deliberately, so the keystone and the platform
+cannot disagree about what "agree" means.
 
 The **lexicon** is the one thing here that is not per-cartridge, and it is here for the
 opposite reason: it is a property of *both* commons at once, so it could not live in
@@ -1090,6 +1131,16 @@ with the extra and its libraries present the suite reports **no skips**. CI does
 on the reader noticing — it installs `libgl1 libglib2.0-0 libxrender1`, prints the import
 tracebacks and any unresolved soname, and **fails the job** before pytest if
 `geometry_available()` is False.
+
+That skip is a property a new test can break, and only off CI. `conftest.py` keys the skip
+off the `geometry` marker, so a geometry test needs **both** the marker and a
+`pytest.importorskip` placed **before** any module-scope `numpy`/`trimesh`/`cadquery`
+import — an import at module scope raises during *collection*, which pytest reports as an
+error and stops on, taking the rest of the suite with it rather than skipping one module.
+Two cases were live until 2026-09-06 and were invisible because CI always has the extra:
+`test_geometry_bodies.py` imported `numpy` above its `importorskip`, and four CLI tests
+asserted argument-error text that `_cmd_check` only reaches once the geometry check has
+passed. Run `pytest -q` in a `.[dev]`-only venv before you add one.
 
 `docs/reader/` and the count blocks in this README are **generated and committed**. If
 you change the corpus, a vocabulary or a snapshot, rebuild them in the same commit —

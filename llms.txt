@@ -1,0 +1,56 @@
+# Hyperobjects Spec
+
+Last Updated: 2026-09-06
+
+Compact LLM context index for this repository.
+
+## What this is
+
+The keystone of the MADFAM hyperobjects commons: the conformance bar for one
+cartridge, as an installable Python package, with no platform checkout. Two
+commons pin it BY SHA and consume it in CI — yantra4d (solid cartridges) and
+fashion-cabinet (soft ones). A rule added here reaches their merge path on the
+next repin.
+
+This repo is PUBLIC and Apache-2.0. No secrets, no internal hostnames, no client
+names, no runbook content. See the repo-boundary section of `AGENTS.md`.
+
+## Read first
+
+- `AGENTS.md` — canonical agent operating instructions, and the only place that
+  summarizes the check tiers, the parity line, the `verification` block and the
+  `constraints[]` dialect in one page.
+- `README.md` — the human document: every gate with the incident that motivated
+  it. Authoritative on *why*.
+- `llms-full.txt` — the module map and the durable contracts.
+
+## Commands
+
+    y4d-spec check ./cartridge [--render] [--parity] [--require-openscad]
+    y4d-spec rules            # what gets checked, and where each rule came from
+    y4d-spec render-env       # the render environment contract (packages, OpenSCAD, fonts)
+    fc-spec  check <contract> <file>
+    ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
+
+`y4d-spec rules` is generated from the code, so prefer running it over trusting
+any prose summary — including this one.
+
+## The three tiers, which are not interchangeable
+
+FAIL (exit 1) is a conformance failure. `note` (exit 0) is true and not fatal.
+`skip` (exit 0) is NOT VERIFIED — a target nothing judged. `geometry=NOT
+verified` in the summary means the run had no `--render` and proved nothing
+about meshes.
+
+## Doctrine
+
+New rules land as notes. A rule that fires on healthy cartridges is wrong;
+nothing becomes a failure until its false-positive analysis against the whole
+commons is written down. Test fixtures are real cartridges — a rule that flags
+them is the rule's bug.
+
+## Not here
+
+Repo-wide checks (catalog drift, cross-cartridge slug uniqueness) stay in the
+platforms. Cross-kernel parity used to and does NOT any more: it is a property
+of one cartridge, so it runs here under `--render --parity`.

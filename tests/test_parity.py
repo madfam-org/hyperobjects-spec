@@ -523,11 +523,18 @@ def test_parity_without_render_is_refused(capsys):
     assert "only apply with --render" in capsys.readouterr().out
 
 
+# Marked `geometry`: the flag/argument errors these assert are raised AFTER the
+# geometry-extra check in _cmd_check, so on a base install the exit code is still 2
+# but the message is the extra's refusal. The siblings above validate BEFORE that
+# check and so hold everywhere. Without the marker these went red on any machine
+# without [geometry] — a lane the README promises is green.
+@pytest.mark.geometry
 def test_parity_tolerance_without_parity_is_refused(capsys):
     assert main(["check", "--render", "--parity-tolerance", "0.01", str(DUAL_BLOCK)]) == 2
     assert "--parity-tolerance only applies with --parity" in capsys.readouterr().out
 
 
+@pytest.mark.geometry
 def test_a_nonpositive_tolerance_is_refused(capsys):
     argv = ["check", "--render", "--parity", "--parity-tolerance", "0", str(DUAL_BLOCK)]
     assert main(argv) == 2
