@@ -42,6 +42,19 @@ FAIL (exit 1) is a conformance failure. `note` (exit 0) is true and not fatal.
 verified` in the summary means the run had no `--render` and proved nothing
 about meshes.
 
+## Graph cartridges — the transpiler is VENDORED
+
+A `.graph.json` mode is transpiled to CadQuery and judged on the CadQuery path, so
+it clears the identical bar. `src/y4d_spec/graph/` is a BYTE-IDENTICAL copy of
+yantra4d's `apps/api/services/engine/graph_engine.py` + its two schemas, pinned by
+sha256 in `graph.lock.json`, enforced by `scripts/qa/check_graph_sync.py`, and
+excluded from ruff. Never hand-edit it: change the platform and re-vendor
+(`src/y4d_spec/graph/VENDORED.md`). Do not bump SPEC_PIN as part of a re-vendor.
+
+Golden-twin rule: a mode declaring BOTH a script and a graph has the two compared
+by `--parity` at the same bar as the cross-kernel comparison; the graph must agree
+with its script before the script may be retired.
+
 ## Doctrine
 
 New rules land as notes. A rule that fires on healthy cartridges is wrong;

@@ -121,8 +121,19 @@ jobs:
               )
           PY
 
+      - name: Graph-engine drift guard
+        # BLOCKING. The vendored transpiler (src/y4d_spec/graph/) must match the sha256
+        # hashes in graph.lock.json. It is a byte-identical copy of the platform's
+        # apps/api/services/engine/graph_engine.py, and the whole reason a graph
+        # cartridge's verdict here means anything is that the keystone transpiles it with
+        # the SAME code the platform runs. A hand-edit, or a copy left stale after the
+        # platform moves, turns this red — and the platform's own spec-conformance job
+        # asserts the reverse direction, so neither repo can drift alone. See
+        # src/y4d_spec/graph/VENDORED.md.
+        run: .venv/bin/python scripts/qa/check_graph_sync.py
+
       - name: Lint
-        run: .venv/bin/ruff check src tests
+        run: .venv/bin/ruff check src tests scripts
 
       - name: Test
         # -ra so skipped geometry tests are named in the summary rather than hidden —
@@ -146,6 +157,17 @@ jobs:
           # reasoned shape is accepted by the shipped console script, not only in-process.
           .venv/bin/y4d-spec check tests/fixtures/y4d/dual-block-exempt \
             tests/fixtures/y4d/dual-block-widened
+          # THE GRAPH ROWS. The two commons graph cartridges' shape, as fixtures: a
+          # graph-only cartridge and a GOLDEN TWIN (a graph plus the script it must
+          # reproduce). Rendered, so the row is a real mesh judged at the house bar and
+          # not a manifest check — `flange-plate` and `spacer-block` were the only two of
+          # 500 cartridges outside that bar until this lane existed, and the nightly in
+          # the commons repo gains their rows through the same code path this exercises.
+          # --parity is on so the golden twin is actually COMPARED; the divergent twin is
+          # a pytest case rather than a step here, because a CI step that must fail is a
+          # step someone eventually "fixes".
+          .venv/bin/y4d-spec check --render --parity \
+            tests/fixtures/y4d/graph-block tests/fixtures/y4d/graph-twin
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
 

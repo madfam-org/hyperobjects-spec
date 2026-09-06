@@ -1,0 +1,157 @@
+{
+  "project": {
+    "name": "Graph Twin (divergent)",
+    "slug": "graph-twin-divergent",
+    "version": "1.0.0",
+    "engine": "graph",
+    "description": {
+      "en": "A GOLDEN-TWIN test cartridge whose graph DISAGREES with its script: the graph block is 12mm, the script cube 10mm. Exists so --parity is proved able to FAIL the golden-twin comparison, not only to pass it.",
+      "es": "Un cartucho GEMELO DORADO cuyo grafo NO concuerda con su guion: el bloque del grafo mide 12mm y el cubo del guion 10mm. Existe para probar que --parity puede REPROBAR la comparacion, no solo aprobarla."
+    },
+    "thumbnail": "/projects/dual-block.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "graph",
+      "parity",
+      "golden-twin",
+      "divergent",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "scad_file": "block.py",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      },
+      "cq_file": "block.py",
+      "graph_file": "block.graph.json"
+    },
+    {
+      "id": "plate",
+      "label": {
+        "en": "Plate",
+        "es": "Placa"
+      },
+      "scad_file": "block.py",
+      "parts": [
+        "plate"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      },
+      "cq_file": "block.py",
+      "graph_file": "block.graph.json"
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Block",
+        "es": "Bloque"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    },
+    {
+      "id": "plate",
+      "label": {
+        "en": "Plate",
+        "es": "Placa"
+      },
+      "render_mode": 2,
+      "color": "#aa8899"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "block_size",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Block size (mm)",
+        "es": "Tamaño del bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Edge length of the cube.",
+        "es": "Longitud de la arista del cubo."
+      }
+    },
+    {
+      "id": "plate_h",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "size",
+      "modes": [
+        "plate"
+      ],
+      "label": {
+        "en": "Plate thickness (mm)",
+        "es": "Espesor de la placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the plate.",
+        "es": "Espesor de la placa."
+      },
+      "binding": "plate.h"
+    }
+  ],
+  "presets": [],
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "tool",
+    "cdg_interfaces": [
+      {
+        "id": "block_face",
+        "label": {
+          "en": "Block face",
+          "es": "Cara del bloque"
+        },
+        "geometry_type": "plate",
+        "standard": "internal",
+        "parameters": [
+          "block_size"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None - this is a test fixture, not a design. It exists so the graph render path is exercised in CI rather than only on the maintainer laptop.",
+      "es": "Ninguno - es un accesorio de prueba, no un diseno. Existe para ejercitar la ruta de render de grafos en CI y no solo en la maquina del mantenedor."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

@@ -1,4 +1,29 @@
-"""Cross-kernel parity: do a dual-engine cartridge's two sides agree?
+"""Parity: do a cartridge's two sources of the same part agree?
+
+THE GOLDEN-TWIN RULE (write-up §3.7, landed with the graph render lane)
+-----------------------------------------------------------------------
+This module compares TWO pairings now, not one, and the comparison itself is identical
+for both — see `COMPARABLE_PAIRS`:
+
+  (openscad, cadquery)  the cross-kernel comparison everything below describes.
+  (cadquery, graph)     the golden twin. A `.graph.json` is an AUTHORING format verified
+                        through its transpiled output, not a peer engine; where a graph
+                        is authored for a cartridge that already has a script, the
+                        script is the ORACLE and the graph must agree with it, at this
+                        bar, on every preset, before the script may be retired.
+
+Same gates, same tolerances, same warn tier, same per-part exemptions — because a graph
+that "agrees with its script" more loosely than the two kernels agree with each other
+would be a weaker claim wearing the same word. The 494 verified commons scripts are the
+test set the graphs are checked against, which is the strongest oracle available and
+already paid for.
+
+Neither commons graph cartridge has a twin today (`flange-plate` and `spacer-block` were
+both authored graph-first), so the rule fires on nothing yet. It is here before Wave E's
+twins rather than after, because a rule added after the twins exist is a rule the twins
+were never checked by.
+
+CROSS-KERNEL PARITY: do a dual-engine cartridge's two sides agree?
 
 `--render` (since #17) renders BOTH kernels of a dual-engine mode and judges each at
 the house mesh bar — watertight, positive volume, no inverted body. That proves each
@@ -240,15 +265,26 @@ class ParityCheck:
     reason: str = ""
     #: What each gate measured. Keys mirror verify_parity.check_mesh_parity_report.
     report: dict = field(default_factory=dict)
+    #: Which two sides this line compared, `("openscad", "cadquery")` or
+    #: `("cadquery", "graph")`. A cartridge that declares a script AND a graph for the
+    #: same mode produces TWO checks on the same (mode, part, preset), and without this
+    #: they print as duplicate lines that differ only in their numbers. Defaults to the
+    #: cross-kernel pairing so every caller predating the golden-twin rule is unchanged.
+    pairing: tuple[str, str] = ("openscad", "cadquery")
 
     def __bool__(self) -> bool:
         return self.ok
 
     @property
     def target(self) -> str:
+        # The pairing is named only when it is NOT the cross-kernel one, so the
+        # thousands of existing dual-engine lines keep their exact shape and a
+        # golden-twin line is legible at a glance.
+        suffix = "" if self.pairing == ("openscad", "cadquery") else \
+            f", {self.pairing[0]} vs {self.pairing[1]}"
         if self.preset:
-            return f"({self.mode}, {self.part}, preset '{self.preset}')"
-        return f"({self.mode}, {self.part})"
+            return f"({self.mode}, {self.part}, preset '{self.preset}'{suffix})"
+        return f"({self.mode}, {self.part}{suffix})"
 
     @property
     def _tolerance_note(self) -> str:
@@ -565,25 +601,51 @@ def check_mesh_parity(
     return compare_meshes(m1, m2, tolerance, placement=placement)
 
 
+#: The comparable pairings, in the order they are looked for on one target. Each is
+#: (A side, B side); A is the reference the message names first.
+#:
+#: (openscad, cadquery) is the cross-kernel comparison this module was built for.
+#: (cadquery, graph) is THE GOLDEN-TWIN RULE (write-up §3.7): a graph is an authoring
+#: format verified through its transpiled output, and where the cartridge it was
+#: authored for already has a script, the script is the ORACLE — the graph must agree
+#: with it before the script can be retired. The 494 verified scripts become the test
+#: set for the graphs, which is the strongest verification available and costs nothing.
+#: The comparison is the same comparison, deliberately: AABB, volume, placement,
+#: shape-after-alignment, the faceting warn tier and the per-part exemptions all apply
+#: unchanged, or "agrees with its script" would mean something weaker than "agrees with
+#: the other kernel".
+#:
+#: (openscad, graph) is NOT compared. On a cartridge with all three, the graph is
+#: pinned to the CadQuery script it was authored from and the CadQuery script is pinned
+#: to the OpenSCAD one; a third comparison adds a redundant edge whose failure is always
+#: one of the other two, reported twice.
+COMPARABLE_PAIRS = (("openscad", "cadquery"), ("cadquery", "graph"))
+
+
 def pair_renders(renders) -> list[tuple[object, object]]:
-    """The (openscad, cadquery) render pairs a parity pass can actually compare.
+    """The render pairs a parity pass can actually compare, for one cartridge.
 
-    A pair exists when the SAME (mode, part, preset) produced a judged mesh on BOTH
-    engines — `stl_path` set, so the mesh survived the render. A skipped lane (no
-    OpenSCAD binary) and a failed render both carry no path, and neither yields a
-    pair: comparing against a mesh that was never produced is not evidence of
-    agreement.
+    A pair exists when the SAME (mode, part, preset) produced a judged mesh on both
+    sides of one entry in `COMPARABLE_PAIRS` — `stl_path` set, so the mesh survived the
+    render. A skipped lane (no OpenSCAD binary) and a failed render both carry no path,
+    and neither yields a pair: comparing against a mesh that was never produced is not
+    evidence of agreement.
 
-    Ordered by (mode, part, preset) so output is diffable across runs. A/OpenSCAD
-    first, mirroring the platform's message shape.
+    A target can yield TWO pairs — a three-source cartridge compares openscad↔cadquery
+    and cadquery↔graph — and both are reported, because they are two different claims:
+    "the two kernels agree" and "the graph reproduces its script".
+
+    Ordered by (mode, part, preset) so output is diffable across runs, then by the
+    order of `COMPARABLE_PAIRS`.
     """
+    known = {e for pair in COMPARABLE_PAIRS for e in pair}
     by_key: dict[tuple, dict[str, object]] = {}
     for check in renders:
         path = getattr(check, "stl_path", None)
         if not path or not getattr(check, "ok", False):
             continue
         engine = getattr(check, "engine", None)
-        if engine not in ("openscad", "cadquery"):
+        if engine not in known:
             continue
         key = (check.mode, check.part, getattr(check, "preset", None))
         by_key.setdefault(key, {})[engine] = check
@@ -591,8 +653,9 @@ def pair_renders(renders) -> list[tuple[object, object]]:
     pairs = []
     for key in sorted(by_key, key=lambda k: (k[0], k[1], k[2] or "")):
         sides = by_key[key]
-        if "openscad" in sides and "cadquery" in sides:
-            pairs.append((sides["openscad"], sides["cadquery"]))
+        for a, b in COMPARABLE_PAIRS:
+            if a in sides and b in sides:
+                pairs.append((sides[a], sides[b]))
     return pairs
 
 
@@ -712,21 +775,29 @@ def parity_checks(
     without the manifest (or fix it) to see that pair compared.
     """
     out: list[ParityCheck] = []
-    for scad_check, cq_check in pair_renders(renders):
-        policy = resolve_parity_policy(doc, scad_check.mode, scad_check.part)
-        preset = getattr(scad_check, "preset", None)
+    for a_check, b_check in pair_renders(renders):
+        # The pairing is read off the renders rather than assumed, because a cartridge
+        # with a script AND a graph yields both (openscad, cadquery) and
+        # (cadquery, graph) on the same target — see COMPARABLE_PAIRS.
+        pairing = (
+            getattr(a_check, "engine", None) or "openscad",
+            getattr(b_check, "engine", None) or "cadquery",
+        )
+        policy = resolve_parity_policy(doc, a_check.mode, a_check.part)
+        preset = getattr(a_check, "preset", None)
 
         if not policy.enabled:
             # The comparison does not run — but the pair is still REPORTED, and still
             # counted. That is the difference between an exemption and a deletion.
             out.append(
                 ParityCheck(
-                    mode=scad_check.mode,
-                    part=scad_check.part,
+                    mode=a_check.mode,
+                    part=a_check.part,
                     preset=preset,
                     ok=True,
                     exempt=True,
                     reason=policy.reason or "no reason declared",
+                    pairing=pairing,
                 )
             )
             continue
@@ -737,15 +808,15 @@ def parity_checks(
             effective = policy.tolerance
             declared_tolerance = policy.tolerance
         agree, warn, reason, report = check_mesh_parity(
-            scad_check.stl_path,
-            cq_check.stl_path,
+            a_check.stl_path,
+            b_check.stl_path,
             effective,
             placement=policy.placement,
         )
         out.append(
             ParityCheck(
-                mode=scad_check.mode,
-                part=scad_check.part,
+                mode=a_check.mode,
+                part=a_check.part,
                 preset=preset,
                 ok=agree,
                 warn=warn,
@@ -753,6 +824,7 @@ def parity_checks(
                 effective_tolerance=declared_tolerance,
                 reason=reason,
                 report=report,
+                pairing=pairing,
             )
         )
     return out

@@ -169,7 +169,11 @@ def _cmd_check(args) -> int:
                         if tiers:
                             suffix += f" ({', '.join(tiers)})"
                     else:
-                        suffix += ", no dual-engine pair to compare"
+                        # Two ways to have no pair now: one engine (nothing to compare
+                        # across kernels), or a graph with no script twin (nothing to
+                        # compare it against under the golden-twin rule). Both are
+                        # legitimate and neither may read as "compared and agreed".
+                        suffix += ", no comparable pair"
             print(f"  ok {name} ({d}{suffix})")
             if args.verbose:
                 for check in result.renders:

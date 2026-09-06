@@ -175,6 +175,50 @@ switched off by switching the comparison off:
   a departure. An explicit `--parity-tolerance` beats a manifest one; no number
   overrides an exemption.
 
+## Graph cartridges and the VENDORED transpiler — read before touching `src/y4d_spec/graph/`
+
+A `.graph.json` mode is **not** a fourth renderer. The document is transpiled into a
+CadQuery script and rendered on the CadQuery path, so it clears the identical bar
+(watertight, body counts, B-Rep validity, assembly export, presets, `--parity`).
+
+**`src/y4d_spec/graph/graph_engine.py`, `graph.schema.json` and `graph-node-catalog.json`
+are VENDORED and must never be hand-edited.** They are byte-identical copies of
+yantra4d's `apps/api/services/engine/graph_engine.py` and `packages/schemas/*`, pinned by
+sha256 in `graph.lock.json` and enforced by the blocking
+`scripts/qa/check_graph_sync.py` lane. The byte-identity is the mechanism, not a tidiness
+preference: it is what makes a verdict here a verdict about the script the platform
+actually runs. If you need different behaviour, change the platform and re-vendor —
+`src/y4d_spec/graph/VENDORED.md` has the copy commands and the `--update` re-pin step.
+
+Two consequences that trip agents:
+
+- The vendored engine is **excluded from ruff** (`pyproject.toml`
+  `extend-exclude`). Two of its lines are 102 characters, which is yantra4d's limit.
+  Reformatting them would break the hash. Do not "fix" the lint by editing the copy.
+- **Do not bump `SPEC_PIN`** in the commons or on the platform as part of a re-vendoring
+  change. Re-vendor, re-pin the lock, land it; moving the consuming pins is a separate,
+  deliberate step.
+
+Everything the keystone *authors* around the engine — `graph_render.py`, the package
+`__init__.py`, the guard, the tests — is ordinary repo code and is linted normally.
+
+**The parameter contract.** `.py` cartridges get their parameters as bare globals
+(`exec_globals.update(params)`), and the transpiler emits against exactly that
+(`_param(lambda: plate_radius, 45.0)`, `_param(lambda: target_part, …)`, `result = …`),
+so no adapter lives in the emission. The keystone side is two calls to the platform's own
+code: `extract_bindings(manifest["parameters"])`, and `prepare_graph_script()` to
+materialise the script as a real `.py` (the sandbox gates on the suffix). Transpiling
+**without** the manifest produces a script whose every dimension is the graph's literal —
+it renders, and it ignores every preset — which is why `render_part_graph` takes it.
+
+**The golden-twin rule (write-up §3.7).** A graph is an authoring format verified through
+its transpiled output. Where a mode declares **both** a script and a graph
+(`"cq_file"` + `"graph_file"`), `--parity` compares them at the *same* bar as the
+cross-kernel comparison, and the graph must agree before the script may be retired. The
+line names the pairing (`parity (block, block, cadquery vs graph)`) whenever it is not
+the cross-kernel one. `(openscad, graph)` is deliberately not compared — it is a
+redundant edge that would report one of the other two failures twice.
+
 ## The `constraints[]` dialect — `safeFormula`, not expr-eval
 
 `project.json`'s `constraints[]` are evaluated **client-side in the Studio** by a
