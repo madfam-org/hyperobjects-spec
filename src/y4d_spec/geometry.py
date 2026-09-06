@@ -79,6 +79,7 @@ import math
 import os
 import sys
 import tempfile
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -189,6 +190,12 @@ class RenderCheck:
     #: or a reader counts a skipped lane as a passed one. Same posture as
     #: bridge_check.LinkVerdict.geometry_skipped.
     skipped: str | None = None
+    #: Where this render's STL was kept, when the caller asked for it (`stl_dir`).
+    #: Normally None: a render exports into a TemporaryDirectory that dies with the
+    #: call, because the verdict is the product and the mesh is scratch. The one
+    #: caller that needs the mesh AFTERWARDS is the cross-kernel parity pass
+    #: (parity.py), which has nothing to compare unless both sides survive.
+    stl_path: str | None = None
 
     def __bool__(self) -> bool:
         return self.ok
@@ -325,6 +332,40 @@ def _export_stl(result, out_path: str) -> None:
 
 
 
+@contextmanager
+def _stl_target(stl_dir: Path | None, engine: str, mode: str, part: str, preset: str | None):
+    """Where one render writes its STL: a caller-owned dir, else a scratch one.
+
+    Two shapes behind one `with`, so neither renderer grows an if/else around its
+    whole body. With no `stl_dir` the behaviour is exactly what it was — a
+    TemporaryDirectory that takes the mesh with it.
+    """
+    if stl_dir is None:
+        with tempfile.TemporaryDirectory() as tmp:
+            yield os.path.join(tmp, "out.stl")
+        return
+    stl_dir.mkdir(parents=True, exist_ok=True)
+    yield str(stl_dir / stl_name(engine, mode, part, preset))
+
+
+def stl_name(engine: str, mode: str, part: str, preset: str | None) -> str:
+    """A collision-free filename for a retained STL.
+
+    Retention (`stl_dir`) exists for the parity pass, which must hold BOTH kernels'
+    meshes for the same (mode, part, preset) at once — so the engine has to be in the
+    name, and so does the preset, or a preset render silently overwrites the
+    default-params one it is meant to be distinguished from. Non-`[A-Za-z0-9._-]`
+    characters are replaced: a mode or part id is manifest data, not a filename.
+    """
+    def _safe(text: str) -> str:
+        return "".join(c if (c.isalnum() or c in "._-") else "_" for c in text)
+
+    stem = f"{_safe(engine)}__{_safe(mode)}__{_safe(part)}"
+    if preset:
+        stem += f"__preset_{_safe(preset)}"
+    return stem + ".stl"
+
+
 def render_part(
     cartridge_dir: Path,
     script_file: str,
@@ -334,6 +375,7 @@ def render_part(
     params: dict | None = None,
     preset: str | None = None,
     printability: bool = False,
+    stl_dir: Path | None = None,
 ) -> RenderCheck:
     """Render one (mode, part) and judge the mesh.
 
@@ -346,6 +388,11 @@ def render_part(
     `printability=True` adds the non-blocking measurements from printability.py to
     `notes` — only on a render that already passed, because wall thickness measured on
     a holed mesh is a number that means nothing.
+
+    `stl_dir` keeps the exported STL there instead of in a TemporaryDirectory that
+    dies with the call, and records the path on the check. The parity pass is the
+    caller that needs it: it has nothing to compare unless both kernels' meshes
+    outlive their own renders.
     """
     _, trimesh = _require_geometry()
 
@@ -378,8 +425,7 @@ def render_part(
             ],
         )
 
-    with tempfile.TemporaryDirectory() as tmp:
-        stl = os.path.join(tmp, "out.stl")
+    with _stl_target(stl_dir, "cadquery", mode, part, preset) as stl:
         try:
             _export_stl(result, stl)
         except Exception as exc:
@@ -399,6 +445,7 @@ def render_part(
             printability=printability,
             engine="cadquery",
             problems=problems,
+            keep=stl_dir is not None,
         )
 
 
@@ -411,6 +458,7 @@ def _judge_stl(
     printability: bool,
     engine: str | None = None,
     problems: list[str] | None = None,
+    keep: bool = False,
 ) -> RenderCheck:
     """The mesh bar, applied to an STL on disk. THE bar — there is exactly one.
 
@@ -489,6 +537,10 @@ def _judge_stl(
         extents=tuple(float(x) for x in mesh.extents),
         preset=preset,
         engine=engine,
+        # Only a mesh that WILL still be on disk is recorded. `keep` is the caller
+        # saying it owns the directory; without it the path is about to be deleted and
+        # a recorded path would be a promise this function cannot keep.
+        stl_path=stl_path if keep else None,
     )
 
     # Printability runs only on a mesh that already passed: these measurements are
@@ -587,6 +639,7 @@ def check_geometry(
     library_paths: list[Path] | None = None,
     require_openscad: bool = False,
     openscad_timeout: int = OPENSCAD_TIMEOUT_S,
+    stl_dir: Path | None = None,
 ) -> list[RenderCheck]:
     """Render every (mode, part) the manifest declares and judge each mesh.
 
@@ -608,6 +661,12 @@ def check_geometry(
     Also asserts that the cartridge's modes are DISTINCT: two modes rendering
     byte-identical geometry means the target_part dispatch is not wired, and the user
     picking mode B silently gets mode A.
+
+    `stl_dir` retains every rendered STL there and records the path on each check.
+    That is what the cross-kernel parity pass (parity.py) consumes — it compares the
+    two kernels' meshes for the same target, and cannot if either was thrown away
+    with its render. The directory is the CALLER's to create and clean up; passing
+    None (the default) is the old behaviour exactly.
     """
     from .openscad import openscad_binary, render_part_openscad
     from .rules import parameter_defaults, preset_changes_anything, preset_targets, render_targets
@@ -629,8 +688,17 @@ def check_geometry(
         *,
         params: dict | None = None,
         preset: str | None = None,
+        keep_stl: bool = True,
     ) -> RenderCheck:
-        """One render, on whichever engine, tagged with the engine that produced it."""
+        """One render, on whichever engine, tagged with the engine that produced it.
+
+        `keep_stl=False` renders into scratch even under `stl_dir`. The fallback
+        render (the sentinel target the distinct-modes check probes with) is the one
+        caller that wants that: it is a diagnostic body no user can ask for, its two
+        engines' else-branches are unrelated meshes by construction, and retaining it
+        would hand the parity pass a pair to compare that is not a declared target.
+        """
+        target_stl_dir = stl_dir if keep_stl else None
         if engine == "openscad":
             if binary is None:
                 # No kernel here. A skip stays `ok` — a cartridge is not
@@ -667,6 +735,7 @@ def check_geometry(
                 library_paths=library_paths,
                 timeout=openscad_timeout,
                 binary=binary,
+                stl_dir=target_stl_dir,
             )
         else:
             check = render_part(
@@ -677,6 +746,7 @@ def check_geometry(
                 params=params,
                 preset=preset,
                 printability=printability,
+                stl_dir=target_stl_dir,
             )
         check.engine = engine
         return check
@@ -728,7 +798,11 @@ def check_geometry(
             continue  # nothing rendered on this side; nothing to compare against
 
         fb = _render(
-            engine, fb_source, "__y4d_spec_fallback__", "__y4d_spec_fallback__"
+            engine,
+            fb_source,
+            "__y4d_spec_fallback__",
+            "__y4d_spec_fallback__",
+            keep_stl=False,
         )
         if not (fb.ok and fb.volume):
             continue

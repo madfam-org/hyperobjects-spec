@@ -28,6 +28,7 @@ from .geometry import (
     RenderCheck,
     _judge_stl,
     _require_geometry,
+    _stl_target,
 )
 
 __all__ = [
@@ -306,6 +307,7 @@ def render_part_openscad(
     library_paths: list[Path] | None = None,
     timeout: int = OPENSCAD_TIMEOUT_S,
     binary: str | None = None,
+    stl_dir: Path | None = None,
 ) -> RenderCheck:
     """Render one (mode, part) with OpenSCAD and judge the mesh at the same bar.
 
@@ -313,6 +315,10 @@ def render_part_openscad(
     ``parts[].render_mode``); ``target_part`` is additionally passed as a ``-D`` string
     so a cartridge that dispatches on the name rather than the number also lands on the
     right branch. Both are what the platform sends.
+
+    `stl_dir` keeps the rendered STL there rather than in a TemporaryDirectory that
+    dies with the call — see geometry._stl_target. The parity pass is why: it compares
+    this mesh against the CadQuery side's, and cannot if either is already gone.
 
     A binary that is absent is the CALLER's problem to classify — this function is only
     reached once one was found — so it raises rather than inventing a skip here, where
@@ -332,8 +338,7 @@ def render_part_openscad(
     call_params = dict(params or {})
     call_params["target_part"] = part
 
-    with tempfile.TemporaryDirectory() as tmp:
-        out = os.path.join(tmp, "out.stl")
+    with _stl_target(stl_dir, "openscad", mode, part, preset) as out:
         cmd = build_openscad_command(
             binary,
             out,
@@ -404,6 +409,7 @@ def render_part_openscad(
             preset=preset,
             printability=printability,
             engine="openscad",
+            keep=stl_dir is not None,
         )
 
 

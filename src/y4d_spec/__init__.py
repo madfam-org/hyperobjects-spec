@@ -15,16 +15,20 @@ scripts/qa/validate_manifests.py, scripts/audit_compliance.py,
 scripts/qa/compliance_audit.py, scripts/qa/check_licenses.py, and the manifest
 strictness gate in apps/api/manifest.py. Each rule names its source in `rules.py`.
 
-Repo-WIDE checks (catalog drift, cross-cartridge slug uniqueness, OpenSCAD/CadQuery
-geometric parity) deliberately stay in the platform: they are not properties of a
-cartridge, so a third party could not run them anyway.
+Repo-WIDE checks (catalog drift, cross-cartridge slug uniqueness) deliberately stay in
+the platform: they are not properties of a cartridge, so a third party could not run
+them anyway. OpenSCAD/CadQuery geometric parity used to be on that list and no longer
+is — it IS a property of one cartridge, and `--render --parity` compares the two
+kernels here at the platform's own gates (see parity.py).
 
 With the [geometry] extra installed, `--render` executes the cartridge through the
 same restricted sandbox the platform uses (commons_sandbox, per cq_runner.py) for
 every (mode, part) and asserts the mesh is watertight, has positive volume, and
 contains no inverted body. It does that at TWO parameter points: the cartridge's own
 defaults, and every PRESET the manifest declares — the points a user actually clicks
-(`--no-presets` opts out). It also reports printability MEASUREMENTS — thin walls,
+(`--no-presets` opts out). `--parity` adds the cross-kernel comparison on top: a
+dual-engine cartridge renders both sides, and this is what proves they are the SAME
+solid rather than merely two solids. It also reports printability MEASUREMENTS — thin walls,
 overhangs, build volume — as notes that never fail a cartridge (`--no-printability`
 opts out); their thresholds are provisional pending full-commons calibration.
 """

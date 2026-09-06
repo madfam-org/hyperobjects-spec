@@ -35,6 +35,7 @@ from hyperobjects_schemas.identity import check_identity_file
 
 from .conformance import check_cartridge
 from .geometry import OPENSCAD_TIMEOUT_S
+from .parity import AABB_WARN_BAND, PARITY_TOLERANCE
 
 
 def _cmd_check(args) -> int:
@@ -71,10 +72,20 @@ def _cmd_check(args) -> int:
             if not lib.is_dir():
                 print(f"  ERROR --openscad-path {lib}: not a directory")
                 return 2
-    elif args.require_openscad or args.openscad_path:
+    elif args.require_openscad or args.openscad_path or args.parity:
         # These only mean something under --render, and silently ignoring them is how
-        # a CI job that MEANT to require OpenSCAD passes having rendered nothing.
-        print("  ERROR --require-openscad/--openscad-path only apply with --render")
+        # a CI job that MEANT to require OpenSCAD — or MEANT to compare both kernels —
+        # passes having rendered nothing and compared nothing.
+        print(
+            "  ERROR --require-openscad/--openscad-path/--parity only apply with --render"
+        )
+        return 2
+
+    if args.parity_tolerance is not None and not args.parity:
+        print("  ERROR --parity-tolerance only applies with --parity")
+        return 2
+    if args.parity_tolerance is not None and args.parity_tolerance <= 0:
+        print("  ERROR --parity-tolerance must be > 0")
         return 2
 
     failures = 0
@@ -82,6 +93,10 @@ def _cmd_check(args) -> int:
     skipped_targets = 0
     preset_targets = 0
     total_notes = 0
+    parity_pairs = 0
+    parity_ok = 0
+    parity_warned = 0
+    parity_failed = 0
     for d in args.cartridges:
         try:
             result = check_cartridge(
@@ -92,6 +107,8 @@ def _cmd_check(args) -> int:
                 library_paths=library_paths,
                 require_openscad=args.require_openscad,
                 openscad_timeout=args.openscad_timeout,
+                parity=args.parity,
+                parity_tolerance=args.parity_tolerance,
             )
         except OSError as exc:
             print(f"  ERROR {d}: cannot read — {exc}")
@@ -103,6 +120,10 @@ def _cmd_check(args) -> int:
         skipped_targets += len(result.skipped_renders)
         preset_targets += len(result.preset_renders)
         total_notes += len(result.notes)
+        parity_pairs += len(result.parity)
+        parity_warned += len(result.parity_warnings)
+        parity_failed += len(result.parity_failures)
+        parity_ok += len([c for c in result.parity if c.ok and not c.warn])
 
         if result.ok:
             suffix = ""
@@ -117,24 +138,54 @@ def _cmd_check(args) -> int:
                 n_skipped = len(result.skipped_renders)
                 if n_skipped:
                     suffix += f", {n_skipped} skipped"
+                # A parity pass that found NO pairs is said out loud. A single-engine
+                # cartridge has nothing to compare and that is fine, but silence here
+                # would read exactly like a cartridge whose two kernels were checked
+                # and agreed.
+                if result.parity_ran:
+                    n_pairs = len(result.parity)
+                    if n_pairs:
+                        suffix += f", {n_pairs} parity pair(s) agree"
+                        n_warn = len(result.parity_warnings)
+                        if n_warn:
+                            suffix += f" ({n_warn} faceting warn)"
+                    else:
+                        suffix += ", no dual-engine pair to compare"
             print(f"  ok {name} ({d}{suffix})")
             if args.verbose:
                 for check in result.renders:
                     print(f"       {check.summary}")
+                for pcheck in result.parity:
+                    print(f"       {pcheck.summary}")
         else:
             failures += 1
             for prob in result.problems:
                 print(f"  FAIL {name}: {prob}")
+            if args.verbose:
+                for check in result.renders:
+                    print(f"       {check.summary}")
+                for pcheck in result.parity:
+                    print(f"       {pcheck.summary}")
 
         # Notes print for pass and fail alike, and never change the exit code.
         for note in result.notes:
             print(f"  note {name}: {note}")
 
     geom = "verified" if args.render else "NOT verified (pass --render)"
+    # `parity=N/M ok, warn=K, failures=J` — N+K+J = M by construction, so a reader can
+    # see at a glance that every pair is accounted for. Absent without --parity rather
+    # than printed as zero: "parity=0/0" on a run that never compared anything reads
+    # like a run that compared and found nothing wrong.
+    parity_part = ""
+    if args.parity:
+        parity_part = (
+            f" parity={parity_ok}/{parity_pairs} ok, warn={parity_warned}, "
+            f"failures={parity_failed}"
+        )
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
-        f"presets={preset_targets} skipped={skipped_targets}"
+        f"presets={preset_targets} skipped={skipped_targets}{parity_part}"
     )
     return 1 if failures else 0
 
@@ -232,14 +283,33 @@ def _cmd_rules(args) -> int:
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
-    print("  7. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
+    print("  7. cross-kernel PARITY (--render --parity): a dual-engine target renders on")
+    print("       both kernels above, and this is what proves the two are the SAME solid")
+    print("       rather than merely two solids. Compared per (mode, part, preset) that")
+    print("       rendered on BOTH sides, at the platform's own gates and numbers")
+    print("       (yantra4d scripts/qa/verify_parity.py):")
+    print(f"         a. AABB extents — max per-axis delta > {PARITY_TOLERANCE}mm FAILS,")
+    print(f"            except inside the {AABB_WARN_BAND}mm faceting band (see c);")
+    print("            --parity-tolerance overrides this gate and only this gate.")
+    print("         b. volume — delta > max(tolerance*100, 2% of the larger) FAILS,")
+    print("            checked only when both sides are watertight.")
+    print("         c. Hausdorff surface proxy (max divergence, both directions). An")
+    print("            AABB delta inside the band is downgraded from FAIL to a WARN")
+    print("            only when this gate ALSO passes (surfaces within 0.5mm): an")
+    print("            OpenSCAD $fn polygon is a chord approximation of a circle")
+    print("            CadQuery models analytically, and the largest such delta in")
+    print("            the commons (0.036674mm) sits an order of magnitude below the")
+    print("            smallest genuine divergence (0.516728mm). A dimensional error")
+    print("            inside the band moves a surface and still fails here. G27,")
+    print("            ruled 2026-09-05. A warn is a NOTE, never a failure.")
+    print("       A pair exists only where two meshes exist: a skipped OpenSCAD lane")
+    print("       yields no pairs, and the ok line says so rather than staying silent.")
+    print("  8. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
     print("       version + AppImage checksum, and fonts policy that the platform image,")
     print("       the commons CI and the CI runner image all read from here instead of")
     print("       each keeping their own copy. See y4d_spec.render_environment.")
-    print("\nRepo-wide checks (catalog drift, cross-cartridge slug uniqueness,")
-    print("OpenSCAD/CadQuery geometric PARITY — this checker renders both sides but does")
-    print("not compare them to each other) stay in the platform — they are not")
-    print("properties of a single cartridge.")
+    print("\nRepo-wide checks (catalog drift, cross-cartridge slug uniqueness) stay in")
+    print("the platform — they are not properties of a single cartridge.")
     return 0
 
 
@@ -290,6 +360,25 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         metavar="S",
         help=f"seconds one OpenSCAD render may take (default {OPENSCAD_TIMEOUT_S})",
+    )
+    p_check.add_argument(
+        "--parity",
+        action="store_true",
+        help="under --render, also COMPARE the two kernels of every dual-engine "
+        "target that rendered on both — AABB extents, volume and a Hausdorff "
+        "surface proxy, at the platform's own gates. A disagreement is a failure; "
+        "an AABB delta inside the 0.05mm faceting band whose surfaces agree is a "
+        "warn, not a failure (G27)",
+    )
+    p_check.add_argument(
+        "--parity-tolerance",
+        type=float,
+        default=None,
+        metavar="MM",
+        help=f"under --parity, the AABB extents tolerance in mm (default "
+        f"{PARITY_TOLERANCE}). The faceting warn band ({AABB_WARN_BAND}mm) and the "
+        f"2%% volume allowance are NOT scaled by it: they are the platform's, and a "
+        f"local override of one gate must not silently move the others",
     )
     p_check.add_argument(
         "-v", "--verbose", action="store_true", help="print each render's measurements"
