@@ -340,10 +340,27 @@ def _exec_cartridge(script_path: str, params: dict):
 
 
 def _export_stl(result, out_path: str) -> None:
-    """Export to STL. Mirrors cq_runner's Assembly-vs-Workplane branch (cq_runner:100)."""
+    """Export to STL. Mirrors cq_runner's Assembly-vs-Workplane branch (cq_runner:100).
+
+    The Assembly branch flattens to a compound FIRST and then goes through the same
+    `cq.exporters.export` the Workplane branch uses, instead of `Assembly.save`.
+    `Assembly.save` is `@deprecate()`d in CadQuery 2.7 — "will be removed in the next
+    release" — and 22 commons cartridges return assemblies, so every one of them rides
+    this branch: leaving `save` here is a fleet-wide break at the next kernel bump, for
+    nothing. It is not a behaviour change either. `Assembly.save` forwards to
+    `Assembly.export`, whose STL arm is literally
+    `self.toCompound().exportStl(path, tolerance, angularTolerance, ascii)`, and
+    `cq.exporters.export(shape, path, "STL")` calls the same
+    `shape.exportStl(fname, tolerance, angularTolerance, useascii)` with the same
+    defaults (0.1 deflection / 0.1 angular / binary). The tolerances stay implicit here
+    precisely because both paths read them from the same `export` defaults — pinning
+    them on one side only would be the change. Verified byte-identical on the `zipper`
+    cartridge (`closed/tape_left`, 36 bodies): sha256 05a22cc0…, 2 163 284 bytes both
+    ways.
+    """
     cq, _ = _require_geometry()
     if isinstance(result, cq.Assembly):
-        result.save(out_path, "STL")
+        cq.exporters.export(result.toCompound(), out_path, "STL")
     else:
         cq.exporters.export(result, out_path, "STL")
 
