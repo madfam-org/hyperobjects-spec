@@ -420,14 +420,21 @@ def verification_rules(doc: dict) -> list[str]:
 
     A tolerance at or BELOW the default is a tightening: it makes the bar stricter, so
     it owes no explanation. `enabled: true` with no tolerance is the default written
-    out longhand and is not a departure either.
+    out longhand and is not a departure either. Nor is `placement: "strict"` (G39) —
+    that too only tightens, and it is validated for spelling here rather than left to
+    fall back silently to the loose value.
 
     The reason must be non-empty after stripping. It is not otherwise policed here —
     "must name the kernel idiom that differs" is a review standard (`y4d-spec rules`),
     and a rule that tried to grade prose would be a rule that could be satisfied by
     padding.
     """
-    from .parity import PARITY_CHECK_KEY, PARITY_OVERRIDE_KEY, PARITY_TOLERANCE
+    from .parity import (
+        PARITY_CHECK_KEY,
+        PARITY_OVERRIDE_KEY,
+        PARITY_TOLERANCE,
+        PLACEMENT_MODES,
+    )
 
     problems: list[str] = []
     verification = doc.get("verification")
@@ -455,6 +462,12 @@ def verification_rules(doc: dict) -> list[str]:
         if reason is not None and not isinstance(reason, str):
             problems.append(f"{where}.reason: must be a string")
             reason = None
+        placement = block.get("placement")
+        if placement is not None and placement not in PLACEMENT_MODES:
+            problems.append(
+                f"{where}.placement: must be one of {', '.join(PLACEMENT_MODES)} "
+                "— an unrecognised value would silently fall back to the loose one"
+            )
 
         has_reason = isinstance(reason, str) and reason.strip() != ""
         widened = (

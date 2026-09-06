@@ -172,9 +172,12 @@ disagree about what "agree" means:
    with it, so widening one gate cannot silently move the others.
 2. **Volume** — over `max(tolerance × 100, 2% of the larger)` fails. Checked only when
    both sides are watertight.
-3. **Hausdorff surface proxy** — the maximum divergence between the two surfaces, both
-   directions. Over `max(tolerance, 0.5mm)` on a pair that already passed 1 and 2 is
-   tessellation noise and is recorded, not failed.
+3. **Placement** — the offset between the two meshes' AABB centres, printed as
+   `placement offset d=(dx,dy,dz) |d|=X mm`. Over `0.05mm` it is a **note**; it is a
+   **failure** only when the manifest declares `"placement": "strict"`.
+4. **Shape** — the Hausdorff surface proxy (maximum divergence, both directions)
+   measured **after** that offset is removed. Over `max(tolerance, 0.5mm)` it **fails**.
+   A proxy that could not be measured fails too.
 
 **Why the warn tier exists.** An OpenSCAD `$fn` polygon is a chord approximation of the
 circle CadQuery models analytically, so a perfectly correct dual-engine cartridge has two
@@ -189,6 +192,38 @@ delta is downgraded to a warn only when it is inside the band **and** the surfac
 fails. A surface divergence that could not be *measured* is not a pass either. (G27,
 ruled 2026-09-05.)
 
+**Why placement and shape are separate numbers (G39).** Gate 3 used to be what the
+platform makes it — recorded, never failing on its own. On the first full `--parity`
+sweep that let **nineteen** pairs through reporting `ok — Meshes are identical within
+X mm tolerance` with X as large as **65 mm**. "Identical within 65 mm" is not a sentence
+anyone should read as agreement, and behind that one number were two different problems.
+Some pairs were a genuine **shape** difference: `gears` `spur_gear` was a trapezoid tooth
+on one kernel against a true involute on the other, 2.5–5.0 mm apart (repaired in solid
+#77). The rest were a **placement** offset — one kernel centres the part at the origin,
+the other anchors a corner or a face. `relief`'s 44.72 mm is exactly √(40² + 20²), the
+half-diagonal of its plate; `soft-jaw`'s 9.525 mm is 3/8 inch. The part is the same part,
+moved.
+
+Both hid behind one number because the proxy sampled raw vertices with **no alignment**,
+so a rigid translation read exactly like a deformation — and gates 1 and 2 cannot
+separate them either, since translating a solid changes neither its extents nor its
+volume. **Extents and volume together cannot distinguish "same part, different origin"
+from "different part."** Only a measurement that removes the offset can. So the offset is
+measured first (from the two AABB centres — a centroid is volume-weighted, so a shape
+error would leak into the number meant to isolate placement), reported on its own, and
+subtracted before the surfaces are compared.
+
+The two then get different verdicts, because they mean different things to different
+consumers. A slicer re-centres the part on the bed, so an offset costs a print nothing;
+an **assembly or an animation** places parts by their model origin, and there the offset
+*is* the bug. A cartridge therefore opts in: placement is a note by default and a failure
+under `"placement": "strict"`, which is a tightening and needs no `reason`. Shape has no
+such excuse — two surfaces that still diverge once they sit on top of each other are two
+different objects — so it fails. The `ok` wording moved with it: `Meshes are identical
+within X mm` now appears only where X is inside the tolerance, and otherwise the line
+reads `surfaces agree to X mm`, the phrase the warn tier already used. (G39, ruled
+2026-09-06.)
+
 ```
 $ y4d-spec check ./spiral-planter ./maze --render --parity -v --openscad-path ../libs
   ok spiral-planter (./spiral-planter, 4 render(s) verified, 2 parity pair(s) agree (2 faceting warn))
@@ -196,8 +231,37 @@ $ y4d-spec check ./spiral-planter ./maze --render --parity -v --openscad-path ..
          (faceting warn, within 0.05mm; surfaces agree to 0.033569mm).
   FAIL maze: parity (coaster, coaster): FAIL — Bounding boxes differ by 0.516728mm
          (A: [100.0, 99.45218953682733, 5.0], B: [100.0, 99.96891784667969, 5.0])
-y4d-spec check: ... parity=1/4 ok, warn=2, failures=1
+y4d-spec check: ... parity=1/4 ok, warn=2, exempt=0, placement=0, failures=1
 ```
+
+A pair whose two kernels model the same part at different origins reads like this — the
+offset leads, because it is the finding:
+
+```
+  ok relief (./relief, 28 render(s) verified (22 preset), 14 parity pair(s) agree
+       (12 placement offset))
+       parity (plaque, plaque): ok (placement) — placement offset
+         d=(-40.000000, -20.000000, 0.000000) |d|=44.721360mm — the same shape at a
+         different origin (surfaces agree to 0.374485mm after alignment)
+```
+
+That `44.72` is √(40² + 20²) — half the diagonal of the plate, so one kernel puts the
+plate's corner where the other puts its centre. Before G39 the same pair reported
+`ok — Meshes are identical within 44.721360mm tolerance`. A pair whose surfaces really
+differ now reads like this instead, and fails:
+
+```
+  FAIL locking-mechanism-hyperobject: parity (slip_joint, blade): FAIL — surfaces
+         diverge by 3.436337mm after alignment (placement offset
+         d=(0.000000, 0.000000, 0.000000) |d|=0.000000mm)
+```
+
+— zero offset, so nothing about origins explains it: the two kernels model a different
+blade. Before G39 that too was an `ok` line.
+
+`placement=P` in the summary counts the first kind. It is a **subset** of the `ok` count,
+not a fifth bucket — those pairs agree — so `N + K + E + J = M` still holds; it is
+printed so a reader can see how many passes owe themselves to nothing but a re-centring.
 
 A failure is a **conformance failure** and exits nonzero; a faceting warn is a **note**
 and never is. A pair exists only where two meshes exist, so a skipped OpenSCAD lane
@@ -221,7 +285,8 @@ that this comparison does not apply — but only out loud:
 ```jsonc
 "verification": {
   "stages": { "geometry": { "checks": {
-    "parity": { "enabled": true, "tolerance": 0.05, "reason": "…" }   // the base
+    "parity": { "enabled": true, "tolerance": 0.05,                   // the base
+                "placement": "free", "reason": "…" }
   } } },
   "mode_overrides": { "<mode>": { "part_overrides": { "<part>": {
     "geometry.parity": { "enabled": false, "reason": "…" }            // per part
@@ -242,6 +307,10 @@ second. Then:
   <reason>` as a **note**, on every run. It is counted separately in the summary
   (`exempt=E`, so `N+K+E+J = M`), because an exemption that shrank the denominator would
   let a manifest make the bar look cleaner than it is.
+- `placement` is `"free"` (default) or `"strict"` (G39): under `"strict"` an origin
+  offset above `0.05mm` is a **failure** rather than a note. It needs no `reason` — it
+  only tightens the bar, like a tolerance below the default — but a misspelled value is
+  a conformance failure rather than a silent fall back to the loose one.
 - A widened `tolerance` applies to **gate 1 only**, exactly as `--parity-tolerance` does,
   and the effective value is printed in the line: `parity (planter, saucer): ok
   (tolerance 0.06mm) — …`. An explicit `--parity-tolerance` beats a manifest one (an
