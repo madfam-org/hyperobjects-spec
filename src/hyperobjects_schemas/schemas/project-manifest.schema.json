@@ -68,6 +68,16 @@
                 "industrial",
                 "medical",
                 "commercial",
+                "infrastructure",
+                "agriculture",
+                "construction",
+                "energy",
+                "wearable",
+                "consumer-electronics",
+                "soft-robotics",
+                "consumer",
+                "electronics",
+                "play",
                 "hybrid"
               ]
             },
@@ -139,8 +149,13 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "icon": { "type": "string", "description": "Emoji or icon character" },
-                  "text": { "$ref": "#/$defs/i18nString" }
+                  "icon": {
+                    "type": "string",
+                    "description": "Emoji or icon character"
+                  },
+                  "text": {
+                    "$ref": "#/$defs/i18nString"
+                  }
                 }
               }
             },
@@ -202,7 +217,10 @@
             "type": "object",
             "description": "Map of part ID to quantity formula (string) or constant (number). Formulas can reference parameter IDs. Parts not listed default to quantity 1.",
             "additionalProperties": {
-              "type": ["string", "number"]
+              "type": [
+                "string",
+                "number"
+              ]
             }
           },
           "estimate": {
@@ -350,10 +368,20 @@
             "items": {
               "type": "object",
               "properties": {
-                "value": { "type": ["string", "number"] },
-                "label": { "$ref": "#/$defs/i18nString" }
+                "value": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
+                "label": {
+                  "$ref": "#/$defs/i18nString"
+                }
               },
-              "required": ["value", "label"]
+              "required": [
+                "value",
+                "label"
+              ]
             }
           },
           "binding": {
@@ -383,7 +411,9 @@
                 "description": "Why this parameter is declared but never referenced — e.g. reserved for a mode not yet written, or read by a consumer other than the geometry sources."
               }
             },
-            "required": ["reason"],
+            "required": [
+              "reason"
+            ],
             "additionalProperties": false
           },
           "widget": {
@@ -1138,6 +1168,15 @@
           "medical",
           "commercial",
           "infrastructure",
+          "agriculture",
+          "construction",
+          "energy",
+          "wearable",
+          "consumer-electronics",
+          "soft-robotics",
+          "consumer",
+          "electronics",
+          "play",
           "hybrid"
         ],
         "description": "Primary deployment domain per the Hyperobject taxonomy."
@@ -1175,6 +1214,16 @@
                 "profile",
                 "spline",
                 "surface",
+                "flange",
+                "boss",
+                "threaded_socket",
+                "seal",
+                "hinge",
+                "screen",
+                "port",
+                "engraving",
+                "polyhedron",
+                "fem_mesh",
                 "custom"
               ],
               "description": "Category of the geometric interface."
@@ -1276,7 +1325,10 @@
         },
         "placement": {
           "type": "string",
-          "enum": ["free", "strict"],
+          "enum": [
+            "free",
+            "strict"
+          ],
           "default": "free",
           "description": "Whether the two kernels must place this part at the same origin (G39, ruled 2026-09-06). \"free\" (the default): an AABB-centre offset above 0.05mm is reported as a note and the pair still agrees, because a slicer re-centres the part on the bed. \"strict\": the same offset is a FAILURE — for assemblies and animations, which place parts by their model origin. Needs no `reason`: strict is a tightening."
         },
