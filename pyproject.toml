@@ -70,6 +70,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 fc_spec = ["schemas/*.json"]
 hyperobjects_schemas = ["schemas/*.json"]
+"y4d_spec.graph" = ["*.json", "VENDORED.md"]
 # The lexicon corpus is data the package ships and is the only reader of. One JSON
 # file per term (see hyperobjects_lexicon/lexicon.py for why JSON, not YAML).
 hyperobjects_lexicon = ["terms/*.json", "catalogs/*.json", "vocabularies/*.json"]

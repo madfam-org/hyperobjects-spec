@@ -70,3 +70,31 @@ def test_the_constraints_description_names_the_real_evaluator():
     # The three limits an author actually trips over.
     assert "NO function calls" in description or "no function calls" in description.lower()
     assert "256" in description and "128" in description
+
+
+def test_manifest_enums_carry_the_device_geometry_vocabulary():
+    """yantra4d#141 (2ed564d) extended the manifest vocabulary for the device-geometry
+    families: `hinge`, `screen` and `port` interface types and the `consumer-electronics`
+    domain, plus the values already in use across the commons. The commons CI validates
+    with THIS copy of the schema (solid-hyperobjects ci.yml pins hyperobjects-spec), so
+    the two copies must carry the same closed lists or a cartridge that is green in
+    yantra4d fails here."""
+    schema = hs.load("project-manifest")
+    hyperobject = schema["hyperobject"]["properties"]
+    nested = schema["properties"]["project"]["properties"]["hyperobject"]["properties"]
+    interfaces = hyperobject["cdg_interfaces"]["items"]["properties"]
+    geometry_types = interfaces["geometry_type"]["enum"]
+    expected_types = (
+        "hinge", "screen", "port", "flange", "boss", "threaded_socket",
+        "seal", "engraving", "polyhedron", "fem_mesh",
+    )
+    for value in expected_types:
+        assert value in geometry_types, value
+    expected_domains = (
+        "consumer-electronics", "wearable", "agriculture", "construction",
+        "energy", "soft-robotics", "play", "infrastructure",
+    )
+    for domains in (hyperobject["domain"]["enum"], nested["domain"]["enum"]):
+        for value in expected_domains:
+            assert value in domains, value
+    assert hyperobject["domain"]["enum"] == nested["domain"]["enum"], "domain enums drifted"
