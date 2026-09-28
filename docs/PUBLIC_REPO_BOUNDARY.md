@@ -13,3 +13,6 @@ Enclii owns routine deployment, observability and secret intake. Record missing
 platform capabilities privately; do not add a raw production-access fallback.
 Licensing, governance and access rulings remain with the operator. A test skip or
 unavailable dependency is not verification, and a pending CI run is not green.
+
+Canonical policy: [MADFAM repository boundary contract](https://github.com/madfam-org/internal-devops/blob/main/docs/repo-boundary-contract.md).
+The [public ecosystem contract hub](https://github.com/madfam-org/solarpunk-foundry) owns shared ecosystem guidance; private operational evidence stays in Internal DevOps.
