@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "units": "mm",
+  "meta": {
+    "title": "Graph Twin (divergent)",
+    "notes": "DELIBERATELY WRONG. The block node is 12mm where the script twin's cube is 10mm, so the golden-twin comparison must FAIL. Exists so the rule is proved to be able to fail, not only to pass — a gate only ever seen green is a gate nobody has tested."
+  },
+  "nodes": [
+    { "id": "block", "type": "box", "params": { "w": 12, "d": 12, "h": 12 } },
+    { "id": "plate", "type": "box", "params": { "w": 20, "d": 20, "h": 2 } }
+  ],
+  "outputs": {
+    "block": "block",
+    "plate": "plate"
+  }
+}

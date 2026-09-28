@@ -39,7 +39,22 @@ runbook.
   - `openscad.py` — the platform's own OpenSCAD command line and env.
   - `brep.py` — the B-Rep validity gate, run BEFORE tessellation.
   - `parity.py` — cross-kernel comparison; mirrors the platform's
-    `scripts/qa/verify_parity.py` gate for gate.
+    `scripts/qa/verify_parity.py` gate for gate. Also carries the GOLDEN-TWIN
+    rule: `COMPARABLE_PAIRS` is `(openscad, cadquery)` and `(cadquery, graph)`,
+    so a graph authored for a cartridge that already has a script must agree
+    with that script at the same bar before the script may be retired.
+  - `graph_render.py` — the `.graph.json` half: transpile with the vendored
+    engine, then hand the emitted `.py` to `geometry.render_part`. The keystone
+    authors this; the emission it calls is vendored.
+  - `graph/` — **VENDORED, byte-identical, never hand-edit.** A copy of
+    yantra4d's `apps/api/services/engine/graph_engine.py` plus
+    `packages/schemas/graph.schema.json` and `graph-node-catalog.json`, pinned
+    by sha256 in `graph.lock.json`, enforced by
+    `scripts/qa/check_graph_sync.py` (blocking; `--update` re-pins), documented
+    in `VENDORED.md`, and excluded from ruff because reformatting would break
+    the hash. Change the platform and re-vendor. Do NOT bump SPEC_PIN as part
+    of a re-vendor. The platform's `spec-conformance` asserts the reverse
+    direction, so neither repo can drift alone.
   - `printability.py` — measurements, never failures; every threshold
     provisional.
   - `render_environment.py` — the render environment as data.

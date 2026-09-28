@@ -1,0 +1,14 @@
+{
+  "_comment": "sha256 of the vendored Yantra4D graph engine and its document contract. Canonical source: madfam-org/yantra4d (apps/api/services/engine/graph_engine.py, packages/schemas/graph.schema.json, packages/schemas/graph-node-catalog.json). Re-pin only after re-vendoring; see VENDORED.md.",
+  "canonical_repo": "madfam-org/yantra4d",
+  "canonical_paths": {
+    "graph_engine.py": "apps/api/services/engine/graph_engine.py",
+    "graph.schema.json": "packages/schemas/graph.schema.json",
+    "graph-node-catalog.json": "packages/schemas/graph-node-catalog.json"
+  },
+  "hashes": {
+    "graph_engine.py": "880b8a71d6f8f5fafe72cb9855d01c8a0e8b9e8c43ed93b50176659e4b0f7dcd",
+    "graph.schema.json": "58140d5980df582a027dd1624df0d52aa1a414b16ab4d986ce5159ac648ad54e",
+    "graph-node-catalog.json": "20c273dfdfd6879a068246a3517b83df98cca1373974db9bf0f9e3f20d78c2e5"
+  }
+}

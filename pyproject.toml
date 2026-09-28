@@ -70,6 +70,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 fc_spec = ["schemas/*.json"]
 hyperobjects_schemas = ["schemas/*.json"]
+"y4d_spec.graph" = ["*.json", "VENDORED.md"]
 # The lexicon corpus is data the package ships and is the only reader of. One JSON
 # file per term (see hyperobjects_lexicon/lexicon.py for why JSON, not YAML).
 hyperobjects_lexicon = ["terms/*.json", "catalogs/*.json", "vocabularies/*.json"]
@@ -83,6 +84,17 @@ markers = [
 [tool.ruff]
 line-length = 100
 src = ["src", "tests"]
+
+# The vendored graph engine is a BYTE-IDENTICAL copy of the platform's
+# apps/api/services/engine/graph_engine.py, pinned by sha256 in
+# src/y4d_spec/graph/graph.lock.json and enforced by scripts/qa/check_graph_sync.py.
+# Two of its lines are 102 characters, which is yantra4d's limit and not this repo's.
+# Reformatting them here would break the hash — and the byte-identity is the whole
+# mechanism: it is what makes a verdict in this package a verdict about the script the
+# platform actually runs. So the copy is excluded from lint rather than edited to suit
+# it, exactly as a vendored dependency would be. Everything the keystone AUTHORS around
+# the engine (graph_render.py, __init__.py, the guard) is linted normally.
+extend-exclude = ["src/y4d_spec/graph/graph_engine.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B"]

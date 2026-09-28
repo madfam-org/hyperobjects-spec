@@ -14,7 +14,11 @@ A cartridge's modes may be CadQuery, OpenSCAD, or both, and all of them are rend
     below.
   * OpenSCAD (.scad)   — run as a subprocess with the platform's own command shape,
     contract in render_part_openscad / build_openscad_command.
-  * dual-engine        — a mode declaring both renders BOTH SIDES, each judged
+  * graph (.graph.json) — TRANSPILED into a CadQuery script by the vendored platform
+    engine (y4d_spec.graph, see its VENDORED.md) and then rendered on the CadQuery path
+    above, so a graph cartridge clears the identical bar. Contract in
+    render_part_graph / y4d_spec.graph_render.
+  * dual-engine        — a mode declaring more than one renders EVERY SIDE, each judged
     separately and each tagged with its engine.
 
 That last case is the reason this exists. The platform picks ONE engine per mode at
@@ -92,8 +96,17 @@ from commons_sandbox import build_sandbox_builtins, read_script, validate_script
 from .brep import brep_available
 from .brep import check_result as brep_check_result
 
+# The node-graph half. Its own module for the same reason brep.py is: a graph is a
+# document that must be TRANSPILED before any of this file's machinery applies, and the
+# transpiler is vendored platform code that must not be re-implemented here. Importing
+# only the two entry points keeps the vendored surface at arm's length; nothing in this
+# module reaches into y4d_spec.graph directly.
+from .graph_render import GRAPH_FILE_SUFFIX, GraphError, graph_script_path
+
 __all__ = [
+    "GRAPH_FILE_SUFFIX",
     "GeometryUnavailable",
+    "GraphError",
     "RenderCheck",
     "brep_available",
     "geometry_available",
@@ -120,6 +133,12 @@ SCRIPT_SUFFIXES = {".py", ".cq"}
 
 # The suffix an OpenSCAD mode's source carries.
 SCAD_SUFFIX = ".scad"
+
+# The suffix a node-graph mode's source carries. Compound, so `Path.suffix` (`.json`)
+# is the wrong test; the vendored engine's own constant is the authority and
+# graph_render re-exports it. A graph is NOT a fourth renderer here — it transpiles to
+# CadQuery and rides the CadQuery path from there (see graph_render's docstring).
+GRAPH_SUFFIX = GRAPH_FILE_SUFFIX
 
 # Where a macOS dev machine keeps the binary the .app installs — on nobody's PATH.
 MACOS_OPENSCAD = "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
@@ -444,6 +463,7 @@ def render_part(
     preset: str | None = None,
     printability: bool = False,
     stl_dir: Path | None = None,
+    stl_engine: str = "cadquery",
 ) -> RenderCheck:
     """Render one (mode, part) and judge the mesh.
 
@@ -461,6 +481,16 @@ def render_part(
     dies with the call, and records the path on the check. The parity pass is the
     caller that needs it: it has nothing to compare unless both kernels' meshes
     outlive their own renders.
+
+    `stl_engine` names this render in the retained filename. It is `"cadquery"` for a
+    hand-written cartridge and `"graph"` for a transpiled one, and the difference is
+    load-bearing rather than cosmetic: under the golden-twin rule a cartridge renders
+    the SAME (mode, part, preset) from its script AND from its graph, and both meshes
+    must exist at once for the comparison to happen. One shared filename means the
+    second render silently overwrites the first and the pass compares a mesh with
+    itself. It is a separate argument from the `engine` recorded on the check because
+    the transpiled script IS a CadQuery script — the execution contract does not change,
+    only the name the evidence is filed under.
     """
     _, trimesh = _require_geometry()
 
@@ -506,7 +536,7 @@ def render_part(
     # `_judge_stl` carries these into its verdict, so the render still fails.
     problems.extend(_brep_problems(result))
 
-    with _stl_target(stl_dir, "cadquery", mode, part, preset) as stl:
+    with _stl_target(stl_dir, stl_engine, mode, part, preset) as stl:
         try:
             _export_stl(result, stl)
         except Exception as exc:
@@ -650,11 +680,94 @@ def _judge_stl(
     return check
 
 
+def render_part_graph(
+    cartridge_dir: Path,
+    graph_file: str,
+    mode: str,
+    part: str,
+    *,
+    manifest: dict | None = None,
+    params: dict | None = None,
+    preset: str | None = None,
+    printability: bool = False,
+    stl_dir: Path | None = None,
+) -> RenderCheck:
+    """Render one (mode, part) of a node-graph mode and judge the mesh.
+
+    Two steps, and only the first is new: transpile the `.graph.json` into a CadQuery
+    script with the vendored platform engine, then hand that script to `render_part`.
+    Everything the mesh is judged by — the shared sandbox, bare-global parameter
+    injection, `target_part` dispatch, the B-Rep gate before tessellation, `toCompound()`
+    assembly export, watertight / positive-volume / no-inverted-body, presets — is the
+    CadQuery path unchanged, because after the transpile this IS a CadQuery cartridge.
+    That identity is the point: a graph cartridge earns its row by clearing the same
+    bar, not a graph-shaped approximation of it.
+
+    The manifest is needed here and not on the `.py` path because the BINDINGS live in
+    it: `"binding": "outline.r"` is what makes the manifest's `plate_radius` slider
+    reach node `outline`'s `r` param, and the transpiled script's
+    `_param(lambda: plate_radius, 45.0)` is emitted only for a bound param. Transpiling
+    without the manifest would produce a script whose every dimension is the graph's
+    literal — it would render, and it would ignore every preset. So a missing manifest
+    is not silently tolerated: the caller (`check_geometry`) always has one.
+
+    A graph that does not compile is a RENDER FAILURE with the engine's own message —
+    the same message the platform's editor refuses the save with — not a crash and not a
+    skip. `transpile()` is the enforcing validator for cycles, unknown node types,
+    socket-type mismatches, dangling refs and bindings onto params a node has not got,
+    and all of it happens before a CAD kernel is touched.
+    """
+    try:
+        script_path = graph_script_path(cartridge_dir / graph_file, manifest)
+    except GraphError as exc:
+        # The document is invalid. Report it as this target's failure, in the engine's
+        # words: it names the node and the rule, which is what a repair needs.
+        return RenderCheck(
+            mode=mode,
+            part=part,
+            ok=False,
+            preset=preset,
+            engine="graph",
+            problems=[f"graph did not transpile: {exc}"],
+        )
+    except Exception as exc:  # unreadable file, bad JSON, over the size cap
+        return RenderCheck(
+            mode=mode,
+            part=part,
+            ok=False,
+            preset=preset,
+            engine="graph",
+            problems=[f"graph could not be read: {type(exc).__name__}: {exc}"],
+        )
+
+    # The transpiled script lands in a temp dir, not in the cartridge — so render_part
+    # is given that directory as its base and the bare filename as its source.
+    generated = Path(script_path)
+    #
+    # `stl_engine="graph"` files the retained mesh under a graph-named path. That is
+    # what makes the golden twin comparable at all: the script side of the same target
+    # retains `cadquery__mode__part.stl`, and a shared name would have the second render
+    # overwrite the first, leaving the parity pass comparing one mesh against itself.
+    check = render_part(
+        generated.parent,
+        generated.name,
+        mode,
+        part,
+        params=params,
+        preset=preset,
+        printability=printability,
+        stl_dir=stl_dir,
+        stl_engine="graph",
+    )
+    check.engine = "graph"
+    return check
+
+
 def _no_source_skip() -> str:
     """The one remaining reason a target goes unrendered for lack of a source."""
     return (
-        "no renderable source (.py/.cq/.scad) declared for this mode — nothing to "
-        "render, so the mesh was NOT verified"
+        "no renderable source (.py/.cq/.scad/.graph.json) declared for this mode — "
+        "nothing to render, so the mesh was NOT verified"
     )
 
 
@@ -668,41 +781,64 @@ def _no_binary_skip(scad_file: str) -> str:
     )
 
 
+#: Sort rank per engine, so output is diffable across runs. `graph` sorts last for the
+#: same reason `openscad` sorts after `cadquery`: the list reads primary source first.
+_ENGINE_ORDER = {"cadquery": 0, "openscad": 1, "graph": 2}
+
+
 def mode_sources(mode: dict) -> list[tuple[str, str]]:
-    """The (engine, source file) pairs to render for one mode — BOTH for dual-engine.
+    """The (engine, source file) pairs to render for one mode — EVERY declared source.
 
     A cartridge may declare a ``.scad`` and a ``.py``/``.cq`` for the same mode. The
     platform picks ONE at render time (manifest.py::mode_engine: an explicit
     ``mode.engine``, else the suffix of ``scad_file``, else ``project.engine``), because
     it is serving one mesh to one user. A verifier has the opposite job: an OpenSCAD
     regression on a cartridge whose CadQuery side is the platform default ships unseen
-    precisely because nothing renders the other half. So both sides are rendered and
-    both are judged.
+    precisely because nothing renders the other half. So every side is rendered and
+    every side is judged.
 
-    Returns pairs in a stable order (cadquery first, then openscad) so output is
-    diffable across runs.
+    A ``.graph.json`` source yields the ``graph`` engine. It used to yield NOTHING —
+    the mode fell through to the unrenderable-suffix branch and the cartridge was
+    reported as having no source, which is how the commons' two graph cartridges came
+    to sit outside the bar the other 498 clear. That is not a third renderer: the
+    document is transpiled to CadQuery by the vendored platform engine and judged on the
+    CadQuery path (see graph_render). The engine label stays ``graph`` all the way into
+    the report because a reader has to be able to tell which of a cartridge's sources
+    produced a mesh, and because the golden-twin comparison is defined between the
+    ``graph`` side and the ``cadquery`` side of the same target.
+
+    Returns pairs ordered cadquery, openscad, graph.
     """
     sources: list[tuple[str, str]] = []
 
     cq_file = mode.get("cq_file")
     scad_file = mode.get("scad_file")
+    graph_file = mode.get("graph_file")
 
     # `scad_file` is the historical field and holds whatever the mode's primary source
-    # is — including a .py, for a CadQuery-only cartridge that never had a .scad.
-    for candidate in (cq_file, scad_file):
+    # is — including a .py, for a CadQuery-only cartridge that never had a .scad, and
+    # including a .graph.json: both commons graph cartridges declare their document
+    # there (`"scad_file": "flange.graph.json"`, with `"engine": "graph"` beside it).
+    # `graph_file` is accepted too, for a cartridge that names the document explicitly
+    # alongside a script twin — which is exactly the golden-twin shape.
+    for candidate in (cq_file, scad_file, graph_file):
         if not isinstance(candidate, str) or not candidate:
             continue
-        suffix = Path(candidate).suffix
-        if suffix in SCRIPT_SUFFIXES:
-            pair = ("cadquery", candidate)
-        elif suffix == SCAD_SUFFIX:
-            pair = ("openscad", candidate)
+        # Checked BEFORE Path.suffix, which sees only `.json` on a compound suffix.
+        if candidate.endswith(GRAPH_FILE_SUFFIX):
+            pair = ("graph", candidate)
         else:
-            continue
+            suffix = Path(candidate).suffix
+            if suffix in SCRIPT_SUFFIXES:
+                pair = ("cadquery", candidate)
+            elif suffix == SCAD_SUFFIX:
+                pair = ("openscad", candidate)
+            else:
+                continue
         if pair not in sources:
             sources.append(pair)
 
-    sources.sort(key=lambda p: 0 if p[0] == "cadquery" else 1)
+    sources.sort(key=lambda p: _ENGINE_ORDER.get(p[0], 99))
     return sources
 
 
@@ -828,6 +964,21 @@ def check_geometry(
                 binary=binary,
                 stl_dir=target_stl_dir,
             )
+        elif engine == "graph":
+            # Transpiled to CadQuery first, then judged on the CadQuery path. The
+            # manifest goes in because the parameter BINDINGS live there and without
+            # them every dimension in the emitted script is the graph's literal.
+            check = render_part_graph(
+                cartridge_dir,
+                source,
+                mode_id,
+                part_id,
+                manifest=manifest,
+                params=params,
+                preset=preset,
+                printability=printability,
+                stl_dir=target_stl_dir,
+            )
         else:
             check = render_part(
                 cartridge_dir,
@@ -879,7 +1030,13 @@ def check_geometry(
     # firing on exactly the cartridges that have the most ways to go wrong.
     declared_parts = {p for m in modes for p in m.get("parts") or []}
 
-    for engine in ("cadquery", "openscad"):
+    # `graph` is in the loop for completeness, and in practice exempts itself by the
+    # rule the comment above already states: the transpiled script ends in
+    # `raise ValueError("Unknown target_part: ...")`, so the sentinel render FAILS and
+    # `not (fb.ok and fb.volume)` skips the comparison. That is the correct outcome —
+    # a graph has no else-branch to fall into, because `outputs` is an explicit map from
+    # part id to node and a part that is not in it cannot silently render another one.
+    for engine in ("cadquery", "openscad", "graph"):
         fb_source = next(
             (src for m in modes for eng, src in mode_sources(m) if eng == engine), None
         )

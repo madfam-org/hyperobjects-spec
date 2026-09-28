@@ -371,8 +371,25 @@ def test_mode_sources_cadquery_only_declared_in_scad_file():
     ]
 
 
-def test_mode_sources_ignores_unrenderable_suffixes():
-    assert mode_sources({"id": "m", "scad_file": "graph.graph.json"}) == []
+def test_mode_sources_recognises_a_graph_document():
+    """WAS: `== []`, asserted as intended behaviour, and it is how the commons' two
+    graph cartridges came to sit outside the bar the other 498 clear.
+
+    A `.graph.json` is a renderable source: the vendored platform transpiler compiles it
+    to CadQuery and the CadQuery path judges the result. The engine label is `graph`
+    (not `cadquery`) because a report has to say which of a cartridge's sources produced
+    a mesh, and because the golden-twin comparison is defined between the two labels.
+    """
+    assert mode_sources({"id": "m", "scad_file": "flange.graph.json"}) == [
+        ("graph", "flange.graph.json")
+    ]
+
+
+def test_mode_sources_still_ignores_a_suffix_nothing_renders():
+    """The fall-through branch survives — a `.json` that is not a graph is not a source,
+    and neither is anything else the three engines do not read."""
+    assert mode_sources({"id": "m", "scad_file": "notes.json"}) == []
+    assert mode_sources({"id": "m", "scad_file": "readme.md"}) == []
 
 
 def test_part_render_modes_defaults_to_zero():
