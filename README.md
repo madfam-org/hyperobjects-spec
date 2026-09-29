@@ -186,8 +186,17 @@ $ y4d-spec check ./superformula --render -v --openscad-path ../libs
 ```
 
 `--openscad-path DIR` (repeatable) names the library roots an `include <>` resolves
-against — the commons' `libs/`, and `commons-lib/` once it exists. Your cartridge's own
-directory is always first, and a `libs/dotSCAD/src` beside a root is added for you.
+against — the commons' `libs/` and the commons root for `<commons-lib/…>`.
+Pass the parent search root, not the included directory itself. Your cartridge's
+own directory is always first, and a `libs/dotSCAD/src` beside a root is added for you.
+
+**Compiler diagnostics remain visible.** OpenSCAD can exit zero and emit a valid
+partial mesh after a missing include or unknown module. Compiler `WARNING:` and
+`ERROR:` lines are retained as bounded notes alongside the mesh verdict (up to ten
+lines, 500 characters each; omitted lines are counted). Routine statistics and
+`ECHO:` output are excluded. These notes do not change the exit code: whole-commons
+false-positive analysis is required before a new diagnostic becomes blocking.
+A watertight mesh with compiler notes is not proof that all intended features rendered.
 
 **No OpenSCAD binary?** The OpenSCAD targets are **skipped**, with the reason on each
 line — a cartridge is not non-conformant because the machine checking it is short a tool.

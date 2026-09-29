@@ -267,3 +267,34 @@ def test_cli_verbose_reports_the_openscad_version(capsys):
     problem apart from a cartridge failure."""
     main(["check", str(SCAD_BLOCK), "--render", "--no-presets", "-v"])
     assert "openscad:" in capsys.readouterr().out
+
+
+@pytest.mark.geometry
+@needs_openscad
+@pytest.mark.parametrize("source, diagnostic", [
+    ("include <missing-regression-library.scad>;\ncube([2, 3, 4]);", "missing-regression-library"),
+    ("missing_regression_module();\ncube([2, 3, 4]);", "missing_regression_module"),
+])
+def test_valid_partial_mesh_preserves_compiler_diagnostics(tmp_path, source, diagnostic):
+    from y4d_spec.openscad import render_part_openscad
+
+    (tmp_path / "partial.scad").write_text(source)
+    check = render_part_openscad(tmp_path, "partial.scad", "block", "block")
+    assert check.ok and check.watertight and check.bodies == 1
+    assert check.volume == pytest.approx(24)
+    assert any("OpenSCAD compiler diagnostic:" in note and diagnostic in note
+               for note in check.notes)
+
+
+def test_compiler_notes_ignore_echo_and_stats_and_bound_output():
+    from y4d_spec.openscad import _compiler_notes
+
+    assert _compiler_notes('ECHO: "WARNING: user text"\nTotal rendering time: 1') == []
+    output = "\n".join(["WARNING: " + "x" * 1000] * 12 + ["ERROR: last"])
+    notes = _compiler_notes(output)
+    assert len(notes) == 11
+    assert notes[-1] == "OpenSCAD compiler diagnostics: 3 more omitted"
+    assert all(len(note.split(": ", 1)[1]) <= 500 for note in notes)
+    assert _compiler_notes("  ERROR: diagnostic") == [
+        "OpenSCAD compiler diagnostic: ERROR: diagnostic"
+    ]
