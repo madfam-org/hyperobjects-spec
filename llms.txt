@@ -1,6 +1,6 @@
 # Hyperobjects Spec
 
-Last Updated: 2026-09-06
+Last Updated: 2026-09-29
 
 Compact LLM context index for this repository.
 
@@ -41,6 +41,12 @@ FAIL (exit 1) is a conformance failure. `note` (exit 0) is true and not fatal.
 `skip` (exit 0) is NOT VERIFIED — a target nothing judged. `geometry=NOT
 verified` in the summary means the run had no `--render` and proved nothing
 about meshes.
+
+Compiler warnings/errors from a successful OpenSCAD render remain bounded notes.
+A valid mesh can still be partial; investigate diagnostics before accepting the
+intended design. See [render verification](README.md) and
+[the renderer](src/y4d_spec/openscad.py). New diagnostics remain nonblocking until
+whole-commons false-positive analysis supports a stronger gate.
 
 ## Graph cartridges — the transpiler is VENDORED
 

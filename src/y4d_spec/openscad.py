@@ -373,7 +373,7 @@ def render_part_openscad(
                 problems=[f"could not run OpenSCAD ({binary}): {exc}"],
             )
 
-        output = ((proc.stdout or "") + (proc.stderr or "")).strip()
+        output = "\n".join((proc.stdout or "", proc.stderr or "")).strip()
         if proc.returncode != 0:
             if proc.returncode < 0:
                 detail = f"killed by signal {-proc.returncode}"
@@ -402,7 +402,7 @@ def render_part_openscad(
                 ],
             )
 
-        return _judge_stl(
+        check = _judge_stl(
             out,
             mode=mode,
             part=part,
@@ -411,6 +411,28 @@ def render_part_openscad(
             engine="openscad",
             keep=stl_dir is not None,
         )
+        # A missing include/module can leave a valid partial STL with exit code 0.
+        # Preserve the compiler's evidence independently of the mesh verdict.
+        # New diagnostics are notes until whole-commons false-positive analysis.
+        check.notes.extend(f"{check.target}: {note}" for note in _compiler_notes(output))
+        return check
+
+
+def _compiler_notes(output: str) -> list[str]:
+    """Bounded compiler warnings/errors; routine stats and user ECHO are not notes."""
+    diagnostics = [
+        line.strip()
+        for line in output.splitlines()
+        if re.match(r"^\s*(?:WARNING|ERROR):", line)
+    ]
+    limit = 10
+    notes = [
+        "OpenSCAD compiler diagnostic: " + (line[:499] + "…" if len(line) > 500 else line)
+        for line in diagnostics[:limit]
+    ]
+    if len(diagnostics) > limit:
+        notes.append(f"OpenSCAD compiler diagnostics: {len(diagnostics) - limit} more omitted")
+    return notes
 
 
 def _tail(text: str, limit: int = 400) -> str:

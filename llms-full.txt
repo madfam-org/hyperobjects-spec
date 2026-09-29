@@ -1,6 +1,6 @@
 # Hyperobjects Spec Full LLM Context
 
-Generated: 2026-09-06
+Last Updated: 2026-09-29
 
 ## Purpose
 
@@ -36,7 +36,10 @@ runbook.
   - `conformance.py` — orchestration; owns the result object and the tiers.
   - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
     body counting, STL export.
-  - `openscad.py` — the platform's own OpenSCAD command line and env.
+  - [`openscad.py`](src/y4d_spec/openscad.py) — the platform's OpenSCAD command
+    line and environment; preserves bounded compiler warnings/errors as notes
+    even when a partial STL passes mesh checks. See [README](README.md) for the
+    diagnostic limits and the notes-first policy.
   - `brep.py` — the B-Rep validity gate, run BEFORE tessellation.
   - `parity.py` — cross-kernel comparison; mirrors the platform's
     `scripts/qa/verify_parity.py` gate for gate. Also carries the GOLDEN-TWIN
