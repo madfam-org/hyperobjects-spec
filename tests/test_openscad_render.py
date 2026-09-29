@@ -279,9 +279,13 @@ def test_valid_partial_mesh_preserves_compiler_diagnostics(tmp_path, source, dia
     from y4d_spec.openscad import render_part_openscad
 
     (tmp_path / "partial.scad").write_text(source)
-    check = render_part_openscad(tmp_path, "partial.scad", "block", "block")
+    check = render_part_openscad(
+        tmp_path, "partial.scad", "block", "block", preset="diagnostic-case"
+    )
     assert check.ok and check.watertight and check.bodies == 1
     assert check.volume == pytest.approx(24)
+    assert all(note.startswith(check.target + ": ") for note in check.notes)
+    assert "diagnostic-case" in check.notes[0]
     assert any("OpenSCAD compiler diagnostic:" in note and diagnostic in note
                for note in check.notes)
 

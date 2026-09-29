@@ -414,7 +414,7 @@ def render_part_openscad(
         # A missing include/module can leave a valid partial STL with exit code 0.
         # Preserve the compiler's evidence independently of the mesh verdict.
         # New diagnostics are notes until whole-commons false-positive analysis.
-        check.notes.extend(_compiler_notes(output))
+        check.notes.extend(f"{check.target}: {note}" for note in _compiler_notes(output))
         return check
 
 
