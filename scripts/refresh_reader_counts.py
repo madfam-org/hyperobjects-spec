@@ -11,7 +11,7 @@ from instead.
     python3 scripts/refresh_reader_counts.py --check    # report drift, change nothing
 
 It needs no platform checkout and no network: every number comes from what is bundled
-with the package — the term corpus, the two controlled vocabularies, and the pinned
+with the package — the term corpus, the controlled and fabrication vocabularies, and the pinned
 catalog and bridge snapshots the reader is built from.
 
 Each block it owns is delimited in the Markdown:
@@ -37,9 +37,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from hyperobjects_lexicon import (  # noqa: E402
     bundled_catalog_slugs,
+    check_fabrication_vocabularies,
     check_lexicon,
     check_vocabularies,
+    fabrication_status,
     lexicon_status,
+    load_fabrication_vocabularies,
     load_lexicon,
     load_vocabularies,
     vocabulary_status,
@@ -57,7 +60,7 @@ ROOT = Path(__file__).resolve().parent.parent
 #: Which files carry which blocks. A file may carry several; a block may appear in
 #: several files and is emitted identically in each.
 DOCUMENTS = {
-    "README.md": ("lexicon-status", "vocabulary-status", "reader"),
+    "README.md": ("lexicon-status", "vocabulary-status", "fabrication-status", "reader"),
     "docs/COMMONS_VOCABULARY.md": ("reader",),
 }
 
@@ -86,6 +89,20 @@ def _vocabulary_block() -> str:
         "$ fc-spec vocab\n"
         f"fc-spec vocab: vocabularies={result.vocabularies} entries={result.entries} "
         f"failures={len(result.problems)}\n"
+        f"{lines}\n"
+        "```"
+    )
+
+
+def _fabrication_block() -> str:
+    docs = load_fabrication_vocabularies()
+    result = check_fabrication_vocabularies(docs)
+    lines = "\n".join(fabrication_status(docs))
+    return (
+        "```\n"
+        "$ y4d-spec vocab   # second verdict\n"
+        f"y4d-spec vocab fabrication: vocabularies={result.vocabularies} "
+        f"entries={result.entries} failures={len(result.problems)}\n"
         f"{lines}\n"
         "```"
     )
@@ -141,6 +158,7 @@ def _reader_block() -> str:
 BLOCKS = {
     "lexicon-status": _lexicon_block,
     "vocabulary-status": _vocabulary_block,
+    "fabrication-status": _fabrication_block,
     "reader": _reader_block,
 }
 

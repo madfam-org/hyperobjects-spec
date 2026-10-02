@@ -68,7 +68,10 @@ runbook.
   cartridges through. Defense in depth, NOT a security boundary on its own.
 - `hyperobjects_schemas` — every bundled JSON Schema, plus the identity key.
 - `hyperobjects_lexicon` — the Commons Lexicon corpus, the controlled
-  vocabularies, the article contract, the dictionary tools and the reader.
+  vocabularies, the fabrication vocabularies (SEM-1 §4: processes, material
+  classes, process parameters, machine capabilities, interface sizes) and their
+  manifest-membership rule, the article contract, the dictionary tools and the
+  reader. See docs/FABRICATION_VOCABULARIES.md.
 
 ## Durable contracts
 
