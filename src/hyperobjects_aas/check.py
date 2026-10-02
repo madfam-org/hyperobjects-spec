@@ -9,7 +9,9 @@ Three layers, reported as findings with a severity (an ``error`` fails the check
    by ``modelType`` instead of by trying every alternative. That is an equivalence, not
    a relaxation, and it is what makes the schema usable at fleet scale: with the plain
    ``oneOf`` a nested collection is re-validated against several alternatives at every
-   level, 8 s for one ordinary cartridge; with dispatch it takes milliseconds.
+   level, 8 s for one ordinary cartridge; with dispatch it takes milliseconds. The
+   ``pattern`` keyword matches UTF-16 code units, as the schema's patterns are written
+   (see :func:`_utf16_pattern`).
 2. **MADFAM rules** — the SEM-1 §1 identifier scheme (shell, asset and submodel ids agree
    on kind, slug and revision; the revision prefix matches the full digest in
    ``specificAssetIds``); idShort rules the schema cannot express (AASd-117 required
@@ -35,7 +37,7 @@ from functools import cache
 from importlib import resources
 from pathlib import Path
 
-from jsonschema import Draft201909Validator
+from jsonschema import Draft201909Validator, ValidationError, validators
 
 from .concepts import bundled_lexicon
 from .ids import BASE, is_id_short
@@ -157,15 +159,48 @@ def dispatch_view(schema: dict) -> dict:
     return view
 
 
-@cache
-def _validator() -> Draft201909Validator:
-    return Draft201909Validator(dispatch_view(aas_schema()))
+def _utf16_units(text: str) -> str:
+    """``text`` with every character outside the BMP spelled as its UTF-16 surrogate
+    pair, i.e. as the code units the schema's patterns are written against."""
+    if all(ord(ch) <= 0xFFFF for ch in text):
+        return text
+    data = text.encode("utf-16-le", "surrogatepass")
+    return "".join(chr(int.from_bytes(data[i:i + 2], "little")) for i in range(0, len(data), 2))
+
+
+def _utf16_pattern(validator, pattern, instance, schema):
+    """The ``pattern`` keyword, matched against UTF-16 code units.
+
+    aas.json spells the XML ``Char`` production over UTF-16 code units
+    (``\\ud800[\\udc00-\\udfff]`` …), as an ECMAScript engine sees strings. Python holds
+    an emoji as ONE code point, which matches none of the alternatives, so plain
+    ``jsonschema`` rejects valid AAS text (the fleet gate found ``🤚`` in a preset label,
+    which BaSyx accepts). Only this keyword is adapted; ``maxLength`` still counts code
+    points, as JSON Schema defines it.
+    """
+    if validator.is_type(instance, "string") and not _compiled(pattern).search(
+            _utf16_units(instance)):
+        yield ValidationError(f"{instance!r} does not match {pattern!r}")
 
 
 @cache
-def reference_validator() -> Draft201909Validator:
-    """A validator over the vendored schema exactly as published (slow; for tests)."""
-    return Draft201909Validator(aas_schema())
+def _compiled(pattern: str) -> re.Pattern:
+    return re.compile(pattern)
+
+
+_AasValidator = validators.extend(Draft201909Validator, {"pattern": _utf16_pattern})
+
+
+@cache
+def _validator():
+    return _AasValidator(dispatch_view(aas_schema()))
+
+
+@cache
+def reference_validator():
+    """The vendored schema exactly as published, with the same UTF-16 ``pattern``
+    reading (slow; for tests)."""
+    return _AasValidator(aas_schema())
 
 
 def _schema_findings(env: object) -> list[Finding]:
