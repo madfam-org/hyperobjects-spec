@@ -11,18 +11,22 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from importlib import resources
+from pathlib import Path
 
 from . import rules
 
-# The five contracts a third party can check a file against. `schema` is the
+# The contracts a third party can check a file against. `schema` is the
 # bundled schema filename (or None where the contract is enforced by rules/lane
-# only, e.g. the explode-JSON payload has no standalone schema).
+# only, e.g. the explode-JSON payload has no standalone schema). `generator-output`
+# (GOC-1, the variables.json of a render bundle) is authored by the keystone and
+# checked by hyperobjects_schemas.generator_output; fc_spec keeps no copy of it.
 CONTRACTS: dict[str, dict] = {
     "garment-manifest": {"schema": "garment-manifest.schema.json"},
     "fabric-card": {"schema": "fabric-manifest.schema.json"},
     "body-measurements": {"schema": "body-measurements.schema.json"},
     "hardware-ref": {"schema": "garment-manifest.schema.json"},
     "explode-json": {"schema": None},
+    "generator-output": {"schema": None},
 }
 
 
@@ -35,6 +39,8 @@ class ConformanceResult:
     contract: str
     ok: bool
     problems: list[str] = field(default_factory=list)
+    #: Non-blocking findings (generator-output only today). Never affect `ok`.
+    warnings: list[str] = field(default_factory=list)
 
     def __bool__(self) -> bool:
         return self.ok
@@ -59,16 +65,34 @@ def _schema_errors(schema_name: str, doc: dict) -> list[str]:
 
 
 def check(
-    contract: str, doc: dict, *, resolve: dict[str, list[str]] | None = None,
+    contract: str,
+    doc: dict,
+    *,
+    resolve: dict[str, list[str]] | None = None,
+    base_dir: str | Path | None = None,
 ) -> ConformanceResult:
     """Check one parsed document against one contract.
 
     `resolve` (hardware-ref only) maps a yantra4d slug -> its parameter ids, the
     resolution surface for a linked hardware_ref. If omitted, a linked reference is
     reported as unresolvable — a third party supplies their own catalog slice.
+
+    `base_dir` (generator-output only) is the directory the document's geometry paths
+    are relative to; when given, the files present there are re-hashed.
     """
     if contract not in CONTRACTS:
         raise ValueError(f"unknown contract {contract!r}; known: {', '.join(CONTRACTS)}")
+
+    if contract == "generator-output":
+        from hyperobjects_schemas.generator_output import check_generator_output
+
+        res = check_generator_output(doc, base_dir=base_dir)
+        return ConformanceResult(
+            contract=contract,
+            ok=res.ok,
+            problems=[str(f) for f in res.errors],
+            warnings=[str(f) for f in res.warnings],
+        )
 
     problems: list[str] = []
     schema_name = CONTRACTS[contract]["schema"]
