@@ -79,7 +79,10 @@ runbook.
     `check_generator_output`; the body of `y4d-spec bundle check` and
     `fc-spec check generator-output`.
 - `hyperobjects_lexicon` — the Commons Lexicon corpus, the controlled
-  vocabularies, the article contract, the dictionary tools and the reader.
+  vocabularies, the fabrication vocabularies (SEM-1 §4: processes, material
+  classes, process parameters, machine capabilities, interface sizes) and their
+  manifest-membership rule, the article contract, the dictionary tools and the
+  reader. See docs/FABRICATION_VOCABULARIES.md.
 
 ## Durable contracts
 

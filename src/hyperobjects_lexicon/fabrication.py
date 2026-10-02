@@ -327,7 +327,12 @@ def check_fabrication_vocabularies(
 
 
 def fabrication_status(docs: dict[str, dict] | None = None) -> list[str]:
-    """One line per fabrication vocabulary: entries, how many are cited, review state."""
+    """One line per fabrication vocabulary: entries, how many are cited, review state.
+
+    The review clause says ``signed`` / ``draft`` rather than the lexicon's
+    ``reviewed=`` / ``generated=`` on purpose: README count checks read those two tokens
+    as corpus-wide TERM counts, and a vocabulary's numbers must not be mistaken for them.
+    """
     if docs is None:
         docs = load_fabrication_vocabularies()
     lines = []
@@ -343,7 +348,7 @@ def fabrication_status(docs: dict[str, dict] | None = None) -> list[str]:
         )
         lines.append(
             f"fabrication_status[{name}]: entries={len(entries)} cited={cited} "
-            f"dimensions={facts} provisional={provisional} reviewed={reviewed} "
-            f"generated={len(entries) - reviewed}"
+            f"dimensions={facts} provisional={provisional} "
+            f"review: signed={reviewed} draft={len(entries) - reviewed}"
         )
     return lines
