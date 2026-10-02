@@ -8,9 +8,11 @@ Ported from yantra4d/scripts/audit_compliance.py:
   (declared-vs-shipped license, shipped half; scripts/qa/check_licenses.py)
                                                     -> shipped_license_rules
 
-Plus one rule this package originates: `dead_parameter_rules` (G-DEADPARAM), which
-needs the mode SOURCES and so cannot live in `rules.py` with the pure manifest checks.
-It reads the files and hands their text to `rules.dead_parameter_problems`, where the
+Plus two rules this package originates, both of which need the mode SOURCES and so
+cannot live in `rules.py` with the pure manifest checks. `default_drift_rules`
+(y4d_spec.default_drift, NOTE ONLY) compares each manifest default with the literal
+the source falls back to. `dead_parameter_rules` (G-DEADPARAM) reads the files and
+hands their text to `rules.dead_parameter_problems`, where the
 decision is made — the same split the render lane uses, so the judgement stays testable
 without a directory.
 
@@ -310,4 +312,8 @@ def all_structure_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str],
     problems.extend(vendor_rules(cartridge_dir))
     problems.extend(shipped_license_rules(cartridge_dir, manifest))
     problems.extend(dead_parameter_rules(cartridge_dir, manifest))
+    # default-drift is NOTE ONLY (y4d_spec.default_drift): it never adds a problem.
+    from .default_drift import default_drift_rules
+
+    notes.extend(default_drift_rules(cartridge_dir, manifest))
     return problems, notes
