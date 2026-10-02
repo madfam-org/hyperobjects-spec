@@ -47,7 +47,7 @@
     },
     "variables": {
       "type": "array",
-      "description": "Every manifest-declared parameter of the mode, sorted by id (bytewise). Values keep their manifest type: slider -> number, checkbox -> boolean, select -> string, text -> string.",
+      "description": "Every manifest-declared parameter of the cartridge (no mode scoping), sorted by id (bytewise). Values keep the type the engine received: slider -> number, checkbox -> boolean, select -> the JSON type of the chosen option value (string or number), text -> string.",
       "items": { "$ref": "#/$defs/variable" }
     },
     "variables_sha256": { "$ref": "#/$defs/sha256" },
