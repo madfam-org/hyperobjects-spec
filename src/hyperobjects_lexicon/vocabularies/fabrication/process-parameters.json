@@ -1,0 +1,738 @@
+{
+  "spec_version": 1,
+  "vocabulary": "process-parameters",
+  "description": "Slicer parameters a requirement profile may bound — the keys of a manifest's requirements.process_parameters (top level and per part). Every key is OrcaSlicer's own config key, verified against its PrintConfig.cpp at a pinned revision and recorded with the line that defines it, so a requirement can be applied to a slicer profile without a translation table.",
+  "review": {
+    "state": "generated",
+    "note": "Key set, cross-maps, labels and definitions drafted in one pass by an agent (P3-LEX lane, 2026-10-02) against SEM-1 §4. No language facet of any entry has had a native review: every entry says `generated`, and Spanish is the bar a reviewer should read first. Facts were checked against the cited sources on the access date; no ruling has been made by a human."
+  },
+  "entries": [
+    {
+      "key": "wall_loops",
+      "label": {
+        "en": "Wall loops",
+        "es": "Perímetros (paredes)",
+        "fr": "Boucles de paroi",
+        "pt": "Voltas de parede"
+      },
+      "definition": {
+        "en": "Number of perimeter loops printed around every outline.",
+        "es": "Número de perímetros que se imprimen alrededor de cada contorno.",
+        "fr": "Nombre de boucles de périmètre imprimées autour de chaque contour.",
+        "pt": "Número de perímetros impressos em volta de cada contorno."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "count",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "wall_loops",
+        "option_type": "coInt",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 5660
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `wall_loops`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L5660",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `wall_loops` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "top_shell_layers",
+      "label": {
+        "en": "Top shell layers",
+        "es": "Capas sólidas superiores",
+        "fr": "Couches pleines supérieures",
+        "pt": "Camadas sólidas superiores"
+      },
+      "definition": {
+        "en": "Number of solid layers closing the top of the part.",
+        "es": "Número de capas sólidas que cierran la parte superior de la pieza.",
+        "fr": "Nombre de couches pleines qui ferment le dessus de la pièce.",
+        "pt": "Número de camadas sólidas que fecham o topo da peça."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "count",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "top_shell_layers",
+        "option_type": "coInt",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 7547
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `top_shell_layers`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L7547",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `top_shell_layers` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "bottom_shell_layers",
+      "label": {
+        "en": "Bottom shell layers",
+        "es": "Capas sólidas inferiores",
+        "fr": "Couches pleines inférieures",
+        "pt": "Camadas sólidas inferiores"
+      },
+      "definition": {
+        "en": "Number of solid layers forming the bottom of the part.",
+        "es": "Número de capas sólidas que forman la base de la pieza.",
+        "fr": "Nombre de couches pleines qui forment le dessous de la pièce.",
+        "pt": "Número de camadas sólidas que formam a base da peça."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "count",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "bottom_shell_layers",
+        "option_type": "coInt",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 1372
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `bottom_shell_layers`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L1372",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `bottom_shell_layers` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "sparse_infill_density",
+      "label": {
+        "en": "Sparse infill density",
+        "es": "Densidad de relleno",
+        "fr": "Densité du remplissage",
+        "pt": "Densidade de preenchimento"
+      },
+      "definition": {
+        "en": "Share of the interior filled by the sparse infill pattern, 0–100 %.",
+        "es": "Proporción del interior que ocupa el patrón de relleno, de 0 a 100 %.",
+        "fr": "Part de l'intérieur occupée par le motif de remplissage, de 0 à 100 %.",
+        "pt": "Proporção do interior ocupada pelo padrão de preenchimento, de 0 a 100 %."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "percent",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "sparse_infill_density",
+        "option_type": "coPercent",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 3487
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `sparse_infill_density`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L3487",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `sparse_infill_density` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "sparse_infill_pattern",
+      "label": {
+        "en": "Sparse infill pattern",
+        "es": "Patrón de relleno",
+        "fr": "Motif de remplissage",
+        "pt": "Padrão de preenchimento"
+      },
+      "definition": {
+        "en": "Geometric pattern of the sparse infill (grid, gyroid, honeycomb, …), as OrcaSlicer names it.",
+        "es": "Patrón geométrico del relleno (rejilla, giroide, panal, …), con el nombre que le da OrcaSlicer.",
+        "fr": "Motif géométrique du remplissage (grille, gyroïde, nid d'abeille, …), tel que OrcaSlicer le nomme.",
+        "pt": "Padrão geométrico do preenchimento (grade, giroide, colmeia, …), com o nome que o OrcaSlicer lhe dá."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "none",
+      "value_type": "string",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "sparse_infill_pattern",
+        "option_type": "coEnum",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 3537
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `sparse_infill_pattern`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L3537",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `sparse_infill_pattern` is carried by the print preset"
+        }
+      ],
+      "notes": "Values are OrcaSlicer's enum strings at the pinned revision; they are not re-listed here, so the slicer stays their single source."
+    },
+    {
+      "key": "layer_height",
+      "label": {
+        "en": "Layer height",
+        "es": "Altura de capa",
+        "fr": "Hauteur de couche",
+        "pt": "Altura de camada"
+      },
+      "definition": {
+        "en": "Thickness of each printed layer after the first.",
+        "es": "Espesor de cada capa impresa después de la primera.",
+        "fr": "Épaisseur de chaque couche imprimée après la première.",
+        "pt": "Espessura de cada camada impressa após a primeira."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "mm",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "layer_height",
+        "option_type": "coFloat",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 983
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `layer_height`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L983",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `layer_height` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "initial_layer_print_height",
+      "label": {
+        "en": "First layer height",
+        "es": "Altura de la primera capa",
+        "fr": "Hauteur de la première couche",
+        "pt": "Altura da primeira camada"
+      },
+      "definition": {
+        "en": "Thickness of the first layer, laid on the build plate.",
+        "es": "Espesor de la primera capa, la que se deposita sobre la cama.",
+        "fr": "Épaisseur de la première couche, déposée sur le plateau.",
+        "pt": "Espessura da primeira camada, depositada sobre a mesa."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "mm",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "initial_layer_print_height",
+        "option_type": "coFloat",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 3789
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `initial_layer_print_height`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L3789",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `initial_layer_print_height` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "nozzle_diameter",
+      "label": {
+        "en": "Nozzle diameter",
+        "es": "Diámetro de boquilla",
+        "fr": "Diamètre de buse",
+        "pt": "Diâmetro do bico"
+      },
+      "definition": {
+        "en": "Orifice diameter of the extruder nozzle.",
+        "es": "Diámetro del orificio de la boquilla del extrusor.",
+        "fr": "Diamètre de l'orifice de la buse de l'extrudeuse.",
+        "pt": "Diâmetro do orifício do bico da extrusora."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "mm",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "nozzle_diameter",
+        "option_type": "coFloats",
+        "preset": "printer",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 5434
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `nozzle_diameter`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L5434",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — printer preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1653",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `nozzle_diameter` is carried by the printer preset"
+        }
+      ],
+      "notes": "A per-extruder vector in OrcaSlicer (one value per nozzle); it is a printer setting through PrintConfigDef::init_extruder_option_keys, which Preset::printer_options appends."
+    },
+    {
+      "key": "outer_wall_speed",
+      "label": {
+        "en": "Outer wall speed",
+        "es": "Velocidad de pared exterior",
+        "fr": "Vitesse de paroi extérieure",
+        "pt": "Velocidade da parede externa"
+      },
+      "definition": {
+        "en": "Print speed of the outermost, visible perimeter.",
+        "es": "Velocidad de impresión del perímetro más exterior, el visible.",
+        "fr": "Vitesse d'impression du périmètre le plus extérieur, celui qui est visible.",
+        "pt": "Velocidade de impressão do perímetro mais externo, o visível."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "mm/s",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "outer_wall_speed",
+        "option_type": "coFloats",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 2497
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `outer_wall_speed`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L2497",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `outer_wall_speed` is carried by the print preset"
+        }
+      ]
+    },
+    {
+      "key": "default_jerk",
+      "label": {"en": "Default jerk", "es": "Jerk por defecto", "fr": "Jerk par défaut", "pt": "Jerk padrão"},
+      "definition": {
+        "en": "Instantaneous speed change the motion planner allows by default.",
+        "es": "Cambio instantáneo de velocidad que el planificador de movimiento permite por defecto.",
+        "fr": "Variation instantanée de vitesse que le planificateur de mouvement autorise par défaut.",
+        "pt": "Variação instantânea de velocidade que o planejador de movimento permite por padrão."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "mm/s",
+      "value_type": "number",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "default_jerk",
+        "option_type": "coFloats",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 3686
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `default_jerk`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L3686",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `default_jerk` is carried by the print preset"
+        }
+      ],
+      "notes": "0 in OrcaSlicer means the printer's own jerk setting is left unchanged."
+    },
+    {
+      "key": "nozzle_temperature",
+      "label": {
+        "en": "Nozzle temperature",
+        "es": "Temperatura de boquilla",
+        "fr": "Température de buse",
+        "pt": "Temperatura do bico"
+      },
+      "definition": {
+        "en": "Hotend temperature for layers after the first.",
+        "es": "Temperatura del hotend para las capas posteriores a la primera.",
+        "fr": "Température de la tête chauffante pour les couches après la première.",
+        "pt": "Temperatura do hotend para as camadas após a primeira."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "nozzle_temperature",
+        "option_type": "coInts",
+        "preset": "filament",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 7461
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `nozzle_temperature`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L7461",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — filament preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1447",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `nozzle_temperature` is carried by the filament preset"
+        }
+      ]
+    },
+    {
+      "key": "bed_temperature",
+      "label": {
+        "en": "Bed temperature",
+        "es": "Temperatura de cama",
+        "fr": "Température du plateau",
+        "pt": "Temperatura da mesa"
+      },
+      "definition": {
+        "en": "Bed temperature for layers after the first, whatever the plate type — the value OrcaSlicer resolves from the active plate's key.",
+        "es": "Temperatura de la cama para las capas posteriores a la primera, sea cual sea el tipo de placa: el valor que OrcaSlicer resuelve a partir de la clave de la placa activa.",
+        "fr": "Température du plateau pour les couches après la première, quel que soit le type de plaque — la valeur qu'OrcaSlicer déduit de la clé de la plaque active.",
+        "pt": "Temperatura da mesa para as camadas após a primeira, qualquer que seja o tipo de placa — o valor que o OrcaSlicer resolve a partir da chave da placa ativa."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "bed_temperature",
+        "option_type": "coInts",
+        "preset": "placeholder",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 12821
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `bed_temperature`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L12821",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        }
+      ],
+      "notes": "Not a stored OrcaSlicer setting: it is defined in TemperaturesConfigDef as a custom-G-code placeholder, and the same file lists bed_temperature among keys it ignores on config import. A requirement on it is a plate-independent bound; OrcaSlicer stores bed temperature per build-plate type in the filament preset; the active plate selects which of hot_plate_temp, textured_plate_temp, cool_plate_temp and eng_plate_temp is used."
+    },
+    {
+      "key": "hot_plate_temp",
+      "label": {
+        "en": "Bed temperature — high-temperature plate",
+        "es": "Temperatura de cama — placa de alta temperatura",
+        "fr": "Température du plateau — plaque haute température",
+        "pt": "Temperatura da mesa — placa de alta temperatura"
+      },
+      "definition": {
+        "en": "Bed temperature for layers after the first when printing on the high-temperature plate plate type.",
+        "es": "Temperatura de la cama para las capas posteriores a la primera al imprimir sobre la placa tipo placa de alta temperatura.",
+        "fr": "Température du plateau pour les couches après la première, sur une plaque de type plaque haute température.",
+        "pt": "Temperatura da mesa para as camadas após a primeira, ao imprimir sobre a placa tipo placa de alta temperatura."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "hot_plate_temp",
+        "option_type": "coInts",
+        "preset": "filament",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 1225
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `hot_plate_temp`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L1225",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — filament preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1447",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `hot_plate_temp` is carried by the filament preset"
+        }
+      ],
+      "notes": "OrcaSlicer stores bed temperature per build-plate type in the filament preset; the active plate selects which of hot_plate_temp, textured_plate_temp, cool_plate_temp and eng_plate_temp is used."
+    },
+    {
+      "key": "textured_plate_temp",
+      "label": {
+        "en": "Bed temperature — textured PEI plate",
+        "es": "Temperatura de cama — placa PEI texturizada",
+        "fr": "Température du plateau — plaque PEI texturée",
+        "pt": "Temperatura da mesa — placa PEI texturizada"
+      },
+      "definition": {
+        "en": "Bed temperature for layers after the first when printing on the textured PEI plate plate type.",
+        "es": "Temperatura de la cama para las capas posteriores a la primera al imprimir sobre la placa tipo placa PEI texturizada.",
+        "fr": "Température du plateau pour les couches après la première, sur une plaque de type plaque PEI texturée.",
+        "pt": "Temperatura da mesa para as camadas após a primeira, ao imprimir sobre a placa tipo placa PEI texturizada."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "textured_plate_temp",
+        "option_type": "coInts",
+        "preset": "filament",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 1234
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `textured_plate_temp`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L1234",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — filament preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1447",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `textured_plate_temp` is carried by the filament preset"
+        }
+      ],
+      "notes": "OrcaSlicer stores bed temperature per build-plate type in the filament preset; the active plate selects which of hot_plate_temp, textured_plate_temp, cool_plate_temp and eng_plate_temp is used."
+    },
+    {
+      "key": "cool_plate_temp",
+      "label": {
+        "en": "Bed temperature — cool plate",
+        "es": "Temperatura de cama — placa fría (cool plate)",
+        "fr": "Température du plateau — plaque froide (cool plate)",
+        "pt": "Temperatura da mesa — placa fria (cool plate)"
+      },
+      "definition": {
+        "en": "Bed temperature for layers after the first when printing on the cool plate plate type.",
+        "es": "Temperatura de la cama para las capas posteriores a la primera al imprimir sobre la placa tipo placa fría (cool plate).",
+        "fr": "Température du plateau pour les couches après la première, sur une plaque de type plaque froide (cool plate).",
+        "pt": "Temperatura da mesa para as camadas após a primeira, ao imprimir sobre a placa tipo placa fria (cool plate)."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "cool_plate_temp",
+        "option_type": "coInts",
+        "preset": "filament",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 1198
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `cool_plate_temp`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L1198",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — filament preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1447",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `cool_plate_temp` is carried by the filament preset"
+        }
+      ],
+      "notes": "OrcaSlicer stores bed temperature per build-plate type in the filament preset; the active plate selects which of hot_plate_temp, textured_plate_temp, cool_plate_temp and eng_plate_temp is used."
+    },
+    {
+      "key": "eng_plate_temp",
+      "label": {
+        "en": "Bed temperature — engineering plate",
+        "es": "Temperatura de cama — placa de ingeniería",
+        "fr": "Température du plateau — plaque technique",
+        "pt": "Temperatura da mesa — placa de engenharia"
+      },
+      "definition": {
+        "en": "Bed temperature for layers after the first when printing on the engineering plate plate type.",
+        "es": "Temperatura de la cama para las capas posteriores a la primera al imprimir sobre la placa tipo placa de ingeniería.",
+        "fr": "Température du plateau pour les couches après la première, sur une plaque de type plaque technique.",
+        "pt": "Temperatura da mesa para as camadas após a primeira, ao imprimir sobre a placa tipo placa de engenharia."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "degC",
+      "value_type": "integer",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "eng_plate_temp",
+        "option_type": "coInts",
+        "preset": "filament",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 1216
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `eng_plate_temp`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L1216",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — filament preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1447",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `eng_plate_temp` is carried by the filament preset"
+        }
+      ],
+      "notes": "OrcaSlicer stores bed temperature per build-plate type in the filament preset; the active plate selects which of hot_plate_temp, textured_plate_temp, cool_plate_temp and eng_plate_temp is used."
+    },
+    {
+      "key": "enable_support",
+      "label": {
+        "en": "Enable support",
+        "es": "Activar soportes",
+        "fr": "Activer les supports",
+        "pt": "Ativar suportes"
+      },
+      "definition": {
+        "en": "Whether the slicer generates support structures under overhangs.",
+        "es": "Si el laminador genera estructuras de soporte bajo los voladizos.",
+        "fr": "Si le trancheur génère des structures de support sous les porte-à-faux.",
+        "pt": "Se o fatiador gera estruturas de suporte sob as saliências."
+      },
+      "review_status": {"state": "generated"},
+      "unit": "none",
+      "value_type": "boolean",
+      "processes": ["fff"],
+      "orcaslicer": {
+        "key": "enable_support",
+        "option_type": "coBool",
+        "preset": "print",
+        "rev": "222c6a2df50e4dee7139ff7bf27b7fac56a36c5d",
+        "path": "src/libslic3r/PrintConfig.cpp",
+        "line": 6874
+      },
+      "sources": [
+        {
+          "title": "OrcaSlicer PrintConfig.cpp — definition of `enable_support`",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/PrintConfig.cpp#L6874",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "the key's name, option type, unit (sidetext) and range"
+        },
+        {
+          "title": "OrcaSlicer Preset.cpp — print preset option list",
+          "url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/222c6a2df50e4dee7139ff7bf27b7fac56a36c5d/src/libslic3r/Preset.cpp#L1119",
+          "publisher": "OrcaSlicer",
+          "accessed": "2026-10-02",
+          "supports": "that `enable_support` is carried by the print preset"
+        }
+      ]
+    }
+  ]
+}
