@@ -1,0 +1,77 @@
+{
+  "project": {
+    "name": "SEM-1 Bracket",
+    "slug": "sem1-bracket",
+    "version": "2.3.4",
+    "engine": "cadquery",
+    "description": {
+      "en": "Test fixture: a two-part motor bracket carrying every SEM-1 §2 field (parameter units, interface frames, polarity, size keys, symmetry and a requirement profile).",
+      "es": "Fixture de prueba: un soporte de motor de dos piezas con todos los campos de SEM-1 §2."
+    },
+    "attribution": {"author": "Innovaciones MADFAM", "license": "CERN-OHL-W-2.0"},
+    "tags": ["fixture", "motor", "bracket"]
+  },
+  "modes": [
+    {"id": "assembly", "label": {"en": "Assembly", "es": "Ensamble"}, "cq_file": "main.py",
+     "scad_file": "main.py", "parts": ["plate", "damper"], "part_quantities": {"damper": 4}},
+    {"id": "plate_only", "label": {"en": "Plate only", "es": "Solo placa"}, "cq_file": "main.py",
+     "scad_file": "main.py", "parts": ["plate"]}
+  ],
+  "parts": [
+    {"id": "plate", "label": {"en": "Plate", "es": "Placa"}, "render_mode": 0},
+    {"id": "damper", "label": {"en": "Damper", "es": "Amortiguador"}, "render_mode": 1}
+  ],
+  "parameters": [
+    {"id": "nema", "type": "select", "default": 17, "label": {"en": "NEMA size", "es": "Tamaño NEMA"},
+     "options": [{"value": 14, "label": {"en": "NEMA 14"}}, {"value": 17, "label": {"en": "NEMA 17"}}]},
+    {"id": "plate_t", "type": "slider", "default": 5.0, "min": 3, "max": 10, "step": 0.5, "unit": "mm",
+     "label": {"en": "Plate thickness (mm)", "es": "Grosor de placa (mm)"}},
+    {"id": "tilt", "type": "slider", "default": 0, "min": -15, "max": 15, "step": 1, "unit": "deg",
+     "label": {"en": "Tilt", "es": "Inclinación"}},
+    {"id": "h", "type": "slider", "default": 42.3, "min": 30, "max": 60, "step": 0.1, "unit": "mm",
+     "label": {"en": "Height", "es": "Altura"}},
+    {"id": "vented", "type": "checkbox", "default": true, "label": {"en": "Vented", "es": "Ventilada"}}
+  ],
+  "presets": [
+    {"id": "nema14_thin", "mode": "assembly", "label": {"en": "NEMA 14, thin", "es": "NEMA 14, delgada"},
+     "values": {"nema": 14, "plate_t": 3.5, "h": 35, "vented": false}}
+  ],
+  "constraints": [
+    {"expression": "plate_t >= 3", "severity": "error", "message": {"en": "Too thin", "es": "Muy delgada"}},
+    {"rule": "h > plate_t", "severity": "warning", "message": {"en": "Check height"}, "applies_to": ["plate"]}
+  ],
+  "export_formats": ["stl", "3mf", "step", "glb"],
+  "hyperobject": {
+    "domain": "industrial",
+    "commons_license": "CERN-OHL-W-2.0",
+    "material_awareness": {"shrinkage_compensation": false, "recycled_material_toggle": false,
+                           "tolerance_by_material": true},
+    "cdg_interfaces": [
+      {"id": "motor_face", "label": {"en": "Motor face", "es": "Cara del motor"},
+       "geometry_type": "bolt_pattern", "standard": "NEMA 17 (31 mm bolt square, M3)",
+       "parameters": ["nema", "plate_t"], "compatible_with": ["motor-mount", "nema-damper"],
+       "frame": {"part": "plate", "origin": [0, 0, "plate_t"], "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+       "polarity": "female", "size_key": {"param": "nema", "map": {"14": "nema-14-face", "17": "nema-17-face"}},
+       "symmetry": 4},
+      {"id": "rail_mount", "label": {"en": "Rail mount", "es": "Montaje a riel"},
+       "geometry_type": "profile", "standard": "2020 extrusion", "parameters": ["h", "ghost_param"],
+       "frame": {"part": "plate", "origin": ["h / 2", 0, 0], "normal": [-1, 0, 0], "x_axis": [0, 1, 0]},
+       "polarity": "male", "size_key": "tslot-2020-6mm", "symmetry": 2}
+    ]
+  },
+  "requirements": {
+    "process": ["fff"],
+    "materials": {"any_of": ["petg", "asa"], "none_of": ["pla"]},
+    "process_parameters": {"wall_loops": {"min": 3}, "sparse_infill_density": {"min": 40, "unit": "percent"}},
+    "rationale": {"en": "Motor heat and vibration.", "es": "Calor y vibración del motor."},
+    "parts": {"damper": {"materials": {"any_of": ["tpu-95a"]}}}
+  },
+  "bom": {
+    "hardware": [
+      {"id": "m3_screw", "label": {"en": "M3x8 screw", "es": "Tornillo M3x8"}, "quantity_formula": 4,
+       "unit": "pcs", "size_key": "m3x8-iso-4762"},
+      {"id": "nut", "label": {"en": "M5 T-nut"}, "quantity_formula": "2 * 2", "unit": "pcs"}
+    ]
+  },
+  "verification": {"stages": {"geometry": {"body_count": 1}}}
+}
