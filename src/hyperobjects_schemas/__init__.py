@@ -8,6 +8,7 @@ One place to read the contracts from, whichever side of the commons you author o
     load("garment-manifest")        # the Fashion Cabinet cartridge manifest (soft side)
     load("cross-commons-identity")  # the identity key that pairs the two
     load("generator-output")        # GOC-1: one generator instance (variables.json)
+    load("assembly")                # ASM-1: a type-level assembly (assembly.json)
 
 Names are given without the ``.schema.json`` suffix; the suffixed filename works too.
 
@@ -19,7 +20,7 @@ These files are copies of the schemas each platform repo publishes:
   * ``garment-manifest``, ``fabric-manifest``, ``body-measurements``
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
-    ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary`` — authored
+    ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``, ``assembly`` — authored
     HERE; this package is their home. The lexicon term schema formalizes RFC 0039 §3, the
     vocabulary schema its G3 controlled vocabularies, and the article schema its G2
     elevation of the per-cartridge README; the corpus and the vocabularies they validate
@@ -61,6 +62,7 @@ SCHEMAS: dict[str, str] = {
     "article-frontmatter": "hyperobjects-spec",
     "generator-output": "hyperobjects-spec",
     "fabrication-vocabulary": "hyperobjects-spec",
+    "assembly": "hyperobjects-spec",
 }
 
 
