@@ -7,6 +7,7 @@ One place to read the contracts from, whichever side of the commons you author o
     load("project-manifest")        # the Yantra4D cartridge manifest (solid side)
     load("garment-manifest")        # the Fashion Cabinet cartridge manifest (soft side)
     load("cross-commons-identity")  # the identity key that pairs the two
+    load("generator-output")        # GOC-1: one generator instance (variables.json)
 
 Names are given without the ``.schema.json`` suffix; the suffixed filename works too.
 
@@ -18,10 +19,14 @@ These files are copies of the schemas each platform repo publishes:
   * ``garment-manifest``, ``fabric-manifest``, ``body-measurements``
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
-    ``article-frontmatter`` — authored HERE; this package is their home. The lexicon
-    term schema formalizes RFC 0039 §3, the vocabulary schema its G3 controlled
-    vocabularies, and the article schema its G2 elevation of the per-cartridge README;
-    the corpus and the vocabularies they validate ship in ``hyperobjects_lexicon``.
+    ``article-frontmatter``, ``generator-output`` — authored HERE; this package is
+    their home. The lexicon term schema formalizes RFC 0039 §3, the vocabulary schema
+    its G3 controlled vocabularies, and the article schema its G2 elevation of the
+    per-cartridge README; the corpus and the vocabularies they validate ship in
+    ``hyperobjects_lexicon``.
+    The generator-output schema is GOC-1 (the ``variables.json`` a yantra4d or Fashion
+    Cabinet render writes next to its geometry); its digests and checker live in
+    ``hyperobjects_schemas.generator_output``. No platform keeps a copy of it.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -51,6 +56,7 @@ SCHEMAS: dict[str, str] = {
     "lexicon-term": "hyperobjects-spec",
     "commons-vocabulary": "hyperobjects-spec",
     "article-frontmatter": "hyperobjects-spec",
+    "generator-output": "hyperobjects-spec",
 }
 
 
