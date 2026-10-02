@@ -144,7 +144,7 @@
     "3mf"
   ],
   "hyperobject": {
-    "domain": "tool",
+    "domain": "industrial",
     "cdg_interfaces": [
       {
         "id": "block_face",
@@ -152,7 +152,7 @@
           "en": "Block face",
           "es": "Cara del bloque"
         },
-        "geometry_type": "plate",
+        "geometry_type": "surface",
         "standard": "internal",
         "parameters": [
           "block_size"

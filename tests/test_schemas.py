@@ -80,7 +80,7 @@ def test_manifest_enums_carry_the_device_geometry_vocabulary():
     the two copies must carry the same closed lists or a cartridge that is green in
     yantra4d fails here."""
     schema = hs.load("project-manifest")
-    hyperobject = schema["hyperobject"]["properties"]
+    hyperobject = schema["properties"]["hyperobject"]["properties"]
     nested = schema["properties"]["project"]["properties"]["hyperobject"]["properties"]
     interfaces = hyperobject["cdg_interfaces"]["items"]["properties"]
     geometry_types = interfaces["geometry_type"]["enum"]

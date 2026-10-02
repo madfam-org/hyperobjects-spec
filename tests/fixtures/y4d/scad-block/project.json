@@ -132,7 +132,7 @@
     "3mf"
   ],
   "hyperobject": {
-    "domain": "tool",
+    "domain": "industrial",
     "cdg_interfaces": [
       {
         "id": "through_hole",

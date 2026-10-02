@@ -280,7 +280,7 @@ def _cmd_render_env(args) -> int:
 
 
 def _cmd_rules(args) -> int:
-    from . import default_drift, rules, structure
+    from . import default_drift, rules, semantic_rules, structure
 
     print("y4d-spec checks a cartridge against, in order:\n")
     print("  1. the project-manifest JSON Schema (bundled from yantra4d/packages/schemas)")
@@ -292,6 +292,8 @@ def _cmd_rules(args) -> int:
         rules.i18n_rules,
         rules.license_rules,
         rules.verification_rules,
+        semantic_rules.interface_frame_rules,
+        semantic_rules.requirements_rules,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
