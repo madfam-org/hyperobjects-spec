@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/admin-shell-io/aas-specs-metamodel",
+  "tag": "v3.1.2",
+  "commit": "a93e41c07c4018e864cba6016b760b9c7e0d849f",
+  "path": "schemas/json/aas.json",
+  "git_blob_sha1": "8451293712358103bc4f15cbe5f47665dce95312",
+  "sha256": "9a8a005e303634f5041b9a2eac2e19c5cca05b9dd54c4bd20afbc7ab809d411e",
+  "bytes": 52421,
+  "license": "CC-BY-4.0"
+}

@@ -1,0 +1,43 @@
+{
+  "project": {
+    "name": "SEM-1 Wrap Skirt",
+    "slug": "sem1-garment",
+    "version": "0.1.0",
+    "engine": "fc",
+    "description": {"en": "Test fixture: a garment carrying the SEM-1 §3 fields.", "es": "Fixture de prueba.",
+                    "fr": "Fixture de test.", "pt": "Fixture de teste."},
+    "attribution": {"author": "Innovaciones MADFAM", "license": "CERN-OHL-W-2.0",
+                    "lineage": [{"source": "Original draft for the AAS fixture", "license": "original"}]}
+  },
+  "modes": [{"id": "wrap", "label": {"en": "Wrap", "es": "Cruzada"}, "script_file": "main.py",
+             "pieces": ["front", "back"]}],
+  "pieces": [
+    {"id": "front", "label": {"en": "Front"}, "default_color": "#aa5577",
+     "cut": {"quantity": 1, "on_fold": true, "mirror": false, "fold_edge": "center"}},
+    {"id": "back", "label": {"en": "Back"}, "default_color": "#aa5577", "cut": {"quantity": 2, "mirror": true}}
+  ],
+  "parameters": [
+    {"id": "waist_girth", "type": "slider", "default": 700, "min": 450, "max": 1500, "step": 10, "unit": "mm",
+     "measurement": {"standard": "iso_8559", "code": "waist_girth"}, "label": {"en": "Waist girth (mm)"}},
+    {"id": "length", "type": "slider", "default": 600, "min": 300, "max": 1100, "step": 10, "unit": "mm",
+     "label": {"en": "Length (mm)"}}
+  ],
+  "presets": [{"id": "short", "label": {"en": "Short"}, "values": {"length": 420}}],
+  "export_formats": ["svg", "dxf", "json", "pdf"],
+  "hyperobject": {
+    "is_hyperobject": true, "domain": "garment", "commons_license": "CERN-OHL-W-2.0",
+    "interfaces": [
+      {"id": "waistband", "type": "waistband", "edges": [{"piece": "front", "edge": "waist"},
+       {"piece": "back", "edge": "waist"}], "parameters": ["waist_girth"]},
+      {"id": "closure", "type": "zipper_tape", "edges": [{"piece": "back", "edge": "cb"}],
+       "parameters": ["length"], "label": {"en": "Closure"}, "geometry_type": "seam"}
+    ],
+    "capabilities": {"made_to_measure": true}
+  },
+  "fabrics": ["popelina-algodon", "mezclilla-denim"],
+  "notion": {"kind": "closure", "subtype": "snap",
+             "hardware_ref": {"platform": "yantra4d", "project_slug": "sew-on-snap", "linked": true,
+                              "params_map": {"snap_d": "12"}}},
+  "requirements": {"materials": {"any_of": ["woven-cotton"]},
+                   "rationale": {"en": "Needs a stable woven.", "es": "Requiere un tejido plano estable."}}
+}
