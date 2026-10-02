@@ -76,6 +76,9 @@ hyperobjects_schemas = ["schemas/*.json"]
 hyperobjects_lexicon = [
   "terms/*.json", "catalogs/*.json", "vocabularies/*.json", "vocabularies/fabrication/*.json",
 ]
+# The standard-parts catalog (ASM-1 §4): one JSON file per COTS part, validated by
+# hyperobjects_schemas' standard-part.schema.json.
+hyperobjects_standard_parts = ["parts/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
