@@ -20,9 +20,10 @@ These files are copies of the schemas each platform repo publishes:
   * ``garment-manifest``, ``fabric-manifest``, ``body-measurements``
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
-    ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``, ``assembly`` — authored
-    HERE; this package is their home. The lexicon term schema formalizes RFC 0039 §3, the
-    vocabulary schema its G3 controlled vocabularies, and the article schema its G2
+    ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``,
+    ``assembly`` — authored HERE; this package is their home. The lexicon term schema
+    formalizes RFC 0039 §3, the vocabulary schema its G3 controlled vocabularies, and the
+    article schema its G2
     elevation of the per-cartridge README; the corpus and the vocabularies they validate
     ship in ``hyperobjects_lexicon``.
     The generator-output schema is GOC-1 (the ``variables.json`` a yantra4d or Fashion
