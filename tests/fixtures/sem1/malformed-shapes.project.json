@@ -1,0 +1,11 @@
+{
+  "_fixture": "Fields present in shapes the rule cannot read. Each is reported, never skipped: an unreadable key must not pass by being unreadable.",
+  "project": {"slug": "sem1-malformed"},
+  "hyperobject": {"cdg_interfaces": [{"id": "bad", "size_key": 17}, {"id": "empty_map", "size_key": {"param": "p", "map": {}}}]},
+  "requirements": {
+    "process": 3,
+    "materials": ["pla"],
+    "process_parameters": ["wall_loops"],
+    "parts": ["plate"]
+  }
+}

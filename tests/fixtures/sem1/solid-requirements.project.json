@@ -1,0 +1,38 @@
+{
+  "_fixture": "SEM-1 §2.3/§2.4 shapes on a solid manifest, every key resolvable. Only the fields the vocabulary-membership rule reads are present; this is not a full cartridge.",
+  "project": {"slug": "sem1-motor-plate", "name": {"en": "SEM-1 motor plate", "es": "Placa de motor SEM-1"}},
+  "parameters": [
+    {"id": "motor_class", "type": "select", "default": "2207", "options": ["1404", "2207", "2806"]},
+    {"id": "plate_t", "type": "number", "default": 4, "unit": "mm"}
+  ],
+  "parts": [{"id": "plate", "label": {"en": "Plate"}}, {"id": "damper", "label": {"en": "Damper"}}],
+  "hyperobject": {
+    "cdg_interfaces": [
+      {
+        "id": "motor_seat",
+        "geometry_type": "bolt_pattern",
+        "frame": {"part": "plate", "origin": [0, 0, "plate_t"], "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+        "polarity": "female",
+        "size_key": {"param": "motor_class", "map": {"1404": "motor-mount-12x12-m2", "2207": "motor-mount-16x16-m3", "2806": "motor-mount-19x19-m3"}},
+        "symmetry": 4
+      },
+      {
+        "id": "stack_mount",
+        "geometry_type": "bolt_pattern",
+        "frame": {"part": "plate", "origin": [0, 40, "plate_t"], "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+        "polarity": "female",
+        "size_key": "stack-30.5x30.5-m3",
+        "symmetry": 4
+      }
+    ]
+  },
+  "requirements": {
+    "process": ["fff"],
+    "materials": {"any_of": ["petg", "asa", "pa12-cf"], "none_of": ["pla"]},
+    "process_parameters": {"wall_loops": {"min": 3}, "sparse_infill_density": {"min": 40, "unit": "percent"}},
+    "rationale": {"en": "Motor heat and vibration.", "es": "Calor y vibración del motor."},
+    "parts": {
+      "damper": {"materials": {"any_of": ["tpu-95a", "tpu-85a"]}, "process_parameters": {"outer_wall_speed": {"max": 30}}}
+    }
+  }
+}

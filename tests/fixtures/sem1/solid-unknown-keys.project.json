@@ -1,0 +1,17 @@
+{
+  "_fixture": "Every place the vocabulary-membership rule reads, each carrying a key no vocabulary defines. Six findings, one per place.",
+  "project": {"slug": "sem1-unknown-keys"},
+  "parameters": [{"id": "motor_class", "type": "select", "default": "2207", "options": ["2207"]}],
+  "hyperobject": {
+    "cdg_interfaces": [
+      {"id": "literal", "geometry_type": "bolt_pattern", "polarity": "male", "size_key": "nema17-face"},
+      {"id": "mapped", "geometry_type": "bolt_pattern", "polarity": "male", "size_key": {"param": "motor_class", "map": {"2207": "motor-mount-16x16"}}}
+    ]
+  },
+  "requirements": {
+    "process": ["fdm"],
+    "materials": {"any_of": ["tpu-95"], "none_of": []},
+    "process_parameters": {"wall_count": {"min": 3}},
+    "parts": {"damper": {"materials": {"none_of": ["nylon"]}}}
+  }
+}

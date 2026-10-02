@@ -45,6 +45,8 @@ from __future__ import annotations
 
 import re
 
+from hyperobjects_lexicon.membership import manifest_vocabulary_problems
+
 __all__ = [
     "DIFFICULTIES",
     "manifest_structural_rules",
@@ -873,6 +875,7 @@ def all_manifest_rules(doc: dict) -> list[str]:
     problems.extend(i18n_rules(doc))
     problems.extend(license_rules(doc))
     problems.extend(verification_rules(doc))
+    problems.extend(manifest_vocabulary_problems(doc))  # SEM-1 §4 (hyperobjects_lexicon)
     return problems
 
 
