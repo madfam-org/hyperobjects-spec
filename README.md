@@ -72,6 +72,7 @@ y4d-spec check ./my-cartridge --render --parity --parity-tolerance 0.01   # wide
 y4d-spec render-env                        # the render environment: packages, OpenSCAD, fonts
 y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
+y4d-spec bundle check ./renders/           # GOC-1 variables.json + geometry (see "Generator output")
 ```
 
 A cartridge directory is anything with a `project.json`. A directory you name that has
@@ -90,7 +91,9 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
    run `y4d-spec rules` to see them.
 3. Checks the files: mode sources exist, no includes escaping the cartridge, no
    vendored tree, no shipped LICENSE contradicting the declared one, and **every
-   declared parameter is actually referenced by a source** (below).
+   declared parameter is actually referenced by a source** (below). As a note only,
+   every manifest `default` that differs from the literal the source falls back to
+   (`default-drift`, below).
 
 **Every declared parameter must reach geometry.** A parameter the sources never read is
 a control the UI offers that changes nothing, and it fails the check. OpenSCAD is where
@@ -134,6 +137,25 @@ exemption (G38) — an object whose `reason` is required and must be non-empty:
   }
 }
 ```
+
+**A manifest default should be the source's default (`default-drift`, note only).** A
+parameter's default is written twice: in `project.json` (what the UI shows, and what a
+full-parameter render injects) and in the source (what the engine uses when the
+parameter is *not* injected). A render that sends only some keys gets the source's
+literal for the rest, so when the two differ the "default" instance has two geometries,
+and a generator-output document (below) cannot record the one it rendered. The rule
+reads the fallback the way each dialect spells it — `PARAM(lambda: id, <literal>)` in a
+`.py`/`.cq` (and a Fashion Cabinet `script_file`) through `ast`, a top-level
+`id = <literal>;` or `id = is_undef(id) ? <literal> : id;` in a `.scad` (following
+in-cartridge `include <>`, last assignment winning), and the node literal a `binding`
+targets in a `.graph.json` — and compares it with the manifest `default`: booleans equal
+0/1, numbers within 1e-9, a numeric string equals the number it spells, other strings as
+written. It is judged per `(file, line)` with the modes that use the file, only for
+parameters in scope for those modes, and never for engine-control keys (`target_part`).
+It is a **note**, never a failure: some drift is deliberate per mode, and nothing
+becomes a failure before its whole-commons analysis is written down. On the solid
+commons at `faaea08` it fires on 10 of 502 cartridges (16 locations); on the soft
+commons at `700f9d0`, on 4 of 516.
 
 **What `--render` adds.** It executes your cartridge for every `(mode, part)` pair —
 **on every engine the mode declares** — then requires each mesh to be
@@ -697,6 +719,7 @@ fc-spec check body-measurements my-body.json
 fc-spec check fabric-card my-material.json
 fc-spec check explode-json my-explode.json
 fc-spec check hardware-ref my-notion.json --resolve yantra4d-commons-catalog.json
+fc-spec check generator-output ./bundle/variables.json   # GOC-1; a directory works too
 ```
 
 | Contract | Validates |
@@ -706,6 +729,7 @@ fc-spec check hardware-ref my-notion.json --resolve yantra4d-commons-catalog.jso
 | `body-measurements` | a body / size measurement set |
 | `hardware-ref` | a notion's Yantra4D `hardware_ref` link |
 | `explode-json` | the native fabrication payload |
+| `generator-output` | a render's GOC-1 `variables.json` (see "Generator output") — warnings print and never fail |
 
 To check that a linked `hardware_ref`'s `params_map` keys are real parameters of the
 target cartridge, pass a resolution surface with `--resolve`. Without it, a linked
@@ -833,6 +857,74 @@ the Fashion Cabinet side, and that a pair genuinely spans the two commons.
 **What is not:** whether either slug exists. This package has no repo to look in, and
 someone pairing against their own fork must still be able to validate a record.
 Existence is a platform-side lane.
+
+---
+
+## Generator output (GOC-1) — `variables.json`
+
+A rendered file says nothing about how it was made. **GOC-1** (Generator Output
+Contract v1) is the document a platform writes beside every render: which cartridge,
+mode and part, on which engine, with exactly which inputs, plus the digest of every
+file. yantra4d writes `<artifact-stem>.variables.json` next to each artifact; Fashion
+Cabinet ships `variables.json` inside a `format=bundle` zip. The schema is
+`generator-output` in `hyperobjects_schemas` — **this package is its only home**; no
+platform keeps a copy. It carries **no material, process, slicer or printer settings**:
+the schema denies `target_material`, `infill`, `layer_height`, `nozzle_diameter` and
+friends, and the prefixes `mat_shrinkage_`, `mat_clear_`, `thermo_`, `slicer_`,
+`printer_`, `filament_`. The bare `mat_` prefix is allowed on purpose (`mat_thick`,
+`mat_width` are geometry in the solid commons).
+
+```bash
+y4d-spec bundle check ./renders/                     # every *.variables.json / variables.json below
+y4d-spec bundle check part.variables.json other/variables.json
+fc-spec check generator-output ./bundle/variables.json
+```
+
+Each document is checked against the geometry files in **its own directory**. Exit 1 on
+any error, 0 otherwise — warnings print and never fail; naming nothing checkable is a
+usage error (exit 2).
+
+| Severity | Finding |
+|---|---|
+| error | schema violation (including a denied physical id) |
+| error | `variables` not sorted by id, or a duplicate id |
+| error | `variables_sha256` or `instance_id` does not recompute |
+| error | `complete` contradicts the variables (`complete` = no `source_default` entry) |
+| error | a geometry file present beside the document whose size or sha256 differs, or a geometry path that is absolute or escapes the directory |
+| warning | `complete: false` — some parameter was not injected, so the geometry depends on a source literal `variables` does not record |
+| warning | `legacy_physical_inputs` present (deprecated) |
+| warning | a geometry file is not present — its digest was **not** verified |
+
+The four algorithms every producer and checker must agree on live in
+`hyperobjects_schemas.generator_output`:
+
+```python
+from hyperobjects_schemas.generator_output import (
+    canonical_json, variables_sha256, tree_sha256, instance_id, check_generator_output,
+)
+canonical_json(obj)        # json.dumps(sort_keys, (",", ":"), ensure_ascii=False, allow_nan=False), UTF-8
+variables_sha256(doc["variables"])   # sha256 of canonical [[id, value], ...] sorted by id (bytewise)
+tree_sha256("./projects/thimble")    # hyperobjects-tree-v1
+instance_id(cartridge=..., mode=..., part=..., tree_sha256=..., variables_sha256=...)
+check_generator_output(doc, base_dir="./renders").findings
+```
+
+- `variables_sha256` hashes **id and value only**; provenance (`type`, `source`,
+  `preset_id`, `unit`, `measurement`) is excluded, and a `source_default` entry
+  contributes `null`. Python's JSON spells `1000` and `1000.0` differently, so a
+  producer must keep each value's manifest type stable or the same inputs hash twice.
+- `tree_sha256` (`hyperobjects-tree-v1`) digests the cartridge directory: every regular
+  file (file symlinks followed, directory symlinks never), except paths with a `.git`,
+  `__pycache__` or `node_modules` segment, the cartridge's root `docs/`, and the
+  suffixes `.md .txt .png .jpg .jpeg .gif .svg .webp .pdf`; one line
+  `"<sha256>  <path>\n"` per file, sorted bytewise, hashed. **Known limitation:**
+  shared libraries outside the cartridge (`libs/*`, `commons-lib`) are not covered;
+  `generator.commons.sha` and `generator.kernel` record those.
+- `instance_id` excludes `platform_build` and `kernel` by design: the same design at the
+  same inputs keeps its id across deploys, and the geometry `sha256` records the bytes.
+
+`tests/fixtures/generator-output/thimble/` is a document that passes clean; the golden
+vectors producers cross-check against are pinned in `tests/test_generator_output.py`.
 
 ---
 
@@ -1197,15 +1289,15 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
-| `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key |
+| `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 
 ```python
 import hyperobjects_schemas as hs
 hs.list_schemas()               # ['article-frontmatter', 'body-measurements',
                                 #  'commons-vocabulary', 'cross-commons-identity',
-                                #  'fabric-manifest', 'garment-manifest', 'lexicon-term',
-                                #  'project-manifest']
+                                #  'fabric-manifest', 'garment-manifest',
+                                #  'generator-output', 'lexicon-term', 'project-manifest']
 hs.load("project-manifest")
 ```
 

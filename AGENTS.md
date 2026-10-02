@@ -269,6 +269,22 @@ The `reason` is **required and non-empty**, in the rule and in the schema. A
 quiet a finding you have not read: the three honest answers to a dead parameter
 are **wire it, remove it, or allow-list it with a reason someone can review**.
 
+## `default-drift` and the generator-output contract (GOC-1)
+
+- `default-drift` (`y4d_spec/default_drift.py`) is a **note**, never a failure: a
+  manifest `default` that differs from the literal the source falls back to. It
+  reads `PARAM(lambda: id, <literal>)` with `ast`, top-level `.scad` assignments
+  (and `id = is_undef(id) ? <literal> : id;`), and graph binding literals, and
+  reports per `(file, line)` with the modes that use the file. Do not promote it
+  to a failure without a whole-commons false-positive analysis; some per-mode
+  drift is deliberate.
+- `generator-output.schema.json` and `hyperobjects_schemas/generator_output.py`
+  (GOC-1, `variables.json`) are **owned here**; platforms import them and keep no
+  copy. The golden vectors in `tests/test_generator_output.py` are a fleet-wide
+  contract: change them only with a contract version, never to make a test pass.
+  `y4d-spec bundle check` and `fc-spec check generator-output` share one body and
+  exit 1 on errors only.
+
 ## The `constraints[]` dialect — `safeFormula`, not expr-eval
 
 `project.json`'s `constraints[]` are evaluated **client-side in the Studio** by a
