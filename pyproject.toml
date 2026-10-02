@@ -70,6 +70,8 @@ where = ["src"]
 [tool.setuptools.package-data]
 fc_spec = ["schemas/*.json"]
 hyperobjects_schemas = ["schemas/*.json"]
+# The vendored AAS v3.1.2 JSON Schema (CC-BY-4.0, see schemas/VENDORED.md) and its lock.
+hyperobjects_aas = ["schemas/*.json", "schemas/*.md", "schemas/*.txt"]
 "y4d_spec.graph" = ["*.json", "VENDORED.md"]
 # The lexicon corpus is data the package ships and is the only reader of. One JSON
 # file per term (see hyperobjects_lexicon/lexicon.py for why JSON, not YAML).
