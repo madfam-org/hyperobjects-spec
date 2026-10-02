@@ -387,6 +387,17 @@
           "step": {
             "type": "number"
           },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "mm",
+              "deg",
+              "count",
+              "ratio",
+              "percent"
+            ],
+            "description": "Unit of this parameter's value (SEM-1 §2.2). Lengths are mm, angles deg; `count` is a whole number of things, `ratio` a dimensionless factor, `percent` 0-100. Optional: absent means the label is the only statement of the unit."
+          },
           "maxlength": {
             "type": "number"
           },
@@ -1341,6 +1352,109 @@
                   "type": "string"
                 },
                 "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
+              },
+              "frame": {
+                "type": "object",
+                "description": "Where the interface sits on its part, in mm, in the part's model frame at the resolved parameters (SEM-1 §2.3). `normal` points from the feature toward where the mating partner sits; `x_axis` is the in-plane reference direction, orthogonal to `normal`, required when `symmetry` is not 0. Statically checked for structure and expression parseability only: a frame is not trusted until the render-time frame gate has compared it with the geometry.",
+                "required": [
+                  "part",
+                  "origin",
+                  "normal"
+                ],
+                "properties": {
+                  "part": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "A part id from `parts`."
+                  },
+                  "origin": {
+                    "$ref": "#/$defs/frameVector"
+                  },
+                  "normal": {
+                    "$ref": "#/$defs/frameVector"
+                  },
+                  "x_axis": {
+                    "$ref": "#/$defs/frameVector"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "polarity": {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female",
+                  "neutral"
+                ],
+                "description": "Which side of a mating pair this is. Two interfaces mate only with complementary polarity: male with female, neutral with neutral."
+              },
+              "size_key": {
+                "description": "The interface-sizes vocabulary key this interface realises (e.g. `nema-17-face`), or {param, map} when a select parameter chooses it: `map` sends every option value of `param` to a key. Vocabulary membership is a separate lexicon rule.",
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "param",
+                      "map"
+                    ],
+                    "properties": {
+                      "param": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "map": {
+                        "type": "object",
+                        "minProperties": 1,
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "symmetry": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  6,
+                  8
+                ],
+                "description": "Rotational symmetry order about `normal`: 0 continuous (a round shaft), 1 none, else the number of equivalent orientations (4 for a square bolt pattern)."
+              }
+            },
+            "if": {
+              "required": [
+                "symmetry"
+              ],
+              "properties": {
+                "symmetry": {
+                  "not": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "frame"
+              ],
+              "properties": {
+                "frame": {
+                  "required": [
+                    "x_axis"
+                  ]
+                }
               }
             }
           }
@@ -1406,6 +1520,21 @@
           "type": "number"
         }
       }
+    },
+    "requirements": {
+      "description": "The product requirement profile (SEM-1 §2.4): which processes, material classes and process-parameter bounds a print of this cartridge needs, and why. `parts` overrides the profile for named parts (keys are ids from `parts`). Keys come from the lexicon vocabularies; membership is checked by the lexicon rule, structure here.",
+      "$ref": "#/$defs/requirementSet",
+      "properties": {
+        "parts": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/requirementSet",
+            "minProperties": 1,
+            "unevaluatedProperties": false
+          }
+        }
+      },
+      "unevaluatedProperties": false
     }
   },
   "$defs": {
@@ -1481,6 +1610,118 @@
           ]
         }
       ]
+    },
+    "frameComponent": {
+      "description": "One coordinate of an interface frame: a number, or an expression over this manifest's parameter ids (SEM-1 §2.3 grammar: numeric literals, parameter ids, + - * / and parentheses, min(), max(), abs()). y4d-spec parses every expression; nothing here evaluates it.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      ]
+    },
+    "frameVector": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/frameComponent"
+      }
+    },
+    "materialSelector": {
+      "type": "object",
+      "description": "Material classes (material-classes vocabulary): accept any of, refuse all of.",
+      "properties": {
+        "any_of": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "none_of": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "processParameterBound": {
+      "type": "object",
+      "description": "A bound on one process parameter (process-parameters vocabulary key): `min` and/or `max` for a numeric setting, or `value` for an exact one (e.g. enable_support). `unit` restates the vocabulary's unit for the reader.",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "min"
+          ]
+        },
+        {
+          "required": [
+            "max"
+          ]
+        },
+        {
+          "required": [
+            "value"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "requirementSet": {
+      "type": "object",
+      "properties": {
+        "process": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Fabrication processes (processes vocabulary) that can make this."
+        },
+        "materials": {
+          "$ref": "#/$defs/materialSelector"
+        },
+        "process_parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/processParameterBound"
+          }
+        },
+        "rationale": {
+          "$ref": "#/$defs/i18nString"
+        }
+      }
     }
   }
 }

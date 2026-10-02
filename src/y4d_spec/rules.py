@@ -25,6 +25,8 @@ Provenance — each rule and where it comes from in the yantra4d repo:
   declared params referenced  THIS PACKAGE (G-DEADPARAM, 2026-09-06) — see
                               dead_parameter_rules; needs the SOURCES, so the disk half
                               is structure.dead_parameter_rules and the decision is here
+  interface frames, size_key, THIS PACKAGE (SEM-1 §2.3–§2.4, 2026-10-02) — see
+  requirements profile        semantic_rules.py (interface_frame_rules, requirements_rules)
 
 Deliberately NOT here — these are repo-wide, not per-cartridge, and stay in the
 platform: catalog drift (generate_commons_catalog.py), cross-cartridge slug
@@ -44,6 +46,8 @@ ran could be switched off by switching the comparison off.
 from __future__ import annotations
 
 import re
+
+from .semantic_rules import interface_frame_rules, requirements_rules
 
 __all__ = [
     "DIFFICULTIES",
@@ -873,6 +877,8 @@ def all_manifest_rules(doc: dict) -> list[str]:
     problems.extend(i18n_rules(doc))
     problems.extend(license_rules(doc))
     problems.extend(verification_rules(doc))
+    problems.extend(interface_frame_rules(doc))
+    problems.extend(requirements_rules(doc))
     return problems
 
 

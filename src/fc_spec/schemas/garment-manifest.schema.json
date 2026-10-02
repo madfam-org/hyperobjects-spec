@@ -23,6 +23,36 @@
         "piece": { "type": "string" },
         "edge": { "type": "string" }
       }
+    },
+    "materialSelector": {
+      "type": "object",
+      "description": "Material classes (material-classes vocabulary; fabric classes here): accept any of, refuse all of.",
+      "properties": {
+        "any_of": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "none_of": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "processParameterBound": {
+      "type": "object",
+      "description": "A bound on one process parameter (process-parameters vocabulary key): min and/or max, or an exact value.",
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "value": { "type": ["number", "string", "boolean"] },
+        "unit": { "type": "string", "minLength": 1 }
+      },
+      "anyOf": [{ "required": ["min"] }, { "required": ["max"] }, { "required": ["value"] }],
+      "additionalProperties": false
+    },
+    "requirementSet": {
+      "type": "object",
+      "properties": {
+        "process": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
+        "materials": { "$ref": "#/$defs/materialSelector" },
+        "process_parameters": { "type": "object", "additionalProperties": { "$ref": "#/$defs/processParameterBound" } },
+        "rationale": { "$ref": "#/$defs/i18n" }
+      }
     }
   },
   "properties": {
@@ -124,6 +154,11 @@
           "min": { "type": "number" },
           "max": { "type": "number" },
           "step": { "type": "number" },
+          "unit": {
+            "type": "string",
+            "enum": ["mm", "deg", "count", "ratio", "percent"],
+            "description": "Unit of this parameter's value (SEM-1 §3; garment lengths are mm). Optional."
+          },
           "options": {
             "type": "array",
             "items": {
@@ -177,6 +212,17 @@
     "export_formats": {
       "type": "array",
       "items": { "type": "string", "enum": ["svg", "dxf", "dxf-aama", "json", "pdf"] }
+    },
+    "requirements": {
+      "description": "The product requirement profile (SEM-1 §3, the same block as the solid manifest's): processes, material classes (fabric classes) and process-parameter bounds, and why. `parts` overrides the profile per piece (keys are piece ids). Vocabulary membership is a lexicon rule.",
+      "$ref": "#/$defs/requirementSet",
+      "properties": {
+        "parts": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/requirementSet", "minProperties": 1, "unevaluatedProperties": false }
+        }
+      },
+      "unevaluatedProperties": false
     },
     "fabrics": {
       "type": "array",
