@@ -1,0 +1,8 @@
+{
+  "key": "motor-2207-test",
+  "name": {"en": "2207 brushless motor (test fixture)"},
+  "cdg_interfaces": [
+    {"id": "base", "frame": {"origin": [0, 0, 0], "normal": [0, 0, -1], "x_axis": [1, 0, 0]},
+     "polarity": "male", "size_key": "motor-mount-16x16-m3", "symmetry": 4}
+  ]
+}
