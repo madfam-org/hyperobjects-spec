@@ -7,6 +7,7 @@ MatingInterfaces, BillOfMaterials. A submodel with nothing truthful to say is om
 
 from __future__ import annotations
 
+from functools import cache
 from pathlib import Path
 
 from hyperobjects_schemas.generator_output import tree_sha256
@@ -234,6 +235,7 @@ def _valid_slug(slug: str) -> bool:
     return True
 
 
+@cache
 def _geometry_terms() -> dict[str, str]:
     from hyperobjects_lexicon import load_vocabulary
 

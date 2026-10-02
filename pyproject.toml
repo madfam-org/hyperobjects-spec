@@ -54,6 +54,11 @@ geometry = [
   "rtree>=1.0",
 ]
 dev = ["pytest>=8", "ruff>=0.6"]
+# The AAS projection (hyperobjects_aas) needs only jsonschema at runtime. This extra adds
+# the Eclipse BaSyx Python SDK (MIT), pinned to the release that implements metamodel
+# v3.1.2, so `aas check` can also round-trip every environment through an independent
+# strict deserializer. Dev/verification only: nothing imports it unless it is installed.
+aas-verify = ["basyx-python-sdk==2.2.0"]
 
 [project.urls]
 Homepage = "https://github.com/madfam-org/hyperobjects-spec"
