@@ -1,0 +1,8 @@
+{
+  "key": "gt2-pulley-test",
+  "name": {"en": "GT2 pulley, 20 teeth, 5 mm bore (test fixture)"},
+  "interfaces": [
+    {"id": "bore", "frame": {"origin": [0, 0, 0], "normal": [0, 0, -1]},
+     "polarity": "female", "size_key": "nema-17-shaft-5mm", "symmetry": 0}
+  ]
+}

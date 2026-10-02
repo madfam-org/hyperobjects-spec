@@ -1,0 +1,11 @@
+{
+  "key": "elbow-test",
+  "name": {"en": "Square tube elbow (test fixture)"},
+  "parameters": {"arm": {"default": 50, "min": 20, "max": 200, "unit": "mm"}},
+  "interfaces": [
+    {"id": "inlet", "frame": {"origin": [0, 0, 0], "normal": [-1, 0, 0], "x_axis": [0, 0, 1]},
+     "polarity": "neutral", "size_key": "test-square-tube-20", "symmetry": 4},
+    {"id": "outlet", "frame": {"origin": ["arm", "arm", 0], "normal": [0, 1, 0], "x_axis": [0, 0, 1]},
+     "polarity": "neutral", "size_key": "test-square-tube-20", "symmetry": 4}
+  ]
+}

@@ -169,6 +169,7 @@ class StandardPartsResolver:
         self.directory = Path(directory)
         self._entries: dict[str, dict] | None = None
         self._load_problems: list[str] = []
+        self._duplicates: dict[str, list[str]] = {}
 
     def entries(self) -> dict[str, dict]:
         if self._entries is None:
@@ -185,7 +186,7 @@ class StandardPartsResolver:
                     continue
                 key = doc["key"]
                 if key in entries:
-                    self._load_problems.append(
+                    self._duplicates.setdefault(key, []).append(
                         f"standard part '{key}' is defined twice ({where[key]} and {path})"
                     )
                     continue
@@ -201,6 +202,9 @@ class StandardPartsResolver:
             raise ResolutionError(
                 [*self._load_problems, f"standard part {key!r} is not in {self.directory}"]
             )
+        if key in self._duplicates:
+            # Which of two entries is meant is unknowable; picking one would be a guess.
+            raise ResolutionError(self._duplicates[key])
         entry = entries[key]
         parameters = _normalise_parameters(entry.get("parameters"))
         given = source.get("parameters") or {}
