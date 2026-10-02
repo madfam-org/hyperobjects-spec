@@ -47,6 +47,8 @@ from __future__ import annotations
 
 import re
 
+from hyperobjects_lexicon.membership import manifest_vocabulary_problems
+
 from .semantic_rules import interface_frame_rules, requirements_rules
 
 __all__ = [
@@ -879,6 +881,7 @@ def all_manifest_rules(doc: dict) -> list[str]:
     problems.extend(verification_rules(doc))
     problems.extend(interface_frame_rules(doc))
     problems.extend(requirements_rules(doc))
+    problems.extend(manifest_vocabulary_problems(doc))  # SEM-1 §4 (hyperobjects_lexicon)
     return problems
 
 
