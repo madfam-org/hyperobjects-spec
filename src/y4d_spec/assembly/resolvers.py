@@ -80,8 +80,8 @@ class CommonsManifestResolver:
             raise ResolutionError(
                 [f"commons {commons!r} is not served here (this resolver reads {self.commons!r})"]
             )
-        if not isinstance(slug, str) or not slug:
-            raise ResolutionError(["cartridge source names no slug"])
+        if not isinstance(slug, str) or not slug or "/" in slug or slug.startswith("."):
+            raise ResolutionError([f"cartridge slug {slug!r} is not a single directory name"])
         manifest = self.manifest(slug)
         mode_id, part = source.get("mode"), source.get("part")
         given = source.get("parameters") or {}
