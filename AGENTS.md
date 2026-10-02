@@ -287,6 +287,19 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
   `y4d-spec bundle check` and `fc-spec check generator-output` share one body and
   exit 1 on errors only.
 
+## The AAS projection (`hyperobjects_aas`, SEM-1 §5)
+
+- Identifiers are permanent (`https://id.madfam.io/…`, `ids.py`). Never change a
+  pattern; a new object kind gets a new pattern.
+- IDTA semanticIds are **copied** from the published template JSON (path and commit
+  in `templates.py`), never typed from memory. A submodel claims one only when
+  every mandatory element is present; `aas check` fails an over-claim (R85).
+- `schemas/aas.json` is the official v3.1.2 schema, vendored under CC-BY-4.0
+  (`VENDORED.md`, `aas.lock.json`, hash-tested). Do not edit it; validation speed
+  comes from `check.dispatch_view`, which is tested equivalent to the file.
+- Read manifests defensively: a missing or odd field omits an element, it never
+  fails the build. The SEM-1 §2–§3 fields are optional by design.
+
 ## The `constraints[]` dialect — `safeFormula`, not expr-eval
 
 `project.json`'s `constraints[]` are evaluated **client-side in the Studio** by a
