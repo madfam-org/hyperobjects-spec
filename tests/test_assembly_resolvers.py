@@ -409,3 +409,34 @@ def test_cli_read_and_usage_errors(tmp_path, capsys):
     assert main(["assembly", "check", path, "--commons", str(tmp_path / "nope")]) == 2
     assert main(["assembly", "check", path, "--collision"]) == 0
     assert "collision=not run" in capsys.readouterr().out
+
+
+# ── robustness: never a traceback ─────────────────────────────────────────────
+class _BrokenResolver:
+    def resolve(self, component):
+        raise KeyError("interfaces")
+
+
+def test_a_resolver_bug_is_a_finding_not_a_crash():
+    report = validate_assembly(assembly([standard("a", "elbow-test")], []), _BrokenResolver())
+    assert codes(report) == [("resolve", "a")]
+    assert "the resolver failed: KeyError" in report.errors[0].message
+
+
+def test_a_slug_cannot_leave_the_commons_directory():
+    component = cartridge("x")
+    component["source"]["slug"] = "../escape"
+    report = resolver().by_type["cartridge"]
+    with pytest.raises(Exception, match="not a single directory name"):
+        report.resolve(component)
+
+
+def test_a_non_finite_angle_is_a_rotation_error_and_has_no_digest():
+    doc = assembly(
+        [standard("motor", "nema-17-48mm-test"), standard("pulley", "gt2-pulley-test")],
+        [mate("m1", "motor.shaft", "pulley.bore", angle_deg=float("nan"))],
+    )
+    report = validate_assembly(doc, resolver())
+    assert not report.ok and report.digest is None
+    assert ("rotation", "m1") in codes(report) and ("digest", None) in codes(report)
+    assert "pulley" not in report.placements

@@ -215,6 +215,9 @@ def _mate_rule_step(report, mate, ia, ib) -> MateCheck | None:
                 mid,
             )
             ok = False
+        elif not math.isfinite(mate["angle_deg"]):
+            report._err("rotation", f"angle_deg {mate['angle_deg']!r} is not finite", mid)
+            ok = False
         else:
             theta = float(mate["angle_deg"])
     else:
@@ -342,6 +345,10 @@ def validate_assembly(
         except ResolutionError as exc:
             for problem in exc.problems:
                 report._err("resolve", problem, component["id"])
+        except Exception as exc:  # a resolver bug is a finding, never a crash
+            report._err(
+                "resolve", f"the resolver failed: {type(exc).__name__}: {exc}", component["id"]
+            )
 
     edges = []
     for mate in doc["mates"]:
@@ -378,7 +385,10 @@ def validate_assembly(
             "intersection was checked (ASM-1 §3.7 is reported, not gating, in v1)",
         )
     if len(report.components) == len(doc["components"]):
-        report.digest = assembly_digest(
-            doc, {cid: rc.identity for cid, rc in report.components.items()}
-        )
+        try:
+            report.digest = assembly_digest(
+                doc, {cid: rc.identity for cid, rc in report.components.items()}
+            )
+        except (TypeError, ValueError) as exc:  # NaN / Infinity has no canonical JSON
+            report._err("digest", f"the document has no canonical JSON form: {exc}")
     return report
