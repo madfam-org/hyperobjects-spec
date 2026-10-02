@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
@@ -50,6 +51,7 @@ __all__ = [
     "check_generator_output_file",
     "collect_generator_output_files",
     "instance_id",
+    "normalize_numbers",
     "run_cli_check",
     "tree_sha256",
     "variables_sha256",
@@ -77,14 +79,44 @@ WARNING = "warning"
 
 
 # ── §3 algorithms ─────────────────────────────────────────────────────────────
+#: §3.1 — integral floats at or beyond 2^53 are left as floats: above it not every
+#: integer is representable, so "integral" no longer means "exactly this integer".
+_INT_SAFE_LIMIT = 2**53
+
+
+def normalize_numbers(obj: object) -> object:
+    """§3.1 (GOC-1 v1.0.1) — every finite integral float with |x| < 2^53 becomes an int.
+
+    `12.0 -> 12`, `-0.0 -> 0`, recursively through lists, tuples and dict values.
+    Booleans are left alone (they are ints in Python, but JSON `true`, not `1`), as are
+    non-integral, non-finite and huge floats. This makes a digest independent of
+    whether a platform holds a slider value as `12.0` or `12`, and matches ECMAScript
+    number serialisation.
+    """
+    if isinstance(obj, float):
+        if math.isfinite(obj) and obj.is_integer() and abs(obj) < _INT_SAFE_LIMIT:
+            return int(obj)
+        return obj
+    if isinstance(obj, dict):
+        return {k: normalize_numbers(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [normalize_numbers(v) for v in obj]
+    return obj
+
+
 def canonical_json(obj: object) -> bytes:
-    """§3.1 — the canonical UTF-8 bytes of `obj`: sorted keys, no whitespace, no NaN.
+    """§3.1 — the canonical UTF-8 bytes of `obj`: numbers normalised (integral floats
+    become ints, see `normalize_numbers`), sorted keys, no whitespace, no NaN.
 
     Producers hash exactly what this returns. `allow_nan=False` makes a NaN or an
     infinity a ValueError rather than a non-JSON token two parsers would disagree on.
     """
     return json.dumps(
-        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+        normalize_numbers(obj),
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
     ).encode("utf-8")
 
 
@@ -105,7 +137,8 @@ def variables_sha256(variables: Iterable[Mapping] | Mapping) -> str:
     """§3.2 — sha256 hex of the canonical JSON of `[[id, value], ...]` sorted by id.
 
     `variables` is the document's `variables` array (each item carries `id` and
-    `value`), or a plain `{id: value}` mapping. Only id and value enter the digest:
+    `value`), or a plain `{id: value}` mapping. Values pass through §3.1's number
+    normalisation, so `12.0` and `12` hash identically. Only id and value enter the digest:
     provenance (`type`, `source`, `preset_id`, `unit`, `measurement`) is excluded, so
     the identity does not move when only the provenance of a value does. A
     `source_default` entry contributes `null`. Sorting is bytewise on the UTF-8 id.

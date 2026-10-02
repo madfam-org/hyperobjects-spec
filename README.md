@@ -150,11 +150,13 @@ reads the fallback the way each dialect spells it — `PARAM(lambda: id, <litera
 in-cartridge `include <>`, last assignment winning), and the node literal a `binding`
 targets in a `.graph.json` — and compares it with the manifest `default`: booleans equal
 0/1, numbers within 1e-9, a numeric string equals the number it spells, other strings as
-written. It is judged per `(file, line)` with the modes that use the file, only for
-parameters in scope for those modes, and never for engine-control keys (`target_part`).
+written. It is judged per `(file, line)` with the modes that use the file, for every declared
+parameter in every mode source — `modes` / `visible_in_modes` are UI visibility hints,
+and GOC-1 v1.0.1 injects every declared parameter into every mode — and never for
+engine-control keys (`target_part`).
 It is a **note**, never a failure: some drift is deliberate per mode, and nothing
 becomes a failure before its whole-commons analysis is written down. On the solid
-commons at `faaea08` it fires on 10 of 502 cartridges (16 locations); on the soft
+commons at `faaea08` it fires on 11 of 502 cartridges (34 locations); on the soft
 commons at `700f9d0`, on 4 of 516.
 
 **What `--render` adds.** It executes your cartridge for every `(mode, part)` pair —
@@ -902,7 +904,8 @@ The four algorithms every producer and checker must agree on live in
 from hyperobjects_schemas.generator_output import (
     canonical_json, variables_sha256, tree_sha256, instance_id, check_generator_output,
 )
-canonical_json(obj)        # json.dumps(sort_keys, (",", ":"), ensure_ascii=False, allow_nan=False), UTF-8
+canonical_json(obj)        # integral floats -> ints, then json.dumps(sort_keys, (",", ":"),
+                           #   ensure_ascii=False, allow_nan=False), UTF-8
 variables_sha256(doc["variables"])   # sha256 of canonical [[id, value], ...] sorted by id (bytewise)
 tree_sha256("./projects/thimble")    # hyperobjects-tree-v1
 instance_id(cartridge=..., mode=..., part=..., tree_sha256=..., variables_sha256=...)
@@ -911,8 +914,12 @@ check_generator_output(doc, base_dir="./renders").findings
 
 - `variables_sha256` hashes **id and value only**; provenance (`type`, `source`,
   `preset_id`, `unit`, `measurement`) is excluded, and a `source_default` entry
-  contributes `null`. Python's JSON spells `1000` and `1000.0` differently, so a
-  producer must keep each value's manifest type stable or the same inputs hash twice.
+  contributes `null`. Numbers are normalised first (GOC-1 v1.0.1 §3.1): every finite
+  integral float with |x| < 2^53 hashes as an integer (`12.0` → `12`, `-0.0` → `0`), so
+  a platform holding a slider as `12.0` and one holding it as `12` agree, as ECMAScript
+  serialisation does. A document may record either spelling in `value`.
+- `variables` lists every manifest-declared parameter (v1.0.1 §4.1, no mode scoping);
+  the checker never flags a variable for being outside the rendered mode.
 - `tree_sha256` (`hyperobjects-tree-v1`) digests the cartridge directory: every regular
   file (file symlinks followed, directory symlinks never), except paths with a `.git`,
   `__pycache__` or `node_modules` segment, the cartridge's root `docs/`, and the

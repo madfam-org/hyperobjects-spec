@@ -24,6 +24,7 @@ from hyperobjects_schemas.generator_output import (
     check_generator_output_file,
     collect_generator_output_files,
     instance_id,
+    normalize_numbers,
     tree_sha256,
     variables_sha256,
 )
@@ -207,12 +208,67 @@ def test_variables_sha256_is_bytewise_sorted_not_case_folded():
     ).hexdigest()
 
 
-def test_variables_sha256_distinguishes_int_and_float_spelling():
-    """Python's json spells 1000 and 1000.0 differently, so producers must keep the
-    manifest type stable (GOC-1 §3.1 hashes exactly what is serialised)."""
-    assert variables_sha256({"a": 1000}) != variables_sha256({"a": 1000.0})
-    assert variables_sha256({"a": 1000}) == hashlib.sha256(b'[["a",1000]]').hexdigest()
-    assert variables_sha256({"a": 1000.0}) == hashlib.sha256(b'[["a",1000.0]]').hexdigest()
+def test_integral_floats_hash_as_ints():
+    """GOC-1 v1.0.1 §3.1: a platform holding a slider as 12.0 and one holding it as 12
+    must produce the same identity (and match ECMAScript serialisation)."""
+    assert variables_sha256({"w": 12.0}) == variables_sha256({"w": 12})
+    assert canonical_json([["w", 12.0]]) == canonical_json([["w", 12]]) == b'[["w",12]]'
+    assert variables_sha256({"w": 12}) == hashlib.sha256(b'[["w",12]]').hexdigest()
+    doc_float = [{"id": "w", "value": 12.0, "type": "number", "source": "request"}]
+    doc_int = [{"id": "w", "value": 12, "type": "number", "source": "request"}]
+    assert variables_sha256(doc_float) == variables_sha256(doc_int)
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        (12.0, 12),
+        (-0.0, 0),
+        (-3.0, -3),
+        (0.5, 0.5),
+        (2.0**53 - 1, 2**53 - 1),
+        (2.0**53, 2.0**53),  # at the limit: left a float
+        (-(2.0**53), -(2.0**53)),
+        (True, True),  # a bool is not a number here
+        (7, 7),
+        ("12.0", "12.0"),  # strings are never touched
+        ({"a": [1.0, {"b": 2.0}]}, {"a": [1, {"b": 2}]}),
+    ],
+)
+def test_normalize_numbers(value, expected):
+    out = normalize_numbers(value)
+    assert out == expected
+    assert type(out) is type(expected)
+    if isinstance(expected, dict):
+        assert type(out["a"][0]) is int and type(out["a"][1]["b"]) is int
+
+
+def test_the_checker_accepts_either_spelling_of_an_integral_value():
+    doc = _doc()
+    doc["variables"][0]["value"] = 3  # clearance
+    doc["variables_sha256"] = variables_sha256(doc["variables"])
+    doc["instance_id"] = instance_id(
+        cartridge="demo", mode="m", part="p", tree_sha256="0" * 64,
+        variables_sha256=doc["variables_sha256"],
+    )
+    assert check_generator_output(doc).ok
+    doc["variables"][0]["value"] = 3.0  # same value, float spelling: same digest
+    assert check_generator_output(doc).ok
+
+
+def test_the_checker_does_not_scope_variables_to_the_mode():
+    """GOC-1 v1.0.1 §4.1: every declared parameter is listed, whatever its UI scope.
+    The document carries no manifest, and nothing here may flag an out-of-mode id."""
+    doc = _doc()
+    doc["variables"].append(
+        {"id": "zz_other_mode_param", "value": 1, "type": "number", "source": "request"}
+    )
+    doc["variables_sha256"] = variables_sha256(doc["variables"])
+    doc["instance_id"] = instance_id(
+        cartridge="demo", mode="m", part="p", tree_sha256="0" * 64,
+        variables_sha256=doc["variables_sha256"],
+    )
+    assert check_generator_output(doc).ok
 
 
 def test_golden_instance_id():

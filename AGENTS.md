@@ -275,13 +275,15 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
   manifest `default` that differs from the literal the source falls back to. It
   reads `PARAM(lambda: id, <literal>)` with `ast`, top-level `.scad` assignments
   (and `id = is_undef(id) ? <literal> : id;`), and graph binding literals, and
-  reports per `(file, line)` with the modes that use the file. Do not promote it
+  reports per `(file, line)` with the modes that use the file, with no mode
+  scoping (`visible_in_modes` is a UI hint; GOC-1 v1.0.1 §4.1). Do not promote it
   to a failure without a whole-commons false-positive analysis; some per-mode
   drift is deliberate.
 - `generator-output.schema.json` and `hyperobjects_schemas/generator_output.py`
   (GOC-1, `variables.json`) are **owned here**; platforms import them and keep no
   copy. The golden vectors in `tests/test_generator_output.py` are a fleet-wide
   contract: change them only with a contract version, never to make a test pass.
+  Since v1.0.1, `canonical_json` turns integral floats into ints before hashing.
   `y4d-spec bundle check` and `fc-spec check generator-output` share one body and
   exit 1 on errors only.
 

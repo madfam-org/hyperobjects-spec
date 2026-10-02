@@ -33,7 +33,10 @@ Severity: NOTE ONLY — never a conformance failure. Per the house rule, a new r
 as a note, and nothing becomes a failure until its false-positive analysis against the
 whole commons is written down. Some drift is deliberate per mode (one parameter, two
 mode files, two defaults); the report is therefore per (file, line) with the modes that
-use the file, never folded into one guessed verdict per cartridge.
+use the file, never folded into one guessed verdict per cartridge. There is no mode
+scoping (GOC-1 v1.0.1 §4.1): `modes` / `visible_in_modes` hide a control in the UI,
+they do not stop a full-parameter render from injecting it, so a literal in a mode the
+parameter is "not visible in" still changes when injection is complete.
 """
 
 from __future__ import annotations
@@ -436,14 +439,15 @@ def _file_literals(
 def default_drift_findings(cartridge_dir: str | Path, manifest: dict) -> list[DriftFinding]:
     """Every (file, line, parameter) whose literal differs from the manifest default.
 
-    Only parameters that declare a `default`, are not engine-control keys
-    (`target_part`, `render_mode`, `mode`) and are in scope for a mode that uses the
-    file are compared. One finding per source location, carrying every mode that
+    Every parameter that declares a `default` and is not an engine-control key
+    (`target_part`, `render_mode`, `mode`) is compared in EVERY mode source, with no
+    `modes` / `visible_in_modes` scoping: GOC-1 v1.0.1 §4.1 injects every declared
+    parameter into every mode (those fields are UI visibility hints, not engine
+    relevance), so a literal in any mode's source is overridden by the manifest default
+    once full injection is on. One finding per source location, carrying every mode that
     renders through that file; a parameter with two literals in one file (two code
     paths) is two findings.
     """
-    from .rules import parameter_mode_listings
-
     root = Path(cartridge_dir)
     defaults = {
         p["id"]: p["default"]
@@ -453,7 +457,6 @@ def default_drift_findings(cartridge_dir: str | Path, manifest: dict) -> list[Dr
         and "default" in p
         and p["id"] not in ENGINE_CONTROL_KEYS
     }
-    listings = parameter_mode_listings(manifest)
 
     hits: dict[tuple[str, int, str], dict] = {}
     literals_cache: dict[str, list] = {}
@@ -466,8 +469,6 @@ def default_drift_findings(cartridge_dir: str | Path, manifest: dict) -> list[Dr
                 literals_cache[name] = _file_literals(root, name, manifest, key)
             for ident, literal, rel, line, engine in literals_cache[name]:
                 if ident not in defaults:
-                    continue
-                if not any(m.get("id") == mid for m in listings.get(ident, [])):
                     continue
                 if defaults_equal(defaults[ident], literal):
                     continue

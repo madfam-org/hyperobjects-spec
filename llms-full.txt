@@ -35,7 +35,8 @@ runbook.
     vendored trees, shipped LICENSE).
   - `default_drift.py` — `default-drift`, NOTE ONLY: manifest `default` vs the
     literal the source falls back to (`PARAM(lambda: id, lit)` via ast, top-level
-    `.scad` assignments, graph binding literals), per (file, line).
+    `.scad` assignments, graph binding literals), per (file, line), with no mode
+    scoping (GOC-1 v1.0.1 §4.1).
   - `conformance.py` — orchestration; owns the result object and the tiers.
   - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
     body counting, STL export.

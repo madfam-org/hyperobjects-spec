@@ -189,7 +189,7 @@ def _cartridge(root: Path) -> Path:
             {"id": "length", "default": 100},
             {"id": "wall", "default": 2},
             {"id": "flag", "default": True},
-            {"id": "shared", "default": 1, "visible_in_modes": ["cq"]},  # out of scope
+            {"id": "shared", "default": 1, "visible_in_modes": ["cq"]},  # UI scope only
             {"id": "width", "default": 10, "binding": "n.w", "modes": ["graph"]},
             {"id": "nodefault"},
         ],
@@ -206,6 +206,7 @@ def test_findings_are_per_file_line_with_the_modes_that_use_it(tmp_path):
     assert set(table) == {
         ("main.py", "length"),
         ("lib/common.scad", "wall"),
+        ("a.scad", "shared"),
         ("g.graph.json", "width"),
     }
     cq = table[("main.py", "length")]
@@ -215,16 +216,20 @@ def test_findings_are_per_file_line_with_the_modes_that_use_it(tmp_path):
     assert scad.modes == ("scad",) and scad.line == 1 and scad.engine == "openscad"
     graph = table[("g.graph.json", "width")]
     assert (graph.source_literal, graph.engine) == (11, "graph")
-    # `shared` differs (9 vs 1) but is scoped away from the scad mode: GOC-1 §4.1
-    # never injects it there, so it is not this rule's business.
-    assert all(f.param != "shared" for f in findings)
+    # `shared` is visible only in the `cq` mode, yet its a.scad literal (9 vs 1) is
+    # still drift: GOC-1 v1.0.1 §4.1 injects every declared parameter into every mode,
+    # `visible_in_modes` being a UI hint, so full injection would change that geometry.
+    shared = table[("a.scad", "shared")]
+    assert (shared.modes, shared.manifest_default, shared.source_literal) == (
+        ("scad",), 1, 9,
+    )
 
 
 def test_the_rule_is_a_note_and_never_a_failure(tmp_path):
     cart = _cartridge(tmp_path)
     result = check_cartridge(cart)
     drift = [n for n in result.notes if n.startswith(f"{RULE_ID}:")]
-    assert len(drift) == 3
+    assert len(drift) == 4
     assert not any(RULE_ID in p for p in result.problems)
 
 
