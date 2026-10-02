@@ -58,6 +58,9 @@ __all__ = [
 
 RULE_ID = "default-drift"
 NUMERIC_TOLERANCE = 1e-9
+#: GOC-1 §4.3 — engine-control keys are not variables: the platform sets them on every
+#: render (`target_part` per part), so their source literal is never the one used.
+ENGINE_CONTROL_KEYS = frozenset({"render_mode", "target_part", "mode"})
 
 _SCRIPT_SUFFIXES = (".py", ".cq")
 _MAX_INCLUDE_DEPTH = 4
@@ -433,7 +436,8 @@ def _file_literals(
 def default_drift_findings(cartridge_dir: str | Path, manifest: dict) -> list[DriftFinding]:
     """Every (file, line, parameter) whose literal differs from the manifest default.
 
-    Only parameters that declare a `default` and are in scope for a mode that uses the
+    Only parameters that declare a `default`, are not engine-control keys
+    (`target_part`, `render_mode`, `mode`) and are in scope for a mode that uses the
     file are compared. One finding per source location, carrying every mode that
     renders through that file; a parameter with two literals in one file (two code
     paths) is two findings.
@@ -444,7 +448,10 @@ def default_drift_findings(cartridge_dir: str | Path, manifest: dict) -> list[Dr
     defaults = {
         p["id"]: p["default"]
         for p in manifest.get("parameters") or []
-        if isinstance(p, dict) and isinstance(p.get("id"), str) and "default" in p
+        if isinstance(p, dict)
+        and isinstance(p.get("id"), str)
+        and "default" in p
+        and p["id"] not in ENGINE_CONTROL_KEYS
     }
     listings = parameter_mode_listings(manifest)
 
