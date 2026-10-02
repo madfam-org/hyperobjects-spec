@@ -54,6 +54,8 @@ from .articles import (
     load_article,
 )
 from .lexicon import (
+    CONCEPT_NAMESPACE,
+    CONTRACT_VERSION,
     LANGUAGES,
     LEXICON_DIR,
     REVIEW_STATES,
@@ -61,6 +63,7 @@ from .lexicon import (
     bundled_catalog_slugs,
     check_lexicon,
     check_term,
+    concept_iri,
     lexicon_status,
     load_catalog_slugs,
     load_lexicon,
@@ -92,6 +95,9 @@ from .vocabulary import (
 )
 
 __all__ = [
+    "CONCEPT_NAMESPACE",
+    "CONTRACT_VERSION",
+    "concept_iri",
     "LANGUAGES",
     "LEXICON_DIR",
     "REVIEW_STATES",
