@@ -956,7 +956,7 @@ fc-spec lexicon --catalog bundled        # + resolve every embodied_by slug (her
 fc-spec lexicon --status                 # just the N/M line
 fc-spec lexicon -v                       # list every term
 
-fc-spec vocab                            # the controlled vocabularies (keys, not words)
+fc-spec vocab                            # the controlled + fabrication vocabularies (keys)
 fc-spec article <path> --catalog bundled # article frontmatter
 
 fc-spec define zipper_tape --lang pt     # the dictionary, on a command line
@@ -1031,6 +1031,7 @@ each spelling recorded with the repo where it is real.
 | Identity | the filename and the `id` disagree, or two entries share an id |
 | Review claims | an entry says `reviewed` with no named reviewer, or over a language facet still marked `generated` |
 | `embodied_by` | a slug does not resolve — **only when a catalog is supplied** |
+| External matches (contract 3) | an entry uses `exact_match` / `close_match` without declaring `spec_version: 3`, or lists one identifier in both |
 
 That last row is deliberate. This package has no repo to look in, exactly as the
 identity key does not check whether a slug exists. `--catalog bundled` uses a vendored
@@ -1052,6 +1053,24 @@ shared clone moved off its branch, cannot capture uncommitted work, and leaves a
 later reader can resolve exactly rather than guess at. Each side is named separately
 (`--yantra4d-ref` / `--fashion-cabinet-ref`, both defaulting to `origin/main`) because the
 two commons move independently.
+
+### Term contract 3: external identifiers and the derived concept IRI
+
+Contract 3 (SEM-1 §4) is additive over contract 2. A term may carry `exact_match` and
+`close_match`: arrays of identifiers minted **outside** the lexicon — absolute IRIs (IDTA
+submodel-template semanticIds, EMMO classes) or ECLASS IRDIs written as strings
+(`0173-1#02-AAO677#002`). Identifiers only: ECLASS content is licensed and is never copied
+here. An entry using either declares `spec_version: 3`.
+
+The term's **own** IRI is not a field. It is derived from the id, so it cannot drift from
+it:
+
+```python
+from hyperobjects_lexicon import concept_iri, entry_concept_iri
+
+concept_iri("bolt-pattern")                      # 'https://id.madfam.io/concept/bolt-pattern'
+entry_concept_iri("processes", "fff")            # 'https://id.madfam.io/concept/processes/fff'
+```
 
 ### How platforms consume it
 
@@ -1178,6 +1197,42 @@ equivalences()                        # every cross-commons pair, once each
 [`docs/COMMONS_VOCABULARY.md`](docs/COMMONS_VOCABULARY.md) is the adoption checklist for
 both platforms.
 
+### The fabrication vocabularies (SEM-1 §4)
+
+The commons vocabularies are readings of keys the two commons already write. The
+fabrication vocabularies are the other kind: **reference lists** for the keys a manifest's
+fabrication fields write — what a part is made by, what of, under which slicer bounds,
+on which machine, and which standard part two interfaces mate through. Five documents
+ship in `src/hyperobjects_lexicon/vocabularies/fabrication/`, validated by their own
+schema (`fabrication-vocabulary.schema.json`) and checked by the same `vocab` command:
+
+<!-- counts:fabrication-status:start -->
+```
+$ y4d-spec vocab   # second verdict
+y4d-spec vocab fabrication: vocabularies=5 entries=78 failures=0
+fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
+fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
+fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
+fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
+fabrication_status[interface-sizes]: entries=19 cited=19 dimensions=59 provisional=1 review: signed=0 draft=19
+```
+<!-- counts:fabrication-status:end -->
+
+Every entry carries its label and definition in es/en/fr/pt, every dimensional or
+technical fact cites a public standard or manufacturer source, every process-parameter
+key is OrcaSlicer's own key pinned to the line of `PrintConfig.cpp` that defines it, and
+material classes list the commons' material cards that belong to them. All of it is a
+drafting pass (`generated`) until a native reader signs it.
+[`docs/FABRICATION_VOCABULARIES.md`](docs/FABRICATION_VOCABULARIES.md) has the field
+reference, the citation rules and the membership rule below.
+
+**Membership rule.** `y4d-spec check` and `fc-spec check garment-manifest` fail a manifest
+that writes a fabrication key no vocabulary defines: an interface `size_key` (or any value
+of a `{param, map}` size key), `requirements.process`, `requirements.materials.any_of` /
+`none_of`, and the keys of `requirements.process_parameters`, at the top level and under
+`requirements.parts.<id>`. A manifest without those fields passes silently — on
+2026-10-02 that is all 502 solid and 516 soft manifests, checked.
+
 ### Article frontmatter
 
 The lexicon is the dictionary layer; the **encyclopaedia** layer is the per-cartridge
@@ -1297,14 +1352,15 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
-| `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
+| `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 
 ```python
 import hyperobjects_schemas as hs
 hs.list_schemas()               # ['article-frontmatter', 'body-measurements',
                                 #  'commons-vocabulary', 'cross-commons-identity',
-                                #  'fabric-manifest', 'garment-manifest',
-                                #  'generator-output', 'lexicon-term', 'project-manifest']
+                                #  'fabric-manifest', 'fabrication-vocabulary',
+                                #  'garment-manifest', 'generator-output', 'lexicon-term',
+                                #  'project-manifest']
 hs.load("project-manifest")
 ```
 

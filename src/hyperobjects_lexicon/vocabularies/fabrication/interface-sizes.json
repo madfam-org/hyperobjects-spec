@@ -276,10 +276,10 @@
         "pt": "Fixação de motor 16×16 M3"
       },
       "definition": {
-        "en": "Four M3 holes on a 16 mm square, the base pattern of 22xx–23xx brushless motors on multirotor arms.",
-        "es": "Cuatro barrenos M3 en un cuadrado de 16 mm, el patrón de base de los motores sin escobillas 22xx–23xx sobre los brazos de un multirrotor.",
-        "fr": "Quatre trous M3 sur un carré de 16 mm, le motif de base des moteurs sans balais 22xx–23xx sur les bras d'un multirotor.",
-        "pt": "Quatro furos M3 num quadrado de 16 mm, o padrão de base dos motores sem escovas 22xx–23xx nos braços de um multirrotor."
+        "en": "Four M3 holes on a 16 mm square: a brushless-motor base pattern on multirotor arms, used for example by 2207.5-size motors.",
+        "es": "Cuatro barrenos M3 en un cuadrado de 16 mm: un patrón de base de motores sin escobillas en los brazos de un multirrotor, que usan por ejemplo los motores de tamaño 2207.5.",
+        "fr": "Quatre trous M3 sur un carré de 16 mm : un motif de base de moteurs sans balais sur les bras d'un multirotor, utilisé par exemple par les moteurs de taille 2207.5.",
+        "pt": "Quatro furos M3 num quadrado de 16 mm: um padrão de base de motores sem escovas nos braços de um multirrotor, usado por exemplo pelos motores de tamanho 2207.5."
       },
       "review_status": {"state": "generated"},
       "geometry_type": "bolt_pattern",
@@ -308,10 +308,10 @@
         "pt": "Fixação de motor 19×19 M3"
       },
       "definition": {
-        "en": "Four M3 holes on a 19 mm square, the base pattern of 28xx brushless motors on multirotor arms.",
-        "es": "Cuatro barrenos M3 en un cuadrado de 19 mm, el patrón de base de los motores sin escobillas 28xx sobre los brazos de un multirrotor.",
-        "fr": "Quatre trous M3 sur un carré de 19 mm, le motif de base des moteurs sans balais 28xx sur les bras d'un multirotor.",
-        "pt": "Quatro furos M3 num quadrado de 19 mm, o padrão de base dos motores sem escovas 28xx nos braços de um multirrotor."
+        "en": "Four M3 holes on a 19 mm square: a brushless-motor base pattern on multirotor arms, used for example by 2806.5-size motors.",
+        "es": "Cuatro barrenos M3 en un cuadrado de 19 mm: un patrón de base de motores sin escobillas en los brazos de un multirrotor, que usan por ejemplo los motores de tamaño 2806.5.",
+        "fr": "Quatre trous M3 sur un carré de 19 mm : un motif de base de moteurs sans balais sur les bras d'un multirotor, utilisé par exemple par les moteurs de taille 2806.5.",
+        "pt": "Quatro furos M3 num quadrado de 19 mm: um padrão de base de motores sem escovas nos braços de um multirrotor, usado por exemplo pelos motores de tamanho 2806.5."
       },
       "review_status": {"state": "generated"},
       "geometry_type": "bolt_pattern",
@@ -340,10 +340,10 @@
         "pt": "Fixação de motor 12×12 M2"
       },
       "definition": {
-        "en": "Four M2 holes on a 12 mm square, the base pattern of 13xx–15xx brushless motors on multirotor arms.",
-        "es": "Cuatro barrenos M2 en un cuadrado de 12 mm, el patrón de base de los motores sin escobillas 13xx–15xx sobre los brazos de un multirrotor.",
-        "fr": "Quatre trous M2 sur un carré de 12 mm, le motif de base des moteurs sans balais 13xx–15xx sur les bras d'un multirotor.",
-        "pt": "Quatro furos M2 num quadrado de 12 mm, o padrão de base dos motores sem escovas 13xx–15xx nos braços de um multirrotor."
+        "en": "Four M2 holes on a 12 mm square: a brushless-motor base pattern on multirotor arms, used for example by 1404-size motors.",
+        "es": "Cuatro barrenos M2 en un cuadrado de 12 mm: un patrón de base de motores sin escobillas en los brazos de un multirrotor, que usan por ejemplo los motores de tamaño 1404.",
+        "fr": "Quatre trous M2 sur un carré de 12 mm : un motif de base de moteurs sans balais sur les bras d'un multirotor, utilisé par exemple par les moteurs de taille 1404.",
+        "pt": "Quatro furos M2 num quadrado de 12 mm: um padrão de base de motores sem escovas nos braços de um multirrotor, usado por exemplo pelos motores de tamanho 1404."
       },
       "review_status": {"state": "generated"},
       "geometry_type": "bolt_pattern",
@@ -372,10 +372,10 @@
         "pt": "Fixação de motor 9×9 M2"
       },
       "definition": {
-        "en": "Four M2 holes on a 9 mm square, the base pattern of 11xx–13xx brushless motors on multirotor arms.",
-        "es": "Cuatro barrenos M2 en un cuadrado de 9 mm, el patrón de base de los motores sin escobillas 11xx–13xx sobre los brazos de un multirrotor.",
-        "fr": "Quatre trous M2 sur un carré de 9 mm, le motif de base des moteurs sans balais 11xx–13xx sur les bras d'un multirotor.",
-        "pt": "Quatro furos M2 num quadrado de 9 mm, o padrão de base dos motores sem escovas 11xx–13xx nos braços de um multirrotor."
+        "en": "Four M2 holes on a 9 mm square: a brushless-motor base pattern on multirotor arms, used for example by 1202-size motors.",
+        "es": "Cuatro barrenos M2 en un cuadrado de 9 mm: un patrón de base de motores sin escobillas en los brazos de un multirrotor, que usan por ejemplo los motores de tamaño 1202.",
+        "fr": "Quatre trous M2 sur un carré de 9 mm : un motif de base de moteurs sans balais sur les bras d'un multirotor, utilisé par exemple par les moteurs de taille 1202.",
+        "pt": "Quatro furos M2 num quadrado de 9 mm: um padrão de base de motores sem escovas nos braços de um multirrotor, usado por exemplo pelos motores de tamanho 1202."
       },
       "review_status": {"state": "generated"},
       "geometry_type": "bolt_pattern",
