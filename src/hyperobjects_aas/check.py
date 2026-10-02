@@ -4,7 +4,12 @@ Three layers, reported as findings with a severity (an ``error`` fails the check
 ``warning`` prints and does not):
 
 1. **Schema** — the official AAS v3.1.2 JSON Schema (``schemas/aas.json``, vendored with
-   its CC-BY-4.0 attribution). Draft 2019-09.
+   its CC-BY-4.0 attribution). Draft 2019-09. Validation runs on a *dispatch view* of the
+   file (see :func:`dispatch_view`): its four ``*_choice`` ``oneOf`` unions are evaluated
+   by ``modelType`` instead of by trying every alternative. That is an equivalence, not
+   a relaxation, and it is what makes the schema usable at fleet scale: with the plain
+   ``oneOf`` a nested collection is re-validated against several alternatives at every
+   level, 8 s for one ordinary cartridge; with dispatch it takes milliseconds.
 2. **MADFAM rules** — the SEM-1 §1 identifier scheme (shell, asset and submodel ids agree
    on kind, slug and revision; the revision prefix matches the full digest in
    ``specificAssetIds``); idShort rules the schema cannot express (AASd-117 required
@@ -20,6 +25,7 @@ Three layers, reported as findings with a severity (an ``error`` fails the check
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import io
 import json
@@ -101,8 +107,64 @@ def vendored_schema_digest() -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _model_type_const(definition: dict) -> str | None:
+    for part in [definition, *definition.get("allOf", [])]:
+        const = (part.get("properties") or {}).get("modelType", {}).get("const")
+        if isinstance(const, str):
+            return const
+    return None
+
+
+def dispatch_view(schema: dict) -> dict:
+    """A copy of ``schema`` whose ``oneOf`` unions of ``$ref`` alternatives are rewritten
+    as a ``modelType`` dispatch.
+
+    Rewritten only when every alternative is a local ``$ref`` to a definition that pins a
+    ``modelType`` const, and the consts are distinct. Every such definition also requires
+    ``modelType`` and ``type: object`` (Referable / DataSpecificationContent), so at most
+    one alternative can ever be valid and ``oneOf`` holds iff the alternative named by the
+    instance's ``modelType`` holds — exactly what the dispatch evaluates. The vendored file
+    is never modified; ``tests/test_aas_check.py`` compares both validators on valid and
+    invalid documents.
+    """
+    view = copy.deepcopy(schema)
+    defs = view.get("definitions", {})
+    for name, definition in list(defs.items()):
+        alternatives = definition.get("oneOf")
+        if not alternatives or set(definition) != {"oneOf"}:
+            continue
+        pairs = []
+        for alt in alternatives:
+            ref = alt.get("$ref", "") if isinstance(alt, dict) else ""
+            target = defs.get(ref.rsplit("/", 1)[-1], {}) if ref.startswith("#/definitions/") \
+                else {}
+            const = _model_type_const(target)
+            if const is None or set(alt) != {"$ref"}:
+                break
+            pairs.append((const, ref))
+        else:
+            if len({c for c, _ in pairs}) != len(pairs):
+                continue
+            defs[name] = {
+                "type": "object",
+                "required": ["modelType"],
+                "properties": {"modelType": {"enum": [c for c, _ in pairs]}},
+                "allOf": [
+                    {"if": {"properties": {"modelType": {"const": c}}}, "then": {"$ref": ref}}
+                    for c, ref in pairs
+                ],
+            }
+    return view
+
+
 @cache
 def _validator() -> Draft201909Validator:
+    return Draft201909Validator(dispatch_view(aas_schema()))
+
+
+@cache
+def reference_validator() -> Draft201909Validator:
+    """A validator over the vendored schema exactly as published (slow; for tests)."""
     return Draft201909Validator(aas_schema())
 
 

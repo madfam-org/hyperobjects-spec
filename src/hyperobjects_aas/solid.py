@@ -166,12 +166,14 @@ def requirement_profile(proj: Projection) -> None:
 
 
 def _vector(id_short: str, vec: object) -> dict | None:
+    """A 3-vector as an ordered list ``[x, y, z]`` (single-letter idShorts are invalid in
+    v3.1). Numbers are ``xs:double``; when any component is an expression over parameter
+    ids, every component is carried as ``xs:string`` — kept, never evaluated."""
     items = as_list(vec)
     if len(items) != 3:
         return el.prop(id_short, vec) if vec is not None else None
-    return el.smc(id_short, [
-        el.prop(axis, v, prefer="xs:double") for axis, v in zip(("X", "Y", "Z"), items, strict=True)
-    ])
+    return el.sml(id_short, [el.prop(None, v, prefer="xs:double") for v in items],
+                  type_value="Property")
 
 
 def _size_key(value: object) -> list:
