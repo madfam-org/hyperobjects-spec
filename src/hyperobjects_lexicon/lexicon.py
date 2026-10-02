@@ -37,11 +37,20 @@ What the lane checks (each failure class has a test)
    look in, exactly as the identity key's existence check does not. CI passes
    ``--catalog`` and gets the strict version; a third party without a catalog checkout
    still gets everything else.
+7. **External matches are honest (contract 3)** — an entry carrying ``exact_match`` or
+   ``close_match`` declares ``spec_version`` 3, and no identifier sits in both lists: a
+   concept is either the same as ours or merely close, never both.
+
+The term's own IRI is never stored. ``concept_iri(id)`` derives it
+(``https://id.madfam.io/concept/{id}``, SEM-1 §1), so it cannot drift from the id it
+names — and renaming an id is already a breaking change, so the IRI is as stable as the
+id is.
 """
 
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from importlib import resources
 from pathlib import Path
@@ -62,6 +71,9 @@ __all__ = [
     "load_catalog_slugs",
     "bundled_catalog_slugs",
     "SNAPSHOT_NAME",
+    "CONCEPT_NAMESPACE",
+    "CONTRACT_VERSION",
+    "concept_iri",
 ]
 
 # The four languages of the commons, ruled 2026-08-25 (RFC 0039 §5). Order is not
@@ -74,6 +86,19 @@ LANGUAGES: tuple[str, ...] = ("es", "en", "fr", "pt")
 REVIEW_STATES: tuple[str, ...] = ("generated", "reviewed")
 
 SCHEMA_NAME = "lexicon-term"
+
+#: The newest term contract this package reads (``spec_version``). Contract 3 adds the
+#: optional ``exact_match`` / ``close_match`` external identifiers (SEM-1 §4).
+CONTRACT_VERSION = 3
+
+#: Where MADFAM concept identifiers are minted (SEM-1 §1). A term's IRI is this plus its
+#: id; it is DERIVED, never stored, so there is no second copy of the id to disagree.
+CONCEPT_NAMESPACE = "https://id.madfam.io/concept/"
+
+#: The fields a term may only use when it declares contract 3.
+CONTRACT_3_FIELDS: tuple[str, ...] = ("exact_match", "close_match")
+
+_TERM_ID = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 #: Where the bundled corpus lives inside the installed package.
 LEXICON_DIR = "hyperobjects_lexicon.terms"
@@ -112,6 +137,46 @@ def _schema_errors(doc: object) -> list[str]:
     for err in sorted(validator.iter_errors(doc), key=lambda e: list(e.absolute_path)):
         where = "/".join(str(p) for p in err.absolute_path) or "<root>"
         problems.append(f"{where}: {err.message}")
+    return problems
+
+
+def concept_iri(term_id: str) -> str:
+    """The permanent concept IRI of a lexicon term: ``https://id.madfam.io/concept/{id}``.
+
+    This is the ``semanticId`` an AAS ConceptDescription uses for the term (SEM-1 §1).
+    Raises ``ValueError`` on a string that is not a term id, rather than minting an IRI
+    for something the lexicon could never contain — a permanent identifier with a typo
+    in it is permanent too.
+    """
+    if (
+        not isinstance(term_id, str)
+        or not 2 <= len(term_id) <= 80
+        or not _TERM_ID.match(term_id)
+    ):
+        raise ValueError(f"{term_id!r} is not a lexicon term id (kebab-case, 2-80 chars)")
+    return f"{CONCEPT_NAMESPACE}{term_id}"
+
+
+def _contract_3_problems(doc: dict) -> list[str]:
+    """Contract-3 fields need a contract-3 declaration, and exact/close stay disjoint."""
+    used = [name for name in CONTRACT_3_FIELDS if name in doc]
+    if not used:
+        return []
+    problems = []
+    declared = doc.get("spec_version", 1)
+    if not isinstance(declared, int) or declared < 3:
+        problems.append(
+            f"uses {', '.join(used)} but declares spec_version {declared!r} — a "
+            f"contract-3 field needs spec_version 3, so a reader on an older contract "
+            f"knows it is looking at fields it does not understand"
+        )
+    exact = {i for i in doc.get("exact_match") or [] if isinstance(i, str)}
+    close = {i for i in doc.get("close_match") or [] if isinstance(i, str)}
+    for ident in sorted(exact & close):
+        problems.append(
+            f"{ident!r} is in both exact_match and close_match — a concept is either the "
+            f"same as this term or merely close to it, never both"
+        )
     return problems
 
 
@@ -329,6 +394,7 @@ def check_term(
         )
 
     problems.extend(_review_problems(doc))
+    problems.extend(_contract_3_problems(doc))
 
     if known_ids is not None:
         for ref in doc.get("see_also") or []:

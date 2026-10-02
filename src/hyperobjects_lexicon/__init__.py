@@ -24,13 +24,16 @@ Terms are born quadrilingual — en/es/fr/pt, all four required to ship (RFC 003
 That is a ship gate rather than an aspiration: the four-language rule is only free at
 authoring time, and every entry that ships partial becomes a backfill nobody schedules.
 
-Four layers ship here, and they are deliberately distinct:
+Five layers ship here, and they are deliberately distinct:
 
 * ``lexicon`` — the terms. Words, defined in four languages, each pointing at the
   cartridges that embody it and carrying the constraint that comes with it.
 * ``vocabulary`` — the controlled vocabularies (G3). KEYS rather than words: the literal
   strings a manifest writes, with the near-duplicates canonicalised and the cross-commons
   equivalences recorded as explicit edges.
+* ``fabrication`` — the fabrication vocabularies (SEM-1 §4): processes, material classes,
+  process parameters, machine capabilities and interface sizes, quadrilingual and cited,
+  with ``membership`` the rule that every such key a manifest writes resolves in them.
 * ``articles`` — the frontmatter contract (G2). The encyclopaedia layer's machine-readable
   half, pointing AT each cartridge's README rather than copying it.
 * ``reader`` — the cross-commons reader (G4). One static, JavaScript-free surface over
@@ -53,7 +56,17 @@ from .articles import (
     language_coverage,
     load_article,
 )
+from .fabrication import (
+    FABRICATION_VOCABULARIES,
+    FabricationResult,
+    check_fabrication_vocabularies,
+    entry_concept_iri,
+    fabrication_status,
+    load_fabrication_vocabularies,
+)
 from .lexicon import (
+    CONCEPT_NAMESPACE,
+    CONTRACT_VERSION,
     LANGUAGES,
     LEXICON_DIR,
     REVIEW_STATES,
@@ -61,12 +74,14 @@ from .lexicon import (
     bundled_catalog_slugs,
     check_lexicon,
     check_term,
+    concept_iri,
     lexicon_status,
     load_catalog_slugs,
     load_lexicon,
     load_term_file,
     review_counts,
 )
+from .membership import manifest_vocabulary_problems
 from .reader import (
     READER_DIR,
     REPOS,
@@ -92,6 +107,9 @@ from .vocabulary import (
 )
 
 __all__ = [
+    "CONCEPT_NAMESPACE",
+    "CONTRACT_VERSION",
+    "concept_iri",
     "LANGUAGES",
     "LEXICON_DIR",
     "REVIEW_STATES",
@@ -114,6 +132,13 @@ __all__ = [
     "load_vocabularies",
     "load_vocabulary",
     "vocabulary_status",
+    "FABRICATION_VOCABULARIES",
+    "FabricationResult",
+    "check_fabrication_vocabularies",
+    "entry_concept_iri",
+    "fabrication_status",
+    "load_fabrication_vocabularies",
+    "manifest_vocabulary_problems",
     "ArticleResult",
     "article_status",
     "check_article",

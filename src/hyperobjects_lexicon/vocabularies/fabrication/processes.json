@@ -1,0 +1,216 @@
+{
+  "spec_version": 1,
+  "vocabulary": "processes",
+  "description": "Manufacturing processes a part can be made by — the values of a manifest's requirements.process and of a machine's `process` capability. Each additive process names its ISO/ASTM 52900 category; each process Cotiza can quote names Cotiza's own code, and a process Cotiza cannot quote yet says so by carrying none.",
+  "review": {
+    "state": "generated",
+    "note": "Key set, cross-maps, labels and definitions drafted in one pass by an agent (P3-LEX lane, 2026-10-02) against SEM-1 §4. No language facet of any entry has had a native review: every entry says `generated`, and Spanish is the bar a reviewer should read first. Facts were checked against the cited sources on the access date; no ruling has been made by a human."
+  },
+  "entries": [
+    {
+      "key": "fff",
+      "label": {
+        "en": "Fused filament fabrication",
+        "es": "Fabricación por filamento fundido",
+        "fr": "Fabrication par filament fondu",
+        "pt": "Fabricação por filamento fundido"
+      },
+      "definition": {
+        "en": "Additive process that melts a thermoplastic filament in a heated nozzle and deposits it layer by layer along a toolpath. Also called FDM, a trademark of Stratasys.",
+        "es": "Proceso aditivo que funde un filamento termoplástico en una boquilla caliente y lo deposita capa por capa siguiendo una trayectoria. También se le llama FDM, marca registrada de Stratasys.",
+        "fr": "Procédé additif qui fait fondre un filament thermoplastique dans une buse chauffée et le dépose couche par couche le long d'une trajectoire. Aussi appelé FDM, marque déposée de Stratasys.",
+        "pt": "Processo aditivo que funde um filamento termoplástico num bico aquecido e o deposita camada a camada ao longo de uma trajetória. Também chamado FDM, marca registrada da Stratasys."
+      },
+      "review_status": {"state": "generated"},
+      "family": "additive",
+      "iso_52900_category": "material_extrusion",
+      "cotiza_code": "3d_fff",
+      "sources": [
+        {
+          "title": "ISO/ASTM 52900:2021 Additive manufacturing — General principles — Fundamentals and vocabulary",
+          "url": "https://www.iso.org/standard/74514.html",
+          "publisher": "ISO",
+          "accessed": "2026-10-02",
+          "supports": "the seven additive process categories (material extrusion, vat photopolymerization, powder bed fusion, …)"
+        },
+        {
+          "title": "Cotiza pricing controller — accepted process enum",
+          "url": "https://github.com/madfam-org/digifab-quoting/blob/958a9ecd814c797b088af9a607776c98bc47d9a0/apps/api/src/modules/pricing/pricing.controller.ts#L41",
+          "publisher": "madfam-org/digifab-quoting",
+          "accessed": "2026-10-02",
+          "supports": "Cotiza's process codes: 3d_fff, 3d_sla, cnc_3axis, laser_2d"
+        }
+      ]
+    },
+    {
+      "key": "sla",
+      "label": {
+        "en": "Stereolithography",
+        "es": "Estereolitografía",
+        "fr": "Stéréolithographie",
+        "pt": "Estereolitografia"
+      },
+      "definition": {
+        "en": "Additive process that cures a liquid photopolymer resin layer by layer with light (a laser, or a masked LED/LCD source in the MSLA variant).",
+        "es": "Proceso aditivo que cura capa por capa una resina fotopolimérica líquida con luz (un láser, o una fuente LED/LCD enmascarada en la variante MSLA).",
+        "fr": "Procédé additif qui polymérise couche par couche une résine photopolymère liquide par la lumière (un laser, ou une source LED/LCD masquée dans la variante MSLA).",
+        "pt": "Processo aditivo que cura camada a camada uma resina fotopolimérica líquida com luz (um laser, ou uma fonte LED/LCD mascarada na variante MSLA)."
+      },
+      "review_status": {"state": "generated"},
+      "family": "additive",
+      "iso_52900_category": "vat_photopolymerization",
+      "cotiza_code": "3d_sla",
+      "sources": [
+        {
+          "title": "ISO/ASTM 52900:2021 Additive manufacturing — General principles — Fundamentals and vocabulary",
+          "url": "https://www.iso.org/standard/74514.html",
+          "publisher": "ISO",
+          "accessed": "2026-10-02",
+          "supports": "the seven additive process categories (material extrusion, vat photopolymerization, powder bed fusion, …)"
+        },
+        {
+          "title": "Cotiza pricing controller — accepted process enum",
+          "url": "https://github.com/madfam-org/digifab-quoting/blob/958a9ecd814c797b088af9a607776c98bc47d9a0/apps/api/src/modules/pricing/pricing.controller.ts#L41",
+          "publisher": "madfam-org/digifab-quoting",
+          "accessed": "2026-10-02",
+          "supports": "Cotiza's process codes: 3d_fff, 3d_sla, cnc_3axis, laser_2d"
+        }
+      ]
+    },
+    {
+      "key": "sls",
+      "label": {
+        "en": "Selective laser sintering",
+        "es": "Sinterizado selectivo por láser",
+        "fr": "Frittage sélectif par laser",
+        "pt": "Sinterização seletiva a laser"
+      },
+      "definition": {
+        "en": "Additive process that fuses polymer powder (typically PA12) with a laser, one layer of the powder bed at a time; the unfused powder supports the part, so no support structures are printed.",
+        "es": "Proceso aditivo que fusiona polvo polimérico (normalmente PA12) con un láser, una capa del lecho de polvo a la vez; el polvo sin fundir sostiene la pieza, así que no se imprimen soportes.",
+        "fr": "Procédé additif qui fusionne une poudre polymère (généralement du PA12) au laser, une couche du lit de poudre à la fois ; la poudre non fusionnée soutient la pièce, si bien qu'aucun support n'est imprimé.",
+        "pt": "Processo aditivo que funde pó polimérico (normalmente PA12) com um laser, uma camada do leito de pó de cada vez; o pó não fundido sustenta a peça, por isso não se imprimem suportes."
+      },
+      "review_status": {"state": "generated"},
+      "family": "additive",
+      "iso_52900_category": "powder_bed_fusion",
+      "sources": [
+        {
+          "title": "ISO/ASTM 52900:2021 Additive manufacturing — General principles — Fundamentals and vocabulary",
+          "url": "https://www.iso.org/standard/74514.html",
+          "publisher": "ISO",
+          "accessed": "2026-10-02",
+          "supports": "the seven additive process categories (material extrusion, vat photopolymerization, powder bed fusion, …)"
+        }
+      ],
+      "notes": "Cotiza has no code for SLS yet (its enum is 3d_fff, 3d_sla, cnc_3axis, laser_2d), so this entry carries no cotiza_code rather than borrowing the nearest one."
+    },
+    {
+      "key": "mjf",
+      "label": {
+        "en": "Multi Jet Fusion",
+        "es": "Multi Jet Fusion (fusión por múltiples chorros)",
+        "fr": "Multi Jet Fusion (fusion multi-jets)",
+        "pt": "Multi Jet Fusion (fusão por múltiplos jatos)"
+      },
+      "definition": {
+        "en": "HP's powder-bed-fusion process: an inkjet head lays fusing and detailing agents on each layer of polymer powder and an energy source fuses the treated areas.",
+        "es": "Proceso de fusión en lecho de polvo de HP: un cabezal de inyección deposita agentes de fusión y de detalle sobre cada capa de polvo polimérico y una fuente de energía funde las zonas tratadas.",
+        "fr": "Procédé de fusion sur lit de poudre de HP : une tête jet d'encre dépose des agents de fusion et de détail sur chaque couche de poudre polymère, puis une source d'énergie fusionne les zones traitées.",
+        "pt": "Processo de fusão em leito de pó da HP: uma cabeça de jato de tinta aplica agentes de fusão e de detalhe em cada camada de pó polimérico e uma fonte de energia funde as áreas tratadas."
+      },
+      "review_status": {"state": "generated"},
+      "family": "additive",
+      "iso_52900_category": "powder_bed_fusion",
+      "sources": [
+        {
+          "title": "ISO/ASTM 52900:2021 Additive manufacturing — General principles — Fundamentals and vocabulary",
+          "url": "https://www.iso.org/standard/74514.html",
+          "publisher": "ISO",
+          "accessed": "2026-10-02",
+          "supports": "the seven additive process categories (material extrusion, vat photopolymerization, powder bed fusion, …)"
+        },
+        {
+          "title": "HP Multi Jet Fusion technology",
+          "url": "https://www.hp.com/us-en/printers/3d-printers/products/multi-jet-technology.html",
+          "publisher": "HP Inc.",
+          "accessed": "2026-10-02",
+          "supports": "MJF as HP's powder-bed process that fuses polymer powder with fusing and detailing agents"
+        }
+      ],
+      "notes": "Cotiza has no code for MJF yet; no cotiza_code on purpose."
+    },
+    {
+      "key": "cnc_3axis",
+      "label": {
+        "en": "3-axis CNC milling",
+        "es": "Fresado CNC de 3 ejes",
+        "fr": "Fraisage CNC 3 axes",
+        "pt": "Fresagem CNC de 3 eixos"
+      },
+      "definition": {
+        "en": "Subtractive process that removes material from solid stock with a rotating cutter moving along three linear axes (X, Y, Z) under numerical control.",
+        "es": "Proceso sustractivo que retira material de un bloque sólido con una fresa giratoria que se desplaza en tres ejes lineales (X, Y, Z) bajo control numérico.",
+        "fr": "Procédé soustractif qui enlève de la matière d'un brut massif avec une fraise rotative se déplaçant sur trois axes linéaires (X, Y, Z) sous commande numérique.",
+        "pt": "Processo subtrativo que remove material de um bloco sólido com uma fresa rotativa que se desloca em três eixos lineares (X, Y, Z) sob controle numérico."
+      },
+      "review_status": {"state": "generated"},
+      "family": "subtractive",
+      "cotiza_code": "cnc_3axis",
+      "sources": [
+        {
+          "title": "Cotiza pricing controller — accepted process enum",
+          "url": "https://github.com/madfam-org/digifab-quoting/blob/958a9ecd814c797b088af9a607776c98bc47d9a0/apps/api/src/modules/pricing/pricing.controller.ts#L41",
+          "publisher": "madfam-org/digifab-quoting",
+          "accessed": "2026-10-02",
+          "supports": "Cotiza's process codes: 3d_fff, 3d_sla, cnc_3axis, laser_2d"
+        }
+      ]
+    },
+    {
+      "key": "cnc_router",
+      "label": {
+        "en": "CNC routing",
+        "es": "Ruteo CNC (router)",
+        "fr": "Défonçage CNC",
+        "pt": "Fresagem CNC com router"
+      },
+      "definition": {
+        "en": "Subtractive process for sheet and panel stock — wood, plastics, composite plates — on a gantry router with a large flat bed; usually 2.5-D profiles and pockets rather than full 3-D surfaces.",
+        "es": "Proceso sustractivo para material en lámina o tablero —madera, plásticos, placas de compuesto— en un router de pórtico con mesa plana amplia; por lo general perfiles y cajeados en 2.5D más que superficies 3D completas.",
+        "fr": "Procédé soustractif pour les plaques et panneaux — bois, plastiques, plaques composites — sur une défonceuse à portique à large table plane ; en général des contours et des poches en 2,5D plutôt que des surfaces 3D complètes.",
+        "pt": "Processo subtrativo para chapas e painéis — madeira, plásticos, placas de compósito — numa router de pórtico com mesa plana ampla; em geral perfis e cavidades em 2,5D em vez de superfícies 3D completas."
+      },
+      "review_status": {"state": "generated"},
+      "family": "subtractive",
+      "notes": "Cotiza has no separate router code. Whether router work should be quoted as cnc_3axis is a Cotiza ruling, not a vocabulary one, so no cotiza_code is claimed."
+    },
+    {
+      "key": "laser_2d",
+      "label": {
+        "en": "2-D laser cutting",
+        "es": "Corte láser 2D",
+        "fr": "Découpe laser 2D",
+        "pt": "Corte a laser 2D"
+      },
+      "definition": {
+        "en": "Cutting process that follows a 2-D profile through sheet stock with a focused laser beam; also used to engrave without cutting through.",
+        "es": "Proceso de corte que sigue un perfil 2D a través de material en lámina con un haz láser enfocado; también sirve para grabar sin atravesar.",
+        "fr": "Procédé de découpe qui suit un contour 2D à travers une plaque avec un faisceau laser focalisé ; sert aussi à graver sans traverser.",
+        "pt": "Processo de corte que segue um perfil 2D através de chapa com um feixe laser focalizado; também serve para gravar sem atravessar."
+      },
+      "review_status": {"state": "generated"},
+      "family": "cutting",
+      "cotiza_code": "laser_2d",
+      "sources": [
+        {
+          "title": "Cotiza pricing controller — accepted process enum",
+          "url": "https://github.com/madfam-org/digifab-quoting/blob/958a9ecd814c797b088af9a607776c98bc47d9a0/apps/api/src/modules/pricing/pricing.controller.ts#L41",
+          "publisher": "madfam-org/digifab-quoting",
+          "accessed": "2026-10-02",
+          "supports": "Cotiza's process codes: 3d_fff, 3d_sla, cnc_3axis, laser_2d"
+        }
+      ]
+    }
+  ]
+}

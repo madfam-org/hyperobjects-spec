@@ -8,10 +8,10 @@
   "required": ["id", "domain", "term", "definition"],
   "properties": {
     "spec_version": {
-      "description": "Version of THIS term contract the entry is written against. Absent means 1. Contract 2 (RFC 0039 G2/G3) is ADDITIVE over 1: it adds the optional `review_status` block and the `capability` domain, so every contract-1 entry is still valid and unchanged. An entry declares 2 when it uses either.",
+      "description": "Version of THIS term contract the entry is written against. Absent means 1. Contract 2 (RFC 0039 G2/G3) is ADDITIVE over 1: it adds the optional `review_status` block and the `capability` domain, so every contract-1 entry is still valid and unchanged. An entry declares 2 when it uses either. Contract 3 (SEM-1 §4) is ADDITIVE over 2: it adds the optional `exact_match` and `close_match` arrays of external identifiers, and the lane refuses an entry that uses either while declaring less than 3.",
       "type": "integer",
       "minimum": 1,
-      "maximum": 2,
+      "maximum": 3,
       "default": 1
     },
     "id": {
@@ -50,6 +50,20 @@
       "description": "Published standards the term is defined against, cited by their identifier (e.g. 'ISO 8559-1'). Optional — most house vocabulary has no standard, and inventing one is worse than having none.",
       "type": "array",
       "items": { "type": "string", "minLength": 2 }
+    },
+    "exact_match": {
+      "description": "External identifiers of concepts that mean EXACTLY what this term means (SKOS exactMatch): an absolute IRI (an IDTA submodel-template semanticId, an EMMO class, an IEC CDD URL) or an ECLASS IRDI written as a string. Identifiers only — ECLASS content is licensed and is never copied here. The term's OWN identifier is not stored: it is derived from `id` as https://id.madfam.io/concept/{id} (SEM-1 §1; `hyperobjects_lexicon.concept_iri`), so it cannot drift from the id it names. Contract 3.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/externalIdentifier" }
+    },
+    "close_match": {
+      "description": "External identifiers of concepts close enough to this term to be used interchangeably in some contexts but not all (SKOS closeMatch) — the honest field when the outside definition is broader, narrower, or scoped differently. Same identifier forms as `exact_match`; the lane refuses an identifier listed in both. Contract 3.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/externalIdentifier" }
     },
     "embodied_by": {
       "description": "Cartridges where the term is real, as '<repo>/<slug>'. The lexicon's claim to be about actual objects rather than about words rests on this field: a term nothing embodies is a term nobody needed.",
@@ -121,6 +135,19 @@
           "type": "string"
         }
       }
+    },
+    "externalIdentifier": {
+      "description": "An identifier minted OUTSIDE this lexicon: an absolute IRI (a scheme, ':', then no whitespace or IRI-excluded characters — RFC 3987), or an ECLASS IRDI (registration authority 0173-1, ISO 29002-5 shape), e.g. '0173-1#02-AAO677#002'. Exactly one of the two forms matches any value.",
+      "oneOf": [{ "$ref": "#/$defs/absoluteIri" }, { "$ref": "#/$defs/eclassIrdi" }]
+    },
+    "absoluteIri": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$",
+      "maxLength": 2048
+    },
+    "eclassIrdi": {
+      "type": "string",
+      "pattern": "^0173-1#[0-9]{2}-[A-Z0-9]{6}#[0-9]{3}$"
     },
     "termId": {
       "type": "string",

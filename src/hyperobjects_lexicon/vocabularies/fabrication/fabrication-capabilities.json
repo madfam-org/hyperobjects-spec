@@ -1,0 +1,285 @@
+{
+  "spec_version": 1,
+  "vocabulary": "fabrication-capabilities",
+  "description": "What a producer MACHINE can do — the keys a machine-model declaration writes so a product's requirement profile can be matched against it. Deliberately distinct from the `capabilities` vocabulary, which holds Fashion Cabinet's garment-feature flags: the two share a word and nothing else, and the lane refuses a key that appears in both.",
+  "review": {
+    "state": "generated",
+    "note": "Key set, cross-maps, labels and definitions drafted in one pass by an agent (P3-LEX lane, 2026-10-02) against SEM-1 §4. No language facet of any entry has had a native review: every entry says `generated`, and Spanish is the bar a reviewer should read first. Facts were checked against the cited sources on the access date; no ruling has been made by a human."
+  },
+  "entries": [
+    {
+      "key": "process",
+      "label": {"en": "Process", "es": "Proceso", "fr": "Procédé", "pt": "Processo"},
+      "definition": {
+        "en": "The manufacturing process the machine performs; a key of the processes vocabulary.",
+        "es": "El proceso de fabricación que realiza la máquina; una clave del vocabulario de procesos.",
+        "fr": "Le procédé de fabrication que réalise la machine ; une clé du vocabulaire des procédés.",
+        "pt": "O processo de fabricação que a máquina executa; uma chave do vocabulário de processos."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "string",
+      "value_vocabulary": "processes"
+    },
+    {
+      "key": "build_volume_x_mm",
+      "label": {
+        "en": "Build volume X",
+        "es": "Volumen de impresión X",
+        "fr": "Volume d'impression X",
+        "pt": "Volume de impressão X"
+      },
+      "definition": {
+        "en": "Largest printable extent along the machine's X axis, in mm.",
+        "es": "Mayor extensión imprimible a lo largo del eje X de la máquina, en mm.",
+        "fr": "Plus grande étendue imprimable le long de l'axe X de la machine, en mm.",
+        "pt": "Maior extensão imprimível ao longo do eixo X da máquina, em mm."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "number",
+      "unit": "mm",
+      "term": "build-volume"
+    },
+    {
+      "key": "build_volume_y_mm",
+      "label": {
+        "en": "Build volume Y",
+        "es": "Volumen de impresión Y",
+        "fr": "Volume d'impression Y",
+        "pt": "Volume de impressão Y"
+      },
+      "definition": {
+        "en": "Largest printable extent along the machine's Y axis, in mm.",
+        "es": "Mayor extensión imprimible a lo largo del eje Y de la máquina, en mm.",
+        "fr": "Plus grande étendue imprimable le long de l'axe Y de la machine, en mm.",
+        "pt": "Maior extensão imprimível ao longo do eixo Y da máquina, em mm."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "number",
+      "unit": "mm",
+      "term": "build-volume"
+    },
+    {
+      "key": "build_volume_z_mm",
+      "label": {
+        "en": "Build volume Z",
+        "es": "Volumen de impresión Z",
+        "fr": "Volume d'impression Z",
+        "pt": "Volume de impressão Z"
+      },
+      "definition": {
+        "en": "Largest printable extent along the machine's Z (vertical) axis, in mm.",
+        "es": "Mayor extensión imprimible a lo largo del eje Z (vertical) de la máquina, en mm.",
+        "fr": "Plus grande étendue imprimable le long de l'axe Z (vertical) de la machine, en mm.",
+        "pt": "Maior extensão imprimível ao longo do eixo Z (vertical) da máquina, em mm."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "number",
+      "unit": "mm",
+      "term": "build-volume"
+    },
+    {
+      "key": "nozzle_diameters_mm",
+      "label": {
+        "en": "Nozzle diameters",
+        "es": "Diámetros de boquilla",
+        "fr": "Diamètres de buse",
+        "pt": "Diâmetros de bico"
+      },
+      "definition": {
+        "en": "Nozzle orifice diameters the machine can be fitted with, in mm.",
+        "es": "Diámetros de orificio de boquilla que la máquina puede montar, en mm.",
+        "fr": "Diamètres d'orifice de buse que la machine peut recevoir, en mm.",
+        "pt": "Diâmetros de orifício de bico que a máquina pode montar, em mm."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "array",
+      "unit": "mm"
+    },
+    {
+      "key": "max_hotend_temp_c",
+      "label": {
+        "en": "Maximum hotend temperature",
+        "es": "Temperatura máxima del hotend",
+        "fr": "Température maximale de la tête chauffante",
+        "pt": "Temperatura máxima do hotend"
+      },
+      "definition": {
+        "en": "Highest nozzle temperature the machine is rated for, in °C.",
+        "es": "Temperatura de boquilla más alta para la que está especificada la máquina, en °C.",
+        "fr": "Température de buse la plus élevée pour laquelle la machine est spécifiée, en °C.",
+        "pt": "Temperatura de bico mais alta para a qual a máquina é especificada, em °C."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "number",
+      "unit": "degC"
+    },
+    {
+      "key": "max_bed_temp_c",
+      "label": {
+        "en": "Maximum bed temperature",
+        "es": "Temperatura máxima de cama",
+        "fr": "Température maximale du plateau",
+        "pt": "Temperatura máxima da mesa"
+      },
+      "definition": {
+        "en": "Highest build-plate temperature the machine is rated for, in °C.",
+        "es": "Temperatura de cama más alta para la que está especificada la máquina, en °C.",
+        "fr": "Température de plateau la plus élevée pour laquelle la machine est spécifiée, en °C.",
+        "pt": "Temperatura de mesa mais alta para a qual a máquina é especificada, em °C."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "number",
+      "unit": "degC"
+    },
+    {
+      "key": "enclosure",
+      "label": {"en": "Enclosure", "es": "Cámara cerrada", "fr": "Enceinte fermée", "pt": "Câmara fechada"},
+      "definition": {
+        "en": "Whether the build volume is enclosed, holding heat and fumes around the part.",
+        "es": "Si el volumen de impresión está cerrado y retiene calor y vapores alrededor de la pieza.",
+        "fr": "Si le volume d'impression est fermé, retenant chaleur et fumées autour de la pièce.",
+        "pt": "Se o volume de impressão é fechado, retendo calor e fumos em volta da peça."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "boolean",
+      "unit": "none"
+    },
+    {
+      "key": "heated_chamber",
+      "label": {
+        "en": "Heated chamber",
+        "es": "Cámara calefactada",
+        "fr": "Chambre chauffée",
+        "pt": "Câmara aquecida"
+      },
+      "definition": {
+        "en": "Whether the enclosure is actively heated, not merely warmed by the bed.",
+        "es": "Si la cámara se calienta de forma activa y no solo por el calor de la cama.",
+        "fr": "Si l'enceinte est chauffée activement, et pas seulement par le plateau.",
+        "pt": "Se a câmara é aquecida ativamente, e não apenas pelo calor da mesa."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "boolean",
+      "unit": "none"
+    },
+    {
+      "key": "toolhead_count",
+      "label": {
+        "en": "Toolhead count",
+        "es": "Número de cabezales",
+        "fr": "Nombre de têtes",
+        "pt": "Número de cabeçotes"
+      },
+      "definition": {
+        "en": "Number of independent toolheads or hotends that can print in one job.",
+        "es": "Número de cabezales o hotends independientes que pueden imprimir en un mismo trabajo.",
+        "fr": "Nombre de têtes ou de hotends indépendants pouvant imprimer dans un même travail.",
+        "pt": "Número de cabeçotes ou hotends independentes que podem imprimir no mesmo trabalho."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "integer",
+      "unit": "count"
+    },
+    {
+      "key": "material_slots",
+      "label": {
+        "en": "Material slots",
+        "es": "Ranuras de material",
+        "fr": "Emplacements de matière",
+        "pt": "Compartimentos de material"
+      },
+      "definition": {
+        "en": "Number of materials loaded at once and selectable without operator action (e.g. spools in an automatic material system).",
+        "es": "Número de materiales cargados a la vez y seleccionables sin intervención del operador (p. ej. bobinas en un sistema automático de materiales).",
+        "fr": "Nombre de matières chargées en même temps et sélectionnables sans intervention de l'opérateur (p. ex. bobines d'un système automatique de matières).",
+        "pt": "Número de materiais carregados ao mesmo tempo e selecionáveis sem intervenção do operador (p. ex. bobinas num sistema automático de materiais)."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "integer",
+      "unit": "count"
+    },
+    {
+      "key": "firmware",
+      "label": {"en": "Firmware", "es": "Firmware", "fr": "Micrologiciel", "pt": "Firmware"},
+      "definition": {
+        "en": "The motion firmware the machine runs.",
+        "es": "El firmware de movimiento que ejecuta la máquina.",
+        "fr": "Le micrologiciel de mouvement qu'exécute la machine.",
+        "pt": "O firmware de movimento que a máquina executa."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "string",
+      "unit": "none",
+      "allowed_values": ["klipper", "marlin", "reprapfirmware", "bambu"],
+      "sources": [
+        {
+          "title": "Klipper documentation",
+          "url": "https://www.klipper3d.org/",
+          "publisher": "Klipper",
+          "accessed": "2026-10-02",
+          "supports": "Klipper"
+        },
+        {
+          "title": "Marlin firmware",
+          "url": "https://marlinfw.org/",
+          "publisher": "Marlin",
+          "accessed": "2026-10-02",
+          "supports": "Marlin"
+        },
+        {
+          "title": "Duet3D RepRapFirmware documentation",
+          "url": "https://docs.duet3d.com/",
+          "publisher": "Duet3D",
+          "accessed": "2026-10-02",
+          "supports": "RepRapFirmware"
+        },
+        {
+          "title": "Bambu Lab wiki — LAN mode",
+          "url": "https://wiki.bambulab.com/en/knowledge-sharing/enable-lan-mode",
+          "publisher": "Bambu Lab",
+          "accessed": "2026-10-02",
+          "supports": "Bambu Lab machines running Bambu's own firmware"
+        }
+      ],
+      "notes": "'bambu' names Bambu Lab's proprietary firmware family; it is a machine-family value, not a claim about its internals."
+    },
+    {
+      "key": "connectivity",
+      "label": {"en": "Connectivity", "es": "Conectividad", "fr": "Connectivité", "pt": "Conectividade"},
+      "definition": {
+        "en": "The control interfaces through which a job can be sent to the machine and its state read.",
+        "es": "Las interfaces de control por las que se puede enviar un trabajo a la máquina y leer su estado.",
+        "fr": "Les interfaces de commande par lesquelles on peut envoyer un travail à la machine et lire son état.",
+        "pt": "As interfaces de controle pelas quais se pode enviar um trabalho à máquina e ler o seu estado."
+      },
+      "review_status": {"state": "generated"},
+      "value_type": "array",
+      "unit": "none",
+      "allowed_values": ["moonraker", "bambu_lan_mqtt", "octoprint"],
+      "sources": [
+        {
+          "title": "Moonraker documentation",
+          "url": "https://moonraker.readthedocs.io/en/latest/",
+          "publisher": "Arksine/moonraker",
+          "accessed": "2026-10-02",
+          "supports": "Moonraker, the API server for Klipper"
+        },
+        {
+          "title": "Bambu Lab wiki — LAN mode",
+          "url": "https://wiki.bambulab.com/en/knowledge-sharing/enable-lan-mode",
+          "publisher": "Bambu Lab",
+          "accessed": "2026-10-02",
+          "supports": "LAN-only control of Bambu Lab printers"
+        },
+        {
+          "title": "OctoPrint REST API",
+          "url": "https://docs.octoprint.org/en/master/api/index.html",
+          "publisher": "OctoPrint",
+          "accessed": "2026-10-02",
+          "supports": "OctoPrint's REST API"
+        }
+      ],
+      "notes": "bambu_lan_mqtt names control over a Bambu Lab printer's LAN mode; the cited wiki page documents enabling that mode, not a protocol specification."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "_fixture": "SEM-1 §3 on a garment manifest: the same requirements block, with fabric classes in materials.",
+  "project": {"slug": "sem1-compression-top"},
+  "hyperobject": {"interfaces": [{"id": "side_seam", "type": "seam"}]},
+  "requirements": {
+    "materials": {"any_of": ["technical", "knit"], "none_of": ["leather"]},
+    "parts": {"cuff_tab": {"process": ["fff"], "materials": {"any_of": ["printed_textile", "tpu-95a"]}}}
+  }
+}
