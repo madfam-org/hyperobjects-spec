@@ -31,6 +31,15 @@ runbook.
   - `rules.py` — pure manifest rules. Each cites its yantra4d origin (file and
     line) in the module docstring; keeping the citation current is what makes a
     divergence from the platform visible instead of silent.
+  - `semantic_rules.py` — structure of the SEM-1 semantic fields: interface
+    `frame` expressions, vectors and symmetry, `polarity`, `size_key`, and the
+    `requirements` profile. Vocabulary membership is the lexicon's rule.
+  - `frame_eval.py` — evaluates an interface frame at a parameter point
+    (ASM-1 §1): full injection, a hand-walked vetted `ast` (no `eval`), unit
+    `normal`, orthogonalised `x_axis`, `Frame.homogeneous()` = H(F).
+  - `frame_gate.py` / `frame_geometry.py` — the render-time frame gate (ASM-1
+    §8) under `--render`: planar or axis test per `geometry_type`, UNVERIFIED
+    for the rest; a no-op for a manifest without frames.
   - `structure.py` — the on-disk rules (mode sources, escaping includes,
     vendored trees, shipped LICENSE).
   - `default_drift.py` — `default-drift`, NOTE ONLY: manifest `default` vs the

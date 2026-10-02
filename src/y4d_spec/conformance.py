@@ -52,6 +52,10 @@ class CartridgeResult:
     parity: list = field(default_factory=list)
     #: True when the cross-kernel parity pass ran (whether or not it found any pairs).
     parity_ran: bool = False
+    #: One FrameCheck per (framed interface, parameter point) from the render-time
+    #: frame gate (frame_gate.py). Empty without --render, and empty on a manifest
+    #: that declares no frame — the gate is a no-op there.
+    frames: list = field(default_factory=list)
 
     def __bool__(self) -> bool:
         return self.ok
@@ -246,6 +250,24 @@ def check_cartridge(
                     tolerance_is_explicit=parity_tolerance is not None,
                 )
                 result.parity_ran = True
+
+        # The frame gate (ASM-1 §8): [] without a single framed interface, before any
+        # CAD import, so a frameless cartridge checks exactly as it did.
+        from .frame_gate import check_frames
+
+        result.frames = check_frames(
+            path,
+            doc,
+            presets=presets,
+            library_paths=library_paths,
+            require_openscad=require_openscad,
+            openscad_timeout=openscad_timeout,
+        )
+        for fc in result.frames:
+            if fc.status == "fail":
+                result.problems.append(fc.summary)
+            elif fc.status == "unverified":
+                result.notes.append(fc.summary)
 
         for check in result.renders:
             if not check.ok:

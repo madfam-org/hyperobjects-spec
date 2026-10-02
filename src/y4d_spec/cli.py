@@ -100,6 +100,7 @@ def _cmd_check(args) -> int:
     parity_exempt = 0
     parity_placement = 0
     parity_failed = 0
+    frame_checks = frame_passed = frame_unverified = frame_failed = 0
     for d in args.cartridges:
         try:
             result = check_cartridge(
@@ -131,6 +132,10 @@ def _cmd_check(args) -> int:
         parity_ok += len(
             [c for c in result.parity if c.ok and not c.warn and not c.exempt]
         )
+        frame_checks += len(result.frames)
+        frame_passed += sum(1 for f in result.frames if f.status == "pass")
+        frame_unverified += sum(1 for f in result.frames if f.status == "unverified")
+        frame_failed += sum(1 for f in result.frames if f.status == "fail")
 
         if result.ok:
             suffix = ""
@@ -181,6 +186,8 @@ def _cmd_check(args) -> int:
                     print(f"       {check.summary}")
                 for pcheck in result.parity:
                     print(f"       {pcheck.summary}")
+                for fcheck in result.frames:
+                    print(f"       {fcheck.summary}")
         else:
             failures += 1
             for prob in result.problems:
@@ -190,6 +197,8 @@ def _cmd_check(args) -> int:
                     print(f"       {check.summary}")
                 for pcheck in result.parity:
                     print(f"       {pcheck.summary}")
+                for fcheck in result.frames:
+                    print(f"       {fcheck.summary}")
 
         # Notes print for pass and fail alike, and never change the exit code.
         for note in result.notes:
@@ -212,10 +221,19 @@ def _cmd_check(args) -> int:
             f"exempt={parity_exempt}, placement={parity_placement}, "
             f"failures={parity_failed}"
         )
+    # `frames=P/M ok, unverified=U, failures=F` (P + U + F = M) — appended only when a
+    # framed interface was checked, so the line is unchanged for every cartridge that
+    # declares no frame. An unverified frame is counted apart from a passing one.
+    frames_part = ""
+    if frame_checks:
+        frames_part = (
+            f" frames={frame_passed}/{frame_checks} ok, unverified={frame_unverified}, "
+            f"failures={frame_failed}"
+        )
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
-        f"presets={preset_targets} skipped={skipped_targets}{parity_part}"
+        f"presets={preset_targets} skipped={skipped_targets}{parity_part}{frames_part}"
     )
     return 1 if failures else 0
 
@@ -277,7 +295,7 @@ def _cmd_render_env(args) -> int:
 
 
 def _cmd_rules(args) -> int:
-    from . import default_drift, rules, structure
+    from . import default_drift, rules, semantic_rules, structure
 
     print("y4d-spec checks a cartridge against, in order:\n")
     print("  1. the project-manifest JSON Schema (bundled from yantra4d/packages/schemas)")
@@ -289,6 +307,8 @@ def _cmd_rules(args) -> int:
         rules.i18n_rules,
         rules.license_rules,
         rules.verification_rules,
+        semantic_rules.interface_frame_rules,
+        semantic_rules.requirements_rules,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
@@ -401,7 +421,11 @@ def _cmd_rules(args) -> int:
     print('       revolved sawtooth ring stack — not "known issue"), and every')
     print("       exemption is expected to be reviewed when either kernel changes,")
     print("       since a cheaper OCC sweep or a rewritten .scad retires it.")
-    print("  8. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
+    from .frame_gate import describe_rules
+
+    for line in describe_rules():
+        print(line)
+    print("  9. the render environment (`y4d-spec render-env`): the packages, OpenSCAD")
     print("       version + AppImage checksum, and fonts policy that the platform image,")
     print("       the commons CI and the CI runner image all read from here instead of")
     print("       each keeping their own copy. See y4d_spec.render_environment.")

@@ -297,6 +297,62 @@
         "additionalProperties": true
       }
     },
+    "parts": {
+      "type": "array",
+      "description": "Every part this cartridge can render, across all modes. A mode lists the ids it renders in modes[].parts; each id there names an entry here. `render_mode` is the integer the cartridge's source dispatches on, `color` the default viewer colour.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "label"
+            ]
+          },
+          {
+            "required": [
+              "name"
+            ]
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Part identifier, referenced by modes[].parts and the target_part parameter."
+          },
+          "label": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Human-readable part name."
+          },
+          "name": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Accepted in place of `label` (a display string either way)."
+          },
+          "render_mode": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The integer the cartridge's source dispatches on to emit this part."
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$",
+            "description": "Default viewer colour, #rrggbb."
+          },
+          "default_color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$",
+            "description": "Alias of `color` kept for older cartridges."
+          },
+          "glass": {
+            "type": "boolean",
+            "description": "Render the part translucent in the viewer."
+          }
+        }
+      }
+    },
     "parameters": {
       "type": "array",
       "items": {
@@ -330,6 +386,17 @@
           },
           "step": {
             "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "mm",
+              "deg",
+              "count",
+              "ratio",
+              "percent"
+            ],
+            "description": "Unit of this parameter's value (SEM-1 §2.2). Lengths are mm, angles deg; `count` is a whole number of things, `ratio` a dimensionless factor, `percent` 0-100. Optional: absent means the label is the only statement of the unit."
           },
           "maxlength": {
             "type": "number"
@@ -1104,213 +1171,370 @@
           }
         }
       }
-    }
-  },
-  "materials": {
-    "type": "array",
-    "description": "Custom material profiles for print estimation. Falls back to built-in profiles if absent.",
-    "items": {
+    },
+    "materials": {
+      "type": "array",
+      "description": "Custom material profiles for print estimation. Falls back to built-in profiles if absent.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "cost_per_kg"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Accepted in place of `name`."
+          },
+          "density": {
+            "type": "number",
+            "description": "g/cm³"
+          },
+          "density_g_cm3": {
+            "type": "number",
+            "description": "Accepted in place of `density` (g/cm³)."
+          },
+          "cost_per_kg": {
+            "type": "number"
+          },
+          "print_speed_factor": {
+            "type": "number",
+            "default": 1.0,
+            "description": "Multiplier vs PLA baseline speed"
+          }
+        },
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "name"
+                ]
+              },
+              {
+                "required": [
+                  "label"
+                ]
+              }
+            ]
+          },
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "density"
+                ]
+              },
+              {
+                "required": [
+                  "density_g_cm3"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "source": {
       "type": "object",
-      "required": [
-        "id",
-        "name",
-        "density",
-        "cost_per_kg"
-      ],
+      "description": "Import source metadata (e.g., GitHub repo origin).",
       "properties": {
-        "id": {
-          "type": "string"
+        "type": {
+          "type": "string",
+          "enum": [
+            "github",
+            "upload",
+            "local"
+          ]
         },
-        "name": {
-          "type": "string"
+        "repo_url": {
+          "type": "string",
+          "format": "uri"
         },
-        "density": {
-          "type": "number",
-          "description": "g/cm³"
-        },
-        "cost_per_kg": {
-          "type": "number"
-        },
-        "print_speed_factor": {
-          "type": "number",
-          "default": 1.0,
-          "description": "Multiplier vs PLA baseline speed"
+        "imported_at": {
+          "type": "string",
+          "format": "date-time"
         }
       }
-    }
-  },
-  "source": {
-    "type": "object",
-    "description": "Import source metadata (e.g., GitHub repo origin).",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "github",
-          "upload",
-          "local"
-        ]
-      },
-      "repo_url": {
-        "type": "string",
-        "format": "uri"
-      },
-      "imported_at": {
-        "type": "string",
-        "format": "date-time"
-      }
-    }
-  },
-  "hyperobject": {
-    "type": "object",
-    "description": "Hyperobject Commons metadata — classifies the project as a Bounded 4D Hyperobject with CDG interfaces, material awareness, and societal benefit.",
-    "properties": {
-      "domain": {
-        "type": "string",
-        "enum": [
-          "household",
-          "industrial",
-          "medical",
-          "commercial",
-          "infrastructure",
-          "agriculture",
-          "construction",
-          "energy",
-          "wearable",
-          "consumer-electronics",
-          "soft-robotics",
-          "consumer",
-          "electronics",
-          "play",
-          "hybrid"
-        ],
-        "description": "Primary deployment domain per the Hyperobject taxonomy."
-      },
-      "cdg_interfaces": {
-        "type": "array",
-        "description": "Common Denominator Geometry interfaces — standardized geometric connection points that enable interoperability.",
-        "items": {
-          "type": "object",
-          "required": [
-            "id",
-            "label",
-            "geometry_type"
+    },
+    "hyperobject": {
+      "type": "object",
+      "description": "Hyperobject Commons metadata — classifies the project as a Bounded 4D Hyperobject with CDG interfaces, material awareness, and societal benefit.",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": [
+            "household",
+            "industrial",
+            "medical",
+            "commercial",
+            "infrastructure",
+            "agriculture",
+            "construction",
+            "energy",
+            "wearable",
+            "consumer-electronics",
+            "soft-robotics",
+            "consumer",
+            "electronics",
+            "play",
+            "hybrid"
           ],
-          "properties": {
-            "id": {
-              "type": "string",
-              "pattern": "^[a-z][a-z0-9_]*$",
-              "description": "Machine-readable interface identifier."
+          "description": "Primary deployment domain per the Hyperobject taxonomy."
+        },
+        "cdg_interfaces": {
+          "type": "array",
+          "description": "Common Denominator Geometry interfaces — standardized geometric connection points that enable interoperability.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "geometry_type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$",
+                "description": "Machine-readable interface identifier."
+              },
+              "label": {
+                "$ref": "#/$defs/i18nString",
+                "description": "Human-readable interface name."
+              },
+              "geometry_type": {
+                "type": "string",
+                "enum": [
+                  "grid",
+                  "rail",
+                  "thread",
+                  "socket",
+                  "pocket",
+                  "snap",
+                  "bolt_pattern",
+                  "profile",
+                  "spline",
+                  "surface",
+                  "flange",
+                  "boss",
+                  "threaded_socket",
+                  "seal",
+                  "hinge",
+                  "screen",
+                  "port",
+                  "engraving",
+                  "polyhedron",
+                  "fem_mesh",
+                  "custom"
+                ],
+                "description": "Category of the geometric interface."
+              },
+              "standard": {
+                "type": "string",
+                "description": "Reference standard (e.g. 'ISO 8037-1:2003', 'DIN 35', 'Gridfinity 42mm') or 'internal' for project-specific interfaces."
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Parameter IDs from this manifest that define the interface geometry."
+              },
+              "compatible_with": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
+              },
+              "frame": {
+                "type": "object",
+                "description": "Where the interface sits on its part, in mm, in the part's model frame at the resolved parameters (SEM-1 §2.3). `normal` points from the feature toward where the mating partner sits; `x_axis` is the in-plane reference direction, orthogonal to `normal`, required when `symmetry` is not 0. Statically checked for structure and expression parseability only: a frame is not trusted until the render-time frame gate has compared it with the geometry.",
+                "required": [
+                  "part",
+                  "origin",
+                  "normal"
+                ],
+                "properties": {
+                  "part": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "A part id from `parts`."
+                  },
+                  "origin": {
+                    "$ref": "#/$defs/frameVector"
+                  },
+                  "normal": {
+                    "$ref": "#/$defs/frameVector"
+                  },
+                  "x_axis": {
+                    "$ref": "#/$defs/frameVector"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "polarity": {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female",
+                  "neutral"
+                ],
+                "description": "Which side of a mating pair this is. Two interfaces mate only with complementary polarity: male with female, neutral with neutral."
+              },
+              "size_key": {
+                "description": "The interface-sizes vocabulary key this interface realises (e.g. `nema-17-face`), or {param, map} when a select parameter chooses it: `map` sends every option value of `param` to a key. Vocabulary membership is a separate lexicon rule.",
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "param",
+                      "map"
+                    ],
+                    "properties": {
+                      "param": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "map": {
+                        "type": "object",
+                        "minProperties": 1,
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "symmetry": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  6,
+                  8
+                ],
+                "description": "Rotational symmetry order about `normal`: 0 continuous (a round shaft), 1 none, else the number of equivalent orientations (4 for a square bolt pattern)."
+              }
             },
-            "label": {
-              "$ref": "#/$defs/i18nString",
-              "description": "Human-readable interface name."
-            },
-            "geometry_type": {
-              "type": "string",
-              "enum": [
-                "grid",
-                "rail",
-                "thread",
-                "socket",
-                "pocket",
-                "snap",
-                "bolt_pattern",
-                "profile",
-                "spline",
-                "surface",
-                "flange",
-                "boss",
-                "threaded_socket",
-                "seal",
-                "hinge",
-                "screen",
-                "port",
-                "engraving",
-                "polyhedron",
-                "fem_mesh",
-                "custom"
+            "if": {
+              "required": [
+                "symmetry"
               ],
-              "description": "Category of the geometric interface."
+              "properties": {
+                "symmetry": {
+                  "not": {
+                    "const": 0
+                  }
+                }
+              }
             },
-            "standard": {
-              "type": "string",
-              "description": "Reference standard (e.g. 'ISO 8037-1:2003', 'DIN 35', 'Gridfinity 42mm') or 'internal' for project-specific interfaces."
-            },
-            "parameters": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "Parameter IDs from this manifest that define the interface geometry."
-            },
-            "compatible_with": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
+            "then": {
+              "required": [
+                "frame"
+              ],
+              "properties": {
+                "frame": {
+                  "required": [
+                    "x_axis"
+                  ]
+                }
+              }
             }
           }
+        },
+        "material_awareness": {
+          "type": [
+            "object",
+            "boolean"
+          ],
+          "description": "Declares which material-geometry interactions the SCAD code supports. A bare `true` is the legacy shorthand for \"this cartridge is material-aware\" (accepted exactly as the platform copy of this schema accepts it); new cartridges declare the object form.",
+          "properties": {
+            "shrinkage_compensation": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code adjusts geometry based on material shrinkage factors."
+            },
+            "recycled_material_toggle": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code offers adjusted tolerances for recycled filament (rPET, rPLA)."
+            },
+            "tolerance_by_material": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code varies clearances based on the selected material profile."
+            }
+          }
+        },
+        "societal_benefit": {
+          "$ref": "#/$defs/i18nString",
+          "description": "Human-readable statement of the hyperobject's societal value (commons utility)."
+        },
+        "commons_license": {
+          "type": "string",
+          "description": "SPDX identifier for the open hardware license (e.g. 'CERN-OHL-W-2.0', 'CC-BY-SA-4.0')."
         }
-      },
-      "material_awareness": {
-        "type": "object",
-        "description": "Declares which material-geometry interactions the SCAD code supports.",
-        "properties": {
-          "shrinkage_compensation": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code adjusts geometry based on material shrinkage factors."
-          },
-          "recycled_material_toggle": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code offers adjusted tolerances for recycled filament (rPET, rPLA)."
-          },
-          "tolerance_by_material": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code varies clearances based on the selected material profile."
+      }
+    },
+    "estimate_constants": {
+      "type": "object",
+      "required": [
+        "base_time",
+        "per_unit",
+        "per_part"
+      ],
+      "properties": {
+        "base_time": {
+          "type": "number"
+        },
+        "per_unit": {
+          "type": "number"
+        },
+        "per_part": {
+          "type": "number"
+        },
+        "fn_factor": {
+          "type": "number"
+        },
+        "wasm_multiplier": {
+          "type": "number"
+        },
+        "warning_threshold_seconds": {
+          "type": "number"
+        }
+      }
+    },
+    "requirements": {
+      "description": "The product requirement profile (SEM-1 §2.4): which processes, material classes and process-parameter bounds a print of this cartridge needs, and why. `parts` overrides the profile for named parts (keys are ids from `parts`). Keys come from the lexicon vocabularies; membership is checked by the lexicon rule, structure here.",
+      "$ref": "#/$defs/requirementSet",
+      "properties": {
+        "parts": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/requirementSet",
+            "minProperties": 1,
+            "unevaluatedProperties": false
           }
         }
       },
-      "societal_benefit": {
-        "$ref": "#/$defs/i18nString",
-        "description": "Human-readable statement of the hyperobject's societal value (commons utility)."
-      },
-      "commons_license": {
-        "type": "string",
-        "description": "SPDX identifier for the open hardware license (e.g. 'CERN-OHL-W-2.0', 'CC-BY-SA-4.0')."
-      }
-    }
-  },
-  "estimate_constants": {
-    "type": "object",
-    "required": [
-      "base_time",
-      "per_unit",
-      "per_part"
-    ],
-    "properties": {
-      "base_time": {
-        "type": "number"
-      },
-      "per_unit": {
-        "type": "number"
-      },
-      "per_part": {
-        "type": "number"
-      },
-      "fn_factor": {
-        "type": "number"
-      },
-      "wasm_multiplier": {
-        "type": "number"
-      },
-      "warning_threshold_seconds": {
-        "type": "number"
-      }
+      "unevaluatedProperties": false
     }
   },
   "$defs": {
@@ -1373,6 +1597,12 @@
             },
             "es": {
               "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "pt": {
+              "type": "string"
             }
           },
           "required": [
@@ -1380,6 +1610,118 @@
           ]
         }
       ]
+    },
+    "frameComponent": {
+      "description": "One coordinate of an interface frame: a number, or an expression over this manifest's parameter ids (SEM-1 §2.3 grammar: numeric literals, parameter ids, + - * / and parentheses, min(), max(), abs()). y4d-spec parses every expression; nothing here evaluates it.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      ]
+    },
+    "frameVector": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/frameComponent"
+      }
+    },
+    "materialSelector": {
+      "type": "object",
+      "description": "Material classes (material-classes vocabulary): accept any of, refuse all of.",
+      "properties": {
+        "any_of": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "none_of": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "processParameterBound": {
+      "type": "object",
+      "description": "A bound on one process parameter (process-parameters vocabulary key): `min` and/or `max` for a numeric setting, or `value` for an exact one (e.g. enable_support). `unit` restates the vocabulary's unit for the reader.",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "min"
+          ]
+        },
+        {
+          "required": [
+            "max"
+          ]
+        },
+        {
+          "required": [
+            "value"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "requirementSet": {
+      "type": "object",
+      "properties": {
+        "process": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Fabrication processes (processes vocabulary) that can make this."
+        },
+        "materials": {
+          "$ref": "#/$defs/materialSelector"
+        },
+        "process_parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/processParameterBound"
+          }
+        },
+        "rationale": {
+          "$ref": "#/$defs/i18nString"
+        }
+      }
     }
   }
 }

@@ -87,7 +87,8 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
 1. Validates the manifest against `project-manifest.schema.json`.
 2. Applies the per-cartridge house rules — mode/part/parameter cross-references, the
    `target_part` dispatch alignment, `hyperobject` block coherence, `{en, es}`
-   completeness, license declaration. Every rule names its source in the Yantra4D repo;
+   completeness, license declaration, and the structure of the semantic fields (interface
+   frames, size keys, the requirement profile; see below). Every rule names its source;
    run `y4d-spec rules` to see them.
 3. Checks the files: mode sources exist, no includes escaping the cartridge, no
    vendored tree, no shipped LICENSE contradicting the declared one, and **every
@@ -640,6 +641,108 @@ A **single-part mode's id must equal its part id**, because that id is what arri
 ```
 
 Multi-part modes are exempt — they render an assembly through the default branch.
+
+### Semantic fields: units, interface frames, requirements
+
+These fields are optional and additive (SEM-1 §2.2–§2.4). They say what a cartridge
+*means* to a machine: what its numbers measure, where a mating feature sits, and what
+it needs to be printed well. `y4d-spec check` validates their structure; it does not
+evaluate a frame against geometry (the render-time frame gate below does that, under
+`--render`), and it does
+not check that a key exists in the lexicon vocabularies (the lexicon rule does that).
+
+- **`parameters[].unit`**: one of `mm`, `deg`, `count`, `ratio` or `percent`. The
+  garment manifest takes the same field.
+- **`hyperobject.cdg_interfaces[]`** gains four fields:
+  - `frame`: `{part, origin, normal, x_axis?}`. The vectors are in mm, in the named
+    part's model frame. Each component is a number, or an expression over the
+    manifest's parameter ids using numeric literals, `+ - * /`, parentheses, `min`,
+    `max` and `abs` (at most 256 characters, parsed and never evaluated). `normal`
+    points toward where the mating partner sits.
+  - `polarity`: `male`, `female` or `neutral`.
+  - `symmetry`: the rotational order about `normal`. `0` means continuous, `1` means
+    none, and `2`, `3`, `4`, `6` or `8` are the other allowed orders.
+  - `size_key`: an interface-sizes key, or `{param, map}` when a select parameter
+    picks the size.
+- **`requirements`** (top level, in both manifests): `process`, `materials`
+  (`{any_of, none_of}`), `process_parameters` (`{key: {min?, max?, value?, unit?}}`),
+  a `rationale` i18n string, and `parts`, which holds per-part overrides keyed by part
+  id (piece id in a garment).
+
+```jsonc
+"cdg_interfaces": [{
+  "id": "motor_bolt_pattern", "geometry_type": "bolt_pattern", "label": {"en": "Motor Bolt Pattern"},
+  "frame": {"part": "soft_mount", "origin": [0, 0, "plate_thick + iso_gap"],
+            "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+  "polarity": "female", "symmetry": 4,
+  "size_key": {"param": "motor_pattern",
+               "map": {"9x9": "motor-mount-9x9-m2", "16x16": "motor-mount-16x16-m3",
+                       "19x19": "motor-mount-19x19-m3"}}
+}]
+```
+
+The rules (`y4d_spec.semantic_rules`) each report one kind of failure:
+
+- an expression that does not parse, or that names an undeclared parameter;
+- a vector that does not have 3 components;
+- a zero `normal` or `x_axis`;
+- a missing `x_axis` when `symmetry` is not 0;
+- a numeric `x_axis` more than 0.5° from orthogonal to a numeric `normal`;
+- a `frame.part` that is not declared;
+- a `size_key` select whose `map` misses an option or holds a key that is not an option;
+- a bound whose `min` is greater than its `max`;
+- a material class listed in both `any_of` and `none_of`;
+- a per-part override for an undeclared part.
+
+The complete example is `tests/fixtures/y4d/semantic-motor-mount.project.json`.
+
+#### Evaluating a frame (`y4d_spec.frame_eval`, ASM-1 §1)
+
+```python
+from y4d_spec.frame_eval import evaluate_frame
+frame = evaluate_frame(manifest, "motor_bolt_pattern", {"plate_thick": 5})
+frame.origin, frame.normal, frame.x_axis   # floats; normal and x_axis are unit vectors
+frame.homogeneous()                        # H(F): columns (x, y = n × x, n, origin)
+```
+
+Parameters resolve as GOC-1 full injection: every manifest default, overridden by the
+values given. Inside an expression a checkbox is `1`/`0` and a select is its option
+value. Each expression is first vetted by the same grammar check as `y4d-spec check`,
+then its syntax tree is walked by hand; nothing reaches `eval`. Errors
+(`FrameEvaluationError`) name the interface, vector and component: an unknown
+identifier, a division by zero, a non-finite value, a non-numeric value an expression
+reads, a zero vector, or an `x_axis` more than 1° from orthogonal. Within 1° `x_axis` is
+projected onto the normal's plane, so the returned frame is exactly orthonormal.
+
+#### The render-time frame gate (`--render`, ASM-1 §8)
+
+A frame that parses is well-formed, not trusted. Under `--render`, every interface with
+a `frame` is evaluated at the defaults and at every preset, its part is rendered at that
+same parameter point (full injection, so manifest/script default drift cannot put the
+frame and the mesh at two different points), and the frame is tested against the mesh
+by its `geometry_type` (`y4d_spec.frame_gate`, `y4d_spec.frame_geometry`):
+
+| Rule | Types | Passes when |
+|---|---|---|
+| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it |
+| axis | `hinge`, `socket`, `thread`, `threaded_socket` | the innermost cylinder parallel to `normal` (fit within 0.05mm, wrapping at least 180°) that reaches the origin plane is centred within 0.1mm, lies on the right side (a bore runs into the material, a shaft toward the partner) and matches `polarity`. With no cylinder at the origin at all, the planar test applies and the verdict says `planar (no cylinder at the origin)` |
+| none | `custom`, `fem_mesh`, `polyhedron`, `port`, `snap`, `spline` | never: the frame is reported **UNVERIFIED** as a note |
+
+A mismatch is a FAILURE that names the interface, the parameter point and the residuals:
+
+```
+FAIL frame-plate-wrong: frame 'centre_bore' (plate, preset 'thick', axis): FAIL — the bore
+  extends 6.000 mm to the partner side of the origin plane — the normal points the wrong
+  way (residuals {"axial_extent_mm": [0.0, 6.0], "axis_offset_mm": 0.0, …})
+```
+
+The summary line gains `frames=P/M ok, unverified=U, failures=F` (`P + U + F = M`) only
+when a framed interface was checked. A manifest with no frame renders nothing extra,
+imports nothing extra and prints exactly what it did before. The face test cannot see an
+origin slid along its own face by less than the 15mm search radius; the axis test and the
+assembly closure check constrain in-plane position. Fixtures: `tests/fixtures/y4d/frame-plate`
+(every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
+normal).
 
 ---
 
