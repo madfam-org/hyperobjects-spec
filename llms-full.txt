@@ -75,6 +75,11 @@ runbook.
     provisional.
   - `render_environment.py` — the render environment as data.
   - `cli.py` — argument surface and the `rules` explainer.
+  - `assembly/` — ASM-1 type-level assemblies: `validate_assembly(doc,
+    resolver)` (schema, resolution, mating rule, BFS placement, closure of
+    every mate, reachability, `hyperobjects-assembly-v1` digest), the
+    `ComponentResolver` protocol and its commons / standard-parts / external
+    resolvers, and `y4d-spec assembly check`. See `docs/ASSEMBLIES.md`.
 - `fc_spec` — the Fashion Cabinet contracts (`fc-spec`).
 - `bridge_check` — the FC↔Yantra4D hardware-link handshake (`ho-bridge`).
 - `commons_sandbox` — the restricted-execution core both platforms run
