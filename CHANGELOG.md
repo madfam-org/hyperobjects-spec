@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Frame evaluator and render-time frame gate (ASM-1 §1, §8)
+
+#### Added
+
+- `y4d_spec.frame_eval`: `evaluate_frame(manifest, interface, params)` returns a
+  `Frame(part, origin, normal, x_axis)` with unit vectors and an `x_axis` made exactly
+  orthogonal to the normal. Expressions are vetted by the SEM-1 grammar check, then
+  walked by hand; nothing is passed to `eval`. Parameters resolve as GOC-1 full
+  injection (checkbox 1/0, select option value).
+- The render-time frame gate in `y4d-spec check --render` (`y4d_spec.frame_gate`,
+  `y4d_spec.frame_geometry`). It runs for every interface with a `frame`, at the
+  defaults and at every preset. It uses a planar test for face types and an axis test
+  for `socket`, `thread`, `threaded_socket` and `hinge`. Other types are reported as
+  UNVERIFIED notes. A mismatch is a failure with residuals. The summary line gains
+  `frames=P/M ok, unverified=U, failures=F` only when frames were checked.
+- Fixtures `frame-plate` and `frame-plate-wrong`.
+
+#### Unchanged
+
+- A manifest without frames is checked exactly as before, which is every commons
+  cartridge today.
+
 ### Manifest semantic fields (SEM-1 §2–§3)
 
 #### Fixed

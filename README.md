@@ -647,7 +647,8 @@ Multi-part modes are exempt — they render an assembly through the default bran
 These fields are optional and additive (SEM-1 §2.2–§2.4). They say what a cartridge
 *means* to a machine: what its numbers measure, where a mating feature sits, and what
 it needs to be printed well. `y4d-spec check` validates their structure; it does not
-evaluate a frame against geometry (the render-time frame gate does that), and it does
+evaluate a frame against geometry (the render-time frame gate below does that, under
+`--render`), and it does
 not check that a key exists in the lexicon vocabularies (the lexicon rule does that).
 
 - **`parameters[].unit`**: one of `mm`, `deg`, `count`, `ratio` or `percent`. The
@@ -694,6 +695,54 @@ The rules (`y4d_spec.semantic_rules`) each report one kind of failure:
 - a per-part override for an undeclared part.
 
 The complete example is `tests/fixtures/y4d/semantic-motor-mount.project.json`.
+
+#### Evaluating a frame (`y4d_spec.frame_eval`, ASM-1 §1)
+
+```python
+from y4d_spec.frame_eval import evaluate_frame
+frame = evaluate_frame(manifest, "motor_bolt_pattern", {"plate_thick": 5})
+frame.origin, frame.normal, frame.x_axis   # floats; normal and x_axis are unit vectors
+frame.homogeneous()                        # H(F): columns (x, y = n × x, n, origin)
+```
+
+Parameters resolve as GOC-1 full injection: every manifest default, overridden by the
+values given. Inside an expression a checkbox is `1`/`0` and a select is its option
+value. Each expression is first vetted by the same grammar check as `y4d-spec check`,
+then its syntax tree is walked by hand; nothing reaches `eval`. Errors
+(`FrameEvaluationError`) name the interface, vector and component: an unknown
+identifier, a division by zero, a non-finite value, a non-numeric value an expression
+reads, a zero vector, or an `x_axis` more than 1° from orthogonal. Within 1° `x_axis` is
+projected onto the normal's plane, so the returned frame is exactly orthonormal.
+
+#### The render-time frame gate (`--render`, ASM-1 §8)
+
+A frame that parses is well-formed, not trusted. Under `--render`, every interface with
+a `frame` is evaluated at the defaults and at every preset, its part is rendered at that
+same parameter point (full injection, so manifest/script default drift cannot put the
+frame and the mesh at two different points), and the frame is tested against the mesh
+by its `geometry_type` (`y4d_spec.frame_gate`, `y4d_spec.frame_geometry`):
+
+| Rule | Types | Passes when |
+|---|---|---|
+| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it |
+| axis | `hinge`, `socket`, `thread`, `threaded_socket` | the innermost cylinder parallel to `normal` (fit within 0.05mm, wrapping at least 180°) that reaches the origin plane is centred within 0.1mm, lies on the right side (a bore runs into the material, a shaft toward the partner) and matches `polarity`. With no cylinder at the origin at all, the planar test applies and the verdict says `planar (no cylinder at the origin)` |
+| none | `custom`, `fem_mesh`, `polyhedron`, `port`, `snap`, `spline` | never: the frame is reported **UNVERIFIED** as a note |
+
+A mismatch is a FAILURE that names the interface, the parameter point and the residuals:
+
+```
+FAIL frame-plate-wrong: frame 'centre_bore' (plate, preset 'thick', axis): FAIL — the bore
+  extends 6.000 mm to the partner side of the origin plane — the normal points the wrong
+  way (residuals {"axial_extent_mm": [0.0, 6.0], "axis_offset_mm": 0.0, …})
+```
+
+The summary line gains `frames=P/M ok, unverified=U, failures=F` (`P + U + F = M`) only
+when a framed interface was checked. A manifest with no frame renders nothing extra,
+imports nothing extra and prints exactly what it did before. The face test cannot see an
+origin slid along its own face by less than the 15mm search radius; the axis test and the
+assembly closure check constrain in-plane position. Fixtures: `tests/fixtures/y4d/frame-plate`
+(every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
+normal).
 
 ---
 
