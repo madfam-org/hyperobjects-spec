@@ -17,10 +17,11 @@ The three places a source keeps its fallback, each read with a parser, not a gue
     literal may be a constant expression (`-2.5`) or a module-level constant name
     (`MC4_BODY_D`) bound to a literal; anything else is not a literal and is skipped.
   * OpenSCAD (`.scad`): a top-level `<id> = <literal>;`, which the platform's `-D`
-    overrides, or its guarded form `<id> = is_undef(<id>) ? <literal> : <id>;`. Assignments inside a module, function or block are not defaults. In-
-    cartridge `include <>` files are followed (textual inclusion, same scope); `use <>`
-    imports no variables and is not. The LAST top-level assignment wins, as in
-    OpenSCAD.
+    overrides, or its guarded form `<id> = is_undef(<id>) ? <literal> : <id>;`
+    (rubiks-hyperobject). Assignments inside a module, function or block are not
+    defaults. In-cartridge `include <>` files are followed (textual inclusion, same
+    scope); `use <>` imports no variables and is not. The LAST top-level assignment
+    wins, as in OpenSCAD.
   * Graph (`.graph.json`): the node literal a manifest `binding` (`"node.param"`)
     targets — the transpiler renders that literal when the parameter is not injected.
 
