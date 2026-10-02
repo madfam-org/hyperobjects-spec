@@ -13,6 +13,8 @@ from dataclasses import dataclass, field
 from importlib import resources
 from pathlib import Path
 
+from hyperobjects_lexicon.membership import manifest_vocabulary_problems
+
 from . import rules
 
 # The contracts a third party can check a file against. `schema` is the
@@ -104,6 +106,7 @@ def check(
     body_schema = _bundled_schema("body-measurements.schema.json")
     if contract == "garment-manifest":
         problems.extend(rules.garment_manifest_rules(doc, body_schema))
+        problems.extend(manifest_vocabulary_problems(doc))  # SEM-1 §4 (hyperobjects_lexicon)
     elif contract == "hardware-ref":
         problems.extend(rules.hardware_ref_rules(doc, resolve or {}))
     elif contract == "body-measurements":

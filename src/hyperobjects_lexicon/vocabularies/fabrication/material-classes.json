@@ -1,0 +1,617 @@
+{
+  "spec_version": 1,
+  "vocabulary": "material-classes",
+  "description": "Classes of material a part may be made of — the values of a manifest's requirements.materials.any_of / none_of, solid and soft. A class names the material, not a product: each one lists the commons' material cards that belong to it (yantra4d cards for solids, Fashion Cabinet fabric cards for the six fabric classes) and, where those cards record one, their EMMO class.",
+  "review": {
+    "state": "generated",
+    "note": "Key set, cross-maps, labels and definitions drafted in one pass by an agent (P3-LEX lane, 2026-10-02) against SEM-1 §4. No language facet of any entry has had a native review: every entry says `generated`, and Spanish is the bar a reviewer should read first. Facts were checked against the cited sources on the access date; no ruling has been made by a human."
+  },
+  "entries": [
+    {
+      "key": "pla",
+      "label": {"en": "PLA", "es": "PLA", "fr": "PLA", "pt": "PLA"},
+      "definition": {
+        "en": "Polylactic acid: a stiff, easy-to-print thermoplastic filament with low heat resistance.",
+        "es": "Ácido poliláctico: filamento termoplástico rígido y fácil de imprimir, con baja resistencia al calor.",
+        "fr": "Acide polylactique : filament thermoplastique rigide et facile à imprimer, peu résistant à la chaleur.",
+        "pt": "Ácido polilático: filamento termoplástico rígido e fácil de imprimir, com baixa resistência ao calor."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "emmo_class": "http://emmo.info/emmo#Thermoplastic",
+      "cards": ["yantra4d/polymaker-polylite-pla", "yantra4d/polymaker-polyterra-pla"],
+      "sources": [
+        {
+          "title": "yantra4d material card polymaker-polylite-pla",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/polymaker-polylite-pla/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        },
+        {
+          "title": "yantra4d material card polymaker-polyterra-pla",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/polymaker-polyterra-pla/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        }
+      ]
+    },
+    {
+      "key": "petg",
+      "label": {"en": "PETG", "es": "PETG", "fr": "PETG", "pt": "PETG"},
+      "definition": {
+        "en": "Glycol-modified polyethylene terephthalate: a tougher, more heat- and chemical-resistant filament than PLA.",
+        "es": "Tereftalato de polietileno modificado con glicol: filamento más tenaz y más resistente al calor y a químicos que el PLA.",
+        "fr": "Polytéréphtalate d'éthylène modifié glycol : filament plus tenace et plus résistant à la chaleur et aux produits chimiques que le PLA.",
+        "pt": "Politereftalato de etileno modificado com glicol: filamento mais tenaz e mais resistente ao calor e a químicos do que o PLA."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "emmo_class": "http://emmo.info/emmo#Thermoplastic",
+      "cards": ["yantra4d/polymaker-polylite-petg"],
+      "sources": [
+        {
+          "title": "yantra4d material card polymaker-polylite-petg",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/polymaker-polylite-petg/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        }
+      ]
+    },
+    {
+      "key": "abs",
+      "label": {"en": "ABS", "es": "ABS", "fr": "ABS", "pt": "ABS"},
+      "definition": {
+        "en": "Acrylonitrile butadiene styrene: an impact-resistant, heat-tolerant filament that warps without an enclosure.",
+        "es": "Acrilonitrilo butadieno estireno: filamento resistente al impacto y al calor que se deforma si se imprime sin cámara cerrada.",
+        "fr": "Acrylonitrile butadiène styrène : filament résistant aux chocs et à la chaleur qui se déforme sans enceinte fermée.",
+        "pt": "Acrilonitrila butadieno estireno: filamento resistente ao impacto e ao calor que empena se impresso sem câmara fechada."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "sources": [
+        {
+          "title": "Polymaker PolyLite ABS product page",
+          "url": "https://us.polymaker.com/products/polylite-abs",
+          "publisher": "Polymaker",
+          "accessed": "2026-10-02",
+          "supports": "a commercial filament of this class sold for FFF printing"
+        }
+      ],
+      "notes": "No commons material card of this class yet, so no emmo_class is recorded."
+    },
+    {
+      "key": "abs-gf",
+      "label": {
+        "en": "Glass-fibre ABS",
+        "es": "ABS con fibra de vidrio",
+        "fr": "ABS chargé fibre de verre",
+        "pt": "ABS com fibra de vidro"
+      },
+      "definition": {
+        "en": "ABS filament reinforced with chopped glass fibre for stiffness and dimensional stability; abrasive to brass nozzles.",
+        "es": "Filamento de ABS reforzado con fibra de vidrio picada para ganar rigidez y estabilidad dimensional; desgasta las boquillas de latón.",
+        "fr": "Filament ABS renforcé de fibres de verre courtes pour la rigidité et la stabilité dimensionnelle ; abrasif pour les buses en laiton.",
+        "pt": "Filamento de ABS reforçado com fibra de vidro picada para rigidez e estabilidade dimensional; abrasivo para bicos de latão."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "emmo_class": "http://emmo.info/emmo#Thermoplastic",
+      "cards": ["yantra4d/bambu-abs-gf"],
+      "sources": [
+        {
+          "title": "yantra4d material card bambu-abs-gf",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/bambu-abs-gf/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        }
+      ]
+    },
+    {
+      "key": "asa",
+      "label": {"en": "ASA", "es": "ASA", "fr": "ASA", "pt": "ASA"},
+      "definition": {
+        "en": "Acrylonitrile styrene acrylate: an ABS-like filament with much better UV and weather resistance, for outdoor parts.",
+        "es": "Acrilonitrilo estireno acrilato: filamento parecido al ABS con mucha mejor resistencia a los rayos UV y a la intemperie, para piezas de exterior.",
+        "fr": "Acrylonitrile styrène acrylate : filament proche de l'ABS, bien plus résistant aux UV et aux intempéries, pour les pièces d'extérieur.",
+        "pt": "Acrilonitrila estireno acrilato: filamento semelhante ao ABS com resistência muito maior a UV e intempéries, para peças de exterior."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "sources": [
+        {
+          "title": "Polymaker PolyLite ASA product page",
+          "url": "https://us.polymaker.com/products/polylite-asa",
+          "publisher": "Polymaker",
+          "accessed": "2026-10-02",
+          "supports": "a commercial filament of this class sold for FFF printing"
+        }
+      ],
+      "notes": "No commons material card of this class yet, so no emmo_class is recorded."
+    },
+    {
+      "key": "pc",
+      "label": {"en": "Polycarbonate", "es": "Policarbonato", "fr": "Polycarbonate", "pt": "Policarbonato"},
+      "definition": {
+        "en": "Polycarbonate filament: high impact strength and heat resistance; needs a hot nozzle and, in practice, an enclosure.",
+        "es": "Filamento de policarbonato: alta resistencia al impacto y al calor; requiere una boquilla muy caliente y, en la práctica, cámara cerrada.",
+        "fr": "Filament polycarbonate : grande résistance aux chocs et à la chaleur ; demande une buse très chaude et, en pratique, une enceinte fermée.",
+        "pt": "Filamento de policarbonato: alta resistência ao impacto e ao calor; exige bico muito quente e, na prática, câmara fechada."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "sources": [
+        {
+          "title": "Polymaker PolyLite PC product page",
+          "url": "https://us.polymaker.com/products/polylite-pc",
+          "publisher": "Polymaker",
+          "accessed": "2026-10-02",
+          "supports": "a commercial filament of this class sold for FFF printing"
+        }
+      ],
+      "notes": "No commons material card of this class yet, so no emmo_class is recorded."
+    },
+    {
+      "key": "tpu-95a",
+      "label": {"en": "TPU 95A", "es": "TPU 95A", "fr": "TPU 95A", "pt": "TPU 95A"},
+      "definition": {
+        "en": "Thermoplastic polyurethane filament of Shore 95A hardness: flexible and abrasion-resistant, the stiffest of the common flexible grades.",
+        "es": "Filamento de poliuretano termoplástico de dureza Shore 95A: flexible y resistente a la abrasión, el más firme de los grados flexibles comunes.",
+        "fr": "Filament de polyuréthane thermoplastique de dureté Shore 95A : souple et résistant à l'abrasion, le plus ferme des grades souples courants.",
+        "pt": "Filamento de poliuretano termoplástico de dureza Shore 95A: flexível e resistente à abrasão, o mais firme dos graus flexíveis comuns."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "emmo_class": "http://emmo.info/emmo#Elastomer",
+      "cards": ["yantra4d/bambu-tpu-95a"],
+      "sources": [
+        {
+          "title": "yantra4d material card bambu-tpu-95a",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/bambu-tpu-95a/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        }
+      ],
+      "notes": "Fashion Cabinet's tpu-panel-impreso card is a printed_textile whose fibre is tpu-95a; it is listed under printed_textile, the class its own card declares."
+    },
+    {
+      "key": "tpu-85a",
+      "label": {"en": "TPU 85A", "es": "TPU 85A", "fr": "TPU 85A", "pt": "TPU 85A"},
+      "definition": {
+        "en": "Thermoplastic polyurethane filament of Shore 85A hardness: softer and more elastic than 95A, and harder to feed.",
+        "es": "Filamento de poliuretano termoplástico de dureza Shore 85A: más suave y elástico que el 95A, y más difícil de alimentar.",
+        "fr": "Filament de polyuréthane thermoplastique de dureté Shore 85A : plus souple et plus élastique que le 95A, et plus difficile à alimenter.",
+        "pt": "Filamento de poliuretano termoplástico de dureza Shore 85A: mais macio e elástico que o 95A, e mais difícil de alimentar."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "sources": [
+        {
+          "title": "Bambu Lab TPU 85A (retailer listing)",
+          "url": "https://www.3djake.com/bambu-lab/tpu-85a",
+          "publisher": "3DJake",
+          "accessed": "2026-10-02",
+          "supports": "a commercial Shore 85A TPU filament for FFF printing"
+        }
+      ],
+      "notes": "No commons material card of this class yet, so no emmo_class is recorded."
+    },
+    {
+      "key": "peba",
+      "label": {"en": "PEBA", "es": "PEBA", "fr": "PEBA", "pt": "PEBA"},
+      "definition": {
+        "en": "Polyether block amide: an elastomeric polymer; in the commons' sense, the powder grade laser-sintered into flexible parts.",
+        "es": "Poliéter bloque amida: polímero elastomérico; en el sentido de los comunes, el grado en polvo que se sinteriza con láser para obtener piezas flexibles.",
+        "fr": "Polyéther bloc amide : polymère élastomère ; au sens des communs, la qualité en poudre frittée au laser pour obtenir des pièces souples.",
+        "pt": "Poliéter bloco amida: polímero elastomérico; no sentido dos comuns, o grau em pó sinterizado a laser para obter peças flexíveis."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "powder",
+      "processes": ["sls"],
+      "sources": [
+        {
+          "title": "EOS PrimePart ST (PEBA 2301) material data sheet",
+          "url": "https://www.3ddt.com.tr/wp-content/uploads/2022/08/eos-primepart-st-data-sheet.pdf",
+          "publisher": "EOS GmbH",
+          "accessed": "2026-10-02",
+          "supports": "a PEBA powder developed for laser sintering"
+        }
+      ],
+      "notes": "PEBA filaments for FFF exist, but none is cited here, so fff is not claimed."
+    },
+    {
+      "key": "pa12",
+      "label": {
+        "en": "PA12 (nylon 12)",
+        "es": "PA12 (nailon 12)",
+        "fr": "PA12 (nylon 12)",
+        "pt": "PA12 (náilon 12)"
+      },
+      "definition": {
+        "en": "Polyamide 12 powder: the reference material of polymer powder-bed fusion — tough, low moisture uptake, printed without supports.",
+        "es": "Polvo de poliamida 12: el material de referencia de la fusión de polímeros en lecho de polvo —tenaz, de baja absorción de humedad, se imprime sin soportes.",
+        "fr": "Poudre de polyamide 12 : le matériau de référence de la fusion de polymères sur lit de poudre — tenace, peu sensible à l'humidité, imprimée sans supports.",
+        "pt": "Pó de poliamida 12: o material de referência da fusão de polímeros em leito de pó — tenaz, de baixa absorção de umidade, impresso sem suportes."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "powder",
+      "processes": ["sls", "mjf"],
+      "emmo_class": "http://emmo.info/emmo#Polymer",
+      "cards": ["yantra4d/sinterit-pa12-smooth"],
+      "sources": [
+        {
+          "title": "yantra4d material card sinterit-pa12-smooth",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/sinterit-pa12-smooth/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        },
+        {
+          "title": "HP Multi Jet Fusion technology",
+          "url": "https://www.hp.com/us-en/printers/3d-printers/products/multi-jet-technology.html",
+          "publisher": "HP Inc.",
+          "accessed": "2026-10-02",
+          "supports": "PA12 as a Multi Jet Fusion material"
+        }
+      ],
+      "notes": "The sinterit-pa12-smooth card declares material.category 'metal-powder', which contradicts its own SLS technology and EMMO Polymer class — a card data defect for a one-card fix in yantra4d, recorded here rather than inherited."
+    },
+    {
+      "key": "pa12-cf",
+      "label": {
+        "en": "Carbon-fibre PA12",
+        "es": "PA12 con fibra de carbono",
+        "fr": "PA12 chargé fibre de carbone",
+        "pt": "PA12 com fibra de carbono"
+      },
+      "definition": {
+        "en": "Polyamide 12 filament filled with chopped carbon fibre: stiff, dimensionally stable and abrasive; needs a hardened nozzle.",
+        "es": "Filamento de poliamida 12 cargado con fibra de carbono picada: rígido, dimensionalmente estable y abrasivo; requiere boquilla endurecida.",
+        "fr": "Filament de polyamide 12 chargé de fibres de carbone courtes : rigide, stable et abrasif ; demande une buse durcie.",
+        "pt": "Filamento de poliamida 12 carregado com fibra de carbono picada: rígido, dimensionalmente estável e abrasivo; exige bico endurecido."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "sources": [
+        {
+          "title": "Polymaker Fiberon PA12-CF10 product page",
+          "url": "https://shop.polymaker.com/products/fiberon-pa12-cf10",
+          "publisher": "Polymaker",
+          "accessed": "2026-10-02",
+          "supports": "a carbon-fibre-filled PA12 filament for FFF"
+        }
+      ],
+      "notes": "No commons material card of this class yet, so no emmo_class is recorded."
+    },
+    {
+      "key": "pa-cf",
+      "label": {
+        "en": "Carbon-fibre nylon",
+        "es": "Nailon con fibra de carbono",
+        "fr": "Nylon chargé fibre de carbone",
+        "pt": "Náilon com fibra de carbono"
+      },
+      "definition": {
+        "en": "Nylon filament filled with short carbon fibre where the polyamide grade is not PA12 or is not stated (e.g. Markforged Onyx).",
+        "es": "Filamento de nailon cargado con fibra de carbono corta cuando el grado de poliamida no es PA12 o no se declara (p. ej. Markforged Onyx).",
+        "fr": "Filament de nylon chargé de fibres de carbone courtes lorsque la qualité de polyamide n'est pas du PA12 ou n'est pas indiquée (p. ex. Markforged Onyx).",
+        "pt": "Filamento de náilon carregado com fibra de carbono curta quando o grau de poliamida não é PA12 ou não é declarado (p. ex. Markforged Onyx)."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "filament",
+      "processes": ["fff"],
+      "emmo_class": "http://emmo.info/emmo#Composite",
+      "cards": ["yantra4d/markforged-onyx"],
+      "sources": [
+        {
+          "title": "yantra4d material card markforged-onyx",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/markforged-onyx/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        },
+        {
+          "title": "Markforged composites material datasheet",
+          "url": "https://www.utwente.nl/en/rpl/Data%20sheets/Mark%20Two/composites-data-sheet.pdf",
+          "publisher": "Markforged",
+          "accessed": "2026-10-02",
+          "supports": "Onyx as a micro-carbon-fibre-filled nylon"
+        }
+      ],
+      "notes": "Kept apart from pa12-cf so a requirement for PA12-CF is not silently met by a different polyamide."
+    },
+    {
+      "key": "photopolymer-standard",
+      "label": {
+        "en": "Standard photopolymer resin",
+        "es": "Resina fotopolimérica estándar",
+        "fr": "Résine photopolymère standard",
+        "pt": "Resina fotopolimérica padrão"
+      },
+      "definition": {
+        "en": "General-purpose SLA resin for detailed, rigid parts; brittle compared with engineering resins.",
+        "es": "Resina de uso general para SLA, para piezas rígidas y detalladas; frágil comparada con las resinas de ingeniería.",
+        "fr": "Résine SLA généraliste pour des pièces rigides et détaillées ; fragile comparée aux résines techniques.",
+        "pt": "Resina de uso geral para SLA, para peças rígidas e detalhadas; frágil em comparação com resinas de engenharia."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "resin",
+      "processes": ["sla"],
+      "emmo_class": "http://emmo.info/emmo#Polymer",
+      "cards": ["yantra4d/formlabs-clear-v4"],
+      "sources": [
+        {
+          "title": "yantra4d material card formlabs-clear-v4",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/formlabs-clear-v4/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        }
+      ]
+    },
+    {
+      "key": "photopolymer-tough",
+      "label": {
+        "en": "Tough (ABS-like) photopolymer resin",
+        "es": "Resina fotopolimérica tenaz (tipo ABS)",
+        "fr": "Résine photopolymère tenace (type ABS)",
+        "pt": "Resina fotopolimérica tenaz (tipo ABS)"
+      },
+      "definition": {
+        "en": "Engineering SLA resin formulated for impact and elongation closer to ABS than a standard resin.",
+        "es": "Resina de ingeniería para SLA formulada para acercarse al ABS en impacto y elongación más que una resina estándar.",
+        "fr": "Résine SLA technique formulée pour approcher l'ABS en résistance aux chocs et en allongement, mieux qu'une résine standard.",
+        "pt": "Resina de engenharia para SLA formulada para se aproximar do ABS em impacto e alongamento mais do que uma resina padrão."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "resin",
+      "processes": ["sla"],
+      "emmo_class": "http://emmo.info/emmo#Polymer",
+      "cards": ["yantra4d/formlabs-tough-2000", "yantra4d/elegoo-abs-like-resin"],
+      "sources": [
+        {
+          "title": "yantra4d material card formlabs-tough-2000",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/formlabs-tough-2000/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        },
+        {
+          "title": "yantra4d material card elegoo-abs-like-resin",
+          "url": "https://github.com/madfam-org/yantra4d/blob/c53a954c2152fb8858662025817b58956fe69c3f/materials/elegoo-abs-like-resin/material.json",
+          "publisher": "madfam-org/yantra4d",
+          "accessed": "2026-10-02",
+          "supports": "the card's slug, its ISO/ASTM 52900 category and AM technology, and its EMMO class"
+        },
+        {
+          "title": "Formlabs Tough 2000 Resin",
+          "url": "https://www.formlabs.com/store/materials/tough-2000-resin/",
+          "publisher": "Formlabs",
+          "accessed": "2026-10-02",
+          "supports": "an engineering resin positioned for strong, ABS-like prototypes"
+        }
+      ]
+    },
+    {
+      "key": "carbon-fiber-plate",
+      "label": {
+        "en": "Carbon-fibre plate",
+        "es": "Placa de fibra de carbono",
+        "fr": "Plaque en fibre de carbone",
+        "pt": "Placa de fibra de carbono"
+      },
+      "definition": {
+        "en": "Laminated carbon-fibre/epoxy sheet, machined into frames and plates by CNC; its dust is conductive and hazardous to breathe.",
+        "es": "Lámina laminada de fibra de carbono y epoxi que se maquina por CNC para hacer marcos y placas; su polvo es conductor y peligroso de respirar.",
+        "fr": "Plaque stratifiée carbone/époxy usinée par CNC en châssis et en plaques ; sa poussière est conductrice et dangereuse à respirer.",
+        "pt": "Chapa laminada de fibra de carbono e epóxi usinada por CNC em quadros e placas; o seu pó é condutor e perigoso de respirar."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "sheet",
+      "processes": ["cnc_3axis", "cnc_router"],
+      "sources": [
+        {
+          "title": "DragonPlate carbon fiber sheets",
+          "url": "https://dragonplate.com/carbon-fiber-sheets",
+          "publisher": "DragonPlate",
+          "accessed": "2026-10-02",
+          "supports": "carbon-fibre sheet sold as stock for machined parts"
+        }
+      ]
+    },
+    {
+      "key": "aluminium-6061",
+      "label": {"en": "Aluminium 6061", "es": "Aluminio 6061", "fr": "Aluminium 6061", "pt": "Alumínio 6061"},
+      "definition": {
+        "en": "Precipitation-hardened Al-Mg-Si alloy 6061 (usually T6 temper) sheet and plate: the default machinable aluminium.",
+        "es": "Aleación de aluminio 6061 (Al-Mg-Si, endurecida por precipitación, normalmente en temple T6) en lámina y placa: el aluminio maquinable por defecto.",
+        "fr": "Alliage d'aluminium 6061 (Al-Mg-Si, durci par précipitation, généralement à l'état T6) en tôle et en plaque : l'aluminium usinable par défaut.",
+        "pt": "Liga de alumínio 6061 (Al-Mg-Si, endurecida por precipitação, normalmente em têmpera T6) em chapa e placa: o alumínio usinável por defeito."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "sheet",
+      "processes": ["cnc_3axis", "cnc_router"],
+      "sources": [
+        {
+          "title": "ASTM B209/B209M Standard Specification for Aluminum and Aluminum-Alloy Sheet and Plate",
+          "url": "https://www.astm.org/b0209_b0209m-21a.html",
+          "publisher": "ASTM",
+          "accessed": "2026-10-02",
+          "supports": "6061 sheet and plate as a specified wrought alloy product"
+        }
+      ],
+      "notes": "The key keeps the 'aluminium' spelling of SEM-1 §4."
+    },
+    {
+      "key": "woven",
+      "label": {
+        "en": "Woven fabric",
+        "es": "Tejido plano",
+        "fr": "Tissu chaîne et trame",
+        "pt": "Tecido plano"
+      },
+      "definition": {
+        "en": "Fabric made by interlacing warp and weft yarns at right angles — Fashion Cabinet's fabric class 'woven'.",
+        "es": "Tela formada por el entrecruzamiento en ángulo recto de hilos de urdimbre y trama: la clase de tela 'woven' de Fashion Cabinet.",
+        "fr": "Étoffe formée par l'entrecroisement à angle droit des fils de chaîne et de trame — la classe de tissu « woven » de Fashion Cabinet.",
+        "pt": "Tecido formado pelo entrelaçamento em ângulo reto de fios de urdume e trama — a classe de tecido 'woven' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "cards": [
+        "fashion-cabinet/lana-melton-abrigo",
+        "fashion-cabinet/lana-peinada-traje",
+        "fashion-cabinet/manta-cruda",
+        "fashion-cabinet/mezclilla-denim",
+        "fashion-cabinet/popelina-algodon"
+      ]
+    },
+    {
+      "key": "knit",
+      "label": {"en": "Knit fabric", "es": "Tejido de punto", "fr": "Maille", "pt": "Malha"},
+      "definition": {
+        "en": "Fabric made of interlocking yarn loops, which gives it stretch — Fashion Cabinet's fabric class 'knit'.",
+        "es": "Tela formada por lazadas de hilo entrelazadas, lo que le da elasticidad: la clase de tela 'knit' de Fashion Cabinet.",
+        "fr": "Étoffe formée de boucles de fil entrelacées, ce qui lui donne de l'élasticité — la classe de tissu « knit » de Fashion Cabinet.",
+        "pt": "Tecido formado por laçadas de fio entrelaçadas, o que lhe dá elasticidade — a classe de tecido 'knit' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "cards": ["fashion-cabinet/felpa-algodon", "fashion-cabinet/jersey-algodon"]
+    },
+    {
+      "key": "nonwoven",
+      "label": {"en": "Nonwoven fabric", "es": "Tela no tejida", "fr": "Non-tissé", "pt": "Não tecido"},
+      "definition": {
+        "en": "Sheet of fibres bonded mechanically, thermally or chemically rather than woven or knitted — Fashion Cabinet's fabric class 'nonwoven'.",
+        "es": "Lámina de fibras unidas por medios mecánicos, térmicos o químicos, sin tejer ni tricotar: la clase de tela 'nonwoven' de Fashion Cabinet.",
+        "fr": "Nappe de fibres liées mécaniquement, thermiquement ou chimiquement plutôt que tissées ou tricotées — la classe « nonwoven » de Fashion Cabinet.",
+        "pt": "Manta de fibras unidas por meios mecânicos, térmicos ou químicos, sem tecer nem tricotar — a classe 'nonwoven' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "notes": "No Fashion Cabinet card declares this class yet."
+    },
+    {
+      "key": "leather",
+      "label": {"en": "Leather", "es": "Piel (cuero)", "fr": "Cuir", "pt": "Couro"},
+      "definition": {
+        "en": "Tanned animal hide used as a garment material — Fashion Cabinet's fabric class 'leather'.",
+        "es": "Piel animal curtida usada como material de prenda: la clase 'leather' de Fashion Cabinet.",
+        "fr": "Peau animale tannée utilisée comme matière de vêtement — la classe « leather » de Fashion Cabinet.",
+        "pt": "Pele animal curtida usada como material de vestuário — a classe 'leather' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "notes": "No Fashion Cabinet card declares this class yet."
+    },
+    {
+      "key": "technical",
+      "label": {
+        "en": "Technical fabric",
+        "es": "Tela técnica",
+        "fr": "Textile technique",
+        "pt": "Tecido técnico"
+      },
+      "definition": {
+        "en": "Fabric engineered for a performance property — ripstop shells, compression knits, elastane blends — Fashion Cabinet's fabric class 'technical'.",
+        "es": "Tela diseñada para una propiedad de desempeño —cascarones ripstop, punto de compresión, mezclas con elastano—: la clase 'technical' de Fashion Cabinet.",
+        "fr": "Textile conçu pour une performance — coques ripstop, mailles de compression, mélanges élasthanne — la classe « technical » de Fashion Cabinet.",
+        "pt": "Tecido concebido para uma propriedade de desempenho — cascas ripstop, malhas de compressão, misturas com elastano — a classe 'technical' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "cards": [
+        "fashion-cabinet/nylon-ripstop-shell",
+        "fashion-cabinet/poliester-elastano-compresion",
+        "fashion-cabinet/tricot-nylon-elastano"
+      ]
+    },
+    {
+      "key": "printed_textile",
+      "label": {
+        "en": "Printed textile",
+        "es": "Textil impreso",
+        "fr": "Textile imprimé",
+        "pt": "Têxtil impresso"
+      },
+      "definition": {
+        "en": "A flexible textile-like panel made by 3-D printing (e.g. TPU chainmail) — Fashion Cabinet's fabric class 'printed_textile'.",
+        "es": "Panel flexible con comportamiento de tela fabricado por impresión 3D (p. ej. cota de malla de TPU): la clase 'printed_textile' de Fashion Cabinet.",
+        "fr": "Panneau souple au comportement textile obtenu par impression 3D (p. ex. cotte de mailles en TPU) — la classe « printed_textile » de Fashion Cabinet.",
+        "pt": "Painel flexível com comportamento de tecido feito por impressão 3D (p. ex. cota de malha em TPU) — a classe 'printed_textile' do Fashion Cabinet."
+      },
+      "review_status": {"state": "generated"},
+      "kind": "fabric",
+      "sources": [
+        {
+          "title": "fabric-manifest.schema.json — fabric.class enum (bundled copy of Fashion Cabinet's schema)",
+          "url": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/fabric-manifest.schema.json",
+          "publisher": "madfam-org/hyperobjects-spec",
+          "accessed": "2026-10-02",
+          "supports": "the six fabric classes a Fashion Cabinet fabric card may declare"
+        }
+      ],
+      "cards": ["fashion-cabinet/tpu-panel-impreso"],
+      "notes": "Keyed with Fashion Cabinet's own spelling (underscore), since that is what its fabric cards write. The garment capability flag printed_textile (capabilities vocabulary) is a different key in a different vocabulary."
+    }
+  ]
+}

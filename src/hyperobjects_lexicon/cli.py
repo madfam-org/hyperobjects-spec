@@ -6,7 +6,7 @@ they already have installed. The command bodies live here so the two cannot drif
 
     <tool> lexicon [--catalog bundled] [--terms DIR] [--status] [-v]
     <tool> reader [--out DIR] [--check] [--status]
-    <tool> vocab [--vocabularies DIR] [--status] [-v]
+    <tool> vocab [--vocabularies DIR] [--fabrication DIR] [--status] [-v]
     <tool> article <path> [<path> ...] [--catalog bundled] [-v]
     <tool> define <word> [--lang es|en|fr|pt]
     <tool> lookup <repo/slug>
@@ -24,6 +24,11 @@ import json
 
 from .articles import article_status, check_articles, load_article
 from .dictionary import define, lookup, related
+from .fabrication import (
+    check_fabrication_vocabularies,
+    fabrication_status,
+    load_fabrication_vocabularies,
+)
 from .lexicon import (
     LANGUAGES,
     bundled_catalog_slugs,
@@ -169,6 +174,13 @@ def add_vocabulary_parser(sub, prog: str) -> None:
         help="a directory of vocabulary JSON files to check instead of the bundled ones",
     )
     p.add_argument(
+        "--fabrication",
+        metavar="DIR",
+        help="a directory of fabrication-vocabulary JSON files (SEM-1 §4) to check instead "
+        "of the bundled processes / material-classes / process-parameters / "
+        "fabrication-capabilities / interface-sizes",
+    )
+    p.add_argument(
         "--status", action="store_true", help="print only the vocabulary_status lines"
     )
     p.add_argument(
@@ -184,15 +196,18 @@ def run_vocabulary(args, prog: str) -> int:
     """Run the vocabulary lane. 0 conformant · 1 a problem · 2 usage/read error."""
     try:
         docs = load_vocabularies(args.vocabularies)
+        fab_docs = load_fabrication_vocabularies(getattr(args, "fabrication", None))
     except (OSError, ValueError) as exc:
         print(f"  ERROR cannot read the vocabularies — {exc}")
         return 2
 
-    if not docs:
+    if not docs or not fab_docs:
         print("  ERROR vocabularies=0 — an empty vocabulary set is not a passing one")
         return 2
 
     if args.status:
+        # Unchanged since G3: --status is the commons vocabularies' lines only, which
+        # scripts already parse. The fabrication lines print on a full run.
         for line in vocabulary_status(docs):
             print(line)
         return 0
@@ -219,7 +234,19 @@ def run_vocabulary(args, prog: str) -> int:
     )
     for line in vocabulary_status(docs):
         print(line)
-    return 1 if result.problems else 0
+
+    # The fabrication family (SEM-1 §4) is a separate schema and a separate verdict, on
+    # the same command so the CI step that already runs `vocab` covers it.
+    fab = check_fabrication_vocabularies(fab_docs)
+    for prob in fab.problems:
+        print(f"  FAIL {prob}")
+    print(
+        f"{prog} vocab fabrication: vocabularies={fab.vocabularies} entries={fab.entries} "
+        f"failures={len(fab.problems)}"
+    )
+    for line in fabrication_status(fab_docs):
+        print(line)
+    return 1 if result.problems or fab.problems else 0
 
 
 def add_dictionary_parsers(sub, prog: str) -> None:
