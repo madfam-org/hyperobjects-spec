@@ -98,20 +98,69 @@ class FabricationResult:
         return self.ok
 
 
+def _merge_supplements(name: str, base: dict | None, supplements: list[dict]) -> dict:
+    """A vocabulary's base document with its supplements' entries appended, in file order.
+
+    A supplement is a whole document of the SAME vocabulary in ``{name}.{label}.json`` —
+    how one vocabulary grows past a file size a reviewer can read without splitting the
+    vocabulary itself (the standard-parts catalog's interface sizes live in
+    ``interface-sizes.standard-parts.json``). Only its ``entries`` are used; a supplement
+    that declares another vocabulary is an error here rather than a silent merge.
+    """
+    for sup in supplements:
+        if not isinstance(sup, dict) or sup.get("vocabulary") != name:
+            declared = sup.get("vocabulary") if isinstance(sup, dict) else None
+            raise ValueError(f"a supplement of {name!r} declares vocabulary {declared!r}")
+    if base is None:
+        if not supplements:
+            raise ValueError(f"no document for vocabulary {name!r}")
+        base, supplements = supplements[0], supplements[1:]
+    if not supplements:
+        return base
+    merged = dict(base)
+    merged["entries"] = list(base.get("entries") or [])
+    for sup in supplements:
+        merged["entries"].extend(sup.get("entries") or [])
+    return merged
+
+
 def load_fabrication_vocabulary(name_or_path: str | Path) -> dict:
-    """Load one document — a bundled vocabulary name, or a path to a file."""
+    """Load one document — a bundled vocabulary name (with its supplements merged in), or a
+    path to a file (read as is)."""
     if isinstance(name_or_path, str) and name_or_path in FABRICATION_VOCABULARIES:
-        ref = resources.files("hyperobjects_lexicon").joinpath(f"{_DIR}/{name_or_path}.json")
-        return json.loads(ref.read_text(encoding="utf-8"))
+        folder = resources.files("hyperobjects_lexicon").joinpath(_DIR)
+        base = json.loads(folder.joinpath(f"{name_or_path}.json").read_text(encoding="utf-8"))
+        supplements = [
+            json.loads(ref.read_text(encoding="utf-8"))
+            for ref in sorted(folder.iterdir(), key=lambda r: r.name)
+            if ref.name.startswith(f"{name_or_path}.") and ref.name != f"{name_or_path}.json"
+            and ref.name.endswith(".json")
+        ]
+        return _merge_supplements(name_or_path, base, supplements)
     return json.loads(Path(name_or_path).read_text(encoding="utf-8"))
 
 
 def load_fabrication_vocabularies(directory: str | Path | None = None) -> dict[str, dict]:
-    """Load every document as ``{name: document}`` — bundled, or every ``*.json`` in a dir."""
+    """Load every document as ``{name: document}`` — bundled, or every ``*.json`` in a dir.
+
+    In a directory, ``{name}.{label}.json`` is a supplement of ``{name}`` and is merged into
+    it, exactly as the bundled set is read.
+    """
     if directory is None:
         return {name: load_fabrication_vocabulary(name) for name in FABRICATION_VOCABULARIES}
-    paths = sorted(Path(directory).glob("*.json"))
-    return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in paths}
+    groups: dict[str, dict] = {}
+    for path in sorted(Path(directory).glob("*.json")):
+        name = path.stem.split(".", 1)[0]
+        group = groups.setdefault(name, {"base": None, "supplements": []})
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        if path.stem == name:
+            group["base"] = doc
+        else:
+            group["supplements"].append(doc)
+    return {
+        name: _merge_supplements(name, group["base"], group["supplements"])
+        for name, group in groups.items()
+    }
 
 
 def vocabulary_keys(name: str, docs: dict[str, dict] | None = None) -> set[str]:
