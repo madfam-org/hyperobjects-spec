@@ -297,6 +297,62 @@
         "additionalProperties": true
       }
     },
+    "parts": {
+      "type": "array",
+      "description": "Every part this cartridge can render, across all modes. A mode lists the ids it renders in modes[].parts; each id there names an entry here. `render_mode` is the integer the cartridge's source dispatches on, `color` the default viewer colour.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "label"
+            ]
+          },
+          {
+            "required": [
+              "name"
+            ]
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Part identifier, referenced by modes[].parts and the target_part parameter."
+          },
+          "label": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Human-readable part name."
+          },
+          "name": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Accepted in place of `label` (a display string either way)."
+          },
+          "render_mode": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The integer the cartridge's source dispatches on to emit this part."
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$",
+            "description": "Default viewer colour, #rrggbb."
+          },
+          "default_color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$",
+            "description": "Alias of `color` kept for older cartridges."
+          },
+          "glass": {
+            "type": "boolean",
+            "description": "Render the part translucent in the viewer."
+          }
+        }
+      }
+    },
     "parameters": {
       "type": "array",
       "items": {
@@ -1104,212 +1160,251 @@
           }
         }
       }
-    }
-  },
-  "materials": {
-    "type": "array",
-    "description": "Custom material profiles for print estimation. Falls back to built-in profiles if absent.",
-    "items": {
+    },
+    "materials": {
+      "type": "array",
+      "description": "Custom material profiles for print estimation. Falls back to built-in profiles if absent.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "cost_per_kg"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "$ref": "#/$defs/i18nString",
+            "description": "Accepted in place of `name`."
+          },
+          "density": {
+            "type": "number",
+            "description": "g/cm³"
+          },
+          "density_g_cm3": {
+            "type": "number",
+            "description": "Accepted in place of `density` (g/cm³)."
+          },
+          "cost_per_kg": {
+            "type": "number"
+          },
+          "print_speed_factor": {
+            "type": "number",
+            "default": 1.0,
+            "description": "Multiplier vs PLA baseline speed"
+          }
+        },
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "name"
+                ]
+              },
+              {
+                "required": [
+                  "label"
+                ]
+              }
+            ]
+          },
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "density"
+                ]
+              },
+              {
+                "required": [
+                  "density_g_cm3"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "source": {
       "type": "object",
-      "required": [
-        "id",
-        "name",
-        "density",
-        "cost_per_kg"
-      ],
+      "description": "Import source metadata (e.g., GitHub repo origin).",
       "properties": {
-        "id": {
-          "type": "string"
+        "type": {
+          "type": "string",
+          "enum": [
+            "github",
+            "upload",
+            "local"
+          ]
         },
-        "name": {
-          "type": "string"
+        "repo_url": {
+          "type": "string",
+          "format": "uri"
         },
-        "density": {
-          "type": "number",
-          "description": "g/cm³"
-        },
-        "cost_per_kg": {
-          "type": "number"
-        },
-        "print_speed_factor": {
-          "type": "number",
-          "default": 1.0,
-          "description": "Multiplier vs PLA baseline speed"
+        "imported_at": {
+          "type": "string",
+          "format": "date-time"
         }
       }
-    }
-  },
-  "source": {
-    "type": "object",
-    "description": "Import source metadata (e.g., GitHub repo origin).",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "github",
-          "upload",
-          "local"
-        ]
-      },
-      "repo_url": {
-        "type": "string",
-        "format": "uri"
-      },
-      "imported_at": {
-        "type": "string",
-        "format": "date-time"
-      }
-    }
-  },
-  "hyperobject": {
-    "type": "object",
-    "description": "Hyperobject Commons metadata — classifies the project as a Bounded 4D Hyperobject with CDG interfaces, material awareness, and societal benefit.",
-    "properties": {
-      "domain": {
-        "type": "string",
-        "enum": [
-          "household",
-          "industrial",
-          "medical",
-          "commercial",
-          "infrastructure",
-          "agriculture",
-          "construction",
-          "energy",
-          "wearable",
-          "consumer-electronics",
-          "soft-robotics",
-          "consumer",
-          "electronics",
-          "play",
-          "hybrid"
-        ],
-        "description": "Primary deployment domain per the Hyperobject taxonomy."
-      },
-      "cdg_interfaces": {
-        "type": "array",
-        "description": "Common Denominator Geometry interfaces — standardized geometric connection points that enable interoperability.",
-        "items": {
-          "type": "object",
-          "required": [
-            "id",
-            "label",
-            "geometry_type"
+    },
+    "hyperobject": {
+      "type": "object",
+      "description": "Hyperobject Commons metadata — classifies the project as a Bounded 4D Hyperobject with CDG interfaces, material awareness, and societal benefit.",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": [
+            "household",
+            "industrial",
+            "medical",
+            "commercial",
+            "infrastructure",
+            "agriculture",
+            "construction",
+            "energy",
+            "wearable",
+            "consumer-electronics",
+            "soft-robotics",
+            "consumer",
+            "electronics",
+            "play",
+            "hybrid"
           ],
-          "properties": {
-            "id": {
-              "type": "string",
-              "pattern": "^[a-z][a-z0-9_]*$",
-              "description": "Machine-readable interface identifier."
-            },
-            "label": {
-              "$ref": "#/$defs/i18nString",
-              "description": "Human-readable interface name."
-            },
-            "geometry_type": {
-              "type": "string",
-              "enum": [
-                "grid",
-                "rail",
-                "thread",
-                "socket",
-                "pocket",
-                "snap",
-                "bolt_pattern",
-                "profile",
-                "spline",
-                "surface",
-                "flange",
-                "boss",
-                "threaded_socket",
-                "seal",
-                "hinge",
-                "screen",
-                "port",
-                "engraving",
-                "polyhedron",
-                "fem_mesh",
-                "custom"
-              ],
-              "description": "Category of the geometric interface."
-            },
-            "standard": {
-              "type": "string",
-              "description": "Reference standard (e.g. 'ISO 8037-1:2003', 'DIN 35', 'Gridfinity 42mm') or 'internal' for project-specific interfaces."
-            },
-            "parameters": {
-              "type": "array",
-              "items": {
-                "type": "string"
+          "description": "Primary deployment domain per the Hyperobject taxonomy."
+        },
+        "cdg_interfaces": {
+          "type": "array",
+          "description": "Common Denominator Geometry interfaces — standardized geometric connection points that enable interoperability.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "geometry_type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$",
+                "description": "Machine-readable interface identifier."
               },
-              "description": "Parameter IDs from this manifest that define the interface geometry."
-            },
-            "compatible_with": {
-              "type": "array",
-              "items": {
-                "type": "string"
+              "label": {
+                "$ref": "#/$defs/i18nString",
+                "description": "Human-readable interface name."
               },
-              "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
+              "geometry_type": {
+                "type": "string",
+                "enum": [
+                  "grid",
+                  "rail",
+                  "thread",
+                  "socket",
+                  "pocket",
+                  "snap",
+                  "bolt_pattern",
+                  "profile",
+                  "spline",
+                  "surface",
+                  "flange",
+                  "boss",
+                  "threaded_socket",
+                  "seal",
+                  "hinge",
+                  "screen",
+                  "port",
+                  "engraving",
+                  "polyhedron",
+                  "fem_mesh",
+                  "custom"
+                ],
+                "description": "Category of the geometric interface."
+              },
+              "standard": {
+                "type": "string",
+                "description": "Reference standard (e.g. 'ISO 8037-1:2003', 'DIN 35', 'Gridfinity 42mm') or 'internal' for project-specific interfaces."
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Parameter IDs from this manifest that define the interface geometry."
+              },
+              "compatible_with": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
+              }
             }
           }
-        }
-      },
-      "material_awareness": {
-        "type": "object",
-        "description": "Declares which material-geometry interactions the SCAD code supports.",
-        "properties": {
-          "shrinkage_compensation": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code adjusts geometry based on material shrinkage factors."
-          },
-          "recycled_material_toggle": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code offers adjusted tolerances for recycled filament (rPET, rPLA)."
-          },
-          "tolerance_by_material": {
-            "type": "boolean",
-            "default": false,
-            "description": "Whether the code varies clearances based on the selected material profile."
+        },
+        "material_awareness": {
+          "type": [
+            "object",
+            "boolean"
+          ],
+          "description": "Declares which material-geometry interactions the SCAD code supports. A bare `true` is the legacy shorthand for \"this cartridge is material-aware\" (accepted exactly as the platform copy of this schema accepts it); new cartridges declare the object form.",
+          "properties": {
+            "shrinkage_compensation": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code adjusts geometry based on material shrinkage factors."
+            },
+            "recycled_material_toggle": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code offers adjusted tolerances for recycled filament (rPET, rPLA)."
+            },
+            "tolerance_by_material": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether the code varies clearances based on the selected material profile."
+            }
           }
+        },
+        "societal_benefit": {
+          "$ref": "#/$defs/i18nString",
+          "description": "Human-readable statement of the hyperobject's societal value (commons utility)."
+        },
+        "commons_license": {
+          "type": "string",
+          "description": "SPDX identifier for the open hardware license (e.g. 'CERN-OHL-W-2.0', 'CC-BY-SA-4.0')."
         }
-      },
-      "societal_benefit": {
-        "$ref": "#/$defs/i18nString",
-        "description": "Human-readable statement of the hyperobject's societal value (commons utility)."
-      },
-      "commons_license": {
-        "type": "string",
-        "description": "SPDX identifier for the open hardware license (e.g. 'CERN-OHL-W-2.0', 'CC-BY-SA-4.0')."
       }
-    }
-  },
-  "estimate_constants": {
-    "type": "object",
-    "required": [
-      "base_time",
-      "per_unit",
-      "per_part"
-    ],
-    "properties": {
-      "base_time": {
-        "type": "number"
-      },
-      "per_unit": {
-        "type": "number"
-      },
-      "per_part": {
-        "type": "number"
-      },
-      "fn_factor": {
-        "type": "number"
-      },
-      "wasm_multiplier": {
-        "type": "number"
-      },
-      "warning_threshold_seconds": {
-        "type": "number"
+    },
+    "estimate_constants": {
+      "type": "object",
+      "required": [
+        "base_time",
+        "per_unit",
+        "per_part"
+      ],
+      "properties": {
+        "base_time": {
+          "type": "number"
+        },
+        "per_unit": {
+          "type": "number"
+        },
+        "per_part": {
+          "type": "number"
+        },
+        "fn_factor": {
+          "type": "number"
+        },
+        "wasm_multiplier": {
+          "type": "number"
+        },
+        "warning_threshold_seconds": {
+          "type": "number"
+        }
       }
     }
   },
@@ -1372,6 +1467,12 @@
               "type": "string"
             },
             "es": {
+              "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "pt": {
               "type": "string"
             }
           },

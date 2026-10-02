@@ -224,6 +224,11 @@
     "cdg_interfaces": [
       {
         "id": "base",
+        "label": {
+          "en": "Base",
+          "es": "Base"
+        },
+        "geometry_type": "custom",
         "parameters": [
           "base_w"
         ]
