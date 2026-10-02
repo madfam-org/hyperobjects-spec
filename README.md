@@ -86,7 +86,8 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
 1. Validates the manifest against `project-manifest.schema.json`.
 2. Applies the per-cartridge house rules — mode/part/parameter cross-references, the
    `target_part` dispatch alignment, `hyperobject` block coherence, `{en, es}`
-   completeness, license declaration. Every rule names its source in the Yantra4D repo;
+   completeness, license declaration, and the structure of the semantic fields (interface
+   frames, size keys, the requirement profile; see below). Every rule names its source;
    run `y4d-spec rules` to see them.
 3. Checks the files: mode sources exist, no includes escaping the cartridge, no
    vendored tree, no shipped LICENSE contradicting the declared one, and **every
@@ -616,6 +617,59 @@ A **single-part mode's id must equal its part id**, because that id is what arri
 ```
 
 Multi-part modes are exempt — they render an assembly through the default branch.
+
+### Semantic fields: units, interface frames, requirements
+
+These fields are optional and additive (SEM-1 §2.2–§2.4). They say what a cartridge
+*means* to a machine: what its numbers measure, where a mating feature sits, and what
+it needs to be printed well. `y4d-spec check` validates their structure; it does not
+evaluate a frame against geometry (the render-time frame gate does that), and it does
+not check that a key exists in the lexicon vocabularies (the lexicon rule does that).
+
+- **`parameters[].unit`**: one of `mm`, `deg`, `count`, `ratio` or `percent`. The
+  garment manifest takes the same field.
+- **`hyperobject.cdg_interfaces[]`** gains four fields:
+  - `frame`: `{part, origin, normal, x_axis?}`. The vectors are in mm, in the named
+    part's model frame. Each component is a number, or an expression over the
+    manifest's parameter ids using numeric literals, `+ - * /`, parentheses, `min`,
+    `max` and `abs` (at most 256 characters, parsed and never evaluated). `normal`
+    points toward where the mating partner sits.
+  - `polarity`: `male`, `female` or `neutral`.
+  - `symmetry`: the rotational order about `normal`. `0` means continuous, `1` means
+    none, and `2`, `3`, `4`, `6` or `8` are the other allowed orders.
+  - `size_key`: an interface-sizes key, or `{param, map}` when a select parameter
+    picks the size.
+- **`requirements`** (top level, in both manifests): `process`, `materials`
+  (`{any_of, none_of}`), `process_parameters` (`{key: {min?, max?, value?, unit?}}`),
+  a `rationale` i18n string, and `parts`, which holds per-part overrides keyed by part
+  id (piece id in a garment).
+
+```jsonc
+"cdg_interfaces": [{
+  "id": "motor_bolt_pattern", "geometry_type": "bolt_pattern", "label": {"en": "Motor Bolt Pattern"},
+  "frame": {"part": "soft_mount", "origin": [0, 0, "plate_thick + iso_gap"],
+            "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+  "polarity": "female", "symmetry": 4,
+  "size_key": {"param": "motor_pattern",
+               "map": {"9x9": "motor-mount-9x9-m2", "16x16": "motor-mount-16x16-m3",
+                       "19x19": "motor-mount-19x19-m3"}}
+}]
+```
+
+The rules (`y4d_spec.semantic_rules`) each report one kind of failure:
+
+- an expression that does not parse, or that names an undeclared parameter;
+- a vector that does not have 3 components;
+- a zero `normal` or `x_axis`;
+- a missing `x_axis` when `symmetry` is not 0;
+- a numeric `x_axis` more than 0.5° from orthogonal to a numeric `normal`;
+- a `frame.part` that is not declared;
+- a `size_key` select whose `map` misses an option or holds a key that is not an option;
+- a bound whose `min` is greater than its `max`;
+- a material class listed in both `any_of` and `none_of`;
+- a per-part override for an undeclared part.
+
+The complete example is `tests/fixtures/y4d/semantic-motor-mount.project.json`.
 
 ---
 
