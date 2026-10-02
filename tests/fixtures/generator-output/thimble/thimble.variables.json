@@ -1,0 +1,75 @@
+{
+  "format": "hyperobjects.generator-output",
+  "format_version": "1.0.0",
+  "kind": "solid",
+  "generator": {
+    "platform": "hyperobjects-spec",
+    "cartridge": "thimble",
+    "mode": "thimble",
+    "part": "thimble",
+    "engine": "cadquery",
+    "source": {
+      "tree_sha256": "e875eaa851cc0290aa29fbdf9e2cbd46800418b4c17a654e573aea53aef2c99b",
+      "tree_algorithm": "hyperobjects-tree-v1",
+      "entry": "main.py",
+      "entry_sha256": "7cb4f2eda8fd8f86b1ae3eb74ca29037186a0220facb2b61f0d886d51914bdda"
+    }
+  },
+  "variables": [
+    {
+      "id": "dimple_dia",
+      "value": 1.8,
+      "type": "number",
+      "source": "manifest_default",
+      "unit": "mm"
+    },
+    {
+      "id": "dimple_rows",
+      "value": 4,
+      "type": "number",
+      "source": "manifest_default",
+      "unit": "count"
+    },
+    {
+      "id": "finger_girth",
+      "value": 60.0,
+      "type": "number",
+      "source": "request",
+      "unit": "mm"
+    },
+    {
+      "id": "taper",
+      "value": 1.2,
+      "type": "number",
+      "source": "manifest_default",
+      "unit": "mm"
+    },
+    {
+      "id": "thimble_h",
+      "value": 22.0,
+      "type": "number",
+      "source": "manifest_default",
+      "unit": "mm"
+    },
+    {
+      "id": "wall_t",
+      "value": 1.6,
+      "type": "number",
+      "source": "manifest_default",
+      "unit": "mm"
+    }
+  ],
+  "variables_sha256": "6a2561e443ed95f33c26035df092420d8f2436fefdf8056bcff83d781c25974e",
+  "complete": true,
+  "geometry": [
+    {
+      "path": "thimble.stl",
+      "media_type": "model/stl",
+      "sha256": "6c60831b3737dc665456a8cdfb4ac3c49163c9b16ab101f3ec0adaa3dc859b53",
+      "bytes": 39,
+      "units": "mm",
+      "role": "primary"
+    }
+  ],
+  "instance_id": "7593dbd03b048aeecb4c098e1b1f01cd5971df2cc0207ffd2619e80e31c6d6a8"
+}

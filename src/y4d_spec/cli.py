@@ -3,6 +3,7 @@
     y4d-spec check <cartridge-dir> [...] [--render] [--no-presets] [--no-printability]
                    [--openscad-path DIR] [--require-openscad] [--openscad-timeout S] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
+    y4d-spec bundle check <variables.json|dir> [...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
     y4d-spec article <path> [...] [--catalog bundled]
@@ -239,6 +240,17 @@ def _cmd_identity(args) -> int:
     return 1 if failures else 0
 
 
+def _cmd_bundle_check(args) -> int:
+    """GOC-1: check generator-output documents (`<stem>.variables.json`, `variables.json`).
+
+    A directory means every such document beneath it; each is checked against the
+    geometry files in its own directory. Warnings print and never fail the run.
+    """
+    from hyperobjects_schemas.generator_output import run_cli_check
+
+    return run_cli_check(args.paths, "y4d-spec bundle check:")
+
+
 def _cmd_render_env(args) -> int:
     """Print the render-environment contract, whole or one field at a time.
 
@@ -265,7 +277,7 @@ def _cmd_render_env(args) -> int:
 
 
 def _cmd_rules(args) -> int:
-    from . import rules, structure
+    from . import default_drift, rules, structure
 
     print("y4d-spec checks a cartridge against, in order:\n")
     print("  1. the project-manifest JSON Schema (bundled from yantra4d/packages/schemas)")
@@ -287,6 +299,7 @@ def _cmd_rules(args) -> int:
         structure.vendor_rules,
         structure.shipped_license_rules,
         structure.dead_parameter_rules,
+        default_drift.default_drift_rules,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
@@ -472,6 +485,22 @@ def main(argv: list[str] | None = None) -> int:
     p_id = sub.add_parser("identity", help="check a cross-commons identity pair file")
     p_id.add_argument("files", nargs="+", help="pair record JSON file(s)")
     p_id.set_defaults(func=_cmd_identity)
+
+    p_bundle = sub.add_parser(
+        "bundle", help="generator-output bundles (GOC-1 variables.json + geometry)"
+    )
+    bundle_sub = p_bundle.add_subparsers(dest="bundle_cmd", required=True)
+    p_bcheck = bundle_sub.add_parser(
+        "check",
+        help="check variables.json document(s): schema, recomputed digests, geometry "
+        "files; exit 1 on errors only",
+    )
+    p_bcheck.add_argument(
+        "paths",
+        nargs="+",
+        help="a *.variables.json / variables.json file, or a directory to search",
+    )
+    p_bcheck.set_defaults(func=_cmd_bundle_check)
 
     add_lexicon_parser(sub, "y4d-spec")
     add_vocabulary_parser(sub, "y4d-spec")

@@ -2,6 +2,7 @@
 
     fc-spec list
     fc-spec check <contract> <file> [<file> ...] [--resolve catalog.json]
+    fc-spec check generator-output <variables.json|dir> [...]
     fc-spec identity <pair.json> [<pair.json> ...]
     fc-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     fc-spec vocab [--status] [-v]
@@ -20,7 +21,10 @@ side of the commons can validate a pair with what they already have installed.
 both tools for the same reason: the shared vocabulary belongs to neither half of
 the commons alone. `define`/`lookup`/`related` are the §6.2 MCP tools, callable
 from a shell.
-`list` and `check` are unchanged: they are a published contract.
+`list` and `check` are unchanged: they are a published contract. `generator-output`
+(GOC-1) is an added contract, checked exactly as `y4d-spec bundle check` checks it:
+a directory argument means every variables.json beneath it, geometry files are
+re-hashed against each document's own directory, and warnings print but never fail.
 """
 
 from __future__ import annotations
@@ -81,7 +85,10 @@ def main(argv: list[str] | None = None) -> int:
 
     p_check = sub.add_parser("check", help="check file(s) against a contract")
     p_check.add_argument("contract", choices=list(CONTRACTS))
-    p_check.add_argument("files", nargs="+", help="JSON file(s) to check")
+    p_check.add_argument(
+        "files", nargs="+",
+        help="JSON file(s) to check (generator-output also takes directories)",
+    )
     p_check.add_argument(
         "--resolve", metavar="CATALOG",
         help="hardware-ref: a yantra4d commons-catalog.json (or {slug:[params]} map) "
@@ -129,6 +136,11 @@ def main(argv: list[str] | None = None) -> int:
                     print(f"  FAIL {f}: {prob}")
         print(f"fc-spec identity: files={len(args.files)} failures={failures}")
         return 1 if failures else 0
+
+    if args.contract == "generator-output":
+        from hyperobjects_schemas.generator_output import run_cli_check
+
+        return run_cli_check(args.files, "fc-spec check: contract=generator-output")
 
     resolve = _resolve_map(args.resolve)
     failures = 0

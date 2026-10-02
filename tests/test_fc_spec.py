@@ -33,13 +33,15 @@ def _fixture(name: str) -> dict:
 
 
 # ── contract surface ─────────────────────────────────────────────────────────
-def test_lists_the_five_contracts():
+def test_lists_the_six_contracts():
+    """The five FC contracts plus GOC-1's generator-output (additive, 2026-10-02)."""
     assert set(fc_spec.list_contracts()) == {
         "garment-manifest",
         "fabric-card",
         "body-measurements",
         "hardware-ref",
         "explode-json",
+        "generator-output",
     }
 
 

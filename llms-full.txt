@@ -33,6 +33,10 @@ runbook.
     divergence from the platform visible instead of silent.
   - `structure.py` — the on-disk rules (mode sources, escaping includes,
     vendored trees, shipped LICENSE).
+  - `default_drift.py` — `default-drift`, NOTE ONLY: manifest `default` vs the
+    literal the source falls back to (`PARAM(lambda: id, lit)` via ast, top-level
+    `.scad` assignments, graph binding literals), per (file, line), with no mode
+    scoping (GOC-1 v1.0.1 §4.1).
   - `conformance.py` — orchestration; owns the result object and the tiers.
   - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
     body counting, STL export.
@@ -67,6 +71,10 @@ runbook.
 - `commons_sandbox` — the restricted-execution core both platforms run
   cartridges through. Defense in depth, NOT a security boundary on its own.
 - `hyperobjects_schemas` — every bundled JSON Schema, plus the identity key.
+  - `generator_output.py` — GOC-1 (`variables.json`): `canonical_json`,
+    `variables_sha256`, `tree_sha256` (`hyperobjects-tree-v1`), `instance_id`,
+    `check_generator_output`; the body of `y4d-spec bundle check` and
+    `fc-spec check generator-output`.
 - `hyperobjects_lexicon` — the Commons Lexicon corpus, the controlled
   vocabularies, the article contract, the dictionary tools and the reader.
 
@@ -107,6 +115,12 @@ list the parameter. A reference in a library the cartridge SHIPS counts;
 unresolvable includes are skipped, never assumed. `target_part` is exempt.
 `intentionally_unused: {"reason": …}` allow-lists one, reason required and
 non-empty — visible debt, same convention as a parity exemption.
+
+**The generator-output schema lives here only.** `generator-output.schema.json`
+(GOC-1) and its four algorithms are owned by this package; platforms import them
+and keep no copy. Changing a digest algorithm forks every producer, so the golden
+vectors in `tests/test_generator_output.py` change only with a contract version.
+The document carries no physical (material/process/slicer/printer) settings.
 
 **A skip is never a pass.** `renders=` counts meshes actually judged and
 `skipped=` counts the rest; `--require-openscad` turns a missing binary from a
