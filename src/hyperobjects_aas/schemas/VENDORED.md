@@ -34,14 +34,16 @@ re-run the fleet gate (`hyperobjects_aas` targets v3.1.2, see SEM-1 §0).
 This file is licensed under CC-BY-4.0, not under this package's Apache-2.0 licence.
 Everything else in `hyperobjects_aas` is authored here and is Apache-2.0.
 
-## Known limitation of validating with Python `jsonschema`
+## Validating with Python `jsonschema`: UTF-16 patterns
 
-The schema's XML-character pattern spells characters outside the Basic Multilingual
-Plane as UTF-16 surrogate pairs (`\ud800[\udc00-\udfff]`, and so on). Python strings hold
-such a character as one code point, so a string containing one (for example an emoji)
-fails the pattern in Python even though it is valid AAS. `hyperobjects_aas` never emits
-such characters from its own text; if a manifest carries one, `aas check` reports it as a
-schema error rather than hiding it.
+The schema spells the XML `Char` production over UTF-16 code units
+(`\ud800[\udc00-\udfff]` and so on), the way an ECMAScript engine sees a string. Python
+holds a character outside the Basic Multilingual Plane (an emoji, for example) as one
+code point, which matches none of those alternatives, so plain `jsonschema` would reject
+valid AAS text. The fleet gate found `🤚` in a solid cartridge's preset label, and BaSyx
+accepts it. `hyperobjects_aas.check` therefore evaluates **only the `pattern` keyword**
+against the string's UTF-16 code units. `maxLength` still counts code points, as JSON
+Schema defines. The file itself is unchanged.
 
 ## IDTA submodel templates
 

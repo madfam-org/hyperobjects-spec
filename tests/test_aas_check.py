@@ -189,3 +189,22 @@ def test_basyx_rejects_what_the_schema_accepts(solid_env):
     del relation["idShort"]
     assert not list(_validator().iter_errors(env))
     assert basyx_roundtrip(env)
+
+
+def test_non_bmp_text_is_valid_aas(tmp_path):
+    """aas.json's patterns are written over UTF-16 code units; an emoji is valid AAS text
+    (found in a commons preset label by the fleet gate)."""
+    import json as _json
+
+    from aas_support import SEM1_SOLID as src
+
+    manifest = _json.loads((src / "project.json").read_text(encoding="utf-8"))
+    manifest["presets"][0]["label"]["en"] = "\U0001F91A Monochrome Tactile"
+    root = tmp_path / "sem1-bracket"
+    root.mkdir()
+    (root / "project.json").write_text(_json.dumps(manifest), encoding="utf-8")
+    env = build_solid_environment(root)
+    assert check_environment(env, basyx="off").ok
+    bad = copy.deepcopy(env)
+    child(submodel(bad, "Nameplate"), "Author")["value"] = "bell\x07"   # not an XML Char
+    assert "schema" in _codes(check_environment(bad, basyx="off"))
