@@ -73,6 +73,7 @@ y4d-spec render-env                        # the render environment: packages, O
 y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 y4d-spec bundle check ./renders/           # GOC-1 variables.json + geometry (see "Generator output")
+y4d-spec assembly check assembly.json --commons ../solid --standard-parts ./parts   # ASM-1 assembly
 ```
 
 A cartridge directory is anything with a `project.json`. A directory you name that has
@@ -1349,13 +1350,14 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry on **both engines** (CadQuery *and* OpenSCAD) at defaults *and* at every declared preset, printability notes, and the render-environment contract (`render-env`) |
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
+| `y4d_spec.assembly` | type-level assemblies (ASM-1): component resolvers, placement, closure of every mate, and the assembly digest (`y4d-spec assembly check`; see [`docs/ASSEMBLIES.md`](docs/ASSEMBLIES.md)) |
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 
 ```python
 import hyperobjects_schemas as hs
-hs.list_schemas()               # ['article-frontmatter', 'body-measurements',
+hs.list_schemas()               # ['article-frontmatter', 'assembly', 'body-measurements',
                                 #  'commons-vocabulary', 'cross-commons-identity',
                                 #  'fabric-manifest', 'garment-manifest',
                                 #  'generator-output', 'lexicon-term', 'project-manifest']

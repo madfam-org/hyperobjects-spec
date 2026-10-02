@@ -1,0 +1,11 @@
+{
+  "key": "nema-17-48mm-test",
+  "name": {"en": "NEMA 17 stepper, 48 mm body (test fixture)", "es": "Motor a pasos NEMA 17, cuerpo de 48 mm (accesorio de prueba)"},
+  "parameters": [{"id": "shaft_length", "default": 24, "min": 10, "max": 40, "unit": "mm"}],
+  "interfaces": [
+    {"id": "face", "frame": {"origin": [0, 0, 48], "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+     "polarity": "female", "size_key": "nema-17-face", "symmetry": 4},
+    {"id": "shaft", "frame": {"origin": [0, 0, "48 + shaft_length"], "normal": [0, 0, 1]},
+     "polarity": "male", "size_key": "nema-17-shaft-5mm", "symmetry": 0}
+  ]
+}

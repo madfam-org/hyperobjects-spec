@@ -4,6 +4,7 @@
                    [--openscad-path DIR] [--require-openscad] [--openscad-timeout S] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec bundle check <variables.json|dir> [...]
+    y4d-spec assembly check <assembly.json> --commons DIR [--standard-parts DIR] [--json]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
     y4d-spec article <path> [...] [--catalog bundled]
@@ -34,6 +35,7 @@ from hyperobjects_lexicon.cli import (
 )
 from hyperobjects_schemas.identity import check_identity_file
 
+from .assembly.cli import add_assembly_parser
 from .conformance import check_cartridge
 from .geometry import OPENSCAD_TIMEOUT_S
 from .parity import AABB_WARN_BAND, PARITY_TOLERANCE, PLACEMENT_NOTE_BAND
@@ -503,6 +505,8 @@ def main(argv: list[str] | None = None) -> int:
         help="a *.variables.json / variables.json file, or a directory to search",
     )
     p_bcheck.set_defaults(func=_cmd_bundle_check)
+
+    add_assembly_parser(sub, "y4d-spec")
 
     add_lexicon_parser(sub, "y4d-spec")
     add_vocabulary_parser(sub, "y4d-spec")

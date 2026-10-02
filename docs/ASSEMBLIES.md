@@ -1,0 +1,253 @@
+# Type-level assemblies (ASM-1 §2–§3)
+
+An **assembly** says which components are mated at which interfaces: commons cartridges
+at given parameters, standard (COTS) parts from a catalog, and external third-party
+designs that are referenced by name, licence and URL. `y4d-spec assembly check`
+resolves every component, places it in world space, and then checks every mate against
+the SEM-1 mating rule. "Finalising" an assembly means that this check passes.
+
+```bash
+y4d-spec assembly check assemblies/fpv-5in-freestyle/assembly.json \
+    --commons ../solid-hyperobjects --standard-parts ./standard-parts
+y4d-spec assembly check assembly.json --commons DIR --json   # the report as JSON
+y4d-spec assembly check assembly.json --commons DIR --collision
+```
+
+The exit code is 0 when there are no errors, 1 when there is any error, and 2 when the
+document cannot be read or a directory option does not exist. `--commons` is needed
+only by cartridge components, and `--standard-parts` only by standard components. If a
+component needs a directory that was not given, it gets a resolution error that names
+the option.
+
+## The document (`assembly.schema.json`)
+
+```jsonc
+{
+  "format": "hyperobjects.assembly", "format_version": "1.0.0",
+  "slug": "fpv-5in-freestyle",
+  "kind": "product",                       // or "producer" (a fabrication machine model)
+  "name": {"en": "…", "es": "…"},
+  "license": "CERN-OHL-W-2.0",             // this document's licence
+  "root": "frame",                         // placed at the world origin
+  "components": [
+    {"id": "frame", "source": {"type": "standard", "key": "fpv-frame-5in-x-225"}},
+    {"id": "pod_fl", "source": {"type": "cartridge", "commons": "solid",
+      "slug": "motor-soft-mount", "mode": "soft_mount", "part": null,
+      "parameters": {"motor_pattern": "16x16"}}},
+    {"id": "toolhead", "source": {"type": "external", "name": "…", "license": "GPL-3.0",
+      "url": "https://…", "interfaces": [ /* SEM-1 interface facts, numbers only */ ]}}
+  ],
+  "mates": [
+    {"id": "m1", "a": {"component": "frame", "interface": "motor_mount_fl"},
+     "b": {"component": "pod_fl", "interface": "motor_bolt_pattern"}, "rotation_index": 0}
+  ],
+  "capability_profile": {"process": ["fff"]},   // producers only
+  "requirements_rollup": true
+}
+```
+
+- One component entry is one physical instance. There is no `quantity`; a bill of
+  materials counts entries by source.
+- A mate states exactly one rotation. Use `rotation_index` (0 ≤ i < symmetry) for
+  interfaces with discrete symmetry (1, 2, 3, 4, 6, 8). Use `angle_deg` for continuous
+  symmetry (0). The schema rejects a mate that states both or neither. The validator
+  rejects a rotation that does not fit the interfaces' symmetry.
+- An external interface declares `frame`, `polarity`, `size_key` and `symmetry`, and its
+  frame components are plain numbers because there are no parameters to read. No CAD is
+  vendored.
+- A `product` must not carry a `capability_profile`.
+
+## What the check does
+
+| Step | What is checked | Finding codes |
+|---|---|---|
+| 1 | The schema; unique component and mate ids; `root` exists; every mate endpoint exists; no component mates with itself | `schema`, `component-id`, `mate-id`, `root`, `mate-endpoint` |
+| 2 | Every component resolves. A cartridge's mode must exist. A named part must be one the mode produces. Every given parameter must be declared and admissible. | `resolve` |
+| 3 | For each mate: both interfaces exist and can mate (their frame evaluates and sits on a part the component produces, and they declare `polarity`, `size_key` and `symmetry`); the `size_key` values are equal; the polarities are complementary (male with female, neutral with neutral); the symmetries are equal; the rotation fits | `interface`, `size_key`, `polarity`, `symmetry`, `rotation` |
+| 4 | Placement by BFS from the root over the mates that passed step 3 | — |
+| 5 | Closure: every mate, including the ones the BFS tree did not use, is re-checked in world space | `closure` (error), `rotation` (warning) |
+| 6 | Every component is reachable from the root | `unreachable` |
+| 7 | `--collision`: not implemented in v1, see below | `collision` (warning) |
+| 8 | The report, the placement table and the assembly digest | — |
+
+A parameter value is **never clamped**. A value outside `[min, max]`, an option that a
+select does not offer, a non-boolean checkbox, or an undeclared key is a resolution
+error. A clamped value would describe a different part from the one the document names.
+
+The check does **not** test whether a `size_key` is a term in the `interface-sizes`
+vocabulary. That is the lexicon's rule. The check also cannot tell whether a frame
+matches the rendered geometry. That is the job of the render-time frame gate
+(ASM-1 §8). A frame that this validator accepts is self-consistent, but that does not
+make it trusted.
+
+## The placement math
+
+Each component `c` has a world transform `T_c`, a 4×4 rigid matrix that maps
+component coordinates to world coordinates. The root has `T_root = I`. An interface frame
+`F` has origin `o`, unit normal `n` and unit in-plane axis `x`, with `y = n × x`. Its
+matrix `H(F)` has the columns `(x, y, n, o)`. When the frame has no `x_axis` (which is
+allowed only for symmetry 0), `y4d_spec.frame_eval` supplies a deterministic
+perpendicular.
+
+When a mate `a → b` is traversed from an already-placed `a`:
+
+```
+T_b = T_a · H(F_a) · Flip · Rz(θ) · H(F_b)^-1
+Flip = diag(1, -1, -1)        (a half-turn about the frame x-axis: n → −n)
+θ    = 360° · rotation_index / symmetry      (or angle_deg when symmetry = 0)
+```
+
+`M = Flip · Rz(θ)` is itself a half-turn, about the in-plane axis at −θ/2, so `M⁻¹ = M`
+and **the relation is symmetric**. Traversing the same mate from `b` gives
+`T_a = T_b · H(F_b) · M · H(F_a)^-1`, so the validator places a component from whichever
+side reaches it first. The BFS visits mates in document order, which makes the tree
+deterministic, and with it the placement of an over-constrained assembly.
+
+### Worked example 1: a NEMA 17 face on a flat bracket
+
+The motor's face is at `z = 48` of its own model (the body occupies z 0–48 and the shaft
+points up), with the normal +z and x = +x. The bracket's face is the top of its plate,
+at `z = plate_thick = 5`, with the normal +z. Both have symmetry 4. Push a motor point
+`(x, y, z)` through the factors from right to left with `rotation_index = 1`
+(θ = 90°):
+
+```
+H(F_b)^-1  : (x, y, z − 48)
+Rz(90°)    : (−y, x, z − 48)
+Flip       : (−y, −x, 48 − z)
+H(F_a)     : (−y, −x, 53 − z)            T_motor = [[0,−1,0,0],[−1,0,0,0],[0,0,−1,53]]
+```
+
+The motor hangs upside down above the plate. Its face rests on the plate top, and its
+shaft points down through the plate, which is how a motor bolted to a flat bracket sits.
+For `rotation_index` 0, 2 and 3 the first row is `(x, −y)`, `(−x, y)` and `(y, x)`
+respectively. `tests/test_assembly_placement.py` asserts all four.
+
+### Worked example 2: the same motor on a vertical wall
+
+The angle bracket's face is at `(plate_thick, 0, wall_height) = (6, 0, 30)`, with
+`n = (1, 0, 0)`, `x = (0, 1, 0)` and therefore `y = (0, 0, 1)`. A local point `(u, v, w)`
+of that frame is the bracket point `(w + 6, u, v + 30)`. `Flip · H(F_b)^-1` sends a motor
+point to `(x, −y, 48 − z)`, so the world point is `(54 − z, x, 30 − y)`:
+
+```
+T_motor = [[0,0,−1,54],[1,0,0,0],[0,−1,0,30]]
+```
+
+The face centre `(0,0,48)` lands at `(6,0,30)`. The motor normal +z becomes −x, which
+is antiparallel to the wall's +x. When the motor is the root instead, the bracket gets
+the inverse `[[0,1,0,0],[0,0,−1,30],[−1,0,0,54]]`.
+
+### Worked example 3: continuous symmetry
+
+A pulley bore (origin 0, `n = −z`, reference x = +x, so `H = Flip`) on a shaft tip at
+`(0, 0, 72)` gives `T = T(0,0,72) · Flip · Rz(θ) · Flip = T(0,0,72) · Rz(−θ)`. The pulley
+sits upright on the tip and is turned by `−angle_deg`.
+
+## Closure (step 5)
+
+For every mate whose two components are placed, both frames are taken to world space:
+`W_a = T_a · H(F_a)` and `W_b = T_b · H(F_b)`. The mate holds when all of the following
+are true:
+
+| Residual | Definition | Tolerance |
+|---|---|---|
+| origin | `|o_a − o_b|` | ≤ 0.05 mm |
+| normal | the angle between `n_b` and `−n_a` | ≤ 0.5° |
+| x-axis | `φ` is the rotation the geometry realises: b's x-axis seen from `W_a` reads `(cos φ, −sin φ, ·)`. The residual is the distance from `φ − θ` to the nearest multiple of `360°/symmetry` | ≤ 0.5°; not checked for symmetry 0 |
+
+Angles are measured with `atan2(|u × v|, u · v)`, because `acos` loses its precision
+near 0° and 180°, which is exactly where a 0.5° tolerance is judged.
+
+A mate in the BFS tree holds by construction (its residuals are about 1e-13), but it is
+checked anyway. A mate that closes a cycle is the real test.
+
+### Worked example 4: a ring of four elbows
+
+Each elbow has its inlet at the origin facing −x and its outlet at `(arm, arm, 0)`
+facing +y, with x = +z and symmetry 4. Four of them are chained outlet to inlet and
+back to the first one. From `e1 = I`, the BFS places `e2 = T(50,50,0)·Rz(90°)` and,
+through the last mate, `e4 = T(−50,50,0)·Rz(270°)`. Then it places
+`e3 = T(0,100,0)·Rz(180°)`. The mate m3 (from e3 to e4) closes the cycle: e3's outlet
+is at `(−50, 50, 0)`, exactly where e4's inlet is, so every residual is 0.
+
+When e3's `arm` is set to 55 (which is in range), its outlet moves to `(−55, 45, 0)` and
+e4's inlet stays where it was. The report then contains:
+
+```
+FAIL closure: [m3] e3.outlet ↔ e4.inlet does not hold (closes a cycle):
+  origins 7.0711 mm apart (≤ 0.05); normals 0.0000° from antiparallel (≤ 0.5);
+  x-axes 0.0000° apart modulo symmetry 4 (≤ 0.5)
+```
+
+`7.0711 = √(5² + 5²)`. If a cycle-closing mate holds only at a different index of its
+symmetry than the one the document states, that is a **warning** (`closes at
+rotation_index 0, but the document states 2`) rather than an error. The two are the same
+physical mating.
+
+## The assembly digest (`hyperobjects-assembly-v1`)
+
+```
+sha256( canonical_json({
+  "algorithm":  "hyperobjects-assembly-v1",
+  "document":   <the document as parsed>,
+  "components": {<component id>: <resolved identity>}
+}) )
+```
+
+`canonical_json` follows GOC-1 §3.1: integral floats become ints, keys are sorted, there
+is no whitespace, and the output is UTF-8. Key order and `5` vs `5.0` therefore do not
+matter. The document is hashed as written, so stating a default explicitly does change
+the digest. The resolved identity of each source type is:
+
+| Source | Identity |
+|---|---|
+| cartridge | `{"type": "cartridge", "instance_id": …}`: the GOC-1 `instance_id` over the cartridge's `tree_sha256`, mode, part and `variables_sha256` at full injection. `variables` covers every declared parameter except the engine-control keys (`render_mode`, `target_part`, `mode`) and the physical denylist read from `generator-output.schema.json` |
+| standard | `{"type": "standard", "key", "catalog_sha256", "parameters"}`: the sha256 of the catalog entry's canonical JSON and the resolved parameter values |
+| external | `{"type": "external", "facts": {…}}`: the declared name, licence, URL, revision and interfaces |
+
+The digest is computed whenever every component resolves, even when a mate fails, so a
+failing report still names the exact revision it judged. A cartridge's identity changes
+when any file in its GOC-1 tree changes. A README does not count, because GOC-1 excludes
+it. `tests/test_assembly_resolvers.py` pins a golden vector for an external-only
+document.
+
+## Calling it from another service
+
+`validate_assembly(doc, resolver, *, collision=False) -> AssemblyReport` reads no files.
+A resolver is any object with `resolve(component) -> ResolvedComponent`. On failure it
+raises `ResolutionError(problems)`.
+
+```python
+from y4d_spec.assembly import (CompositeResolver, ResolvedComponent, resolve_interfaces,
+                               cartridge_identity, goc1_variables, validate_assembly)
+
+class StoredShellResolver:                      # e.g. over stored AAS submodels
+    def resolve(self, component):
+        manifest = {"parameters": [...], "hyperobject": {"cdg_interfaces": [...]}}
+        given = component["source"].get("parameters")
+        identity, details = cartridge_identity(slug=..., mode=..., part=...,
+                                               tree_sha256=..., variables=goc1_variables(...))
+        return ResolvedComponent(component["id"], "cartridge", "label", identity,
+                                 resolve_interfaces(manifest, given), details)
+
+report = validate_assembly(doc, CompositeResolver(cartridge=StoredShellResolver()))
+report.ok, report.errors, report.warnings, report.placements, report.mates, report.digest
+```
+
+`resolve_interfaces(manifest, given, available_parts=…, default_part=…)` evaluates every
+frame through `y4d_spec.frame_eval` and resolves every `size_key`. That keeps the frame
+arithmetic in the keystone for every caller.
+
+## Limits in v1
+
+- **No collision check.** `--collision` adds a warning that says no mesh intersection
+  was checked, and the summary line prints `collision=not run`. A requested check that
+  did not run never reads as a pass. ASM-1 §3.7 makes it reported, not gating, in v1.
+- **Frames are not yet in the commons.** At the time of writing, none of the 969
+  interfaces of the 502 solid cartridges declares a frame. Every one of them reports
+  `declares no frame` when mated. Frames arrive one cartridge per PR, each proven by the
+  render-time frame gate.
+- The standard-parts loader is tolerant about shape until the catalog's own schema
+  lands. It accepts any `*.json` with a string `key`, `parameters` as a list or as a
+  mapping, `interfaces` or `cdg_interfaces`, and a frame with no `part`.

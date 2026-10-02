@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/assembly.schema.json",
+  "title": "Hyperobjects type-level assembly (assembly.json)",
+  "description": "ASM-1 §2. A type-level assembly: which components (commons cartridges at given parameters, keystone standard parts, or external designs declared by name, licence and URL) are mated at which interfaces. One component entry is one physical instance. The structure is checked here; `y4d-spec assembly check` resolves every component, places it, and checks every mate (ASM-1 §3).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "format_version", "slug", "kind", "name", "license", "root", "components", "mates"],
+  "properties": {
+    "format": { "const": "hyperobjects.assembly" },
+    "format_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 96 },
+    "kind": {
+      "enum": ["producer", "product"],
+      "description": "`producer`: a fabrication machine model; `product`: a thing that is made."
+    },
+    "name": { "$ref": "#/$defs/i18nString" },
+    "description": { "$ref": "#/$defs/i18nString" },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX identifier of THIS document's licence (e.g. CERN-OHL-W-2.0). Each external component carries its own."
+    },
+    "root": {
+      "$ref": "#/$defs/componentId",
+      "description": "The component placed at the world origin (T_root = I)."
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/component" }
+    },
+    "mates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/mate" }
+    },
+    "capability_profile": {
+      "type": "object",
+      "description": "Producers only: what the machine can fabricate, keyed by the `fabrication-capabilities` vocabulary (SEM-1 §4). Vocabulary membership is a lexicon rule, not a schema rule.",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "requirements_rollup": {
+      "type": "boolean",
+      "description": "Products: roll the fabricated components' `requirements` up into the assembly's requirement profile (ASM-1 §5)."
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "product" } }, "required": ["kind"] },
+      "then": { "not": { "required": ["capability_profile"] } }
+    }
+  ],
+  "$defs": {
+    "i18nString": {
+      "type": "object",
+      "required": ["en"],
+      "additionalProperties": false,
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    },
+    "componentId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source"],
+      "properties": {
+        "id": { "$ref": "#/$defs/componentId" },
+        "label": { "$ref": "#/$defs/i18nString" },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["type"],
+      "properties": { "type": { "enum": ["cartridge", "standard", "external"] } },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "cartridge" } } },
+          "then": { "$ref": "#/$defs/cartridgeSource" }
+        },
+        {
+          "if": { "properties": { "type": { "const": "standard" } } },
+          "then": { "$ref": "#/$defs/standardSource" }
+        },
+        {
+          "if": { "properties": { "type": { "const": "external" } } },
+          "then": { "$ref": "#/$defs/externalSource" }
+        }
+      ]
+    },
+    "parameterValues": {
+      "type": "object",
+      "description": "Parameter values over the defaults (GOC-1 full injection). Every key must be a declared parameter and every value in range; an out-of-range value is an error, never clamped.",
+      "propertyNames": { "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+      "additionalProperties": { "type": ["number", "boolean", "string"] }
+    },
+    "cartridgeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "commons", "slug", "mode"],
+      "properties": {
+        "type": { "const": "cartridge" },
+        "commons": {
+          "enum": ["solid"],
+          "description": "Only the solid commons declares 3-D interface frames (SEM-1 §3: soft interfaces are 2-D seams)."
+        },
+        "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+        "mode": { "type": "string", "minLength": 1 },
+        "part": { "type": ["string", "null"], "minLength": 1 },
+        "parameters": { "$ref": "#/$defs/parameterValues" }
+      }
+    },
+    "standardSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "key"],
+      "properties": {
+        "type": { "const": "standard" },
+        "key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "parameters": { "$ref": "#/$defs/parameterValues" }
+      }
+    },
+    "externalSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "name", "license", "url", "interfaces"],
+      "description": "A third-party design referenced by name, licence and URL, with its interface facts declared inline. No CAD is vendored.",
+      "properties": {
+        "type": { "const": "external" },
+        "name": { "type": "string", "minLength": 1 },
+        "license": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "pattern": "^https://" },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional upstream tag or commit the interface facts were taken from."
+        },
+        "interfaces": { "type": "array", "items": { "$ref": "#/$defs/externalInterface" } }
+      }
+    },
+    "numericVector": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "type": "number" }
+    },
+    "externalInterface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "frame", "polarity", "size_key", "symmetry"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "label": { "$ref": "#/$defs/i18nString" },
+        "geometry_type": { "type": "string", "minLength": 1 },
+        "standard": { "type": "string", "minLength": 1 },
+        "frame": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["origin", "normal"],
+          "properties": {
+            "part": { "type": "string", "minLength": 1 },
+            "origin": { "$ref": "#/$defs/numericVector" },
+            "normal": { "$ref": "#/$defs/numericVector" },
+            "x_axis": { "$ref": "#/$defs/numericVector" }
+          }
+        },
+        "polarity": { "enum": ["male", "female", "neutral"] },
+        "size_key": { "type": "string", "minLength": 1 },
+        "symmetry": { "type": "integer", "enum": [0, 1, 2, 3, 4, 6, 8] }
+      },
+      "if": { "properties": { "symmetry": { "not": { "const": 0 } } } },
+      "then": { "properties": { "frame": { "required": ["x_axis"] } } }
+    },
+    "interfaceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["component", "interface"],
+      "properties": {
+        "component": { "$ref": "#/$defs/componentId" },
+        "interface": { "type": "string", "minLength": 1 }
+      }
+    },
+    "mate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "a", "b"],
+      "description": "Interface `a` of one component mated to interface `b` of another. Exactly one of `rotation_index` (symmetry >= 1) or `angle_deg` (continuous symmetry, 0) states the rotation of b about the mated normal.",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "maxLength": 64 },
+        "a": { "$ref": "#/$defs/interfaceRef" },
+        "b": { "$ref": "#/$defs/interfaceRef" },
+        "rotation_index": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "angle_deg": { "type": "number", "minimum": -360, "maximum": 360 }
+      },
+      "oneOf": [
+        { "required": ["rotation_index"], "not": { "required": ["angle_deg"] } },
+        { "required": ["angle_deg"], "not": { "required": ["rotation_index"] } }
+      ]
+    }
+  }
+}
