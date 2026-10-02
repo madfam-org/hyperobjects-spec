@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/fabrication-vocabulary.schema.json",
+  "title": "Fabrication Controlled Vocabulary",
+  "description": "A controlled vocabulary of the KEYS a manifest's fabrication fields write (SEM-1 §4): the processes a part can be made by, the material classes it may be made of, the slicer parameters a requirement profile constrains, the capabilities a producer machine declares, and the size keys two mating interfaces must share. It is a SIBLING of commons-vocabulary.schema.json, not an extension of it, because the two describe different things: a commons vocabulary is a reading of what the two commons' manifests already wrote (keys observed in a corpus, an English gloss, a pointer at a lexicon term), while a fabrication vocabulary is a reference list whose entries are not observed anywhere yet and carry their own meaning — quadrilingual labels and definitions (RFC 0039), dimensional and technical facts each tied to a public citation, and cross-maps to outside identifiers (Cotiza process codes, OrcaSlicer config keys, material-card slugs, EMMO classes). A key's MADFAM concept IRI is derived, never stored: https://id.madfam.io/concept/{vocabulary}/{key}.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "vocabulary", "description", "entries"],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS vocabulary contract the document is written against.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "vocabulary": {
+      "description": "Which vocabulary this document is. One file per vocabulary, named for it.",
+      "type": "string",
+      "enum": [
+        "processes",
+        "material-classes",
+        "process-parameters",
+        "fabrication-capabilities",
+        "interface-sizes"
+      ]
+    },
+    "description": {
+      "description": "What this vocabulary covers and what it deliberately does not.",
+      "type": "string",
+      "minLength": 20
+    },
+    "review": {
+      "description": "Whether the document's rulings (which keys exist, what each one means) have had a human pass. Per-language review of the labels and definitions lives on each entry.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "$ref": "#/$defs/reviewState" },
+        "reviewers": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+        "note": { "type": "string" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "vocabulary": { "const": "processes" } } },
+      "then": { "properties": { "entries": { "items": { "$ref": "#/$defs/processEntry" } } } }
+    },
+    {
+      "if": { "properties": { "vocabulary": { "const": "material-classes" } } },
+      "then": { "properties": { "entries": { "items": { "$ref": "#/$defs/materialClassEntry" } } } }
+    },
+    {
+      "if": { "properties": { "vocabulary": { "const": "process-parameters" } } },
+      "then": { "properties": { "entries": { "items": { "$ref": "#/$defs/processParameterEntry" } } } }
+    },
+    {
+      "if": { "properties": { "vocabulary": { "const": "fabrication-capabilities" } } },
+      "then": { "properties": { "entries": { "items": { "$ref": "#/$defs/fabricationCapabilityEntry" } } } }
+    },
+    {
+      "if": { "properties": { "vocabulary": { "const": "interface-sizes" } } },
+      "then": { "properties": { "entries": { "items": { "$ref": "#/$defs/interfaceSizeEntry" } } } }
+    }
+  ],
+  "$defs": {
+    "key": {
+      "description": "The identifier exactly as a manifest writes it. Lowercase alphanumerics separated by '-', '_' or '.': each vocabulary keeps the spelling its outside world already uses (OrcaSlicer's snake_case keys, Cotiza-adjacent process codes, the dotted pitch in 'stack-30.5x30.5-m3'). Every key is a valid IRI path segment, so the derived concept IRI needs no escaping.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+([._-][a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "termId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "quadrilingualString": {
+      "description": "A string in all four languages of the commons (RFC 0039). Spanish is the house register and the quality bar.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "es", "fr", "pt"],
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reviewState": {
+      "description": "`generated` — written in a drafting pass (by a contributor or an agent) and not yet checked by a speaker of the language. `reviewed` — a named reviewer has read it in that language and let it stand.",
+      "type": "string",
+      "enum": ["generated", "reviewed"]
+    },
+    "reviewStatus": {
+      "description": "The same review block a lexicon term carries (lexicon-term.schema.json, contract 2): the overall state is the WORST facet, and `reviewed` needs a named reviewer.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "$ref": "#/$defs/reviewState" },
+        "languages": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "es": { "$ref": "#/$defs/reviewState" },
+            "en": { "$ref": "#/$defs/reviewState" },
+            "fr": { "$ref": "#/$defs/reviewState" },
+            "pt": { "$ref": "#/$defs/reviewState" }
+          }
+        },
+        "reviewers": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+        "note": { "type": "string" }
+      }
+    },
+    "externalIdentifier": {
+      "description": "An identifier minted outside MADFAM: an absolute IRI, or an ECLASS IRDI (identifiers only — ECLASS content is licensed and never copied).",
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$",
+          "maxLength": 2048
+        },
+        { "type": "string", "pattern": "^0173-1#[0-9]{2}-[A-Z0-9]{6}#[0-9]{3}$" }
+      ]
+    },
+    "source": {
+      "description": "A public citation a reader can follow: a standard, a manufacturer datasheet or product page, or a source file at a pinned revision. `supports` says which facts it backs. Dimensions are facts; datasheet prose is never copied.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "url"],
+      "properties": {
+        "title": { "type": "string", "minLength": 4 },
+        "url": { "type": "string", "pattern": "^https://[^\\s]+$" },
+        "publisher": { "type": "string", "minLength": 2 },
+        "accessed": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "supports": { "type": "string", "minLength": 4 }
+      }
+    },
+    "entryBase": {
+      "description": "What every fabrication-vocabulary entry carries.",
+      "type": "object",
+      "required": ["key", "label", "definition", "review_status"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "status": {
+          "description": "`canonical` (default) — the spelling to write. `provisional` — real and usable, but a fact or a ruling on it is still open; `notes` says which.",
+          "type": "string",
+          "enum": ["canonical", "provisional"]
+        },
+        "label": {
+          "description": "The short name of the key in each language — what a form or a dictionary shows.",
+          "$ref": "#/$defs/quadrilingualString"
+        },
+        "definition": {
+          "description": "What the key means, in each language.",
+          "$ref": "#/$defs/quadrilingualString"
+        },
+        "review_status": { "$ref": "#/$defs/reviewStatus" },
+        "term": {
+          "description": "A lexicon term this key is an instance of, when one exists (e.g. build-volume). Validated against the corpus.",
+          "$ref": "#/$defs/termId"
+        },
+        "exact_match": {
+          "description": "Outside identifiers of the SAME concept (SKOS exactMatch).",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/externalIdentifier" }
+        },
+        "close_match": {
+          "description": "Outside identifiers of a CLOSE concept (SKOS closeMatch). May not repeat an exact_match.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/externalIdentifier" }
+        },
+        "sources": {
+          "description": "The citations behind this entry's facts. REQUIRED wherever the entry states a dimensional or technical fact; a dimension cites its source by index.",
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "notes": { "type": "string", "minLength": 10 }
+      }
+    },
+    "processEntry": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/$defs/entryBase" }],
+      "required": ["family"],
+      "properties": {
+        "family": {
+          "description": "Additive (builds the part up), subtractive (cuts it out of stock in 3-D), or cutting (2-D profiles out of sheet).",
+          "type": "string",
+          "enum": ["additive", "subtractive", "cutting"]
+        },
+        "iso_52900_category": {
+          "description": "The ISO/ASTM 52900 additive-manufacturing process category, for additive processes.",
+          "type": "string",
+          "enum": [
+            "binder_jetting",
+            "directed_energy_deposition",
+            "material_extrusion",
+            "material_jetting",
+            "powder_bed_fusion",
+            "sheet_lamination",
+            "vat_photopolymerization"
+          ]
+        },
+        "cotiza_code": {
+          "description": "The process code Cotiza (digifab-quoting) accepts for this process. Absent where Cotiza has no code yet — the gap is a fact worth seeing, not something to paper over with the nearest code.",
+          "type": "string",
+          "enum": ["3d_fff", "3d_sla", "cnc_3axis", "laser_2d"]
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "cardRef": {
+      "description": "A material card in one of the two commons, as '<repo>/<slug>' — resolved against the bundled catalog snapshot.",
+      "type": "string",
+      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "materialClassEntry": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/$defs/entryBase" }],
+      "required": ["kind", "sources"],
+      "properties": {
+        "kind": {
+          "description": "The stock form the class arrives in.",
+          "type": "string",
+          "enum": ["filament", "resin", "powder", "sheet", "fabric"]
+        },
+        "processes": {
+          "description": "Keys of the `processes` vocabulary this class is made with. A technical claim: the entry's sources back it. Required for every kind except `fabric` — a woven or knit class is cut and sewn, which no process key names yet, and the lane says so rather than inventing one.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "emmo_class": {
+          "description": "The EMMO class the commons' material cards of this class record (yantra4d `semantic_ontology.emmo_class`). Copied from the cards, not asserted independently: when the cards of one class disagree, the class records none and says so in `notes`.",
+          "type": "string",
+          "pattern": "^https?://[^\\s]+$"
+        },
+        "cards": {
+          "description": "The material cards that belong to this class, as '<repo>/<slug>'.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/cardRef" }
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "orcaslicerBinding": {
+      "description": "Where this key is defined in OrcaSlicer's own source, so the claim that the key is OrcaSlicer's is checkable at a revision.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "option_type", "preset", "rev", "path", "line"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "option_type": {
+          "description": "The ConfigOption type in PrintConfig.cpp (coInt, coFloat, coFloats, coPercent, coBool, coEnum, coInts …).",
+          "type": "string",
+          "pattern": "^co[A-Z][A-Za-z]+$"
+        },
+        "preset": {
+          "description": "Which OrcaSlicer preset carries the key (Preset.cpp option lists), or `placeholder` for a value OrcaSlicer exposes only to custom G-code.",
+          "type": "string",
+          "enum": ["print", "filament", "printer", "placeholder"]
+        },
+        "rev": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "path": { "type": "string", "minLength": 3 },
+        "line": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "processParameterEntry": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/$defs/entryBase" }],
+      "required": ["unit", "value_type", "processes", "orcaslicer", "sources"],
+      "properties": {
+        "unit": {
+          "description": "The unit a requirement bound is written in. `percent` is 0–100; `count` is a whole number of layers or loops; `none` for booleans and enums.",
+          "type": "string",
+          "enum": ["mm", "mm/s", "degC", "percent", "count", "none"]
+        },
+        "value_type": { "type": "string", "enum": ["integer", "number", "boolean", "string"] },
+        "processes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "orcaslicer": { "$ref": "#/$defs/orcaslicerBinding" }
+      },
+      "unevaluatedProperties": false
+    },
+    "fabricationCapabilityEntry": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/$defs/entryBase" }],
+      "required": ["value_type"],
+      "properties": {
+        "value_type": {
+          "description": "The JSON type a machine-model declaration writes for this capability.",
+          "type": "string",
+          "enum": ["integer", "number", "boolean", "string", "array"]
+        },
+        "unit": { "type": "string", "enum": ["mm", "degC", "count", "none"] },
+        "allowed_values": {
+          "description": "The closed set of string values (each a key in its own right), for enumerated capabilities.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "value_vocabulary": {
+          "description": "Another fabrication vocabulary whose keys are this capability's values (e.g. `process` takes `processes` keys).",
+          "type": "string",
+          "enum": ["processes", "material-classes"]
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "dimension": {
+      "description": "One dimensional or technical fact, citing the entry's `sources` by index.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "source"],
+      "properties": {
+        "value": { "type": ["number", "string"] },
+        "unit": { "type": "string", "enum": ["mm", "count", "thread", "deg"] },
+        "tolerance": { "type": "string", "minLength": 1 },
+        "source": {
+          "description": "Index into the entry's `sources` array.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": { "type": "string", "minLength": 4 }
+      }
+    },
+    "interfaceSizeEntry": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/$defs/entryBase" }],
+      "required": ["geometry_type", "dimensions", "sources"],
+      "properties": {
+        "geometry_type": {
+          "description": "The yantra4d interface geometry type (a `geometry_type` key of the `interfaces` vocabulary) an interface carrying this size key has.",
+          "$ref": "#/$defs/key"
+        },
+        "dimensions": {
+          "description": "The size key's dimensional facts, by name. Every one cites a source.",
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" },
+          "additionalProperties": { "$ref": "#/$defs/dimension" }
+        }
+      },
+      "unevaluatedProperties": false
+    }
+  }
+}

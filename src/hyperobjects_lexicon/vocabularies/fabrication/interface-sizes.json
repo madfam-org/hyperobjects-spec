@@ -1,0 +1,642 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Size keys for mating interfaces — the values of an interface's size_key (SEM-1 §2.3). Two interfaces can mate only when their resolved size keys are EQUAL, so a size key is a physical standard part or pattern, and every dimension it states cites a public standard or manufacturer source.",
+  "review": {
+    "state": "generated",
+    "note": "Key set, cross-maps, labels and definitions drafted in one pass by an agent (P3-LEX lane, 2026-10-02) against SEM-1 §4. No language facet of any entry has had a native review: every entry says `generated`, and Spanish is the bar a reviewer should read first. Facts were checked against the cited sources on the access date; no ruling has been made by a human."
+  },
+  "entries": [
+    {
+      "key": "nema-17-face",
+      "label": {
+        "en": "NEMA 17 motor face",
+        "es": "Cara de motor NEMA 17",
+        "fr": "Face de moteur NEMA 17",
+        "pt": "Face de motor NEMA 17"
+      },
+      "definition": {
+        "en": "Mounting face of a NEMA 17 stepper motor: a 42.3 mm square flange with four M3 holes on a 31 mm square and a Ø22 mm centring pilot.",
+        "es": "Cara de montaje de un motor a pasos NEMA 17: brida cuadrada de 42.3 mm con cuatro barrenos M3 en un cuadrado de 31 mm y un piloto de centrado de Ø22 mm.",
+        "fr": "Face de fixation d'un moteur pas à pas NEMA 17 : bride carrée de 42,3 mm, quatre trous M3 sur un carré de 31 mm et un centrage de Ø22 mm.",
+        "pt": "Face de montagem de um motor de passo NEMA 17: flange quadrada de 42,3 mm com quatro furos M3 num quadrado de 31 mm e um piloto de centragem de Ø22 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "face_square": {"value": 42.3, "unit": "mm", "source": 0},
+        "hole_spacing": {"value": 31, "unit": "mm", "source": 0, "tolerance": "±0.2"},
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0},
+        "pilot_diameter": {"value": 22, "unit": "mm", "source": 0, "tolerance": "0/−0.05"}
+      },
+      "sources": [
+        {
+          "title": "Nanotec ST4118 (NEMA 17) stepper motor product overview",
+          "url": "https://www.nanotec.com/fileadmin/files/Baureihenuebersichten/Schrittmotoren/Product_Overview_ST4118.pdf",
+          "publisher": "Nanotec Electronic",
+          "accessed": "2026-10-02",
+          "supports": "42.3 mm face, 4× M3 on 31 ±0.2 mm, Ø22 (0/−0.05) mm pilot, Ø5 (0/−0.012) mm shaft, 24 ±0.5 mm shaft length"
+        },
+        {
+          "title": "Adafruit product 324 — NEMA-17 stepper motor",
+          "url": "https://www.adafruit.com/product/324",
+          "publisher": "Adafruit Industries",
+          "accessed": "2026-10-02",
+          "supports": "31 mm square M3 mounting holes; 5 mm shaft, 24 mm long, with a flat"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "NEMA 17 is a frame-size designation under NEMA ICS 16; the standard itself is not freely published, so the facts cite manufacturer drawings. Adafruit's listing rounds the face to 42 mm."
+    },
+    {
+      "key": "nema-17-shaft-5mm",
+      "label": {
+        "en": "NEMA 17 shaft, 5 mm",
+        "es": "Flecha NEMA 17 de 5 mm",
+        "fr": "Arbre NEMA 17 de 5 mm",
+        "pt": "Eixo NEMA 17 de 5 mm"
+      },
+      "definition": {
+        "en": "The Ø5 mm output shaft of a NEMA 17 stepper motor, usually with a flat for a set screw; what a pulley or coupler bore receives.",
+        "es": "La flecha de salida de Ø5 mm de un motor a pasos NEMA 17, normalmente con un plano para opresor; lo que recibe el barreno de una polea o un cople.",
+        "fr": "L'arbre de sortie de Ø5 mm d'un moteur pas à pas NEMA 17, généralement avec un méplat pour vis de pression ; ce que reçoit l'alésage d'une poulie ou d'un accouplement.",
+        "pt": "O eixo de saída de Ø5 mm de um motor de passo NEMA 17, normalmente com um plano para parafuso de fixação; o que o furo de uma polia ou acoplamento recebe."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "shaft_diameter": {"value": 5, "unit": "mm", "source": 0, "tolerance": "0/−0.012"},
+        "shaft_length": {"value": 24, "unit": "mm", "source": 0, "tolerance": "±0.5"}
+      },
+      "sources": [
+        {
+          "title": "Nanotec ST4118 (NEMA 17) stepper motor product overview",
+          "url": "https://www.nanotec.com/fileadmin/files/Baureihenuebersichten/Schrittmotoren/Product_Overview_ST4118.pdf",
+          "publisher": "Nanotec Electronic",
+          "accessed": "2026-10-02",
+          "supports": "42.3 mm face, 4× M3 on 31 ±0.2 mm, Ø22 (0/−0.05) mm pilot, Ø5 (0/−0.012) mm shaft, 24 ±0.5 mm shaft length"
+        },
+        {
+          "title": "Adafruit product 324 — NEMA-17 stepper motor",
+          "url": "https://www.adafruit.com/product/324",
+          "publisher": "Adafruit Industries",
+          "accessed": "2026-10-02",
+          "supports": "31 mm square M3 mounting holes; 5 mm shaft, 24 mm long, with a flat"
+        }
+      ],
+      "notes": "Shaft length varies by model; 24 mm is the value both cited sources give."
+    },
+    {
+      "key": "tslot-2020-6mm",
+      "label": {
+        "en": "2020 T-slot profile, 6 mm slot",
+        "es": "Perfil ranurado 2020, ranura de 6 mm",
+        "fr": "Profilé rainuré 2020, rainure de 6 mm",
+        "pt": "Perfil ranhurado 2020, ranhura de 6 mm"
+      },
+      "definition": {
+        "en": "20 × 20 mm aluminium extrusion with a 6 mm slot opening on each face (series 5) and a Ø4.2 mm centre hole for an M5 tap.",
+        "es": "Perfil de aluminio extruido de 20 × 20 mm con una ranura de 6 mm de abertura en cada cara (serie 5) y un barreno central de Ø4.2 mm para machuelo M5.",
+        "fr": "Profilé d'aluminium extrudé de 20 × 20 mm avec une rainure de 6 mm d'ouverture sur chaque face (série 5) et un trou central de Ø4,2 mm pour taraudage M5.",
+        "pt": "Perfil de alumínio extrudado de 20 × 20 mm com uma ranhura de 6 mm de abertura em cada face (série 5) e um furo central de Ø4,2 mm para rosca M5."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "profile_square": {"value": 20, "unit": "mm", "source": 0},
+        "slot_width": {"value": 6, "unit": "mm", "source": 0},
+        "centre_hole_diameter": {"value": 4.2, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page",
+          "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf",
+          "publisher": "MISUMI",
+          "accessed": "2026-10-02",
+          "supports": "series-5 20 mm square profile: 6 mm slot opening, Ø4.2 mm centre hole"
+        }
+      ],
+      "term": "profile",
+      "notes": "V-slot 2020 profiles share the 20 mm square but not the slot geometry; they are not this key."
+    },
+    {
+      "key": "gt2-belt-6mm",
+      "label": {
+        "en": "GT2 belt, 6 mm",
+        "es": "Banda GT2 de 6 mm",
+        "fr": "Courroie GT2 de 6 mm",
+        "pt": "Correia GT2 de 6 mm"
+      },
+      "definition": {
+        "en": "Timing belt with the GT2 tooth profile at 2 mm pitch, 6 mm wide — the common 3-D-printer motion belt.",
+        "es": "Banda síncrona con perfil de diente GT2 a 2 mm de paso y 6 mm de ancho: la banda de movimiento habitual en impresoras 3D.",
+        "fr": "Courroie crantée au profil de dent GT2, pas de 2 mm, 6 mm de large — la courroie de mouvement courante des imprimantes 3D.",
+        "pt": "Correia sincronizada com perfil de dente GT2, passo de 2 mm e 6 mm de largura — a correia de movimento comum em impressoras 3D."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "pitch": {"value": 2, "unit": "mm", "source": 0},
+        "width": {"value": 6, "unit": "mm", "source": 1}
+      },
+      "sources": [
+        {
+          "title": "ServoCity 2 mm pitch GT2 pinion timing pulley (5 mm bore, 20 tooth)",
+          "url": "https://www.servocity.com/2mm-pitch-gt2-pinion-timing-pulley-5mm-bore-20-tooth/",
+          "publisher": "ServoCity",
+          "accessed": "2026-10-02",
+          "supports": "2 mm GT2 pitch, 20 teeth, 5 mm bore, drives 6 mm wide GT2 belt"
+        },
+        {
+          "title": "Gates PowerGrip 2GT belt, open, 6 mm width (authorised reseller)",
+          "url": "https://kb-3d.com/store/motion/215-gates-powergrip-2gt-belt-open-6mm-width.html",
+          "publisher": "KB-3D",
+          "accessed": "2026-10-02",
+          "supports": "genuine Gates 2GT belt in 6 mm width"
+        }
+      ],
+      "notes": "GT2 is Gates' PowerGrip GT2 (2MGT) profile; 'GT2' is also used loosely for compatible belts."
+    },
+    {
+      "key": "gt2-pulley-20t-5mm",
+      "label": {
+        "en": "GT2 pulley, 20 teeth, 5 mm bore",
+        "es": "Polea GT2 de 20 dientes, barreno de 5 mm",
+        "fr": "Poulie GT2 20 dents, alésage 5 mm",
+        "pt": "Polia GT2 de 20 dentes, furo de 5 mm"
+      },
+      "definition": {
+        "en": "A 20-tooth GT2 pulley with a Ø5 mm bore for a 6 mm belt — the seat or clearance a part provides for it.",
+        "es": "Polea GT2 de 20 dientes con barreno de Ø5 mm para banda de 6 mm: el alojamiento o la holgura que una pieza le da.",
+        "fr": "Poulie GT2 de 20 dents à alésage de Ø5 mm pour courroie de 6 mm — le logement ou le dégagement qu'une pièce lui réserve.",
+        "pt": "Polia GT2 de 20 dentes com furo de Ø5 mm para correia de 6 mm — o alojamento ou a folga que uma peça lhe reserva."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "tooth_count": {"value": 20, "unit": "count", "source": 0},
+        "pitch": {"value": 2, "unit": "mm", "source": 0},
+        "bore": {"value": 5, "unit": "mm", "source": 0},
+        "belt_width": {"value": 6, "unit": "mm", "source": 0},
+        "pitch_diameter": {
+          "value": 12.73,
+          "unit": "mm",
+          "source": 0,
+          "note": "derived: teeth × pitch / π = 20 × 2 / π"
+        }
+      },
+      "sources": [
+        {
+          "title": "ServoCity 2 mm pitch GT2 pinion timing pulley (5 mm bore, 20 tooth)",
+          "url": "https://www.servocity.com/2mm-pitch-gt2-pinion-timing-pulley-5mm-bore-20-tooth/",
+          "publisher": "ServoCity",
+          "accessed": "2026-10-02",
+          "supports": "2 mm GT2 pitch, 20 teeth, 5 mm bore, drives 6 mm wide GT2 belt"
+        },
+        {
+          "title": "Gates PowerGrip 2GT pulley — 20 tooth, 5 mm bore, 6 mm belt (authorised reseller)",
+          "url": "https://kb-3d.com/store/motion/213-gates-powergrip-2gt-pulley-20-tooth-5mm-6mm-1634481851944.html",
+          "publisher": "KB-3D",
+          "accessed": "2026-10-02",
+          "supports": "a Gates 2GT pulley with 20 teeth and a 5 mm bore for 6 mm belt"
+        }
+      ],
+      "notes": "The bore mates with nema-17-shaft-5mm, which is the key a shaft-to-bore interface carries; this key is for the pulley's own seat or clearance."
+    },
+    {
+      "key": "bearing-608",
+      "label": {
+        "en": "608 ball bearing",
+        "es": "Rodamiento 608",
+        "fr": "Roulement 608",
+        "pt": "Rolamento 608"
+      },
+      "definition": {
+        "en": "Single-row deep-groove ball bearing 608: 8 mm bore, 22 mm outside diameter, 7 mm wide.",
+        "es": "Rodamiento rígido de bolas de una hilera 608: diámetro interior de 8 mm, exterior de 22 mm y 7 mm de ancho.",
+        "fr": "Roulement rigide à billes à une rangée 608 : alésage de 8 mm, diamètre extérieur de 22 mm, largeur de 7 mm.",
+        "pt": "Rolamento rígido de esferas de uma carreira 608: furo de 8 mm, diâmetro externo de 22 mm e 7 mm de largura."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 8, "unit": "mm", "source": 0},
+        "outside_diameter": {"value": 22, "unit": "mm", "source": 0},
+        "width": {"value": 7, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "SKF 608 deep groove ball bearing (distributor listing)",
+          "url": "https://www.123bearing.com/bearing-housing/deep-groove-bearing/single-row/608-skf",
+          "publisher": "123Bearing",
+          "accessed": "2026-10-02",
+          "supports": "608: 8 × 22 × 7 mm"
+        }
+      ],
+      "notes": "Boundary dimensions of the 6xx series follow ISO 15; the standard is not freely published, so the fact cites a manufacturer's part."
+    },
+    {
+      "key": "bearing-625",
+      "label": {
+        "en": "625 ball bearing",
+        "es": "Rodamiento 625",
+        "fr": "Roulement 625",
+        "pt": "Rolamento 625"
+      },
+      "definition": {
+        "en": "Single-row deep-groove ball bearing 625: 5 mm bore, 16 mm outside diameter, 5 mm wide.",
+        "es": "Rodamiento rígido de bolas de una hilera 625: diámetro interior de 5 mm, exterior de 16 mm y 5 mm de ancho.",
+        "fr": "Roulement rigide à billes à une rangée 625 : alésage de 5 mm, diamètre extérieur de 16 mm, largeur de 5 mm.",
+        "pt": "Rolamento rígido de esferas de uma carreira 625: furo de 5 mm, diâmetro externo de 16 mm e 5 mm de largura."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 5, "unit": "mm", "source": 0},
+        "outside_diameter": {"value": 16, "unit": "mm", "source": 0},
+        "width": {"value": 5, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "NSK 625 miniature deep groove bearing (distributor listing)",
+          "url": "https://www.qualitybearingsonline.com/625-nsk-miniature-deep-groove-5x16x5mm/",
+          "publisher": "Quality Bearings Online",
+          "accessed": "2026-10-02",
+          "supports": "625: 5 × 16 × 5 mm"
+        }
+      ]
+    },
+    {
+      "key": "motor-mount-16x16-m3",
+      "label": {
+        "en": "Motor mount 16×16 M3",
+        "es": "Montaje de motor 16×16 M3",
+        "fr": "Fixation moteur 16×16 M3",
+        "pt": "Fixação de motor 16×16 M3"
+      },
+      "definition": {
+        "en": "Four M3 holes on a 16 mm square, the base pattern of 22xx–23xx brushless motors on multirotor arms.",
+        "es": "Cuatro barrenos M3 en un cuadrado de 16 mm, el patrón de base de los motores sin escobillas 22xx–23xx sobre los brazos de un multirrotor.",
+        "fr": "Quatre trous M3 sur un carré de 16 mm, le motif de base des moteurs sans balais 22xx–23xx sur les bras d'un multirotor.",
+        "pt": "Quatro furos M3 num quadrado de 16 mm, o padrão de base dos motores sem escovas 22xx–23xx nos braços de um multirrotor."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 16, "unit": "mm", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "BrotherHobby Avenger 2207.5 V3 motor",
+          "url": "https://www.brotherhobbystore.com/products/avenger-22075-v3",
+          "publisher": "BrotherHobby",
+          "accessed": "2026-10-02",
+          "supports": "bolt pattern M3 (16 × 16 mm) on a 22xx-class motor"
+        }
+      ],
+      "notes": "The pattern is a square of side 16 mm between adjacent hole centres. Some vendors state a bolt-circle diameter instead (e.g. '4-M2 on Ø9'); a Ø16 circle is a 11.31 mm square and is NOT this key."
+    },
+    {
+      "key": "motor-mount-19x19-m3",
+      "label": {
+        "en": "Motor mount 19×19 M3",
+        "es": "Montaje de motor 19×19 M3",
+        "fr": "Fixation moteur 19×19 M3",
+        "pt": "Fixação de motor 19×19 M3"
+      },
+      "definition": {
+        "en": "Four M3 holes on a 19 mm square, the base pattern of 28xx brushless motors on multirotor arms.",
+        "es": "Cuatro barrenos M3 en un cuadrado de 19 mm, el patrón de base de los motores sin escobillas 28xx sobre los brazos de un multirrotor.",
+        "fr": "Quatre trous M3 sur un carré de 19 mm, le motif de base des moteurs sans balais 28xx sur les bras d'un multirotor.",
+        "pt": "Quatro furos M3 num quadrado de 19 mm, o padrão de base dos motores sem escovas 28xx nos braços de um multirrotor."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 19, "unit": "mm", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "BrotherHobby Avenger 2806.5 motor",
+          "url": "https://www.brotherhobbystore.com/products/avenger-28065-motor",
+          "publisher": "BrotherHobby",
+          "accessed": "2026-10-02",
+          "supports": "bolt pattern M3 (19 × 19 mm) on a 28xx-class motor"
+        }
+      ],
+      "notes": "The pattern is a square of side 19 mm between adjacent hole centres. Some vendors state a bolt-circle diameter instead (e.g. '4-M2 on Ø9'); a Ø19 circle is a 13.44 mm square and is NOT this key."
+    },
+    {
+      "key": "motor-mount-12x12-m2",
+      "label": {
+        "en": "Motor mount 12×12 M2",
+        "es": "Montaje de motor 12×12 M2",
+        "fr": "Fixation moteur 12×12 M2",
+        "pt": "Fixação de motor 12×12 M2"
+      },
+      "definition": {
+        "en": "Four M2 holes on a 12 mm square, the base pattern of 13xx–15xx brushless motors on multirotor arms.",
+        "es": "Cuatro barrenos M2 en un cuadrado de 12 mm, el patrón de base de los motores sin escobillas 13xx–15xx sobre los brazos de un multirrotor.",
+        "fr": "Quatre trous M2 sur un carré de 12 mm, le motif de base des moteurs sans balais 13xx–15xx sur les bras d'un multirotor.",
+        "pt": "Quatro furos M2 num quadrado de 12 mm, o padrão de base dos motores sem escovas 13xx–15xx nos braços de um multirrotor."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 12, "unit": "mm", "source": 0},
+        "thread": {"value": "M2", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "Armattan 1404 2750 kV motor",
+          "url": "https://armattanquads.com/products/4x-armattan-1404-2750kv-motors",
+          "publisher": "Armattan",
+          "accessed": "2026-10-02",
+          "supports": "motor mounting spacing 12 × 12 mm, M2 screws"
+        }
+      ],
+      "notes": "The pattern is a square of side 12 mm between adjacent hole centres. Some vendors state a bolt-circle diameter instead (e.g. '4-M2 on Ø9'); a Ø12 circle is a 8.49 mm square and is NOT this key."
+    },
+    {
+      "key": "motor-mount-9x9-m2",
+      "label": {
+        "en": "Motor mount 9×9 M2",
+        "es": "Montaje de motor 9×9 M2",
+        "fr": "Fixation moteur 9×9 M2",
+        "pt": "Fixação de motor 9×9 M2"
+      },
+      "definition": {
+        "en": "Four M2 holes on a 9 mm square, the base pattern of 11xx–13xx brushless motors on multirotor arms.",
+        "es": "Cuatro barrenos M2 en un cuadrado de 9 mm, el patrón de base de los motores sin escobillas 11xx–13xx sobre los brazos de un multirrotor.",
+        "fr": "Quatre trous M2 sur un carré de 9 mm, le motif de base des moteurs sans balais 11xx–13xx sur les bras d'un multirotor.",
+        "pt": "Quatro furos M2 num quadrado de 9 mm, o padrão de base dos motores sem escovas 11xx–13xx nos braços de um multirrotor."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 9, "unit": "mm", "source": 0},
+        "thread": {"value": "M2", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "TOKA 1202 racing motor (retailer listing)",
+          "url": "https://risingsunfpv.com/products/toka-1202-6500kv-8500kv-10000kv-racing-motor",
+          "publisher": "Rising Sun FPV",
+          "accessed": "2026-10-02",
+          "supports": "installation hole position 9 × 9 mm, M2"
+        }
+      ],
+      "notes": "The pattern is a square of side 9 mm between adjacent hole centres. Some vendors state a bolt-circle diameter instead (e.g. '4-M2 on Ø9'); a Ø9 circle is a 6.36 mm square and is NOT this key. BetaFPV's 1404 is listed as '4-M2 on φ9' — a bolt circle, so not this key."
+    },
+    {
+      "key": "stack-30.5x30.5-m3",
+      "label": {
+        "en": "Flight-controller stack 30.5×30.5 M3",
+        "es": "Stack de controladora 30.5×30.5 M3",
+        "fr": "Pile de contrôleur de vol 30,5×30,5 M3",
+        "pt": "Stack de controladora 30,5×30,5 M3"
+      },
+      "definition": {
+        "en": "Four Ø4 mm holes on a 30.5 mm square, fitted with grommets that take M3 standoffs — the full-size flight-controller and ESC stack.",
+        "es": "Cuatro barrenos de Ø4 mm en un cuadrado de 30.5 mm, con gomas que reciben separadores M3: el stack de controladora de vuelo y ESC de tamaño completo.",
+        "fr": "Quatre trous de Ø4 mm sur un carré de 30,5 mm, munis d'œillets recevant des entretoises M3 — la pile contrôleur de vol + ESC de taille standard.",
+        "pt": "Quatro furos de Ø4 mm num quadrado de 30,5 mm, com grommets que recebem espaçadores M3 — o stack de controladora de voo e ESC de tamanho completo."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 30.5, "unit": "mm", "source": 0},
+        "hole_diameter": {"value": 4, "unit": "mm", "source": 0},
+        "grommet_bore": {"value": 3, "unit": "mm", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "Matek F405-HDTE flight controller",
+          "url": "https://www.mateksys.com/?portfolio=f405-hdte",
+          "publisher": "Matek Systems",
+          "accessed": "2026-10-02",
+          "supports": "mounting 30.5 × 30.5 mm, Ø4 mm holes, with Ø3 mm grommets (M4 to M3)"
+        }
+      ]
+    },
+    {
+      "key": "stack-20x20-m3",
+      "label": {
+        "en": "Flight-controller stack 20×20 M3",
+        "es": "Stack de controladora 20×20 M3",
+        "fr": "Pile de contrôleur de vol 20×20 M3",
+        "pt": "Stack de controladora 20×20 M3"
+      },
+      "definition": {
+        "en": "Four Ø3 mm holes on a 20 mm square for M3 standoffs — the mini flight-controller stack.",
+        "es": "Cuatro barrenos de Ø3 mm en un cuadrado de 20 mm para separadores M3: el stack mini de controladora de vuelo.",
+        "fr": "Quatre trous de Ø3 mm sur un carré de 20 mm pour entretoises M3 — la pile mini de contrôleur de vol.",
+        "pt": "Quatro furos de Ø3 mm num quadrado de 20 mm para espaçadores M3 — o stack mini de controladora de voo."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 20, "unit": "mm", "source": 0},
+        "hole_diameter": {"value": 3, "unit": "mm", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "Matek F405-miniTE flight controller",
+          "url": "https://www.mateksys.com/?portfolio=f405-minite",
+          "publisher": "Matek Systems",
+          "accessed": "2026-10-02",
+          "supports": "mounting 20 × 20 mm with Ø3 mm holes, or 20 × 20 mm Ø2 mm with brass grommets"
+        }
+      ]
+    },
+    {
+      "key": "stack-20x20-m2",
+      "label": {
+        "en": "Flight-controller stack 20×20 M2",
+        "es": "Stack de controladora 20×20 M2",
+        "fr": "Pile de contrôleur de vol 20×20 M2",
+        "pt": "Stack de controladora 20×20 M2"
+      },
+      "definition": {
+        "en": "A 20 mm square stack pattern reduced to M2 standoffs (Ø2 mm bore, typically through brass grommets).",
+        "es": "Patrón de stack en cuadrado de 20 mm reducido a separadores M2 (barreno de Ø2 mm, normalmente con gomas de latón).",
+        "fr": "Motif de pile carré de 20 mm réduit à des entretoises M2 (alésage de Ø2 mm, généralement via des œillets en laiton).",
+        "pt": "Padrão de stack em quadrado de 20 mm reduzido a espaçadores M2 (furo de Ø2 mm, em geral com grommets de latão)."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 20, "unit": "mm", "source": 0},
+        "hole_diameter": {"value": 2, "unit": "mm", "source": 0},
+        "thread": {"value": "M2", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "Matek F405-miniTE flight controller",
+          "url": "https://www.mateksys.com/?portfolio=f405-minite",
+          "publisher": "Matek Systems",
+          "accessed": "2026-10-02",
+          "supports": "mounting 20 × 20 mm with Ø3 mm holes, or 20 × 20 mm Ø2 mm with brass grommets"
+        }
+      ],
+      "notes": "Distinct from stack-20x20-m3: same spacing, different fastener, so the two do not mate."
+    },
+    {
+      "key": "fpv-camera-micro-19mm",
+      "label": {
+        "en": "Micro FPV camera, 19 mm",
+        "es": "Cámara FPV micro de 19 mm",
+        "fr": "Caméra FPV micro 19 mm",
+        "pt": "Câmera FPV micro de 19 mm"
+      },
+      "definition": {
+        "en": "The 19 mm wide body of a 'micro' FPV camera, held between the two side plates of a camera cage.",
+        "es": "El cuerpo de 19 mm de ancho de una cámara FPV 'micro', sujeto entre las dos placas laterales de una jaula de cámara.",
+        "fr": "Le boîtier de 19 mm de large d'une caméra FPV « micro », tenu entre les deux flasques d'une cage de caméra.",
+        "pt": "O corpo de 19 mm de largura de uma câmera FPV 'micro', preso entre as duas placas laterais de uma gaiola de câmera."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {"body_width": {"value": 19, "unit": "mm", "source": 0}},
+      "sources": [
+        {
+          "title": "Caddx Ratel 2 (micro) camera — retailer specification",
+          "url": "https://www.rotorama.com/product/caddx-ratel-2",
+          "publisher": "Rotorama",
+          "accessed": "2026-10-02",
+          "supports": "dimensions 19 × 19 mm"
+        }
+      ]
+    },
+    {
+      "key": "fpv-camera-nano-14mm",
+      "label": {
+        "en": "Nano FPV camera, 14 mm",
+        "es": "Cámara FPV nano de 14 mm",
+        "fr": "Caméra FPV nano 14 mm",
+        "pt": "Câmera FPV nano de 14 mm"
+      },
+      "definition": {
+        "en": "The 14 mm wide body of a 'nano' FPV camera.",
+        "es": "El cuerpo de 14 mm de ancho de una cámara FPV 'nano'.",
+        "fr": "Le boîtier de 14 mm de large d'une caméra FPV « nano ».",
+        "pt": "O corpo de 14 mm de largura de uma câmera FPV 'nano'."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {"body_width": {"value": 14, "unit": "mm", "source": 0}},
+      "sources": [
+        {
+          "title": "Caddx Ant (nano) camera — retailer specification",
+          "url": "https://www.rotorama.com/product/caddx-ant-nano",
+          "publisher": "Rotorama",
+          "accessed": "2026-10-02",
+          "supports": "dimensions 14 × 14 mm; ships with an adapter to 19 × 19 mm"
+        }
+      ],
+      "notes": "A nano camera fits a micro cage only through an adapter; the two keys do not mate."
+    },
+    {
+      "key": "gopro-3-prong",
+      "label": {
+        "en": "GoPro-style finger mount",
+        "es": "Montaje tipo GoPro de dedos",
+        "fr": "Fixation à doigts type GoPro",
+        "pt": "Fixação de dedos tipo GoPro"
+      },
+      "definition": {
+        "en": "The action-camera finger joint: a three-finger side and a two-finger side interleave and are clamped by one M5 thumbscrew through all fingers.",
+        "es": "La unión de dedos de las cámaras de acción: un lado de tres dedos y otro de dos se intercalan y se aprietan con un solo tornillo de mariposa M5 que los atraviesa.",
+        "fr": "L'articulation à doigts des caméras d'action : un côté à trois doigts et un côté à deux s'imbriquent et sont serrés par une seule vis à oreilles M5 qui les traverse.",
+        "pt": "A junta de dedos das câmeras de ação: um lado de três dedos e outro de dois intercalam-se e são apertados por um único parafuso borboleta M5 que os atravessa."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "custom",
+      "dimensions": {"screw_thread": {"value": "M5×0.8", "unit": "thread", "source": 0}},
+      "sources": [
+        {
+          "title": "GoPro screw size guide",
+          "url": "https://storytellertech.com/gopro-screw-size/",
+          "publisher": "Storyteller Tech",
+          "accessed": "2026-10-02",
+          "supports": "the GoPro thumbscrew is M5 × 0.8"
+        }
+      ],
+      "status": "provisional",
+      "notes": "GoPro publishes no dimension drawing of the finger joint, so finger width, gap and hinge offset are NOT stated here; a frame using this key must be verified against a physical mount. The one key names both halves; polarity tells the three-finger side from the two-finger side (SEM-1 §2.3)."
+    },
+    {
+      "key": "sma-bulkhead",
+      "label": {
+        "en": "SMA bulkhead jack",
+        "es": "Conector SMA de mampara (bulkhead)",
+        "fr": "Embase SMA de traversée",
+        "pt": "Conector SMA de painel (bulkhead)"
+      },
+      "definition": {
+        "en": "A panel-mount SMA RF jack whose threaded body passes through a panel hole and is held by a nut; the 1/4-36 coupling thread also takes the antenna.",
+        "es": "Conector RF SMA hembra para montaje en panel cuyo cuerpo roscado atraviesa un barreno y se fija con tuerca; la rosca de acoplamiento 1/4-36 recibe también la antena.",
+        "fr": "Embase RF SMA pour montage sur panneau dont le corps fileté traverse un trou et est tenu par un écrou ; le filetage d'accouplement 1/4-36 reçoit aussi l'antenne.",
+        "pt": "Conector RF SMA fêmea para montagem em painel cujo corpo roscado atravessa um furo e é fixado por porca; a rosca de acoplamento 1/4-36 também recebe a antena."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "thread",
+      "dimensions": {"coupling_thread": {"value": ".250-36UNS-2A", "unit": "thread", "source": 0}},
+      "sources": [
+        {
+          "title": "Amphenol RF Europe catalogue — SMA specification sheets (p. 24)",
+          "url": "https://www.farnell.com/datasheets/2803213.pdf",
+          "publisher": "Amphenol RF",
+          "accessed": "2026-10-02",
+          "supports": "SMA jack coupling thread .250-36UNS-2A; plug coupling nut .250-36UNS-2B"
+        }
+      ],
+      "term": "thread",
+      "notes": "The panel cutout (round or D-flat) and the maximum panel thickness are part-specific; read them from the chosen connector's own drawing."
+    },
+    {
+      "key": "mgn12-carriage",
+      "label": {"en": "MGN12H carriage", "es": "Carro MGN12H", "fr": "Chariot MGN12H", "pt": "Carro MGN12H"},
+      "definition": {
+        "en": "The long (H) block of a 12 mm miniature linear guide: 27 mm wide, four M3 holes on a 20 × 20 mm pattern, on a 12 mm rail.",
+        "es": "El bloque largo (H) de una guía lineal miniatura de 12 mm: 27 mm de ancho, cuatro barrenos M3 en un patrón de 20 × 20 mm, sobre un riel de 12 mm.",
+        "fr": "Le patin long (H) d'un guidage linéaire miniature de 12 mm : 27 mm de large, quatre trous M3 sur un motif de 20 × 20 mm, sur un rail de 12 mm.",
+        "pt": "O bloco longo (H) de uma guia linear miniatura de 12 mm: 27 mm de largura, quatro furos M3 num padrão de 20 × 20 mm, sobre um trilho de 12 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "rail_width": {"value": 12, "unit": "mm", "source": 0},
+        "block_width": {"value": 27, "unit": "mm", "source": 0},
+        "hole_spacing_b": {"value": 20, "unit": "mm", "source": 0},
+        "hole_spacing_c": {"value": 20, "unit": "mm", "source": 0},
+        "thread": {"value": "M3", "unit": "thread", "source": 0},
+        "assembly_height": {"value": 13, "unit": "mm", "source": 0},
+        "block_length": {"value": 45.4, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "HIWIN linear guideways MG series — dimensions for MGN/MGW",
+          "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf",
+          "publisher": "HIWIN",
+          "accessed": "2026-10-02",
+          "supports": "MGN12H: H 13, W 27, B 20, C 20, M3, L 45.4; rail WR 12"
+        }
+      ],
+      "term": "rail",
+      "notes": "The short MGN12C block has a 20 × 15 mm pattern and is not this key."
+    }
+  ]
+}
