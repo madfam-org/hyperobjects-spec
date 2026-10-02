@@ -35,7 +35,7 @@ opts out); their thresholds are provisional pending full-commons calibration.
 
 from __future__ import annotations
 
-from . import printability, rules, structure
+from . import printability, rules, semantic_rules, structure
 from .conformance import CartridgeResult, check_cartridge, check_manifest
 
 __all__ = [
@@ -44,6 +44,7 @@ __all__ = [
     "check_manifest",
     "printability",
     "rules",
+    "semantic_rules",
     "structure",
     "__version__",
 ]

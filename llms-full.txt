@@ -31,6 +31,9 @@ runbook.
   - `rules.py` — pure manifest rules. Each cites its yantra4d origin (file and
     line) in the module docstring; keeping the citation current is what makes a
     divergence from the platform visible instead of silent.
+  - `semantic_rules.py` — structure of the SEM-1 semantic fields: interface
+    `frame` expressions, vectors and symmetry, `polarity`, `size_key`, and the
+    `requirements` profile. Vocabulary membership is the lexicon's rule.
   - `structure.py` — the on-disk rules (mode sources, escaping includes,
     vendored trees, shipped LICENSE).
   - `default_drift.py` — `default-drift`, NOTE ONLY: manifest `default` vs the

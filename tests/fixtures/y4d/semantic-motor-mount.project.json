@@ -1,0 +1,360 @@
+{
+  "project": {
+    "name": "Semantic Motor Mount",
+    "slug": "semantic-motor-mount",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Test fixture for the SEM-1 semantic fields: a soft motor mount whose bolt-pattern interface carries an expression frame, 4-fold symmetry and a size key chosen by a select parameter, plus a requirement profile with a per-part override.",
+      "es": "Accesorio de prueba para los campos semánticos SEM-1: un soporte blando de motor cuya interfaz de patrón de tornillos lleva un marco con expresiones, simetría de orden 4 y una clave de tamaño elegida por un parámetro select, más un perfil de requisitos con una excepción por pieza.",
+      "fr": "Fixture de test pour les champs sémantiques SEM-1.",
+      "pt": "Fixture de teste para os campos semânticos SEM-1."
+    },
+    "thumbnail": "/projects/semantic-motor-mount.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "drone",
+      "motor-mount",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "soft_mount",
+      "label": {
+        "en": "Soft Mount",
+        "es": "Montura blanda"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "soft_mount"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 2,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "rigid_mount",
+      "label": {
+        "en": "Rigid Mount",
+        "es": "Montura rígida"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "rigid_mount"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 2,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "soft_mount",
+      "label": {
+        "en": "Soft Mount",
+        "es": "Montura blanda"
+      },
+      "render_mode": 0,
+      "color": "#e07a3f"
+    },
+    {
+      "id": "rigid_mount",
+      "label": {
+        "en": "Rigid Mount",
+        "es": "Montura rígida"
+      },
+      "render_mode": 0,
+      "color": "#c85a2a"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "motor_pattern",
+      "type": "select",
+      "default": "16x16",
+      "label": {
+        "en": "Motor bolt pattern",
+        "es": "Patrón de tornillos del motor"
+      },
+      "options": [
+        {
+          "value": "9x9",
+          "label": {
+            "en": "9x9 mm (M2)",
+            "es": "9x9 mm (M2)"
+          }
+        },
+        {
+          "value": "16x16",
+          "label": {
+            "en": "16x16 mm (M3)",
+            "es": "16x16 mm (M3)"
+          }
+        },
+        {
+          "value": "19x19",
+          "label": {
+            "en": "19x19 mm (M3)",
+            "es": "19x19 mm (M3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plate_thick",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.0,
+      "max": 8.0,
+      "step": 0.5,
+      "unit": "mm",
+      "label": {
+        "en": "Plate thickness",
+        "es": "Espesor de placa"
+      }
+    },
+    {
+      "id": "iso_gap",
+      "type": "slider",
+      "default": 2.4,
+      "min": 0.8,
+      "max": 5.0,
+      "step": 0.1,
+      "unit": "mm",
+      "label": {
+        "en": "Isolation gap",
+        "es": "Holgura de aislamiento"
+      }
+    },
+    {
+      "id": "foot_drop",
+      "type": "slider",
+      "default": 14.0,
+      "min": 4.0,
+      "max": 40.0,
+      "step": 1,
+      "unit": "mm",
+      "label": {
+        "en": "Foot drop",
+        "es": "Caída de la pata"
+      }
+    },
+    {
+      "id": "flex_slots",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "count",
+      "label": {
+        "en": "Flex slots",
+        "es": "Ranuras flexibles"
+      }
+    },
+    {
+      "id": "arm_angle",
+      "type": "slider",
+      "default": 0,
+      "min": -45,
+      "max": 45,
+      "step": 1,
+      "unit": "deg",
+      "label": {
+        "en": "Arm angle",
+        "es": "Ángulo del brazo"
+      }
+    },
+    {
+      "id": "infill_ratio",
+      "type": "slider",
+      "default": 0.4,
+      "min": 0.1,
+      "max": 1.0,
+      "step": 0.05,
+      "unit": "ratio",
+      "label": {
+        "en": "Infill ratio",
+        "es": "Proporción de relleno"
+      }
+    },
+    {
+      "id": "shore_margin",
+      "type": "slider",
+      "default": 10,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "percent",
+      "label": {
+        "en": "Shore margin",
+        "es": "Margen de dureza"
+      }
+    },
+    {
+      "id": "target_part",
+      "type": "select",
+      "default": "soft_mount",
+      "label": {
+        "en": "Part",
+        "es": "Pieza"
+      },
+      "options": [
+        {
+          "value": "soft_mount",
+          "label": {
+            "en": "Soft Mount",
+            "es": "Montura blanda"
+          }
+        },
+        {
+          "value": "rigid_mount",
+          "label": {
+            "en": "Rigid Mount",
+            "es": "Montura rígida"
+          }
+        }
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "step"
+  ],
+  "hyperobject": {
+    "domain": "commercial",
+    "cdg_interfaces": [
+      {
+        "id": "motor_bolt_pattern",
+        "label": {
+          "en": "Motor Bolt Pattern",
+          "es": "Patrón de tornillos del motor"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "16x16 / 19x19 / 9x9 brushless motor mount",
+        "parameters": [
+          "motor_pattern",
+          "plate_thick",
+          "iso_gap"
+        ],
+        "frame": {
+          "part": "soft_mount",
+          "origin": [
+            0,
+            0,
+            "plate_thick + iso_gap"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "motor_pattern",
+          "map": {
+            "9x9": "motor-mount-9x9-m2",
+            "16x16": "motor-mount-16x16-m3",
+            "19x19": "motor-mount-19x19-m3"
+          }
+        },
+        "symmetry": 4
+      },
+      {
+        "id": "landing_foot",
+        "label": {
+          "en": "Landing Foot",
+          "es": "Pata de aterrizaje"
+        },
+        "geometry_type": "boss",
+        "standard": "internal",
+        "parameters": [
+          "foot_drop",
+          "plate_thick"
+        ],
+        "frame": {
+          "part": "soft_mount",
+          "origin": [
+            0,
+            0,
+            "-max(foot_drop, 2 * plate_thick)"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Test fixture.",
+      "es": "Accesorio de prueba."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "requirements": {
+    "process": [
+      "fff"
+    ],
+    "materials": {
+      "any_of": [
+        "tpu-95a"
+      ],
+      "none_of": [
+        "pla"
+      ]
+    },
+    "process_parameters": {
+      "wall_loops": {
+        "min": 3
+      },
+      "sparse_infill_density": {
+        "min": 40,
+        "max": 80,
+        "unit": "percent"
+      },
+      "enable_support": {
+        "value": false
+      }
+    },
+    "rationale": {
+      "en": "The soft mount damps vibration only in a flexible TPU with enough walls to survive the bolt preload.",
+      "es": "La montura blanda amortigua la vibración solo en un TPU flexible con suficientes perímetros para resistir la precarga de los tornillos."
+    },
+    "parts": {
+      "rigid_mount": {
+        "materials": {
+          "any_of": [
+            "petg"
+          ]
+        }
+      }
+    }
+  }
+}
