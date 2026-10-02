@@ -18,10 +18,12 @@ These files are copies of the schemas each platform repo publishes:
   * ``garment-manifest``, ``fabric-manifest``, ``body-measurements``
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
-    ``article-frontmatter`` — authored HERE; this package is their home. The lexicon
-    term schema formalizes RFC 0039 §3, the vocabulary schema its G3 controlled
-    vocabularies, and the article schema its G2 elevation of the per-cartridge README;
-    the corpus and the vocabularies they validate ship in ``hyperobjects_lexicon``.
+    ``article-frontmatter``, ``fabrication-vocabulary`` — authored HERE; this package is
+    their home. The lexicon term schema formalizes RFC 0039 §3, the vocabulary schema its
+    G3 controlled vocabularies, the article schema its G2 elevation of the per-cartridge
+    README, and the fabrication-vocabulary schema the SEM-1 §4 reference vocabularies
+    (processes, material classes, process parameters, machine capabilities, interface
+    sizes); the corpus and the vocabularies they validate ship in ``hyperobjects_lexicon``.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -51,6 +53,7 @@ SCHEMAS: dict[str, str] = {
     "lexicon-term": "hyperobjects-spec",
     "commons-vocabulary": "hyperobjects-spec",
     "article-frontmatter": "hyperobjects-spec",
+    "fabrication-vocabulary": "hyperobjects-spec",
 }
 
 
