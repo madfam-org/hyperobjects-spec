@@ -89,6 +89,13 @@ runbook.
   classes, process parameters, machine capabilities, interface sizes) and their
   manifest-membership rule, the article contract, the dictionary tools and the
   reader. See docs/FABRICATION_VOCABULARIES.md.
+- `hyperobjects_aas` — the SEM-1 AAS v3.1 projection (`aas build|build-material|
+  check` on both CLIs). `ids.py` is the permanent id scheme (`id.madfam.io`);
+  `templates.py` holds the IDTA identifiers (copied, with source paths) and the
+  conformance-claim rule; `concepts.py` builds ConceptDescriptions from the
+  lexicon; `solid.py` / `soft.py` / `material.py` are the projections;
+  `check.py` validates. `schemas/aas.json` is VENDORED (CC-BY-4.0, lock +
+  hash test) — never edit it.
 
 ## Durable contracts
 
@@ -133,6 +140,12 @@ non-empty — visible debt, same convention as a parity exemption.
 and keep no copy. Changing a digest algorithm forks every producer, so the golden
 vectors in `tests/test_generator_output.py` change only with a contract version.
 The document carries no physical (material/process/slicer/printer) settings.
+
+**AAS conformance is computed, never asserted.** A submodel carries an IDTA
+template semanticId only when every element that template marks mandatory is
+present (matched by semanticId); otherwise the MADFAM template id, with the IDTA
+id as a supplemental pointer. `aas check` fails an over-claim. A BaSyx
+round-trip that did not run is reported as `basyx=not installed`, not as a pass.
 
 **A skip is never a pass.** `renders=` counts meshes actually judged and
 `skipped=` counts the rest; `--require-openscad` turns a missing binary from a

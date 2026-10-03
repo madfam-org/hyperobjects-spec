@@ -4,6 +4,8 @@
                    [--openscad-path DIR] [--require-openscad] [--openscad-timeout S] [-v]
     y4d-spec identity <pair.json> [<pair.json> ...]
     y4d-spec bundle check <variables.json|dir> [...]
+    y4d-spec aas build <cartridge-dir> [...] [--commons solid] [--out F | --out-dir D]
+    y4d-spec aas build-material <material.json> [...] · aas check <env.json> [...]
     y4d-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     y4d-spec vocab [--status] [-v]
     y4d-spec article <path> [...] [--catalog bundled]
@@ -25,6 +27,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from hyperobjects_aas.cli import add_aas_parser
 from hyperobjects_lexicon.cli import (
     add_article_parser,
     add_dictionary_parsers,
@@ -531,6 +534,7 @@ def main(argv: list[str] | None = None) -> int:
     add_article_parser(sub, "y4d-spec")
     add_dictionary_parsers(sub, "y4d-spec")
     add_reader_parser(sub, "y4d-spec")
+    add_aas_parser(sub, "y4d-spec", "solid")
 
     p_env = sub.add_parser(
         "render-env",

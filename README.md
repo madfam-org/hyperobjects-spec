@@ -1036,6 +1036,74 @@ check_generator_output(doc, base_dir="./renders").findings
 `tests/fixtures/generator-output/thimble/` is a document that passes clean; the golden
 vectors producers cross-check against are pinned in `tests/test_generator_output.py`.
 
+## AAS projection (SEM-1) — `aas build` / `aas check`
+
+A cartridge is a *type*: one design that many printed or sewn instances come from. The
+Asset Administration Shell (AAS, IDTA-01001) is the industrial standard for describing
+such an asset to machines. `hyperobjects_aas` projects every cartridge and every
+material card to **one AAS v3.1 Environment** in the normative JSON serialization
+(metamodel v3.1.2): a type shell, its submodels, and a ConceptDescription for every MADFAM
+semanticId it uses. It needs only `jsonschema` at runtime, and canonical JSON (GOC-1 §3.1)
+means the same input gives byte-identical output.
+
+```bash
+y4d-spec aas build ./solid-hyperobjects/tslot-corner --commons solid --out tslot-corner.aas.json
+fc-spec  aas build ./soft-hyperobjects/a-line-skirt --out a-line-skirt.aas.json
+y4d-spec aas build-material ./materials/bambu-tpu-95a/material.json --out tpu.aas.json
+y4d-spec aas check *.aas.json            # schema + MADFAM rules (+ BaSyx when installed)
+
+# the independent BaSyx round-trip, dev/verification only:
+pip install "hyperobjects-spec[aas-verify] @ git+https://github.com/madfam-org/hyperobjects-spec@main"
+```
+
+`build` checks every environment before it writes it and prints the conformance decision
+of every submodel; several inputs need `--out-dir`. Exit codes are 0 for clean, 1 for a
+check error, and 2 for a usage or read error.
+
+**Identifiers** (SEM-1 §1, permanent). The asset is `https://id.madfam.io/asset/{solid|soft}/{slug}`.
+The shell is `…/aas/{kind}/{slug}/{tree16}`, where `tree16` is the first 16 hex of the GOC-1
+`tree_sha256`; there is one immutable shell per design revision. A submodel is
+`…/sm/{kind}/{slug}/{tree16}/{SubmodelIdShort}`. A concept is `…/concept/{lexicon-term}`.
+A MADFAM template is `…/smt/{name}/1/0`. A material card's shell uses `content16`, taken
+from the card's canonical JSON. The metamodel limits `administration.version` to an
+integer of at most 4 characters, so `1.2.3` becomes version `1`, revision `2`, and the full
+semver goes in `Nameplate/ManifestVersion`. A manifest id that is not a valid idShort is
+mapped deterministically, for example `h` becomes `h_` and `3d` becomes `x3d`, and the
+exact id is kept beside it.
+
+| Submodel | semanticId it carries | Why |
+|---|---|---|
+| Nameplate | MADFAM `nameplate/1/0`, with IDTA 02006-3-0 as supplemental | The IDTA template requires `AddressInformation` and `OrderCodeOfManufacturer`, which a commons design does not have. |
+| ParametricModel | MADFAM `parametric-model/1/0` | No IDTA template applies. |
+| GeometryProvision | MADFAM, with IDTA 02026 (3D models) as supplemental | Geometry is produced on demand, so there is no file to fill the mandatory `Model3D` list. |
+| RequirementProfile | MADFAM, with IDTA 02031-1 (process parameters) as supplemental | The mandatory `Processes` structure is not the shape of a requirement profile. |
+| MatingInterfaces / SeamInterfaces / PatternProvision / Fabrics / HardwareLinks | MADFAM | No IDTA template exists for physical mating. |
+| BillOfMaterials | **IDTA 02011-1-1 HSEBoM** | `EntryNode`, at least one `Node` and `ArcheType` are present. |
+| MaterialData | **IDTA 02034-1-0 materials** | `MaterialSystemProperties` is present. |
+
+The rule is computed, not asserted (`hyperobjects_aas.templates`). A submodel claims an
+IDTA semanticId only when every element the template marks mandatory is present, matched
+by semanticId. `aas check` re-derives the same decision and fails an over-claim. Every
+IDTA identifier was copied from the published template JSON, and its source path and
+commit are recorded beside it.
+
+**Validation.** `aas check` runs three layers:
+
+1. The vendored `aas.json`, evaluated through a `modelType` dispatch of its `oneOf`
+   unions. This is equivalent to the published schema and is tested against it.
+2. The MADFAM rules: the id scheme, AASd-117/120/022 idShorts, the conformance claim, and
+   concept coverage.
+3. The BaSyx Python SDK 2.2.0 strict round-trip, when the `aas-verify` extra is installed.
+   Without it the summary says `basyx=not installed`, never that the round-trip passed.
+
+`scripts/qa/aas_fleet_gate.py --solid DIR --soft DIR --material FILES…` builds every input
+twice. It compares the bytes, checks every environment and prints the totals.
+
+The new manifest fields from SEM-1 §2–§3 are read defensively. These are `unit`, the
+interface `frame` / `polarity` / `size_key` / `symmetry`, and `requirements`. Each one is
+emitted when present and omitted cleanly when absent. Frame components that are
+expressions over parameter ids are kept as strings and never evaluated.
+
 ---
 
 ## The Commons Lexicon
@@ -1456,6 +1524,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
+| `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges and material cards → AAS Environments, the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
 
 ```python
 import hyperobjects_schemas as hs
@@ -1563,7 +1632,9 @@ visible instead of silent.
 
 ## License
 
-Apache-2.0. The commons tooling is permissive so anyone can adopt it. The platform
+Apache-2.0. The commons tooling is permissive so anyone can adopt it. One third-party
+file is vendored under its own licence: `src/hyperobjects_aas/schemas/aas.json`, the
+IDTA AAS v3.1.2 JSON Schema, CC-BY-4.0, with its attribution and licence text beside it. The platform
 repos carry their own license (source-available per RFC 0038 P1); the commons objects
 carry theirs (CERN-OHL-W-2.0 for solids; the FC1 ruling for soft goods).
 

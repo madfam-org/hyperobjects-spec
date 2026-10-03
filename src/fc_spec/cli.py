@@ -3,6 +3,8 @@
     fc-spec list
     fc-spec check <contract> <file> [<file> ...] [--resolve catalog.json]
     fc-spec check generator-output <variables.json|dir> [...]
+    fc-spec aas build <cartridge-dir> [...] [--commons soft] [--out F | --out-dir D]
+    fc-spec aas build-material <material.json> [...] · aas check <env.json> [...]
     fc-spec identity <pair.json> [<pair.json> ...]
     fc-spec lexicon [--catalog CATALOG] [--terms DIR] [--status] [-v]
     fc-spec vocab [--status] [-v]
@@ -34,6 +36,7 @@ import json
 import sys
 from pathlib import Path
 
+from hyperobjects_aas.cli import add_aas_parser
 from hyperobjects_lexicon.cli import (
     add_article_parser,
     add_dictionary_parsers,
@@ -103,13 +106,14 @@ def main(argv: list[str] | None = None) -> int:
     add_article_parser(sub, "fc-spec")
     add_dictionary_parsers(sub, "fc-spec")
     add_reader_parser(sub, "fc-spec")
+    add_aas_parser(sub, "fc-spec", "soft")
 
     args = parser.parse_args(argv)
 
     if args.cmd == "lexicon":
         return run_lexicon(args, "fc-spec")
 
-    if args.cmd in ("vocab", "article", "reader", "define", "lookup", "related"):
+    if args.cmd in ("vocab", "article", "reader", "define", "lookup", "related", "aas"):
         return args.func(args)
 
     if args.cmd == "list":
