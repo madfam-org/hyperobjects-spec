@@ -7,6 +7,10 @@ A manifest can now say how it must be made (`requirements`) and how its interfac
 (`size_key`). The **keys** those fields write live in five reference vocabularies, shipped
 in `src/hyperobjects_lexicon/vocabularies/fabrication/` and validated by
 `src/hyperobjects_schemas/schemas/fabrication-vocabulary.schema.json`.
+A vocabulary may also ship a **supplement**, `{vocabulary}.{label}.json`: a whole document
+of the same vocabulary whose entries the loader appends (a supplement declaring another
+vocabulary is an error). `interface-sizes.standard-parts.json` holds the eight size keys the
+standard-parts catalog needs ([STANDARD_PARTS.md](STANDARD_PARTS.md)).
 
 | Vocabulary | What a key names | Where a manifest writes it |
 |---|---|---|

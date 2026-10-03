@@ -1373,9 +1373,11 @@ both platforms.
 The commons vocabularies are readings of keys the two commons already write. The
 fabrication vocabularies are the other kind: **reference lists** for the keys a manifest's
 fabrication fields write — what a part is made by, what of, under which slicer bounds,
-on which machine, and which standard part two interfaces mate through. Five documents
-ship in `src/hyperobjects_lexicon/vocabularies/fabrication/`, validated by their own
-schema (`fabrication-vocabulary.schema.json`) and checked by the same `vocab` command:
+on which machine, and which standard part two interfaces mate through. Five vocabularies
+ship in `src/hyperobjects_lexicon/vocabularies/fabrication/` (one file each, plus a
+`{vocabulary}.{label}.json` supplement the loader merges in — the standard-parts catalog's
+interface sizes are one), validated by their own schema
+(`fabrication-vocabulary.schema.json`) and checked by the same `vocab` command:
 
 <!-- counts:fabrication-status:start -->
 ```
@@ -1403,6 +1405,31 @@ of a `{param, map}` size key), `requirements.process`, `requirements.materials.a
 `none_of`, and the keys of `requirements.process_parameters`, at the top level and under
 `requirements.parts.<id>`. A manifest without those fields passes silently — on
 2026-10-02 that is all 502 solid and 516 soft manifests, checked.
+
+### The standard-parts catalog (ASM-1 §4)
+
+An assembly references a commercial off-the-shelf part with
+`{"source": {"type": "standard", "key": "<key>"}}`. The keys live in
+`src/hyperobjects_standard_parts/parts/`, one JSON file per part, validated by
+`standard-part.schema.json`: the governing standard or datasheet with citation URLs,
+cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
+in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
+`size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
+Fourteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad); the frame, motor, camera, prop, stack and antenna entries are commercial
+**classes**, stated by shared facts, never a copy of one vendor's design.
+
+```python
+from hyperobjects_standard_parts import load_part, resolve_parameters, interface_frames
+frames = interface_frames(load_part("extrusion-2020"),
+                          resolve_parameters(load_part("extrusion-2020"), {"length_mm": 350}))
+```
+
+The lane — schema, citations, membership of every `size_key`, frames evaluating at the
+defaults and at every parameter bound, exact unit and orthogonal axes — is the third
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=14 interfaces=37 failures=0`).
+[`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
+convention and how to add a part.
 
 ### Article frontmatter
 
@@ -1525,6 +1552,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 | `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges and material cards → AAS Environments, the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
+| `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
 
 ```python
 import hyperobjects_schemas as hs
@@ -1532,7 +1560,7 @@ hs.list_schemas()               # ['article-frontmatter', 'body-measurements',
                                 #  'commons-vocabulary', 'cross-commons-identity',
                                 #  'fabric-manifest', 'fabrication-vocabulary',
                                 #  'garment-manifest', 'generator-output', 'lexicon-term',
-                                #  'project-manifest']
+                                #  'project-manifest', 'standard-part']
 hs.load("project-manifest")
 ```
 
