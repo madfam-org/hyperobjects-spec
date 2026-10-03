@@ -1,0 +1,51 @@
+{
+  "project": {
+    "name": "NEMA 17 bracket (assembly test fixture)",
+    "slug": "nema-bracket",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Assembly-validator fixture: a flat plate and an angle plate, each carrying a NEMA 17 face interface with an expression frame.",
+      "es": "Accesorio del validador de ensambles: una placa plana y una placa en escuadra, cada una con una interfaz de cara NEMA 17 con marco por expresiones."
+    }
+  },
+  "modes": [
+    {"id": "flat", "label": {"en": "Flat plate", "es": "Placa plana"}, "cq_file": "main.py", "parts": ["plate"]},
+    {"id": "angle", "label": {"en": "Angle plate", "es": "Placa en escuadra"}, "cq_file": "main.py", "parts": ["angle_plate"]}
+  ],
+  "parts": [
+    {"id": "plate", "label": {"en": "Plate", "es": "Placa"}},
+    {"id": "angle_plate", "label": {"en": "Angle plate", "es": "Placa en escuadra"}}
+  ],
+  "parameters": [
+    {"id": "plate_thick", "type": "slider", "default": 5, "min": 3, "max": 8, "step": 0.5, "unit": "mm",
+     "label": {"en": "Plate thickness", "es": "Espesor de placa"}},
+    {"id": "wall_height", "type": "slider", "default": 30, "min": 20, "max": 60, "step": 1, "unit": "mm",
+     "label": {"en": "Wall height", "es": "Altura de pared"}},
+    {"id": "slotted", "type": "checkbox", "default": false, "label": {"en": "Slotted holes", "es": "Agujeros ranurados"}},
+    {"id": "target_part", "type": "select", "default": "plate",
+     "options": [{"value": "plate", "label": {"en": "Plate"}}, {"value": "angle_plate", "label": {"en": "Angle plate"}}],
+     "label": {"en": "Part", "es": "Pieza"}}
+  ],
+  "hyperobject": {
+    "is_hyperobject": true,
+    "cdg_interfaces": [
+      {
+        "id": "motor_face", "label": {"en": "Motor face", "es": "Cara del motor"},
+        "geometry_type": "bolt_pattern", "standard": "NEMA 17 (31 mm M3 square)", "parameters": ["plate_thick"],
+        "frame": {"part": "plate", "origin": [0, 0, "plate_thick"], "normal": [0, 0, 1], "x_axis": [1, 0, 0]},
+        "polarity": "male", "size_key": "nema-17-face", "symmetry": 4
+      },
+      {
+        "id": "wall_face", "label": {"en": "Wall motor face", "es": "Cara de motor en pared"},
+        "geometry_type": "bolt_pattern", "standard": "NEMA 17 (31 mm M3 square)", "parameters": ["plate_thick", "wall_height"],
+        "frame": {"part": "angle_plate", "origin": ["plate_thick", 0, "wall_height"], "normal": [1, 0, 0], "x_axis": [0, 1, 0]},
+        "polarity": "male", "size_key": "nema-17-face", "symmetry": 4
+      },
+      {
+        "id": "mount_slot", "label": {"en": "Mounting slot", "es": "Ranura de montaje"},
+        "geometry_type": "profile", "standard": "internal", "parameters": ["plate_thick"]
+      }
+    ]
+  }
+}
