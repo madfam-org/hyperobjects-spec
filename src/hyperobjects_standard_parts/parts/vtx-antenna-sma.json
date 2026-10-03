@@ -1,0 +1,102 @@
+{
+  "spec_version": 1,
+  "key": "vtx-antenna-sma",
+  "category": "antenna",
+  "name": {
+    "en": "FPV video antenna, SMA",
+    "es": "Antena de video FPV, SMA",
+    "fr": "Antenne vidéo FPV, SMA",
+    "pt": "Antena de vídeo FPV, SMA"
+  },
+  "description": {
+    "en": "The 5.8 GHz FPV video-transmitter antenna class with an SMA plug: its coupling nut threads onto the SMA jack of the transmitter or of a bulkhead pigtail held by an antenna mount.",
+    "es": "La clase de antena de transmisor de video FPV de 5.8 GHz con conector SMA macho: su tuerca de acoplamiento se enrosca en el conector SMA del transmisor o de un cable con pasamuros sujeto por un soporte de antena.",
+    "fr": "La classe d'antenne d'émetteur vidéo FPV 5,8 GHz à fiche SMA : son écrou d'accouplement se visse sur l'embase SMA de l'émetteur ou d'une rallonge de traversée tenue par un support d'antenne.",
+    "pt": "A classe de antena de transmissor de vídeo FPV de 5,8 GHz com ficha SMA: a porca de acoplamento enrosca no conector SMA do transmissor ou de um cabo de passagem preso por um suporte de antena."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "5.8 GHz FPV video antenna, SMA plug (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Amphenol RF Europe catalogue — SMA specification sheets (p. 24)",
+      "url": "https://www.farnell.com/datasheets/2803213.pdf",
+      "publisher": "Amphenol RF",
+      "accessed": "2026-10-02",
+      "supports": "SMA jack coupling thread .250-36UNS-2A; plug coupling nut .250-36UNS-2B"
+    },
+    {
+      "title": "Foxeer Lollipop 4 SMA antenna 5.8 GHz RHCP",
+      "url": "https://www.drone-fpv-racer.com/en/foxeer-lollipop-4-sma-antenna-58ghz-rhcp-x2-10140.html",
+      "publisher": "Drone-FPV-Racer",
+      "accessed": "2026-10-02",
+      "supports": "SMA connector; 11 × 60 mm; 7.8 g; 5.5–6.0 GHz; RHCP"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the coupling nut's mating face, on the connector axis. +z runs along the antenna away from the connector; +x is an arbitrary radial reference.",
+  "dimensions": {
+    "coupling_thread": {
+      "value": ".250-36UNS-2B",
+      "unit": "thread",
+      "source": 0
+    },
+    "body_diameter": {
+      "value": 11,
+      "unit": "mm",
+      "source": 1,
+      "note": "Lollipop 4; the listing writes '11 × 60 mm'"
+    },
+    "length": {
+      "value": 60,
+      "unit": "mm",
+      "source": 1,
+      "note": "Lollipop 4"
+    },
+    "mass": {
+      "value": 7.8,
+      "unit": "g",
+      "source": 1,
+      "note": "Lollipop 4"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "connector",
+      "label": {
+        "en": "SMA connector",
+        "es": "Conector SMA",
+        "fr": "Connecteur SMA",
+        "pt": "Conector SMA"
+      },
+      "geometry_type": "thread",
+      "size_key": "sma-bulkhead",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Polarity is mechanical: the coupling nut's internal thread receives the jack's external .250-36 thread, so the antenna side is female although RF naming calls an SMA plug 'male'. RP-SMA shares the thread and is not distinguished by this key."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: the SMA coupling thread is the shared fact; size and mass are those of the cited Foxeer antenna."
+}
