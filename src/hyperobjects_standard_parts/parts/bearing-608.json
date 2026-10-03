@@ -1,0 +1,118 @@
+{
+  "spec_version": 1,
+  "key": "bearing-608",
+  "category": "bearing",
+  "name": {
+    "en": "608 ball bearing",
+    "es": "Rodamiento 608",
+    "fr": "Roulement 608",
+    "pt": "Rolamento 608"
+  },
+  "description": {
+    "en": "A single-row deep-groove ball bearing, 8 mm bore × 22 mm outside diameter × 7 mm wide. Its outer ring seats in a housing bore; an 8 mm shaft or an M8 bolt passes through its inner ring.",
+    "es": "Un rodamiento rígido de bolas de una hilera, de 8 mm de barreno × 22 mm de diámetro exterior × 7 mm de ancho. Su anillo exterior asienta en un alojamiento; por su anillo interior pasa una flecha de 8 mm o un tornillo M8.",
+    "fr": "Un roulement rigide à une rangée de billes, alésage 8 mm × diamètre extérieur 22 mm × largeur 7 mm. Sa bague extérieure se loge dans un alésage de logement ; un arbre de 8 mm ou une vis M8 traverse sa bague intérieure.",
+    "pt": "Um rolamento rígido de uma carreira de esferas, furo de 8 mm × diâmetro exterior de 22 mm × 7 mm de largura. O anel exterior assenta num alojamento; um eixo de 8 mm ou um parafuso M8 passa pelo anel interior."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "608 deep-groove ball bearing (boundary dimensions 8 × 22 × 7 mm)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "SKF 608 deep groove ball bearing (distributor listing)",
+      "url": "https://www.123bearing.com/bearing-housing/deep-groove-bearing/single-row/608-skf",
+      "publisher": "123Bearing",
+      "accessed": "2026-10-02",
+      "supports": "608: 8 × 22 × 7 mm"
+    }
+  ],
+  "frame_convention": "Origin at the centre of side face A, on the bearing axis. +z runs along the axis through the bearing to side face B at z = 7. +x is an arbitrary radial reference: the bearing is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "bore": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0
+    },
+    "outside_diameter": {
+      "value": 22,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 7,
+      "unit": "mm",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "outer_race",
+      "label": {
+        "en": "Outer ring",
+        "es": "Anillo exterior",
+        "fr": "Bague extérieure",
+        "pt": "Anel exterior"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-608",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the bearing goes into its housing bore. Face A seats against the bottom of that bore."
+    },
+    {
+      "id": "bore",
+      "label": {
+        "en": "Inner-ring bore",
+        "es": "Barreno del anillo interior",
+        "fr": "Alésage de la bague intérieure",
+        "pt": "Furo do anel interior"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-608-bore",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          7
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bore receives the axle. The axle's shoulder or spacer bears on face B."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The catalog key equals the interface-sizes key bearing-608, which describes the same part's outer fit."
+}

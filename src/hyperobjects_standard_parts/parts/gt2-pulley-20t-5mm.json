@@ -1,0 +1,124 @@
+{
+  "spec_version": 1,
+  "key": "gt2-pulley-20t-5mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 pulley, 20 teeth, 5 mm bore",
+    "es": "Polea GT2 de 20 dientes, barreno de 5 mm",
+    "fr": "Poulie GT2 20 dents, alésage de 5 mm",
+    "pt": "Polia GT2 de 20 dentes, furo de 5 mm"
+  },
+  "description": {
+    "en": "A 2 mm-pitch GT2 timing pulley with 20 teeth for a 6 mm belt, a 5 mm bore and set screws. It mates a Ø5 mm motor shaft by its bore.",
+    "es": "Una polea dentada GT2 de 2 mm de paso con 20 dientes para banda de 6 mm, barreno de 5 mm y opresores. Se une por su barreno a una flecha de motor de Ø5 mm.",
+    "fr": "Une poulie crantée GT2 au pas de 2 mm à 20 dents pour courroie de 6 mm, alésage de 5 mm et vis de pression. Elle s'accouple par son alésage à un arbre moteur de Ø5 mm.",
+    "pt": "Uma polia dentada GT2 de passo 2 mm com 20 dentes para correia de 6 mm, furo de 5 mm e parafusos de fixação. Acopla pelo furo a um eixo de motor de Ø5 mm."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "GT2 20-tooth pulley, 5 mm bore, 6 mm belt (Adafruit 1251)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Adafruit product 1251 — aluminum GT2 timing pulley, 6 mm belt, 20 tooth, 5 mm bore",
+      "url": "https://www.adafruit.com/product/1251",
+      "publisher": "Adafruit Industries",
+      "accessed": "2026-10-02",
+      "supports": "length 16 mm, outer (flange) diameter 16 mm, geared section 12.2 mm, 5 mm bore, 6 mm belt, 20 teeth, 2 set screws, 6 g"
+    },
+    {
+      "title": "ServoCity 2 mm pitch GT2 pinion timing pulley (5 mm bore, 20 tooth)",
+      "url": "https://www.servocity.com/2mm-pitch-gt2-pinion-timing-pulley-5mm-bore-20-tooth/",
+      "publisher": "ServoCity",
+      "accessed": "2026-10-02",
+      "supports": "2 mm GT2 pitch, 20 teeth, 5 mm bore, 6 mm belt"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A (the end that faces the motor when mounted), on the bore axis. +z runs along the bore away from the motor, to end face B at z = 16. +x is an arbitrary radial reference.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 20,
+      "unit": "count",
+      "source": 1
+    },
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 1
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0
+    },
+    "overall_length": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "flange_diameter": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "toothed_diameter": {
+      "value": 12.2,
+      "unit": "mm",
+      "source": 0
+    },
+    "set_screws": {
+      "value": 2,
+      "unit": "count",
+      "source": 0
+    },
+    "mass": {
+      "value": 6,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore",
+        "es": "Barreno",
+        "fr": "Alésage",
+        "pt": "Furo"
+      },
+      "geometry_type": "socket",
+      "size_key": "nema-17-shaft-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "The bore carries the size key of the shaft it fits (equal size keys are the mating rule): this 5 mm bore fits the NEMA 17 Ø5 shaft. Female: it receives the shaft."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The belt engagement is not an interface in v1: the belt is not a catalog part, and neither cited source states where the toothed section sits along the pulley. The catalog key equals the interface-sizes key gt2-pulley-20t-5mm, which describes the pulley as a whole."
+}
