@@ -1,0 +1,28 @@
+{
+  "spec_version": 2,
+  "id": "assembly",
+  "domain": "manifest",
+  "term": {
+    "en": "assembly",
+    "es": "ensamble",
+    "fr": "assemblage",
+    "pt": "montagem"
+  },
+  "definition": {
+    "en": "An authored document that groups parts into one composite object: its components (commons cartridges at given parameters, standard parts, or external designs referenced by name, licence and URL) and the mates that join them. It is final when the keystone's assembly check passes: every mate holds and every component is placed from the root.",
+    "es": "Un documento redactado que agrupa piezas en un objeto compuesto: sus componentes (cartuchos del commons con parámetros dados, piezas estándar, o diseños externos referidos por nombre, licencia y URL) y los acoplamientos que los unen. Queda finalizado cuando pasa la verificación de ensambles del keystone: todo acoplamiento se cumple y todo componente queda colocado a partir de la raíz.",
+    "fr": "Un document rédigé qui regroupe des pièces en un objet composite : ses composants (cartouches du commons à des paramètres donnés, pièces standard, ou conceptions externes référencées par nom, licence et URL) et les accouplements qui les relient. Il est finalisé quand la vérification d'assemblage du keystone passe : chaque accouplement tient et chaque composant est placé à partir de la racine.",
+    "pt": "Um documento redigido que agrupa peças num objeto composto: os seus componentes (cartuchos do commons com parâmetros dados, peças padrão, ou desenhos externos referidos por nome, licença e URL) e os acoplamentos que os unem. Fica finalizado quando a verificação de montagem do keystone passa: todos os acoplamentos se verificam e todos os componentes são posicionados a partir da raiz."
+  },
+  "see_also": [
+    "mate",
+    "assembly-placement",
+    "standard-part",
+    "external-design-reference"
+  ],
+  "constraints": "One component entry is one physical instance (four motors are four entries), so a bill of materials is counted from the document, never declared beside it.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

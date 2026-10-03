@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "assembly-placement",
+  "domain": "geometry",
+  "term": {
+    "en": "assembly placement",
+    "es": "colocación en el ensamble",
+    "fr": "placement dans l'assemblage",
+    "pt": "posicionamento na montagem"
+  },
+  "definition": {
+    "en": "The world transform of each component of an assembly, a 4 × 4 matrix from the component's model frame to the assembly's. The root is the identity; every other component is placed by walking the mates outward from the root, aligning each mated frame with its partner's, flipped.",
+    "es": "La transformación global de cada componente de un ensamble, una matriz de 4 × 4 del marco de modelo del componente al del ensamble. La raíz es la identidad; los demás componentes se colocan recorriendo los acoplamientos desde la raíz, alineando cada marco acoplado con el de su pareja, invertido.",
+    "fr": "La transformation globale de chaque composant d'un assemblage, une matrice 4 × 4 du repère de modèle du composant vers celui de l'assemblage. La racine est l'identité ; les autres composants sont placés en parcourant les accouplements depuis la racine, chaque repère accouplé étant aligné, retourné, sur celui de son partenaire.",
+    "pt": "A transformação global de cada componente de uma montagem, uma matriz 4 × 4 do referencial de modelo do componente para o da montagem. A raiz é a identidade; os restantes componentes são posicionados percorrendo os acoplamentos a partir da raiz, alinhando cada referencial acoplado, invertido, com o do parceiro."
+  },
+  "see_also": [
+    "assembly",
+    "mate",
+    "interface-frame"
+  ],
+  "constraints": "A component that no mate reaches from the root has no placement; the check fails it rather than leaving it at the origin.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

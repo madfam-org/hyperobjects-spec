@@ -46,7 +46,7 @@ about a specific pair of commits and not about "the commons today". They are emi
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 147 | 147 / 147 / 147 / 147 |
+| terms | 157 | 157 / 157 / 157 / 157 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -63,8 +63,8 @@ about a specific pair of commits and not about "the commons today". They are emi
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1189 differences=0
-reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1199 differences=0
+reader_status: pages=1199 terms=157 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
