@@ -1139,8 +1139,8 @@ fc-spec related tape-edge
 <!-- counts:lexicon-status:start -->
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=147 failures=0 embodied_by=resolved
-lexicon_status: 147/147 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=117 unmarked=30
+y4d-spec lexicon: terms=157 failures=0 embodied_by=resolved
+lexicon_status: 157/157 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=127 unmarked=30
 ```
 <!-- counts:lexicon-status:end -->
 
@@ -1381,12 +1381,12 @@ schema (`fabrication-vocabulary.schema.json`) and checked by the same `vocab` co
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=78 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=86 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=19 cited=19 dimensions=59 provisional=1 review: signed=0 draft=19
+fabrication_status[interface-sizes]: entries=27 cited=27 dimensions=91 provisional=2 review: signed=0 draft=27
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1447,7 +1447,7 @@ fc-spec reader --status        # just the reader_status line
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 147 | 147 / 147 / 147 / 147 |
+| terms | 157 | 157 / 157 / 157 / 157 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -1464,8 +1464,8 @@ fc-spec reader --status        # just the reader_status line
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1189 differences=0
-reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1199 differences=0
+reader_status: pages=1199 terms=157 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 

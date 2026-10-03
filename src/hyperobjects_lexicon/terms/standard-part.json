@@ -1,0 +1,28 @@
+{
+  "spec_version": 2,
+  "id": "standard-part",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "standard part",
+    "es": "pieza estándar",
+    "fr": "pièce standard",
+    "pt": "peça padrão"
+  },
+  "definition": {
+    "en": "A commercial off-the-shelf part in the keystone's catalog — a stepper motor, an extrusion, a bearing, a propeller — described by facts only: its governing standard or datasheet with citations, its dimensions, optional parameters such as a cut length, and its mating interfaces. Assemblies reference it by key; no CAD of it is stored.",
+    "es": "Una pieza comercial del catálogo del keystone (un motor a pasos, un perfil, un rodamiento, una hélice) descrita solo con hechos: su norma o ficha técnica con citas, sus dimensiones, parámetros opcionales como una longitud de corte, y sus interfaces de acoplamiento. Los ensambles la refieren por su clave; no se guarda CAD de ella.",
+    "fr": "Une pièce du commerce du catalogue du keystone — un moteur pas à pas, un profilé, un roulement, une hélice — décrite par des faits seulement : sa norme ou sa fiche technique avec citations, ses dimensions, des paramètres facultatifs comme une longueur de coupe, et ses interfaces d'accouplement. Les assemblages la référencent par sa clé ; aucune CAO n'en est stockée.",
+    "pt": "Uma peça comercial do catálogo do keystone — um motor de passo, um perfil, um rolamento, uma hélice — descrita apenas por factos: a sua norma ou ficha técnica com citações, as suas dimensões, parâmetros opcionais como um comprimento de corte, e as suas interfaces de acoplamento. As montagens referem-na pela chave; não se guarda CAD dela."
+  },
+  "see_also": [
+    "assembly",
+    "standard-ref",
+    "hardware-ref",
+    "interface-size-key"
+  ],
+  "constraints": "A class entry (a 5-inch X frame) states only the facts its members share and copies no one vendor's design; anything a member varies is a parameter, not a fact.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

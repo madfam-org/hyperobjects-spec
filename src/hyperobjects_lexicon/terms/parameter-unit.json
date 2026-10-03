@@ -1,0 +1,25 @@
+{
+  "spec_version": 2,
+  "id": "parameter-unit",
+  "domain": "manifest",
+  "term": {
+    "en": "parameter unit",
+    "es": "unidad de parámetro",
+    "fr": "unité de paramètre",
+    "pt": "unidade de parâmetro"
+  },
+  "definition": {
+    "en": "The unit a parameter's value is written in: mm for lengths, deg for angles, count for a whole number of things, ratio for a dimensionless factor, percent for 0–100. Optional on a manifest parameter; when absent, the label is the only statement of the unit.",
+    "es": "La unidad en que se escribe el valor de un parámetro: mm para longitudes, deg para ángulos, count para un número entero de cosas, ratio para un factor adimensional, percent para 0–100. Es opcional en un parámetro de manifiesto; si falta, la etiqueta es la única declaración de la unidad.",
+    "fr": "L'unité dans laquelle s'écrit la valeur d'un paramètre : mm pour les longueurs, deg pour les angles, count pour un nombre entier de choses, ratio pour un facteur sans dimension, percent pour 0–100. Facultative sur un paramètre de manifeste ; absente, l'étiquette est la seule indication de l'unité.",
+    "pt": "A unidade em que se escreve o valor de um parâmetro: mm para comprimentos, deg para ângulos, count para um número inteiro de coisas, ratio para um fator adimensional, percent para 0–100. É opcional num parâmetro de manifesto; se faltar, a etiqueta é a única indicação da unidade."
+  },
+  "see_also": [
+    "parameter"
+  ],
+  "constraints": "A unit states what the number means, it does not convert it: a slider labelled in inches with unit mm is a contradiction, and the unit wins.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

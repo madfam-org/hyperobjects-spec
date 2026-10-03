@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "interface-frame",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "interface frame",
+    "es": "marco de interfaz",
+    "fr": "repère d'interface",
+    "pt": "referencial de interface"
+  },
+  "definition": {
+    "en": "Where an interface sits on its part: an origin, a unit normal pointing from the feature toward where the mating partner sits, and an in-plane x-axis orthogonal to the normal, in the part's model coordinates (mm). Components may be expressions over the part's parameters, so the frame follows them.",
+    "es": "Dónde se ubica una interfaz en su pieza: un origen, una normal unitaria que apunta desde el elemento hacia donde queda la pieza con que acopla, y un eje x en el plano, ortogonal a la normal, en las coordenadas de modelo de la pieza (mm). Sus componentes pueden ser expresiones sobre los parámetros de la pieza, de modo que el marco los sigue.",
+    "fr": "L'endroit où se trouve une interface sur sa pièce : une origine, une normale unitaire orientée de l'élément vers l'endroit où se trouve la pièce partenaire, et un axe x dans le plan, orthogonal à la normale, dans les coordonnées de modèle de la pièce (mm). Les composantes peuvent être des expressions sur les paramètres de la pièce, de sorte que le repère les suit.",
+    "pt": "Onde uma interface se situa na sua peça: uma origem, uma normal unitária que aponta do elemento para onde fica a peça parceira, e um eixo x no plano, ortogonal à normal, nas coordenadas de modelo da peça (mm). As componentes podem ser expressões sobre os parâmetros da peça, de modo que o referencial os acompanha."
+  },
+  "see_also": [
+    "cdg-interface",
+    "interface-symmetry",
+    "assembly-placement"
+  ],
+  "constraints": "A frame is not trusted until the render-time frame gate has found a planar mating face at it; static checks prove only that it parses and evaluates.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}
