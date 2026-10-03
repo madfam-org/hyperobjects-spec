@@ -1,0 +1,172 @@
+{
+  "spec_version": 1,
+  "key": "motor-2207",
+  "category": "brushless-motor",
+  "name": {
+    "en": "2207 brushless motor",
+    "es": "Motor sin escobillas 2207",
+    "fr": "Moteur sans balais 2207",
+    "pt": "Motor sem escovas 2207"
+  },
+  "description": {
+    "en": "The 22 mm × 7 mm stator outrunner class used on 5-inch multirotors: an M3 16 × 16 mm base pattern and an M5-threaded prop shaft. It mates an arm or a soft-mount pod by its base and a propeller by its shaft.",
+    "es": "La clase de motor de rotor externo con estator de 22 mm × 7 mm que usan los multirrotores de 5 pulgadas: patrón de base M3 de 16 × 16 mm y flecha de hélice roscada M5. Se une a un brazo o a una base amortiguada por su base y a una hélice por su flecha.",
+    "fr": "La classe de moteur à rotor extérieur à stator de 22 mm × 7 mm des multirotors de 5 pouces : motif de base M3 de 16 × 16 mm et arbre d'hélice fileté M5. Il s'accouple à un bras ou à un support amorti par sa base et à une hélice par son arbre.",
+    "pt": "A classe de motor de rotor externo com estator de 22 mm × 7 mm usada em multirrotores de 5 polegadas: padrão de base M3 de 16 × 16 mm e eixo de hélice roscado M5. Acopla a um braço ou a um suporte amortecido pela base e a uma hélice pelo eixo."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "2207-size brushless outrunner (22 mm stator × 7 mm), 5-inch multirotor class",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "iFlight XING-E Pro 2207 2-6S FPV motor",
+      "url": "https://shop.iflight.com/xing-e-pro-2207-2-6s-fpv-nextgen-motor-pro874",
+      "publisher": "iFlight",
+      "accessed": "2026-10-02",
+      "supports": "Ø28.5 × 33.1 mm; 16 × 16 mm mounting with Ø3 mm holes; 5 mm shaft; 13.5 mm shaft protrusion; 33.8 g with wire"
+    },
+    {
+      "title": "BrotherHobby Avenger 2207.5 V3 motor",
+      "url": "https://www.brotherhobbystore.com/products/avenger-22075-v3",
+      "publisher": "BrotherHobby",
+      "accessed": "2026-10-02",
+      "supports": "bolt pattern M3 (16 × 16 mm); prop adapter shaft thread M5"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the base (the stator mount face carrying the 16 × 16 mm M3 pattern), on the shaft axis. +z runs along the shaft toward the propeller; +x and +y are parallel to the sides of the 16 mm hole square, so the holes sit at (±8, ±8, 0).",
+  "dimensions": {
+    "mounting_hole_spacing": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "mounting_thread": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 1
+    },
+    "shaft_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "shaft_thread": {
+      "value": "M5",
+      "unit": "thread",
+      "source": 1
+    },
+    "shaft_protrusion": {
+      "value": 13.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "bell_diameter": {
+      "value": 28.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "overall_height": {
+      "value": 33.1,
+      "unit": "mm",
+      "source": 0
+    },
+    "mass": {
+      "value": 33.8,
+      "unit": "g",
+      "source": 0,
+      "note": "with wire"
+    }
+  },
+  "parameters": [
+    {
+      "id": "prop_seat_mm",
+      "type": "number",
+      "label": {
+        "en": "Propeller seat height",
+        "es": "Altura de asiento de la hélice",
+        "fr": "Hauteur d'appui de l'hélice",
+        "pt": "Altura de assento da hélice"
+      },
+      "default": 19.6,
+      "min": 15,
+      "max": 25,
+      "unit": "mm",
+      "source": 0,
+      "note": "Where the propeller hub seats, above the base face. Default derived from the iFlight XING-E Pro 2207: overall height 33.1 − shaft protrusion 13.5 = 19.6 mm. Varies by model; the range is a convention."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base mount",
+        "es": "Montaje de la base",
+        "fr": "Fixation de la base",
+        "pt": "Fixação da base"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "motor-mount-16x16-m3",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread."
+    },
+    {
+      "id": "prop_shaft",
+      "label": {
+        "en": "Prop shaft",
+        "es": "Flecha de hélice",
+        "fr": "Arbre d'hélice",
+        "pt": "Eixo de hélice"
+      },
+      "geometry_type": "thread",
+      "size_key": "prop-shaft-m5",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "prop_seat_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "prop_seat_mm"
+      ],
+      "note": "Male: the shaft enters the propeller hub. Symmetry 0: the propeller's angle on the shaft is free."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: the base pattern and the M5 prop shaft are the shared facts; bell size, height and mass are those of the cited iFlight motor and vary across the class. The BrotherHobby source is a 2207.5 of the same class."
+}

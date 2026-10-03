@@ -1,0 +1,399 @@
+{
+  "spec_version": 1,
+  "key": "fpv-frame-5in-x-225",
+  "category": "airframe",
+  "name": {
+    "en": "5-inch X frame, 225 mm class",
+    "es": "Marco X de 5 pulgadas, clase 225 mm",
+    "fr": "Châssis X de 5 pouces, classe 225 mm",
+    "pt": "Quadro X de 5 polegadas, classe 225 mm"
+  },
+  "description": {
+    "en": "The generic carbon-fibre 5-inch quadcopter frame class: four 16 × 16 mm M3 motor mounts on a 225 mm motor-to-motor diagonal, a 30.5 × 30.5 mm stack, a 19–20 mm camera bay and 20 mm battery-strap slots. A class, not any one vendor's design.",
+    "es": "La clase genérica de marco de cuadricóptero de 5 pulgadas en fibra de carbono: cuatro montajes de motor M3 de 16 × 16 mm sobre una diagonal de 225 mm entre motores, una pila de 30.5 × 30.5 mm, un hueco de cámara de 19–20 mm y ranuras para correa de batería de 20 mm. Una clase, no el diseño de un fabricante.",
+    "fr": "La classe générique de châssis de quadricoptère de 5 pouces en fibre de carbone : quatre fixations moteur M3 de 16 × 16 mm sur une diagonale de 225 mm entre moteurs, une pile de 30,5 × 30,5 mm, une baie caméra de 19–20 mm et des fentes de sangle de batterie de 20 mm. Une classe, pas la conception d'un fabricant.",
+    "pt": "A classe genérica de quadro de quadricóptero de 5 polegadas em fibra de carbono: quatro fixações de motor M3 de 16 × 16 mm numa diagonal de 225 mm entre motores, uma pilha de 30,5 × 30,5 mm, um compartimento de câmara de 19–20 mm e ranhuras de correia de bateria de 20 mm. Uma classe, não o desenho de um fabricante."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "5-inch X quadcopter frame, 225 mm motor-to-motor (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "GEPRC GEP-MK5 frame",
+      "url": "https://geprc.com/product/geprc-gep-mk5-frame/",
+      "publisher": "GEPRC",
+      "accessed": "2026-10-02",
+      "supports": "225 mm motor-to-motor; 16 × 16 / 19 × 19 mm motor holes; 30.5 × 30.5 mm FC holes; 19–20 mm camera; M15×250 and M20×220 battery straps; 5.0 mm arms; 2.5 mm plates"
+    },
+    {
+      "title": "GEPRC GEP-Mark4 frame",
+      "url": "https://geprc.com/product/gep-mark4-frame/",
+      "publisher": "GEPRC",
+      "accessed": "2026-10-02",
+      "supports": "225 mm motor-to-motor; 30.5 × 30.5 and 20 × 20 mm FC holes; 5 mm arm plate; 2.5 mm top, bottom and side plates; 25 mm standoffs"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0); the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2).",
+  "dimensions": {
+    "wheelbase": {
+      "value": 225,
+      "unit": "mm",
+      "source": 0,
+      "note": "motor-to-motor diagonal; the Mark4 listing states the same"
+    },
+    "motor_hole_spacing": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "stack_hole_spacing": {
+      "value": 30.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "camera_bay_width_min": {
+      "value": 19,
+      "unit": "mm",
+      "source": 0
+    },
+    "camera_bay_width_max": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0
+    },
+    "battery_strap_width": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "the kit's M20×220 strap"
+    },
+    "arm_thickness": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "plate_thickness": {
+      "value": 2.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "standoff_height": {
+      "value": 25,
+      "unit": "mm",
+      "source": 1,
+      "note": "Mark4; class members vary"
+    }
+  },
+  "parameters": [
+    {
+      "id": "motor_half_x_mm",
+      "type": "number",
+      "label": {
+        "en": "Motor offset, fore-aft",
+        "es": "Desfase de motor, longitudinal",
+        "fr": "Décalage moteur, longitudinal",
+        "pt": "Desvio do motor, longitudinal"
+      },
+      "default": 79.5495,
+      "min": 60,
+      "max": 100,
+      "unit": "mm",
+      "note": "True-X default: 225 / (2√2). A squashed X uses unequal halves with the same 225 mm diagonal. The range is a convention."
+    },
+    {
+      "id": "motor_half_y_mm",
+      "type": "number",
+      "label": {
+        "en": "Motor offset, lateral",
+        "es": "Desfase de motor, lateral",
+        "fr": "Décalage moteur, latéral",
+        "pt": "Desvio do motor, lateral"
+      },
+      "default": 79.5495,
+      "min": 60,
+      "max": 100,
+      "unit": "mm",
+      "note": "True-X default: 225 / (2√2). The range is a convention."
+    },
+    {
+      "id": "top_plate_z_mm",
+      "type": "number",
+      "label": {
+        "en": "Top-plate height",
+        "es": "Altura de la placa superior",
+        "fr": "Hauteur de la plaque supérieure",
+        "pt": "Altura da placa superior"
+      },
+      "default": 27.5,
+      "min": 15,
+      "max": 45,
+      "unit": "mm",
+      "source": 1,
+      "note": "Upper face of the top plate above z = 0. Default: 25 mm standoffs + 2.5 mm top plate (GEPRC Mark4). The range is a convention."
+    },
+    {
+      "id": "camera_axis_x_mm",
+      "type": "number",
+      "label": {
+        "en": "Camera axis, forward offset",
+        "es": "Eje de cámara, desfase hacia delante",
+        "fr": "Axe caméra, décalage avant",
+        "pt": "Eixo da câmara, desvio para a frente"
+      },
+      "default": 50,
+      "min": 30,
+      "max": 80,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: set it from the chosen frame."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "motor_mount_fl",
+      "label": {
+        "en": "Motor mount, front left",
+        "es": "Montaje de motor delantero izquierdo",
+        "fr": "Fixation moteur avant gauche",
+        "pt": "Fixação de motor dianteiro esquerdo"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "motor-mount-16x16-m3",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "motor_half_x_mm",
+          "motor_half_y_mm",
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "motor_half_x_mm",
+        "motor_half_y_mm"
+      ],
+      "note": "Male: the M3 screws pass up through the arm into the motor."
+    },
+    {
+      "id": "motor_mount_fr",
+      "label": {
+        "en": "Motor mount, front right",
+        "es": "Montaje de motor delantero derecho",
+        "fr": "Fixation moteur avant droit",
+        "pt": "Fixação de motor dianteiro direito"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "motor-mount-16x16-m3",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "motor_half_x_mm",
+          "-motor_half_y_mm",
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "motor_half_x_mm",
+        "motor_half_y_mm"
+      ],
+      "note": "Male: the M3 screws pass up through the arm into the motor."
+    },
+    {
+      "id": "motor_mount_rl",
+      "label": {
+        "en": "Motor mount, rear left",
+        "es": "Montaje de motor trasero izquierdo",
+        "fr": "Fixation moteur arrière gauche",
+        "pt": "Fixação de motor traseiro esquerdo"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "motor-mount-16x16-m3",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "-motor_half_x_mm",
+          "motor_half_y_mm",
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "motor_half_x_mm",
+        "motor_half_y_mm"
+      ],
+      "note": "Male: the M3 screws pass up through the arm into the motor."
+    },
+    {
+      "id": "motor_mount_rr",
+      "label": {
+        "en": "Motor mount, rear right",
+        "es": "Montaje de motor trasero derecho",
+        "fr": "Fixation moteur arrière droit",
+        "pt": "Fixação de motor traseiro direito"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "motor-mount-16x16-m3",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "-motor_half_x_mm",
+          "-motor_half_y_mm",
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "motor_half_x_mm",
+        "motor_half_y_mm"
+      ],
+      "note": "Male: the M3 screws pass up through the arm into the motor."
+    },
+    {
+      "id": "stack_mount",
+      "label": {
+        "en": "Stack mount",
+        "es": "Montaje de la pila",
+        "fr": "Fixation de la pile",
+        "pt": "Fixação da pilha"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "stack-30.5x30.5-m3",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the frame's M3 bolts or standoffs rise through the boards' holes."
+    },
+    {
+      "id": "camera_bay",
+      "label": {
+        "en": "Camera bay",
+        "es": "Hueco de cámara",
+        "fr": "Baie caméra",
+        "pt": "Compartimento da câmara"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          "camera_axis_x_mm",
+          0,
+          "top_plate_z_mm / 2"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "camera_axis_x_mm",
+        "top_plate_z_mm"
+      ],
+      "note": "Female: the bay receives the camera body. Origin on the side-screw axis midway between the side plates; symmetry 0, so a mate's angle_deg is the camera tilt."
+    },
+    {
+      "id": "battery_strap",
+      "label": {
+        "en": "Battery-strap station",
+        "es": "Posición de la correa de batería",
+        "fr": "Emplacement de la sangle de batterie",
+        "pt": "Posição da correia de bateria"
+      },
+      "geometry_type": "custom",
+      "size_key": "battery-strap-20mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "top_plate_z_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "top_plate_z_mm"
+      ],
+      "note": "Female: the slot pair receives the strap. Origin at the centre of the top plate's upper face, between the two slots."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A COTS frame CLASS, not a design. The entry states only facts frames of this class share (225 mm motor-to-motor, 16 × 16 mm M3 motor mounts, a 30.5 × 30.5 mm stack, a 19–20 mm camera bay, 20 mm battery straps), cited from vendor listings. It copies no branded frame's outline, arm shape or plate geometry, and it carries no CAD. Positions that are not shared facts (camera axis, top-plate height, a squashed-X stretch) are parameters with conventional defaults."
+}
