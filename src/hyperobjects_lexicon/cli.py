@@ -6,7 +6,7 @@ they already have installed. The command bodies live here so the two cannot drif
 
     <tool> lexicon [--catalog bundled] [--terms DIR] [--status] [-v]
     <tool> reader [--out DIR] [--check] [--status]
-    <tool> vocab [--vocabularies DIR] [--fabrication DIR] [--status] [-v]
+    <tool> vocab [--vocabularies DIR] [--fabrication DIR] [--standard-parts DIR] [--status] [-v]
     <tool> article <path> [<path> ...] [--catalog bundled] [-v]
     <tool> define <word> [--lang es|en|fr|pt]
     <tool> lookup <repo/slug>
@@ -181,6 +181,12 @@ def add_vocabulary_parser(sub, prog: str) -> None:
         "fabrication-capabilities / interface-sizes",
     )
     p.add_argument(
+        "--standard-parts",
+        metavar="DIR",
+        help="a directory of standard-part JSON files (ASM-1 §4) to check instead of the "
+        "bundled catalog; their size keys resolve against the fabrication vocabularies",
+    )
+    p.add_argument(
         "--status", action="store_true", help="print only the vocabulary_status lines"
     )
     p.add_argument(
@@ -246,7 +252,27 @@ def run_vocabulary(args, prog: str) -> int:
     )
     for line in fabrication_status(fab_docs):
         print(line)
-    return 1 if result.problems or fab.problems else 0
+
+    # The standard-parts catalog (ASM-1 §4) resolves its size keys in interface-sizes, so
+    # it is judged here too, against the same fabrication documents.
+    from hyperobjects_standard_parts import load_catalog
+    from hyperobjects_standard_parts.check import catalog_status, check_catalog
+
+    try:
+        catalog = load_catalog(getattr(args, "standard_parts", None))
+    except (OSError, ValueError) as exc:
+        print(f"  ERROR cannot read the standard-parts catalog — {exc}")
+        return 2
+    parts = check_catalog(catalog, vocabularies=fab_docs)
+    for prob in parts.problems:
+        print(f"  FAIL standard-parts: {prob}")
+    print(
+        f"{prog} vocab standard-parts: parts={parts.parts} interfaces={parts.interfaces} "
+        f"failures={len(parts.problems)}"
+    )
+    for line in catalog_status(catalog):
+        print(line)
+    return 1 if result.problems or fab.problems or parts.problems else 0
 
 
 def add_dictionary_parsers(sub, prog: str) -> None:
