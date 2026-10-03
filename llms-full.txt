@@ -83,6 +83,11 @@ runbook.
   classes, process parameters, machine capabilities, interface sizes) and their
   manifest-membership rule, the article contract, the dictionary tools and the
   reader. See docs/FABRICATION_VOCABULARIES.md.
+- `hyperobjects_standard_parts` — the standard-parts catalog (ASM-1 §4): one
+  cited JSON entry per COTS part (`parts/{key}.json`, schema
+  `standard-part.schema.json`), interfaces in the SEM-1 §2.3 shape, the loader,
+  `resolve_parameters`, `interface_frames`, `part_digest`, and the catalog lane
+  (third verdict of `vocab`). See docs/STANDARD_PARTS.md.
 
 ## Durable contracts
 

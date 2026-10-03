@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Standard-parts catalog (ASM-1 §4)
+
+#### Added
+
+- `standard-part.schema.json` and the `hyperobjects_standard_parts` package: one JSON
+  entry per COTS part under `parts/`, a loader, GOC-1 full-injection
+  `resolve_parameters` (out of range is an error, never clamped), `interface_frames`,
+  and `part_digest` (sha256 of the canonical JSON, for the assembly digest).
+- Fourteen entries covering ASM-1 §4's minimum set: `nema-17-48mm`, `extrusion-2020`,
+  `mgn12-rail`, `mgn12h-carriage`, `bearing-608`, `gt2-pulley-20t-5mm`,
+  `psu-meanwell-lrs-200`, `microswitch-d2f`, `motor-2207`, `fpv-frame-5in-x-225`
+  (a COTS class, not a copied design), `fc-stack-30x30`, `fpv-camera-micro-19mm`,
+  `prop-5in`, `vtx-antenna-sma`. 37 interfaces; 106 dimensions, each citing a source.
+- The catalog lane runs as the third verdict of `vocab`
+  (`vocab standard-parts: …`; `--standard-parts DIR` checks another directory). It checks
+  schema, citations, `size_key` membership, geometry types, frame evaluation at the
+  defaults and at every parameter bound, and exact unit, orthogonal axes.
+- `interface-sizes.standard-parts.json`, a supplement of `interface-sizes` with eight cited
+  draft keys: `tslot-2020-end-tap-m5`, `mgn12-rail`, `bearing-608-bore`, `prop-shaft-m5`,
+  `battery-strap-20mm` (provisional), `meanwell-lrs-200-base-m4`,
+  `meanwell-lrs-200-side-m4`, `omron-d2f-mount-m2`. The fabrication loader now merges
+  `{vocabulary}.{label}.json` supplements.
+- Ten draft lexicon terms for the field concepts the AAS projection needs ids for:
+  `interface-polarity`, `interface-size-key`, `interface-frame`, `interface-symmetry`,
+  `parameter-unit`, `assembly`, `mate`, `assembly-placement`, `standard-part`,
+  `external-design-reference`. The reader and the README counts are rebuilt.
+- `docs/STANDARD_PARTS.md`.
+
 ### Manifest semantic fields (SEM-1 §2–§3)
 
 #### Fixed
