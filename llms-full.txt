@@ -101,6 +101,11 @@ runbook.
   lexicon; `solid.py` / `soft.py` / `material.py` are the projections;
   `check.py` validates. `schemas/aas.json` is VENDORED (CC-BY-4.0, lock +
   hash test) — never edit it.
+- `hyperobjects_standard_parts` — the standard-parts catalog (ASM-1 §4): one
+  cited JSON entry per COTS part (`parts/{key}.json`, schema
+  `standard-part.schema.json`), interfaces in the SEM-1 §2.3 shape, the loader,
+  `resolve_parameters`, `interface_frames`, `part_digest`, and the catalog lane
+  (third verdict of `vocab`). See docs/STANDARD_PARTS.md.
 
 ## Durable contracts
 

@@ -21,9 +21,9 @@ These files are copies of the schemas each platform repo publishes:
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
     ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``,
-    ``assembly`` — authored HERE; this package is their home. The lexicon term schema
-    formalizes RFC 0039 §3, the vocabulary schema its G3 controlled vocabularies, and the
-    article schema its G2
+    ``assembly``, ``standard-part`` — authored HERE; this package is their home. The
+    lexicon term schema formalizes RFC 0039 §3, the vocabulary schema its G3 controlled
+    vocabularies, and the article schema its G2
     elevation of the per-cartridge README; the corpus and the vocabularies they validate
     ship in ``hyperobjects_lexicon``.
     The generator-output schema is GOC-1 (the ``variables.json`` a yantra4d or Fashion
@@ -32,6 +32,8 @@ These files are copies of the schemas each platform repo publishes:
     The fabrication-vocabulary schema validates the SEM-1 §4 reference vocabularies
     (processes, material classes, process parameters, machine capabilities, interface
     sizes), which ship in ``hyperobjects_lexicon.vocabularies.fabrication``.
+    The standard-part schema validates one entry of the ASM-1 §4 standard-parts catalog
+    (COTS parts an assembly references), which ships in ``hyperobjects_standard_parts``.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -64,6 +66,7 @@ SCHEMAS: dict[str, str] = {
     "generator-output": "hyperobjects-spec",
     "fabrication-vocabulary": "hyperobjects-spec",
     "assembly": "hyperobjects-spec",
+    "standard-part": "hyperobjects-spec",
 }
 
 

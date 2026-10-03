@@ -1,0 +1,107 @@
+{
+  "spec_version": 1,
+  "key": "prop-5in",
+  "category": "propeller",
+  "name": {
+    "en": "5-inch propeller, M5 hub",
+    "es": "Hélice de 5 pulgadas, cubo M5",
+    "fr": "Hélice de 5 pouces, moyeu M5",
+    "pt": "Hélice de 5 polegadas, cubo M5"
+  },
+  "description": {
+    "en": "The 5-inch multirotor propeller class with a 5 mm hub hole that seats on an M5 motor shaft and is clamped by a nut.",
+    "es": "La clase de hélice de multirrotor de 5 pulgadas con agujero de cubo de 5 mm que asienta en una flecha de motor M5 y se sujeta con tuerca.",
+    "fr": "La classe d'hélice de multirotor de 5 pouces avec un trou de moyeu de 5 mm qui se pose sur un arbre moteur M5 et se serre par un écrou.",
+    "pt": "A classe de hélice de multirrotor de 5 polegadas com furo de cubo de 5 mm que assenta num eixo de motor M5 e é presa por uma porca."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "5-inch multirotor propeller, 5 mm hub (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "HQProp 5X4.3X3 V1S poly carbonate propeller",
+      "url": "https://www.hqprop.com/hq-durable-prop-5x43x3v1s-2cw2ccw-poly-carbonate-p0048.html",
+      "publisher": "HQProp",
+      "accessed": "2026-10-02",
+      "supports": "5 in diameter, 4.3 in pitch, 3 blades, hub Ø13.2 mm × 7 mm thick, 5 mm shaft hole, 3.81 g, polycarbonate"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the hub's bottom face (the face that seats on the motor), on the rotation axis. +z runs up through the hub to its top face at z = 7. +x is an arbitrary radial reference.",
+  "dimensions": {
+    "diameter": {
+      "value": 5,
+      "unit": "in",
+      "source": 0
+    },
+    "pitch": {
+      "value": 4.3,
+      "unit": "in",
+      "source": 0
+    },
+    "blade_count": {
+      "value": 3,
+      "unit": "count",
+      "source": 0
+    },
+    "hub_diameter": {
+      "value": 13.2,
+      "unit": "mm",
+      "source": 0
+    },
+    "hub_thickness": {
+      "value": 7,
+      "unit": "mm",
+      "source": 0
+    },
+    "hub_hole_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "mass": {
+      "value": 3.81,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "hub",
+      "label": {
+        "en": "Hub",
+        "es": "Cubo",
+        "fr": "Moyeu",
+        "pt": "Cubo"
+      },
+      "geometry_type": "thread",
+      "size_key": "prop-shaft-m5",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the hub receives the motor shaft. Symmetry 0: the propeller's angle on the shaft is free."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: diameter and hub hole are the shared facts; pitch, blade count, hub size and mass are those of the cited HQProp model."
+}

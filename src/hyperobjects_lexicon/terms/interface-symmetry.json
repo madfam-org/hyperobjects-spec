@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "interface-symmetry",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "interface symmetry",
+    "es": "simetría de interfaz",
+    "fr": "symétrie d'interface",
+    "pt": "simetria de interface"
+  },
+  "definition": {
+    "en": "The rotational symmetry order of an interface about its normal: 0 for continuous (a round shaft or bore), 1 for none, otherwise the number of equivalent orientations (4 for a square bolt pattern). A mate picks one orientation with a rotation index below the order, or with an angle when the order is 0.",
+    "es": "El orden de simetría rotacional de una interfaz alrededor de su normal: 0 si es continua (una flecha o un barreno redondo), 1 si no tiene, y en otro caso el número de orientaciones equivalentes (4 para un patrón de barrenos cuadrado). Un acoplamiento elige una orientación con un índice de rotación menor que el orden, o con un ángulo cuando el orden es 0.",
+    "fr": "L'ordre de symétrie de rotation d'une interface autour de sa normale : 0 si elle est continue (un arbre ou un alésage rond), 1 si elle n'en a pas, sinon le nombre d'orientations équivalentes (4 pour un motif de perçage carré). Un accouplement choisit une orientation par un indice de rotation inférieur à l'ordre, ou par un angle quand l'ordre vaut 0.",
+    "pt": "A ordem de simetria rotacional de uma interface em torno da sua normal: 0 se contínua (um eixo ou furo redondo), 1 se não tem, e caso contrário o número de orientações equivalentes (4 para um padrão de furação quadrado). Um acoplamento escolhe uma orientação com um índice de rotação menor que a ordem, ou com um ângulo quando a ordem é 0."
+  },
+  "see_also": [
+    "interface-frame",
+    "mate",
+    "bolt-pattern"
+  ],
+  "constraints": "Symmetry describes the interface, not the part: an MGN12H block's top pattern is a 20 × 20 mm square and so has symmetry 4, even though the block fits its rail only two ways.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

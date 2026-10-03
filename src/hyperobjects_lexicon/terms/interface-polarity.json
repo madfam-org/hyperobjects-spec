@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "interface-polarity",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "interface polarity",
+    "es": "polaridad de interfaz",
+    "fr": "polarité d'interface",
+    "pt": "polaridade de interface"
+  },
+  "definition": {
+    "en": "Which side of a mating pair an interface is: male (it inserts, or carries the fastener head), female (it receives — a bore, a slot, a tapped hole) or neutral (face-to-face contact with no inserting side). Two interfaces mate only with complementary polarity: male with female, neutral with neutral.",
+    "es": "Qué lado de un par de acoplamiento es una interfaz: macho (inserta, o lleva la cabeza del sujetador), hembra (recibe: un barreno, una ranura, un barreno roscado) o neutra (contacto cara a cara sin lado que inserte). Dos interfaces acoplan solo con polaridades complementarias: macho con hembra, neutra con neutra.",
+    "fr": "Le côté d'une paire d'accouplement qu'est une interface : mâle (elle s'insère, ou porte la tête de la fixation), femelle (elle reçoit : un alésage, une rainure, un trou taraudé) ou neutre (contact face à face sans côté qui s'insère). Deux interfaces ne s'accouplent qu'avec des polarités complémentaires : mâle avec femelle, neutre avec neutre.",
+    "pt": "Que lado de um par de acoplamento é uma interface: macho (insere, ou leva a cabeça do fixador), fêmea (recebe: um furo, uma ranhura, um furo roscado) ou neutra (contacto face a face sem lado que insira). Duas interfaces só acoplam com polaridades complementares: macho com fêmea, neutra com neutra."
+  },
+  "see_also": [
+    "cdg-interface",
+    "interface-size-key",
+    "mate"
+  ],
+  "constraints": "Polarity is mechanical, not electrical: an SMA plug that the RF trade calls male carries the internal coupling thread and is female here.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/standard-part.schema.json",
+  "title": "Standard Part (COTS catalog entry)",
+  "description": "One entry of the keystone's standard-parts catalog (ASM-1 §4): a commercial off-the-shelf part an assembly document references with `source.type: standard`. An entry states FACTS only — the governing standard or datasheet with citation URLs, dimensions that each cite a source, optional parameters (e.g. an extrusion's cut length), and mating interfaces in the SEM-1 §2.3 shape (frame expressions over the entry's own parameters, polarity, a `size_key` from the `interface-sizes` vocabulary, rotational symmetry). Never datasheet prose and never CAD. A standard part is one rigid body; its model frame is stated in `frame_convention`. Which keys resolve, which expressions evaluate and whether every axis is a unit vector are rules of `hyperobjects_standard_parts`, not of this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec_version",
+    "key",
+    "category",
+    "name",
+    "description",
+    "governing",
+    "sources",
+    "frame_convention",
+    "dimensions",
+    "interfaces",
+    "review_status"
+  ],
+  "properties": {
+    "spec_version": {
+      "description": "Version of THIS catalog-entry contract the document is written against.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "key": {
+      "description": "The catalog key an assembly writes (`source.key`) and the asset id derives from (`https://id.madfam.io/asset/standard/{key}`, ASM-1 §5). Kebab-case; a published name, so renaming one is a breaking change. The file is named `{key}.json`.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "category": {
+      "description": "What kind of part this is — a grouping for readers and the catalog docs, not a mating rule.",
+      "type": "string",
+      "enum": [
+        "stepper-motor",
+        "brushless-motor",
+        "structural-profile",
+        "linear-guide",
+        "bearing",
+        "pulley",
+        "power-supply",
+        "switch",
+        "airframe",
+        "flight-controller",
+        "camera",
+        "propeller",
+        "antenna"
+      ]
+    },
+    "status": {
+      "description": "`canonical` (default) — use it. `provisional` — real and usable, but a fact or a ruling on it is still open; `notes` says which.",
+      "type": "string",
+      "enum": ["canonical", "provisional"]
+    },
+    "name": {
+      "description": "The part's name in each language of the commons (RFC 0039).",
+      "$ref": "#/$defs/quadrilingualString"
+    },
+    "description": {
+      "description": "One or two factual sentences in each language: what the part is and what it mates with. Not datasheet prose.",
+      "$ref": "#/$defs/quadrilingualString"
+    },
+    "governing": {
+      "description": "What the entry's facts are governed by. `standard` — a published standard (cite it, or the manufacturer drawings that realise it when the standard is not freely published); `datasheet` — one manufacturer's part, at its datasheet; `class` — a commercial class many vendors build to (e.g. a 5-inch X frame), stated by facts every member shares and cited from several vendors, never a copy of any one design.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "designation", "source"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["standard", "datasheet", "class"] },
+        "designation": {
+          "description": "The standard's identifier or the part number / class name the facts are read from.",
+          "type": "string",
+          "minLength": 3
+        },
+        "source": {
+          "description": "Index into `sources` of the primary citation.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "sources": {
+      "description": "The public citations behind the entry's facts. Every dimension and every parameter range that is a fact cites one by index.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "frame_convention": {
+      "description": "The part's model frame in words (English): where the origin is, which way +x, +y and +z point, and which face or axis each interface frame sits on. Interface frames are written in this frame; an assembly places the part by them (ASM-1 §3.4).",
+      "type": "string",
+      "minLength": 40
+    },
+    "dimensions": {
+      "description": "The part's dimensional and technical facts, by name. Every one cites a source.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" },
+      "additionalProperties": { "$ref": "#/$defs/dimension" }
+    },
+    "parameters": {
+      "description": "Values an assembly may choose for one instance (ASM-1 §1 full injection: the default, overridden by the component's given value; out of range is an error, never clamped). Interface frame expressions may read them. A parameter is a choice, not a fact: its range cites a source when the range is the vendor's (an extrusion's stocked lengths), and says so in `note` when it is a convention.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/parameter" }
+    },
+    "interfaces": {
+      "description": "Where the part mates, in the SEM-1 §2.3 shape. `frame`, `polarity`, `size_key` and `symmetry` are all required here (the manifest makes them optional; a catalog entry exists to be mated).",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/interface" }
+    },
+    "review_status": { "$ref": "#/$defs/reviewStatus" },
+    "notes": { "type": "string", "minLength": 10 }
+  },
+  "$defs": {
+    "quadrilingualString": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "es", "fr", "pt"],
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reviewState": {
+      "description": "`generated` — written in a drafting pass and not yet checked by a speaker of the language. `reviewed` — a named reviewer has read it and let it stand.",
+      "type": "string",
+      "enum": ["generated", "reviewed"]
+    },
+    "reviewStatus": {
+      "description": "The same review block a lexicon term carries: the overall state is the WORST facet, and `reviewed` needs a named reviewer.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "$ref": "#/$defs/reviewState" },
+        "languages": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "es": { "$ref": "#/$defs/reviewState" },
+            "en": { "$ref": "#/$defs/reviewState" },
+            "fr": { "$ref": "#/$defs/reviewState" },
+            "pt": { "$ref": "#/$defs/reviewState" }
+          }
+        },
+        "reviewers": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+        "note": { "type": "string" }
+      }
+    },
+    "source": {
+      "description": "A public citation a reader can follow — the same shape as a fabrication-vocabulary source. `supports` says which facts it backs, as facts, never quoted prose.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "url"],
+      "properties": {
+        "title": { "type": "string", "minLength": 4 },
+        "url": { "type": "string", "pattern": "^https://[^\\s]+$" },
+        "publisher": { "type": "string", "minLength": 2 },
+        "accessed": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "supports": { "type": "string", "minLength": 4 }
+      }
+    },
+    "dimension": {
+      "description": "One fact, citing the entry's `sources` by index.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "source"],
+      "properties": {
+        "value": { "type": ["number", "string"] },
+        "unit": {
+          "type": "string",
+          "enum": ["mm", "in", "deg", "count", "thread", "g", "V", "A", "W", "kv"]
+        },
+        "tolerance": { "type": "string", "minLength": 1 },
+        "source": { "type": "integer", "minimum": 0 },
+        "note": { "type": "string", "minLength": 4 }
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "label", "default", "min", "max", "unit"],
+      "properties": {
+        "id": {
+          "description": "Identifier a frame expression reads; the same pattern as a manifest parameter id.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "type": {
+          "description": "Always `number`: a standard part's choices are lengths and offsets.",
+          "const": "number"
+        },
+        "label": { "$ref": "#/$defs/quadrilingualString" },
+        "default": { "type": "number" },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "step": { "type": "number", "exclusiveMinimum": 0 },
+        "unit": {
+          "description": "SEM-1 §2.2 parameter units.",
+          "type": "string",
+          "enum": ["mm", "deg", "count", "ratio", "percent"]
+        },
+        "source": {
+          "description": "Index into `sources` when the range is a vendor fact.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": { "type": "string", "minLength": 4 }
+      }
+    },
+    "frameComponent": {
+      "description": "A number, or an expression string over this entry's parameter ids in the SEM-1 §2.3 grammar (numeric literals, parameter ids, + - * /, parentheses, min(), max(), abs()).",
+      "oneOf": [
+        { "type": "number" },
+        { "type": "string", "minLength": 1, "maxLength": 256 }
+      ]
+    },
+    "frameVector": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/frameComponent" }
+    },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "geometry_type", "size_key", "polarity", "symmetry", "frame"],
+      "properties": {
+        "id": {
+          "description": "The interface id a mate names (`{component, interface}`); the cdg_interfaces id pattern.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "label": { "$ref": "#/$defs/quadrilingualString" },
+        "geometry_type": {
+          "description": "The yantra4d interface geometry type. Must equal the `geometry_type` of the `size_key`'s interface-sizes entry.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "standard": { "type": "string", "minLength": 2 },
+        "size_key": {
+          "description": "An `interface-sizes` vocabulary key. Always a literal here: a standard part has no select parameter to map from.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+([._-][a-z0-9]+)*$"
+        },
+        "polarity": {
+          "description": "Which side of the pair this is (catalog convention, docs/STANDARD_PARTS.md): `female` receives — a tapped or plain hole a fastener's thread or a partner's stud enters, a bore, a slot, a bay; `male` inserts or carries the fastener head — a shaft, a stud or standoff, a body that goes into a bay or pocket, the clearance-hole side a screw passes through into a female partner. `neutral` for face-to-face contact with no inserting side.",
+          "type": "string",
+          "enum": ["male", "female", "neutral"]
+        },
+        "symmetry": {
+          "description": "Rotational symmetry order about `normal`: 0 continuous, 1 none, else the number of equivalent orientations.",
+          "type": "integer",
+          "enum": [0, 1, 2, 3, 4, 6, 8]
+        },
+        "frame": {
+          "description": "Where the interface sits, in mm, in the part's model frame (`frame_convention`) at the resolved parameters. `normal` points from the feature toward where the mating partner sits; `x_axis` is the in-plane reference direction. Both are required to be EXACT unit vectors, orthogonal, at the parameter defaults — a catalog entry carries no normalisation slack. `part`, when written, must equal the entry key (a standard part is one rigid body).",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["origin", "normal", "x_axis"],
+          "properties": {
+            "part": { "type": "string", "minLength": 1 },
+            "origin": { "$ref": "#/$defs/frameVector" },
+            "normal": { "$ref": "#/$defs/frameVector" },
+            "x_axis": { "$ref": "#/$defs/frameVector" }
+          }
+        },
+        "parameters": {
+          "description": "The entry's parameter ids this interface's frame depends on.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "note": { "type": "string", "minLength": 4 }
+      }
+    }
+  }
+}

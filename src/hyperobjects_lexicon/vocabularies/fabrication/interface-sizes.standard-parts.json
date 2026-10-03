@@ -1,0 +1,236 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the keystone standard-parts catalog (ASM-1 §4) needs and the base file did not define. Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "review": {"state": "generated", "note": "Keys, labels and definitions drafted in one pass by an agent (P4-STD lane, 2026-10-02) against ASM-1 §4. No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."},
+  "entries": [
+    {
+      "key": "tslot-2020-end-tap-m5",
+      "label": {
+        "en": "2020 extrusion end tap M5",
+        "es": "Machuelo de extremo M5 de perfil 2020",
+        "fr": "Taraudage d'extrémité M5 de profilé 2020",
+        "pt": "Rosca de topo M5 de perfil 2020"
+      },
+      "definition": {
+        "en": "The centre hole of a 20 × 20 mm series-5 extrusion tapped M5 at its cut end, 15 mm deep: what an end-fastened joint screws into.",
+        "es": "El barreno central de un perfil de 20 × 20 mm serie 5, roscado M5 en su extremo cortado a 15 mm de profundidad: donde atornilla una unión fijada por el extremo.",
+        "fr": "Le trou central d'un profilé 20 × 20 mm série 5, taraudé M5 à son extrémité coupée sur 15 mm de profondeur : là où se visse un assemblage fixé en bout.",
+        "pt": "O furo central de um perfil de 20 × 20 mm série 5, roscado M5 na extremidade cortada com 15 mm de profundidade: onde se aparafusa uma junta fixada pelo topo."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "thread",
+      "dimensions": {
+        "thread": {"value": "M5", "unit": "thread", "source": 0},
+        "tap_depth": {"value": 15, "unit": "mm", "source": 0},
+        "centre_hole_diameter": {"value": 4.2, "unit": "mm", "source": 1}
+      },
+      "sources": [
+        {"title": "MISUMI aluminum extrusion alterations — end tapping (LTP/RTP/TPW) table", "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0681.pdf", "publisher": "MISUMI", "accessed": "2026-10-02", "supports": "HFS5-2020 end tapping: M5, depth 15, one hole per end"},
+        {"title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page", "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf", "publisher": "MISUMI", "accessed": "2026-10-02", "supports": "series-5 profiles: Ø4.2 mm centre hole"}
+      ],
+      "term": "thread",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4) for extrusion-2020's end interfaces. Tapping is an alteration ordered per end (LTP, RTP or TPW); an untapped cut end has only the Ø4.2 mm hole."
+    },
+    {
+      "key": "mgn12-rail",
+      "label": {
+        "en": "MGN12 rail",
+        "es": "Riel MGN12",
+        "fr": "Rail MGN12",
+        "pt": "Trilho MGN12"
+      },
+      "definition": {
+        "en": "The 12 mm wide, 8 mm high rail of a miniature linear guide, bolted down with M3 screws every 25 mm; what an MGN12 block runs on.",
+        "es": "El riel de 12 mm de ancho y 8 mm de alto de una guía lineal miniatura, fijado con tornillos M3 cada 25 mm; sobre él corre un bloque MGN12.",
+        "fr": "Le rail de 12 mm de large et 8 mm de haut d'un guidage linéaire miniature, fixé par des vis M3 tous les 25 mm ; un patin MGN12 y circule.",
+        "pt": "O trilho de 12 mm de largura e 8 mm de altura de uma guia linear miniatura, fixado com parafusos M3 a cada 25 mm; sobre ele corre um bloco MGN12."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "rail",
+      "dimensions": {
+        "rail_width": {"value": 12, "unit": "mm", "source": 0},
+        "rail_height": {"value": 8, "unit": "mm", "source": 0},
+        "hole_pitch": {"value": 25, "unit": "mm", "source": 0},
+        "end_hole_distance": {"value": 10, "unit": "mm", "source": 0, "note": "standard E: rail end to the first hole centre"},
+        "counterbore_diameter": {"value": 6, "unit": "mm", "source": 0},
+        "counterbore_depth": {"value": 4.5, "unit": "mm", "source": 0},
+        "through_hole_diameter": {"value": 3.5, "unit": "mm", "source": 0},
+        "mounting_bolt": {"value": "M3x8", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {"title": "HIWIN linear guideways MG series — dimensions for MGN/MGW", "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf", "publisher": "HIWIN", "accessed": "2026-10-02", "supports": "MGN12 rail: WR 12, HR 8, D 6, h 4.5, d 3.5, P 25, E 10, rail bolt M3x8"}
+      ],
+      "term": "rail",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4) for the rail-to-block mate. Both the C and the H block run on this rail; the H block's top pattern is `mgn12-carriage`."
+    },
+    {
+      "key": "bearing-608-bore",
+      "label": {
+        "en": "608 bearing bore",
+        "es": "Barreno de rodamiento 608",
+        "fr": "Alésage de roulement 608",
+        "pt": "Furo de rolamento 608"
+      },
+      "definition": {
+        "en": "The Ø8 mm inner-ring bore of a 608 deep-groove ball bearing, 7 mm wide: what an 8 mm shaft or an M8 bolt passes through. The outer ring is `bearing-608`.",
+        "es": "El barreno de Ø8 mm del anillo interior de un rodamiento rígido de bolas 608, de 7 mm de ancho: por donde pasa una flecha de 8 mm o un tornillo M8. El anillo exterior es `bearing-608`.",
+        "fr": "L'alésage de Ø8 mm de la bague intérieure d'un roulement rigide à billes 608, de 7 mm de large : là où passe un arbre de 8 mm ou une vis M8. La bague extérieure est `bearing-608`.",
+        "pt": "O furo de Ø8 mm do anel interior de um rolamento rígido de esferas 608, com 7 mm de largura: por onde passa um eixo de 8 mm ou um parafuso M8. O anel exterior é `bearing-608`."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 8, "unit": "mm", "source": 0},
+        "width": {"value": 7, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {"title": "SKF 608 deep groove ball bearing (distributor listing)", "url": "https://www.123bearing.com/bearing-housing/deep-groove-bearing/single-row/608-skf", "publisher": "123Bearing", "accessed": "2026-10-02", "supports": "608: 8 × 22 × 7 mm"}
+      ],
+      "term": "socket",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4): a bearing has two fits, and `bearing-608` (the outer ring in its housing) and this key (the axle in the inner ring) must not be mistaken for one another, so each gets its own key."
+    },
+    {
+      "key": "prop-shaft-m5",
+      "label": {
+        "en": "M5 prop shaft",
+        "es": "Flecha de hélice M5",
+        "fr": "Arbre d'hélice M5",
+        "pt": "Eixo de hélice M5"
+      },
+      "definition": {
+        "en": "The M5-threaded output shaft of a 22xx-class multirotor motor and the Ø5 mm hub hole of the propeller that seats on it, clamped by an M5 nut.",
+        "es": "La flecha de salida roscada M5 de un motor de multirrotor de clase 22xx y el agujero de Ø5 mm del cubo de la hélice que asienta en ella, sujeta con una tuerca M5.",
+        "fr": "L'arbre de sortie fileté M5 d'un moteur de multirotor de classe 22xx et le trou de Ø5 mm du moyeu de l'hélice qui s'y pose, serrée par un écrou M5.",
+        "pt": "O eixo de saída roscado M5 de um motor de multirrotor de classe 22xx e o furo de Ø5 mm do cubo da hélice que nele assenta, presa por uma porca M5."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "thread",
+      "dimensions": {
+        "thread": {"value": "M5", "unit": "thread", "source": 0},
+        "shaft_diameter": {"value": 5, "unit": "mm", "source": 2},
+        "hub_hole_diameter": {"value": 5, "unit": "mm", "source": 1}
+      },
+      "sources": [
+        {"title": "BrotherHobby Avenger 2207.5 V3 motor", "url": "https://www.brotherhobbystore.com/products/avenger-22075-v3", "publisher": "BrotherHobby", "accessed": "2026-10-02", "supports": "prop adapter shaft thread M5; bolt pattern M3 16 × 16 mm"},
+        {"title": "HQProp 5X4.3X3 V1S poly carbonate propeller", "url": "https://www.hqprop.com/hq-durable-prop-5x43x3v1s-2cw2ccw-poly-carbonate-p0048.html", "publisher": "HQProp", "accessed": "2026-10-02", "supports": "5 in diameter, 4.3 in pitch, 3 blades, hub Ø13.2 mm × 7 mm, 5 mm shaft hole, 3.81 g"},
+        {"title": "iFlight XING-E Pro 2207 2-6S FPV motor", "url": "https://shop.iflight.com/xing-e-pro-2207-2-6s-fpv-nextgen-motor-pro874", "publisher": "iFlight", "accessed": "2026-10-02", "supports": "Ø28.5 × 33.1 mm, 16 × 16 mm mounting with Ø3 mm holes, 5 mm shaft, 13.5 mm shaft protrusion, 33.8 g with wire"}
+      ],
+      "term": "thread",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4) for the motor-to-propeller mate: the motor shaft carries it male, the propeller hub female."
+    },
+    {
+      "key": "battery-strap-20mm",
+      "status": "provisional",
+      "label": {
+        "en": "Battery strap, 20 mm",
+        "es": "Correa de batería de 20 mm",
+        "fr": "Sangle de batterie de 20 mm",
+        "pt": "Correia de bateria de 20 mm"
+      },
+      "definition": {
+        "en": "A pair of slots in a multirotor top plate that a 20 mm wide hook-and-loop battery strap threads through, holding the battery (and any pad under it) on the plate.",
+        "es": "Un par de ranuras en la placa superior de un multirrotor por las que pasa una correa de velcro de 20 mm de ancho que sujeta la batería (y la almohadilla bajo ella) a la placa.",
+        "fr": "Une paire de fentes dans la plaque supérieure d'un multirotor où passe une sangle auto-agrippante de 20 mm de large qui tient la batterie (et le patin dessous) sur la plaque.",
+        "pt": "Um par de ranhuras na placa superior de um multirrotor por onde passa uma correia de velcro de 20 mm de largura que prende a bateria (e a almofada por baixo) à placa."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "custom",
+      "dimensions": {
+        "strap_width": {"value": 20, "unit": "mm", "source": 0, "note": "the kit's M20×220 strap"}
+      },
+      "sources": [
+        {"title": "GEPRC GEP-MK5 frame", "url": "https://geprc.com/product/geprc-gep-mk5-frame/", "publisher": "GEPRC", "accessed": "2026-10-02", "supports": "225 mm motor-to-motor; 16 × 16 / 19 × 19 mm motor holes; 30.5 × 30.5 mm FC holes; 19–20 mm camera; battery straps M15×250 and M20×220 included"}
+      ],
+      "term": "strap-slot",
+      "notes": "Provisional: only the strap width is a fact frames share. Slot length and slot spacing are frame-specific and stated by no common source, so they are not facts of this key. Added by the standard-parts catalog (ASM-1 §4)."
+    },
+    {
+      "key": "meanwell-lrs-200-base-m4",
+      "label": {
+        "en": "Mean Well LRS-200 base mount",
+        "es": "Montaje inferior Mean Well LRS-200",
+        "fr": "Fixation inférieure Mean Well LRS-200",
+        "pt": "Fixação inferior Mean Well LRS-200"
+      },
+      "definition": {
+        "en": "Four M4 threaded holes, 3 mm deep, on a 150 × 50 mm rectangle centred in the base of the 215 × 115 mm LRS-200 case.",
+        "es": "Cuatro barrenos roscados M4 de 3 mm de profundidad en un rectángulo de 150 × 50 mm centrado en la base de la carcasa LRS-200 de 215 × 115 mm.",
+        "fr": "Quatre trous taraudés M4 de 3 mm de profondeur sur un rectangle de 150 × 50 mm centré dans le fond du boîtier LRS-200 de 215 × 115 mm.",
+        "pt": "Quatro furos roscados M4 com 3 mm de profundidade num retângulo de 150 × 50 mm centrado na base da caixa LRS-200 de 215 × 115 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "thread": {"value": "M4", "unit": "thread", "source": 0},
+        "thread_depth": {"value": 3, "unit": "mm", "source": 0},
+        "hole_spacing_length": {"value": 150, "unit": "mm", "source": 0},
+        "hole_spacing_width": {"value": 50, "unit": "mm", "source": 0},
+        "end_offset": {"value": 32.5, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {"title": "Mean Well LRS-200 series specification (Case No. 207 mechanical drawing)", "url": "https://www.meanwell.com/Upload/PDF/LRS-200/LRS-200-SPEC.PDF", "publisher": "Mean Well", "accessed": "2026-10-02", "supports": "case 215 × 115 × 30 mm; base 4-M4 L=3 mm on 150 × 50 mm, 32.5 mm from the ends; sides 4-M4 (both sides) L=5 mm, 150 mm apart, 12.5 mm above the base; tolerance ±1"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4). The drawing's general tolerance is ±1 mm. The holes are M4, not M3."
+    },
+    {
+      "key": "meanwell-lrs-200-side-m4",
+      "label": {
+        "en": "Mean Well LRS-200 side mount",
+        "es": "Montaje lateral Mean Well LRS-200",
+        "fr": "Fixation latérale Mean Well LRS-200",
+        "pt": "Fixação lateral Mean Well LRS-200"
+      },
+      "definition": {
+        "en": "Two M4 threaded holes, 5 mm deep, 150 mm apart and 12.5 mm above the base, on each long side of the LRS-200 case.",
+        "es": "Dos barrenos roscados M4 de 5 mm de profundidad, a 150 mm entre sí y a 12.5 mm sobre la base, en cada costado largo de la carcasa LRS-200.",
+        "fr": "Deux trous taraudés M4 de 5 mm de profondeur, espacés de 150 mm et à 12,5 mm au-dessus du fond, sur chaque grand côté du boîtier LRS-200.",
+        "pt": "Dois furos roscados M4 com 5 mm de profundidade, a 150 mm um do outro e a 12,5 mm acima da base, em cada lado comprido da caixa LRS-200."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 2, "unit": "count", "source": 0},
+        "thread": {"value": "M4", "unit": "thread", "source": 0},
+        "thread_depth": {"value": 5, "unit": "mm", "source": 0},
+        "hole_spacing": {"value": 150, "unit": "mm", "source": 0},
+        "height_above_base": {"value": 12.5, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {"title": "Mean Well LRS-200 series specification (Case No. 207 mechanical drawing)", "url": "https://www.meanwell.com/Upload/PDF/LRS-200/LRS-200-SPEC.PDF", "publisher": "Mean Well", "accessed": "2026-10-02", "supports": "case 215 × 115 × 30 mm; base 4-M4 L=3 mm on 150 × 50 mm, 32.5 mm from the ends; sides 4-M4 (both sides) L=5 mm, 150 mm apart, 12.5 mm above the base; tolerance ±1"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4). One key per side; the case carries it on both long sides."
+    },
+    {
+      "key": "omron-d2f-mount-m2",
+      "label": {
+        "en": "Omron D2F mounting holes",
+        "es": "Barrenos de montaje Omron D2F",
+        "fr": "Trous de fixation Omron D2F",
+        "pt": "Furos de montagem Omron D2F"
+      },
+      "definition": {
+        "en": "The two Ø2 mm through holes, 6.5 mm apart, by which an Omron D2F subminiature switch is screwed to its bracket with M2 screws.",
+        "es": "Los dos barrenos pasantes de Ø2 mm, a 6.5 mm entre sí, con los que un microinterruptor Omron D2F se atornilla a su soporte con tornillos M2.",
+        "fr": "Les deux trous traversants de Ø2 mm, espacés de 6,5 mm, par lesquels un micro-interrupteur Omron D2F se visse sur son support avec des vis M2.",
+        "pt": "Os dois furos passantes de Ø2 mm, a 6,5 mm um do outro, pelos quais um microinterruptor Omron D2F é aparafusado ao suporte com parafusos M2."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 2, "unit": "count", "source": 0},
+        "hole_diameter": {"value": 2, "unit": "mm", "source": 0, "tolerance": "+0.12/0"},
+        "hole_spacing": {"value": 6.5, "unit": "mm", "source": 0, "tolerance": "±0.15"},
+        "screw": {"value": "M2", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {"title": "Omron D2F ultra subminiature basic switch datasheet", "url": "https://omronfs.omron.com/en_US/ecb/products/pdf/en-d2f.pdf", "publisher": "Omron", "accessed": "2026-10-02", "supports": "2-Ø2 mounting holes 6.5 ±0.15 mm apart; M2 mounting screws; body 12.8 ±0.15 × 5.8 ±0.15 mm"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4). The pattern is the same on every D2F actuator variant (pin plunger, hinge lever, roller lever)."
+    }
+  ]
+}

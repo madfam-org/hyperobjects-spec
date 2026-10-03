@@ -1139,8 +1139,8 @@ fc-spec related tape-edge
 <!-- counts:lexicon-status:start -->
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=147 failures=0 embodied_by=resolved
-lexicon_status: 147/147 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=117 unmarked=30
+y4d-spec lexicon: terms=157 failures=0 embodied_by=resolved
+lexicon_status: 157/157 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=127 unmarked=30
 ```
 <!-- counts:lexicon-status:end -->
 
@@ -1374,19 +1374,21 @@ both platforms.
 The commons vocabularies are readings of keys the two commons already write. The
 fabrication vocabularies are the other kind: **reference lists** for the keys a manifest's
 fabrication fields write — what a part is made by, what of, under which slicer bounds,
-on which machine, and which standard part two interfaces mate through. Five documents
-ship in `src/hyperobjects_lexicon/vocabularies/fabrication/`, validated by their own
-schema (`fabrication-vocabulary.schema.json`) and checked by the same `vocab` command:
+on which machine, and which standard part two interfaces mate through. Five vocabularies
+ship in `src/hyperobjects_lexicon/vocabularies/fabrication/` (one file each, plus a
+`{vocabulary}.{label}.json` supplement the loader merges in — the standard-parts catalog's
+interface sizes are one), validated by their own schema
+(`fabrication-vocabulary.schema.json`) and checked by the same `vocab` command:
 
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=78 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=86 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=19 cited=19 dimensions=59 provisional=1 review: signed=0 draft=19
+fabrication_status[interface-sizes]: entries=27 cited=27 dimensions=91 provisional=2 review: signed=0 draft=27
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1404,6 +1406,31 @@ of a `{param, map}` size key), `requirements.process`, `requirements.materials.a
 `none_of`, and the keys of `requirements.process_parameters`, at the top level and under
 `requirements.parts.<id>`. A manifest without those fields passes silently — on
 2026-10-02 that is all 502 solid and 516 soft manifests, checked.
+
+### The standard-parts catalog (ASM-1 §4)
+
+An assembly references a commercial off-the-shelf part with
+`{"source": {"type": "standard", "key": "<key>"}}`. The keys live in
+`src/hyperobjects_standard_parts/parts/`, one JSON file per part, validated by
+`standard-part.schema.json`: the governing standard or datasheet with citation URLs,
+cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
+in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
+`size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
+Fourteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad); the frame, motor, camera, prop, stack and antenna entries are commercial
+**classes**, stated by shared facts, never a copy of one vendor's design.
+
+```python
+from hyperobjects_standard_parts import load_part, resolve_parameters, interface_frames
+frames = interface_frames(load_part("extrusion-2020"),
+                          resolve_parameters(load_part("extrusion-2020"), {"length_mm": 350}))
+```
+
+The lane — schema, citations, membership of every `size_key`, frames evaluating at the
+defaults and at every parameter bound, exact unit and orthogonal axes — is the third
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=14 interfaces=37 failures=0`).
+[`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
+convention and how to add a part.
 
 ### Article frontmatter
 
@@ -1447,7 +1474,7 @@ fc-spec reader --status        # just the reader_status line
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 147 | 147 / 147 / 147 / 147 |
+| terms | 157 | 157 / 157 / 157 / 157 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -1464,8 +1491,8 @@ fc-spec reader --status        # just the reader_status line
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1189 differences=0
-reader_status: pages=1189 terms=147 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1199 differences=0
+reader_status: pages=1199 terms=157 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
@@ -1527,6 +1554,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 | `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges and material cards → AAS Environments, the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
+| `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
 
 ```python
 import hyperobjects_schemas as hs
@@ -1534,7 +1562,7 @@ hs.list_schemas()               # ['article-frontmatter', 'assembly', 'body-meas
                                 #  'commons-vocabulary', 'cross-commons-identity',
                                 #  'fabric-manifest', 'fabrication-vocabulary',
                                 #  'garment-manifest', 'generator-output', 'lexicon-term',
-                                #  'project-manifest']
+                                #  'project-manifest', 'standard-part']
 hs.load("project-manifest")
 ```
 

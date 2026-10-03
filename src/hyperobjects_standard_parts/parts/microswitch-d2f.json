@@ -1,0 +1,145 @@
+{
+  "spec_version": 1,
+  "key": "microswitch-d2f",
+  "category": "switch",
+  "name": {
+    "en": "Omron D2F subminiature switch",
+    "es": "Microinterruptor Omron D2F",
+    "fr": "Micro-interrupteur Omron D2F",
+    "pt": "Microinterruptor Omron D2F"
+  },
+  "description": {
+    "en": "An ultra-subminiature basic switch, 12.8 × 5.8 mm in plan, screwed down through two Ø2 mm holes 6.5 mm apart with M2 screws; used as an endstop. Either side face can bear on the bracket.",
+    "es": "Un interruptor básico ultra subminiatura de 12.8 × 5.8 mm en planta, que se atornilla por dos barrenos de Ø2 mm a 6.5 mm entre sí con tornillos M2; se usa como final de carrera. Cualquiera de sus caras laterales puede apoyar en el soporte.",
+    "fr": "Un interrupteur de base ultra-subminiature de 12,8 × 5,8 mm en plan, vissé par deux trous de Ø2 mm espacés de 6,5 mm avec des vis M2 ; utilisé comme fin de course. L'une ou l'autre face latérale peut s'appuyer sur le support.",
+    "pt": "Um interruptor básico ultra-subminiatura de 12,8 × 5,8 mm em planta, aparafusado por dois furos de Ø2 mm a 6,5 mm um do outro com parafusos M2; usado como fim de curso. Qualquer das faces laterais pode apoiar no suporte."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Omron D2F (all actuator variants)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Omron D2F ultra subminiature basic switch datasheet",
+      "url": "https://omronfs.omron.com/en_US/ecb/products/pdf/en-d2f.pdf",
+      "publisher": "Omron",
+      "accessed": "2026-10-02",
+      "supports": "body 12.8 ±0.15 × 5.8 ±0.15 mm; 2-Ø2 (+0.12/0) mounting holes 6.5 ±0.15 apart; M2 mounting screws; pin plunger OP 5.5 ±0.3 mm; approx. 0.5 g (pin plunger)"
+    }
+  ],
+  "frame_convention": "Origin midway between the two mounting-hole centres, on the switch's mid-plane. +x runs along the 12.8 mm length through the two holes; +y through the 5.8 mm thickness, so side face A is at y = −2.9 and side face B at y = +2.9; +z toward the actuator (the actuator is pressed in −z).",
+  "dimensions": {
+    "body_length": {
+      "value": 12.8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15"
+    },
+    "body_thickness": {
+      "value": 5.8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15"
+    },
+    "mounting_hole_diameter": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.12/0"
+    },
+    "mounting_hole_spacing": {
+      "value": 6.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15"
+    },
+    "mounting_screw": {
+      "value": "M2",
+      "unit": "thread",
+      "source": 0
+    },
+    "operating_position": {
+      "value": 5.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "pin-plunger models, from the mounting-hole centreline"
+    },
+    "mass": {
+      "value": 0.5,
+      "unit": "g",
+      "source": 0,
+      "note": "approximate, pin-plunger models"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mount_a",
+      "label": {
+        "en": "Mount on face A",
+        "es": "Montaje por la cara A",
+        "fr": "Fixation par la face A",
+        "pt": "Montagem pela face A"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "omron-d2f-mount-m2",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          -2.9,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "The bracket bears on face A. Male: the M2 screws pass through the switch into the bracket. y = −2.9 is half the cited 5.8 mm thickness."
+    },
+    {
+      "id": "mount_b",
+      "label": {
+        "en": "Mount on face B",
+        "es": "Montaje por la cara B",
+        "fr": "Fixation par la face B",
+        "pt": "Montagem pela face B"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "omron-d2f-mount-m2",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          2.9,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "The bracket bears on face B."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The actuator (pin plunger, hinge lever or roller lever) is not a mating interface: what trips it is a motion, not a join. Its operating position is recorded for the pin-plunger model only."
+}

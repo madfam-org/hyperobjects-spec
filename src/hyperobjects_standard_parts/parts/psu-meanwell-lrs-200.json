@@ -1,0 +1,192 @@
+{
+  "spec_version": 1,
+  "key": "psu-meanwell-lrs-200",
+  "category": "power-supply",
+  "name": {
+    "en": "Mean Well LRS-200 power supply",
+    "es": "Fuente de poder Mean Well LRS-200",
+    "fr": "Alimentation Mean Well LRS-200",
+    "pt": "Fonte de alimentação Mean Well LRS-200"
+  },
+  "description": {
+    "en": "A 200 W enclosed single-output switching power supply in a 215 × 115 × 30 mm case, with M4 mounting holes on its base and on both long sides.",
+    "es": "Una fuente conmutada cerrada de 200 W y una salida, en carcasa de 215 × 115 × 30 mm, con barrenos de montaje M4 en la base y en ambos costados largos.",
+    "fr": "Une alimentation à découpage fermée de 200 W à une sortie, dans un boîtier de 215 × 115 × 30 mm, avec des trous de fixation M4 sur le fond et sur les deux grands côtés.",
+    "pt": "Uma fonte comutada fechada de 200 W com uma saída, numa caixa de 215 × 115 × 30 mm, com furos de montagem M4 na base e nos dois lados compridos."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Mean Well LRS-200 series, Case No. 207",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Mean Well LRS-200 series specification (Case No. 207 mechanical drawing)",
+      "url": "https://www.meanwell.com/Upload/PDF/LRS-200/LRS-200-SPEC.PDF",
+      "publisher": "Mean Well",
+      "accessed": "2026-10-02",
+      "supports": "case 215 × 115 × 30 mm, tolerance ±1; base 4-M4 L=3 mm on 150 × 50 mm, 32.5 mm from the ends and long edges; sides 4-M4 (both sides) L=5 mm, 150 mm apart, 12.5 mm above the base; 0.66 kg"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the base footprint, on the bottom face. +x runs along the 215 mm length away from the terminal block (which is at the x = −107.5 end); +y across the 115 mm width; +z up, the top at z = 30. The base holes sit at (±75, ±25, 0); the side holes at (±75, ±57.5, 12.5).",
+  "dimensions": {
+    "case_length": {
+      "value": 215,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±1"
+    },
+    "case_width": {
+      "value": 115,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±1"
+    },
+    "case_height": {
+      "value": 30,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±1"
+    },
+    "base_thread": {
+      "value": "M4",
+      "unit": "thread",
+      "source": 0
+    },
+    "base_thread_depth": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0
+    },
+    "base_hole_spacing_length": {
+      "value": 150,
+      "unit": "mm",
+      "source": 0
+    },
+    "base_hole_spacing_width": {
+      "value": 50,
+      "unit": "mm",
+      "source": 0
+    },
+    "side_thread_depth": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "side_hole_spacing": {
+      "value": 150,
+      "unit": "mm",
+      "source": 0
+    },
+    "side_hole_height": {
+      "value": 12.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "mass": {
+      "value": 660,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base mount",
+        "es": "Montaje inferior",
+        "fr": "Fixation inférieure",
+        "pt": "Fixação inferior"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "meanwell-lrs-200-base-m4",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread."
+    },
+    {
+      "id": "side_pos_y",
+      "label": {
+        "en": "Side mount, +y side",
+        "es": "Montaje lateral, lado +y",
+        "fr": "Fixation latérale, côté +y",
+        "pt": "Fixação lateral, lado +y"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "meanwell-lrs-200-side-m4",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          57.5,
+          12.5
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread."
+    },
+    {
+      "id": "side_neg_y",
+      "label": {
+        "en": "Side mount, −y side",
+        "es": "Montaje lateral, lado −y",
+        "fr": "Fixation latérale, côté −y",
+        "pt": "Fixação lateral, lado −y"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "meanwell-lrs-200-side-m4",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          -57.5,
+          12.5
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "All mounting holes are M4. Positions are the drawing's nominal values; its general tolerance is ±1 mm. Electrical ratings are deliberately not restated: they are per output-voltage model."
+}

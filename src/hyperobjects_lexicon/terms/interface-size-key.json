@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "interface-size-key",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "interface size key",
+    "es": "clave de tamaño de interfaz",
+    "fr": "clé de taille d'interface",
+    "pt": "chave de tamanho de interface"
+  },
+  "definition": {
+    "en": "The interface-sizes vocabulary key an interface realises — a named physical standard or pattern such as nema-17-face or stack-30.5x30.5-m3. Two interfaces can mate only when their resolved size keys are equal, so the key is the shared fit, carried by both sides.",
+    "es": "La clave del vocabulario interface-sizes que realiza una interfaz: un estándar o patrón físico con nombre, como nema-17-face o stack-30.5x30.5-m3. Dos interfaces solo pueden acoplarse cuando sus claves de tamaño resueltas son iguales, así que la clave es el ajuste compartido y la llevan ambos lados.",
+    "fr": "La clé du vocabulaire interface-sizes que réalise une interface : un standard ou un motif physique nommé, comme nema-17-face ou stack-30.5x30.5-m3. Deux interfaces ne peuvent s'accoupler que si leurs clés de taille résolues sont égales ; la clé est donc l'ajustement partagé, porté par les deux côtés.",
+    "pt": "A chave do vocabulário interface-sizes que uma interface realiza: uma norma ou um padrão físico com nome, como nema-17-face ou stack-30.5x30.5-m3. Duas interfaces só podem acoplar quando as suas chaves de tamanho resolvidas são iguais, por isso a chave é o ajuste partilhado, levado pelos dois lados."
+  },
+  "see_also": [
+    "interface-polarity",
+    "cdg-interface",
+    "standard-ref"
+  ],
+  "constraints": "A bore carries the key of the shaft it fits, not a key of its own diameter: equality is the mating rule, so two names for one fit would make a correct mate fail.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}
