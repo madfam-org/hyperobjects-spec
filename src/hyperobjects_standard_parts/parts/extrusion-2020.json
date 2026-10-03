@@ -1,0 +1,458 @@
+{
+  "spec_version": 1,
+  "key": "extrusion-2020",
+  "category": "structural-profile",
+  "name": {
+    "en": "2020 aluminium extrusion (6 mm slot)",
+    "es": "Perfil de aluminio 2020 (ranura de 6 mm)",
+    "fr": "Profilé aluminium 2020 (rainure de 6 mm)",
+    "pt": "Perfil de alumínio 2020 (ranhura de 6 mm)"
+  },
+  "description": {
+    "en": "A 20 × 20 mm series-5 aluminium extrusion cut to length, with a 6 mm slot on each face and a Ø4.2 mm centre hole that can be tapped M5 at either end. Brackets and T-nuts mate its slots; end-fastened joints mate its tapped ends.",
+    "es": "Un perfil de aluminio de 20 × 20 mm serie 5 cortado a medida, con una ranura de 6 mm en cada cara y un barreno central de Ø4.2 mm que puede roscarse M5 en cualquiera de sus extremos. Las escuadras y las tuercas en T se unen a sus ranuras; las uniones fijadas por el extremo, a sus extremos roscados.",
+    "fr": "Un profilé d'aluminium 20 × 20 mm série 5 coupé à longueur, avec une rainure de 6 mm sur chaque face et un trou central de Ø4,2 mm taraudable M5 à chaque extrémité. Équerres et écrous en T s'accouplent à ses rainures ; les assemblages fixés en bout, à ses extrémités taraudées.",
+    "pt": "Um perfil de alumínio de 20 × 20 mm série 5 cortado à medida, com uma ranhura de 6 mm em cada face e um furo central de Ø4,2 mm que pode ser roscado M5 em qualquer extremidade. Esquadros e porcas em T acoplam às ranhuras; juntas fixadas pelo topo, às extremidades roscadas."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "MISUMI HFS5-2020 (series 5, 20 × 20 mm, 6 mm slot)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI HFS5 series aluminum extrusions, 20 mm square (catalog pages 511–512)",
+      "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0511.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-02",
+      "supports": "HFS5-2020 / NFS5-2020 configurable length 50–4000 mm in 0.5 mm increments; 0.5 kg/m; sectional area 183 mm²"
+    },
+    {
+      "title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page",
+      "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-02",
+      "supports": "series-5 profile: 6 mm slot opening, Ø4.2 mm centre hole, cut length L ±0.5"
+    },
+    {
+      "title": "MISUMI aluminum extrusion alterations — end tapping (LTP/RTP/TPW) table",
+      "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0681.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-02",
+      "supports": "HFS5-2020 end tapping: M5, depth 15, one hole per end"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end A's cut face, on the extrusion axis. +z runs along the extrusion toward end B, whose face is at z = length_mm. +x and +y are normal to two adjacent slotted faces; the four faces sit at x = ±10 and y = ±10. Each face carries two slot interfaces on its centreline, at slot_station_mm from end A and from end B; their x_axis runs along the extrusion (+z).",
+  "dimensions": {
+    "profile_square": {
+      "value": 20,
+      "unit": "mm",
+      "source": 1
+    },
+    "slot_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 1
+    },
+    "centre_hole_diameter": {
+      "value": 4.2,
+      "unit": "mm",
+      "source": 1
+    },
+    "length_tolerance": {
+      "value": "±0.5",
+      "unit": "mm",
+      "source": 1,
+      "note": "cut length L ±0.5"
+    },
+    "end_tap_thread": {
+      "value": "M5",
+      "unit": "thread",
+      "source": 2
+    },
+    "end_tap_depth": {
+      "value": 15,
+      "unit": "mm",
+      "source": 2
+    },
+    "length_increment": {
+      "value": 0.5,
+      "unit": "mm",
+      "source": 0
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length",
+        "es": "Longitud de corte",
+        "fr": "Longueur de coupe",
+        "pt": "Comprimento de corte"
+      },
+      "default": 350,
+      "min": 50,
+      "max": 4000,
+      "step": 0.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI configurable range and increment. The default is a catalog convention."
+    },
+    {
+      "id": "slot_station_mm",
+      "type": "number",
+      "label": {
+        "en": "Slot interface station",
+        "es": "Posición de las interfaces de ranura",
+        "fr": "Position des interfaces de rainure",
+        "pt": "Posição das interfaces de ranhura"
+      },
+      "default": 10,
+      "min": 0,
+      "max": 2000,
+      "unit": "mm",
+      "note": "Where the slot interfaces sit, measured from each end. A convention, not a fact: 10 mm puts them under a 20 mm wide bracket flush with the end. Keep it at most length_mm / 2."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "end_a",
+      "label": {
+        "en": "End A (tapped)",
+        "es": "Extremo A (roscado)",
+        "fr": "Extrémité A (taraudée)",
+        "pt": "Extremidade A (roscada)"
+      },
+      "geometry_type": "thread",
+      "size_key": "tslot-2020-end-tap-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female when end A is tapped (MISUMI LTP or TPW); an untapped end has only the Ø4.2 mm hole and no fastening interface."
+    },
+    {
+      "id": "end_b",
+      "label": {
+        "en": "End B (tapped)",
+        "es": "Extremo B (roscado)",
+        "fr": "Extrémité B (taraudée)",
+        "pt": "Extremidade B (roscada)"
+      },
+      "geometry_type": "thread",
+      "size_key": "tslot-2020-end-tap-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "length_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm"
+      ],
+      "note": "Female when end B is tapped (MISUMI RTP or TPW)."
+    },
+    {
+      "id": "slot_xp_a",
+      "label": {
+        "en": "Slot +x, near end A",
+        "es": "Ranura +x, cerca del extremo A",
+        "fr": "Rainure +x, près de l'extrémité A",
+        "pt": "Ranhura +x, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          10,
+          0,
+          "slot_station_mm"
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_xp_b",
+      "label": {
+        "en": "Slot +x, near end B",
+        "es": "Ranura +x, cerca del extremo B",
+        "fr": "Rainure +x, près de l'extrémité B",
+        "pt": "Ranhura +x, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          10,
+          0,
+          "length_mm - slot_station_mm"
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_xn_a",
+      "label": {
+        "en": "Slot −x, near end A",
+        "es": "Ranura −x, cerca del extremo A",
+        "fr": "Rainure −x, près de l'extrémité A",
+        "pt": "Ranhura −x, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          -10,
+          0,
+          "slot_station_mm"
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_xn_b",
+      "label": {
+        "en": "Slot −x, near end B",
+        "es": "Ranura −x, cerca del extremo B",
+        "fr": "Rainure −x, près de l'extrémité B",
+        "pt": "Ranhura −x, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          -10,
+          0,
+          "length_mm - slot_station_mm"
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_yp_a",
+      "label": {
+        "en": "Slot +y, near end A",
+        "es": "Ranura +y, cerca del extremo A",
+        "fr": "Rainure +y, près de l'extrémité A",
+        "pt": "Ranhura +y, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          10,
+          "slot_station_mm"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_yp_b",
+      "label": {
+        "en": "Slot +y, near end B",
+        "es": "Ranura +y, cerca del extremo B",
+        "fr": "Rainure +y, près de l'extrémité B",
+        "pt": "Ranhura +y, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          10,
+          "length_mm - slot_station_mm"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_yn_a",
+      "label": {
+        "en": "Slot −y, near end A",
+        "es": "Ranura −y, cerca del extremo A",
+        "fr": "Rainure −y, près de l'extrémité A",
+        "pt": "Ranhura −y, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          -10,
+          "slot_station_mm"
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "slot_station_mm"
+      ]
+    },
+    {
+      "id": "slot_yn_b",
+      "label": {
+        "en": "Slot −y, near end B",
+        "es": "Ranura −y, cerca del extremo B",
+        "fr": "Rainure −y, près de l'extrémité B",
+        "pt": "Ranhura −y, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          -10,
+          "length_mm - slot_station_mm"
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "slot_station_mm"
+      ]
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A slot is a continuous feature; v1 mates name a point on it (the two stations per face), so a partner placed elsewhere along the slot changes slot_station_mm. The 0.5 kg/m mass is in the MISUMI table and is not restated as a dimension."
+}
