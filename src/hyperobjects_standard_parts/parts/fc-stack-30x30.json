@@ -1,0 +1,105 @@
+{
+  "spec_version": 1,
+  "key": "fc-stack-30x30",
+  "category": "flight-controller",
+  "name": {
+    "en": "Flight-controller stack, 30.5 × 30.5 mm",
+    "es": "Pila de controladora de vuelo de 30.5 × 30.5 mm",
+    "fr": "Pile de contrôleur de vol 30,5 × 30,5 mm",
+    "pt": "Pilha de controladora de voo de 30,5 × 30,5 mm"
+  },
+  "description": {
+    "en": "The flight-controller (and ESC) board class that mounts on a 30.5 × 30.5 mm M3 pattern through Ø4 mm holes fitted with M3 grommets. It mates the frame's stack mount by its bottom board.",
+    "es": "La clase de placas de controladora de vuelo (y ESC) que se montan en un patrón M3 de 30.5 × 30.5 mm por barrenos de Ø4 mm con gomas para M3. Se une al montaje de pila del marco por su placa inferior.",
+    "fr": "La classe de cartes de contrôleur de vol (et d'ESC) montées sur un motif M3 de 30,5 × 30,5 mm par des trous de Ø4 mm munis d'œillets M3. Elle s'accouple à la fixation de pile du châssis par sa carte inférieure.",
+    "pt": "A classe de placas de controladora de voo (e ESC) montadas num padrão M3 de 30,5 × 30,5 mm por furos de Ø4 mm com anilhas de borracha M3. Acopla à fixação da pilha do quadro pela placa inferior."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "30.5 × 30.5 mm flight-controller stack (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Matek F405-HDTE flight controller",
+      "url": "https://www.mateksys.com/?portfolio=f405-hdte",
+      "publisher": "Matek Systems",
+      "accessed": "2026-10-02",
+      "supports": "36 × 36 × 9 mm; mounting 30.5 × 30.5 mm; Φ4 mm holes with Φ3 mm grommets; 7 g"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the 30.5 mm hole square, on the bottom face of the lowest board. +z up through the stack; +x toward the board's forward arrow; +y to the left.",
+  "dimensions": {
+    "hole_spacing": {
+      "value": 30.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "hole_diameter": {
+      "value": 4,
+      "unit": "mm",
+      "source": 0
+    },
+    "grommet_bore": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0
+    },
+    "board_size": {
+      "value": 36,
+      "unit": "mm",
+      "source": 0,
+      "note": "F405-HDTE, square"
+    },
+    "board_height": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "note": "F405-HDTE"
+    },
+    "mass": {
+      "value": 7,
+      "unit": "g",
+      "source": 0,
+      "note": "F405-HDTE"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mount",
+      "label": {
+        "en": "Stack mount",
+        "es": "Montaje de la pila",
+        "fr": "Fixation de la pile",
+        "pt": "Fixação da pilha"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "stack-30.5x30.5-m3",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the grommeted holes receive the frame's bolts or standoffs. Symmetry 4: the pattern is square (board yaw is a firmware setting)."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: the mounting pattern is the shared fact; board size, height and mass are those of the cited Matek F405-HDTE and vary across the class."
+}

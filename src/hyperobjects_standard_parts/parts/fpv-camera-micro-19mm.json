@@ -1,0 +1,99 @@
+{
+  "spec_version": 1,
+  "key": "fpv-camera-micro-19mm",
+  "category": "camera",
+  "name": {
+    "en": "Micro FPV camera, 19 mm",
+    "es": "Cámara FPV micro de 19 mm",
+    "fr": "Caméra FPV micro de 19 mm",
+    "pt": "Câmara FPV micro de 19 mm"
+  },
+  "description": {
+    "en": "The micro FPV camera class with a 19 × 19 mm body, held in a frame bay or a printed cage by two side screws about which it tilts.",
+    "es": "La clase de cámara FPV micro con cuerpo de 19 × 19 mm, sujeta en el hueco del marco o en una jaula impresa por dos tornillos laterales alrededor de los cuales se inclina.",
+    "fr": "La classe de caméra FPV micro à corps de 19 × 19 mm, tenue dans la baie du châssis ou une cage imprimée par deux vis latérales autour desquelles elle s'incline.",
+    "pt": "A classe de câmara FPV micro com corpo de 19 × 19 mm, presa no compartimento do quadro ou numa gaiola impressa por dois parafusos laterais em torno dos quais inclina."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "Micro FPV camera, 19 × 19 mm body (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Caddx Ratel 2 (micro) camera — retailer specification",
+      "url": "https://www.rotorama.com/product/caddx-ratel-2",
+      "publisher": "Rotorama",
+      "accessed": "2026-10-02",
+      "supports": "dimensions 19 × 19 mm; 5.9 g"
+    },
+    {
+      "title": "Caddx Ratel 2 — 2.1 mm",
+      "url": "https://www.team-blacksheep.com/products/prod:caddx_ratel_2_b",
+      "publisher": "Team BlackSheep",
+      "accessed": "2026-10-02",
+      "supports": "dimensions 19 × 19 × 20 mm; 5.9 g"
+    }
+  ],
+  "frame_convention": "Origin on the side-screw axis (the axis through the two side mounting screws, about which the camera tilts), midway between the two side faces. +x along the optical axis, out through the lens; +z up; +y to the camera's left. The side faces sit at y = ±9.5.",
+  "dimensions": {
+    "body_width": {
+      "value": 19,
+      "unit": "mm",
+      "source": 0
+    },
+    "body_height": {
+      "value": 19,
+      "unit": "mm",
+      "source": 1
+    },
+    "body_length": {
+      "value": 20,
+      "unit": "mm",
+      "source": 1
+    },
+    "mass": {
+      "value": 5.9,
+      "unit": "g",
+      "source": 1
+    }
+  },
+  "interfaces": [
+    {
+      "id": "side_mount",
+      "label": {
+        "en": "Side mount",
+        "es": "Montaje lateral",
+        "fr": "Fixation latérale",
+        "pt": "Fixação lateral"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the body goes into the bay or cage. Symmetry 0: a mate's angle_deg sets the tilt about the side-screw axis."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The side-screw thread and its height on the body are not published by the cited listings, so they are not facts here; the frame convention is defined by the screw axis instead of a number."
+}
