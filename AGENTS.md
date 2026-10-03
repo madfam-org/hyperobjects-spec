@@ -99,6 +99,18 @@ those pairs agreed; `P` says how many owe that agreement to nothing but a
 re-centring. An exemption is counted in `E` rather than removed from `M`, so a
 manifest cannot shrink the denominator to look cleaner.
 
+- With `--render` and at least one interface `frame`, a frame-gate clause is
+  appended (ASM-1 §8, `y4d_spec.frame_gate`):
+
+```
+frames=P/M ok, unverified=U, failures=F
+```
+
+`P + U + F = M`, one per (framed interface, parameter point). `unverified` is a
+`geometry_type` with no frame rule, or a part nothing here could render: a note,
+never a pass. A manifest without frames prints no `frames=` clause and renders
+nothing extra.
+
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
 against the whole commons is written down (see `rules.py` for the killed ones).

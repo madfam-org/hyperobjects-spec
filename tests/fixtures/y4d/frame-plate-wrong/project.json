@@ -1,0 +1,317 @@
+{
+  "project": {
+    "name": "Frame Plate Wrong",
+    "slug": "frame-plate-wrong",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Test fixture for the render-time frame gate: the same plate and pin as frame-plate, with deliberately wrong frames (an origin offset off the face, a flipped bore normal) that the gate must fail.",
+      "es": "Accesorio de prueba: la misma placa y perno que frame-plate, con marcos deliberadamente erróneos (origen desplazado, normal del barreno invertida) que la verificación debe rechazar."
+    },
+    "thumbnail": "/projects/frame-plate-wrong.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test-fixture",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "plate",
+      "label": {
+        "en": "Plate",
+        "es": "Placa"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "plate"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "pin",
+      "label": {
+        "en": "Pin",
+        "es": "Perno"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "pin"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "plate",
+      "label": {
+        "en": "Plate",
+        "es": "Placa"
+      },
+      "render_mode": 0,
+      "color": "#7a8b99"
+    },
+    {
+      "id": "pin",
+      "label": {
+        "en": "Pin",
+        "es": "Perno"
+      },
+      "render_mode": 0,
+      "color": "#99857a"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "plate_thick",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.0,
+      "max": 8.0,
+      "step": 0.5,
+      "unit": "mm",
+      "modes": [
+        "plate"
+      ],
+      "label": {
+        "en": "Plate thickness",
+        "es": "Espesor de placa"
+      },
+      "tooltip": {
+        "en": "Plate thickness",
+        "es": "Espesor de placa"
+      }
+    },
+    {
+      "id": "bore_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 12.0,
+      "step": 0.5,
+      "unit": "mm",
+      "modes": [
+        "plate"
+      ],
+      "label": {
+        "en": "Centre bore diameter",
+        "es": "Diámetro del barreno central"
+      },
+      "tooltip": {
+        "en": "Centre bore diameter",
+        "es": "Diámetro del barreno central"
+      }
+    },
+    {
+      "id": "pin_d",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 8.0,
+      "step": 0.5,
+      "unit": "mm",
+      "modes": [
+        "pin"
+      ],
+      "label": {
+        "en": "Pin diameter",
+        "es": "Diámetro del perno"
+      },
+      "tooltip": {
+        "en": "Pin diameter",
+        "es": "Diámetro del perno"
+      }
+    },
+    {
+      "id": "pin_len",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 1.0,
+      "unit": "mm",
+      "modes": [
+        "pin"
+      ],
+      "label": {
+        "en": "Pin length",
+        "es": "Longitud del perno"
+      },
+      "tooltip": {
+        "en": "Pin length",
+        "es": "Longitud del perno"
+      }
+    },
+    {
+      "id": "target_part",
+      "type": "select",
+      "default": "plate",
+      "label": {
+        "en": "Part",
+        "es": "Pieza"
+      },
+      "options": [
+        {
+          "value": "plate",
+          "label": {
+            "en": "Plate",
+            "es": "Placa"
+          }
+        },
+        {
+          "value": "pin",
+          "label": {
+            "en": "Pin",
+            "es": "Perno"
+          }
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "thick",
+      "mode": "plate",
+      "label": {
+        "en": "Thick plate",
+        "es": "Placa gruesa"
+      },
+      "values": {
+        "plate_thick": 6.0,
+        "bore_d": 10.0
+      }
+    },
+    {
+      "id": "long_pin",
+      "mode": "pin",
+      "label": {
+        "en": "Long pin",
+        "es": "Perno largo"
+      },
+      "values": {
+        "pin_len": 16.0,
+        "pin_d": 6.0
+      }
+    }
+  ],
+  "constraints": [],
+  "export_formats": [
+    "stl",
+    "step"
+  ],
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "motor_face",
+        "label": {
+          "en": "Motor Face (16x16 M3)",
+          "es": "Cara del motor (16x16 M3)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal",
+        "parameters": [
+          "plate_thick"
+        ],
+        "frame": {
+          "part": "plate",
+          "origin": [
+            0,
+            0,
+            "plate_thick + 1"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "symmetry": 4,
+        "size_key": "motor-mount-16x16-m3"
+      },
+      {
+        "id": "centre_bore",
+        "label": {
+          "en": "Centre Bore",
+          "es": "Barreno central"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "plate_thick",
+          "bore_d"
+        ],
+        "frame": {
+          "part": "plate",
+          "origin": [
+            0,
+            0,
+            "plate_thick"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "female",
+        "symmetry": 0
+      },
+      {
+        "id": "underside",
+        "label": {
+          "en": "Underside",
+          "es": "Cara inferior"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [],
+        "frame": {
+          "part": "plate",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Test fixture.",
+      "es": "Accesorio de prueba."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  }
+}
