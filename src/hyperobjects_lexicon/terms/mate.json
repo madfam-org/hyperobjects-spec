@@ -1,0 +1,28 @@
+{
+  "spec_version": 2,
+  "id": "mate",
+  "domain": "cdg-interface",
+  "term": {
+    "en": "mate",
+    "es": "acoplamiento",
+    "fr": "accouplement",
+    "pt": "acoplamento"
+  },
+  "definition": {
+    "en": "A declared join between two component interfaces in an assembly. It holds when the resolved size keys are equal, the polarities complementary, the origins coincide, the normals are antiparallel and the x-axes agree modulo the interface symmetry; a rotation index (or an angle, for continuous symmetry) picks the orientation.",
+    "es": "Una unión declarada entre dos interfaces de componentes en un ensamble. Se cumple cuando las claves de tamaño resueltas son iguales, las polaridades complementarias, los orígenes coinciden, las normales son antiparalelas y los ejes x concuerdan módulo la simetría de la interfaz; un índice de rotación (o un ángulo, con simetría continua) elige la orientación.",
+    "fr": "Une liaison déclarée entre deux interfaces de composants dans un assemblage. Elle tient quand les clés de taille résolues sont égales, les polarités complémentaires, les origines confondues, les normales antiparallèles et les axes x concordants modulo la symétrie de l'interface ; un indice de rotation (ou un angle, pour une symétrie continue) choisit l'orientation.",
+    "pt": "Uma ligação declarada entre duas interfaces de componentes numa montagem. Verifica-se quando as chaves de tamanho resolvidas são iguais, as polaridades complementares, as origens coincidem, as normais são antiparalelas e os eixos x concordam módulo a simetria da interface; um índice de rotação (ou um ângulo, com simetria contínua) escolhe a orientação."
+  },
+  "see_also": [
+    "assembly",
+    "interface-polarity",
+    "interface-size-key",
+    "interface-symmetry"
+  ],
+  "constraints": "A mate that closes a loop must hold in world space too: a cycle whose residuals exceed 0.05 mm or 0.5° is an error, not a tolerance to absorb.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}

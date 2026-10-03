@@ -1,0 +1,27 @@
+{
+  "spec_version": 2,
+  "id": "external-design-reference",
+  "domain": "licensing",
+  "term": {
+    "en": "external design reference",
+    "es": "referencia a diseño externo",
+    "fr": "référence à une conception externe",
+    "pt": "referência a desenho externo"
+  },
+  "definition": {
+    "en": "A component of an assembly that is a third-party design, named with its licence and URL and with its interface facts declared inline, while none of its CAD is vendored. It is how a design under a licence the commons does not ship — a GPL toolhead, for instance — takes part in an assembly without being copied into it.",
+    "es": "Un componente de un ensamble que es un diseño de terceros, nombrado con su licencia y su URL y con sus interfaces declaradas en línea, sin incorporar nada de su CAD. Así participa en un ensamble un diseño bajo una licencia que el commons no distribuye (un cabezal GPL, por ejemplo) sin copiarse en él.",
+    "fr": "Un composant d'assemblage qui est une conception tierce, nommée avec sa licence et son URL et dont les interfaces sont déclarées en ligne, sans qu'aucune de ses CAO ne soit intégrée. C'est ainsi qu'une conception sous une licence que le commons ne distribue pas — une tête d'impression GPL, par exemple — prend part à un assemblage sans y être copiée.",
+    "pt": "Um componente de uma montagem que é um desenho de terceiros, identificado com a sua licença e o seu URL e com as suas interfaces declaradas em linha, sem que nenhum do seu CAD seja incorporado. É assim que um desenho sob uma licença que o commons não distribui — uma cabeça de impressão GPL, por exemplo — participa numa montagem sem ser copiado para ela."
+  },
+  "see_also": [
+    "assembly",
+    "commons-license",
+    "attribution-lineage"
+  ],
+  "constraints": "Inline interface facts for an external design are claims the commons cannot render-verify, so each must cite where it was read; an external part's mates are only as good as those citations.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted by an agent (P4-STD lane, 2026-10-02) for the AAS projection's concept ids; no native review yet."
+  }
+}
