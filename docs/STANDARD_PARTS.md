@@ -165,10 +165,9 @@ standard_parts_status: parts=14 interfaces=37 dimensions=106 parameters=10 class
 
 `y4d-spec vocab --standard-parts DIR` checks another catalog directory.
 
-**Frame evaluator.** ASM-1 §1 puts the frame evaluator in `y4d_spec/frame_eval.py`
-(PR #34). Until that lands, the catalog uses a deliberately small local walker
-(`hyperobjects_standard_parts.expressions`) that accepts exactly the SEM-1 grammar; once
-#34 is on `main` the check can call `y4d_spec.frame_eval` and the walker can go.
+**Frame evaluator.** Frame components are evaluated by `y4d_spec.frame_eval`, the ASM-1 §1
+evaluator the assembly validator and the render-time frame gate also use: the SEM-1 grammar
+check first, then a hand walk over floats; nothing reaches `eval`.
 
 ## Adding a part
 

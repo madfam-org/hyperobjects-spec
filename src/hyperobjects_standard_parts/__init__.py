@@ -33,11 +33,12 @@ from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
 
-from .expressions import ExpressionError, evaluate_component
+from y4d_spec.frame_eval import FrameEvaluationError, evaluate_expression
 
 __all__ = [
     "SCHEMA_NAME",
     "Frame",
+    "FrameEvaluationError",
     "ParameterError",
     "interface_frames",
     "list_part_keys",
@@ -133,21 +134,24 @@ def resolve_parameters(part: Mapping, given: Mapping | None = None) -> dict[str,
 
 def _vector(raw: object, values: Mapping[str, float], where: str) -> Vector:
     if not isinstance(raw, list | tuple) or len(raw) != 3:
-        raise ExpressionError(f"{where}: {raw!r} is not a list of exactly 3 components")
+        raise FrameEvaluationError(f"{where}: {raw!r} is not a list of exactly 3 components")
     out = []
     for i, component in enumerate(raw):
         try:
-            out.append(evaluate_component(component, values))
-        except ExpressionError as exc:
-            raise ExpressionError(f"{where}[{i}]: {exc}") from None
+            # ASM-1 §1: THE evaluator — y4d_spec.frame_eval (SEM-1 grammar check, then a
+            # hand walk; nothing reaches eval). The declared ids are the entry's parameters.
+            out.append(evaluate_expression(component, values, set(values)))
+        except FrameEvaluationError as exc:
+            raise FrameEvaluationError(f"{where}[{i}]: {exc}") from None
     return (out[0], out[1], out[2])
 
 
 def interface_frames(part: Mapping, values: Mapping[str, float] | None = None) -> dict[str, Frame]:
     """Every interface's frame at ``values`` (defaults when omitted), by interface id.
 
-    Raises :class:`~hyperobjects_standard_parts.expressions.ExpressionError` naming the
-    interface and vector when a component does not evaluate.
+    Components are evaluated by ``y4d_spec.frame_eval.evaluate_expression`` (ASM-1 §1).
+    Raises :class:`FrameEvaluationError` naming the interface and vector when a component
+    does not evaluate. The vectors are returned as written, not normalised.
     """
     if values is None:
         values = resolve_parameters(part)

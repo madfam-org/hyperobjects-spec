@@ -12,8 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - `standard-part.schema.json` and the `hyperobjects_standard_parts` package: one JSON
   entry per COTS part under `parts/`, a loader, GOC-1 full-injection
-  `resolve_parameters` (out of range is an error, never clamped), `interface_frames`,
-  and `part_digest` (sha256 of the canonical JSON, for the assembly digest).
+  `resolve_parameters` (out of range is an error, never clamped), `interface_frames`
+  (evaluated with `y4d_spec.frame_eval`, ASM-1 §1), and `part_digest` (sha256 of the canonical JSON, for the assembly digest).
 - Fourteen entries covering ASM-1 §4's minimum set: `nema-17-48mm`, `extrusion-2020`,
   `mgn12-rail`, `mgn12h-carriage`, `bearing-608`, `gt2-pulley-20t-5mm`,
   `psu-meanwell-lrs-200`, `microswitch-d2f`, `motor-2207`, `fpv-frame-5in-x-225`

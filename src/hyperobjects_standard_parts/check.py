@@ -14,9 +14,10 @@ What the lane checks (each failure class has a test)
    vocabulary-membership rule (:func:`hyperobjects_lexicon.membership.manifest_vocabulary_problems`,
    the same machinery a manifest goes through); ``geometry_type`` equals that size key's
    ``geometry_type``; ``frame.part``, when written, is the entry key.
-7. **Frames evaluate** — every component evaluates at the parameter defaults and at every
-   parameter's ``min`` and ``max``; every identifier an expression reads is a declared
-   parameter and is listed in the interface's ``parameters``.
+7. **Frames evaluate** — every component evaluates, with ``y4d_spec.frame_eval`` (ASM-1
+   §1), at the parameter defaults and at every parameter's ``min`` and ``max``; every
+   identifier an expression reads is a declared parameter and is listed in the
+   interface's ``parameters``.
 8. **Axes are exact** — at every one of those points ``normal`` and ``x_axis`` are unit
    vectors and orthogonal, to ``AXIS_TOLERANCE``. A catalog entry carries no normalisation
    slack: the assembly placement (ASM-1 §3.4) builds its matrix from these vectors.
@@ -24,14 +25,20 @@ What the lane checks (each failure class has a test)
 
 from __future__ import annotations
 
+import ast
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
 from hyperobjects_schemas import load as load_schema
 
-from . import SCHEMA_NAME, interface_frames, load_catalog, resolve_parameters
-from .expressions import ExpressionError, expression_names
+from . import (
+    SCHEMA_NAME,
+    FrameEvaluationError,
+    interface_frames,
+    load_catalog,
+    resolve_parameters,
+)
 
 __all__ = [
     "AXIS_TOLERANCE",
@@ -161,6 +168,19 @@ def _vocabulary_problems(part: Mapping, vocabularies: dict[str, dict] | None) ->
     return out
 
 
+def _names_read(component: object) -> set[str]:
+    """The identifiers an expression reads (parse only; an unparseable string reads none —
+    the evaluator reports why it does not parse)."""
+    if not isinstance(component, str):
+        return set()
+    try:
+        tree = ast.parse(component, mode="eval")
+    except SyntaxError:
+        return set()
+    called = {id(n.func) for n in ast.walk(tree) if isinstance(n, ast.Call)}
+    return {n.id for n in ast.walk(tree) if isinstance(n, ast.Name) and id(n) not in called}
+
+
 def _parameter_points(part: Mapping) -> list[tuple[str, dict[str, float]]]:
     """The defaults, then each parameter at its min and its max with the others at default."""
     defaults = resolve_parameters(part)
@@ -194,7 +214,7 @@ def _frame_problems(part: Mapping) -> list[str]:
         read = set()
         for vec in ("origin", "normal", "x_axis"):
             for component in frame.get(vec) or []:
-                read |= expression_names(component)
+                read |= _names_read(component)
         listed = set(iface.get("parameters") or [])
         for name in sorted(read - declared):
             out.append(f"interfaces[{iid!r}].frame reads {name!r}, which is not a parameter")
@@ -208,7 +228,7 @@ def _frame_problems(part: Mapping) -> list[str]:
     for label, values in _parameter_points(part):
         try:
             frames = interface_frames(part, values)
-        except ExpressionError as exc:
+        except FrameEvaluationError as exc:
             out.append(f"at {label}: {exc}")
             continue
         for iid, frame in frames.items():

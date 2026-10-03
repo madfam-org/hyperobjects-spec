@@ -13,70 +13,64 @@ from hyperobjects_lexicon.fabrication import (
     vocabulary_keys,
 )
 from hyperobjects_lexicon.lexicon import LANGUAGES, load_lexicon
-from hyperobjects_standard_parts.expressions import (
-    ExpressionError,
-    evaluate_component,
-    expression_names,
-)
+from hyperobjects_standard_parts import FrameEvaluationError, interface_frames, load_part
+from hyperobjects_standard_parts.check import _names_read
 from y4d_spec.cli import main as y4d_main
 
-# --- the expression walker ----------------------------------------------------------------
+# --- frame expressions: the catalog uses y4d_spec.frame_eval (ASM-1 §1) ----------------
+
+
+def _with_origin_z(expr):
+    part = load_part("nema-17-48mm")
+    part["interfaces"][1]["frame"]["origin"] = [0, 0, expr]
+    return part
 
 
 @pytest.mark.parametrize(
     ("expr", "expected"),
     [
-        (5, 5.0),
-        (-2.5, -2.5),
-        ("length_mm / 2 + offset", 175.0),
-        ("-half", -79.5),
-        ("(length_mm - 10) * 2", 680.0),
-        ("min(length_mm, 100)", 100.0),
-        ("max(1, 2, 3)", 3.0),
-        ("abs(offset - 10)", 10.0),
+        ("shaft_seat_mm", 2.0),
+        ("shaft_seat_mm * 2 + 1", 5.0),
+        ("-shaft_seat_mm", -2.0),
+        ("min(shaft_seat_mm, 1)", 1.0),
+        ("max(1, 2, shaft_seat_mm)", 2.0),
+        ("abs(shaft_seat_mm - 10)", 8.0),
     ],
 )
 def test_the_grammar_evaluates(expr, expected):
-    values = {"length_mm": 350.0, "offset": 0.0, "half": 79.5}
-    assert evaluate_component(expr, values) == expected
+    assert interface_frames(_with_origin_z(expr))["shaft"].origin[2] == expected
 
 
 @pytest.mark.parametrize(
-    ("expr", "message"),
+    "expr",
     [
-        ("__import__('os')", "outside the frame grammar"),
-        ("length_mm.real", "outside the frame grammar"),
-        ("length_mm ** 2", "outside the frame grammar"),
-        ("[1][0]", "outside the frame grammar"),
-        ("'abc'", "not a numeric literal"),
-        ("True", "not a numeric literal"),
-        ("abs(1, 2)", "exactly one argument"),
-        ("width", "unknown identifier 'width'"),
-        ("1 / (length_mm - 350)", "division by zero"),
-        ("1 +", "does not parse"),
-        ("1" * 300, "longer than 256"),
+        "__import__('os')",
+        "shaft_seat_mm.real",
+        "shaft_seat_mm ** 2",
+        "[1][0]",
+        "'abc'",
+        "width",
+        "1 / (shaft_seat_mm - 2)",
+        "1 +",
+        "1" * 300,
     ],
 )
-def test_the_walker_refuses(expr, message):
-    with pytest.raises(ExpressionError, match=message):
-        evaluate_component(expr, {"length_mm": 350.0})
+def test_the_evaluator_refuses(expr):
+    with pytest.raises(FrameEvaluationError, match=r"shaft\.frame\.origin\[2\]"):
+        interface_frames(_with_origin_z(expr))
 
 
-def test_non_components_are_refused():
-    for bad in (True, None, [1]):
-        with pytest.raises(ExpressionError):
-            evaluate_component(bad, {})
+def test_a_malformed_vector_is_refused():
+    part = load_part("nema-17-48mm")
+    part["interfaces"][0]["frame"]["normal"] = [0, 1]
+    with pytest.raises(FrameEvaluationError, match="exactly 3 components"):
+        interface_frames(part)
 
 
-def test_non_finite_is_refused():
-    with pytest.raises(ExpressionError, match="non-finite"):
-        evaluate_component("1e308 * 10", {})
-
-
-def test_expression_names():
-    assert expression_names("min(a, b) + c / 2") == {"a", "b", "c"}
-    assert expression_names(3) == set()
-    assert expression_names("1 +") == set()
+def test_names_read():
+    assert _names_read("min(a, b) + c / 2") == {"a", "b", "c"}
+    assert _names_read(3) == set()
+    assert _names_read("1 +") == set()
 
 
 # --- the interface-sizes supplement -------------------------------------------------------

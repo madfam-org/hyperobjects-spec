@@ -308,7 +308,7 @@ def test_expression_outside_the_grammar_fails(motor, vocabularies):
         d["interfaces"][1]["frame"]["origin"] = [0, 0, "shaft_seat_mm.__class__"]
 
     problems = _bad(motor, vocabularies, attack)
-    assert any("outside the frame grammar" in p for p in problems)
+    assert any("unsupported syntax (Attribute)" in p for p in problems)
 
 
 def test_division_by_zero_at_a_parameter_extreme_fails(motor, vocabularies):
