@@ -108,8 +108,4 @@ def expression_names(component: object) -> set[str]:
         tree = _parse(component.strip())
     except ExpressionError:
         return set()
-    return {
-        n.id
-        for n in ast.walk(tree)
-        if isinstance(n, ast.Name) and n.id not in _FUNCTIONS
-    }
+    return {n.id for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id not in _FUNCTIONS}
