@@ -1,0 +1,207 @@
+{
+  "spec_version": 1,
+  "key": "nema-17-48mm",
+  "category": "stepper-motor",
+  "name": {
+    "en": "NEMA 17 stepper motor, 48 mm body",
+    "es": "Motor a pasos NEMA 17, cuerpo de 48 mm",
+    "fr": "Moteur pas à pas NEMA 17, corps de 48 mm",
+    "pt": "Motor de passo NEMA 17, corpo de 48 mm"
+  },
+  "description": {
+    "en": "A 1.8° hybrid stepper in the NEMA 17 frame size with a 48 mm body: four M3 tapped holes on a 31 mm square around a Ø22 mm pilot, and a Ø5 mm output shaft. It mates a motor bracket by its face and a pulley or coupler by its shaft.",
+    "es": "Un motor a pasos híbrido de 1.8° en tamaño NEMA 17 con cuerpo de 48 mm: cuatro barrenos roscados M3 en un cuadrado de 31 mm alrededor de un piloto de Ø22 mm, y una flecha de salida de Ø5 mm. Se une a un soporte de motor por su cara y a una polea o un cople por su flecha.",
+    "fr": "Un moteur pas à pas hybride de 1,8° au format NEMA 17 avec un corps de 48 mm : quatre trous taraudés M3 sur un carré de 31 mm autour d'un centrage de Ø22 mm, et un arbre de sortie de Ø5 mm. Il se fixe à un support moteur par sa face et reçoit une poulie ou un accouplement sur son arbre.",
+    "pt": "Um motor de passo híbrido de 1,8° no tamanho NEMA 17 com corpo de 48 mm: quatro furos roscados M3 num quadrado de 31 mm em volta de um piloto de Ø22 mm, e um eixo de saída de Ø5 mm. Fixa-se a um suporte de motor pela face e recebe uma polia ou um acoplamento no eixo."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "NEMA 17 (NEMA ICS 16 frame size 17) stepper, 48 mm body — LDO-42STH48-2004AC(VRN) Rev B",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "LDO Motors NEMA17 stepper motor LDO-42STH48-2004AC(VRN) drawing, Rev B (copy in a public Voron users repository, pinned)",
+      "url": "https://github.com/elpopo-eng/VoronFrenchUsers/blob/d7212313db0d5a2fb6c0d0b9638370e05214c844/DataSheet/LDO/LDO-42STH48-2004AC-VRN-RevB.pdf",
+      "publisher": "LDO Motors",
+      "accessed": "2026-10-02",
+      "supports": "48 max body; 42.3 max face; 4-M3 deep 4.5 min on 31 ±0.1; pilot Ø22 (0/−0.052) × 2.0; shaft Ø5, 24 ±0.5 long (Rev B), flat 20 long; 1.8° step; 0.35 kg"
+    },
+    {
+      "title": "LDO-42STH48-2504AC product page",
+      "url": "https://ldomotion.com/products/ldo42sth482504ac",
+      "publisher": "LDO Motors",
+      "accessed": "2026-10-02",
+      "supports": "48 mm body length; 0.35 kg"
+    },
+    {
+      "title": "Nanotec ST4118 (NEMA 17) stepper motor product overview",
+      "url": "https://www.nanotec.com/fileadmin/files/Baureihenuebersichten/Schrittmotoren/Product_Overview_ST4118.pdf",
+      "publisher": "Nanotec Electronic",
+      "accessed": "2026-10-02",
+      "supports": "NEMA 17 face 42.3 mm, 4× M3 on 31 ±0.2 mm, Ø22 (0/−0.05) pilot, Ø5 shaft 24 ±0.5 mm"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the mounting face (the flange face carrying the four M3 holes), on the shaft axis. +z runs along the shaft, out of the face, toward the bracket the face is bolted to; the body occupies −48 ≤ z ≤ 0 and the pilot boss 0 ≤ z ≤ 2. +x and +y are parallel to the sides of the 31 mm hole square, so the holes sit at (±15.5, ±15.5, 0).",
+  "dimensions": {
+    "face_square": {
+      "value": 42.3,
+      "unit": "mm",
+      "source": 0,
+      "note": "maximum"
+    },
+    "hole_spacing": {
+      "value": 31,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1"
+    },
+    "mounting_thread": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_depth": {
+      "value": 4.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "minimum"
+    },
+    "pilot_diameter": {
+      "value": 22,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "0/−0.052"
+    },
+    "pilot_height": {
+      "value": 2.0,
+      "unit": "mm",
+      "source": 0
+    },
+    "body_length": {
+      "value": 48,
+      "unit": "mm",
+      "source": 0,
+      "note": "maximum; the LDO product page states 48 mm"
+    },
+    "shaft_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "shaft_length": {
+      "value": 24,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.5",
+      "note": "Rev B lengthened the shaft to 24 mm; Nanotec's ST4118 drawing gives the same"
+    },
+    "shaft_flat_length": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0
+    },
+    "step_angle": {
+      "value": 1.8,
+      "unit": "deg",
+      "source": 0
+    },
+    "mass": {
+      "value": 350,
+      "unit": "g",
+      "source": 0,
+      "note": "reference value"
+    }
+  },
+  "parameters": [
+    {
+      "id": "shaft_seat_mm",
+      "type": "number",
+      "label": {
+        "en": "Hub seat on the shaft",
+        "es": "Asiento del cubo en la flecha",
+        "fr": "Appui du moyeu sur l'arbre",
+        "pt": "Assento do cubo no eixo"
+      },
+      "default": 2,
+      "min": 0,
+      "max": 24,
+      "unit": "mm",
+      "source": 0,
+      "note": "Where the partner's hub face seats along the shaft, measured from the face plane. Default: the 2.0 mm pilot height (a hub resting on the pilot); maximum: the 24 mm shaft length. A choice, not a fact."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "face",
+      "label": {
+        "en": "Mounting face",
+        "es": "Cara de montaje",
+        "fr": "Face de fixation",
+        "pt": "Face de montagem"
+      },
+      "geometry_type": "bolt_pattern",
+      "standard": "NEMA ICS 16 (frame size 17)",
+      "size_key": "nema-17-face",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread."
+    },
+    {
+      "id": "shaft",
+      "label": {
+        "en": "Output shaft",
+        "es": "Flecha de salida",
+        "fr": "Arbre de sortie",
+        "pt": "Eixo de saída"
+      },
+      "geometry_type": "socket",
+      "size_key": "nema-17-shaft-5mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "shaft_seat_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "shaft_seat_mm"
+      ],
+      "note": "Symmetry 0: the round shaft. The D-flat is not modelled as an orientation constraint; the partner's set screw finds it."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The 48 mm body is the length class Voron 2.4 uses for its motors; the face, pilot and shaft facts are NEMA 17 facts that the Nanotec drawing confirms independently."
+}

@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "key": "mgn12-rail",
+  "category": "linear-guide",
+  "name": {
+    "en": "MGN12 linear rail",
+    "es": "Riel lineal MGN12",
+    "fr": "Rail linéaire MGN12",
+    "pt": "Trilho linear MGN12"
+  },
+  "description": {
+    "en": "The 12 mm miniature linear-guide rail, cut to length and bolted down with M3 screws every 25 mm. It mates the surface it is bolted to by its base and an MGN12 block by its top.",
+    "es": "El riel de guía lineal miniatura de 12 mm, cortado a medida y fijado con tornillos M3 cada 25 mm. Se une por su base a la superficie a la que se atornilla y por su parte superior a un bloque MGN12.",
+    "fr": "Le rail de guidage linéaire miniature de 12 mm, coupé à longueur et fixé par des vis M3 tous les 25 mm. Il s'accouple par sa base à la surface où il est vissé et par le dessus à un patin MGN12.",
+    "pt": "O trilho de guia linear miniatura de 12 mm, cortado à medida e fixado com parafusos M3 a cada 25 mm. Acopla pela base à superfície onde é aparafusado e por cima a um bloco MGN12."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "HIWIN MGN12 rail (MG series)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "HIWIN linear guideways MG series — dimensions for MGN/MGW",
+      "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf",
+      "publisher": "HIWIN",
+      "accessed": "2026-10-02",
+      "supports": "MGN12: H 13, H1 3, N 7.5, W 27, B 20, C 15 (C) / 20 (H), L1 21.7 / 32.4, L 34.7 / 45.4, M3x3.5, H2 2.5; rail WR 12, HR 8, D 6, h 4.5, d 3.5, P 25, E 10, bolt M3x8; block H 0.054 kg, rail 0.65 kg/m"
+    }
+  ],
+  "frame_convention": "Origin on the rail's bottom face, on its centreline, at end A. +x runs along the rail toward end B (at x = length_mm); +z up through the rail, whose top is at z = 8; +y across. The block interface (track) sits on the top centreline at mid-length plus carriage_offset_mm; the mounting interface (base_first_hole) sits under the first mounting hole, E = 10 mm from end A.",
+  "dimensions": {
+    "rail_width": {
+      "value": 12,
+      "unit": "mm",
+      "source": 0
+    },
+    "rail_height": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0
+    },
+    "hole_pitch": {
+      "value": 25,
+      "unit": "mm",
+      "source": 0
+    },
+    "end_hole_distance": {
+      "value": 10,
+      "unit": "mm",
+      "source": 0,
+      "note": "standard E"
+    },
+    "counterbore_diameter": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0
+    },
+    "counterbore_depth": {
+      "value": 4.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "through_hole_diameter": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "mounting_bolt": {
+      "value": "M3x8",
+      "unit": "thread",
+      "source": 0
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Rail length",
+        "es": "Longitud del riel",
+        "fr": "Longueur du rail",
+        "pt": "Comprimento do trilho"
+      },
+      "default": 350,
+      "min": 25,
+      "max": 2000,
+      "unit": "mm",
+      "note": "A catalog convention (one hole pitch to 2000 mm), not a vendor fact: HIWIN cuts rails to order and the cited table states no length range."
+    },
+    {
+      "id": "carriage_offset_mm",
+      "type": "number",
+      "label": {
+        "en": "Block position from mid-length",
+        "es": "Posición del bloque desde el centro",
+        "fr": "Position du patin depuis le milieu",
+        "pt": "Posição do bloco a partir do meio"
+      },
+      "default": 0,
+      "min": -1000,
+      "max": 1000,
+      "unit": "mm",
+      "note": "Where the block's track interface sits, from the rail's mid-length. Keep |offset| ≤ length_mm / 2 − 22.7 (half the MGN12H length)."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "track",
+      "label": {
+        "en": "Block track",
+        "es": "Pista del bloque",
+        "fr": "Piste du patin",
+        "pt": "Pista do bloco"
+      },
+      "geometry_type": "rail",
+      "size_key": "mgn12-rail",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          "length_mm / 2 + carriage_offset_mm",
+          0,
+          8
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "carriage_offset_mm"
+      ],
+      "note": "Male: the rail enters the block. Symmetry 2: a block runs on it either way round."
+    },
+    {
+      "id": "base_first_hole",
+      "label": {
+        "en": "Base at the first hole",
+        "es": "Base en el primer barreno",
+        "fr": "Base au premier trou",
+        "pt": "Base no primeiro furo"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          10,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "A rail bolted into a 2020 slot with M3 T-nuts carries the slot's size key (the size key is the shared fit), male: its screws pass through it into the slot. The origin is the first hole (E = 10 mm), so a rail flush with an extrusion end mates a slot interface at a 10 mm station."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  }
+}

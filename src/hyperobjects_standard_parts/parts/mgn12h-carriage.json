@@ -1,0 +1,161 @@
+{
+  "spec_version": 1,
+  "key": "mgn12h-carriage",
+  "category": "linear-guide",
+  "name": {
+    "en": "MGN12H linear block",
+    "es": "Bloque lineal MGN12H",
+    "fr": "Patin linéaire MGN12H",
+    "pt": "Bloco linear MGN12H"
+  },
+  "description": {
+    "en": "The long (H) block of the 12 mm miniature linear guide: 27 mm wide, 45.4 mm long, with four M3 tapped holes on a 20 × 20 mm square on top. It mates its rail from below and a carriage plate or toolhead on top.",
+    "es": "El bloque largo (H) de la guía lineal miniatura de 12 mm: 27 mm de ancho, 45.4 mm de largo, con cuatro barrenos roscados M3 en un cuadrado de 20 × 20 mm en la parte superior. Se une a su riel por abajo y a una placa de carro o un cabezal por arriba.",
+    "fr": "Le patin long (H) du guidage linéaire miniature de 12 mm : 27 mm de large, 45,4 mm de long, avec quatre trous taraudés M3 sur un carré de 20 × 20 mm sur le dessus. Il s'accouple à son rail par-dessous et à une plaque de chariot ou une tête par-dessus.",
+    "pt": "O bloco longo (H) da guia linear miniatura de 12 mm: 27 mm de largura, 45,4 mm de comprimento, com quatro furos roscados M3 num quadrado de 20 × 20 mm em cima. Acopla ao trilho por baixo e a uma placa de carro ou cabeça por cima."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "HIWIN MGN12H block (MG series)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "HIWIN linear guideways MG series — dimensions for MGN/MGW",
+      "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf",
+      "publisher": "HIWIN",
+      "accessed": "2026-10-02",
+      "supports": "MGN12: H 13, H1 3, N 7.5, W 27, B 20, C 15 (C) / 20 (H), L1 21.7 / 32.4, L 34.7 / 45.4, M3x3.5, H2 2.5; rail WR 12, HR 8, D 6, h 4.5, d 3.5, P 25, E 10, bolt M3x8; block H 0.054 kg, rail 0.65 kg/m"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the top mounting face (the face with the four M3 holes). +z up, out of that face; +x along the rail (the block's long direction); +y across. The rail's top face lies 5 mm below the top face (H 13 − rail height 8), so the rail interface sits at z = −5.",
+  "dimensions": {
+    "assembly_height": {
+      "value": 13,
+      "unit": "mm",
+      "source": 0,
+      "note": "H: rail bottom to block top"
+    },
+    "rail_clearance": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN H1"
+    },
+    "block_width": {
+      "value": 27,
+      "unit": "mm",
+      "source": 0
+    },
+    "hole_spacing_b": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0
+    },
+    "hole_spacing_c": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0
+    },
+    "block_length": {
+      "value": 45.4,
+      "unit": "mm",
+      "source": 0
+    },
+    "body_length": {
+      "value": 32.4,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN L1"
+    },
+    "mounting_thread": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_depth": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "rail_top_depth": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "derived: H 13 − HR 8"
+    },
+    "mass": {
+      "value": 54,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "top",
+      "label": {
+        "en": "Top mounting face",
+        "es": "Cara superior de montaje",
+        "fr": "Face supérieure de fixation",
+        "pt": "Face superior de montagem"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "mgn12-carriage",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread. Symmetry 4: the 20 × 20 mm pattern is square."
+    },
+    {
+      "id": "rail_way",
+      "label": {
+        "en": "Rail way",
+        "es": "Paso del riel",
+        "fr": "Passage du rail",
+        "pt": "Passagem do trilho"
+      },
+      "geometry_type": "rail",
+      "size_key": "mgn12-rail",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          -5
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the block receives the rail. z = −5 is derived from H 13 − HR 8."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  }
+}
