@@ -1,13 +1,18 @@
 """`validate_assembly(doc, resolver) -> AssemblyReport` — ASM-1 §3 steps 1–6 and 8.
 
-    1. schema; unique component and mate ids; `root` and every mate endpoint exist
+    1. schema; unique component and mate ids; `root` and every mate endpoint exist;
+       a producer's `capability_profile` keys and values are in the
+       `fabrication-capabilities` vocabulary (`process` is a list of `processes` keys)
     2. resolve every component through the resolver (errors name the component)
     3. per mate: both interfaces exist and can mate (frame, polarity, size_key,
        symmetry), equal size_key, complementary polarity, equal symmetry, and a
        rotation that fits it (rotation_index < symmetry, or angle_deg for symmetry 0)
     4. placement: BFS from the root over the mates that passed step 3
     5. closure: EVERY mate (tree or not) re-checked in world space — origins ≤ 0.05 mm,
-       normals antiparallel ≤ 0.5°, x-axes agree modulo the symmetry ≤ 0.5°
+       normals antiparallel ≤ 0.5°, x-axes agree modulo the symmetry ≤ 0.5°; for
+       continuous symmetry (0) the stated angle_deg agrees with the realised angle
+       ≤ 0.5° whenever both frames declare an x_axis (else a cycle-closing mate warns
+       `angle-unchecked`)
     6. every component reachable from the root
     7. (--collision) NOT implemented in v1: requesting it adds a warning saying no
        intersection was checked. It never reports a pass.
@@ -145,6 +150,10 @@ def _schema_step(doc: object, report: AssemblyReport) -> bool:
     mate_ids = [m["id"] for m in doc["mates"]]
     for dup in sorted({i for i in mate_ids if mate_ids.count(i) > 1}):
         report._err("mate-id", "mate id is used more than once", dup)
+    from hyperobjects_lexicon import capability_profile_problems
+
+    for problem in capability_profile_problems(doc.get("capability_profile")):
+        report._err("capability", problem)
     if doc["root"] not in ids:
         report._err("root", f"root '{doc['root']}' is not a component")
     for mate in doc["mates"]:
@@ -294,6 +303,15 @@ def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib) -> None:
     check.measured_deg = phi
     if check.symmetry:
         period = 360.0 / check.symmetry
+    elif ia.frame.x_axis is not None and ib.frame.x_axis is not None:
+        # Continuous symmetry (P4-ASM2 finding 3b): the stated angle_deg is a fact the
+        # geometry can contradict only when both frames declare an x_axis. Then the
+        # residual is the distance of φ from the stated θ on the full circle; a mate in
+        # the BFS tree holds it by construction, a cycle-closing mate is the real test.
+        period = 360.0
+    else:
+        period = None
+    if period is not None:
         d = (phi - check.theta_deg) % period
         check.x_axis_deg = min(d, period - d)
     check.ok = (
@@ -303,19 +321,40 @@ def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib) -> None:
     )
 
 
+def _signed(deg: float) -> float:
+    """An angle in (−180, 180], rounded for a message."""
+    d = deg % 360.0
+    return round(d - 360.0 if d > 180.0 else d, 4) + 0.0
+
+
 def _closure_findings(report: AssemblyReport, check: MateCheck) -> None:
     if not check.ok:
         parts = [f"origins {check.origin_mm:.4f} mm apart (≤ {ORIGIN_TOLERANCE_MM})",
                  f"normals {check.normal_deg:.4f}° from antiparallel (≤ {ANGLE_TOLERANCE_DEG})"]
-        if check.x_axis_deg is not None:
+        if check.x_axis_deg is not None and check.symmetry:
             parts.append(
                 f"x-axes {check.x_axis_deg:.4f}° apart modulo symmetry {check.symmetry} "
                 f"(≤ {ANGLE_TOLERANCE_DEG})"
+            )
+        elif check.x_axis_deg is not None:
+            parts.append(
+                f"stated angle_deg {check.theta_deg:g}° but the geometry realises "
+                f"{_signed(check.measured_deg):g}° ({check.x_axis_deg:.4f}° apart, "
+                f"≤ {ANGLE_TOLERANCE_DEG})"
             )
         kind = "the BFS tree" if check.in_tree else "a cycle"
         report._err(
             "closure",
             f"{check.a} ↔ {check.b} does not hold (closes {kind}): " + "; ".join(parts),
+            check.mate_id,
+        )
+        return
+    if check.symmetry == 0 and check.x_axis_deg is None and not check.in_tree:
+        report._warn(
+            "angle-unchecked",
+            f"{check.a} ↔ {check.b} closes a cycle with continuous symmetry, but an "
+            "interface declares no x_axis, so the stated angle_deg "
+            f"{check.theta_deg:g}° cannot be compared with the geometry",
             check.mate_id,
         )
         return

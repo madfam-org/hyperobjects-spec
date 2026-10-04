@@ -16,6 +16,9 @@ from collections.abc import Iterable, Mapping
 
 __all__ = [
     "NAME_LIMIT",
+    "annotated_relationship",
+    "blob",
+    "capability",
     "PREFERRED_NAME_LIMIT",
     "TEXT_LIMIT",
     "entity",
@@ -282,8 +285,10 @@ def entity(
     global_asset_id: str | None = None,
     semantic_id: str | None = None,
     description: object = None,
+    specific_asset_ids: Iterable[tuple[str, str]] = (),
 ) -> dict:
-    """An Entity: SelfManaged iff it names an asset (AASd-014), else CoManaged."""
+    """An Entity: SelfManaged iff it names an asset (AASd-014), else CoManaged.
+    ``specific_asset_ids`` (``(name, value)`` pairs) are kept only on a SelfManaged one."""
     el = _base("Entity", id_short, semantic_id, description)
     stmts = _children(statements)
     if stmts:
@@ -291,9 +296,45 @@ def entity(
     if global_asset_id:
         el["entityType"] = "SelfManagedEntity"
         el["globalAssetId"] = global_asset_id
+        specific = [{"name": n, "value": v} for n, v in specific_asset_ids if n and v]
+        if specific:
+            el["specificAssetIds"] = specific
     else:
         el["entityType"] = "CoManagedEntity"
     return el
+
+
+def annotated_relationship(
+    id_short: str | None,
+    first: dict,
+    second: dict,
+    annotations: Iterable[dict | None],
+    *,
+    semantic_id: str | None = None,
+) -> dict:
+    """An AnnotatedRelationshipElement; ``annotations`` are DataElements (None dropped)."""
+    el = _base("AnnotatedRelationshipElement", id_short, semantic_id)
+    el["first"], el["second"] = first, second
+    notes = _children(annotations)
+    if notes:
+        el["annotations"] = notes
+    return el
+
+
+def blob(id_short: str, data: bytes, content_type: str, *, semantic_id: str | None = None) -> dict:
+    """A Blob: ``data`` base64-encoded (xs:base64Binary), with its MIME content type."""
+    import base64
+
+    el = _base("Blob", id_short, semantic_id)
+    el["contentType"] = content_type
+    el["value"] = base64.b64encode(data).decode("ascii")
+    return el
+
+
+def capability(id_short: str, *, semantic_id: str | None = None,
+               supplemental: Iterable[str] = ()) -> dict:
+    """A Capability element (it has no value; its semantic ids say what it is)."""
+    return _base("Capability", id_short, semantic_id, supplemental=supplemental)
 
 
 def qualifier(qtype: str, value: object) -> dict | None:

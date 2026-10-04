@@ -1,0 +1,361 @@
+{
+  "format": "hyperobjects.assembly",
+  "format_version": "1.0.0",
+  "slug": "fpv-5in-freestyle",
+  "kind": "product",
+  "name": {
+    "en": "5-inch FPV freestyle quadcopter",
+    "es": "Cuadricóptero FPV freestyle de 5 pulgadas"
+  },
+  "description": {
+    "en": "A type-level 5-inch FPV quadcopter: a generic 225 mm X carbon frame (catalog class, not a copied design), four 2207 motors on four TPU soft-mount pods, the camera cage hung on the frame's side plates with a micro camera seated lens-first in its cradle at a 30° up-tilt, flight-controller stack standoffs and a battery pad.",
+    "es": "Un cuadricóptero FPV de 5 pulgadas a nivel de tipo: un marco X genérico de carbono de 225 mm (clase de catálogo, no un diseño copiado), cuatro motores 2207 sobre cuatro bases suaves de TPU, la jaula de cámara colgada de las placas laterales del marco con una cámara micro asentada con la lente al frente en su cuna, a 30° hacia arriba, separadores de la pila del controlador de vuelo y una almohadilla de batería."
+  },
+  "license": "CERN-OHL-W-2.0",
+  "root": "frame",
+  "components": [
+    {
+      "id": "frame",
+      "label": {
+        "en": "5-inch X frame, 225 mm (root)",
+        "es": "Marco X de 5 pulgadas, 225 mm (raíz)"
+      },
+      "source": {
+        "type": "standard",
+        "key": "fpv-frame-5in-x-225"
+      }
+    },
+    {
+      "id": "pod_fl",
+      "label": {
+        "en": "TPU motor soft-mount, front left",
+        "es": "Montaje suave de motor en TPU, delantero izquierdo"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "motor-soft-mount",
+        "mode": "soft_mount",
+        "part": null,
+        "parameters": {
+          "motor_pattern": "16x16"
+        }
+      }
+    },
+    {
+      "id": "pod_fr",
+      "label": {
+        "en": "TPU motor soft-mount, front right",
+        "es": "Montaje suave de motor en TPU, delantero derecho"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "motor-soft-mount",
+        "mode": "soft_mount",
+        "part": null,
+        "parameters": {
+          "motor_pattern": "16x16"
+        }
+      }
+    },
+    {
+      "id": "pod_rl",
+      "label": {
+        "en": "TPU motor soft-mount, rear left",
+        "es": "Montaje suave de motor en TPU, trasero izquierdo"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "motor-soft-mount",
+        "mode": "soft_mount",
+        "part": null,
+        "parameters": {
+          "motor_pattern": "16x16"
+        }
+      }
+    },
+    {
+      "id": "pod_rr",
+      "label": {
+        "en": "TPU motor soft-mount, rear right",
+        "es": "Montaje suave de motor en TPU, trasero derecho"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "motor-soft-mount",
+        "mode": "soft_mount",
+        "part": null,
+        "parameters": {
+          "motor_pattern": "16x16"
+        }
+      }
+    },
+    {
+      "id": "motor_fl",
+      "label": {
+        "en": "2207 motor, front left",
+        "es": "Motor 2207, delantero izquierdo"
+      },
+      "source": {
+        "type": "standard",
+        "key": "motor-2207"
+      }
+    },
+    {
+      "id": "motor_fr",
+      "label": {
+        "en": "2207 motor, front right",
+        "es": "Motor 2207, delantero derecho"
+      },
+      "source": {
+        "type": "standard",
+        "key": "motor-2207"
+      }
+    },
+    {
+      "id": "motor_rl",
+      "label": {
+        "en": "2207 motor, rear left",
+        "es": "Motor 2207, trasero izquierdo"
+      },
+      "source": {
+        "type": "standard",
+        "key": "motor-2207"
+      }
+    },
+    {
+      "id": "motor_rr",
+      "label": {
+        "en": "2207 motor, rear right",
+        "es": "Motor 2207, trasero derecho"
+      },
+      "source": {
+        "type": "standard",
+        "key": "motor-2207"
+      }
+    },
+    {
+      "id": "fc_standoffs",
+      "label": {
+        "en": "Flight-controller stack standoffs, 30.5 × 30.5 M3",
+        "es": "Separadores de la pila del controlador de vuelo, 30.5 × 30.5 M3"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "pcb-standoff",
+        "mode": "fc_stack",
+        "part": null,
+        "parameters": {
+          "stack_pattern": "30.5x30.5-m3"
+        }
+      }
+    },
+    {
+      "id": "battery_pad",
+      "label": {
+        "en": "Battery pad on the top plate",
+        "es": "Almohadilla de batería sobre la placa superior"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "battery-pad",
+        "mode": "flat_pad",
+        "part": null
+      }
+    },
+    {
+      "id": "camera_cage",
+      "label": {
+        "en": "Camera cage, micro, 30° tilt, 24 mm ears (TPU intended; the cartridge declares no material)",
+        "es": "Jaula de cámara, micro, 30° de inclinación, orejas a 24 mm (pensada en TPU; el cartucho no declara material)"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "fpv-camera-cage",
+        "mode": "cage",
+        "part": null,
+        "parameters": {
+          "cam_size": "micro",
+          "tilt": 30,
+          "mount_width": 24
+        }
+      }
+    },
+    {
+      "id": "camera",
+      "label": {
+        "en": "Micro FPV camera, 19 mm, seated lens-first in the cage",
+        "es": "Cámara FPV micro, 19 mm, asentada con la lente al frente en la jaula"
+      },
+      "source": {
+        "type": "standard",
+        "key": "fpv-camera-micro-19mm"
+      }
+    }
+  ],
+  "mates": [
+    {
+      "id": "pod_fl_on_arm",
+      "a": {
+        "component": "frame",
+        "interface": "motor_mount_fl"
+      },
+      "b": {
+        "component": "pod_fl",
+        "interface": "arm_clamp"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "motor_fl_on_pod",
+      "a": {
+        "component": "pod_fl",
+        "interface": "motor_bolt_pattern"
+      },
+      "b": {
+        "component": "motor_fl",
+        "interface": "base"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "pod_fr_on_arm",
+      "a": {
+        "component": "frame",
+        "interface": "motor_mount_fr"
+      },
+      "b": {
+        "component": "pod_fr",
+        "interface": "arm_clamp"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "motor_fr_on_pod",
+      "a": {
+        "component": "pod_fr",
+        "interface": "motor_bolt_pattern"
+      },
+      "b": {
+        "component": "motor_fr",
+        "interface": "base"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "pod_rl_on_arm",
+      "a": {
+        "component": "frame",
+        "interface": "motor_mount_rl"
+      },
+      "b": {
+        "component": "pod_rl",
+        "interface": "arm_clamp"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "motor_rl_on_pod",
+      "a": {
+        "component": "pod_rl",
+        "interface": "motor_bolt_pattern"
+      },
+      "b": {
+        "component": "motor_rl",
+        "interface": "base"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "pod_rr_on_arm",
+      "a": {
+        "component": "frame",
+        "interface": "motor_mount_rr"
+      },
+      "b": {
+        "component": "pod_rr",
+        "interface": "arm_clamp"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "motor_rr_on_pod",
+      "a": {
+        "component": "pod_rr",
+        "interface": "motor_bolt_pattern"
+      },
+      "b": {
+        "component": "motor_rr",
+        "interface": "base"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "standoffs_on_frame",
+      "a": {
+        "component": "frame",
+        "interface": "stack_mount"
+      },
+      "b": {
+        "component": "fc_standoffs",
+        "interface": "fc_stack_underside"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "battery_pad_on_frame",
+      "a": {
+        "component": "frame",
+        "interface": "battery_strap"
+      },
+      "b": {
+        "component": "battery_pad",
+        "interface": "battery_strap_channel"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "cage_ear_left_on_plate",
+      "a": {
+        "component": "frame",
+        "interface": "camera_plate_left_outer"
+      },
+      "b": {
+        "component": "camera_cage",
+        "interface": "cage_ear_left"
+      },
+      "angle_deg": 0
+    },
+    {
+      "id": "cage_ear_right_on_plate",
+      "a": {
+        "component": "frame",
+        "interface": "camera_plate_right_outer"
+      },
+      "b": {
+        "component": "camera_cage",
+        "interface": "cage_ear_right"
+      },
+      "angle_deg": 0
+    },
+    {
+      "id": "camera_in_cradle",
+      "a": {
+        "component": "camera_cage",
+        "interface": "cage_cradle_floor"
+      },
+      "b": {
+        "component": "camera",
+        "interface": "front_face"
+      },
+      "rotation_index": 0
+    }
+  ],
+  "requirements_rollup": true
+}

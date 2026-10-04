@@ -90,7 +90,10 @@ def _print_text(doc: dict, report: AssemblyReport) -> None:
             if mc.origin_mm is None:
                 print(f"    {mc.mate_id}: {mc.a} ↔ {mc.b}  NOT CHECKED (see errors)")
                 continue
-            x = "n/a (continuous)" if mc.x_axis_deg is None else f"{mc.x_axis_deg:.4f}"
+            if mc.x_axis_deg is not None:
+                x = f"{mc.x_axis_deg:.4f}"
+            else:
+                x = "n/a (continuous, no x_axis)" if mc.symmetry == 0 else "n/a"
             role = "tree" if mc.in_tree else "cycle"
             verdict = "ok" if mc.ok else "FAIL"
             print(

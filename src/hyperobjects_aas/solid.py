@@ -176,17 +176,18 @@ def _vector(id_short: str, vec: object) -> dict | None:
                   type_value="Property")
 
 
-def _size_key(value: object) -> list:
+def _size_key(value: object, concepts) -> list:
+    term = concepts.term("interface-size-key")
     if isinstance(value, str):
-        return [el.prop("SizeKey", value)]
+        return [el.prop("SizeKey", value, semantic_id=term)]
     spec = as_dict(value)
     mapping = [
-        el.smc(None, [el.prop("ParameterValue", k), el.prop("SizeKey", v)])
+        el.smc(None, [el.prop("ParameterValue", k), el.prop("SizeKey", v, semantic_id=term)])
         for k, v in sorted(as_dict(spec.get("map")).items())
     ]
     return [
         el.prop("SizeKeyParameter", spec.get("param")),
-        el.sml("SizeKeyMap", mapping, type_value="SubmodelElementCollection"),
+        el.sml("SizeKeyMap", mapping, type_value="SubmodelElementCollection", semantic_id=term),
     ]
 
 
@@ -239,7 +240,7 @@ def mating_interfaces(proj: Projection) -> None:
             _vector("Origin", frame.get("origin")),
             _vector("Normal", frame.get("normal")),
             _vector("XAxis", frame.get("x_axis")),
-        ]) if frame else None
+        ], semantic_id=proj.concepts.term("interface-frame")) if frame else None
         gtype = iface.get("geometry_type")
         out.append(el.smc(short, [
             el.prop("InterfaceId", iface.get("id")),
@@ -247,9 +248,11 @@ def mating_interfaces(proj: Projection) -> None:
             el.prop("GeometryType", gtype, semantic_id=proj.concepts.term(vocab.get(gtype))),
             el.prop("Standard", iface.get("standard"),
                     semantic_id=proj.concepts.term("standard-ref")),
-            *(_size_key(iface["size_key"]) if "size_key" in iface else []),
-            el.prop("Polarity", iface.get("polarity")),
-            el.prop("Symmetry", iface.get("symmetry"), prefer="xs:integer"),
+            *(_size_key(iface["size_key"], proj.concepts) if "size_key" in iface else []),
+            el.prop("Polarity", iface.get("polarity"),
+                    semantic_id=proj.concepts.term("interface-polarity")),
+            el.prop("Symmetry", iface.get("symmetry"), prefer="xs:integer",
+                    semantic_id=proj.concepts.term("interface-symmetry")),
             frame_el,
             _let(iface.get("let")) if "let" in iface else None,
             *proj.param_refs("Parameters", iface.get("parameters")),
@@ -350,7 +353,7 @@ def bill_of_materials(proj: Projection) -> None:
             _bulk_count(qty),
             el.prop("QuantityFormula", qty) if isinstance(qty, str) else None,
             el.prop("Unit", item.get("unit")),
-            el.prop("SizeKey", size_key),
+            el.prop("SizeKey", size_key, semantic_id=proj.concepts.term("interface-size-key")),
             el.prop("SupplierUrl", item.get("supplier_url"), prefer="xs:anyURI"),
             el.mlp("Condition", item.get("conditional")),
         ], asset=asset))

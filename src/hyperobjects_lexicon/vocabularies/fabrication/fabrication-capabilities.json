@@ -11,13 +11,13 @@
       "key": "process",
       "label": {"en": "Process", "es": "Proceso", "fr": "Procédé", "pt": "Processo"},
       "definition": {
-        "en": "The manufacturing process the machine performs; a key of the processes vocabulary.",
-        "es": "El proceso de fabricación que realiza la máquina; una clave del vocabulario de procesos.",
-        "fr": "Le procédé de fabrication que réalise la machine ; une clé du vocabulaire des procédés.",
-        "pt": "O processo de fabricação que a máquina executa; uma chave do vocabulário de processos."
+        "en": "The manufacturing processes the machine performs, as a list; each item is a key of the processes vocabulary (a machine with one process lists one).",
+        "es": "Los procesos de fabricación que realiza la máquina, como lista; cada elemento es una clave del vocabulario de procesos (una máquina con un solo proceso lista uno).",
+        "fr": "Les procédés de fabrication que réalise la machine, sous forme de liste ; chaque élément est une clé du vocabulaire des procédés (une machine à un seul procédé en liste un).",
+        "pt": "Os processos de fabricação que a máquina executa, como lista; cada item é uma chave do vocabulário de processos (uma máquina com um só processo lista um)."
       },
       "review_status": {"state": "generated"},
-      "value_type": "string",
+      "value_type": "array",
       "value_vocabulary": "processes"
     },
     {

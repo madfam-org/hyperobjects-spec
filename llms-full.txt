@@ -85,6 +85,16 @@ runbook.
     every mate, reachability, `hyperobjects-assembly-v1` digest), the
     `ComponentResolver` protocol and its commons / standard-parts / external
     resolvers, and `y4d-spec assembly check`. See `docs/ASSEMBLIES.md`.
+    Continuous-symmetry closing mates compare the stated `angle_deg` (0.5.0);
+    a producer's `capability_profile` is checked against the vocabulary
+    (`process` is a list).
+- `hyperobjects_aas.assembly` / `hyperobjects_aas.resolver` — ASM-1 §5: a checked
+  assembly → one AAS Environment (shell `aas/assembly/{slug}/{digest16}`;
+  AssemblyDocument, HSEBoM BillOfMaterials, Mates, AssemblyPlacement, IDTA 02020
+  CapabilityDescription, RequirementProfile roll-up), and the resolver that
+  reads stored type shells back so a service (asset-shells, ASM-1 §6)
+  re-derives the same digest and environment. `y4d-spec aas build
+  <assemblies/slug>`.
 - `fc_spec` — the Fashion Cabinet contracts (`fc-spec`).
 - `bridge_check` — the FC↔Yantra4D hardware-link handshake (`ho-bridge`).
 - `commons_sandbox` — the restricted-execution core both platforms run

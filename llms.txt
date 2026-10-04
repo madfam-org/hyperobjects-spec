@@ -34,6 +34,7 @@ names, no runbook content. See the repo-boundary section of `AGENTS.md`.
     y4d-spec aas build <cartridge> --out env.json  # SEM-1 AAS v3.1 projection; fc-spec aas for garments
     y4d-spec aas check <env.json>                  # aas.json v3.1.2 + MADFAM rules (+ BaSyx if installed)
     y4d-spec assembly check <assembly.json> --commons DIR [--standard-parts DIR]   # ASM-1; docs/ASSEMBLIES.md
+    y4d-spec aas build <assemblies/slug> [--commons-dir DIR]   # ASM-1 §5 assembly shell (checked first)
     ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
 
 `y4d-spec rules` is generated from the code, so prefer running it over trusting
