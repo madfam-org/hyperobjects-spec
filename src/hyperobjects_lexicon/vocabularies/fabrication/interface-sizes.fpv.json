@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interface-sizes",
-  "description": "Supplement of the interface-sizes vocabulary: the FPV size keys the commons cartridges' size_key maps need and the base file did not define (fpv-camera-cage's cam_size and frame ears, fpv-antenna-mount's connector). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "description": "Supplement of the interface-sizes vocabulary: the FPV size keys the commons cartridges' size_key maps need and the base file did not define (fpv-camera-cage's cam_size and frame ears, fpv-antenna-mount's connector and foot). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
   "review": {
     "state": "generated",
     "note": "Keys, labels and definitions drafted in one pass by an agent (P4-AUTH-C lane, 2026-10-04). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
@@ -168,6 +168,48 @@
         }
       ],
       "notes": "The screw thread is not published by the cited listings, so it is not a fact of this key; a cage's ear hole is the cage's choice. The outer faces of the two plates stand bay + 2 × plate thickness apart (24 mm at 19 + 2 × 2.5); whether two ears match that spacing is decided by mate closure, not by this key."
+    },
+    {
+      "key": "vtx-mount-20x20",
+      "label": {
+        "en": "VTX mounting pattern, 20 × 20 mm",
+        "es": "Patrón de montaje de VTX, 20 × 20 mm",
+        "fr": "Motif de fixation VTX, 20 × 20 mm",
+        "pt": "Padrão de montagem de VTX, 20 × 20 mm"
+      },
+      "definition": {
+        "en": "The four-hole 20 × 20 mm pattern an FPV frame provides for a video transmitter. A part seated on it may use all four holes or one pair of them (an antenna mount's two-bolt foot on one 20 mm row).",
+        "es": "El patrón de cuatro barrenos de 20 × 20 mm que un marco FPV ofrece para el transmisor de video. Una pieza asentada en él puede usar los cuatro barrenos o un par (el pie de dos tornillos de un soporte de antena sobre una fila de 20 mm).",
+        "fr": "Le motif de quatre trous de 20 × 20 mm qu'un châssis FPV prévoit pour l'émetteur vidéo. Une pièce posée dessus peut utiliser les quatre trous ou une paire (le pied à deux vis d'un support d'antenne sur une rangée de 20 mm).",
+        "pt": "O padrão de quatro furos de 20 × 20 mm que um quadro FPV oferece para o transmissor de vídeo. Uma peça assente nele pode usar os quatro furos ou um par (o pé de dois parafusos de um suporte de antena numa fila de 20 mm)."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_spacing": {
+          "value": 20,
+          "unit": "mm",
+          "source": 0
+        },
+        "hole_count": {
+          "value": 4,
+          "unit": "count",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "GEPRC GEP-MK5 frame",
+          "url": "https://geprc.com/product/geprc-gep-mk5-frame/",
+          "publisher": "GEPRC",
+          "accessed": "2026-10-04",
+          "supports": "VTX mounting: 30.5mm x 30.5mm / 20mm x 20mm"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "The hole geometry equals stack-20x20-m*, but this is a different seat (a transmitter or an antenna foot, not a flight-controller stack), so the keys stay distinct. The cited listing gives the spacing, not the thread, so the thread is not a fact of this key; where the pattern sits on a frame is the frame's own (rear_mount_x_mm on fpv-frame-5in-x-225)."
     }
   ]
 }
