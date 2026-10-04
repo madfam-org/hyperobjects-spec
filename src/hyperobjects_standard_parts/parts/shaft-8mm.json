@@ -1,0 +1,207 @@
+{
+  "spec_version": 1,
+  "key": "shaft-8mm",
+  "category": "shaft",
+  "name": {
+    "en": "8 mm ground shaft (idler axle)",
+    "es": "Flecha rectificada de 8 mm (eje de polea loca)",
+    "fr": "Arbre rectifié de 8 mm (axe de galet)",
+    "pt": "Eixo retificado de 8 mm (eixo de polia louca)"
+  },
+  "description": {
+    "en": "A plain round shaft of 8 mm diameter, ground to g6 and cut to length: the axle of a 608 idler. One end sits in a host's 8 mm bore (a bracket's through-bore); a 608 bearing's inner ring rides on the shaft beside the host, so the bearing and the pulley pressed onto its outer ring turn while the shaft stands still.",
+    "es": "Una flecha redonda lisa de 8 mm de diámetro, rectificada a g6 y cortada a medida: el eje de una polea loca con rodamiento 608. Un extremo asienta en un barreno de 8 mm de la pieza anfitriona (el barreno pasante de un soporte); el anillo interior de un 608 monta sobre la flecha junto al anfitrión, de modo que el rodamiento y la polea montada en su anillo exterior giran mientras la flecha queda fija.",
+    "fr": "Un arbre rond lisse de 8 mm de diamètre, rectifié en g6 et coupé à longueur : l'axe d'un galet sur roulement 608. Une extrémité se loge dans l'alésage de 8 mm d'une pièce hôte (l'alésage traversant d'un support) ; la bague intérieure d'un 608 se monte sur l'arbre à côté de l'hôte, si bien que le roulement et la poulie montée sur sa bague extérieure tournent tandis que l'arbre reste fixe.",
+    "pt": "Um eixo redondo liso de 8 mm de diâmetro, retificado em g6 e cortado à medida: o eixo de uma polia louca com rolamento 608. Uma extremidade assenta no furo de 8 mm de uma peça hospedeira (o furo passante de um suporte); o anel interior de um 608 monta-se no eixo ao lado do hospedeiro, de modo que o rolamento e a polia montada no seu anel exterior giram enquanto o eixo fica fixo."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "MISUMI SFJ / PSFJ straight linear shaft, D 8 g6 (L 20–800 mm)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI linear shafts, high accuracy, standard type — straight (SFJ / SSFJ / PSFJ / PSSFJ), catalog p. 91",
+      "url": "https://vn.misumi-ec.com/pdf/fa/2013/p91.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "D 8: tolerance g6, −0.005/−0.014 mm; L 20–800 mm in 1 mm increments; SFJ / PSFJ SUJ2 58 HRC and up (PSFJ hard-chrome plated)"
+    },
+    {
+      "title": "ISO 7089 / DIN 125 A plain washer, size 8, 8.4 × 16 × 1.6 (product datasheet 52708984)",
+      "url": "https://www.keller-kalmbach.com/p/52708984/pdf",
+      "publisher": "Keller & Kalmbach",
+      "accessed": "2026-10-04",
+      "supports": "ISO 7089 size 8 (M8): d1 8.4 mm, d2 16 mm, thickness s 1.6 mm"
+    },
+    {
+      "title": "SKF 608 deep groove ball bearing (distributor listing)",
+      "url": "https://www.123bearing.com/bearing-housing/deep-groove-bearing/single-row/608-skf",
+      "publisher": "123Bearing",
+      "accessed": "2026-10-02",
+      "supports": "608: 8 × 22 × 7 mm"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A, on the shaft axis. +z runs along the axis to end face B at z = length_mm; +x is an arbitrary radial reference (the shaft is round, so both interfaces have continuous symmetry). End A goes into the host: the host's bore face sits at z = host_depth_mm. Beyond it come the gap (bearing_gap_mm, where a washer or spacer sits), the 608's face A, and its face B at z = host_depth_mm + bearing_gap_mm + 7. Both interface normals point −z, toward end A: the side on which each partner's material lies.",
+  "dimensions": {
+    "diameter": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "g6 (−0.005/−0.014)"
+    },
+    "length_min": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0
+    },
+    "length_max": {
+      "value": 800,
+      "unit": "mm",
+      "source": 0
+    },
+    "length_increment": {
+      "value": 1,
+      "unit": "mm",
+      "source": 0
+    },
+    "bearing_608_width": {
+      "value": 7,
+      "unit": "mm",
+      "source": 2,
+      "note": "the 608's width; bearing_journal sits this far past the bearing's face A, at its face B"
+    },
+    "washer_m8_thickness": {
+      "value": 1.6,
+      "unit": "mm",
+      "source": 1,
+      "note": "ISO 7089 size 8 (8.4 × 16 × 1.6); the default of bearing_gap_mm"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length",
+        "es": "Longitud de corte",
+        "fr": "Longueur de coupe",
+        "pt": "Comprimento de corte"
+      },
+      "default": 20,
+      "min": 20,
+      "max": 800,
+      "step": 1,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI's configurable range and increment. The default, the shortest length, is a catalog convention. No frame reads it: keep host_depth_mm + bearing_gap_mm + 7 ≤ length_mm, or the bearing overhangs end B."
+    },
+    {
+      "id": "host_depth_mm",
+      "type": "number",
+      "label": {
+        "en": "Depth in the host",
+        "es": "Profundidad en el anfitrión",
+        "fr": "Profondeur dans l'hôte",
+        "pt": "Profundidade no hospedeiro"
+      },
+      "default": 8,
+      "min": 0,
+      "max": 800,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: how far end A sits inside the host's bore, measured from end A to the host face the bearing side faces. Set it to the host's bore length for end A flush with the far face; the default 8 is the web thickness of the commons roller-bracket at its defaults."
+    },
+    {
+      "id": "bearing_gap_mm",
+      "type": "number",
+      "label": {
+        "en": "Gap host face → bearing",
+        "es": "Holgura cara del anfitrión → rodamiento",
+        "fr": "Jeu face de l'hôte → roulement",
+        "pt": "Folga face do hospedeiro → rolamento"
+      },
+      "default": 1.6,
+      "min": 0,
+      "max": 800,
+      "unit": "mm",
+      "source": 1,
+      "note": "A convention: the axial gap between the host face and the 608's face A, where a washer or spacer bears on the inner ring so the outer ring and the pulley clear the host. The default is the thickness of one ISO 7089 size-8 washer (1.6 mm, cited)."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "host_end",
+      "label": {
+        "en": "Host seat (end A)",
+        "es": "Asiento en el anfitrión (extremo A)",
+        "fr": "Logement dans l'hôte (extrémité A)",
+        "pt": "Assento no hospedeiro (extremidade A)"
+      },
+      "geometry_type": "socket",
+      "size_key": "shaft-8mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "host_depth_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "host_depth_mm"
+      ],
+      "note": "Male: end A goes into the host's bore. The origin is where the host's face (the face the bearing side looks at) crosses the axis; the normal points −z, into the host, so a bore framed at that face with its normal out of the cavity (female) takes the shaft end A first."
+    },
+    {
+      "id": "bearing_journal",
+      "label": {
+        "en": "608 journal",
+        "es": "Asiento del rodamiento 608",
+        "fr": "Portée du roulement 608",
+        "pt": "Assento do rolamento 608"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-608-bore",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "host_depth_mm + bearing_gap_mm + 7"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "host_depth_mm",
+        "bearing_gap_mm"
+      ],
+      "note": "Male: the shaft passes through the 608's inner ring. The origin is where the bearing's face B lands (bearing-608.bore is framed at face B, normal +z), 7 mm (the 608's width) past its face A; the normal points −z, so the bearing lies between the origin and the host and its face A, the side a pulley seated face-A-flush presents, looks at the host across bearing_gap_mm."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-D lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Retention is not modelled: a real stack holds the shaft in the host by a press or clamp fit, a set screw or a shaft collar, and the bearing on the shaft by a collar or a retaining ring; those vary per design and are not catalog facts. An M8 bolt is not this key: its thread is not a g6 ground diameter."
+}

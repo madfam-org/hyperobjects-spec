@@ -104,6 +104,7 @@ size key's.
 | `nema-17-48mm` | datasheet | `face` → `nema-17-face` female, sym 4<br>`shaft` → `nema-17-shaft-5mm` male, sym 0 | `shaft_seat_mm` | LDO Motors, Nanotec Electronic |
 | `prop-5in` | class | `hub` → `prop-shaft-m5` female, sym 0 | — | HQProp |
 | `sma-bulkhead-jack` | class | `panel` → `sma-bulkhead` male, sym 0<br>`coupling` → `sma-bulkhead` male, sym 0 | `mating_face_z_mm` | Amphenol RF |
+| `shaft-8mm` | datasheet | `host_end` → `shaft-8mm` male, sym 0 (end A in the host bore, at the host face)<br>`bearing_journal` → `bearing-608-bore` male, sym 0 (where the 608's face B lands) | `length_mm`, `host_depth_mm`, `bearing_gap_mm` | MISUMI, Keller & Kalmbach, 123Bearing |
 | `psu-meanwell-lrs-200` | datasheet | `base` → `meanwell-lrs-200-base-m4` female, sym 2<br>`side_pos_y, side_neg_y` → `meanwell-lrs-200-side-m4` female, sym 2 | — | Mean Well |
 | `vtx-antenna-sma` | class | `connector` → `sma-bulkhead` female, sym 0 | — | Amphenol RF, Drone-FPV-Racer |
 
@@ -126,10 +127,11 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `prop-5in` | centre of the hub's bottom face; +z up through the hub |
 | `vtx-antenna-sma` | centre of the coupling nut's mating face; +z along the antenna |
 | `sma-bulkhead-jack` | centre of the panel shoulder face; +z along the threaded body to the mating face at `mating_face_z_mm` |
+| `shaft-8mm` | centre of end A; +z along the axis to end B at `length_mm`; host face at `host_depth_mm`, the 608's face A `bearing_gap_mm` (one ISO 7089 washer, 1.6) beyond it; both normals −z |
 
 ### Interface sizes added for the catalog
 
-The base `interface-sizes.json` did not define every fit the catalog needs, so eight cited
+The base `interface-sizes.json` did not define every fit the catalog needs, so nine cited
 keys ship in a **supplement**, `interface-sizes.standard-parts.json`, which the loader
 merges into the `interface-sizes` vocabulary (a supplement is a whole document of the same
 vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
@@ -144,6 +146,7 @@ vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
 | `meanwell-lrs-200-base-m4` | 4-M4, 3 mm deep, on 150 × 50 mm, 32.5 from the ends | Mean Well LRS-200 spec |
 | `meanwell-lrs-200-side-m4` | 2-M4 per side, 5 mm deep, 150 apart, 12.5 above the base | Mean Well LRS-200 spec |
 | `omron-d2f-mount-m2` | 2 × Ø2 (+0.12/0) holes, 6.5 ±0.15 apart, M2 screws | Omron D2F datasheet |
+| `shaft-8mm` | Ø8 g6 (−0.005/−0.014) plain shaft in a host's 8 mm bore (the idler axle seat) | MISUMI SFJ / PSFJ |
 
 ## What the lane checks
 
@@ -153,8 +156,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=15 interfaces=48 failures=0
-standard_parts_status: parts=15 interfaces=48 dimensions=109 parameters=15 classes=7 review: signed=0 draft=15
+y4d-spec vocab standard-parts: parts=16 interfaces=50 failures=0
+standard_parts_status: parts=16 interfaces=50 dimensions=115 parameters=18 classes=7 review: signed=0 draft=16
 ```
 
 1. Schema-valid; the file is named for its `key`.

@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The 608 idler axle: `shaft-8mm` (assembly A's idler)
+
+Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.
+Nothing in the catalog carried a MALE `bearing-608-bore`, so a 608 (and a pulley on its
+outer ring, such as the commons `idler-608`) could not reach a frame.
+
+#### Added
+
+- **`shaft-8mm`** (datasheet: MISUMI SFJ / PSFJ straight linear shaft, D 8 g6
+  −0.005/−0.014, L 20–800 mm in 1 mm increments): a plain ground Ø8 shaft, the idler axle.
+  - `host_end` → `shaft-8mm`, male, symmetry 0: end A in a host's 8 mm bore, framed at the
+    host face, `host_depth_mm` from end A (a convention, default 8).
+  - `bearing_journal` → `bearing-608-bore`, male, symmetry 0: where the 608's face B
+    lands, `host_depth_mm + bearing_gap_mm + 7` from end A (7 = the 608's width).
+    Both normals point −z, toward end A, so the bearing lies between the journal and the
+    host and its face A looks at the host across `bearing_gap_mm`, whose default is one
+    ISO 7089 size-8 washer, 1.6 mm (Keller & Kalmbach datasheet).
+  - Retention (collars, retaining rings, the host's press or clamp fit) is not modelled.
+- **Vocabulary** (`interface-sizes.standard-parts.json`): `shaft-8mm`, the Ø8 g6 shaft in a
+  host's 8 mm bore, distinct from the 608's inner ring (`bearing-608-bore`).
+- **`standard-part.schema.json`**: the category `shaft`.
+- **Tests** (`tests/test_catalog_idler_axle.py`): the chain host bore → axle → 608 bore,
+  then 608 outer ring → pulley seat, framed as the commons frames roller-bracket's 2020
+  bracket bore and idler-608's seat, closes and places each part (axle end A flush with a
+  web 8 mm thick, the 608's face A 1.6 mm off the host face, the pulley's top face flush
+  with face A); it spins freely about the axle; a thicker host and a wider gap move the
+  bearing with them; the two male interfaces cannot be swapped, a 608 does not seat in the
+  host directly, and a host bore of another size refuses the axle. The axis audit in
+  `tests/test_catalog_v1_1.py` covers the two new interfaces.
+
 ### FPV antenna mount on the frame: rear 20 × 20 VTX seat (owner decision O3(a))
 
 Additive catalog and vocabulary data; no grammar, gate or validator change.
