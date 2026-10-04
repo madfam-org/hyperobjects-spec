@@ -41,13 +41,14 @@ GOLDEN = Path(__file__).parent / "fixtures" / "assembly-golden"
 COMMONS = GOLDEN / "commons"
 A = "voron-2-4-class-350-motion-frame"
 B = "fpv-5in-freestyle"
-#: A's digest is the one the commons CI prints (P4-ASM2, solid#124, keystone 073cb0f). B's moved
-#: from 96a7e42d… to this one with #39, which added the side plates' outer faces to the
-#: `fpv-frame-5in-x-225` catalog entry: a standard part's catalog digest enters the
-#: assembly digest. The commons CI prints it once its SPEC_PIN moves past #39.
+#: A's digest is the one the commons CI prints. B (solid #136: the camera cage on the side
+#: plates' outer faces, 13 mates) hashes the `fpv-frame-5in-x-225` catalog entry, which #41
+#: changed after the commons' SPEC_PIN (8c12194, where B is f0db7bdb…): a standard part's
+#: catalog digest enters the assembly digest, so the commons CI prints this one once its
+#: SPEC_PIN reaches this keystone.
 DIGESTS = {
     A: "58caf08106856e9e98d670bc522cbc7f5cc92ddb0d1b40927c34a36181476ad8",
-    B: "783c5fb7ee492c7e08b54daf3a41264742563fed9213c9121967de059f31c9a1",
+    B: "96166430930bbe5817f394ef382221f257f0f2de20b67cb38bec02c142e8f23c",
 }
 ID = "https://id.madfam.io"
 
@@ -89,7 +90,7 @@ def _fetch(store):
 
 
 # ── the golden assemblies validate exactly as in the commons ─────────────────
-@pytest.mark.parametrize("slug,components", [(A, 15), (B, 12)])
+@pytest.mark.parametrize("slug,components", [(A, 15), (B, 13)])
 def test_golden_assemblies_pass_with_the_commons_digests(slug, components):
     report = _report(slug)
     assert report.ok, [str(f) for f in report.findings]
@@ -194,22 +195,25 @@ def test_mates_carry_rotation_residuals_and_verdict(envs):
     assert semantic(mates) == MADFAM["assembly-mates"].id
     elements = mates["submodelElements"]
     assert [e["idShort"] for e in elements] == [m["id"] for m in _doc(B)["mates"]]
-    closing = child(mates, "camera_on_right_plate")
+    closing = child(mates, "cage_ear_right_on_plate")
     assert closing["modelType"] == "AnnotatedRelationshipElement"
     notes = {a["idShort"]: a["value"] for a in closing["annotations"]}
     assert notes["InTree"] == "false" and notes["Validated"] == "true"
-    assert notes["AngleDeg"] == "30" and notes["MeasuredDeg"] == "30"
+    assert notes["Symmetry"] == "0"
+    assert notes["AngleDeg"] == "0" and notes["MeasuredDeg"] == "0"
     # finding 3b: the stated angle of a continuous closing mate now has a residual
     assert notes["XAxisResidualDeg"] == "0"
-    assert closing["second"]["keys"][-1] == {"type": "Entity", "value": "camera"}
+    assert closing["second"]["keys"][-1] == {"type": "Entity", "value": "camera_cage"}
 
 
 def test_placement_root_is_identity_and_camera_sits_where_the_commons_says(envs):
     comps = child(submodel(envs[B], "AssemblyPlacement"), "Components")
     frame = [float(v["value"]) for v in child(child(comps, "frame"), "Transform")["value"]]
     assert frame == [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    cage = [float(v["value"]) for v in child(child(comps, "camera_cage"), "Transform")["value"]]
+    assert (cage[3], cage[7], cage[11]) == pytest.approx((62, 0, 13.75))
     camera = [float(v["value"]) for v in child(child(comps, "camera"), "Transform")["value"]]
-    assert (camera[3], camera[7], camera[11]) == pytest.approx((50, 0, 13.75))
+    assert (camera[3], camera[7], camera[11]) == pytest.approx((71.3531, 0, 19.15), abs=1e-4)
 
 
 def test_producer_capability_description_claims_idta_02020(envs):
@@ -233,7 +237,7 @@ def test_product_requirement_rollup_names_the_tpu_pods(envs):
 
 def test_a_failing_assembly_is_never_projected():
     doc = _doc(B)
-    doc["mates"][-1]["angle_deg"] = 40  # the closing camera mate, now contradicting geometry
+    doc["mates"][11]["angle_deg"] = 40  # the cage's closing ear mate, now contradicting geometry
     report = validate_assembly(doc, _resolver())
     assert not report.ok
     with pytest.raises(AssemblyProjectionError, match="did not pass its check"):
@@ -358,11 +362,11 @@ def test_aas_build_projects_an_assembly_directory(tmp_path):
 
 def test_aas_build_of_a_failing_assembly_is_a_check_error(tmp_path):
     doc = _doc(B)
-    doc["mates"][-1]["angle_deg"] = 40
+    doc["mates"][11]["angle_deg"] = 40
     path = tmp_path / "assembly.json"
     path.write_text(json.dumps(doc), "utf-8")
     run = _cli("build", str(path), "--commons-dir", str(COMMONS), "--out",
                str(tmp_path / "x.json"))
     assert run.returncode == 1, run.stderr
-    assert "stated angle_deg 40° but the geometry realises 30°" in run.stdout + run.stderr
+    assert "stated angle_deg 40° but the geometry realises 0°" in run.stdout + run.stderr
     assert not (tmp_path / "x.json").exists()

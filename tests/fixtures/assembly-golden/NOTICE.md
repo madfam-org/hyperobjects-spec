@@ -2,20 +2,21 @@
 
 `commons/` is a byte-identical copy of part of
 [madfam-org/solid-hyperobjects](https://github.com/madfam-org/solid-hyperobjects) at commit
-`c278900b048e369ca74c9d03171238cec840752f` (main, 2026-10-04; assemblies A and B landed in
-`e887d4f`, #124):
+`00e17651b95ef9889a67a22e1024a4a5923f666d` (main, 2026-10-04; assemblies A and B landed in
+`e887d4f`, #124; B carries the camera cage since `ea0a835`, #136):
 
 - `assemblies/voron-2-4-class-350-motion-frame/assembly.json` (assembly A) and
   `assemblies/fpv-5in-freestyle/assembly.json` (assembly B);
-- the eight cartridges they use: `tslot-corner`, `tslot-2020`, `endstop-mount`,
-  `chain-mount`, `nema-bracket`, `motor-soft-mount`, `pcb-standoff`, `battery-pad`.
+- the nine cartridges they use: `tslot-corner`, `tslot-2020`, `endstop-mount`,
+  `chain-mount`, `nema-bracket`, `motor-soft-mount`, `pcb-standoff`, `battery-pad`,
+  `fpv-camera-cage`.
 
 They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
 Apache-2.0. They are copied unmodified, as test inputs only, because the GOC-1 tree
 digests of the cartridge directories enter the assembly digests the golden tests pin
-(A `58caf081…`, the commons CI's; B `783c5fb7…` on the catalog after #39, `96a7e42d…` at
-073cb0f). Do not edit them here; refresh them from the commons instead, then run
+(A `58caf081…`, the commons CI's; B `96166430…` on this keystone's catalog, `f0db7bdb…` at
+the commons' SPEC_PIN 8c12194, before #41 changed the FPV frame's entry). Do not edit them here; refresh them from the commons instead, then run
 `python3 scripts/refresh_assembly_golden.py` and review the diff.
 
 `golden/` holds the AAS environments `y4d-spec aas build` writes for A and B (canonical

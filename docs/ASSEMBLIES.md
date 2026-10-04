@@ -280,13 +280,14 @@ frames declare an `x_axis`: `φ` is measured on the full circle and must agree w
 within 0.5°. A mate in the BFS tree agrees by construction (it was placed at that angle);
 a mate that closes a cycle is the real test. Before 0.5.0 any `angle_deg` passed there,
 because the x-axis residual was skipped for symmetry 0 (P4-ASM2 finding 3b). Assembly B
-closes the camera between the side plates at +30°, the angle the geometry realises, so it
-validates unchanged; stating 31° there is now:
+closes the camera cage on the side plates' outer faces at 0°, the angle the geometry
+realises, so it validates unchanged; stating 1° on the closing ear mate is now:
 
 ```
-FAIL closure: [camera_on_right_plate] frame.camera_plate_right ↔ camera.side_face_right
-  does not hold (closes a cycle): origins 0.0000 mm apart (≤ 0.05); normals 0.0000° from
-  antiparallel (≤ 0.5); stated angle_deg 31° but the geometry realises 30° (1.0000° apart, ≤ 0.5)
+FAIL closure: [cage_ear_right_on_plate] frame.camera_plate_right_outer ↔
+  camera_cage.cage_ear_right does not hold (closes a cycle): origins 0.0000 mm apart (≤ 0.05);
+  normals 0.0000° from antiparallel (≤ 0.5); stated angle_deg 1° but the geometry realises 0°
+  (1.0000° apart, ≤ 0.5)
 ```
 
 When an interface of a continuous closing mate declares no `x_axis`, the angle is only a
@@ -406,7 +407,7 @@ A checkbox written as `0`/`1` projects as a boolean `Default` plus `DefaultAsWri
 (the integer), because the GOC-1 identity hashes the value as written.
 
 `tests/fixtures/assembly-golden/` holds byte-identical copies of assemblies A and B and
-their eight cartridges (CERN-OHL-W-2.0, see its NOTICE.md) and the golden environments;
+their nine cartridges (CERN-OHL-W-2.0, see its NOTICE.md) and the golden environments;
 `scripts/refresh_assembly_golden.py [--check]` rebuilds them.
 
 ## `capability_profile`

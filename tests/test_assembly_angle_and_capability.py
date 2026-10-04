@@ -82,19 +82,19 @@ def test_without_an_x_axis_the_closing_angle_is_reported_unchecked():
 
 
 def test_assembly_b_states_the_angle_its_geometry_realises():
-    """B closes the camera between the side plates at +30° (P4-ASM2 finding 4): with 3b in
-    force it still validates, and the README's 'not enforced' caveat no longer holds."""
+    """B closes the camera cage on the side plates' outer faces at 0° (solid #136): with 3b
+    in force the stated angle of that continuous closing mate is checked, and holds."""
     from hyperobjects_aas.resolver import bundled_standard_parts_dir
 
     doc = json.loads((GOLDEN / "assemblies" / "fpv-5in-freestyle" / "assembly.json")
                      .read_text("utf-8"))
     resolver = CompositeResolver.for_directories(GOLDEN, bundled_standard_parts_dir())
     report = validate_assembly(doc, resolver)
-    closing = next(m for m in report.mates if m.mate_id == "camera_on_right_plate")
+    closing = next(m for m in report.mates if m.mate_id == "cage_ear_right_on_plate")
     assert report.ok and not closing.in_tree
     assert closing.x_axis_deg == pytest.approx(0, abs=1e-9)
-    doc["mates"][-1]["angle_deg"] = 31
-    assert codes(validate_assembly(doc, resolver)) == [("closure", "camera_on_right_plate")]
+    doc["mates"][11]["angle_deg"] = 1
+    assert codes(validate_assembly(doc, resolver)) == [("closure", "cage_ear_right_on_plate")]
 
 
 # ── finding 5: capability_profile.process is a list ──────────────────────────
