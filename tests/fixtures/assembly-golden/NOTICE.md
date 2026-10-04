@@ -14,8 +14,8 @@ They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
 Apache-2.0. They are copied unmodified, as test inputs only, because the GOC-1 tree
 digests of the cartridge directories enter the assembly digests the golden tests pin
-(A `58caf081…`, B `96a7e42d…`, the same digests the commons CI computes). Do not edit
-them here; refresh them from the commons instead, then run
+(A `58caf081…`, the commons CI's; B `783c5fb7…` on the catalog after #39, `96a7e42d…` at
+073cb0f). Do not edit them here; refresh them from the commons instead, then run
 `python3 scripts/refresh_assembly_golden.py` and review the diff.
 
 `golden/` holds the AAS environments `y4d-spec aas build` writes for A and B (canonical

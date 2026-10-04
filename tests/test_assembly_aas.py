@@ -41,10 +41,13 @@ GOLDEN = Path(__file__).parent / "fixtures" / "assembly-golden"
 COMMONS = GOLDEN / "commons"
 A = "voron-2-4-class-350-motion-frame"
 B = "fpv-5in-freestyle"
-#: The digests the commons CI printed for the same documents (P4-ASM2, solid#124).
+#: A's digest is the one the commons CI prints (P4-ASM2, solid#124, keystone 073cb0f). B's moved
+#: from 96a7e42d… to this one with #39, which added the side plates' outer faces to the
+#: `fpv-frame-5in-x-225` catalog entry: a standard part's catalog digest enters the
+#: assembly digest. The commons CI prints it once its SPEC_PIN moves past #39.
 DIGESTS = {
     A: "58caf08106856e9e98d670bc522cbc7f5cc92ddb0d1b40927c34a36181476ad8",
-    B: "96a7e42d30a9778ea9238e6d307419e88e9cebfa1dabf17594257c3323d4af47",
+    B: "783c5fb7ee492c7e08b54daf3a41264742563fed9213c9121967de059f31c9a1",
 }
 ID = "https://id.madfam.io"
 

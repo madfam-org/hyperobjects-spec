@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interface-sizes",
-  "description": "Supplement of the interface-sizes vocabulary: the FPV size keys the commons cartridges' size_key maps need and the base file did not define (fpv-camera-cage's cam_size, fpv-antenna-mount's connector). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "description": "Supplement of the interface-sizes vocabulary: the FPV size keys the commons cartridges' size_key maps need and the base file did not define (fpv-camera-cage's cam_size and frame ears, fpv-antenna-mount's connector). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
   "review": {
     "state": "generated",
     "note": "Keys, labels and definitions drafted in one pass by an agent (P4-AUTH-C lane, 2026-10-04). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
@@ -109,6 +109,65 @@
         }
       ],
       "notes": "A cable route, not a panel connector: no part mates it the way an SMA jack mates sma-bulkhead, so a mount framed with this key resolves a size but has no catalogue partner. The exit diameter (fpv-antenna-mount uses Ø2.6) is the mount's choice, not this key's."
+    },
+    {
+      "key": "fpv-camera-side-plate-screw",
+      "label": {
+        "en": "FPV camera side-plate screw",
+        "es": "Tornillo lateral de cámara en placa del marco",
+        "fr": "Vis latérale caméra sur flasque du châssis",
+        "pt": "Parafuso lateral da câmara na placa do quadro"
+      },
+      "definition": {
+        "en": "The camera side screw through a carbon side plate of an FPV frame's camera bay: one screw per plate on the camera's tilt axis. A part fixed by it bears on the plate's outer face (an ear of a camera cage) or its inner face (the camera itself).",
+        "es": "El tornillo lateral de cámara a través de una placa lateral de carbono del hueco de cámara de un marco FPV: un tornillo por placa sobre el eje de inclinación de la cámara. La pieza que fija apoya en la cara exterior de la placa (una oreja de jaula de cámara) o en la interior (la propia cámara).",
+        "fr": "La vis latérale de caméra à travers un flasque carbone de la baie caméra d'un châssis FPV : une vis par flasque, sur l'axe d'inclinaison de la caméra. La pièce qu'elle fixe appuie sur la face extérieure du flasque (une oreille de cage caméra) ou sur sa face intérieure (la caméra elle-même).",
+        "pt": "O parafuso lateral da câmara através de uma placa lateral de carbono do compartimento de câmara de um quadro FPV: um parafuso por placa, no eixo de inclinação da câmara. A peça que fixa apoia na face exterior da placa (uma orelha de gaiola de câmara) ou na interior (a própria câmara)."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "plate_thickness": {
+          "value": 2.5,
+          "unit": "mm",
+          "source": 1
+        },
+        "bay_width_min": {
+          "value": 19,
+          "unit": "mm",
+          "source": 0
+        },
+        "bay_width_max": {
+          "value": 20,
+          "unit": "mm",
+          "source": 0
+        },
+        "screw_count_per_plate": {
+          "value": 1,
+          "unit": "count",
+          "source": 0,
+          "note": "the camera's two side screws, one through each plate"
+        }
+      },
+      "sources": [
+        {
+          "title": "GEPRC GEP-MK5 frame",
+          "url": "https://geprc.com/product/geprc-gep-mk5-frame/",
+          "publisher": "GEPRC",
+          "accessed": "2026-10-02",
+          "supports": "19–20 mm camera; 2.5 mm plates"
+        },
+        {
+          "title": "GEPRC GEP-Mark4 frame",
+          "url": "https://geprc.com/product/gep-mark4-frame/",
+          "publisher": "GEPRC",
+          "accessed": "2026-10-02",
+          "supports": "2.5 mm top, bottom and side plates"
+        }
+      ],
+      "notes": "The screw thread is not published by the cited listings, so it is not a fact of this key; a cage's ear hole is the cage's choice. The outer faces of the two plates stand bay + 2 × plate thickness apart (24 mm at 19 + 2 × 2.5); whether two ears match that spacing is decided by mate closure, not by this key."
     }
   ]
 }

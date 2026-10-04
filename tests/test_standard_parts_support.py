@@ -158,7 +158,7 @@ def test_field_concept_terms_exist_as_quadrilingual_drafts():
 def test_vocab_reports_the_catalog(capsys):
     assert y4d_main(["vocab"]) == 0
     out = capsys.readouterr().out
-    assert "y4d-spec vocab standard-parts: parts=15 interfaces=45 failures=0" in out
+    assert "y4d-spec vocab standard-parts: parts=15 interfaces=47 failures=0" in out
     assert "standard_parts_status: parts=15" in out
 
 

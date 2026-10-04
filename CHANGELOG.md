@@ -9,8 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Assembly AAS projection, closing-angle check, capability `process` list (ASM-1 §5–§6, package 0.5.0)
 
 The assembly projection the asset-shells twin graph is built from, and the two keystone
-findings of P4-ASM2. Assemblies A and B (solid-hyperobjects main) validate unchanged,
-with the same digests as the commons CI (A `58caf081…`, B `96a7e42d…`).
+findings of P4-ASM2. Assemblies A and B (solid-hyperobjects main) validate unchanged. A's
+digest is the commons CI's (`58caf081…`); B's is `783c5fb7…` on this catalog (it was
+`96a7e42d…` at 073cb0f: #39 changed the `fpv-frame-5in-x-225` entry, whose catalog digest
+enters the assembly digest).
 
 #### Added
 
@@ -71,6 +73,26 @@ with the same digests as the commons CI (A `58caf081…`, B `96a7e42d…`).
 - Butt joints (an extrusion end against a face) have no mate and are invisible to the
   mating rule (P4-ASM2 finding 3a); only the `--collision` stub or a planar end-face
   interface would catch them (docs/ASSEMBLIES.md, "Limits in v1").
+
+### FPV camera cage on the frame: side plates' outer faces (owner decision O1(a))
+
+Additive catalog and vocabulary data; no grammar, gate or validator change.
+
+#### Added
+
+- **`fpv-frame-5in-x-225`**: `camera_plate_left_outer` and `camera_plate_right_outer`, the
+  side plates' OUTER faces on the camera side-screw axis (female: the plate's hole
+  receives the screw of a part bolted on from outside; symmetry 0), and the parameter
+  `side_plate_thickness_mm` (2.5, GEPRC Mark4). The outer faces stand
+  `camera_bay_width_mm + 2 × side_plate_thickness_mm` apart (24 mm at the defaults).
+- **Vocabulary**: `fpv-camera-side-plate-screw` (in `interface-sizes.fpv.json`): the
+  camera side screw through a side plate; plate 2.5 mm, bay 19–20 mm (GEPRC). The thread
+  is not cited, so it is not a fact of the key.
+- **Tests** (`tests/test_catalog_camera_chain.py`): the full chain frame outer faces →
+  cage ears → cage cradle ↔ camera `front_face` closes at tilt 0 / 15 / 30 / 45 / 55; the
+  cage sits level and ahead of the frame, and the camera looks forward and up by the
+  printed tilt; ears at the bay width (19) miss the second plate by 5 mm; a 20 mm bay
+  needs ears 25 mm apart; an ear does not mate a plate's inner face.
 
 ### FPV camera chain: side plates, camera faces, two size keys (ASM-1 v1.1 follow-up)
 
