@@ -1405,12 +1405,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=93 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=94 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=34 cited=34 dimensions=114 provisional=2 review: signed=0 draft=34
+fabrication_status[interface-sizes]: entries=35 cited=35 dimensions=118 provisional=2 review: signed=0 draft=35
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1450,7 +1450,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=15 interfaces=45 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=15 interfaces=47 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

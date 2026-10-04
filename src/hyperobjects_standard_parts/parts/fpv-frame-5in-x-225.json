@@ -35,7 +35,7 @@
       "supports": "225 mm motor-to-motor; 30.5 × 30.5 and 20 × 20 mm FC holes; 5 mm arm plate; 2.5 mm top, bottom and side plates; 25 mm standoffs"
     }
   ],
-  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0), each with x_axis pointing outward along its arm; the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2). The side plates' inner faces sit at y = ±camera_bay_width_mm / 2, each framed on the side-screw axis.",
+  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0), each with x_axis pointing outward along its arm; the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2). The side plates' inner faces sit at y = ±camera_bay_width_mm / 2, each framed on the side-screw axis. Their outer faces sit at y = ±(camera_bay_width_mm / 2 + side_plate_thickness_mm), framed on the same axis.",
   "dimensions": {
     "wheelbase": {
       "value": 225,
@@ -163,6 +163,22 @@
       "unit": "mm",
       "source": 0,
       "note": "Clear width between the two side plates' inner faces. The range is the class's cited 19–20 mm; the default 19 seats a 19 mm micro body on both plates at once."
+    },
+    {
+      "id": "side_plate_thickness_mm",
+      "type": "number",
+      "label": {
+        "en": "Side-plate thickness",
+        "es": "Espesor de placa lateral",
+        "fr": "Épaisseur du flasque",
+        "pt": "Espessura da placa lateral"
+      },
+      "default": 2.5,
+      "min": 1.5,
+      "max": 4,
+      "unit": "mm",
+      "source": 1,
+      "note": "The camera side plates' thickness (GEPRC Mark4: 2.5 mm top, bottom and side plates). The range is a convention."
     }
   ],
   "interfaces": [
@@ -455,6 +471,80 @@
         "top_plate_z_mm"
       ],
       "note": "Male: the side plate carries the camera side screw's head; its clearance hole sits on the side-screw axis. Origin where that axis meets the plate's INNER face; the normal points into the bay, toward the part it holds. Symmetry 0: a mate's angle_deg is the tilt about the side-screw axis. Its partner bolts against this face (the camera's side face, fpv-camera-micro-19mm.side_face_*); a part wider than the bay cannot."
+    },
+    {
+      "id": "camera_plate_left_outer",
+      "label": {
+        "en": "Camera side plate, left, outer face",
+        "es": "Placa lateral de cámara izquierda, cara exterior",
+        "fr": "Flasque caméra gauche, face extérieure",
+        "pt": "Placa lateral da câmara esquerda, face exterior"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "fpv-camera-side-plate-screw",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          "camera_axis_x_mm",
+          "camera_bay_width_mm / 2 + side_plate_thickness_mm",
+          "top_plate_z_mm / 2"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "camera_axis_x_mm",
+        "camera_bay_width_mm",
+        "side_plate_thickness_mm",
+        "top_plate_z_mm"
+      ],
+      "note": "Female: the plate's side-screw hole receives the screw of a part that bolts on from OUTSIDE (a camera cage's ear, which carries the head). Origin where the side-screw axis meets the plate's OUTER face; the normal points away from the bay, toward the ear. Symmetry 0: a mate's angle_deg turns the part about the side-screw axis (0 = the part's x_axis forward). The two outer faces stand camera_bay_width_mm + 2 × side_plate_thickness_mm apart (24 mm at the defaults)."
+    },
+    {
+      "id": "camera_plate_right_outer",
+      "label": {
+        "en": "Camera side plate, right, outer face",
+        "es": "Placa lateral de cámara derecha, cara exterior",
+        "fr": "Flasque caméra droit, face extérieure",
+        "pt": "Placa lateral da câmara direita, face exterior"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "fpv-camera-side-plate-screw",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          "camera_axis_x_mm",
+          "-camera_bay_width_mm / 2 - side_plate_thickness_mm",
+          "top_plate_z_mm / 2"
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "camera_axis_x_mm",
+        "camera_bay_width_mm",
+        "side_plate_thickness_mm",
+        "top_plate_z_mm"
+      ],
+      "note": "Female: the plate's side-screw hole receives the screw of a part that bolts on from OUTSIDE (a camera cage's ear, which carries the head). Origin where the side-screw axis meets the plate's OUTER face; the normal points away from the bay, toward the ear. Symmetry 0: a mate's angle_deg turns the part about the side-screw axis (0 = the part's x_axis forward). The two outer faces stand camera_bay_width_mm + 2 × side_plate_thickness_mm apart (24 mm at the defaults)."
     },
     {
       "id": "battery_strap",

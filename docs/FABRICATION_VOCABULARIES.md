@@ -12,7 +12,7 @@ of the same vocabulary whose entries the loader appends (a supplement declaring 
 vocabulary is an error). `interface-sizes.standard-parts.json` holds the eight size keys the
 standard-parts catalog needs ([STANDARD_PARTS.md](STANDARD_PARTS.md)); `interface-sizes.fpv.json`
 holds the FPV keys the commons cartridges' size-key maps need (`fpv-camera-mini-21mm`,
-`u-fl-cable-exit`).
+`u-fl-cable-exit`, `fpv-camera-side-plate-screw`).
 
 | Vocabulary | What a key names | Where a manifest writes it |
 |---|---|---|
