@@ -28,6 +28,7 @@ from hyperobjects_schemas import load as load_schema
 from hyperobjects_schemas.generator_output import instance_id, variables_sha256
 
 from ..frame_eval import Frame, FrameEvaluationError, evaluate_frame, resolve_parameters
+from ..semantic_rules import canonical_number_key
 
 __all__ = [
     "ENGINE_CONTROL_KEYS",
@@ -40,6 +41,7 @@ __all__ = [
     "parameter_value_problems",
     "resolve_interfaces",
     "resolve_size_key",
+    "slider_size_key_miss",
 ]
 
 #: GOC-1 §4 rule 3 — engine-control keys select a mode or a body; they are not
@@ -70,6 +72,10 @@ class ResolvedInterface:
     size_key: str | None
     symmetry: int | None
     problems: tuple[str, ...] = ()
+    #: Why `size_key` is None at this point when the interface DOES declare one: a
+    #: slider map (ASM-1 v1.1) with no entry for the slider's value. A mate that needs
+    #: the key names this reason instead of "declares no size_key".
+    size_key_absent_reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -211,9 +217,19 @@ def cartridge_identity(
 
 
 # ── interfaces ────────────────────────────────────────────────────────────────
-def resolve_size_key(size_key: object, values: Mapping) -> tuple[str | None, str | None]:
+def resolve_size_key(
+    size_key: object, values: Mapping, parameters: Mapping[str, Mapping] | None = None
+) -> tuple[str | None, str | None]:
     """(resolved key, problem). A string is itself; {param, map} looks the parameter's
-    resolved value up in `map` (by its string form, as SEM-1 §2.3 keys the map)."""
+    resolved value up in `map`.
+
+    A select is looked up by its option value's string form (SEM-1 §2.3); a value with
+    no entry is a problem. A slider or number (ASM-1 v1.1) is looked up by its GOC-1
+    canonical spelling (`12.0` → `"12"`): an exact value or nothing, and nothing is NOT
+    a problem — the interface simply has no size key at that point (use
+    `slider_size_key_miss` to say why). `parameters` ({id: declaration}) tells the two
+    apart; without it the lookup tries the string form, then the canonical one.
+    """
     if size_key is None:
         return None, None
     if isinstance(size_key, str):
@@ -225,11 +241,31 @@ def resolve_size_key(size_key: object, values: Mapping) -> tuple[str | None, str
         if param not in values:
             return None, f"size_key.param '{param}' has no value"
         value = values[param]
-        key = mapping.get(str(value))
+        ptype = (parameters or {}).get(param, {}).get("type")
+        canonical = canonical_number_key(value)
+        if ptype in ("slider", "number"):
+            key = mapping.get(canonical) if canonical is not None else None
+            if key is None:
+                return None, None  # exact values only; otherwise no size key here
+        else:
+            key = mapping.get(str(value))
+            if key is None and ptype is None and canonical is not None:
+                key = mapping.get(canonical)
         if not isinstance(key, str) or not key:
             return None, f"size_key.map has no entry for {param} = {value!r}"
         return key, None
     return None, f"size_key {size_key!r} is neither a key nor {{param, map}}"
+
+
+def slider_size_key_miss(size_key: object, values: Mapping) -> str:
+    """The reason a slider size_key resolved to nothing at `values`, for a mate error."""
+    param = size_key.get("param") if isinstance(size_key, Mapping) else None
+    mapping = size_key.get("map") if isinstance(size_key, Mapping) else None
+    keys = ", ".join(map(str, mapping)) if isinstance(mapping, Mapping) else ""
+    return (
+        f"has no size_key at {param} = {values.get(param)!r}: its slider map matches "
+        f"exact values only ({keys or 'none'})"
+    )
 
 
 def resolve_interfaces(
@@ -248,6 +284,7 @@ def resolve_interfaces(
     that names no part (a standard part or an external design is one body).
     """
     values = resolve_parameters(manifest, given)
+    declared = _declared(manifest.get("parameters"))
     parts = set(available_parts) if available_parts is not None else None
     ho = manifest.get("hyperobject")
     raw = ho.get("cdg_interfaces") if isinstance(ho, Mapping) else None
@@ -276,9 +313,14 @@ def resolve_interfaces(
                     f"frame sits on part '{frame.part}', which this component does not "
                     f"produce (it produces: {', '.join(sorted(parts)) or 'nothing'})"
                 )
-        size_key, sk_problem = resolve_size_key(iface.get("size_key"), values)
+        size_key, sk_problem = resolve_size_key(iface.get("size_key"), values, declared)
         if sk_problem:
             problems.append(sk_problem)
+        absent = (
+            slider_size_key_miss(iface.get("size_key"), values)
+            if size_key is None and not sk_problem and iface.get("size_key") is not None
+            else None
+        )
         symmetry = iface.get("symmetry")
         out[iface["id"]] = ResolvedInterface(
             id=iface["id"],
@@ -287,5 +329,6 @@ def resolve_interfaces(
             size_key=size_key,
             symmetry=symmetry if _is_number(symmetry) else None,
             problems=tuple(problems),
+            size_key_absent_reason=absent,
         )
     return out

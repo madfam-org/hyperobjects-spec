@@ -23,6 +23,7 @@ from .resolution import (
     parameter_value_problems,
     resolve_interfaces,
     resolve_size_key,
+    slider_size_key_miss,
 )
 from .resolvers import (
     CommonsManifestResolver,
@@ -60,5 +61,6 @@ __all__ = [
     "parameter_value_problems",
     "resolve_interfaces",
     "resolve_size_key",
+    "slider_size_key_miss",
     "validate_assembly",
 ]

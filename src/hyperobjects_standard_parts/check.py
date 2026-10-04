@@ -16,8 +16,9 @@ What the lane checks (each failure class has a test)
    ``geometry_type``; ``frame.part``, when written, is the entry key.
 7. **Frames evaluate** — every component evaluates, with ``y4d_spec.frame_eval`` (ASM-1
    §1), at the parameter defaults and at every parameter's ``min`` and ``max``; every
-   identifier an expression reads is a declared parameter and is listed in the
-   interface's ``parameters``.
+   identifier an expression reads (in the frame or in the interface's ``let``) is a
+   declared parameter or a ``let`` name, and every parameter read is listed in the
+   interface's ``parameters``; a ``let`` shadows no parameter and has no cycle.
 8. **Axes are exact** — at every one of those points ``normal`` and ``x_axis`` are unit
    vectors and orthogonal, to ``AXIS_TOLERANCE``. A catalog entry carries no normalisation
    slack: the assembly placement (ASM-1 §3.4) builds its matrix from these vectors.
@@ -25,12 +26,12 @@ What the lane checks (each failure class has a test)
 
 from __future__ import annotations
 
-import ast
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
 from hyperobjects_schemas import load as load_schema
+from y4d_spec.semantic_rules import LetCycleError, expression_names, let_evaluation_order
 
 from . import (
     SCHEMA_NAME,
@@ -171,14 +172,7 @@ def _vocabulary_problems(part: Mapping, vocabularies: dict[str, dict] | None) ->
 def _names_read(component: object) -> set[str]:
     """The identifiers an expression reads (parse only; an unparseable string reads none —
     the evaluator reports why it does not parse)."""
-    if not isinstance(component, str):
-        return set()
-    try:
-        tree = ast.parse(component, mode="eval")
-    except SyntaxError:
-        return set()
-    called = {id(n.func) for n in ast.walk(tree) if isinstance(n, ast.Call)}
-    return {n.id for n in ast.walk(tree) if isinstance(n, ast.Name) and id(n) not in called}
+    return expression_names(component)
 
 
 def _parameter_points(part: Mapping) -> list[tuple[str, dict[str, float]]]:
@@ -215,6 +209,16 @@ def _frame_problems(part: Mapping) -> list[str]:
         for vec in ("origin", "normal", "x_axis"):
             for component in frame.get(vec) or []:
                 read |= _names_read(component)
+        let_block = iface.get("let") or {}
+        for name in sorted(set(let_block) & declared):
+            out.append(f"interfaces[{iid!r}].let.{name} shadows a parameter")
+        try:
+            let_evaluation_order(dict(let_block))
+        except LetCycleError as exc:
+            out.append(f"interfaces[{iid!r}].let: {exc}")
+        for expr in let_block.values():
+            read |= _names_read(expr)
+        read -= set(let_block)
         listed = set(iface.get("parameters") or [])
         for name in sorted(read - declared):
             out.append(f"interfaces[{iid!r}].frame reads {name!r}, which is not a parameter")

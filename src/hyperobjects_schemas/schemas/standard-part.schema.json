@@ -47,7 +47,8 @@
         "flight-controller",
         "camera",
         "propeller",
-        "antenna"
+        "antenna",
+        "connector"
       ]
     },
     "status": {
@@ -214,7 +215,7 @@
       }
     },
     "frameComponent": {
-      "description": "A number, or an expression string over this entry's parameter ids in the SEM-1 §2.3 grammar (numeric literals, parameter ids, + - * /, parentheses, min(), max(), abs()).",
+      "description": "A number, or an expression string (at most 256 characters) over this entry's parameter ids and the interface's `let` names in the ASM-1 §1 frame grammar: numeric literals, + - * /, parentheses, min(), max(), abs(); and, from v1.1 (hyperobjects-spec >= 0.4.0), sin, cos, tan, asin, acos, atan, atan2(y, x) in DEGREES, sqrt, floor, ceil, round, the comparisons < <= > >= == != and iif(cond, a, b).",
       "oneOf": [
         { "type": "number" },
         { "type": "string", "minLength": 1, "maxLength": 256 }
@@ -257,6 +258,12 @@
           "description": "Rotational symmetry order about `normal`: 0 continuous, 1 none, else the number of equivalent orientations.",
           "type": "integer",
           "enum": [0, 1, 2, 3, 4, 6, 8]
+        },
+        "let": {
+          "description": "Named derived numbers this interface's frame may read (ASM-1 v1.1; needs hyperobjects-spec >= 0.4.0): name → expression in the frame grammar over the entry's parameters and the block's other names, evaluated in dependency order. A standard part has no select, so a catalog `let` is always an expression.",
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+          "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 256 }
         },
         "frame": {
           "description": "Where the interface sits, in mm, in the part's model frame (`frame_convention`) at the resolved parameters. `normal` points from the feature toward where the mating partner sits; `x_axis` is the in-plane reference direction. Both are required to be EXACT unit vectors, orthogonal, at the parameter defaults — a catalog entry carries no normalisation slack. `part`, when written, must equal the entry key (a standard part is one rigid body).",
