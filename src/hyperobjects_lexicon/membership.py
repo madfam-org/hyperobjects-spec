@@ -29,7 +29,7 @@ import difflib
 
 from .fabrication import load_fabrication_vocabularies, vocabulary_keys
 
-__all__ = ["manifest_vocabulary_problems", "RULE_PREFIX"]
+__all__ = ["capability_profile_problems", "manifest_vocabulary_problems", "RULE_PREFIX"]
 
 #: How each problem starts, so a reader of `check` output can tell this rule's findings
 #: from the schema's and from the other house rules'.
@@ -146,6 +146,63 @@ def manifest_vocabulary_problems(
         elif parts is not None:
             checker._say("requirements.parts", "is not an object keyed by part id")
 
+    return checker.problems
+
+
+#: JSON type tests for a capability's ``value_type`` (fabrication-vocabulary schema).
+_VALUE_TYPES = {
+    "integer": lambda v: isinstance(v, int) and not isinstance(v, bool),
+    "number": lambda v: isinstance(v, (int, float)) and not isinstance(v, bool),
+    "boolean": lambda v: isinstance(v, bool),
+    "string": lambda v: isinstance(v, str),
+    "array": lambda v: isinstance(v, list),
+}
+
+
+def capability_profile_problems(
+    profile: object, *, vocabularies: dict[str, dict] | None = None
+) -> list[str]:
+    """Every way a producer's ``capability_profile`` (ASM-1 §2) disagrees with the
+    ``fabrication-capabilities`` vocabulary: an unknown key, a value of the wrong JSON
+    type (``value_type``), an item outside ``allowed_values``, or an item that is not a key
+    of its ``value_vocabulary``. ``process`` is a LIST of ``processes`` keys, like
+    ``requirements.process`` (settled in 0.5.0; P4-ASM2 finding 5). Empty for no profile.
+    """
+    if profile is None:
+        return []
+    docs = vocabularies if vocabularies is not None else _bundled()
+    checker = _Checker(docs)
+    where = "capability_profile"
+    if not isinstance(profile, dict):
+        checker._say(where, "is not an object")
+        return checker.problems
+    entries = {
+        e["key"]: e
+        for e in docs.get("fabrication-capabilities", {}).get("entries", [])
+        if isinstance(e, dict) and isinstance(e.get("key"), str)
+    }
+    for key in sorted(profile):
+        value, at = profile[key], f"{where}.{key}"
+        entry = entries.get(key)
+        if entry is None:
+            checker._say(
+                at, f"{key!r} is not a key of the fabrication-capabilities vocabulary"
+                f"{_hint(key, set(entries))}"
+            )
+            continue
+        value_type = entry.get("value_type")
+        test = _VALUE_TYPES.get(value_type)
+        if test is not None and not test(value):
+            checker._say(at, f"{value!r} is not a {value_type} (the vocabulary's value_type)")
+            continue
+        items = value if isinstance(value, list) else [value]
+        allowed = entry.get("allowed_values")
+        for i, item in enumerate(items):
+            item_at = f"{at}[{i}]" if isinstance(value, list) else at
+            if entry.get("value_vocabulary"):
+                checker.member(item_at, item, entry["value_vocabulary"])
+            elif isinstance(allowed, list) and item not in allowed:
+                checker._say(item_at, f"{item!r} is not one of {', '.join(allowed)}")
     return checker.problems
 
 

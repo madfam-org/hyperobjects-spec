@@ -123,6 +123,11 @@ class CommonsManifestResolver:
             variables=goc1_variables(manifest.get("parameters"), values),
         )
         available = [part] if part is not None else produced
+        # Informative only (never hashed): the AAS projection rolls requirements up for the
+        # parts this component produces (ASM-1 §5).
+        details = {**details, "parts": list(available)}
+        if isinstance(manifest.get("requirements"), Mapping):
+            details["requirements"] = manifest["requirements"]
         return ResolvedComponent(
             component_id=component["id"],
             source_type="cartridge",

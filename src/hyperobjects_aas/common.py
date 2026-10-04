@@ -51,6 +51,17 @@ PLATFORMS = {
             "es": "Común solid-hyperobjects de MADFAM",
         },
     },
+    # Assemblies (ASM-1 §5) are authored documents in the solid commons; their product
+    # page is the document's folder there (no platform renders an assembly yet).
+    "assembly": {
+        "platform": "yantra4d",
+        "product_url": "https://github.com/madfam-org/solid-hyperobjects/tree/main/assemblies/{slug}",
+        "render_endpoint": None,
+        "manufacturer": {
+            "en": "MADFAM solid-hyperobjects commons",
+            "es": "Común solid-hyperobjects de MADFAM",
+        },
+    },
     "soft": {
         "platform": "fashion-cabinet",
         "product_url": "https://fashioncabi.net/api/v1/garments/{slug}",
@@ -61,6 +72,10 @@ PLATFORMS = {
         },
     },
 }
+
+
+#: The specificAssetId that carries a shell's full revision digest (its id holds 16 hex).
+REVISION_DIGEST = {"solid": "tree_sha256", "soft": "tree_sha256", "assembly": "assembly_digest"}
 
 
 def as_dict(value: object) -> dict:
@@ -77,6 +92,8 @@ class Projection:
 
     kind: str
     slug: str
+    #: The revision digest: GOC-1 ``tree_sha256`` for a cartridge, the assembly digest for
+    #: an assembly (ASM-1 §5). Its first 16 hex are the shell id's revision.
     tree_sha256: str
     manifest: dict
     concepts: Concepts = field(default_factory=Concepts)
@@ -202,11 +219,17 @@ def _value_type(param: dict) -> str | None:
     return None
 
 
-def _default(param: dict, prefer: str | None) -> dict | None:
+def _default(param: dict, prefer: str | None) -> list:
+    """``Default``; a checkbox written as 0/1 is a boolean here, and the value as written
+    is kept beside it (``DefaultAsWritten``), because the GOC-1 ``instance_id`` hashes the
+    manifest's own value (``1`` and ``true`` differ) and a resolver reading the shell back
+    (``hyperobjects_aas.resolver``) must reproduce that identity."""
     value = param.get("default")
-    if param.get("type") == "checkbox" and isinstance(value, int) and value in (0, 1):
-        value = bool(value)
-    return el.prop("Default", value, prefer=prefer)
+    if (param.get("type") == "checkbox" and isinstance(value, int)
+            and not isinstance(value, bool) and value in (0, 1)):
+        return [el.prop("Default", bool(value), prefer=prefer),
+                el.prop("DefaultAsWritten", value, prefer="xs:integer")]
+    return [el.prop("Default", value, prefer=prefer)]
 
 
 def _measurement(value: object) -> dict | None:
@@ -229,10 +252,10 @@ def _parameter(proj: Projection, param: dict, short: str) -> dict | None:
     return el.smc(short, [
         el.prop("ParameterId", param.get("id")),
         el.prop("Type", param.get("type")),
-        _default(param, prefer),
+        *_default(param, prefer),
         el.range_element("Range", param.get("min"), param.get("max")),
         el.prop("Step", param.get("step"), prefer="xs:double"),
-        el.prop("Unit", param.get("unit")),
+        el.prop("Unit", param.get("unit"), semantic_id=proj.concepts.term("parameter-unit")),
         el.mlp("Label", param.get("label")),
         el.mlp("Tooltip", param.get("tooltip")),
         el.sml("Options", options, type_value="SubmodelElementCollection"),
@@ -309,7 +332,7 @@ def build_environment(proj: Projection) -> dict:
         "specificAssetIds": [
             {"name": "commons", "value": COMMONS_REPOS[proj.kind]},
             {"name": "slug", "value": proj.slug},
-            {"name": "tree_sha256", "value": proj.tree_sha256},
+            {"name": REVISION_DIGEST[proj.kind], "value": proj.tree_sha256},
         ],
     }
     shell: dict = {

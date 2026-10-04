@@ -5,6 +5,7 @@ one implementation that the projection and the checker share:
 
     asset_id("solid", "tslot-corner")                 # globalAssetId of the type asset
     shell_id("solid", "tslot-corner", tree)           # one shell per design revision
+    shell_id("assembly", "fpv-5in-freestyle", digest) # one shell per assembly digest (ASM-1 §5)
     submodel_id("solid", "tslot-corner", tree, "Nameplate")
     material_shell_id("bambu-tpu-95a", card)          # content-addressed card shell
     concept_id("bolt-pattern")                        # semanticId of a lexicon term
@@ -12,8 +13,10 @@ one implementation that the projection and the checker share:
 
 ``tree16`` is the first 16 hex characters of the GOC-1 ``tree_sha256`` of the cartridge
 directory (``hyperobjects_schemas.generator_output.tree_sha256``), so a shell id names
-one immutable revision of a design. ``content16`` is the same prefix of the sha256 of a
-material card's canonical JSON.
+one immutable revision of a design. For an ``assembly`` (ASM-1 §5) the same 16 hex are
+the prefix of the canonical assembly digest (``hyperobjects-assembly-v1``), which moves
+whenever the document or any component's resolved identity moves. ``content16`` is the
+same prefix of the sha256 of a material card's canonical JSON.
 
 The AAS v3.1.2 metamodel constrains ``idShort`` to ``^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$``
 (at least two characters, at most 128) and ``administration.version`` / ``revision`` to
@@ -55,9 +58,15 @@ __all__ = [
 #: The permanent namespace (owner decision, SEM-1 §0).
 BASE = "https://id.madfam.io"
 
-#: The two type-asset kinds of §1 and the commons repository each one lives in.
-KINDS = ("solid", "soft")
-COMMONS_REPOS = {"solid": "solid-hyperobjects", "soft": "soft-hyperobjects"}
+#: The type-asset kinds of SEM-1 §1 (plus ASM-1 §5's assemblies) and the commons
+#: repository each one lives in. Assemblies are authored in the solid commons
+#: (`assemblies/{slug}/assembly.json`, ASM-1 §7).
+KINDS = ("solid", "soft", "assembly")
+COMMONS_REPOS = {
+    "solid": "solid-hyperobjects",
+    "soft": "soft-hyperobjects",
+    "assembly": "solid-hyperobjects",
+}
 
 #: The slug grammar both manifest schemas enforce (`project.slug`).
 _SLUG = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
@@ -129,11 +138,15 @@ def material_submodel_id(slug: str, card: object, submodel_id_short: str) -> str
     return f"{BASE}/sm/material/{_slug(slug)}/{content16(card)}/{submodel_id_short}"
 
 
-def standard_part_id(size_key: str) -> str:
-    """A standard (COTS) part asset: ``…/asset/standard/{size-key}``."""
-    if not isinstance(size_key, str) or not re.match(r"^[a-z0-9][a-z0-9._-]*$", size_key):
-        raise ValueError(f"not an interface-sizes key: {size_key!r}")
-    return f"{BASE}/asset/standard/{size_key}"
+def standard_part_id(key: str) -> str:
+    """A standard (COTS) part asset: ``…/asset/standard/{key}``.
+
+    SEM-1 §1 keys it by the interface-sizes key (what a cartridge's ``bom.hardware`` names);
+    ASM-1 §5 by the standard-parts catalog key (what an assembly component names). Both
+    keys share one grammar, and for several parts they are the same string."""
+    if not isinstance(key, str) or not re.match(r"^[a-z0-9][a-z0-9._-]*$", key):
+        raise ValueError(f"not an interface-sizes or standard-parts key: {key!r}")
+    return f"{BASE}/asset/standard/{key}"
 
 
 def concept_id(term_id: str) -> str:

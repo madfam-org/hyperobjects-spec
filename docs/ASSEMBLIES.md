@@ -1,4 +1,4 @@
-# Type-level assemblies (ASM-1 §2–§3)
+# Type-level assemblies (ASM-1 §2–§3, §5)
 
 An **assembly** says which components are mated at which interfaces: commons cartridges
 at given parameters, standard (COTS) parts from a catalog, and external third-party
@@ -152,11 +152,11 @@ so the next grammar step will explain itself to this one.
 
 | Step | What is checked | Finding codes |
 |---|---|---|
-| 1 | The schema; unique component and mate ids; `root` exists; every mate endpoint exists; no component mates with itself | `schema`, `component-id`, `mate-id`, `root`, `mate-endpoint` |
+| 1 | The schema; unique component and mate ids; `root` exists; every mate endpoint exists; no component mates with itself; a producer's `capability_profile` is in the `fabrication-capabilities` vocabulary | `schema`, `component-id`, `mate-id`, `root`, `mate-endpoint`, `capability` |
 | 2 | Every component resolves. A cartridge's mode must exist. A named part must be one the mode produces. Every given parameter must be declared and admissible. | `resolve` |
 | 3 | For each mate: both interfaces exist and can mate (their frame evaluates and sits on a part the component produces, and they declare `polarity`, `size_key` and `symmetry`); the `size_key` values are equal; the polarities are complementary (male with female, neutral with neutral); the symmetries are equal; the rotation fits | `interface`, `size_key`, `polarity`, `symmetry`, `rotation` |
 | 4 | Placement by BFS from the root over the mates that passed step 3 | — |
-| 5 | Closure: every mate, including the ones the BFS tree did not use, is re-checked in world space | `closure` (error), `rotation` (warning) |
+| 5 | Closure: every mate, including the ones the BFS tree did not use, is re-checked in world space; on continuous symmetry the stated `angle_deg` too, when both frames declare an `x_axis` | `closure` (error), `rotation`, `angle-unchecked` (warnings) |
 | 6 | Every component is reachable from the root | `unreachable` |
 | 7 | `--collision`: not implemented in v1, see below | `collision` (warning) |
 | 8 | The report, the placement table and the assembly digest | — |
@@ -245,7 +245,7 @@ are true:
 |---|---|---|
 | origin | `|o_a − o_b|` | ≤ 0.05 mm |
 | normal | the angle between `n_b` and `−n_a` | ≤ 0.5° |
-| x-axis | `φ` is the rotation the geometry realises: b's x-axis seen from `W_a` reads `(cos φ, −sin φ, ·)`. The residual is the distance from `φ − θ` to the nearest multiple of `360°/symmetry` | ≤ 0.5°; not checked for symmetry 0 |
+| x-axis | `φ` is the rotation the geometry realises: b's x-axis seen from `W_a` reads `(cos φ, −sin φ, ·)`. The residual is the distance from `φ − θ` to the nearest multiple of `360°/symmetry`; for symmetry 0 the period is 360°, so it is the distance from the stated `angle_deg` | ≤ 0.5°; for symmetry 0 only when both frames declare an `x_axis` |
 
 Angles are measured with `atan2(|u × v|, u · v)`, because `acos` loses its precision
 near 0° and 180°, which is exactly where a 0.5° tolerance is judged.
@@ -271,7 +271,28 @@ FAIL closure: [m3] e3.outlet ↔ e4.inlet does not hold (closes a cycle):
   x-axes 0.0000° apart modulo symmetry 4 (≤ 0.5)
 ```
 
-`7.0711 = √(5² + 5²)`. If a cycle-closing mate holds only at a different index of its
+`7.0711 = √(5² + 5²)`.
+
+### Continuous symmetry closes too (0.5.0)
+
+On a symmetry-0 mate the stated `angle_deg` is a fact about the geometry as soon as both
+frames declare an `x_axis`: `φ` is measured on the full circle and must agree with it
+within 0.5°. A mate in the BFS tree agrees by construction (it was placed at that angle);
+a mate that closes a cycle is the real test. Before 0.5.0 any `angle_deg` passed there,
+because the x-axis residual was skipped for symmetry 0 (P4-ASM2 finding 3b). Assembly B
+closes the camera cage on the side plates' outer faces at 0°, the angle the geometry
+realises, so it validates unchanged; stating 1° on the closing ear mate is now:
+
+```
+FAIL closure: [cage_ear_right_on_plate] frame.camera_plate_right_outer ↔
+  camera_cage.cage_ear_right does not hold (closes a cycle): origins 0.0000 mm apart (≤ 0.05);
+  normals 0.0000° from antiparallel (≤ 0.5); stated angle_deg 1° but the geometry realises 0°
+  (1.0000° apart, ≤ 0.5)
+```
+
+When an interface of a continuous closing mate declares no `x_axis`, the angle is only a
+placement convention and cannot be compared; the mate warns `angle-unchecked` instead of
+passing in silence. If a cycle-closing mate holds only at a different index of its
 symmetry than the one the document states, that is a **warning** (`closes at
 rotation_index 0, but the document states 2`) rather than an error. The two are the same
 physical mating.
@@ -330,11 +351,86 @@ report.ok, report.errors, report.warnings, report.placements, report.mates, repo
 frame through `y4d_spec.frame_eval` and resolves every `size_key`. That keeps the frame
 arithmetic in the keystone for every caller.
 
+## The AAS projection (ASM-1 §5)
+
+A checked assembly projects to one AAS v3.1 Environment:
+
+```bash
+y4d-spec aas build ../solid-hyperobjects/assemblies/fpv-5in-freestyle --out b.aas.json
+y4d-spec aas check b.aas.json --basyx require
+```
+
+`aas build` recognises an assembly (a directory with `assembly.json`, or the file),
+runs `assembly check` first, and projects only a passing assembly; a failing one is a
+check error (exit 1) that prints the validator's findings. Cartridges come from
+`--commons-dir` (default: the commons root two levels above `assemblies/<slug>/`) and
+standard parts from `--standard-parts` (default: the catalog bundled with the package).
+
+| | Identifier / content |
+|---|---|
+| Asset | `https://id.madfam.io/asset/assembly/{slug}` |
+| Shell | `https://id.madfam.io/aas/assembly/{slug}/{digest16}`; specificAssetIds `commons`, `slug`, `assembly_digest` (the full digest) |
+| `Nameplate` | as for a cartridge; the product URI is the document's folder in the solid commons |
+| `AssemblyDocument` (MADFAM `smt/assembly-document/1/0`) | the document exactly as checked, as a `Blob` of its canonical JSON, plus `AssemblyDigest` and `DigestAlgorithm` |
+| `BillOfMaterials` (IDTA 02011-1-1 HSEBoM when conformant) | `EntryNode` = the assembly; one `Node` per component with a `HasPart` from the entry node. A cartridge node names `asset/solid/{slug}`, carries the GOC-1 `instance_id` as a specificAssetId and a `DerivedFrom` reference to the exact type shell revision `aas/solid/{slug}/{tree16}`; a standard node names `asset/standard/{key}` (catalog key); an external node is a CoManaged entity with name, licence, URL and revision. `CountsBySource` aggregates the BoM by source |
+| `Mates` (MADFAM `smt/assembly-mates/1/0`) | one `AnnotatedRelationshipElement` per mate between the two component nodes, annotated with the interfaces, the stated rotation, `ThetaDeg`, `InTree`, the residuals, `MeasuredDeg` and `Validated` |
+| `AssemblyPlacement` (MADFAM) | each component's 4 × 4 world transform, row-major, mm, 9 decimals |
+| `CapabilityDescription` (producers; IDTA 02020-1-0 when conformant) | one `CapabilityContainer` per process in `capability_profile.process`, the other capabilities as its `PropertySet` |
+| `RequirementProfile` (products with `requirements_rollup`) | each fabricated component's `requirements` (top level and the parts it produces), and the union of their processes |
+
+The environment is a function of the document and the report alone, so any holder of
+the same components derives it byte for byte. `hyperobjects_aas.resolver` is the other
+half of that seam: `EnvironmentCartridgeResolver` resolves cartridge components from
+**stored type shells** (`ParametricModel`, `GeometryProvision`, `MatingInterfaces`,
+`RequirementProfile`), at the revision each node's `DerivedFrom` names
+(`hyperobjects_aas.assembly.component_type_shells`). On assemblies A and B it reproduces
+the commons digest and the whole environment; over the whole solid commons (502
+cartridges, 1490 modes at their defaults) it gives the same identity and interfaces as
+the manifest resolver. That is what lets asset-shells re-validate an assembly at publish
+time without a commons checkout (ASM-1 §6):
+
+```python
+from hyperobjects_aas.assembly import (assembly_document_from_environment,
+                                       build_assembly_environment, component_type_shells)
+from hyperobjects_aas.resolver import EnvironmentCartridgeResolver, bundled_standard_parts_dir
+from y4d_spec.assembly import CompositeResolver, StandardPartsResolver, validate_assembly
+
+doc = assembly_document_from_environment(env)
+resolver = CompositeResolver(
+    cartridge=EnvironmentCartridgeResolver(component_type_shells(env), fetch),  # fetch(shell id)
+    standard=StandardPartsResolver(bundled_standard_parts_dir()))
+report = validate_assembly(doc, resolver)
+assert report.ok and build_assembly_environment(doc, report) == env
+```
+
+A checkbox written as `0`/`1` projects as a boolean `Default` plus `DefaultAsWritten`
+(the integer), because the GOC-1 identity hashes the value as written.
+
+`tests/fixtures/assembly-golden/` holds byte-identical copies of assemblies A and B and
+their nine cartridges (CERN-OHL-W-2.0, see its NOTICE.md) and the golden environments;
+`scripts/refresh_assembly_golden.py [--check]` rebuilds them.
+
+## `capability_profile`
+
+A producer's `capability_profile` uses the `fabrication-capabilities` vocabulary, and
+step 1 checks it: every key is in the vocabulary, every value has its `value_type`, an
+enumerated capability uses its `allowed_values`, and `process` is a **list** of
+`processes` keys (`{"process": ["fff"]}`), like `requirements.process` (SEM-1 §2.4). A
+bare string is refused by the schema. The vocabulary typed `process` as a string until
+0.5.0; ASM-1, this document and both commons assemblies already wrote a list (P4-ASM2
+finding 5), so the vocabulary and the schema now say the same.
+
 ## Limits in v1
 
 - **No collision check.** `--collision` adds a warning that says no mesh intersection
   was checked, and the summary line prints `collision=not run`. A requested check that
   did not run never reads as a pass. ASM-1 §3.7 makes it reported, not gating, in v1.
+- **Butt joints are invisible to the mating rule** (P4-ASM2 finding 3a). An extrusion
+  end pressed against another extrusion's face has no mate: the end taps are female
+  interfaces with nothing male to receive them. A slot station that drives `frame_z`
+  1 mm into `frame_x` still validates; the commons' render probe measured 400 mm³ of
+  overlap in that case. Only a collision check (`--collision`, still a stub), or a planar
+  end-face interface that two extrusions could mate on, would catch it.
 - **Frames are not yet in the commons main.** At the time of writing, no cartridge on
   solid-hyperobjects main declares a frame; every interface reports `declares no frame`
   when mated. Frames arrive one cartridge per PR (solid-hyperobjects #111–#120 and on),

@@ -81,7 +81,7 @@ from .lexicon import (
     load_term_file,
     review_counts,
 )
-from .membership import manifest_vocabulary_problems
+from .membership import capability_profile_problems, manifest_vocabulary_problems
 from .reader import (
     READER_DIR,
     REPOS,
@@ -138,6 +138,7 @@ __all__ = [
     "entry_concept_iri",
     "fabrication_status",
     "load_fabrication_vocabularies",
+    "capability_profile_problems",
     "manifest_vocabulary_problems",
     "ArticleResult",
     "article_status",

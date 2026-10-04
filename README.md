@@ -74,6 +74,7 @@ y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 y4d-spec bundle check ./renders/           # GOC-1 variables.json + geometry (see "Generator output")
 y4d-spec assembly check assembly.json --commons ../solid --standard-parts ./parts   # ASM-1 assembly
+y4d-spec aas build ../solid/assemblies/fpv-5in-freestyle --out b.aas.json   # ASM-1 §5 assembly shell
 ```
 
 A cartridge directory is anything with a `project.json`. A directory you name that has
@@ -1575,7 +1576,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
-| `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges and material cards → AAS Environments, the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
+| `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges, material cards and checked assemblies (ASM-1 §5: BoM, Mates, placement, capability, requirement roll-up) → AAS Environments, the resolver that reads stored type shells back for re-validation (`hyperobjects_aas.resolver`), the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
 | `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
 
 ```python

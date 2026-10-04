@@ -66,6 +66,9 @@ Common fields: `key`, `label`, `definition`, `review_status` (required); `status
   `printer` | `placeholder`), and the revision, path and line of its definition.
 - **fabrication-capabilities** — `value_type`, `unit`, `allowed_values`,
   `value_vocabulary`. Never shares a key with the garment `capabilities` vocabulary.
+  `process` is an `array` of `processes` keys (0.5.0; it was typed `string` while ASM-1
+  and the commons assemblies wrote a list). An assembly's `capability_profile` is checked
+  against this vocabulary (`hyperobjects_lexicon.capability_profile_problems`).
 - **interface-sizes** — `geometry_type` and `dimensions`, each citing a source by index.
 
 ## The citation rules

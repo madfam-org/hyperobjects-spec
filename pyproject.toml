@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperobjects-spec"
-version = "0.4.0"
+version = "0.5.0"
 description = "The MADFAM hyperobject commons spec: validate a Fashion Cabinet or Yantra4D cartridge with zero platform code."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -106,7 +106,12 @@ src = ["src", "tests"]
 # platform actually runs. So the copy is excluded from lint rather than edited to suit
 # it, exactly as a vendored dependency would be. Everything the keystone AUTHORS around
 # the engine (graph_render.py, __init__.py, the guard) is linted normally.
-extend-exclude = ["src/y4d_spec/graph/graph_engine.py"]
+#
+# tests/fixtures/assembly-golden/commons is the same kind of copy: eight solid cartridges
+# and assemblies A and B, byte-identical to solid-hyperobjects main, because their GOC-1
+# tree digests (and so the assembly digests the golden tests pin) are over those exact
+# bytes. The commons lints its own cartridges; editing the copies would break the pin.
+extend-exclude = ["src/y4d_spec/graph/graph_engine.py", "tests/fixtures/assembly-golden"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B"]
