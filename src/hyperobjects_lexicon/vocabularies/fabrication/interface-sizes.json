@@ -637,6 +637,177 @@
       ],
       "term": "rail",
       "notes": "The short MGN12C block has a 20 × 15 mm pattern and is not this key."
+    },
+    {
+      "key": "tslot-3030-8mm",
+      "label": {
+        "en": "3030 T-slot profile, 8 mm slot",
+        "es": "Perfil ranurado 3030, ranura de 8 mm",
+        "fr": "Profilé rainuré 3030, rainure de 8 mm",
+        "pt": "Perfil ranhurado 3030, ranhura de 8 mm"
+      },
+      "definition": {
+        "en": "30 × 30 mm aluminium extrusion with an 8 mm slot opening on each face (series 6) and a Ø6.8 mm centre hole for an M8 tap.",
+        "es": "Perfil de aluminio extruido de 30 × 30 mm con una ranura de 8 mm de abertura en cada cara (serie 6) y un barreno central de Ø6.8 mm para machuelo M8.",
+        "fr": "Profilé d'aluminium extrudé de 30 × 30 mm avec une rainure de 8 mm d'ouverture sur chaque face (série 6) et un trou central de Ø6,8 mm pour taraudage M8.",
+        "pt": "Perfil de alumínio extrudado de 30 × 30 mm com uma ranhura de 8 mm de abertura em cada face (série 6) e um furo central de Ø6,8 mm para rosca M8."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "profile_square": {"value": 30, "unit": "mm", "source": 0},
+        "slot_width": {"value": 8, "unit": "mm", "source": 0},
+        "centre_hole_diameter": {"value": 6.8, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "MISUMI HFS6 series aluminum extrusions (30, 60 mm square) catalog page",
+          "url": "https://us.misumi-ec.com/pdf/fa/2010/p2273.pdf",
+          "publisher": "MISUMI",
+          "accessed": "2026-10-04",
+          "supports": "HFS6-3030: 30 mm square, 8 mm slot opening, Ø6.8 mm centre hole"
+        }
+      ],
+      "term": "profile",
+      "notes": "Minted in ASM-1 v1.1 for the 3030 option of the commons T-slot brackets (tslot-corner, tslot-2020)."
+    },
+    {
+      "key": "tslot-4040-8mm",
+      "label": {
+        "en": "4040 T-slot profile, 8 mm slot",
+        "es": "Perfil ranurado 4040, ranura de 8 mm",
+        "fr": "Profilé rainuré 4040, rainure de 8 mm",
+        "pt": "Perfil ranhurado 4040, ranhura de 8 mm"
+      },
+      "definition": {
+        "en": "40 × 40 mm aluminium extrusion with an 8 mm slot opening on each face (the Line 8 / series 8 groove) and a Ø6.8 mm core bore.",
+        "es": "Perfil de aluminio extruido de 40 × 40 mm con una ranura de 8 mm de abertura en cada cara (ranura de línea 8 / serie 8) y un barreno central de Ø6.8 mm.",
+        "fr": "Profilé d'aluminium extrudé de 40 × 40 mm avec une rainure de 8 mm d'ouverture sur chaque face (rainure ligne 8 / série 8) et un alésage central de Ø6,8 mm.",
+        "pt": "Perfil de alumínio extrudado de 40 × 40 mm com uma ranhura de 8 mm de abertura em cada face (ranhura linha 8 / série 8) e um furo central de Ø6,8 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "profile_square": {"value": 40, "unit": "mm", "source": 0},
+        "slot_width": {"value": 8, "unit": "mm", "source": 0},
+        "centre_hole_diameter": {"value": 6.8, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "item Profile 8 40x40 light, natural (0.0.026.33) datasheet",
+          "url": "https://docs.rs-online.com/0fa8/A700000016010660.pdf",
+          "publisher": "item Industrietechnik (via RS Components)",
+          "accessed": "2026-10-04",
+          "supports": "□40 mm, 8 mm groove (Line 8), Ø6.8 mm core bore"
+        },
+        {
+          "title": "MISUMI HFS8 series aluminum extrusions (40, 80 mm square) catalog page",
+          "url": "https://us.misumi-ec.com/pdf/fa/2010/p2315.pdf",
+          "publisher": "MISUMI",
+          "accessed": "2026-10-04",
+          "supports": "HFS8-4040: 40 mm square, 10 mm slot opening, Ø10.5 mm centre hole — the 10 mm variant, not this key"
+        }
+      ],
+      "term": "profile",
+      "notes": "40 × 40 profiles come with two slot widths. This key is the 8 mm groove the commons tables declare (item Line 8). MISUMI's HFS8-4040 has a 10 mm slot and a Ø10.5 mm centre hole (source 1): that vendor variant is a different fit and is NOT this key; it is not minted because no cartridge uses it."
+    },
+    {
+      "key": "nema-23-face",
+      "label": {
+        "en": "NEMA 23 motor face",
+        "es": "Cara de motor NEMA 23",
+        "fr": "Face de moteur NEMA 23",
+        "pt": "Face de motor NEMA 23"
+      },
+      "definition": {
+        "en": "Mounting face of a NEMA 23 stepper motor: a 56.4 mm square flange with four Ø5 mm through holes on a 47.14 mm square and a Ø38.1 mm centring pilot.",
+        "es": "Cara de montaje de un motor a pasos NEMA 23: brida cuadrada de 56.4 mm con cuatro barrenos pasantes de Ø5 mm en un cuadrado de 47.14 mm y un piloto de centrado de Ø38.1 mm.",
+        "fr": "Face de fixation d'un moteur pas à pas NEMA 23 : bride carrée de 56,4 mm, quatre trous traversants de Ø5 mm sur un carré de 47,14 mm et un centrage de Ø38,1 mm.",
+        "pt": "Face de montagem de um motor de passo NEMA 23: flange quadrada de 56,4 mm com quatro furos passantes de Ø5 mm num quadrado de 47,14 mm e um piloto de centragem de Ø38,1 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "face_square": {"value": 56.4, "unit": "mm", "source": 0, "tolerance": "±0.5"},
+        "hole_spacing": {"value": 47.14, "unit": "mm", "source": 0, "tolerance": "±0.2"},
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_diameter": {"value": 5, "unit": "mm", "source": 0},
+        "pilot_diameter": {"value": 38.1, "unit": "mm", "source": 0, "tolerance": "±0.025"}
+      },
+      "sources": [
+        {
+          "title": "Nanotec ST5918 (NEMA 23) stepper motor product overview",
+          "url": "https://www.nanotec.com/fileadmin/files/Baureihenuebersichten/Schrittmotoren/Product_Overview_ST5918.pdf",
+          "publisher": "Nanotec Electronic",
+          "accessed": "2026-10-04",
+          "supports": "56.4 ±0.5 mm face, 4× Ø5 on 47.14 ±0.2 mm, Ø38.1 ±0.025 mm pilot, Ø6.35 (0/−0.013) mm shaft"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "NEMA 23 is a frame-size designation under NEMA ICS 16, cited from a manufacturer drawing. Unlike NEMA 17 the flange holes are through holes: the screws pass through the motor into nuts or a tapped bracket. A bracket's pilot clearance (nema-bracket uses Ø38.5) is the bracket's choice, not this key's."
+    },
+    {
+      "key": "bearing-623",
+      "label": {
+        "en": "623 ball bearing",
+        "es": "Rodamiento 623",
+        "fr": "Roulement 623",
+        "pt": "Rolamento 623"
+      },
+      "definition": {
+        "en": "Single-row deep-groove ball bearing 623: 3 mm bore, 10 mm outside diameter, 4 mm wide.",
+        "es": "Rodamiento rígido de bolas de una hilera 623: diámetro interior de 3 mm, exterior de 10 mm y 4 mm de ancho.",
+        "fr": "Roulement rigide à billes à une rangée 623 : alésage de 3 mm, diamètre extérieur de 10 mm, largeur de 4 mm.",
+        "pt": "Rolamento rígido de esferas de uma carreira 623: furo de 3 mm, diâmetro externo de 10 mm e 4 mm de largura."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 3, "unit": "mm", "source": 0},
+        "outside_diameter": {"value": 10, "unit": "mm", "source": 0},
+        "width": {"value": 4, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "SKF 623 miniature deep groove bearing (distributor listing)",
+          "url": "https://qualitybearingsonline.ca/623-skf-miniature-deep-groove-3x10x4mm",
+          "publisher": "Quality Bearings Online",
+          "accessed": "2026-10-04",
+          "supports": "623: 3 × 10 × 4 mm"
+        }
+      ]
+    },
+    {
+      "key": "bearing-6900",
+      "label": {
+        "en": "6900 ball bearing",
+        "es": "Rodamiento 6900",
+        "fr": "Roulement 6900",
+        "pt": "Rolamento 6900"
+      },
+      "definition": {
+        "en": "Single-row thin-section deep-groove ball bearing 6900 (61900): 10 mm bore, 22 mm outside diameter, 6 mm wide.",
+        "es": "Rodamiento rígido de bolas de sección delgada de una hilera 6900 (61900): diámetro interior de 10 mm, exterior de 22 mm y 6 mm de ancho.",
+        "fr": "Roulement rigide à billes à section mince à une rangée 6900 (61900) : alésage de 10 mm, diamètre extérieur de 22 mm, largeur de 6 mm.",
+        "pt": "Rolamento rígido de esferas de secção fina de uma carreira 6900 (61900): furo de 10 mm, diâmetro externo de 22 mm e 6 mm de largura."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 10, "unit": "mm", "source": 0},
+        "outside_diameter": {"value": 22, "unit": "mm", "source": 0},
+        "width": {"value": 6, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {
+          "title": "SKF 61900 open deep groove ball bearing (distributor listing)",
+          "url": "https://bearing-king.co.uk/products/61900-skf-open-deep-groove-ball-bearing-10x22x6mm",
+          "publisher": "Bearing King",
+          "accessed": "2026-10-04",
+          "supports": "61900, also known as 6900: 10 × 22 × 6 mm"
+        }
+      ],
+      "notes": "Same 22 mm outside diameter as a 608 but 6 mm wide and a 10 mm bore: a seat sized for one is not a seat for the other, so the keys differ."
     }
   ]
 }

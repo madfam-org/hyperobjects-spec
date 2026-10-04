@@ -5,10 +5,15 @@ Two tests, picked by the interface's `geometry_type` (RULE_BY_GEOMETRY_TYPE):
 PLANAR — the frame names a mating FACE. Take the mesh triangles whose outward normal
 agrees with the frame normal within NORMAL_TOLERANCE_DEG and whose own plane passes
 within PLANE_OFFSET_TOLERANCE_MM of the origin. Project them onto the frame plane
-and measure how much of them lies within FACE_SEARCH_RADIUS_MM of the origin; at
-least FACE_MIN_AREA_MM2 must, or there is no face there. The area is measured by
-sampling the disc on a FACE_SAMPLE_PITCH_MM grid, which bounds the work no matter how
-large or how finely tessellated the face is.
+and measure how much of them lies within the search radius of the origin; at least
+FACE_MIN_AREA_MM2 must, or there is no face there. The search radius starts at
+FACE_SEARCH_RADIUS_MM and widens ×FACE_SEARCH_GROWTH per step up to the part's
+bounding-box half-diagonal (ASM-1 v1.1, ruling D4), stopping at the first radius that
+satisfies the rule; the radius used is the `search_radius_mm` residual. A frame that
+passed at 15 mm passes at the first step with the same residuals, so widening can only
+turn a fail into a pass, never a pass into a fail. The area is measured by sampling the
+disc on a FACE_SAMPLE_PITCH_MM grid restricted to the candidate triangles' bounding
+box, which bounds the work no matter how large or how finely tessellated the face is.
 
 AXIS — the frame names a BORE or a SHAFT whose axis is the normal (socket, thread,
 threaded_socket, hinge). Take the triangles whose normal is perpendicular to the frame
@@ -33,12 +38,14 @@ Why these numbers:
   * 2° and 0.1 mm are ASM-1 §8's own. 0.1 mm also equals the STL export's chordal
     deflection, and a planar face tessellates with its vertices exactly on the plane,
     so the tolerance is spent only on authoring rounding.
-  * 15 mm search radius: an origin is usually the CENTRE of a pattern, and that centre
-    is often a hole — a NEMA 17 face has a Ø22 mm pilot (radius 11), an FPV motor
-    pad a Ø5–9 mm shaft clearance. 15 mm reaches past the largest of those with margin,
-    and is still smaller than half of every mounting face in the Phase-4 parts list.
-    The price: an origin slid ALONG its own face by less than 15 mm is not caught by
-    the face test. Nothing planar can see that; the axis test and the assembly closure
+  * 15 mm first search radius, widened ×1.5 to the half-diagonal: an origin is usually
+    the CENTRE of a pattern, and that centre is often a hole — a NEMA 17 face has a
+    Ø22 mm pilot (radius 11), an FPV motor pad a Ø5–9 mm shaft clearance. 15 mm reaches
+    past those, but not past a NEMA 23 pilot (radius 19.25) or the empty centre of a
+    30.5 mm standoff square (21.6 mm to a pillar top): those pass at the first wider
+    ring (22.5 or 33.75 mm). The price: an origin slid ALONG its own face by less than
+    the radius used is not caught by the face test. Nothing planar can see that; the
+    radius is printed so a reviewer can, and the axis test and the assembly closure
     check (ASM-1 §3.5) are what constrain in-plane position.
   * 4 mm² minimum area: a 2 × 2 mm land. Larger than the slivers a fillet or chamfer
     leaves parallel to a face; smaller than the land around the smallest screw in the
@@ -66,6 +73,7 @@ __all__ = [
     "CYLINDER_MIN_COVERAGE_DEG",
     "FACE_MIN_AREA_MM2",
     "FACE_SAMPLE_PITCH_MM",
+    "FACE_SEARCH_GROWTH",
     "FACE_SEARCH_RADIUS_MM",
     "NORMAL_TOLERANCE_DEG",
     "PLANE_OFFSET_TOLERANCE_MM",
@@ -75,6 +83,7 @@ __all__ = [
     "axis_check",
     "frame_rule",
     "planar_check",
+    "search_radii",
     "verify_frame_on_mesh",
 ]
 
@@ -85,6 +94,7 @@ from .frame_gate import (  # the thresholds and the rule map live numpy-free
     CYLINDER_MIN_COVERAGE_DEG,
     FACE_MIN_AREA_MM2,
     FACE_SAMPLE_PITCH_MM,
+    FACE_SEARCH_GROWTH,
     FACE_SEARCH_RADIUS_MM,
     NORMAL_TOLERANCE_DEG,
     PLANE_OFFSET_TOLERANCE_MM,
@@ -121,7 +131,15 @@ def _covered_area(tri2: np.ndarray, radius: float, pitch: float) -> tuple[float,
     if len(tri2) == 0:
         return 0.0, math.inf
     ticks = np.arange(-radius + pitch / 2, radius, pitch)
-    gx, gy = np.meshgrid(ticks, ticks)
+    # Only lattice points inside the triangles' bounding box can be covered; dropping the
+    # rest keeps the SAME lattice (so a verdict at 15 mm is unchanged) while bounding the
+    # work at a wide radius.
+    lo, hi = tri2.reshape(-1, 2).min(axis=0) - pitch, tri2.reshape(-1, 2).max(axis=0) + pitch
+    tx = ticks[(ticks >= lo[0]) & (ticks <= hi[0])]
+    ty = ticks[(ticks >= lo[1]) & (ticks <= hi[1])]
+    if len(tx) == 0 or len(ty) == 0:
+        return 0.0, math.inf
+    gx, gy = np.meshgrid(tx, ty)
     pts = np.column_stack([gx.ravel(), gy.ravel()])
     dist = np.hypot(pts[:, 0], pts[:, 1])
     pts, dist = pts[dist <= radius], dist[dist <= radius]
@@ -146,8 +164,22 @@ def _covered_area(tri2: np.ndarray, radius: float, pitch: float) -> tuple[float,
     return area, nearest
 
 
+def search_radii(mesh) -> list[float]:
+    """The face-search radii, in order: FACE_SEARCH_RADIUS_MM, then ×FACE_SEARCH_GROWTH
+    per step, the last one clamped to the part's bounding-box half-diagonal."""
+    half_diagonal = 0.5 * float(np.linalg.norm(np.asarray(mesh.extents, dtype=float)))
+    radii = [FACE_SEARCH_RADIUS_MM]
+    while radii[-1] < half_diagonal:
+        radii.append(min(radii[-1] * FACE_SEARCH_GROWTH, half_diagonal))
+    return radii
+
+
 def planar_check(mesh, frame) -> GeometryVerdict:
-    """A planar mating face at the frame origin, facing along the frame normal."""
+    """A planar mating face at the frame origin, facing along the frame normal.
+
+    The search radius widens (search_radii) until a ring satisfies the rule; the
+    verdict records the radius used, and a failure is diagnosed at the widest radius.
+    """
     o, n, u, v = _basis(frame)
     tri = np.asarray(mesh.triangles, dtype=float)
     fn = np.asarray(mesh.face_normals, dtype=float)
@@ -166,31 +198,36 @@ def planar_check(mesh, frame) -> GeometryVerdict:
     # A triangle can cover the disc while its centroid is far away (one large face in
     # two triangles); its circumscribing radius bounds how far.
     reach = cen_dist - np.linalg.norm(tri2 - cen2[:, None, :], axis=-1).max(axis=1)
-    near = reach <= FACE_SEARCH_RADIUS_MM
 
     parallel = angle <= NORMAL_TOLERANCE_DEG
     abs_h = np.abs(h)
     on_plane = abs_h <= PLANE_OFFSET_TOLERANCE_MM
-    sel = parallel & on_plane & near
-    area, nearest = _covered_area(tri2[sel], FACE_SEARCH_RADIUS_MM, FACE_SAMPLE_PITCH_MM)
+    radii = search_radii(mesh)
+    for radius in radii:
+        near = reach <= radius
+        sel = parallel & on_plane & near
+        area, nearest = _covered_area(tri2[sel], radius, FACE_SAMPLE_PITCH_MM)
+        if area >= FACE_MIN_AREA_MM2:
+            residuals = {
+                "area_mm2": round(area, 3),
+                "search_radius_mm": round(radius, 4),
+                "normal_deg": round(float(angle[sel].max()), 4),
+                "plane_offset_mm": round(float(abs_h[sel].max()), 4),
+                "nearest_material_mm": round(nearest, 3),
+            }
+            return GeometryVerdict(
+                "pass",
+                "planar",
+                f"face of {area:.1f} mm² within {radius:g} mm "
+                f"(normal ≤ {residuals['normal_deg']:.3f}°, plane offset ≤ "
+                f"{residuals['plane_offset_mm']:.3f} mm)",
+                residuals,
+            )
 
-    residuals = {"area_mm2": round(area, 3), "search_radius_mm": FACE_SEARCH_RADIUS_MM}
-    if area >= FACE_MIN_AREA_MM2:
-        residuals.update(
-            normal_deg=round(float(angle[sel].max()), 4),
-            plane_offset_mm=round(float(abs_h[sel].max()), 4),
-            nearest_material_mm=round(nearest, 3),
-        )
-        return GeometryVerdict(
-            "pass",
-            "planar",
-            f"face of {area:.1f} mm² within {FACE_SEARCH_RADIUS_MM:g} mm "
-            f"(normal ≤ {residuals['normal_deg']:.3f}°, plane offset ≤ "
-            f"{residuals['plane_offset_mm']:.3f} mm)",
-            residuals,
-        )
-
-    # Say WHY: the nearest parallel face's offset, and the best normal in the plane.
+    # Say WHY, at the widest radius searched: the nearest parallel face's offset, and
+    # the best normal in the plane.
+    radius = radii[-1]
+    residuals = {"area_mm2": round(area, 3), "search_radius_mm": round(radius, 4)}
     reasons = []
     par_near = parallel & near
     if par_near.any():
@@ -218,12 +255,12 @@ def planar_check(mesh, frame) -> GeometryVerdict:
             )
     if area > 0:
         reasons.append(
-            f"only {area:.2f} mm² of matching face within {FACE_SEARCH_RADIUS_MM:g} mm "
+            f"only {area:.2f} mm² of matching face within {radius:g} mm "
             f"(need {FACE_MIN_AREA_MM2:g} mm²)"
         )
     if not reasons:
         reasons.append(
-            f"no face within {FACE_SEARCH_RADIUS_MM:g} mm of the origin is parallel to "
+            f"no face within {radius:g} mm of the origin is parallel to "
             "the normal or passes through the origin plane"
         )
     return GeometryVerdict("fail", "planar", "; ".join(reasons), residuals)

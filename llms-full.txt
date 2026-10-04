@@ -32,14 +32,19 @@ runbook.
     line) in the module docstring; keeping the citation current is what makes a
     divergence from the platform visible instead of silent.
   - `semantic_rules.py` — structure of the SEM-1 semantic fields: interface
-    `frame` expressions, vectors and symmetry, `polarity`, `size_key`, and the
+    `frame` expressions (frame grammar v1.1: `let`, degree trig, sqrt/rounding,
+    comparisons, `iif`; `FRAME_GRAMMAR_VERSION`, `FRAME_GRAMMAR_MIN_KEYSTONE`),
+    `let` blocks (dependency order, cycles named), vectors and symmetry,
+    `polarity`, `size_key` (select or exact-value slider maps), and the
     `requirements` profile. Vocabulary membership is the lexicon's rule.
   - `frame_eval.py` — evaluates an interface frame at a parameter point
-    (ASM-1 §1): full injection, a hand-walked vetted `ast` (no `eval`), unit
-    `normal`, orthogonalised `x_axis`, `Frame.homogeneous()` = H(F).
+    (ASM-1 §1): full injection, `let` resolved first, a hand-walked vetted `ast`
+    (no `eval`; domain errors raise), unit `normal`, orthogonalised `x_axis`,
+    `Frame.homogeneous()` = H(F).
   - `frame_gate.py` / `frame_geometry.py` — the render-time frame gate (ASM-1
-    §8) under `--render`: planar or axis test per `geometry_type`, UNVERIFIED
-    for the rest; a no-op for a manifest without frames.
+    §8) under `--render`: planar (progressive face-search radius, 15 mm ×1.5 to
+    the half-diagonal, reported as `search_radius_mm`) or axis test per
+    `geometry_type`, UNVERIFIED for the rest; a no-op for a manifest without frames.
   - `structure.py` — the on-disk rules (mode sources, escaping includes,
     vendored trees, shipped LICENSE).
   - `default_drift.py` — `default-drift`, NOTE ONLY: manifest `default` vs the

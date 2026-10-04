@@ -33,7 +33,7 @@ from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
 
-from y4d_spec.frame_eval import FrameEvaluationError, evaluate_expression
+from y4d_spec.frame_eval import FrameEvaluationError, evaluate_expression, resolve_let
 
 __all__ = [
     "SCHEMA_NAME",
@@ -138,8 +138,9 @@ def _vector(raw: object, values: Mapping[str, float], where: str) -> Vector:
     out = []
     for i, component in enumerate(raw):
         try:
-            # ASM-1 §1: THE evaluator — y4d_spec.frame_eval (SEM-1 grammar check, then a
-            # hand walk; nothing reaches eval). The declared ids are the entry's parameters.
+            # ASM-1 §1: THE evaluator — y4d_spec.frame_eval (grammar check, then a hand
+            # walk; nothing reaches eval). The declared ids are the entry's parameters
+            # plus the interface's `let` names.
             out.append(evaluate_expression(component, values, set(values)))
         except FrameEvaluationError as exc:
             raise FrameEvaluationError(f"{where}[{i}]: {exc}") from None
@@ -159,10 +160,17 @@ def interface_frames(part: Mapping, values: Mapping[str, float] | None = None) -
     for iface in part.get("interfaces") or []:
         frame = iface.get("frame") or {}
         where = f"{part.get('key')}.{iface.get('id')}.frame"
+        scope: Mapping[str, float] = values
+        if "let" in iface:
+            # ASM-1 v1.1: the interface's derived numbers, in dependency order.
+            try:
+                scope = {**values, **resolve_let(iface["let"], values, set(values))}
+            except FrameEvaluationError as exc:
+                raise FrameEvaluationError(f"{part.get('key')}.{iface.get('id')}: {exc}") from None
         frames[iface["id"]] = Frame(
-            origin=_vector(frame.get("origin"), values, f"{where}.origin"),
-            normal=_vector(frame.get("normal"), values, f"{where}.normal"),
-            x_axis=_vector(frame.get("x_axis"), values, f"{where}.x_axis"),
+            origin=_vector(frame.get("origin"), scope, f"{where}.origin"),
+            normal=_vector(frame.get("normal"), scope, f"{where}.normal"),
+            x_axis=_vector(frame.get("x_axis"), scope, f"{where}.x_axis"),
         )
     return frames
 

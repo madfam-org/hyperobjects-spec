@@ -6,6 +6,65 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Frame grammar v1.1, gate radius, catalog and vocabulary (ASM-1 v1.1, package 0.4.0)
+
+ASM-1 becomes v1.1.0. Every change is additive: every v1.0 manifest and assembly
+validates unchanged (full-commons regression: 502 solid cartridges with `y4d-spec check`
+and 516 soft ones with `fc-spec`, identical verdicts under 0.3.0 and 0.4.0).
+
+#### Added
+
+- **`let` on interfaces (D1)**: named derived numbers. Each is an expression, or a
+  `{param, map}` lookup of a select's option value in a map of numbers.
+  - Evaluated in dependency order, independent of key order.
+  - Refused at check time: cycles (named in full), unknown names, a name that shadows a
+    parameter or a function, and a map that does not cover the select's options exactly.
+  - Accepted by the project-manifest and standard-part schemas.
+- **Functions and comparisons (D2)**: `sin`, `cos`, `tan`, `asin`, `acos`, `atan` and
+  `atan2(y, x)` in degrees, exact at OpenSCAD's exact angles; `sqrt`, `floor`, `ceil` and
+  `round` (half away from zero); the comparisons `< <= > >= == !=`, which yield 1 or 0,
+  with chains refused; and a lazy `iif(cond, a, b)`.
+  - Domain errors (`asin(2)`, `sqrt(-1)`, `tan(90)`, `atan2(0, 0)`) are evaluation errors,
+    never NaN.
+- **Slider size keys (D3)**: `size_key {param: <slider>, map}` with exact canonical values.
+  - A value with no entry has no size key.
+  - The mate check names that reason (`ResolvedInterface.size_key_absent_reason`,
+    `slider_size_key_miss`).
+- **Version constants**: `FRAME_GRAMMAR_VERSION = "1.1.0"` and
+  `FRAME_GRAMMAR_MIN_KEYSTONE = "0.4.0"`.
+  - `frame_grammar_features(doc)` lists the v1.1 features a manifest uses, and
+    `check_manifest` prints one note naming them and the minimum keystone.
+  - An unknown call or character names the grammar version, so a newer grammar explains
+    itself to this one.
+- **Standard part `sma-bulkhead-jack`** (new category `connector`): a male `panel` and a
+  male `coupling`, both `sma-bulkhead`. It is the part between an antenna mount's bore and
+  an SMA antenna.
+- **interface-sizes keys (D6)**, each cited: `tslot-3030-8mm`, `tslot-4040-8mm` (with a
+  note naming MISUMI HFS8-4040's 10 mm variant, which is not minted), `nema-23-face`,
+  `bearing-623` and `bearing-6900`.
+- **AAS**: `MatingInterfaces` projects an interface's `let` block as a `Let` collection, so
+  a service holding the stored shell can evaluate frames that read `let` names.
+
+#### Changed
+
+- **The frame gate's face search is progressive (D4).** It starts at 15 mm and widens ×1.5
+  per step up to the part's bounding-box half-diagonal, stopping at the first ring that
+  holds a face.
+  - The radius used is the `search_radius_mm` residual, and the verdict message states it.
+  - A verdict found within 15 mm is unchanged, so widening only turns a fail into a pass.
+  - Re-gating the frames of solid-hyperobjects #111–#120 changed one verdict, from FAIL to
+    ok: nema-bracket's `nema23_flat` face, at 22.5 mm.
+
+#### Fixed
+
+- **`bearing-608.outer_race.frame.normal` is `[0, 0, 1]` (finding C1).** The old −z normal
+  placed a 608 outside a seat framed at its entrance. A placement test now puts it in the
+  idler-608 seat (z 3..10).
+- **`fpv-frame-5in-x-225` motor mounts**: `x_axis` points outward along each arm, through a
+  catalog `let`, so a symmetry-4 clamp pod aligns at `rotation_index` 0.
+- **The ASM-1 §2 example** mates the frame to the pod's `arm_clamp`, not to its
+  `motor_bolt_pattern` (docs/ASSEMBLIES.md).
+
 ### Standard-parts catalog (ASM-1 §4)
 
 #### Added

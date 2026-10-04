@@ -656,15 +656,29 @@ not check that a key exists in the lexicon vocabularies (the lexicon rule does t
   garment manifest takes the same field.
 - **`hyperobject.cdg_interfaces[]`** gains four fields:
   - `frame`: `{part, origin, normal, x_axis?}`. The vectors are in mm, in the named
-    part's model frame. Each component is a number, or an expression over the
-    manifest's parameter ids using numeric literals, `+ - * /`, parentheses, `min`,
-    `max` and `abs` (at most 256 characters, parsed and never evaluated). `normal`
-    points toward where the mating partner sits.
+    part's model frame. `normal` points toward where the mating partner sits. Each
+    component is a number, or an expression of at most 256 characters, parsed here and
+    never evaluated. The expression grammar comes in two levels:
+    - **v1.0:** the manifest's parameter ids, numeric literals, `+ - * /`, parentheses,
+      `min`, `max` and `abs`.
+    - **v1.1** (ASM-1 v1.1, hyperobjects-spec ≥ 0.4.0) adds:
+      - the interface's `let` names;
+      - `sin`, `cos`, `tan`, `asin`, `acos`, `atan` and `atan2(y, x)` in degrees;
+      - `sqrt`, `floor`, `ceil` and `round`;
+      - `< <= > >= == !=`, which yield 1 or 0;
+      - `iif(cond, a, b)`.
+  - `let` (v1.1): named derived numbers that the frame may read. Each one is an
+    expression, or a `{param, map}` lookup of a select's option value in a map of
+    numbers. They are evaluated in dependency order. A cycle, an unknown name, a
+    shadowed parameter or function, or a map that does not cover the select's options
+    is an error. See [`docs/ASSEMBLIES.md`](docs/ASSEMBLIES.md#frame-expressions-asm-1-1-grammar-v11)
+    for the rules and the forward-compatibility note, which an older keystone pin needs.
   - `polarity`: `male`, `female` or `neutral`.
   - `symmetry`: the rotational order about `normal`. `0` means continuous, `1` means
     none, and `2`, `3`, `4`, `6` or `8` are the other allowed orders.
   - `size_key`: an interface-sizes key, or `{param, map}` when a select parameter
-    picks the size.
+    picks the size. Since v1.1 a slider can also pick it by exact value, using
+    canonical keys such as `"9.5"`. A slider value with no entry has no size key.
 - **`requirements`** (top level, in both manifests): `process`, `materials`
   (`{any_of, none_of}`), `process_parameters` (`{key: {min?, max?, value?, unit?}}`),
   a `rationale` i18n string, and `parts`, which holds per-part overrides keyed by part
@@ -691,6 +705,9 @@ The rules (`y4d_spec.semantic_rules`) each report one kind of failure:
 - a numeric `x_axis` more than 0.5° from orthogonal to a numeric `normal`;
 - a `frame.part` that is not declared;
 - a `size_key` select whose `map` misses an option or holds a key that is not an option;
+- a slider `size_key` key that is not a canonical number inside the slider's range;
+- a `let` cycle, an unknown or shadowing `let` name, or a `let` lookup that is not over a
+  select or does not cover its options;
 - a bound whose `min` is greater than its `max`;
 - a material class listed in both `any_of` and `none_of`;
 - a per-part override for an undeclared part.
@@ -708,7 +725,9 @@ frame.homogeneous()                        # H(F): columns (x, y = n × x, n, or
 
 Parameters resolve as GOC-1 full injection: every manifest default, overridden by the
 values given. Inside an expression a checkbox is `1`/`0` and a select is its option
-value. Each expression is first vetted by the same grammar check as `y4d-spec check`,
+value, which reaches arithmetic only through a `let` lookup when it is spelled as text.
+`let` entries resolve before the frame, in dependency order. A function outside its
+domain (`asin(2)`, `sqrt(-1)`, `tan(90)`) is an error, never a NaN. Each expression is first vetted by the same grammar check as `y4d-spec check`,
 then its syntax tree is walked by hand; nothing reaches `eval`. Errors
 (`FrameEvaluationError`) name the interface, vector and component: an unknown
 identifier, a division by zero, a non-finite value, a non-numeric value an expression
@@ -725,7 +744,7 @@ by its `geometry_type` (`y4d_spec.frame_gate`, `y4d_spec.frame_geometry`):
 
 | Rule | Types | Passes when |
 |---|---|---|
-| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it |
+| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it — widening ×1.5 per step up to the part's bounding-box half-diagonal until a ring holds such a face; the radius used is reported as `search_radius_mm` (ASM-1 v1.1) |
 | axis | `hinge`, `socket`, `thread`, `threaded_socket` | the innermost cylinder parallel to `normal` (fit within 0.05mm, wrapping at least 180°) that reaches the origin plane is centred within 0.1mm, lies on the right side (a bore runs into the material, a shaft toward the partner) and matches `polarity`. With no cylinder at the origin at all, the planar test applies and the verdict says `planar (no cylinder at the origin)` |
 | none | `custom`, `fem_mesh`, `polyhedron`, `port`, `snap`, `spline` | never: the frame is reported **UNVERIFIED** as a note |
 
@@ -740,8 +759,11 @@ FAIL frame-plate-wrong: frame 'centre_bore' (plate, preset 'thick', axis): FAIL 
 The summary line gains `frames=P/M ok, unverified=U, failures=F` (`P + U + F = M`) only
 when a framed interface was checked. A manifest with no frame renders nothing extra,
 imports nothing extra and prints exactly what it did before. The face test cannot see an
-origin slid along its own face by less than the 15mm search radius; the axis test and the
-assembly closure check constrain in-plane position. Fixtures: `tests/fixtures/y4d/frame-plate`
+origin slid along its own face by less than the search radius it used (15mm, or the wider
+ring a NEMA 23 pilot or a standoff square's empty centre needs — printed with every
+verdict); the axis test and the assembly closure check constrain in-plane position.
+Widening can only turn a fail into a pass: a face found within 15mm is reported exactly
+as before. Fixtures: `tests/fixtures/y4d/frame-plate`
 (every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
 normal).
 
@@ -1383,12 +1405,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=86 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=91 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=27 cited=27 dimensions=91 provisional=2 review: signed=0 draft=27
+fabrication_status[interface-sizes]: entries=32 cited=32 dimensions=108 provisional=2 review: signed=0 draft=32
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1416,8 +1438,8 @@ An assembly references a commercial off-the-shelf part with
 cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
 in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
-Fourteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
-5-inch FPV quad); the frame, motor, camera, prop, stack and antenna entries are commercial
+Fifteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad); the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
 **classes**, stated by shared facts, never a copy of one vendor's design.
 
 ```python
@@ -1428,7 +1450,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=14 interfaces=37 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=15 interfaces=39 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

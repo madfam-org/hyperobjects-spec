@@ -1,0 +1,134 @@
+{
+  "spec_version": 1,
+  "key": "sma-bulkhead-jack",
+  "category": "connector",
+  "name": {
+    "en": "SMA bulkhead jack",
+    "es": "Conector SMA hembra de mampara (bulkhead)",
+    "fr": "Embase SMA de traversée",
+    "pt": "Conector SMA fêmea de painel (bulkhead)"
+  },
+  "description": {
+    "en": "The panel-mount SMA RF jack class: its threaded body passes through a panel hole, and the same .250-36 coupling thread takes the coupling nut of an antenna or cable plug. It joins an antenna mount to an SMA antenna.",
+    "es": "La clase de conector RF SMA hembra para montaje en panel: su cuerpo roscado atraviesa un barreno del panel, y la misma rosca de acoplamiento .250-36 recibe la tuerca de acoplamiento de una antena o de un cable con conector macho. Une un soporte de antena con una antena SMA.",
+    "fr": "La classe d'embase RF SMA à montage sur panneau : son corps fileté traverse un trou du panneau, et le même filetage d'accouplement .250-36 reçoit l'écrou d'accouplement d'une antenne ou d'une fiche de câble. Elle relie un support d'antenne à une antenne SMA.",
+    "pt": "A classe de conector RF SMA fêmea para montagem em painel: o corpo roscado atravessa um furo do painel, e a mesma rosca de acoplamento .250-36 recebe a porca de acoplamento de uma antena ou de uma ficha de cabo. Liga um suporte de antena a uma antena SMA."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "SMA bulkhead (panel-mount) jack, rear mount (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Amphenol RF Europe catalogue — SMA specification sheets (p. 24)",
+      "url": "https://www.farnell.com/datasheets/2803213.pdf",
+      "publisher": "Amphenol RF",
+      "accessed": "2026-10-02",
+      "supports": "SMA jack coupling thread .250-36UNS-2A; plug coupling nut .250-36UNS-2B"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the shoulder face that bears on the panel, on the connector axis. +z runs along the threaded body, through the panel, to the jack's mating face (its RF reference plane) at z = mating_face_z_mm; the rear body and pigtail lie at z < 0. +x is an arbitrary radial reference: the connector is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "coupling_thread": {
+      "value": ".250-36UNS-2A",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_major_diameter": {
+      "value": 6.35,
+      "unit": "mm",
+      "source": 0,
+      "note": "the .250 in nominal major diameter of the coupling thread, which the body also carries through the panel"
+    }
+  },
+  "parameters": [
+    {
+      "id": "mating_face_z_mm",
+      "type": "number",
+      "label": {
+        "en": "Mating face, above the shoulder",
+        "es": "Cara de acoplamiento, sobre el hombro",
+        "fr": "Face d'accouplement, au-dessus de l'épaulement",
+        "pt": "Face de acoplamento, acima do ombro"
+      },
+      "default": 10,
+      "min": 4,
+      "max": 20,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the threaded length from the panel shoulder to the mating face varies by part and panel thickness. Set it from the chosen connector's own drawing."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "panel",
+      "label": {
+        "en": "Panel mount",
+        "es": "Montaje en panel",
+        "fr": "Montage sur panneau",
+        "pt": "Montagem em painel"
+      },
+      "geometry_type": "thread",
+      "size_key": "sma-bulkhead",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the threaded body goes through the panel hole (a Ø6.5 mm hole clears the 6.35 mm thread) and is held by its nut. The normal points along the body toward the panel, so a hole framed at its entrance takes the body and the shoulder seats on the entrance face."
+    },
+    {
+      "id": "coupling",
+      "label": {
+        "en": "SMA coupling",
+        "es": "Acoplamiento SMA",
+        "fr": "Accouplement SMA",
+        "pt": "Acoplamento SMA"
+      },
+      "geometry_type": "thread",
+      "size_key": "sma-bulkhead",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "mating_face_z_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "mating_face_z_mm"
+      ],
+      "note": "Male: the external .250-36 thread receives the plug's coupling nut (vtx-antenna-sma.connector, female). Origin at the RF reference plane, where a plug's reference plane meets it."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-SPEC2 lane, 2026-10-04) from the thread fact already cited for vtx-antenna-sma; no language facet has had a native review."
+  },
+  "notes": "A class entry stating only the shared fact, the SMA coupling thread; no datasheet drawing or vendor outline is copied. Both sides carry the sma-bulkhead size key because the panel side and the coupling side are the same .250-36 thread. The panel cutout (round or D-flat) and the maximum panel thickness are part-specific."
+}

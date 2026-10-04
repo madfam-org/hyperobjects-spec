@@ -176,9 +176,12 @@ def _interface(report, mate, side, components) -> ResolvedInterface | None:
     blocked = [f"{side}: interface '{ref['component']}.{iface.id}' {p}" for p in iface.problems]
     for field_name in ("polarity", "size_key", "symmetry"):
         if getattr(iface, field_name) is None:
-            blocked.append(
-                f"{side}: interface '{ref['component']}.{iface.id}' declares no {field_name}"
+            reason = (
+                iface.size_key_absent_reason
+                if field_name == "size_key" and getattr(iface, "size_key_absent_reason", None)
+                else f"declares no {field_name}"
             )
+            blocked.append(f"{side}: interface '{ref['component']}.{iface.id}' {reason}")
     for message in blocked:
         report._err("interface", message, mate["id"])
     return None if blocked else iface

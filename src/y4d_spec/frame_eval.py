@@ -4,15 +4,27 @@
     frame = evaluate_frame(manifest, "motor_bolt_pattern", {"plate_thick": 5})
     frame.origin, frame.normal, frame.x_axis      # floats; normal and x_axis unit
 
-A frame component is a number or an expression string over parameter ids in the SEM-1
-§2.3 grammar: numeric literals, parameter ids, `+ - * /`, parentheses, unary minus and
-calls to `min`, `max`, `abs`. The grammar is NOT re-implemented here: every expression
-is first put through `semantic_rules.frame_expression_problems`, the same parse-only
-check `y4d-spec check` applies statically, and only an expression that passes it is
-walked. The walk then evaluates the already-vetted `ast` tree node by node over plain
-floats. Nothing is handed to `eval`, `exec` or `compile`, and no attribute, subscript,
-comprehension or name outside the parameter table can be reached, because the walker
-has no branch for them.
+A frame component is a number or an expression string in the ASM-1 §1 v1.1 grammar
+(semantic_rules.FRAME_GRAMMAR_VERSION): numeric literals, parameter ids, the
+interface's `let` names, `+ - * /`, parentheses, unary minus, the comparisons
+`< <= > >= == !=` (1.0 or 0.0), and calls to `min`, `max`, `abs`, `sin`, `cos`, `tan`,
+`asin`, `acos`, `atan`, `atan2(y, x)` — trig in DEGREES, the OpenSCAD convention —
+`sqrt`, `floor`, `ceil`, `round` (half away from zero, as OpenSCAD) and
+`iif(cond, a, b)` (lazy: only the chosen branch is evaluated). The grammar is NOT
+re-implemented here: every expression is first put through
+`semantic_rules.frame_expression_problems`, the same parse-only check `y4d-spec check`
+applies statically, and only an expression that passes it is walked. The walk then
+evaluates the already-vetted `ast` tree node by node over plain floats. Nothing is
+handed to `eval`, `exec` or `compile`, and no attribute, subscript, comprehension or
+name outside the parameter and `let` tables can be reached, because the walker has no
+branch for them. A function outside its domain (`asin(2)`, `sqrt(-1)`, `tan(90)`,
+`atan2(0, 0)`) is an evaluation error, never a NaN.
+
+`let` (ASM-1 v1.1): an interface may declare named derived numbers its frame reads —
+an expression over parameters and other `let` names, or a `{param, map}` lookup of a
+select's option value in a map of numbers. They are evaluated in dependency order
+(semantic_rules.let_evaluation_order); a select value with no map entry is an error at
+that parameter point.
 
 Parameters resolve as GOC-1 "full injection" (ASM-1 §1): every declared parameter
 takes its manifest default, then the caller's values override it. Inside an expression
@@ -38,9 +50,15 @@ import math
 from collections.abc import Mapping
 from dataclasses import dataclass
 
-from .semantic_rules import frame_expression_problems
+from .semantic_rules import (
+    FRAME_FUNCS,
+    LetCycleError,
+    frame_expression_problems,
+    let_evaluation_order,
+)
 
 __all__ = [
+    "DOMAIN_SLACK",
     "FRAME_VECTORS",
     "ORTHOGONALITY_LIMIT_DEG",
     "Frame",
@@ -50,6 +68,7 @@ __all__ = [
     "evaluate_vector",
     "expression_value",
     "find_interface",
+    "resolve_let",
     "resolve_parameters",
 ]
 
@@ -60,6 +79,9 @@ FRAME_VECTORS = ("origin", "normal", "x_axis")
 #: ORTHOGONALITY_TOLERANCE_DEG): an expression-driven axis can drift a little across
 #: the parameter range, and the projection below removes that drift exactly.
 ORTHOGONALITY_LIMIT_DEG = 1.0
+#: How far past ±1 an `asin`/`acos` argument may be before it is a domain error rather
+#: than float noise to clamp (e.g. `a / sqrt(a * a)`).
+DOMAIN_SLACK = 1e-12
 
 Vector = tuple[float, float, float]
 
@@ -196,6 +218,107 @@ def _finite(value: float, what: str) -> float:
     return value
 
 
+def _sin_deg(deg: float) -> float:
+    """sin of an angle in degrees, exact where OpenSCAD's sin() is exact.
+
+    Reduced to [0°, 90°] by symmetry first, so sin(180) is 0, sin(30) is 0.5 and
+    sin(45) is √½ exactly rather than to the last bit of a radian conversion; past 45°
+    it is computed as cos of the complement, which keeps the precision near 90°.
+    """
+    x = math.fmod(deg, 360.0)
+    if x < 0.0:
+        x += 360.0
+    negate = x >= 180.0
+    if negate:
+        x -= 180.0
+    if x > 90.0:
+        x = 180.0 - x
+    if x == 0.0:
+        out = 0.0
+    elif x == 30.0:
+        out = 0.5
+    elif x == 45.0:
+        out = math.sqrt(0.5)
+    elif x == 90.0:
+        out = 1.0
+    elif x < 45.0:
+        out = math.sin(math.radians(x))
+    else:
+        out = math.cos(math.radians(90.0 - x))
+    return (-out if negate else out) + 0.0
+
+
+def _cos_deg(deg: float) -> float:
+    """cos in degrees: sin of the angle plus 90° (exact at 0, 60, 90, 180, …)."""
+    return _sin_deg(math.fmod(deg, 360.0) + 90.0)
+
+
+def _domain(name: str, args: list[float], why: str, expr: str) -> FrameEvaluationError:
+    shown = ", ".join(f"{a:g}" for a in args)
+    return FrameEvaluationError(f"{name}({shown}) {why} in {expr!r}")
+
+
+def _call(name: str, args: list[float], expr: str) -> float:
+    """Apply one FRAME_FUNCS function (not `iif`, which is lazy) to evaluated args."""
+    if name == "abs":
+        return abs(args[0])
+    if name == "min":
+        return min(args)
+    if name == "max":
+        return max(args)
+    x = args[0]
+    if name == "sin":
+        return _sin_deg(x)
+    if name == "cos":
+        return _cos_deg(x)
+    if name == "tan":
+        cos = _cos_deg(x)
+        if cos == 0.0:
+            raise _domain(name, args, "is undefined (the tangent of an odd multiple of 90°)",
+                          expr)
+        return _sin_deg(x) / cos + 0.0
+    if name in ("asin", "acos"):
+        if abs(x) > 1.0 + DOMAIN_SLACK:
+            raise _domain(name, args, "is outside its domain [-1, 1]", expr)
+        x = max(-1.0, min(1.0, x))
+        return math.degrees(math.asin(x) if name == "asin" else math.acos(x))
+    if name == "atan":
+        return math.degrees(math.atan(x))
+    if name == "atan2":
+        y, xx = args
+        if y == 0.0 and xx == 0.0:
+            raise _domain(name, args, "is undefined (both arguments are zero)", expr)
+        return math.degrees(math.atan2(y, xx))
+    if name == "sqrt":
+        if x < 0.0:
+            raise _domain(name, args, "is outside its domain (a negative argument)", expr)
+        return math.sqrt(x)
+    if name == "floor":
+        return float(math.floor(x))
+    if name == "ceil":
+        return float(math.ceil(x))
+    if name == "round":  # half away from zero, as OpenSCAD's round()
+        return math.copysign(math.floor(abs(x) + 0.5), x) + 0.0
+    # Unreachable for a vetted tree: FRAME_FUNCS and this dispatch must grow together.
+    raise FrameEvaluationError(f"function '{name}' has no evaluator in {expr!r}")
+
+
+def _compare(op: ast.cmpop, left: float, right: float) -> float:
+    if isinstance(op, ast.Lt):
+        out = left < right
+    elif isinstance(op, ast.LtE):
+        out = left <= right
+    elif isinstance(op, ast.Gt):
+        out = left > right
+    elif isinstance(op, ast.GtE):
+        out = left >= right
+    elif isinstance(op, ast.Eq):
+        out = left == right
+    else:  # ast.NotEq — the only other operator the grammar admits
+        out = left != right
+    return 1.0 if out else 0.0
+
+
 def _walk(node: ast.AST, values: Mapping[str, object], expr: str) -> float:
     """Evaluate a tree frame_expression_problems has already accepted."""
     if isinstance(node, ast.Constant):
@@ -224,12 +347,21 @@ def _walk(node: ast.AST, values: Mapping[str, object], expr: str) -> float:
                 raise FrameEvaluationError(f"division by zero in {expr!r}")
             out = left / right
         return _finite(out, f"an intermediate value of {expr!r}")
+    if isinstance(node, ast.Compare):
+        left = _walk(node.left, values, expr)
+        right = _walk(node.comparators[0], values, expr)  # vetted: exactly one operator
+        return _compare(node.ops[0], left, right)
     if isinstance(node, ast.Call):
-        args = [_walk(a, values, expr) for a in node.args]
         name = node.func.id  # type: ignore[attr-defined] — vetted: a FRAME_FUNCS name
-        if name == "abs":
-            return abs(args[0])
-        return min(args) if name == "min" else max(args)
+        if name not in FRAME_FUNCS:  # pragma: no cover - the grammar check refuses it
+            raise FrameEvaluationError(f"function '{name}' is not in the grammar")
+        if name == "iif":
+            # Lazy: only the chosen branch is evaluated, so iif(x > 0, sqrt(x), 0) is
+            # defined for every x.
+            chosen = node.args[1] if _walk(node.args[0], values, expr) != 0.0 else node.args[2]
+            return _walk(chosen, values, expr)
+        args = [_walk(a, values, expr) for a in node.args]
+        return _finite(_call(name, args, expr), f"{name}() in {expr!r}")
     # Unreachable for a vetted tree; refuse rather than guess if the grammar grows.
     raise FrameEvaluationError(f"unsupported syntax {type(node).__name__} in {expr!r}")
 
@@ -272,6 +404,65 @@ def evaluate_vector(
     return (out[0], out[1], out[2])
 
 
+# ── let ───────────────────────────────────────────────────────────────────────
+def resolve_let(
+    let_block: object,
+    values: Mapping[str, object],
+    declared: set[str] | None = None,
+) -> dict[str, float]:
+    """Every `let` entry of an interface as a finite float, in dependency order.
+
+    `values` is the resolved parameter table; `declared` the parameter ids an expression
+    may read (default: the keys of `values`). An expression entry may also read the
+    block's other names. A `{param, map}` entry looks the parameter's resolved value up
+    by its string form (the way a size_key map is keyed); a value with no entry is an
+    error at this point. Raises FrameEvaluationError naming the entry.
+    """
+    if let_block is None:
+        return {}
+    if not isinstance(let_block, Mapping):
+        raise FrameEvaluationError("let must be an object of name → expression or {param, map}")
+    ids = set(values) if declared is None else set(declared)
+    shadowed = sorted(set(let_block) & ids)
+    if shadowed:
+        raise FrameEvaluationError(f"let name(s) {', '.join(shadowed)} shadow a parameter")
+    try:
+        order = let_evaluation_order(dict(let_block))
+    except LetCycleError as exc:
+        raise FrameEvaluationError(str(exc)) from None
+    names = ids | set(let_block)
+    scope: dict[str, object] = dict(values)
+    out: dict[str, float] = {}
+    for name in order:
+        entry = let_block[name]
+        if isinstance(entry, Mapping):
+            param, mapping = entry.get("param"), entry.get("map")
+            if not isinstance(param, str) or not isinstance(mapping, Mapping):
+                raise FrameEvaluationError(f"let '{name}': a lookup is {{param, map}}")
+            if param not in values:
+                raise FrameEvaluationError(f"let '{name}': parameter '{param}' has no value")
+            value = values[param]
+            hit = mapping.get(str(value))
+            if hit is None:
+                raise FrameEvaluationError(
+                    f"let '{name}': {param} = {value!r} has no entry in its map "
+                    f"(entries: {', '.join(map(str, mapping)) or 'none'})"
+                )
+            if isinstance(hit, bool) or not isinstance(hit, (int, float)):
+                raise FrameEvaluationError(
+                    f"let '{name}': map[{str(value)!r}] = {hit!r} is not a number"
+                )
+            number = _finite(float(hit), f"let '{name}'")
+        else:
+            try:
+                number = evaluate_expression(entry, scope, names)
+            except FrameEvaluationError as exc:
+                raise FrameEvaluationError(f"let '{name}': {exc}") from None
+        scope[name] = number
+        out[name] = number
+    return out
+
+
 # ── frames ────────────────────────────────────────────────────────────────────
 def find_interface(manifest: Mapping, interface_id: str) -> dict:
     """The `hyperobject.cdg_interfaces[]` entry with this id."""
@@ -302,6 +493,13 @@ def evaluate_frame(
 
     values = resolve_parameters(manifest, params)
     declared = set(_declared(manifest))
+    if "let" in iface:
+        try:
+            lets = resolve_let(iface.get("let"), values, declared)
+        except FrameEvaluationError as exc:
+            raise FrameEvaluationError(f"{label}: {exc}") from None
+        values = {**values, **lets}
+        declared = declared | set(lets)
     vectors: dict[str, Vector] = {}
     for key in FRAME_VECTORS:
         if key not in frame:

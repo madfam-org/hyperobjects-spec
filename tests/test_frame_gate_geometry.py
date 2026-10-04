@@ -301,3 +301,71 @@ def test_part_in_no_mode_is_unverified(tmp_path):
     checks = check_frames(target, doc, presets=False)
     assert [c.status for c in checks] == ["unverified"]
     assert "listed in no mode" in checks[0].message
+
+
+# ── ASM-1 v1.1 (D4): the progressive face-search radius ──────────────────────
+def _ring(inner, outer, z=0.0, segments=96):
+    """A flat annulus facing +z at height z: a mounting face whose centre is a hole."""
+    import numpy as np
+    import trimesh
+
+    t = np.linspace(0, 2 * math.pi, segments, endpoint=False)
+    ring_in = np.column_stack([inner * np.cos(t), inner * np.sin(t), np.full(segments, z)])
+    ring_out = np.column_stack([outer * np.cos(t), outer * np.sin(t), np.full(segments, z)])
+    vertices = np.vstack([ring_in, ring_out])
+    faces = []
+    for i in range(segments):
+        j = (i + 1) % segments
+        faces.append([i, segments + i, segments + j])
+        faces.append([i, segments + j, j])
+    return trimesh.Trimesh(vertices=vertices, faces=np.array(faces), process=False)
+
+
+def test_search_radii_widen_by_1_5_to_the_half_diagonal():
+    from y4d_spec.frame_geometry import search_radii
+
+    ring = _ring(19.25, 28.5)
+    half = 0.5 * math.hypot(*ring.extents)
+    radii = search_radii(ring)
+    assert radii[:2] == [15.0, 22.5]
+    assert radii[-1] == pytest.approx(half)
+    pairs = zip(radii, radii[1:], strict=False)
+    assert all(b == pytest.approx(min(a * 1.5, half)) for a, b in pairs)
+    # A part smaller than the first ring searches 15 mm only, exactly as v1.0 did.
+    assert search_radii(_ring(1, 5)) == [15.0]
+
+
+def test_a_nema23_pilot_hole_passes_at_the_first_wider_ring():
+    """L2: the NEMA 23 pilot radius (19.25) is past the old fixed 15 mm."""
+    from y4d_spec.frame_geometry import planar_check
+
+    v = planar_check(_ring(19.25, 28.5), _frame((0, 0, 0), (0, 0, 1)))
+    assert v.status == "pass", v.message
+    assert v.residuals["search_radius_mm"] == 22.5
+    assert "within 22.5 mm" in v.message
+
+
+def test_the_radius_keeps_widening_to_the_half_diagonal():
+    from y4d_spec.frame_geometry import planar_check
+
+    v = planar_check(_ring(30, 35), _frame((0, 0, 0), (0, 0, 1)))
+    assert v.status == "pass", v.message
+    assert v.residuals["search_radius_mm"] == 33.75
+
+
+def test_a_face_that_passed_at_15mm_is_unchanged(meshes):
+    from y4d_spec.frame_geometry import planar_check
+
+    v = planar_check(meshes["plate"], _frame((0, 0, T), (0, 0, 1)))
+    assert v.status == "pass" and v.residuals["search_radius_mm"] == 15.0
+    assert "within 15 mm" in v.message
+
+
+def test_widening_does_not_forgive_an_origin_off_the_face_plane():
+    from y4d_spec.frame_geometry import planar_check
+
+    v = planar_check(_ring(19.25, 28.5), _frame((0, 0, 1), (0, 0, 1)))
+    assert v.status == "fail"
+    half = 0.5 * math.hypot(*_ring(19.25, 28.5).extents)
+    assert v.residuals["search_radius_mm"] == pytest.approx(half, abs=1e-4)
+    assert "-1.000 mm from the origin" in v.message

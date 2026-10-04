@@ -34,12 +34,18 @@ the option.
     {"id": "pod_fl", "source": {"type": "cartridge", "commons": "solid",
       "slug": "motor-soft-mount", "mode": "soft_mount", "part": null,
       "parameters": {"motor_pattern": "16x16"}}},
+    {"id": "motor_fl", "source": {"type": "standard", "key": "motor-2207"}},
     {"id": "toolhead", "source": {"type": "external", "name": "…", "license": "GPL-3.0",
       "url": "https://…", "interfaces": [ /* SEM-1 interface facts, numbers only */ ]}}
   ],
   "mates": [
+    // The frame's motor mount carries the pod's underside clamp; the motor then bolts
+    // to the pod's top bolt pattern (ASM-1 v1.1 §2 corrects v1.0's example, which
+    // mated the frame to the pod's motor-side pattern).
     {"id": "m1", "a": {"component": "frame", "interface": "motor_mount_fl"},
-     "b": {"component": "pod_fl", "interface": "motor_bolt_pattern"}, "rotation_index": 0}
+     "b": {"component": "pod_fl", "interface": "arm_clamp"}, "rotation_index": 0},
+    {"id": "m2", "a": {"component": "pod_fl", "interface": "motor_bolt_pattern"},
+     "b": {"component": "motor_fl", "interface": "base"}, "rotation_index": 0}
   ],
   "capability_profile": {"process": ["fff"]},   // producers only
   "requirements_rollup": true
@@ -56,6 +62,91 @@ the option.
   frame components are plain numbers because there are no parameters to read. No CAD is
   vendored.
 - A `product` must not carry a `capability_profile`.
+
+## Frame expressions (ASM-1 §1, grammar v1.1)
+
+Frames on cartridges and standard parts are expressions the keystone evaluates with a
+safe AST walker (`y4d_spec.frame_eval`: an allow-list, no attribute access, no `eval`).
+
+| Since | Grammar |
+|---|---|
+| v1.0 (SEM-1 §2.3) | numeric literals, parameter ids, `+ - * /`, parentheses, unary minus, `min`, `max`, `abs` |
+| v1.1 (hyperobjects-spec 0.4.0) | `let` names; `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2(y, x)` in **degrees** (the OpenSCAD convention; exact at 0/30/45/90° and their reflections); `sqrt`, `floor`, `ceil`, `round` (half away from zero); `< <= > >= == !=` yielding 1 or 0 (a chain such as `a < b < c` is refused); `iif(cond, a, b)` (lazy: only the chosen branch is evaluated) |
+
+- **Purely numeric.** No string ever enters an expression. A select whose options are
+  spelled `"NEMA17"` reaches a frame only through a `let` lookup.
+- **Domain errors are errors.** `asin(2)`, `sqrt(-1)`, `tan(90)`, `atan2(0, 0)` and a
+  division by zero raise `FrameEvaluationError` at that parameter point; nothing returns
+  NaN. `asin`/`acos` absorb 1e-12 of float noise past ±1.
+- **256 characters** per expression and per `let` entry.
+
+### `let`: derived values
+
+```jsonc
+"let": {
+  "pilot_r": {"param": "motor_size", "map": {"NEMA17": 11.0, "NEMA23": 19.25}},
+  "half_span": "hole_span / 2"
+},
+"frame": {"part": "l_bracket", "origin": [0, "pilot_r + wall", "half_span"], …}
+```
+
+- **Placement.** `let` is a key of a `cdg_interfaces[]` entry (and of a standard-part
+  interface). It sits beside `frame` and `size_key {param, map}` rather than once per
+  manifest, because the interface is the unit that travels: into the AAS
+  `MatingInterfaces` element (projected as `Let`), into the standard-parts shape, and
+  into a service that re-evaluates one stored interface.
+- **Entries.** An entry is either:
+  - an expression over parameters and the block's other names; or
+  - `{param, map}`, a lookup of a **select**'s option value. Its right-hand values are
+    numbers only.
+- **Order rule.** Entries are evaluated in **dependency order**, not key order. A JSON
+  object is unordered (RFC 8259), and Postgres `jsonb` re-sorts keys, so the order the
+  keys were written in is not a fact that survives storage. Any entry may read any other
+  entry, provided there is no cycle.
+- **Check-time errors** (`y4d-spec check`):
+  - a cycle, named in full (`a → b → a`, including an entry that reads itself);
+  - an unknown name;
+  - a name that shadows a parameter or a function;
+  - a right-hand value that is not a number;
+  - a map that does not cover **exactly** the select's options. A missing option is an
+    error here, so the gap fails visibly before anything evaluates.
+- **Evaluation-time error.** A select value with no map entry is still an error at that
+  parameter point, for a manifest that skipped the check.
+
+### Slider size keys
+
+`size_key: {"param": <slider or number>, "map": {"9.5": "omron-d2f-mount-m2"}}` matches the
+slider's value **exactly**, after GOC-1 canonical number normalisation (`12.0` → `"12"`).
+The rules:
+
+- **Map keys** must be written in canonical form and must lie inside the slider's range.
+- **Coverage.** Coverage is not required.
+- **A value with no entry.** The interface has *no size key* at that point. A mate that
+  needs one fails there and names the value: `has no size_key at hole_span = 7.3: its
+  slider map matches exact values only (…)`.
+- **Selects** keep their `{param, map}` form, with full coverage required.
+
+### Forward compatibility
+
+A manifest that uses any v1.1 feature needs **hyperobjects-spec ≥ 0.4.0**.
+
+- **Under 0.4.0 or later.** `y4d-spec check` prints one note naming the features:
+  `frame grammar: uses ASM-1 v1.1.0 features (comparison, iif, let, slider size_key, trig) —
+  needs hyperobjects-spec >= 0.4.0; …`.
+- **Under an older pin.** The pin does not know the features and fails the manifest on
+  them. Captured from pin `6737b81` (0.3.0):
+
+```
+FAIL …: frame.origin[0]: expression 'pilot_r * cos(0)' references unknown parameter 'pilot_r'
+FAIL …: frame.origin[0]: expression 'pilot_r * cos(0)' calls 'cos', not one of min, max, abs
+FAIL …: frame.origin[2]: expression 'iif(plate_thick > 3, …)' uses a character outside the grammar (…)
+FAIL …: size_key.param: 'foot_drop' is a 'slider' parameter; only a select chooses among sizes
+```
+
+So a commons repins before it merges the first cartridge that uses v1.1. From 0.4.0 on,
+an unknown function or character names the grammar version and the minimum keystone
+(`… (frame grammar v1.1.0, hyperobjects-spec >= 0.4.0; a newer keystone may define it)`),
+so the next grammar step will explain itself to this one.
 
 ## What the check does
 
@@ -244,10 +335,10 @@ arithmetic in the keystone for every caller.
 - **No collision check.** `--collision` adds a warning that says no mesh intersection
   was checked, and the summary line prints `collision=not run`. A requested check that
   did not run never reads as a pass. ASM-1 §3.7 makes it reported, not gating, in v1.
-- **Frames are not yet in the commons.** At the time of writing, none of the 969
-  interfaces of the 502 solid cartridges declares a frame. Every one of them reports
-  `declares no frame` when mated. Frames arrive one cartridge per PR, each proven by the
-  render-time frame gate.
+- **Frames are not yet in the commons main.** At the time of writing, no cartridge on
+  solid-hyperobjects main declares a frame; every interface reports `declares no frame`
+  when mated. Frames arrive one cartridge per PR (solid-hyperobjects #111–#120 and on),
+  each proven by the render-time frame gate.
 - The standard-parts loader is tolerant about shape until the catalog's own schema
   lands. It accepts any `*.json` with a string `key`, `parameters` as a list or as a
   mapping, `interfaces` or `cdg_interfaces`, and a frame with no `part`.
