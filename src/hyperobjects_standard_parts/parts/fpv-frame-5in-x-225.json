@@ -25,7 +25,7 @@
       "url": "https://geprc.com/product/geprc-gep-mk5-frame/",
       "publisher": "GEPRC",
       "accessed": "2026-10-02",
-      "supports": "225 mm motor-to-motor; 16 × 16 / 19 × 19 mm motor holes; 30.5 × 30.5 mm FC holes; 19–20 mm camera; M15×250 and M20×220 battery straps; 5.0 mm arms; 2.5 mm plates"
+      "supports": "225 mm motor-to-motor; 16 × 16 / 19 × 19 mm motor holes; 30.5 × 30.5 mm FC holes; 19–20 mm camera; M15×250 and M20×220 battery straps; 5.0 mm arms; 2.5 mm plates; VTX mounting 30.5 × 30.5 / 20 × 20 mm"
     },
     {
       "title": "GEPRC GEP-Mark4 frame",
@@ -35,7 +35,7 @@
       "supports": "225 mm motor-to-motor; 30.5 × 30.5 and 20 × 20 mm FC holes; 5 mm arm plate; 2.5 mm top, bottom and side plates; 25 mm standoffs"
     }
   ],
-  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0), each with x_axis pointing outward along its arm; the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2). The side plates' inner faces sit at y = ±camera_bay_width_mm / 2, each framed on the side-screw axis. Their outer faces sit at y = ±(camera_bay_width_mm / 2 + side_plate_thickness_mm), framed on the same axis.",
+  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0), each with x_axis pointing outward along its arm; the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2). The side plates' inner faces sit at y = ±camera_bay_width_mm / 2, each framed on the side-screw axis. Their outer faces sit at y = ±(camera_bay_width_mm / 2 + side_plate_thickness_mm), framed on the same axis. The rear 20 × 20 mm VTX seat sits on the top plate's upper face at (rear_mount_x_mm, 0, top_plate_z_mm).",
   "dimensions": {
     "wheelbase": {
       "value": 225,
@@ -84,6 +84,12 @@
       "unit": "mm",
       "source": 1,
       "note": "Mark4; class members vary"
+    },
+    "vtx_hole_spacing": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "the 20 × 20 VTX pattern; the listing also gives 30.5 × 30.5"
     }
   },
   "parameters": [
@@ -179,6 +185,21 @@
       "unit": "mm",
       "source": 1,
       "note": "The camera side plates' thickness (GEPRC Mark4: 2.5 mm top, bottom and side plates). The range is a convention."
+    },
+    {
+      "id": "rear_mount_x_mm",
+      "type": "number",
+      "label": {
+        "en": "Rear mount, fore-aft offset",
+        "es": "Montaje trasero, desfase longitudinal",
+        "fr": "Fixation arrière, décalage longitudinal",
+        "pt": "Montagem traseira, desvio longitudinal"
+      },
+      "default": -45,
+      "min": -80,
+      "max": -20,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: set it from the chosen frame."
     }
   ],
   "interfaces": [
@@ -545,6 +566,41 @@
         "top_plate_z_mm"
       ],
       "note": "Female: the plate's side-screw hole receives the screw of a part that bolts on from OUTSIDE (a camera cage's ear, which carries the head). Origin where the side-screw axis meets the plate's OUTER face; the normal points away from the bay, toward the ear. Symmetry 0: a mate's angle_deg turns the part about the side-screw axis (0 = the part's x_axis forward). The two outer faces stand camera_bay_width_mm + 2 × side_plate_thickness_mm apart (24 mm at the defaults)."
+    },
+    {
+      "id": "rear_vtx_mount",
+      "label": {
+        "en": "Rear VTX seat, 20 × 20",
+        "es": "Asiento trasero de VTX, 20 × 20",
+        "fr": "Emplacement VTX arrière, 20 × 20",
+        "pt": "Assento traseiro de VTX, 20 × 20"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "vtx-mount-20x20",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "rear_mount_x_mm",
+          0,
+          "top_plate_z_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "rear_mount_x_mm",
+        "top_plate_z_mm"
+      ],
+      "note": "Female: the top plate's four holes (on the VTX standoffs below) receive the screws of a part seated on the plate's UPPER face (a VTX, or an antenna mount's two-bolt foot on one 20 mm row), which carries the heads. Origin at the pattern centre on the upper face; normal up. Symmetry 4: rotation_index picks the row a two-bolt foot uses. The pattern is cited (GEPRC MK5); its fore-aft position is the convention rear_mount_x_mm."
     },
     {
       "id": "battery_strap",

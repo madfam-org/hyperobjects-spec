@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### FPV antenna mount on the frame: rear 20 × 20 VTX seat (owner decision O3(a))
+
+Additive catalog and vocabulary data; no grammar, gate or validator change.
+
+#### Added
+
+- **`fpv-frame-5in-x-225`**: `rear_vtx_mount`, the 20 × 20 mm VTX pattern (GEPRC MK5:
+  "VTX mounting 30.5 × 30.5 / 20 × 20") on the top plate's UPPER face (female, symmetry 4),
+  at the new parameter `rear_mount_x_mm` (default −45) — a convention, not a sourced fact,
+  worded exactly like `camera_axis_x_mm`; and the dimension `vtx_hole_spacing`.
+- **Vocabulary**: `vtx-mount-20x20` (in `interface-sizes.fpv.json`), cited to GEPRC MK5;
+  the thread is not cited, so it is not a fact of the key.
+- **Tests** (`tests/test_catalog_antenna_chain.py`): the full chain frame rear seat ↔
+  antenna-mount foot (one 20 mm row, `rotation_index` 3 = the rear row) → jack seat ↔
+  `sma-bulkhead-jack` → `vtx-antenna-sma` closes at back_angle 0 / 20 / 25 / 45, the two
+  foot bolts landing on two of the four holes and the antenna leaning back; a foot keyed for
+  another pattern, and the stack pattern, are refused.
+
 ### FPV camera cage on the frame: side plates' outer faces (owner decision O1(a))
 
 Additive catalog and vocabulary data; no grammar, gate or validator change.
