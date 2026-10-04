@@ -190,6 +190,34 @@ def _size_key(value: object) -> list:
     ]
 
 
+def _let(value: object) -> dict | None:
+    """An interface's `let` block (ASM-1 v1.1) as a `Let` collection, so a service that
+    holds the shell can evaluate a frame that reads a `let` name. An expression entry is
+    carried as a string, never evaluated; a `{param, map}` lookup as the parameter and its
+    option → number pairs. The entry's name is a `Name` property: idShorts are not a safe
+    place for a name a frame reads (the allocator may rename a clash)."""
+    alloc = IdShortAllocator()
+    entries = []
+    for name, entry in as_dict(value).items():
+        if isinstance(entry, str):
+            items = [el.prop("Name", name), el.prop("Expression", entry)]
+        elif isinstance(entry, dict):
+            lookup = [
+                el.smc(None, [el.prop("ParameterValue", str(k)),
+                              el.prop("Value", v, prefer="xs:double")])
+                for k, v in sorted(as_dict(entry.get("map")).items())
+            ]
+            items = [
+                el.prop("Name", name),
+                el.prop("LookupParameter", entry.get("param")),
+                el.sml("LookupMap", lookup, type_value="SubmodelElementCollection"),
+            ]
+        else:
+            continue
+        entries.append(el.smc(alloc.take(name, "Let"), items))
+    return el.smc("Let", entries)
+
+
 def mating_interfaces(proj: Projection) -> None:
     alloc = IdShortAllocator()
     submodel = proj.sm_id("MatingInterfaces")
@@ -223,6 +251,7 @@ def mating_interfaces(proj: Projection) -> None:
             el.prop("Polarity", iface.get("polarity")),
             el.prop("Symmetry", iface.get("symmetry"), prefer="xs:integer"),
             frame_el,
+            _let(iface.get("let")) if "let" in iface else None,
             *proj.param_refs("Parameters", iface.get("parameters")),
             el.sml("CompatibleWith", compatible, type_value="RelationshipElement"),
         ], semantic_id=proj.concepts.term("cdg-interface")))

@@ -127,6 +127,32 @@ def test_mating_interfaces_carry_the_sem1_fields_when_present():
     assert [p["value"] for p in child(rail, "UnresolvedParameters")["value"]] == ["ghost_param"]
 
 
+def test_let_projects_so_a_stored_frame_can_be_evaluated(tmp_path):
+    """ASM-1 v1.1: a frame that reads a `let` name is unevaluable without the block."""
+    import shutil
+
+    dst = tmp_path / SEM1_SOLID.name
+    shutil.copytree(SEM1_SOLID, dst)
+    manifest = json.loads((dst / "project.json").read_text(encoding="utf-8"))
+    face = next(i for i in manifest["hyperobject"]["cdg_interfaces"] if i["id"] == "motor_face")
+    face["let"] = {"lift": "plate_t * 2",
+                   "pilot_r": {"param": "nema", "map": {"17": 11, "14": 9.5}}}
+    (dst / "project.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    env = build_solid_environment(dst)
+    _ok(env)
+    let = child(child(submodel(env, "MatingInterfaces"), "motor_face"), "Let")
+    lift, pilot = child(let, "lift"), child(let, "pilot_r")
+    assert child(lift, "Name")["value"] == "lift"
+    assert child(lift, "Expression")["value"] == "plate_t * 2"
+    assert child(pilot, "LookupParameter")["value"] == "nema"
+    pairs = [(child(m, "ParameterValue")["value"], child(m, "Value")["value"],
+              child(m, "Value")["valueType"]) for m in child(pilot, "LookupMap")["value"]]
+    assert pairs == [("14", "9.5", "xs:double"), ("17", "11", "xs:double")]
+    # Absent `let`, nothing is projected (every v1.0 shell is byte-identical).
+    plain = child(submodel(build_solid_environment(SEM1_SOLID), "MatingInterfaces"), "motor_face")
+    assert not has_child(plain, "Let")
+
+
 def test_sem1_fields_absent_project_cleanly(tmp_path):
     stripped = strip_sem1(SEM1_SOLID, tmp_path)
     env = build_solid_environment(stripped)

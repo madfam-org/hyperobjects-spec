@@ -656,15 +656,29 @@ not check that a key exists in the lexicon vocabularies (the lexicon rule does t
   garment manifest takes the same field.
 - **`hyperobject.cdg_interfaces[]`** gains four fields:
   - `frame`: `{part, origin, normal, x_axis?}`. The vectors are in mm, in the named
-    part's model frame. Each component is a number, or an expression over the
-    manifest's parameter ids using numeric literals, `+ - * /`, parentheses, `min`,
-    `max` and `abs` (at most 256 characters, parsed and never evaluated). `normal`
-    points toward where the mating partner sits.
+    part's model frame. `normal` points toward where the mating partner sits. Each
+    component is a number, or an expression of at most 256 characters, parsed here and
+    never evaluated. The expression grammar comes in two levels:
+    - **v1.0:** the manifest's parameter ids, numeric literals, `+ - * /`, parentheses,
+      `min`, `max` and `abs`.
+    - **v1.1** (ASM-1 v1.1, hyperobjects-spec ≥ 0.4.0) adds:
+      - the interface's `let` names;
+      - `sin`, `cos`, `tan`, `asin`, `acos`, `atan` and `atan2(y, x)` in degrees;
+      - `sqrt`, `floor`, `ceil` and `round`;
+      - `< <= > >= == !=`, which yield 1 or 0;
+      - `iif(cond, a, b)`.
+  - `let` (v1.1): named derived numbers that the frame may read. Each one is an
+    expression, or a `{param, map}` lookup of a select's option value in a map of
+    numbers. They are evaluated in dependency order. A cycle, an unknown name, a
+    shadowed parameter or function, or a map that does not cover the select's options
+    is an error. See [`docs/ASSEMBLIES.md`](docs/ASSEMBLIES.md#frame-expressions-asm-1-1-grammar-v11)
+    for the rules and the forward-compatibility note, which an older keystone pin needs.
   - `polarity`: `male`, `female` or `neutral`.
   - `symmetry`: the rotational order about `normal`. `0` means continuous, `1` means
     none, and `2`, `3`, `4`, `6` or `8` are the other allowed orders.
   - `size_key`: an interface-sizes key, or `{param, map}` when a select parameter
-    picks the size.
+    picks the size. Since v1.1 a slider can also pick it by exact value, using
+    canonical keys such as `"9.5"`. A slider value with no entry has no size key.
 - **`requirements`** (top level, in both manifests): `process`, `materials`
   (`{any_of, none_of}`), `process_parameters` (`{key: {min?, max?, value?, unit?}}`),
   a `rationale` i18n string, and `parts`, which holds per-part overrides keyed by part
@@ -691,6 +705,9 @@ The rules (`y4d_spec.semantic_rules`) each report one kind of failure:
 - a numeric `x_axis` more than 0.5° from orthogonal to a numeric `normal`;
 - a `frame.part` that is not declared;
 - a `size_key` select whose `map` misses an option or holds a key that is not an option;
+- a slider `size_key` key that is not a canonical number inside the slider's range;
+- a `let` cycle, an unknown or shadowing `let` name, or a `let` lookup that is not over a
+  select or does not cover its options;
 - a bound whose `min` is greater than its `max`;
 - a material class listed in both `any_of` and `none_of`;
 - a per-part override for an undeclared part.
@@ -708,7 +725,9 @@ frame.homogeneous()                        # H(F): columns (x, y = n × x, n, or
 
 Parameters resolve as GOC-1 full injection: every manifest default, overridden by the
 values given. Inside an expression a checkbox is `1`/`0` and a select is its option
-value. Each expression is first vetted by the same grammar check as `y4d-spec check`,
+value, which reaches arithmetic only through a `let` lookup when it is spelled as text.
+`let` entries resolve before the frame, in dependency order. A function outside its
+domain (`asin(2)`, `sqrt(-1)`, `tan(90)`) is an error, never a NaN. Each expression is first vetted by the same grammar check as `y4d-spec check`,
 then its syntax tree is walked by hand; nothing reaches `eval`. Errors
 (`FrameEvaluationError`) name the interface, vector and component: an unknown
 identifier, a division by zero, a non-finite value, a non-numeric value an expression

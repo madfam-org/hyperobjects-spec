@@ -109,7 +109,14 @@ frames=P/M ok, unverified=U, failures=F
 `P + U + F = M`, one per (framed interface, parameter point). `unverified` is a
 `geometry_type` with no frame rule, or a part nothing here could render: a note,
 never a pass. A manifest without frames prints no `frames=` clause and renders
-nothing extra.
+nothing extra. A planar verdict states the face-search radius it used (15 mm,
+widened ×1.5 up to the part's half-diagonal; `search_radius_mm`).
+
+A manifest that uses frame grammar v1.1 (`let`, trig, rounding, comparisons, `iif`,
+slider size keys) prints one `frame grammar:` note naming the features and the
+minimum keystone (0.4.0). An older pin fails those manifests on the features
+themselves, so a commons repins before it merges its first v1.1 cartridge
+(docs/ASSEMBLIES.md, "Forward compatibility").
 
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
