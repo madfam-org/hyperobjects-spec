@@ -35,7 +35,7 @@
       "supports": "225 mm motor-to-motor; 30.5 × 30.5 and 20 × 20 mm FC holes; 5 mm arm plate; 2.5 mm top, bottom and side plates; 25 mm standoffs"
     }
   ],
-  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0); the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2).",
+  "frame_convention": "Origin at the centre of the flight-controller stack pattern, on the top face of the arms (the face the motors and the stack sit on, z = 0). +x points forward (toward the camera), +y to the left, +z up toward the top plate. Motor mounts sit at (±motor_half_x_mm, ±motor_half_y_mm, 0), each with x_axis pointing outward along its arm; the battery-strap station on the top plate's upper face at z = top_plate_z_mm; the camera bay's side-screw axis at (camera_axis_x_mm, 0, top_plate_z_mm / 2).",
   "dimensions": {
     "wheelbase": {
       "value": 225,
@@ -162,6 +162,9 @@
       "size_key": "motor-mount-16x16-m3",
       "polarity": "male",
       "symmetry": 4,
+      "let": {
+        "arm_mm": "sqrt(motor_half_x_mm * motor_half_x_mm + motor_half_y_mm * motor_half_y_mm)"
+      },
       "frame": {
         "origin": [
           "motor_half_x_mm",
@@ -174,8 +177,8 @@
           1
         ],
         "x_axis": [
-          1,
-          0,
+          "motor_half_x_mm / arm_mm",
+          "motor_half_y_mm / arm_mm",
           0
         ]
       },
@@ -183,7 +186,7 @@
         "motor_half_x_mm",
         "motor_half_y_mm"
       ],
-      "note": "Male: the M3 screws pass up through the arm into the motor."
+      "note": "Male: the M3 screws pass up through the arm into the motor. x_axis points outward along the arm (from the stack centre to the motor), so a clamp pod whose x_axis runs along its arm slot aligns at rotation_index 0 on a true X or a squashed X alike (ASM-1 v1.1)."
     },
     {
       "id": "motor_mount_fr",
@@ -197,6 +200,9 @@
       "size_key": "motor-mount-16x16-m3",
       "polarity": "male",
       "symmetry": 4,
+      "let": {
+        "arm_mm": "sqrt(motor_half_x_mm * motor_half_x_mm + motor_half_y_mm * motor_half_y_mm)"
+      },
       "frame": {
         "origin": [
           "motor_half_x_mm",
@@ -209,8 +215,8 @@
           1
         ],
         "x_axis": [
-          1,
-          0,
+          "motor_half_x_mm / arm_mm",
+          "-motor_half_y_mm / arm_mm",
           0
         ]
       },
@@ -218,7 +224,7 @@
         "motor_half_x_mm",
         "motor_half_y_mm"
       ],
-      "note": "Male: the M3 screws pass up through the arm into the motor."
+      "note": "Male: the M3 screws pass up through the arm into the motor. x_axis points outward along the arm (from the stack centre to the motor), so a clamp pod whose x_axis runs along its arm slot aligns at rotation_index 0 on a true X or a squashed X alike (ASM-1 v1.1)."
     },
     {
       "id": "motor_mount_rl",
@@ -232,6 +238,9 @@
       "size_key": "motor-mount-16x16-m3",
       "polarity": "male",
       "symmetry": 4,
+      "let": {
+        "arm_mm": "sqrt(motor_half_x_mm * motor_half_x_mm + motor_half_y_mm * motor_half_y_mm)"
+      },
       "frame": {
         "origin": [
           "-motor_half_x_mm",
@@ -244,8 +253,8 @@
           1
         ],
         "x_axis": [
-          1,
-          0,
+          "-motor_half_x_mm / arm_mm",
+          "motor_half_y_mm / arm_mm",
           0
         ]
       },
@@ -253,7 +262,7 @@
         "motor_half_x_mm",
         "motor_half_y_mm"
       ],
-      "note": "Male: the M3 screws pass up through the arm into the motor."
+      "note": "Male: the M3 screws pass up through the arm into the motor. x_axis points outward along the arm (from the stack centre to the motor), so a clamp pod whose x_axis runs along its arm slot aligns at rotation_index 0 on a true X or a squashed X alike (ASM-1 v1.1)."
     },
     {
       "id": "motor_mount_rr",
@@ -267,6 +276,9 @@
       "size_key": "motor-mount-16x16-m3",
       "polarity": "male",
       "symmetry": 4,
+      "let": {
+        "arm_mm": "sqrt(motor_half_x_mm * motor_half_x_mm + motor_half_y_mm * motor_half_y_mm)"
+      },
       "frame": {
         "origin": [
           "-motor_half_x_mm",
@@ -279,8 +291,8 @@
           1
         ],
         "x_axis": [
-          1,
-          0,
+          "-motor_half_x_mm / arm_mm",
+          "-motor_half_y_mm / arm_mm",
           0
         ]
       },
@@ -288,7 +300,7 @@
         "motor_half_x_mm",
         "motor_half_y_mm"
       ],
-      "note": "Male: the M3 screws pass up through the arm into the motor."
+      "note": "Male: the M3 screws pass up through the arm into the motor. x_axis points outward along the arm (from the stack centre to the motor), so a clamp pod whose x_axis runs along its arm slot aligns at rotation_index 0 on a true X or a squashed X alike (ASM-1 v1.1)."
     },
     {
       "id": "stack_mount",

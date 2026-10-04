@@ -68,7 +68,7 @@
         "normal": [
           0,
           0,
-          -1
+          1
         ],
         "x_axis": [
           1,
@@ -76,7 +76,7 @@
           0
         ]
       },
-      "note": "Male: the bearing goes into its housing bore. Face A seats against the bottom of that bore."
+      "note": "Male: the bearing goes into its housing bore. The normal runs from face A through the bearing toward face B, the side the housing lies on, so a seat framed at its entrance (normal out of the cavity) takes the bearing face B first: face B lands on the seat floor and face A flush with the entrance. (Corrected in ASM-1 v1.1: the normal was −z, which placed the bearing outside the seat.)"
     },
     {
       "id": "bore",

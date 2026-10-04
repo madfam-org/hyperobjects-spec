@@ -1419,8 +1419,8 @@ An assembly references a commercial off-the-shelf part with
 cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
 in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
-Fourteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
-5-inch FPV quad); the frame, motor, camera, prop, stack and antenna entries are commercial
+Fifteen parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad); the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
 **classes**, stated by shared facts, never a copy of one vendor's design.
 
 ```python
@@ -1431,7 +1431,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=14 interfaces=37 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=15 interfaces=39 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

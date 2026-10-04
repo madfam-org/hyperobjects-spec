@@ -40,9 +40,12 @@ a design:** it copies no branded frame's outline, arm shape or plate geometry.
 
 ### Frames and parameters
 
-Frame components are numbers or expressions over the entry's own parameters in the SEM-1
-§2.3 grammar (literals, parameter ids, `+ - * /`, parentheses, `min`, `max`, `abs`). An
-assembly resolves them by GOC-1 full injection (ASM-1 §1): the default, overridden by the
+Frame components are numbers or expressions over the entry's own parameters in the ASM-1
+§1 frame grammar (literals, parameter ids, `+ - * /`, parentheses, `min`, `max`, `abs`;
+from v1.1 also degree trig, `sqrt`, `floor`, `ceil`, `round`, comparisons and `iif`). An
+interface may declare a `let` block of named derived numbers its frame reads — always an
+expression here, since a standard part has no select — evaluated in dependency order
+(`fpv-frame-5in-x-225` uses one for the arm length). An assembly resolves them by GOC-1 full injection (ASM-1 §1): the default, overridden by the
 component's given value; out of range is an error, never clamped.
 
 ```python
@@ -54,7 +57,8 @@ interface_frames(rail, values)["track"].origin     # (150.0, 0.0, 8.0)
 part_digest(rail)                                  # sha256 of the canonical JSON (ASM-1 §3.8)
 ```
 
-Every `normal` and `x_axis` in the catalog is an exact, axis-aligned unit vector and every
+Every `normal` and `x_axis` in the catalog is an exact unit vector (axis-aligned, except the
+FPV frame's motor-mount `x_axis`, which points along its arm) and every
 `x_axis` is orthogonal to its normal — at the defaults and at every parameter's `min` and
 `max`. The catalog carries no normalisation slack, so the placement (ASM-1 §3.4) can build
 its matrices from the vectors as written.
@@ -67,7 +71,8 @@ The mating rule pairs male with female and neutral with neutral. In this catalog
   enters, a bore, a slot, a bay (the NEMA 17 face, an extrusion slot, a prop hub);
 - **male** inserts, or carries the fastener head: a shaft, a stud or standoff, a body that
   goes into a bay or a housing, the clearance-hole side a screw passes through into a
-  female partner (a frame's motor mount, a D2F switch's holes, a bearing's outer ring);
+  female partner (a frame's motor mount, a D2F switch's holes, a bearing's outer ring,
+  an SMA bulkhead jack's threaded body);
 - **neutral** is face-to-face contact with no inserting side (no catalog entry uses it yet).
 
 Polarity is mechanical: an SMA antenna's coupling nut is female here, whatever RF naming
@@ -90,7 +95,7 @@ size key's.
 | `extrusion-2020` | datasheet | `end_a, end_b` → `tslot-2020-end-tap-m5` female, sym 4<br>`slot_xp_a … (8)` → `tslot-2020-6mm` female, sym 2 | `length_mm`, `slot_station_mm` | MISUMI |
 | `fc-stack-30x30` | class | `mount` → `stack-30.5x30.5-m3` female, sym 4 | — | Matek Systems |
 | `fpv-camera-micro-19mm` | class | `side_mount` → `fpv-camera-micro-19mm` male, sym 0 | — | Rotorama, Team BlackSheep |
-| `fpv-frame-5in-x-225` | class | `motor_mount_fl … (4)` → `motor-mount-16x16-m3` male, sym 4<br>`stack_mount` → `stack-30.5x30.5-m3` male, sym 4<br>`camera_bay` → `fpv-camera-micro-19mm` female, sym 0<br>`battery_strap` → `battery-strap-20mm` female, sym 2 | `motor_half_x_mm`, `motor_half_y_mm`, `top_plate_z_mm`, `camera_axis_x_mm` | GEPRC |
+| `fpv-frame-5in-x-225` | class | `motor_mount_fl … (4)` → `motor-mount-16x16-m3` male, sym 4, `x_axis` outward along the arm<br>`stack_mount` → `stack-30.5x30.5-m3` male, sym 4<br>`camera_bay` → `fpv-camera-micro-19mm` female, sym 0<br>`battery_strap` → `battery-strap-20mm` female, sym 2 | `motor_half_x_mm`, `motor_half_y_mm`, `top_plate_z_mm`, `camera_axis_x_mm` | GEPRC |
 | `gt2-pulley-20t-5mm` | datasheet | `bore` → `nema-17-shaft-5mm` female, sym 0 | — | Adafruit Industries, ServoCity |
 | `mgn12-rail` | datasheet | `track` → `mgn12-rail` male, sym 2<br>`base_first_hole` → `tslot-2020-6mm` male, sym 2 | `length_mm`, `carriage_offset_mm` | HIWIN |
 | `mgn12h-carriage` | datasheet | `top` → `mgn12-carriage` female, sym 4<br>`rail_way` → `mgn12-rail` female, sym 2 | — | HIWIN |
@@ -98,6 +103,7 @@ size key's.
 | `motor-2207` | class | `base` → `motor-mount-16x16-m3` female, sym 4<br>`prop_shaft` → `prop-shaft-m5` male, sym 0 | `prop_seat_mm` | iFlight, BrotherHobby |
 | `nema-17-48mm` | datasheet | `face` → `nema-17-face` female, sym 4<br>`shaft` → `nema-17-shaft-5mm` male, sym 0 | `shaft_seat_mm` | LDO Motors, Nanotec Electronic |
 | `prop-5in` | class | `hub` → `prop-shaft-m5` female, sym 0 | — | HQProp |
+| `sma-bulkhead-jack` | class | `panel` → `sma-bulkhead` male, sym 0<br>`coupling` → `sma-bulkhead` male, sym 0 | `mating_face_z_mm` | Amphenol RF |
 | `psu-meanwell-lrs-200` | datasheet | `base` → `meanwell-lrs-200-base-m4` female, sym 2<br>`side_pos_y, side_neg_y` → `meanwell-lrs-200-side-m4` female, sym 2 | — | Mean Well |
 | `vtx-antenna-sma` | class | `connector` → `sma-bulkhead` female, sym 0 | — | Amphenol RF, Drone-FPV-Racer |
 
@@ -109,16 +115,17 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `extrusion-2020` | centre of end A; +z along the extrusion to end B at `length_mm`; faces at x, y = ±10 |
 | `mgn12-rail` | bottom face at end A, on the centreline; +x along the rail; top at z = 8 |
 | `mgn12h-carriage` | centre of the top mounting face; +z up; rail top at z = −5 (H 13 − HR 8) |
-| `bearing-608` | centre of side face A; +z along the axis to face B at z = 7 |
+| `bearing-608` | centre of side face A; +z along the axis to face B at z = 7 (both interface normals +z since v1.1) |
 | `gt2-pulley-20t-5mm` | centre of end face A (toward the motor); +z along the bore, away from the motor |
 | `psu-meanwell-lrs-200` | centre of the base footprint; +x away from the terminal block; top at z = 30 |
 | `microswitch-d2f` | midway between the hole centres on the mid-plane; +y through the thickness; +z toward the actuator |
 | `motor-2207` | centre of the base; +z along the shaft toward the propeller |
-| `fpv-frame-5in-x-225` | centre of the stack pattern on the arms' top face; +x forward, +y left, +z up |
+| `fpv-frame-5in-x-225` | centre of the stack pattern on the arms' top face; +x forward, +y left, +z up; motor-mount `x_axis` outward along each arm |
 | `fc-stack-30x30` | centre of the hole square on the lowest board's bottom face; +x toward the board arrow |
 | `fpv-camera-micro-19mm` | on the side-screw axis, midway between the side faces; +x along the optical axis |
 | `prop-5in` | centre of the hub's bottom face; +z up through the hub |
 | `vtx-antenna-sma` | centre of the coupling nut's mating face; +z along the antenna |
+| `sma-bulkhead-jack` | centre of the panel shoulder face; +z along the threaded body to the mating face at `mating_face_z_mm` |
 
 ### Interface sizes added for the catalog
 
@@ -146,8 +153,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=14 interfaces=37 failures=0
-standard_parts_status: parts=14 interfaces=37 dimensions=106 parameters=10 classes=6 review: signed=0 draft=14
+y4d-spec vocab standard-parts: parts=15 interfaces=39 failures=0
+standard_parts_status: parts=15 interfaces=39 dimensions=108 parameters=11 classes=7 review: signed=0 draft=15
 ```
 
 1. Schema-valid; the file is named for its `key`.
@@ -159,14 +166,15 @@ standard_parts_status: parts=14 interfaces=37 dimensions=106 parameters=10 class
    `geometry_type` equals the size key's; `frame.part`, if written, is the entry key.
 7. Every frame component evaluates at the defaults and at each parameter's `min` and
    `max`; every identifier an expression reads is a declared parameter listed in the
-   interface's `parameters`.
+   interface's `parameters`, or one of the interface's `let` names (no `let` may shadow a
+   parameter or form a cycle).
 8. At each of those points the normal and `x_axis` are unit vectors and orthogonal
    (`AXIS_TOLERANCE = 1e-9`).
 
 `y4d-spec vocab --standard-parts DIR` checks another catalog directory.
 
 **Frame evaluator.** Frame components are evaluated by `y4d_spec.frame_eval`, the ASM-1 §1
-evaluator the assembly validator and the render-time frame gate also use: the SEM-1 grammar
+evaluator the assembly validator and the render-time frame gate also use: the grammar
 check first, then a hand walk over floats; nothing reaches `eval`.
 
 ## Adding a part

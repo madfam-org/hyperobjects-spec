@@ -329,7 +329,7 @@ def test_search_radii_widen_by_1_5_to_the_half_diagonal():
     radii = search_radii(ring)
     assert radii[:2] == [15.0, 22.5]
     assert radii[-1] == pytest.approx(half)
-    assert all(b == pytest.approx(min(a * 1.5, half)) for a, b in zip(radii, radii[1:]))
+    assert all(b == pytest.approx(min(a * 1.5, half)) for a, b in zip(radii, radii[1:], strict=False))
     # A part smaller than the first ring searches 15 mm only, exactly as v1.0 did.
     assert search_radii(_ring(1, 5)) == [15.0]
 
