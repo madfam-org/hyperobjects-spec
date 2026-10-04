@@ -47,6 +47,7 @@ __all__ = [
     "CYLINDER_MIN_COVERAGE_DEG",
     "FACE_MIN_AREA_MM2",
     "FACE_SAMPLE_PITCH_MM",
+    "FACE_SEARCH_GROWTH",
     "FACE_SEARCH_RADIUS_MM",
     "NORMAL_TOLERANCE_DEG",
     "PLANE_OFFSET_TOLERANCE_MM",
@@ -67,7 +68,12 @@ DEFAULTS_POINT = "defaults"
 # install; frame_geometry (numpy, trimesh) imports them.
 NORMAL_TOLERANCE_DEG = 2.0
 PLANE_OFFSET_TOLERANCE_MM = 0.1
+#: The FIRST face-search radius. The search widens from here (ASM-1 v1.1, ruling D4):
+#: ×FACE_SEARCH_GROWTH per step, up to the part's bounding-box half-diagonal, and stops
+#: at the first radius whose ring holds a face that satisfies the rule. The radius used
+#: is recorded as `search_radius_mm`.
 FACE_SEARCH_RADIUS_MM = 15.0
+FACE_SEARCH_GROWTH = 1.5
 FACE_MIN_AREA_MM2 = 4.0
 FACE_SAMPLE_PITCH_MM = 0.25
 AXIS_SEARCH_RADIUS_MM = 15.0
@@ -122,7 +128,10 @@ def describe_rules() -> list[str]:
         f"{PLANE_OFFSET_TOLERANCE_MM:g}mm",
         f"            of the origin, and at least {FACE_MIN_AREA_MM2:g}mm² of such face "
         f"within {FACE_SEARCH_RADIUS_MM:g}mm",
-        "            of the origin.",
+        f"            of the origin — widening ×{FACE_SEARCH_GROWTH:g} per step up to the "
+        "part's",
+        "            bounding-box half-diagonal until a ring holds such a face (the",
+        "            radius used is recorded as search_radius_mm).",
         f"         axis ({axis}):",
         "            the innermost cylinder parallel to the normal that reaches the origin",
         f"            plane (fit within {CYLINDER_FIT_TOLERANCE_MM:g}mm, wrapping >= "

@@ -725,7 +725,7 @@ by its `geometry_type` (`y4d_spec.frame_gate`, `y4d_spec.frame_geometry`):
 
 | Rule | Types | Passes when |
 |---|---|---|
-| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it |
+| planar | `bolt_pattern`, `boss`, `engraving`, `flange`, `grid`, `pocket`, `profile`, `rail`, `screen`, `seal`, `surface` | faces whose normal is within 2° of `normal` and whose plane passes within 0.1mm of the origin cover at least 4mm² within 15mm of it — widening ×1.5 per step up to the part's bounding-box half-diagonal until a ring holds such a face; the radius used is reported as `search_radius_mm` (ASM-1 v1.1) |
 | axis | `hinge`, `socket`, `thread`, `threaded_socket` | the innermost cylinder parallel to `normal` (fit within 0.05mm, wrapping at least 180°) that reaches the origin plane is centred within 0.1mm, lies on the right side (a bore runs into the material, a shaft toward the partner) and matches `polarity`. With no cylinder at the origin at all, the planar test applies and the verdict says `planar (no cylinder at the origin)` |
 | none | `custom`, `fem_mesh`, `polyhedron`, `port`, `snap`, `spline` | never: the frame is reported **UNVERIFIED** as a note |
 
@@ -740,8 +740,11 @@ FAIL frame-plate-wrong: frame 'centre_bore' (plate, preset 'thick', axis): FAIL 
 The summary line gains `frames=P/M ok, unverified=U, failures=F` (`P + U + F = M`) only
 when a framed interface was checked. A manifest with no frame renders nothing extra,
 imports nothing extra and prints exactly what it did before. The face test cannot see an
-origin slid along its own face by less than the 15mm search radius; the axis test and the
-assembly closure check constrain in-plane position. Fixtures: `tests/fixtures/y4d/frame-plate`
+origin slid along its own face by less than the search radius it used (15mm, or the wider
+ring a NEMA 23 pilot or a standoff square's empty centre needs — printed with every
+verdict); the axis test and the assembly closure check constrain in-plane position.
+Widening can only turn a fail into a pass: a face found within 15mm is reported exactly
+as before. Fixtures: `tests/fixtures/y4d/frame-plate`
 (every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
 normal).
 
