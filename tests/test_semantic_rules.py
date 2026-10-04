@@ -167,9 +167,9 @@ def test_a_grammatical_expression_has_no_problems(expr):
         ("plate_thick + bogus", "unknown parameter 'bogus'"),
         ("plate_thick ** 2", "unsupported operator Pow"),
         ("plate_thick % 2", "character outside the grammar"),
-        ("plate_thick > 2", "character outside the grammar"),
+        ("plate_thick % 2 > 1", "character outside the grammar"),
         ("plate_thick // 2", "unsupported operator FloorDiv"),
-        ("sqrt(plate_thick)", "calls 'sqrt'"),
+        ("hypot(plate_thick, 1)", "calls 'hypot'"),
         ("abs(plate_thick, iso_gap)", "abs() with 2 argument(s)"),
         ("min(plate_thick)", "min() with 1 argument(s)"),
         ("plate_thick.real", "unsupported syntax"),
@@ -264,7 +264,9 @@ def test_rule_polarity_and_symmetry_enums():
 def test_rule_size_key_param_must_be_a_declared_select():
     doc = _doc()
     _iface(doc)["size_key"]["param"] = "plate_thick"
-    assert any("only a select" in p for p in interface_frame_rules(doc))
+    # ASM-1 v1.1 (D3): a slider may key a size by EXACT value, so the select's option
+    # spellings ("9x9", …) are now reported as non-numeric slider keys.
+    assert any("is not a number" in p for p in interface_frame_rules(doc))
     _iface(doc)["size_key"]["param"] = "ghost"
     assert any("'ghost' is not a declared parameter" in p for p in interface_frame_rules(doc))
 

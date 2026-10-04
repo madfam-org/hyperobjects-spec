@@ -1353,6 +1353,43 @@
                 },
                 "description": "Slugs of other Yantra4D projects that share this interface (cross-commons interoperability)."
               },
+              "let": {
+                "type": "object",
+                "description": "Named derived numbers this interface's frame expressions may read (ASM-1 v1.1; needs hyperobjects-spec >= 0.4.0). Each entry is an expression in the frame grammar over parameter ids and the block's other names, or {param, map}: a lookup of a SELECT parameter's option value in a map whose right-hand values are numbers, so no string ever enters an expression. Evaluated in dependency order (key order is irrelevant); a cycle, an unknown name, a name that shadows a parameter or a function, and a map that does not cover exactly the select's options are errors at check time.",
+                "propertyNames": {
+                  "pattern": "^[a-z][a-z0-9_]*$"
+                },
+                "additionalProperties": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 256
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "param",
+                        "map"
+                      ],
+                      "properties": {
+                        "param": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "map": {
+                          "type": "object",
+                          "minProperties": 1,
+                          "additionalProperties": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
               "frame": {
                 "type": "object",
                 "description": "Where the interface sits on its part, in mm, in the part's model frame at the resolved parameters (SEM-1 §2.3). `normal` points from the feature toward where the mating partner sits; `x_axis` is the in-plane reference direction, orthogonal to `normal`, required when `symmetry` is not 0. Statically checked for structure and expression parseability only: a frame is not trusted until the render-time frame gate has compared it with the geometry.",
@@ -1389,7 +1426,7 @@
                 "description": "Which side of a mating pair this is. Two interfaces mate only with complementary polarity: male with female, neutral with neutral."
               },
               "size_key": {
-                "description": "The interface-sizes vocabulary key this interface realises (e.g. `nema-17-face`), or {param, map} when a select parameter chooses it: `map` sends every option value of `param` to a key. Vocabulary membership is a separate lexicon rule.",
+                "description": "The interface-sizes vocabulary key this interface realises (e.g. `nema-17-face`), or {param, map} when a parameter chooses it. For a select, `map` sends every option value of `param` to a key. For a slider or number (ASM-1 v1.1; needs hyperobjects-spec >= 0.4.0), `map` keys are exact values in GOC-1 canonical spelling (`12`, `9.5`) and a value with no entry gives the interface no size key at that point, so a mate that needs one fails there. Vocabulary membership is a separate lexicon rule.",
                 "oneOf": [
                   {
                     "type": "string",
@@ -1612,7 +1649,7 @@
       ]
     },
     "frameComponent": {
-      "description": "One coordinate of an interface frame: a number, or an expression over this manifest's parameter ids (SEM-1 §2.3 grammar: numeric literals, parameter ids, + - * / and parentheses, min(), max(), abs()). y4d-spec parses every expression; nothing here evaluates it.",
+      "description": "One coordinate of an interface frame: a number, or an expression (at most 256 characters) in the ASM-1 §1 frame grammar. v1.0 (SEM-1 §2.3): numeric literals, parameter ids, + - * / and parentheses, min(), max(), abs(). v1.1 (hyperobjects-spec >= 0.4.0) adds the interface's `let` names; sin, cos, tan, asin, acos, atan, atan2(y, x) in DEGREES; sqrt, floor, ceil, round; the comparisons < <= > >= == != (1 or 0); and iif(cond, a, b). y4d-spec parses every expression; nothing here evaluates it.",
       "oneOf": [
         {
           "type": "number"
