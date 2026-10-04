@@ -231,6 +231,31 @@
       ],
       "term": "bolt-pattern",
       "notes": "Added by the standard-parts catalog (ASM-1 §4). The pattern is the same on every D2F actuator variant (pin plunger, hinge lever, roller lever)."
+    },
+    {
+      "key": "shaft-8mm",
+      "label": {
+        "en": "8 mm shaft in a host bore",
+        "es": "Flecha de 8 mm en un barreno anfitrión",
+        "fr": "Arbre de 8 mm dans un alésage hôte",
+        "pt": "Eixo de 8 mm num furo hospedeiro"
+      },
+      "definition": {
+        "en": "A plain round shaft of 8 mm diameter, ground to g6, and the 8 mm bore of the part that carries it (a bracket's through-bore): the axle seat of an idler. The 608 inner ring that rides on the same shaft is a separate key, `bearing-608-bore`.",
+        "es": "Una flecha redonda lisa de 8 mm de diámetro, rectificada a g6, y el barreno de 8 mm de la pieza que la sostiene (el barreno pasante de un soporte): el asiento del eje de una polea loca. El anillo interior del 608 que monta en la misma flecha es otra clave, `bearing-608-bore`.",
+        "fr": "Un arbre rond lisse de 8 mm de diamètre, rectifié en g6, et l'alésage de 8 mm de la pièce qui le porte (l'alésage traversant d'un support) : le logement de l'axe d'un galet. La bague intérieure du 608 montée sur le même arbre est une autre clé, `bearing-608-bore`.",
+        "pt": "Um eixo redondo liso de 8 mm de diâmetro, retificado em g6, e o furo de 8 mm da peça que o suporta (o furo passante de um suporte): o assento do eixo de uma polia louca. O anel interior do 608 que se monta no mesmo eixo é outra chave, `bearing-608-bore`."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "shaft_diameter": {"value": 8, "unit": "mm", "source": 0, "tolerance": "g6 (−0.005/−0.014)"}
+      },
+      "sources": [
+        {"title": "MISUMI linear shafts, high accuracy, standard type — straight (SFJ / SSFJ / PSFJ / PSSFJ), catalog p. 91", "url": "https://vn.misumi-ec.com/pdf/fa/2013/p91.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "D 8: tolerance g6, −0.005/−0.014 mm; L 20–800 mm in 1 mm increments"}
+      ],
+      "term": "socket",
+      "notes": "Added for the idler axle (catalog entry shaft-8mm, lane P4-AUTH-D). The host bore's own fit (press, slip or clamp) is the host's design choice and not a fact of the key; the key says only that both sides are the 8 mm shaft."
     }
   ]
 }

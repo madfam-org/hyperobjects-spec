@@ -124,6 +124,8 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
         "sma-bulkhead-jack.panel": +1,     # threaded body runs +z from the shoulder
         "sma-bulkhead-jack.coupling": -1,  # the plug's nut covers the thread behind the
                                            # reference plane — a mated face, see note
+        "shaft-8mm.host_end": +1,          # end A runs −z (toward the host) from the face
+        "shaft-8mm.bearing_journal": +1,   # the journal runs −z from face B to face A
     }
     seen = set()
     for key in hyperobjects_standard_parts.list_part_keys():
