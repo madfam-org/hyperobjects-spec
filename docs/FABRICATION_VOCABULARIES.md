@@ -10,7 +10,9 @@ in `src/hyperobjects_lexicon/vocabularies/fabrication/` and validated by
 A vocabulary may also ship a **supplement**, `{vocabulary}.{label}.json`: a whole document
 of the same vocabulary whose entries the loader appends (a supplement declaring another
 vocabulary is an error). `interface-sizes.standard-parts.json` holds the eight size keys the
-standard-parts catalog needs ([STANDARD_PARTS.md](STANDARD_PARTS.md)).
+standard-parts catalog needs ([STANDARD_PARTS.md](STANDARD_PARTS.md)); `interface-sizes.fpv.json`
+holds the FPV keys the commons cartridges' size-key maps need (`fpv-camera-mini-21mm`,
+`u-fl-cable-exit`).
 
 | Vocabulary | What a key names | Where a manifest writes it |
 |---|---|---|

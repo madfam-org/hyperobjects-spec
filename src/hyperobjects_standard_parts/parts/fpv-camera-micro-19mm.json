@@ -35,7 +35,7 @@
       "supports": "dimensions 19 × 19 × 20 mm; 5.9 g"
     }
   ],
-  "frame_convention": "Origin on the side-screw axis (the axis through the two side mounting screws, about which the camera tilts), midway between the two side faces. +x along the optical axis, out through the lens; +z up; +y to the camera's left. The side faces sit at y = ±9.5.",
+  "frame_convention": "Origin on the side-screw axis (the axis through the two side mounting screws, about which the camera tilts), midway between the two side faces. +x along the optical axis, out through the lens; +z up; +y to the camera's left. The side faces sit at y = ±9.5. The side faces sit at y = ±9.5 (half the cited 19 mm width); the front face (around the lens) at x = screw_axis_to_front_mm and the back face at x = screw_axis_to_front_mm − 20 (the cited 20 mm body length).",
   "dimensions": {
     "body_width": {
       "value": 19,
@@ -89,11 +89,158 @@
         ]
       },
       "note": "Male: the body goes into the bay or cage. Symmetry 0: a mate's angle_deg sets the tilt about the side-screw axis."
+    },
+    {
+      "id": "side_face_left",
+      "label": {
+        "en": "Side face, left",
+        "es": "Cara lateral izquierda",
+        "fr": "Face latérale gauche",
+        "pt": "Face lateral esquerda"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          9.5,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the camera's tapped side-screw hole, on the side-screw axis. Origin where that axis meets the side face (half the cited 19 mm body width from the mid-plane); the normal points out of the body. Symmetry 0: a mate's angle_deg is the tilt. Partners: the frame's camera_plate_* faces."
+    },
+    {
+      "id": "side_face_right",
+      "label": {
+        "en": "Side face, right",
+        "es": "Cara lateral derecha",
+        "fr": "Face latérale droite",
+        "pt": "Face lateral direita"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          -9.5,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the camera's tapped side-screw hole, on the side-screw axis. Origin where that axis meets the side face (half the cited 19 mm body width from the mid-plane); the normal points out of the body. Symmetry 0: a mate's angle_deg is the tilt. Partners: the frame's camera_plate_* faces."
+    },
+    {
+      "id": "front_face",
+      "label": {
+        "en": "Front face",
+        "es": "Cara frontal",
+        "fr": "Face avant",
+        "pt": "Face frontal"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "screw_axis_to_front_mm",
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "screw_axis_to_front_mm"
+      ],
+      "note": "Male: the body's front (lens-side) face seats on a flat receiving face (a printed cradle's floor). Origin at the face centre on the optical axis; the normal points out of the body. Symmetry 4: the 19 × 19 mm face is square. A cradle that the camera looks OUT through (a lens aperture in its floor) mates this face; the lens may stand proud of it."
+    },
+    {
+      "id": "back_face",
+      "label": {
+        "en": "Back face",
+        "es": "Cara trasera",
+        "fr": "Face arrière",
+        "pt": "Face traseira"
+      },
+      "geometry_type": "socket",
+      "size_key": "fpv-camera-micro-19mm",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          "screw_axis_to_front_mm - 20",
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "screw_axis_to_front_mm"
+      ],
+      "note": "Male: the body's back (cable-side) face seats on a flat receiving face (a printed cradle's floor). Origin at the face centre on the optical axis; the normal points out of the body. Symmetry 4: the 19 × 19 mm face is square. A cradle the camera looks AWAY from (lens out of the open side) mates this face."
     }
   ],
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The side-screw thread and its height on the body are not published by the cited listings, so they are not facts here; the frame convention is defined by the screw axis instead of a number."
+  "notes": "The side-screw thread and its height on the body are not published by the cited listings, so they are not facts here; the frame convention is defined by the screw axis instead of a number. The side, front and back faces are placed from the cited 19 mm width and 20 mm length alone; where the side screws sit along the body is a parameter (screw_axis_to_front_mm), not a fact.",
+  "parameters": [
+    {
+      "id": "screw_axis_to_front_mm",
+      "type": "number",
+      "label": {
+        "en": "Side-screw axis to front face",
+        "es": "Eje de tornillos laterales a la cara frontal",
+        "fr": "Axe des vis latérales à la face avant",
+        "pt": "Eixo dos parafusos laterais à face frontal"
+      },
+      "default": 10,
+      "min": 2,
+      "max": 18,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the cited listings give the 20 mm body length but not where the side screws sit along it. The default puts the axis mid-length. The back face is body_length − this behind the front. Set it from the chosen camera."
+    }
+  ]
 }

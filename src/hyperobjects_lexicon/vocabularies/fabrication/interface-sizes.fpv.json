@@ -1,0 +1,114 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Supplement of the interface-sizes vocabulary: the FPV size keys the commons cartridges' size_key maps need and the base file did not define (fpv-camera-cage's cam_size, fpv-antenna-mount's connector). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (P4-AUTH-C lane, 2026-10-04). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
+  },
+  "entries": [
+    {
+      "key": "fpv-camera-mini-21mm",
+      "label": {
+        "en": "Mini FPV camera, 21 mm class",
+        "es": "Cámara FPV mini, clase de 21 mm",
+        "fr": "Caméra FPV mini, classe 21 mm",
+        "pt": "Câmera FPV mini, classe de 21 mm"
+      },
+      "definition": {
+        "en": "The body of a 'mini' FPV camera, the class between micro (19 mm) and full size (28 mm), held between the two side plates of a camera cage or a frame's camera bay.",
+        "es": "El cuerpo de una cámara FPV 'mini', la clase entre la micro (19 mm) y la de tamaño completo (28 mm), sujeto entre las dos placas laterales de una jaula de cámara o del hueco de cámara de un marco.",
+        "fr": "Le boîtier d'une caméra FPV « mini », la classe entre la micro (19 mm) et la taille standard (28 mm), tenu entre les deux flasques d'une cage de caméra ou de la baie caméra d'un châssis.",
+        "pt": "O corpo de uma câmera FPV 'mini', a classe entre a micro (19 mm) e a de tamanho completo (28 mm), preso entre as duas placas laterais de uma gaiola de câmera ou do compartimento de câmera de um quadro."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "body_width_min": {
+          "value": 21.8,
+          "unit": "mm",
+          "source": 0
+        },
+        "body_width_max": {
+          "value": 22,
+          "unit": "mm",
+          "source": 1
+        },
+        "bracket_width": {
+          "value": 28,
+          "unit": "mm",
+          "source": 0,
+          "note": "the full-size adapter bracket both listings ship"
+        }
+      },
+      "sources": [
+        {
+          "title": "Foxeer Toothless 2 Mini (1/2\" sensor, M12 1.7 mm lens) — retailer specification",
+          "url": "https://pyrodrone.com/collections/analog-fpv-cameras/products/foxeer-toothless-2-1200tvl-1-2-sensor-super-hdr-mini-camera-m12-1-7mm-lens",
+          "publisher": "Pyrodrone",
+          "accessed": "2026-10-04",
+          "supports": "dimensions 21.8 × 21.8 mm; includes a 28 mm bracket for full-size mounting"
+        },
+        {
+          "title": "Foxeer Arrow Mini Pro FPV camera",
+          "url": "https://www.foxeer.com/Foxeer-Arrow-Mini-Pro-FPV-Camera-Built-in-OSD-Plastic-Case-g-137",
+          "publisher": "Foxeer",
+          "accessed": "2026-10-04",
+          "supports": "dimension 22 × 22 mm; 28 × 22 mm with the extension bracket"
+        }
+      ],
+      "notes": "The commons calls this class '21 mm' (fpv-camera-cage's cam_size table); the cited class members measure 21.8–22 mm. A cradle sized from a nominal 21 mm must add clearance for the real body. A mini camera does not mate a micro key: the two keys are different on purpose."
+    },
+    {
+      "key": "u-fl-cable-exit",
+      "label": {
+        "en": "U.FL coax cable exit",
+        "es": "Salida de cable coaxial U.FL",
+        "fr": "Sortie de câble coaxial U.FL",
+        "pt": "Saída de cabo coaxial U.FL"
+      },
+      "definition": {
+        "en": "A hole that routes an antenna's ultra-fine coax lead, terminated in a Hirose U.FL plug, out of a printed mount. There is no panel connector at the hole: the U.FL plug mates on the transmitter's board, not on the mount.",
+        "es": "Un barreno que saca de un soporte impreso el cable coaxial ultrafino de una antena, terminado en un conector Hirose U.FL. En el barreno no hay conector de panel: el U.FL se acopla en la placa del transmisor, no en el soporte.",
+        "fr": "Un trou qui fait sortir d'un support imprimé le câble coaxial ultrafin d'une antenne, terminé par une fiche Hirose U.FL. Il n'y a pas d'embase au trou : la fiche U.FL se connecte sur la carte de l'émetteur, pas sur le support.",
+        "pt": "Um furo que leva para fora de um suporte impresso o cabo coaxial ultrafino de uma antena, terminado num conector Hirose U.FL. Não há conector de painel no furo: o U.FL encaixa na placa do transmissor, não no suporte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "cable_diameter_min": {
+          "value": 0.81,
+          "unit": "mm",
+          "source": 0,
+          "note": "U.FL-LP-040HF"
+        },
+        "cable_diameter_max": {
+          "value": 1.37,
+          "unit": "mm",
+          "source": 0,
+          "note": "U.FL-LP-088HF"
+        },
+        "mated_height_max": {
+          "value": 2.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "U.FL-LP-040HF / -066HF (2.4 nominal)"
+        }
+      },
+      "sources": [
+        {
+          "title": "U.FL Series — Ultra Small Surface Mount Coaxial Connectors, 1.9 mm or 2.3 mm, 2.4 mm mated height (catalogue, Jun. 2020)",
+          "url": "https://www.farnell.com/datasheets/3098171.pdf",
+          "publisher": "Hirose Electric",
+          "accessed": "2026-10-04",
+          "supports": "plug cable assemblies for Ø0.81, Ø0.95, Ø1.13, Ø1.32 and Ø1.37 mm coax; mated height 2.5 mm max (2.4 nominal), 2.4 max or 2.0 max by plug; DC to 6 GHz, 50 Ω; plugs ordered only as terminated cable assemblies"
+        }
+      ],
+      "notes": "A cable route, not a panel connector: no part mates it the way an SMA jack mates sma-bulkhead, so a mount framed with this key resolves a size but has no catalogue partner. The exit diameter (fpv-antenna-mount uses Ø2.6) is the mount's choice, not this key's."
+    }
+  ]
+}
