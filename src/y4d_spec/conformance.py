@@ -25,8 +25,19 @@ from pathlib import Path
 from hyperobjects_schemas import load as load_schema
 
 from . import rules, structure
+from .semantic_rules import (
+    FRAME_GRAMMAR_MIN_KEYSTONE,
+    FRAME_GRAMMAR_VERSION,
+    frame_grammar_features,
+)
 
-__all__ = ["CartridgeResult", "check_manifest", "check_cartridge", "MANIFEST_SCHEMA"]
+__all__ = [
+    "CartridgeResult",
+    "MANIFEST_SCHEMA",
+    "check_cartridge",
+    "check_manifest",
+    "frame_grammar_notes",
+]
 
 MANIFEST_SCHEMA = "project-manifest"
 
@@ -134,7 +145,28 @@ def check_manifest(doc: dict) -> CartridgeResult:
     problems = _schema_errors(doc)
     problems.extend(rules.all_manifest_rules(doc))
     slug = (doc.get("project") or {}).get("slug") if isinstance(doc.get("project"), dict) else None
-    return CartridgeResult(slug=slug, ok=not problems, problems=problems)
+    return CartridgeResult(
+        slug=slug, ok=not problems, problems=problems, notes=frame_grammar_notes(doc)
+    )
+
+
+def frame_grammar_notes(doc: dict) -> list[str]:
+    """One note when the manifest uses ASM-1 v1.1 frame-grammar features (D7).
+
+    The note names the features and the minimum keystone, so that the SAME manifest
+    checked under an older pin — which does not know the features and fails them as an
+    unknown name, call, character or select-only size_key — can be read for what it is:
+    a pin that is too old, not a broken cartridge.
+    """
+    features = frame_grammar_features(doc)
+    if not features:
+        return []
+    return [
+        f"frame grammar: uses ASM-1 v{FRAME_GRAMMAR_VERSION} features ({', '.join(features)}) "
+        f"— needs hyperobjects-spec >= {FRAME_GRAMMAR_MIN_KEYSTONE}; a keystone pinned "
+        "before it reports them as unknown parameters, calls or characters, or as a "
+        "select-only size_key"
+    ]
 
 
 def check_cartridge(
