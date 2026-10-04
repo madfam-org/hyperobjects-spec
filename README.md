@@ -1386,12 +1386,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=86 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=91 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=27 cited=27 dimensions=91 provisional=2 review: signed=0 draft=27
+fabrication_status[interface-sizes]: entries=32 cited=32 dimensions=108 provisional=2 review: signed=0 draft=32
 ```
 <!-- counts:fabrication-status:end -->
 
