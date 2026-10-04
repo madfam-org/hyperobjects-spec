@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Assembly AAS projection, closing-angle check, capability `process` list (ASM-1 §5–§6, package 0.5.0)
+
+The assembly projection the asset-shells twin graph is built from, and the two keystone
+findings of P4-ASM2. Assemblies A and B (solid-hyperobjects main) validate unchanged,
+with the same digests as the commons CI (A `58caf081…`, B `96a7e42d…`).
+
+#### Added
+
+- **`hyperobjects_aas.assembly`** (ASM-1 §5): a checked assembly → one AAS Environment.
+  Shell `aas/assembly/{slug}/{digest16}`, asset `asset/assembly/{slug}`, specificAssetIds
+  `commons`, `slug`, `assembly_digest`. Submodels: `Nameplate`; `AssemblyDocument` (the
+  document as a canonical-JSON `Blob`, with its digest); `BillOfMaterials` (IDTA 02011-1-1
+  HSEBoM: one `Node` per component, `HasPart` from the entry node; cartridge nodes carry
+  the GOC-1 `instance_id` and a `DerivedFrom` reference to the exact type shell revision);
+  `Mates` (one `AnnotatedRelationshipElement` per mate: interfaces, stated rotation,
+  residuals, `Validated`); `AssemblyPlacement` (4 × 4 world transforms); producers:
+  `CapabilityDescription` (IDTA 02020-1-0, identifiers copied from the published template
+  at the pinned `IDTA_COMMIT`); products with `requirements_rollup`: `RequirementProfile`.
+  A failing assembly is never projected.
+- **`hyperobjects_aas.resolver`**: `EnvironmentCartridgeResolver` resolves cartridge
+  components from stored type shells (`ParametricModel`, `GeometryProvision`,
+  `MatingInterfaces`, `RequirementProfile`) at the revision a node's `DerivedFrom` names;
+  `component_type_shells(env)`, `assembly_document_from_environment(env)`,
+  `bundled_standard_parts_dir()`. It reproduces A's and B's digests and environments byte
+  for byte, and agrees with the manifest resolver on every cartridge mode of the solid
+  commons (502 cartridges, 1490 modes, 3035 interfaces at the defaults).
+- **`y4d-spec aas build <assembly-dir | assembly.json>`** with `--commons-dir` and
+  `--standard-parts`; **`aas check`** applies the assembly rules (the document decodes,
+  validates, names the shell's slug and states its digest).
+- **Golden fixtures**: `tests/fixtures/assembly-golden/` (assemblies A and B and their
+  eight cartridges copied byte-identical from the commons, CERN-OHL-W-2.0, NOTICE.md) and
+  the golden environments; `scripts/refresh_assembly_golden.py [--check]`.
+- `hyperobjects_lexicon.capability_profile_problems`.
+- MADFAM templates `assembly-document`, `assembly-mates`, `assembly-placement`,
+  `capability-description`; IDTA template `capability-description` (02020-1-0).
+
+#### Changed
+
+- **Continuous-symmetry closing mates are checked** (P4-ASM2 finding 3b): when both
+  frames declare an `x_axis`, the stated `angle_deg` must agree with the realised angle
+  within 0.5° (the x-axis residual, measured on the full circle). Before, any angle
+  passed on a symmetry-0 cycle. Without an `x_axis` a closing mate warns
+  `angle-unchecked`. Stricter: an assembly that stated a wrong closing angle now fails.
+- **`capability_profile.process` is a list** (P4-ASM2 finding 5): the
+  `fabrication-capabilities` vocabulary types `process` as `array` of `processes` keys,
+  the assembly schema refuses a bare string, and step 1 of `assembly check` checks the
+  whole profile against the vocabulary (`capability` findings).
+- **The P4-STD lexicon terms are attached** (that lane's deviation 3): `SizeKey` /
+  `SizeKeyMap` → `interface-size-key`, `Frame` → `interface-frame`, `Polarity` →
+  `interface-polarity`, `Symmetry` → `interface-symmetry`, a parameter's `Unit` →
+  `parameter-unit`. Every cartridge environment gains these semanticIds and their
+  ConceptDescriptions.
+- A checkbox default written as `0`/`1` also projects as `DefaultAsWritten` (integer), so
+  the GOC-1 identity survives a read-back (`custom-msh.stack_along_y` was the one case in
+  the commons).
+- `CommonsManifestResolver` details carry the produced parts and the manifest
+  `requirements` (informative, never hashed).
+- `standard_part_id` accepts a catalog key as well as an interface-sizes key.
+- Package 0.5.0; `hyperobjects_aas` 0.2.0.
+
+#### Documented, not built
+
+- Butt joints (an extrusion end against a face) have no mate and are invisible to the
+  mating rule (P4-ASM2 finding 3a); only the `--collision` stub or a planar end-face
+  interface would catch them (docs/ASSEMBLIES.md, "Limits in v1").
+
 ### FPV camera chain: side plates, camera faces, two size keys (ASM-1 v1.1 follow-up)
 
 Additive catalog and vocabulary data for assembly B (the 5-inch FPV quad); no grammar,

@@ -1,6 +1,7 @@
 """The ``aas`` subcommand, shared by both console scripts.
 
-    y4d-spec aas build <cartridge-dir> [...] [--commons solid|soft] [--out F | --out-dir D]
+    y4d-spec aas build <cartridge-dir | assembly-dir | assembly.json> [...] [--commons solid|soft]
+                       [--commons-dir DIR] [--standard-parts DIR] [--out F | --out-dir D]
     y4d-spec aas build-material <material.json> [...] [--out F | --out-dir D]
     y4d-spec aas check <env.json> [...] [--basyx auto|require|off]
 
@@ -9,6 +10,15 @@ writes canonical JSON (GOC-1 §3.1): the same input gives byte-identical output.
 environment it builds is also checked (schema + MADFAM rules) before it is written, and
 the conformance decision of every submodel is printed, so a build that would publish an
 invalid or over-claiming environment fails here, visibly.
+
+An input that is an assembly (a directory holding ``assembly.json``, or that file itself)
+is checked by the keystone validator first (ASM-1 §3) and projected only if it passes
+(ASM-1 §5): its cartridges are read from ``--commons-dir`` (default: the commons root two
+levels above ``assemblies/<slug>/``) and its standard parts from ``--standard-parts``
+(default: the catalog bundled with this package). A failing assembly is a check error,
+printed with the validator's findings. ``aas check`` reads an assembly environment like
+any other, plus the assembly rules (its document decodes, validates and states the
+shell's digest).
 
 Exit codes: 0 every file built/checked clean; 1 a check error; 2 a usage or read error.
 With a single input and no ``--out``/``--out-dir``, the JSON goes to stdout and every
@@ -38,6 +48,12 @@ def add_aas_parser(sub, prog: str, default_commons: str) -> None:
     b.add_argument("cartridges", nargs="+", help="cartridge director(ies) with a project.json")
     b.add_argument("--commons", choices=("solid", "soft"), default=default_commons,
                    help=f"which commons the cartridges belong to (default {default_commons})")
+    b.add_argument("--commons-dir", metavar="DIR",
+                   help="assemblies only: the solid commons checkout holding the cartridges "
+                        "(default: two levels above assemblies/<slug>/)")
+    b.add_argument("--standard-parts", metavar="DIR",
+                   help="assemblies only: a standard-parts directory (default: the bundled "
+                        "catalog)")
     _add_outputs(b)
 
     m = aas_sub.add_parser("build-material", help="one AAS Environment per material card")
@@ -84,6 +100,13 @@ def _build(args, prog: str, inputs: list[str], make, noun: str) -> int:
     for item in inputs:
         try:
             slug, env, conformance = make(item)
+        except _AssemblyFailed as exc:
+            for finding in exc.findings:
+                _report(f"  FAIL {finding}", to_stderr)
+            _report(f"  ERROR {item}: the assembly did not pass its check; nothing projected",
+                    to_stderr)
+            errors += 1
+            continue
         except (OSError, ValueError) as exc:
             _report(f"  ERROR {item}: cannot build — {exc}", to_stderr)
             read_errors += 1
@@ -111,15 +134,57 @@ def _build(args, prog: str, inputs: list[str], make, noun: str) -> int:
     return 1 if errors else 0
 
 
-def _make_cartridge(commons: str):
+class _AssemblyFailed(Exception):
+    """An assembly input failed the keystone validator: a check error (exit 1)."""
+
+    def __init__(self, findings):
+        super().__init__("the assembly did not pass its check")
+        self.findings = list(findings)
+
+
+def _assembly_file(path: Path) -> Path | None:
+    if path.is_dir() and (path / "assembly.json").is_file():
+        return path / "assembly.json"
+    if path.is_file() and path.suffix == ".json" and path.name != "project.json":
+        return path
+    return None
+
+
+def _make_assembly(file: Path, args):
+    from y4d_spec.assembly import CompositeResolver, validate_assembly
+
+    from .assembly import AssemblyProjectionError, project_assembly
+    from .common import build_environment
+    from .resolver import bundled_standard_parts_dir
+
+    doc = json.loads(file.read_text(encoding="utf-8"))
+    commons = Path(args.commons_dir) if args.commons_dir else file.resolve().parent.parent.parent
+    parts = Path(args.standard_parts) if args.standard_parts else Path(bundled_standard_parts_dir())
+    for option, value in (("--commons-dir", commons), ("--standard-parts", parts)):
+        if not value.is_dir():
+            raise ValueError(f"{option} {value}: not a directory")
+    report = validate_assembly(doc, CompositeResolver.for_directories(commons, parts))
+    if not report.ok:
+        raise _AssemblyFailed(report.errors)
+    try:
+        proj = project_assembly(doc, report)
+    except AssemblyProjectionError as exc:
+        raise ValueError(f"{file}: {exc}") from None
+    return proj.slug, build_environment(proj), proj.conformance
+
+
+def _make_cartridge(commons: str, args=None):
     def make(path: str):
         from .common import build_environment
         from .soft import project_soft
         from .solid import project_solid
 
         root = Path(path)
+        assembly = _assembly_file(root) if args is not None else None
+        if assembly is not None:
+            return _make_assembly(assembly, args)
         if not (root / "project.json").is_file():
-            raise ValueError(f"no project.json in {root}")
+            raise ValueError(f"no project.json (nor assembly.json) in {root}")
         proj = (project_solid if commons == "solid" else project_soft)(root)
         return proj.slug, build_environment(proj), proj.conformance
     return make
@@ -161,7 +226,7 @@ def _check(args, prog: str) -> int:
 
 def run_aas(args, prog: str) -> int:
     if args.aas_cmd == "build":
-        return _build(args, prog, args.cartridges, _make_cartridge(args.commons), "build")
+        return _build(args, prog, args.cartridges, _make_cartridge(args.commons, args), "build")
     if args.aas_cmd == "build-material":
         return _build(args, prog, args.cards, _make_material, "build-material")
     if args.aas_cmd == "check":

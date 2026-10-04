@@ -102,7 +102,14 @@ def test_mating_interfaces_carry_the_sem1_fields_when_present():
     assert semantic(child(face, "GeometryType")) == "https://id.madfam.io/concept/bolt-pattern"
     assert child(face, "Polarity")["value"] == "female"
     assert child(face, "Symmetry") | {} == {
-        "modelType": "Property", "idShort": "Symmetry", "valueType": "xs:integer", "value": "4"}
+        "modelType": "Property", "idShort": "Symmetry", "valueType": "xs:integer", "value": "4",
+        "semanticId": {"type": "ExternalReference", "keys": [
+            {"type": "GlobalReference", "value": "https://id.madfam.io/concept/interface-symmetry"}]}}
+    # The P4-STD terms are attached (deviation 3 of that lane, closed by P4-GRAPH).
+    concept = "https://id.madfam.io/concept/"
+    assert semantic(child(face, "Polarity")) == concept + "interface-polarity"
+    assert semantic(child(face, "Frame")) == concept + "interface-frame"
+    assert semantic(child(face, "SizeKeyMap")) == concept + "interface-size-key"
     assert child(face, "SizeKeyParameter")["value"] == "nema"
     mapping = child(face, "SizeKeyMap")["value"]
     assert [(child(m, "ParameterValue")["value"], child(m, "SizeKey")["value"]) for m in mapping] \
@@ -123,6 +130,7 @@ def test_mating_interfaces_carry_the_sem1_fields_when_present():
         "https://id.madfam.io/asset/solid/nema-damper"]
     rail = child(mi, "rail_mount")
     assert child(rail, "SizeKey")["value"] == "tslot-2020-6mm"
+    assert semantic(child(rail, "SizeKey")) == concept + "interface-size-key"
     # a parameter id the manifest does not declare is reported, not dropped
     assert [p["value"] for p in child(rail, "UnresolvedParameters")["value"]] == ["ghost_param"]
 

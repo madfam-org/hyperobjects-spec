@@ -55,14 +55,16 @@ __all__ = [
 ERROR, WARNING = "error", "warning"
 
 _SLUG = r"[a-z0-9][a-z0-9_-]*"
-_SHELL = re.compile(rf"^{re.escape(BASE)}/aas/(solid|soft|material)/({_SLUG})/([0-9a-f]{{16}})$")
-_ASSET = re.compile(rf"^{re.escape(BASE)}/asset/(solid|soft|material)/({_SLUG})$")
+_KINDS = "solid|soft|material|assembly"
+_SHELL = re.compile(rf"^{re.escape(BASE)}/aas/({_KINDS})/({_SLUG})/([0-9a-f]{{16}})$")
+_ASSET = re.compile(rf"^{re.escape(BASE)}/asset/({_KINDS})/({_SLUG})$")
 _SUBMODEL = re.compile(
-    rf"^{re.escape(BASE)}/sm/(solid|soft|material)/({_SLUG})/([0-9a-f]{{16}})/([^/]+)$"
+    rf"^{re.escape(BASE)}/sm/({_KINDS})/({_SLUG})/([0-9a-f]{{16}})/([^/]+)$"
 )
 _CONCEPT_PREFIX = f"{BASE}/concept/"
 _TEMPLATE_PREFIX = f"{BASE}/smt/"
-_DIGEST_KEY = {"solid": "tree_sha256", "soft": "tree_sha256", "material": "content_sha256"}
+_DIGEST_KEY = {"solid": "tree_sha256", "soft": "tree_sha256", "material": "content_sha256",
+               "assembly": "assembly_digest"}
 _IDTA_BY_ID = {t.submodel_semantic_id: t for t in IDTA.values()}
 _MADFAM_IDS = {t.id for t in MADFAM.values()}
 _MAX_SCHEMA_FINDINGS = 50
@@ -270,7 +272,8 @@ def _id_findings(env: dict) -> tuple[list[Finding], dict | None]:
     m = _SHELL.match(shell.get("id") or "")
     if not m:
         out.append(Finding(ERROR, "id-scheme", "shell", f"shell id {shell.get('id')!r} is "
-                           "not https://id.madfam.io/aas/{kind}/{slug}/{16 hex}"))
+                           "not https://id.madfam.io/aas/{kind}/{slug}/{16 hex} "
+                           f"(kind: {_KINDS.replace('|', ', ')})"))
         return out, None
     kind, slug, rev = m.groups()
     info = shell.get("assetInformation") or {}
@@ -307,7 +310,40 @@ def _id_findings(env: dict) -> tuple[list[Finding], dict | None]:
     for extra in sorted(present - referenced):
         out.append(Finding(ERROR, "orphan", "submodels",
                            f"submodel {extra!r} is not referenced by the shell"))
+    if kind == "assembly":
+        out += _assembly_findings(env, slug, digest)
     return out, shell
+
+
+def _assembly_findings(env: dict, slug: str, digest: object) -> list[Finding]:
+    """An assembly shell (ASM-1 §5) carries its document: it must decode, validate against
+    ``assembly.schema.json``, name this shell's slug, and state the shell's digest. Whether
+    the digest is TRUE needs the components; ``y4d-spec assembly check`` (or a service's
+    resolver) re-derives it."""
+    from jsonschema import Draft202012Validator
+
+    from hyperobjects_schemas import load
+
+    from .assembly import AssemblyProjectionError, assembly_document_from_environment
+
+    where = "submodel AssemblyDocument"
+    try:
+        doc = assembly_document_from_environment(env)
+    except AssemblyProjectionError as exc:
+        return [Finding(ERROR, "assembly", where, str(exc))]
+    out = [Finding(ERROR, "assembly", where, f"document: {e.message[:200]}")
+           for e in Draft202012Validator(load("assembly")).iter_errors(doc)][:10]
+    if doc.get("slug") != slug:
+        out.append(Finding(ERROR, "assembly", where,
+                           f"document slug {doc.get('slug')!r} is not the shell's {slug!r}"))
+    sm = next((s for s in env.get("submodels") or [] if s.get("idShort") == "AssemblyDocument"),
+              {})
+    stated = next((e.get("value") for e in sm.get("submodelElements") or []
+                   if e.get("idShort") == "AssemblyDigest"), None)
+    if stated != digest:
+        out.append(Finding(ERROR, "assembly", where,
+                           "AssemblyDigest does not equal the shell's assembly_digest"))
+    return out
 
 
 def _conformance_findings(env: dict) -> list[Finding]:

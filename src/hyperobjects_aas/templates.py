@@ -61,6 +61,7 @@ class IdtaTemplate:
 _NP = "0112/2///61987#"
 _HS = "https://admin-shell.io/idta/HierarchicalStructures/"
 _MAT = "https://admin-shell.io/idta/BackendSpecificMaterialInformation/"
+_CAP = "https://admin-shell.io/idta/CapabilityDescription/"
 
 IDTA: dict[str, IdtaTemplate] = {
     t.key: t
@@ -145,6 +146,35 @@ IDTA: dict[str, IdtaTemplate] = {
                 "Description": _MAT + "MaterialSystemProperties/Description/1/0",
             },
         ),
+        IdtaTemplate(
+            key="capability-description",
+            title="IDTA 02020-1-0 Capability Description",
+            source_path="published/Capability Description/1/0/"
+            "IDTA 02020_Template_Capability_Description.json",
+            submodel_semantic_id=(
+                "https://admin-shell.io/idta/SubmodelTemplate/CapabilityDescription/1/0"
+            ),
+            version=("1", "0"),
+            mandatory=(
+                (_CAP + "CapabilitySet/1/0",),
+                (_CAP + "CapabilitySet/1/0", _CAP + "CapabilityContainer/1/0"),
+                (_CAP + "CapabilitySet/1/0", _CAP + "CapabilityContainer/1/0",
+                 _CAP + "Capability/1/0"),
+            ),
+            elements={
+                "CapabilitySet": _CAP + "CapabilitySet/1/0",
+                "CapabilityContainer": _CAP + "CapabilityContainer/1/0",
+                "Capability": _CAP + "Capability/1/0",
+                "CapabilityComment": _CAP + "CapabilityComment/1/0",
+                "PropertySet": _CAP + "PropertySet/1/0",
+                "PropertyContainer": _CAP + "PropertyContainer/1/0",
+                "PropertyComment": _CAP + "PropertyComment/1/0",
+                "PropertyProperty": "https://admin-shell.io/idta/CapabilityPropertyType/Property/1/0",
+                "PropertySubmodelList": (
+                    "https://admin-shell.io/idta/CapabilityPropertyType/SubmodelElementList/1/0"
+                ),
+            },
+        ),
     )
 }
 
@@ -201,8 +231,10 @@ MADFAM: dict[str, MadfamTemplate] = {
            "clave de tamaño, polaridad, simetría, marco y los parámetros que la dimensionan."),
         _t("bill-of-materials", "Bill of materials", "Lista de materiales",
            "Nomenclature", "Lista de materiais",
-           "The parts of each multi-part mode and the purchased hardware of a design.",
-           "Las piezas de cada modo de varias piezas y la ferretería comprada de un diseño."),
+           "The parts of each multi-part mode and the purchased hardware of a design; for an "
+           "assembly, one node per component.",
+           "Las piezas de cada modo de varias piezas y la ferretería comprada de un diseño; "
+           "en un ensamble, un nodo por componente."),
         _t("pattern-provision", "Pattern provision", "Provisión de patrón",
            "Mise à disposition du patron", "Provisão de molde",
            "How the flat pattern of a parametric garment is produced on demand: modes, "
@@ -224,6 +256,31 @@ MADFAM: dict[str, MadfamTemplate] = {
            "the parameter mapping.",
            "Relaciones de un avío de prenda con el activo sólido que lo realiza, con el "
            "mapeo de parámetros."),
+        _t("assembly-document", "Assembly document", "Documento de ensamble",
+           "Document d'assemblage", "Documento de montagem",
+           "The authored assembly document (ASM-1 §2) exactly as checked, its format and the "
+           "canonical digest that names this assembly revision.",
+           "El documento de ensamble (ASM-1 §2) tal como se verificó, su formato y el "
+           "resumen canónico que nombra esta revisión del ensamble."),
+        _t("assembly-mates", "Assembly mates", "Acoplamientos del ensamble",
+           "Accouplements de l'assemblage", "Acoplamentos da montagem",
+           "Every mate of an assembly between two component interfaces, with its stated "
+           "rotation, the closure residuals the keystone measured and the verdict.",
+           "Cada acoplamiento de un ensamble entre dos interfaces de componentes, con su "
+           "rotación declarada, los residuos de cierre que midió la piedra angular y el "
+           "veredicto."),
+        _t("assembly-placement", "Assembly placement", "Colocación del ensamble",
+           "Placement de l'assemblage", "Posicionamento da montagem",
+           "The world transform of each component of an assembly: a 4 × 4 matrix from the "
+           "component's model frame to the assembly's, in millimetres.",
+           "La transformación al mundo de cada componente de un ensamble: una matriz 4 × 4 "
+           "del marco de modelo del componente al del ensamble, en milímetros."),
+        _t("capability-description", "Capability description", "Descripción de capacidades",
+           "Description des capacités", "Descrição de capacidades",
+           "What a producer machine can fabricate, keyed by the fabrication-capabilities "
+           "vocabulary.",
+           "Lo que una máquina productora puede fabricar, con las claves del vocabulario "
+           "fabrication-capabilities."),
         _t("material-data", "Material data", "Datos de material", "Données matériau",
            "Dados de material",
            "A material card: identity, classification (EMMO class) and the card's "
