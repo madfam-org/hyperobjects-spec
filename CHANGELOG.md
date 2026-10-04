@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### FPV camera chain: side plates, camera faces, two size keys (ASM-1 v1.1 follow-up)
+
+Additive catalog and vocabulary data for assembly B (the 5-inch FPV quad); no grammar,
+gate or validator change.
+
+#### Added
+
+- **`fpv-frame-5in-x-225`**: `camera_plate_left` and `camera_plate_right`, the side
+  plates' inner faces on the camera side-screw axis (male: the plate carries the screw
+  head; symmetry 0, so `angle_deg` is the camera tilt), and the parameter
+  `camera_bay_width_mm` (the cited 19–20 mm; default 19).
+- **`fpv-camera-micro-19mm`**: planar faces a printed part can mate:
+  `side_face_left` / `side_face_right` (female, at the cited half-width), and
+  `front_face` / `back_face` (male, symmetry 4). Where the side screws sit along the
+  20 mm body is not published, so it is the convention parameter
+  `screw_axis_to_front_mm` (default 10), not a fact.
+- **Vocabulary supplement `interface-sizes.fpv.json`**: `fpv-camera-mini-21mm` (the mini
+  class, cited at 21.8–22 mm; Pyrodrone, Foxeer) and `u-fl-cable-exit` (a coax route for a
+  Hirose U.FL-terminated lead, Ø0.81–Ø1.37 cable, 2.5 mm max mated height; Hirose
+  catalogue). Both cover options of commons selects (`fpv-camera-cage.cam_size`,
+  `fpv-antenna-mount.connector`) that had no key.
+- **`tests/test_catalog_camera_chain.py`**: the plates → camera cycle closes with the
+  existing `camera_bay ↔ side_mount` mate at any tilt; a 20 mm bay seats a 19 mm body
+  on one plate only; a cradle framed like `fpv-camera-cage`'s floor closes with the camera,
+  and lens-first (`front_face`) is the face that makes it look UP by the tilt; a mini
+  cradle refuses a micro camera; a cage wider than the bay (23.8 mm at the cage's
+  defaults) cannot close on both plates.
+
 ### Frame grammar v1.1, gate radius, catalog and vocabulary (ASM-1 v1.1, package 0.4.0)
 
 ASM-1 becomes v1.1.0. Every change is additive: every v1.0 manifest and assembly
