@@ -16,6 +16,11 @@ driven joint's limits, and the Halton samples — as canonical fixed-format stri
   a cycle, an X carriage, a follower pulley and a closed belt loop), resolved against the
   bundled catalog plus the fixture's own test belt.
 
+Beside each pose file sits its compiled kinematic model, ``<name>.kinematics.json``
+(``hyperobjects.assembly-kinematics``, ``kinematic_model``): the root, the edges with their
+frame matrices, the joints and the machine bindings. A viewer poses from the model and
+proves parity against the pose file, so the two are written, and checked, together.
+
 A moved pose is never "fixed" by refreshing alone: review the diff — every number in it is
 a placement some viewer reproduces.
 """
@@ -27,7 +32,12 @@ import sys
 from pathlib import Path
 
 from hyperobjects_aas.resolver import bundled_standard_parts_dir
-from y4d_spec.assembly import CompositeResolver, golden_poses_json, validate_assembly
+from y4d_spec.assembly import (
+    CompositeResolver,
+    golden_poses_json,
+    kinematic_model_json,
+    validate_assembly,
+)
 
 REPO = Path(__file__).resolve().parent.parent
 GOLDEN = REPO / "tests" / "fixtures" / "assembly-golden"
@@ -53,32 +63,45 @@ def targets() -> list[tuple[Path, Path, CompositeResolver]]:
     return out
 
 
-def build(document: Path, resolver: CompositeResolver) -> str:
+def kinematics_path(golden: Path) -> Path:
+    """The kinematic model that sits beside a golden pose file."""
+    return golden.with_name(golden.name.removesuffix(".poses.json") + ".kinematics.json")
+
+
+def build_all(document: Path, resolver: CompositeResolver) -> tuple[str, str]:
+    """(the pose file's text, the kinematic model's text), from one validation."""
     doc = json.loads(document.read_text("utf-8"))
     report = validate_assembly(doc, resolver)
     if not report.ok:
         raise SystemExit(f"{document}: the assembly no longer passes: "
                          + "; ".join(map(str, report.errors)))
-    return golden_poses_json(doc, report)
+    return golden_poses_json(doc, report), kinematic_model_json(doc, report)
+
+
+def build(document: Path, resolver: CompositeResolver) -> str:
+    return build_all(document, resolver)[0]
 
 
 def main(argv: list[str]) -> int:
     check = "--check" in argv
     drifted = 0
+    files = 0
     for document, golden, resolver in targets():
-        text = build(document, resolver)
-        if golden.is_file() and golden.read_text("utf-8") == text:
-            continue
-        drifted += 1
-        rel = golden.relative_to(REPO)
-        if check:
-            print(f"drift: {rel} differs from the reference forward kinematics; run "
-                  "scripts/refresh_pose_golden.py and review the diff")
-        else:
-            golden.parent.mkdir(parents=True, exist_ok=True)
-            golden.write_text(text, "utf-8")
-            print(f"wrote {rel}")
-    print(f"pose golden: files={len(targets())} drifted={drifted}")
+        poses, model = build_all(document, resolver)
+        for path, text in ((golden, poses), (kinematics_path(golden), model)):
+            files += 1
+            if path.is_file() and path.read_text("utf-8") == text:
+                continue
+            drifted += 1
+            rel = path.relative_to(REPO)
+            if check:
+                print(f"drift: {rel} differs from the reference forward kinematics; run "
+                      "scripts/refresh_pose_golden.py and review the diff")
+            else:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text, "utf-8")
+                print(f"wrote {rel}")
+    print(f"pose golden: files={files} drifted={drifted}")
     return 1 if check and drifted else 0
 
 

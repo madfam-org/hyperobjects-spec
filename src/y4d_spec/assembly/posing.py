@@ -44,12 +44,16 @@ from .transforms import Matrix
 from .validate import AssemblyReport, KinematicModel, validate_assembly
 
 __all__ = [
+    "KINEMATICS_FORMAT",
+    "KINEMATICS_FORMAT_VERSION",
     "POSES_FORMAT",
     "POSES_FORMAT_VERSION",
     "compile_kinematics",
     "format_number",
     "golden_poses",
     "golden_poses_json",
+    "kinematic_model",
+    "kinematic_model_json",
     "pose",
     "pose_from_axes",
 ]
@@ -151,3 +155,107 @@ def golden_poses_json(document: Mapping, report: AssemblyReport) -> str:
     final newline."""
     return json.dumps(golden_poses(document, report), indent=1, sort_keys=True,
                       ensure_ascii=False) + "\n"
+
+
+# ── the compiled kinematic model, a consumable export (ASM-1 §9) ───────────────
+KINEMATICS_FORMAT = "hyperobjects.assembly-kinematics"
+KINEMATICS_FORMAT_VERSION = "1.0.0"
+KINEMATICS_NUMBER_FORMAT = ("JSON numbers: the shortest decimal that round-trips the binary64 "
+                            "value (Python repr), so every IEEE-754 parser reads the same "
+                            "double")
+#: How a consumer places the components, stated in the file so that it travels with the
+#: numbers. It is `validate._place`, word for word.
+KINEMATICS_PLACEMENT = (
+    "Breadth-first from `root` (placed at the identity). Pop a component; walk `edges` in "
+    "order; skip an edge that does not touch it or whose joint is passive. With "
+    "M = Flip·Rz(theta_deg) (Flip: a turn of pi about x) and J = J(q) of the edge's joint "
+    "(q = its value, 0 when absent; prismatic: q mm along the axis; revolute: q degrees "
+    "about it, right-handed): if the popped component is side a and b is unplaced, "
+    "T_b = T_a·H_a·J·M·H_b^-1 (no J for a rigid edge); if it is side b and a is unplaced, "
+    "T_a = T_b·H_b·M·J^-1·H_a^-1. Enqueue the newly placed component. H_a and H_b already "
+    "carry any mate offset. Joint values: a driven joint takes its input (else `home`); a "
+    "follower is offset + sum(scale·leader), leaders first; a machine axis gives "
+    "joint = scale·axis + offset.")
+
+
+def _geometry_export(resolved, component: Mapping) -> dict | None:
+    """What a viewer can draw for a component: an evaluated envelope (numbers in the
+    component's model frame), a cartridge to render (no local path), or None."""
+    geometry = getattr(resolved, "geometry", None)
+    if not geometry:
+        return None
+    if geometry.get("kind") == "envelope":
+        return {"kind": "envelope", "solids": geometry["solids"]}
+    if geometry.get("kind") == "cartridge":
+        source = component.get("source") or {}
+        return {"kind": "cartridge", "commons": source.get("commons"),
+                "slug": source.get("slug"), "mode": source.get("mode"),
+                "instance_id": (resolved.identity or {}).get("instance_id"),
+                "parts": list(geometry.get("parts") or []),
+                "parameters": dict(geometry.get("parameters") or {})}
+    return None
+
+
+def kinematic_model(document: Mapping, report: AssemblyReport) -> dict:
+    """The compiled kinematic model of a passing assembly, as plain data: everything
+    `KinematicModel.place` uses (the root, the edges in order with their frame matrices
+    and mate angles, the joints) plus the machine bindings and each component's drawable
+    geometry. A viewer that applies `placement` to it reproduces `golden_poses`.
+
+    `hyperobjects.assembly-kinematics` 1.0.0: matrices are row-major 4×4 flattened to 16
+    numbers; every number is a JSON number (`KINEMATICS_NUMBER_FORMAT`)."""
+    from .kinematics import machine_bindings  # noqa: PLC0415 — keep the import list short
+    from .validate import _frames  # noqa: PLC0415 — the same frames `_place` uses
+
+    model = report.kinematics
+    if not report.ok or model is None:
+        raise PoseError("a kinematic model is written only for an assembly that passes")
+    edges = []
+    for mate, check, ia, ib, joint in model.edges:
+        h_a, h_b = _frames(mate, ia, ib)
+        edges.append({
+            "mate": mate["id"], "a": mate["a"]["component"], "b": mate["b"]["component"],
+            "theta_deg": check.theta_deg,
+            "h_a": [v for row in h_a for v in row], "h_b": [v for row in h_b for v in row],
+            "joint": None if joint is None else joint.id,
+        })
+    joints = [{
+        "id": j.id, "mate": j.mate_id, "type": j.type, "axis": j.axis, "role": j.role,
+        "unit": j.unit, "parent": j.parent, "child": j.child,
+        "limits": None if j.limits is None else list(j.limits), "home": j.home,
+        "follows": None if not j.follows else {
+            "terms": [{"joint": leader, "scale": scale} for leader, scale in j.follows],
+            "offset": j.follow_offset},
+    } for j in model.joints]
+    machine = document.get("machine")
+    components = []
+    for component in document["components"]:
+        resolved = report.components[component["id"]]
+        components.append({"id": component["id"], "source_type": resolved.source_type,
+                           "label": resolved.label,
+                           "geometry": _geometry_export(resolved, component)})
+    return {
+        "format": KINEMATICS_FORMAT,
+        "format_version": KINEMATICS_FORMAT_VERSION,
+        "assembly": document.get("slug"),
+        "assembly_digest": report.digest,
+        "matrix_layout": "row-major 4x4 flattened to 16, column vectors, mm",
+        "number_format": KINEMATICS_NUMBER_FORMAT,
+        "placement": KINEMATICS_PLACEMENT,
+        "root": model.root,
+        "components": components,
+        "edges": edges,
+        "joints": joints,
+        "machine": None if machine is None else {
+            "kinematics": machine.get("kinematics"),
+            "axes": [{"axis": b["axis"], "joint": b["joint"], "scale": b["scale"],
+                      "offset": b["offset"]} for b in machine_bindings(document)],
+        },
+    }
+
+
+def kinematic_model_json(document: Mapping, report: AssemblyReport) -> str:
+    """`kinematic_model` as the file's exact text: sorted keys, one-space indent, UTF-8,
+    a final newline (the same layout as the golden pose files)."""
+    return json.dumps(kinematic_model(document, report), indent=1, sort_keys=True,
+                      ensure_ascii=False, allow_nan=False) + "\n"

@@ -14,6 +14,7 @@ y4d-spec assembly check assembly.json --commons DIR --collision
 y4d-spec assembly check assembly.json --standard-parts A --standard-parts B   # tried in order
 y4d-spec assembly check assembly.json --commons DIR --pose-samples 64         # ASM-1 §9 sweep
 y4d-spec assembly poses assembly.json --commons DIR --out a.poses.json        # golden poses
+y4d-spec assembly kinematics assembly.json --commons DIR --out a.kinematics.json  # compiled model
 ```
 
 The exit code is 0 when there are no errors, 1 when there is any error, and 2 when the
@@ -561,6 +562,52 @@ The goldens are written by `scripts/refresh_pose_golden.py`; `--check` is a CI s
 - `tests/fixtures/assembly-golden/poses/` (A and B, rigid: home only);
 - `tests/fixtures/kinematics/kinematic-gantry.poses.json`, a gantry fixture with a passive
   carriage closing a cycle, a follower pulley and a closed belt loop.
+
+### The compiled kinematic model (a consumable export)
+
+A viewer cannot pose from the golden pose file alone: placement needs every mate's frame
+matrices, and those come from resolving the components (catalog, cartridge manifests,
+interface expressions). Re-implementing that resolution in a viewer would be a second
+copy of the keystone. So the keystone exports the compiled model instead:
+`y4d-spec assembly kinematics <assembly.json> --out F` (or `kinematic_model_json`) writes
+`hyperobjects.assembly-kinematics` 1.0.0:
+
+```jsonc
+{"format": "hyperobjects.assembly-kinematics", "format_version": "1.0.0",
+ "assembly": "<slug>", "assembly_digest": "<sha256>",
+ "matrix_layout": "row-major 4x4 flattened to 16, column vectors, mm",
+ "number_format": "JSON numbers: the shortest decimal that round-trips …",
+ "placement": "<the placement rule, stated in words>",
+ "root": "u0",
+ "components": [{"id", "source_type", "label",
+                 "geometry": {"kind": "envelope", "solids": […]}
+                           | {"kind": "cartridge", "commons", "slug", "mode", "instance_id", "parts", "parameters"}
+                           | null}],
+ "edges": [{"mate", "a", "b", "theta_deg", "h_a": [16], "h_b": [16], "joint": "<id>" | null}],
+ "joints": [{"id", "mate", "type", "axis", "role", "unit", "parent", "child", "limits", "home",
+             "follows": {"terms": [{"joint", "scale"}], "offset"} | null}],
+ "machine": {"kinematics": "corexy", "axes": [{"axis", "joint", "scale", "offset"}]} | null}
+```
+
+- **`edges`** are `KinematicModel.edges` in order: the mates that passed, each with
+  `H(F_a)` and `H(F_b)` after any mate `offset`, and the mate angle `theta_deg`.
+- **`placement`** is `validate._place` in words: breadth-first from the root, edges in
+  order, a passive joint's edge skipped; `T_b = T_a·H_a·J(q)·M·H_b⁻¹` from side a,
+  `T_a = T_b·H_b·M·J(q)⁻¹·H_a⁻¹` from side b, with `M = Flip·Rz(θ)`.
+- **Numbers** are JSON numbers in their shortest round-trip form, so a JavaScript
+  `JSON.parse` reads exactly the doubles the keystone used.
+- **`geometry`** is what a viewer can draw: a standard part's or external design's
+  evaluated envelope (boxes and cylinders in the component's model frame, the same
+  solids `--collision` uses), or the cartridge to render (its GOC-1 `instance_id`), or
+  `null` when nothing is cited.
+
+`scripts/refresh_pose_golden.py` writes `<name>.kinematics.json` beside every
+`<name>.poses.json`, and `--check` guards both. `tests/test_assembly_kinematic_model.py`
+proves the export is complete: a consumer reading only the model file reproduces every
+string of every golden pose file. To match the goldens to the last digit, a consumer in
+another language must also reproduce two Python details: `math.radians(x)` is
+`x * (π / 180)` with the constant computed once, and `sum()` of floats (CPython ≥ 3.12)
+is Neumaier-compensated, starting from the integer 0.
 
 ### Projection (projection version 2)
 

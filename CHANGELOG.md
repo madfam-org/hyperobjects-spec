@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The compiled kinematic model, a consumable export (ASM-1 §9, package 0.11.0, lane W4-P7VIEW)
+
+Phase 7 (D4): the viewer computes poses itself and proves parity with the keystone's
+golden pose files. Placement needs every mate's frame matrices, which only the keystone's
+resolution produces, so the keystone now exports the compiled model.
+
+#### Added
+
+- `kinematic_model` / `kinematic_model_json` (`y4d_spec.assembly`) and
+  `y4d-spec assembly kinematics <assembly.json> [--out F]`: the format
+  `hyperobjects.assembly-kinematics` 1.0.0. It holds the root, the edges in order with
+  `H(F_a)` and `H(F_b)` (after mate offsets) and `theta_deg`, the joints with roles,
+  limits, home and follower terms, the machine bindings, and each component's drawable
+  geometry (an evaluated envelope, the cartridge to render, or null). The placement rule
+  is stated in the file.
+- `scripts/refresh_pose_golden.py` writes `<name>.kinematics.json` beside each pose file
+  (A, B, the kinematic gantry), and `--check` guards both.
+- `tests/test_assembly_kinematic_model.py`: a consumer that reads only the model file
+  reproduces every string of every golden pose file.
+
+The pose files and the projection do not move: `pose golden: files=6 drifted=0` and
+`projection golden: files=18 projection_version=3 drifted=0 immutable_drift=0`.
+
 ### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
 
 BREAKING for id consumers: every shell and submodel id is now `…/p3`. No store is live yet

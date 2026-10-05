@@ -13,6 +13,7 @@ sweep (`kinematics`, `paths`), and the reference forward kinematics:
     pose(doc, resolver, {"x_carriage": 25.0})        # {component id: 4×4}
     pose_from_axes(doc, resolver, {"x": 25.0})       # through machine.axes
     golden_poses(doc, report)                        # the parity file for viewers
+    kinematic_model(doc, report)                     # what a viewer poses from
 
 `validate_assembly` is a pure function of the document and a `ComponentResolver`; it
 reads no file itself. The AAS projection and the asset-shells service call it with a
@@ -36,6 +37,8 @@ from .posing import (
     format_number,
     golden_poses,
     golden_poses_json,
+    kinematic_model,
+    kinematic_model_json,
     pose,
     pose_from_axes,
 )
@@ -102,6 +105,8 @@ __all__ = [
     "golden_poses_json",
     "joint_values",
     "joints_of",
+    "kinematic_model",
+    "kinematic_model_json",
     "parameter_value_problems",
     "pose",
     "pose_from_axes",

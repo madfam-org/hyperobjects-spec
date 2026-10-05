@@ -192,7 +192,10 @@ def _cmd_assembly_check(args) -> int:
 
 
 def _cmd_assembly_poses(args) -> int:
-    from .posing import golden_poses_json
+    from .posing import golden_poses_json, kinematic_model_json
+
+    kinematics = getattr(args, "assembly_cmd", "poses") == "kinematics"
+    command = "kinematics" if kinematics else "poses"
 
     path = Path(args.assembly)
     try:
@@ -210,12 +213,15 @@ def _cmd_assembly_poses(args) -> int:
     if not report.ok:
         for f in report.errors:
             print(f"  FAIL {f}")
-        print(f"y4d-spec assembly poses: {path}: the assembly does not pass; no poses written")
+        print(f"y4d-spec assembly {command}: {path}: the assembly does not pass; nothing "
+              "written")
         return 1
-    text = golden_poses_json(doc, report)
+    text = (kinematic_model_json if kinematics else golden_poses_json)(doc, report)
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")
-        print(f"y4d-spec assembly poses: wrote {args.out} poses={len(report.poses)}")
+        counted = (f"joints={len(report.joints)}" if kinematics
+                   else f"poses={len(report.poses)}")
+        print(f"y4d-spec assembly {command}: wrote {args.out} {counted}")
     else:
         print(text, end="")
     return 0
@@ -275,3 +281,16 @@ def add_assembly_parser(sub, prog: str = "y4d-spec") -> None:
                          help=f"Halton samples (default {POSE_SAMPLES})")
     p_poses.add_argument("--out", metavar="FILE", help="write here instead of stdout")
     p_poses.set_defaults(func=_cmd_assembly_poses)
+
+    p_kin = asm_sub.add_parser(
+        "kinematics",
+        help="write the compiled kinematic model of a passing assembly (ASM-1 §9, "
+        "hyperobjects.assembly-kinematics): root, edges with their frame matrices, joints, "
+        "machine bindings and drawable geometry — what a viewer poses from",
+    )
+    p_kin.add_argument("assembly", help="the assembly.json")
+    p_kin.add_argument("--commons", metavar="DIR", help="the solid commons checkout")
+    p_kin.add_argument("--standard-parts", metavar="DIR", action="append",
+                       help="a directory of standard-part JSON entries (repeatable)")
+    p_kin.add_argument("--out", metavar="FILE", help="write here instead of stdout")
+    p_kin.set_defaults(func=_cmd_assembly_poses, pose_samples=0)
