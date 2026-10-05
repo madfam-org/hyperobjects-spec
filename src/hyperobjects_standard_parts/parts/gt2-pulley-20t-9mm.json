@@ -1,0 +1,180 @@
+{
+  "spec_version": 1,
+  "key": "gt2-pulley-20t-9mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 20-tooth pulley, 9 mm belt, 5 mm bore",
+    "es": "Polea GT2 de 20 dientes, banda de 9 mm, barreno de 5 mm",
+    "fr": "Poulie GT2 à 20 dents, courroie de 9 mm, alésage de 5 mm",
+    "pt": "Polia GT2 de 20 dentes, correia de 9 mm, furo de 5 mm"
+  },
+  "description": {
+    "en": "A flanged GT2 (2GT) timing pulley with 20 teeth for a 9 mm belt and a 5 mm set-screw bore. A commercial class: the tooth count, pitch, pitch diameter and bore are shared; the hub and flange dimensions are one maker's (MISUMI GPA, shape A). In a Voron 2.4-class Z drive it sits on the 5 mm output shaft and drives the 9 mm Z belt.",
+    "es": "Una polea síncrona GT2 (2GT) con pestañas, de 20 dientes para banda de 9 mm y barreno de 5 mm con prisioneros. Una clase comercial: el número de dientes, el paso, el diámetro primitivo y el barreno son comunes; las medidas del cubo y las pestañas son de un fabricante (MISUMI GPA, forma A). En un accionamiento Z de clase Voron 2.4 va en la flecha de salida de 5 mm y mueve la banda Z de 9 mm.",
+    "fr": "Une poulie crantée GT2 (2GT) à flasques, à 20 dents pour courroie de 9 mm et alésage de 5 mm à vis de pression. Une classe commerciale : le nombre de dents, le pas, le diamètre primitif et l'alésage sont communs ; les cotes du moyeu et des flasques sont celles d'un fabricant (MISUMI GPA, forme A). Dans un entraînement Z de classe Voron 2.4, elle est montée sur l'arbre de sortie de 5 mm et entraîne la courroie Z de 9 mm.",
+    "pt": "Uma polia sincronizada GT2 (2GT) com flanges, de 20 dentes para correia de 9 mm e furo de 5 mm com parafusos de fixação. Uma classe comercial: o número de dentes, o passo, o diâmetro primitivo e o furo são comuns; as medidas do cubo e das flanges são de um fabricante (MISUMI GPA, forma A). Num acionamento Z de classe Voron 2.4 vai no eixo de saída de 5 mm e move a correia Z de 9 mm."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 20-tooth timing pulley for 9 mm belt, 5 mm bore",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI High Torque Timing Pulleys, 2GT type (GPA□□GT2040 / GT2060 / GT2090), catalog page 1340 (2019 MX)",
+      "url": "https://mx.misumi-ec.com/en/pdf/fa/2019/2019_MX_1340.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "2GT, pitch 2.0 mm. Number of teeth vs P.D./O.D.: 16 teeth P.D. 10.19, O.D. 9.68; 20 teeth P.D. 12.73, O.D. 12.22. Belt width 6 mm (GPA□□GT2060): A 7.0, W 10.3, L 18.0; belt width 9 mm (GPA□□GT2090): A 10.0, W 13.3, L 21.0 (A shape: the hub, then the flanged toothed section W, 1.65 each side of A). Shaft bore 5 (H7) with M3 tapped holes and M3 x 3 set screws."
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 32 (Z Drives and Idlers, belt drive assembly): a GT2 20T 9 mm wide pulley on the 5x60 shaft, one set screw on the D cut; p. 111 (Z axis): the Z belt is GT2, 9 mm wide"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A, the hub end, on the bore axis. +z runs along the bore through the hub and then the flanged toothed section to end face B, the flange end, at z = 21 (MISUMI GPA, 9 mm belt, shape A: L 21, W 13.3). The belt's mid-plane is the middle of the toothed section, z = 14.35. +x is an arbitrary radial reference: the pulley is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 20,
+      "unit": "count",
+      "source": 0
+    },
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "pitch_diameter": {
+      "value": 12.73,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI P.D. for 20 teeth; 20 × 2 / π = 12.73"
+    },
+    "outside_diameter": {
+      "value": 12.22,
+      "unit": "mm",
+      "source": 0,
+      "note": "O.D., the tooth tips"
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "note": "the GPA□□GT2090 series"
+    },
+    "toothed_width": {
+      "value": 10.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI A"
+    },
+    "toothed_section_width": {
+      "value": 13.3,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI W: the toothed width plus 1.65 each side"
+    },
+    "overall_length": {
+      "value": 21.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI L"
+    },
+    "belt_midplane_from_face_a": {
+      "value": 14.35,
+      "unit": "mm",
+      "source": 0,
+      "note": "derived: L − W/2 (shape A is the hub, L − W = 7.7, then the toothed section W with the belt centred in it)"
+    },
+    "set_screw": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0,
+      "note": "M3 x 3 set screws for the 5 mm bore"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore at the hub end (face A)",
+        "es": "Barreno en el extremo del cubo (cara A)",
+        "fr": "Alésage côté moyeu (face A)",
+        "pt": "Furo no lado do cubo (face A)"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bore takes the shaft hub end first. Framed at face A (the hub end), normal −z out of that face, so a shaft framed where face A lands, its normal toward the pulley, puts the pulley beyond it. The bore carries the Z drive's shaft-hub key (z-drive-pulley-hub-5mm): a set-screw hub on a Ø5 D-cut shaft."
+    },
+    {
+      "id": "bore_b",
+      "label": {
+        "en": "Bore at the flange end (face B)",
+        "es": "Barreno en el extremo de la pestaña (cara B)",
+        "fr": "Alésage côté flasque (face B)",
+        "pt": "Furo no lado da flange (face B)"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          21
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 21, normal +z out of that face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Belt engagement (for ASM-1 §9 belt paths, lifted into belt_engagement when that block exists): pitch_diameter 12.73 mm, centre (0, 0, 14.35), axis (0, 0, 1); the mid-plane is derived from MISUMI's L and W, not a single cited number. Not interchangeable with gt2-pulley-20t-5mm, which is the 6 mm-belt pulley for a motor shaft."
+}
