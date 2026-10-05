@@ -39,6 +39,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "bed-mount.graph.json",
       "parts": [
         "bed_mount"
       ],

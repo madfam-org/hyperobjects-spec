@@ -99,6 +99,13 @@ A wrong slot station moves the bed extrusion by exactly that error.
 - **Wide and Long.** `screw_offset` 20, `stem_length` 26.
 - **Thin Plate.** `plate_t` 4, so 6 mm of each M5x10 passes into its T-nut.
 
+## Graph twin
+
+`bed-mount.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations and the same operations in the same order. Each `_box` is a centred `box` translated to its centre, each `_cyl_z` an XY `profile_circle` extruded and translated to its start, and each clamp a min/max ternary pair in `derived`; the constants keep `main.py`'s names, values and sources.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset (`standard`, `wide_long`, `thin_plate`); they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.

@@ -11,15 +11,15 @@
   `fpv-camera-cage` (main `00e17651`). A: `z-drive-housing`, `bed-extrusion-mount`,
   `corner-idler-bracket`, `z-joint` (#162), `z-belt-clamp` (#152), `xy-joint` (#150),
   `ab-front-idler` (#160), `ab-drive` (#161), `toolhead-proxy` (#158) and `x-carriage` (#163),
-  all byte-identical to solid main `345bc458` (verified file by file on 2026-10-05, after #164
-  merged). Refresh them from solid main whenever a part changes: identical bytes keep every
-  digest below.
+  all byte-identical to solid main `7de3a32e` (verified file by file on 2026-10-05, after the ten
+  graph twins #165–#174 merged; each cartridge now carries its `*.graph.json` twin). Refresh them
+  from solid main whenever a part changes: identical bytes keep every digest below.
 
 They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
 Apache-2.0. They are copied unmodified, as test inputs only, because the GOC-1 tree
 digests of the cartridge directories enter the assembly digests the golden tests pin
-(A `cb80b679…` for the 2.4-class motion system on this keystone's catalog; the phase-4 static subset was `8172f814…`, `35867ffd…` before the collision `envelope`s changed its
+(A `57f37406…` for the 2.4-class motion system with its ten graph twins on this keystone's catalog; `cb80b679…` before the twins added each cartridge's `*.graph.json`; the phase-4 static subset was `8172f814…`, `35867ffd…` before the collision `envelope`s changed its
 catalog entries, `296caa36…` before the slot `travel` of ASM-1 §9 v1.4
 changed the `extrusion-2020` entry, `24322cc0…` before the `belt_engagement` of ASM-1 §9
 changed the `gt2-pulley-20t-5mm` entry, `58caf081…` before the blind-joint interfaces changed the

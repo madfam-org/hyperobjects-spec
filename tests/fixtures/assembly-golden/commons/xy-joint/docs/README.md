@@ -124,6 +124,15 @@ stacks and idlers, and P6-XCAR's carriage. The document is
 - **Right Joint, 350 Gantry:** mirrored.
 - **Left / Right Joint, 10 mm-Wide Idler.**
 
+## Graph twin
+
+`xy-joint.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations (clamps as min/max ternary pairs) and the same operations in the same order.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Hands.** The script's `if mirrored:` branches become ternaries (the boss under the raised element) and a `select` (the seat ring under the low idler). The right-hand joint is the script's `body.mirror("YZ")`: a `reflect` YZ chosen by `select` on `mirrored`.
+- **Seam.** D's back-slot screw runs along +Y. The twin lays a Z cylinder down with `rotate` x −90 and spins it with `rotate` y −90, so the B-rep seam lands where `makeCylinder` puts it (x direction +Z) and the meshes stay vertex-identical.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset; they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.
@@ -150,3 +159,9 @@ Unión XY impresa para un pórtico CoreXY con dos bandas apiladas (tipo 2.4):
 
 Es un diseño original. La guía de armado de la Voron 2.4r2 (GPL-3.0) se cita solo por página (pp. 97–106, 125,
 131); no se copia su geometría. Licencia CERN-OHL-W-2.0.
+
+**Gemelo de grafo.** `xy-joint.graph.json` es un gemelo en grafo de nodos de `main.py` (formato 1.1): los
+mismos parámetros, las mismas derivaciones y las mismas operaciones en el mismo orden. Las ramas `if mirrored:` son ternarios y un `select`; la mano derecha es un `reflect` YZ elegido por `select` sobre `mirrored`.
+`y4d-spec check --render --parity` los compara en los valores por defecto y en cada preset, y
+coinciden a 0.000000 mm. `main.py` sigue siendo la fuente que se renderiza y el oráculo
+(decisión D5).

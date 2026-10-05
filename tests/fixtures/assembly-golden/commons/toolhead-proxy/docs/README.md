@@ -134,6 +134,14 @@ The volume is about 267 cm³.
 | **Long Hotend** | tip 116 below | — |
 | **Generous Cap** | a 66 × 66 cap, `body_top` 35, `body_drop` 100, tip 108 below, 12 ahead (the same reach); the 36 column kept | A more conservative collision body above the band. |
 
+## Graph twin
+
+`toolhead.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations (clamps as min/max ternary pairs, in the script's order) and the same operations in the same order.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Seams.** The nozzle's cylinder and cone run along −Y. The twin lays a Z cylinder down with `rotate` x +90 and spins it with `rotate` y +90, and revolves a trapezoid drawn on YZ on the −Z side of the axis. Both put the B-rep seam where `makeCylinder` / `makeCone` put it (x direction −Z). A seam a quarter turn away moves the tessellation by up to 0.0034 mm (measured), which would break exact parity.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset; they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.
@@ -167,3 +175,9 @@ de una impresora 3D en el gemelo digital de la máquina:
 Es un diseño original, conforme a la decisión D3 del programa. No se leyó ni se copió ninguna
 geometría, archivo ni manual de StealthBurner o Voron. La guía de armado de la Voron 2.4r2
 (GPL-3.0) se cita solo por página (pp. 146–147). Licencia CERN-OHL-W-2.0.
+
+**Gemelo de grafo.** `toolhead.graph.json` es un gemelo en grafo de nodos de `main.py` (formato
+1.1): los mismos parámetros, las mismas derivaciones y las mismas operaciones en el mismo orden.
+`y4d-spec check --render --parity` los compara en los valores por defecto y en cada preset, y
+coinciden a 0.000000 mm. `main.py` sigue siendo la fuente que se renderiza y el oráculo
+(decisión D5).

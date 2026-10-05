@@ -134,6 +134,15 @@ The bolts sit on each roof arm (roof + 3) and take `bhcs-m5x16`.
 - **Left (B) Drive, 350 Gantry:** the defaults.
 - **Right (A) Drive, 350 Gantry:** mirrored. The render check may note that this preset has the same volume as the defaults. That is expected: it compares volume only.
 
+## Graph twin
+
+`ab-drive.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations (clamps as min/max ternary pairs) and the same operations in the same order.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Hands.** The belt levels and rear runs are ternaries on `mirrored`. The right (A) drive is the script's `body.mirror("YZ")`: a `reflect` YZ chosen by `select` on `mirrored`.
+- **Frozen values.** The three roof arms (`_bar`) take their lengths and angles from `hypot`/`atan2`, which the expression dialect does not have. Their inputs are the script's conventions (the post centres, `K_XY`, `U_Q`, `U_S`, the rear runs) and `mirrored` only, so `k_len`, `k_ang`, `q_len`, `q_ang`, `s_len` and `s_ang` are computed from the script's conventions by hypot/atan2; frozen, as exact float64 literals (a ternary on `mirrored` where they depend on it). No user-editable parameter reaches them. If those conventions change in `main.py`, parity fails at every preset, so drift cannot pass unnoticed.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset; they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.
@@ -155,3 +164,9 @@ Unidad de tracción A/B impresa para un pórtico CoreXY con dos bandas apiladas 
 - **Versión 2.0.0:** cambio incompatible.
 
 Es un diseño original. La guía de armado de la Voron 2.4r2 (GPL-3.0) se cita solo por página (pp. 73–80, 85–87, 95, 125–127); no se copia su geometría. Licencia CERN-OHL-W-2.0.
+
+**Gemelo de grafo.** `ab-drive.graph.json` es un gemelo en grafo de nodos de `main.py` (formato 1.1): los
+mismos parámetros, las mismas derivaciones y las mismas operaciones en el mismo orden. Las longitudes y ángulos de los tres brazos (`_bar`) se calculan a partir de las convenciones del script con hypot/atan2 y quedan congelados como literales float64 exactos (un ternario sobre `mirrored`); ningún parámetro editable los alcanza.
+`y4d-spec check --render --parity` los compara en los valores por defecto y en cada preset, y
+coinciden a 0.000000 mm. `main.py` sigue siendo la fuente que se renderiza y el oráculo
+(decisión D5).

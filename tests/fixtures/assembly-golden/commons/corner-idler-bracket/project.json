@@ -42,6 +42,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "corner-idler.graph.json",
       "parts": [
         "corner_idler"
       ],
