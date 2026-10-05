@@ -34,6 +34,26 @@ Additive catalog and vocabulary data; no schema, grammar, gate or validator chan
 - No 6 mm belt-end clamp key: a jaw that receives a `gt2-belt-6mm` end carries that key,
   female, which mates the belt's own `end_a` / `end_b` (male) as they are.
 
+### `bearing-f695` as a smooth belt via: its running diameter (ASM-1 §9, lane P6-GANTRY)
+
+Catalog data and tests only. #45 gave the two GT2 entries a `belt_engagement`; a 2.4-class
+gantry's A/B belts also run round F695 stacks (Voron 2.4r2 build guide, cited by page only:
+pp. 65, 69, 97, 99), so a belt path through one needs the bearing's.
+
+#### Added
+
+- **`bearing-f695.belt_engagement`**: `running_diameter` 13 (NSK F695ZZ, D), `center`
+  [0, 0, 4], axis +z. The mid-plane is **a convention**: the plain-face junction of the
+  guide's flanges-outward pair, so a via may name either bearing of the pair and lands on the
+  same circle. A path adds the belt's side offset: teeth 13 + 2 × 1.014 = 15.028, back
+  13 + 2 × 0.506 = 14.012 for the 2 mm GT2 section.
+- **Tests** (`tests/test_catalog_f695_belt.py`): the entry's cited diameter and junction
+  plane; `effective_diameter` gives 15.028 / 14.012; a belt turning 90° round an M5x40 →
+  shim → F695 → F695 → shim stack measures two spans plus a quarter of the effective circle
+  for either side and either bearing of the pair; a belt without the side's offset is
+  refused; anchors 1 mm off the junction fail planarity. No golden moves: no fixture
+  assembly places an F695.
+
 ### The 2.4 gantry's standard parts: MGN9, the A/B belt, the XY-joint idler (Phase 6, lane P6-GANTRY)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.
