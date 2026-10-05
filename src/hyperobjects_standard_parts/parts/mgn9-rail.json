@@ -1,0 +1,260 @@
+{
+  "spec_version": 1,
+  "key": "mgn9-rail",
+  "category": "linear-guide",
+  "name": {
+    "en": "MGN9 linear rail",
+    "es": "Riel lineal MGN9",
+    "fr": "Rail linéaire MGN9",
+    "pt": "Trilho linear MGN9"
+  },
+  "description": {
+    "en": "The 9 mm miniature linear-guide rail, cut to length and bolted down with M3 screws every 20 mm. It mates the surface it is bolted to by its base and an MGN9 block by its top.",
+    "es": "El riel de guía lineal miniatura de 9 mm, cortado a medida y fijado con tornillos M3 cada 20 mm. Se une por su base a la superficie a la que se atornilla y por su parte superior a un bloque MGN9.",
+    "fr": "Le rail de guidage linéaire miniature de 9 mm, coupé à longueur et fixé par des vis M3 tous les 20 mm. Il s'accouple par sa base à la surface où il est vissé et par le dessus à un patin MGN9.",
+    "pt": "O trilho de guia linear miniatura de 9 mm, cortado à medida e fixado com parafusos M3 a cada 20 mm. Acopla pela base à superfície onde é aparafusado e por cima a um bloco MGN9."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "HIWIN MGN9 rail (MG series)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "HIWIN linear guideways MG series — dimensions for MGN/MGW",
+      "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf",
+      "publisher": "HIWIN",
+      "accessed": "2026-10-04",
+      "supports": "MGN9: H 10, H1 2, N 5.5, W 20, B 15, B1 2.5, C 10 (C) / 16 (H), L1 18.9 / 29.9, L 28.9 / 39.9, M3x3, H2 1.8; rail WR 9, HR 6.5, D 6, h 3.5, d 3.5, P 20, E 7.5, bolt M3x8; block weight 0.016 (C) / 0.026 (H) kg, rail 0.38 kg/m"
+    },
+    {
+      "title": "VORON Design sourcing guide, sheet 'VORON 2.4' (the published Google sheet behind vorondesign.com/sourcing_guide, gid 1297316004)",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_jv9UtoSkgQoYD47VE9wIpTnjsEbzAREPG8895b6UL0v99OIfVEJQ4BHl2w_Rn6V0YUe1ldfPjone/pubhtml?gid=1297316004",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "Linear Rail MGN9H, quantity 6; for the 350³ build size the rail is 400 mm (RobotDigg GS_MGN9-1H-B400), with the note that rail length and build size differ"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 88 (Gantry, Y axis): MGN9 rails on the two C extrusions, M3x8 SHCS into M3 T-nuts, centred on the extrusion; the figure dimensions the rail end 25 mm from the extrusion end"
+    }
+  ],
+  "frame_convention": "Origin on the rail's bottom face, on its centreline, at end A. +x runs along the rail toward end B (at x = length_mm); +z up through the rail, whose top is at z = 6.5; +y across. The block interface (track) sits on the top centreline at mid-length plus carriage_offset_mm; base_first_hole sits under the first mounting hole, E = 7.5 mm from end A; base_at_station sits on the base centreline at x = base_station_mm.",
+  "dimensions": {
+    "rail_width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN WR"
+    },
+    "rail_height": {
+      "value": 6.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN HR"
+    },
+    "hole_pitch": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN P"
+    },
+    "end_hole_distance": {
+      "value": 7.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "standard E"
+    },
+    "counterbore_diameter": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN D"
+    },
+    "counterbore_depth": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN h"
+    },
+    "through_hole_diameter": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN d"
+    },
+    "mounting_bolt": {
+      "value": "M3x8",
+      "unit": "thread",
+      "source": 0
+    },
+    "length_350_build": {
+      "value": 400,
+      "unit": "mm",
+      "source": 1,
+      "note": "the Y rails of the 350³ build size"
+    },
+    "setback_from_extrusion_end": {
+      "value": 25,
+      "unit": "mm",
+      "source": 2,
+      "note": "rail end to the C extrusion's end, guide p. 88 figure"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Rail length",
+        "es": "Longitud del riel",
+        "fr": "Longueur du rail",
+        "pt": "Comprimento do trilho"
+      },
+      "default": 400,
+      "min": 20,
+      "max": 2000,
+      "unit": "mm",
+      "note": "The default is the 350³ build's Y rail (sourcing sheet, cited). The range is a catalog convention (one hole pitch to 2000 mm): HIWIN cuts rails to order and the cited table states no length range."
+    },
+    {
+      "id": "carriage_offset_mm",
+      "type": "number",
+      "label": {
+        "en": "Block position from mid-length",
+        "es": "Posición del bloque desde el centro",
+        "fr": "Position du patin depuis le milieu",
+        "pt": "Posição do bloco a partir do meio"
+      },
+      "default": 0,
+      "min": -1000,
+      "max": 1000,
+      "unit": "mm",
+      "note": "Where the block's track interface sits, from the rail's mid-length. Keep |offset| ≤ length_mm / 2 − 19.95 (half the MGN9H length L 39.9)."
+    },
+    {
+      "id": "base_station_mm",
+      "type": "number",
+      "label": {
+        "en": "Base point on a slot station",
+        "es": "Punto de la base en una estación de ranura",
+        "fr": "Point de la base sur une station de rainure",
+        "pt": "Ponto da base numa estação de ranhura"
+      },
+      "default": 7.5,
+      "min": -2000,
+      "max": 2000,
+      "unit": "mm",
+      "note": "A convention: the point of the base centreline, measured from end A, that sits on the partner slot's station. The rail is bolted anywhere along a slot, so any point of its base line (or its extension past an end) may stand on the station. For a rail set back b from an extrusion end whose slot station is t from that end, use t − b (the 350 gantry: 10 − 25 = −15, guide p. 88). The default is the first hole, E."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "track",
+      "label": {
+        "en": "Block track",
+        "es": "Pista del bloque",
+        "fr": "Piste du patin",
+        "pt": "Pista do bloco"
+      },
+      "geometry_type": "rail",
+      "size_key": "mgn9-rail",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          "length_mm / 2 + carriage_offset_mm",
+          0,
+          6.5
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "carriage_offset_mm"
+      ],
+      "note": "Male: the rail enters the block. Symmetry 2: a block runs on it either way round."
+    },
+    {
+      "id": "base_first_hole",
+      "label": {
+        "en": "Base at the first hole",
+        "es": "Base en el primer barreno",
+        "fr": "Base au premier trou",
+        "pt": "Base no primeiro furo"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          7.5,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "As mgn12-rail's: a rail bolted into a 2020 slot with M3 T-nuts carries the slot's size key, male (its screws pass through it into the slot). The origin is the first hole (E = 7.5)."
+    },
+    {
+      "id": "base_at_station",
+      "label": {
+        "en": "Base on a slot station",
+        "es": "Base sobre una estación de ranura",
+        "fr": "Base sur une station de rainure",
+        "pt": "Base sobre uma estação de ranhura"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          "base_station_mm",
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "base_station_mm"
+      ],
+      "note": "The same fit as base_first_hole, at any point of the base line, so a rail set back from an extrusion end can mate the extrusion's slot interface at its station."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  }
+}

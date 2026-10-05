@@ -432,6 +432,70 @@
       "notes": "Added with the blind-joint interfaces of extrusion-2020 (lane P4-AUTH-E). The access hole is not part of the key: no source read gives its diameter or position (MISUMI's alteration pages refuse automated reads, and the guide gives no number), so it is not modelled. The joint is square end on flat face, hence symmetry 4."
     },
     {
+      "key": "mgn9-rail",
+      "label": {
+        "en": "MGN9 rail",
+        "es": "Riel MGN9",
+        "fr": "Rail MGN9",
+        "pt": "Trilho MGN9"
+      },
+      "definition": {
+        "en": "The 9 mm wide, 6.5 mm high rail of a miniature linear guide, bolted down with M3 screws every 20 mm; what an MGN9 block runs on.",
+        "es": "El riel de 9 mm de ancho y 6.5 mm de alto de una guía lineal miniatura, fijado con tornillos M3 cada 20 mm; sobre él corre un bloque MGN9.",
+        "fr": "Le rail de 9 mm de large et 6,5 mm de haut d'un guidage linéaire miniature, fixé par des vis M3 tous les 20 mm ; un patin MGN9 y circule.",
+        "pt": "O trilho de 9 mm de largura e 6,5 mm de altura de uma guia linear miniatura, fixado com parafusos M3 a cada 20 mm; sobre ele corre um bloco MGN9."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "rail",
+      "dimensions": {
+        "rail_width": {"value": 9, "unit": "mm", "source": 0},
+        "rail_height": {"value": 6.5, "unit": "mm", "source": 0},
+        "hole_pitch": {"value": 20, "unit": "mm", "source": 0},
+        "end_hole_distance": {"value": 7.5, "unit": "mm", "source": 0, "note": "standard E: rail end to the first hole centre"},
+        "counterbore_diameter": {"value": 6, "unit": "mm", "source": 0},
+        "counterbore_depth": {"value": 3.5, "unit": "mm", "source": 0},
+        "through_hole_diameter": {"value": 3.5, "unit": "mm", "source": 0},
+        "mounting_bolt": {"value": "M3x8", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {"title": "HIWIN linear guideways MG series — dimensions for MGN/MGW", "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf", "publisher": "HIWIN", "accessed": "2026-10-04", "supports": "MGN9 rail: WR 9, HR 6.5, D 6, h 3.5, d 3.5, P 20, E 7.5, rail bolt M3x8"}
+      ],
+      "term": "rail",
+      "notes": "Added by the standard-parts catalog (ASM-1 §4) for the rail-to-block mate of the MGN9 guide (a 2.4-class gantry's Y rails). Both the C and the H block run on this rail; the H block's top pattern is `mgn9-carriage`."
+    },
+    {
+      "key": "mgn9-carriage",
+      "label": {
+        "en": "MGN9H carriage",
+        "es": "Carro MGN9H",
+        "fr": "Chariot MGN9H",
+        "pt": "Carro MGN9H"
+      },
+      "definition": {
+        "en": "The long (H) block of a 9 mm miniature linear guide: 20 mm wide, four M3 holes on a 15 (across) × 16 (along) mm pattern, on a 9 mm rail.",
+        "es": "El bloque largo (H) de una guía lineal miniatura de 9 mm: 20 mm de ancho, cuatro barrenos M3 en un patrón de 15 (a lo ancho) × 16 (a lo largo) mm, sobre un riel de 9 mm.",
+        "fr": "Le patin long (H) d'un guidage linéaire miniature de 9 mm : 20 mm de large, quatre trous M3 sur un motif de 15 (en travers) × 16 (en long) mm, sur un rail de 9 mm.",
+        "pt": "O bloco longo (H) de uma guia linear miniatura de 9 mm: 20 mm de largura, quatro furos M3 num padrão de 15 (transversal) × 16 (longitudinal) mm, sobre um trilho de 9 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "rail_width": {"value": 9, "unit": "mm", "source": 0},
+        "block_width": {"value": 20, "unit": "mm", "source": 0},
+        "hole_spacing_b": {"value": 15, "unit": "mm", "source": 0, "note": "across the rail"},
+        "hole_spacing_c": {"value": 16, "unit": "mm", "source": 0, "note": "along the rail"},
+        "thread": {"value": "M3", "unit": "thread", "source": 0},
+        "thread_depth": {"value": 3, "unit": "mm", "source": 0},
+        "assembly_height": {"value": 10, "unit": "mm", "source": 0},
+        "block_length": {"value": 39.9, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {"title": "HIWIN linear guideways MG series — dimensions for MGN/MGW", "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf", "publisher": "HIWIN", "accessed": "2026-10-04", "supports": "MGN9H: H 10, W 20, B 15, C 16, M3x3, L 39.9; rail WR 9"}
+      ],
+      "term": "rail",
+      "notes": "The short MGN9C block has a 15 × 10 mm pattern and is not this key. The pattern is a rectangle, so a part on it has symmetry 2."
+    },
+    {
       "key": "bearing-625-bore",
       "label": {
         "en": "625 bearing bore (5 mm shaft)",
