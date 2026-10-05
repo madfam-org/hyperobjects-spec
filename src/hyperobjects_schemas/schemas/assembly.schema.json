@@ -186,7 +186,8 @@
         },
         "polarity": { "enum": ["male", "female", "neutral"] },
         "size_key": { "type": "string", "minLength": 1 },
-        "symmetry": { "type": "integer", "enum": [0, 1, 2, 3, 4, 6, 8] }
+        "symmetry": { "type": "integer", "enum": [0, 1, 2, 3, 4, 6, 8] },
+        "travel": { "$ref": "#/$defs/travel" }
       },
       "if": { "properties": { "symmetry": { "not": { "const": 0 } } } },
       "then": { "properties": { "frame": { "required": ["x_axis"] } } }
@@ -211,12 +212,36 @@
         "b": { "$ref": "#/$defs/interfaceRef" },
         "rotation_index": { "type": "integer", "minimum": 0, "maximum": 7 },
         "angle_deg": { "type": "number", "minimum": -360, "maximum": 360 },
-        "joint": { "$ref": "#/$defs/joint" }
+        "joint": { "$ref": "#/$defs/joint" },
+        "offset": { "$ref": "#/$defs/mateOffset" }
       },
       "oneOf": [
         { "required": ["rotation_index"], "not": { "required": ["angle_deg"] } },
         { "required": ["angle_deg"], "not": { "required": ["rotation_index"] } }
-      ]
+      ],
+      "not": { "required": ["joint", "offset"] }
+    },
+    "mateOffset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["axis", "value"],
+      "description": "ASM-1 §9 (v1.4). A station on the mate: before the mate is formed, the named side's interface frame slides `value` mm along its own `axis` (a prismatic joint fixed at that value). It must stay inside the `travel` that interface declares; undeclared travel is a warning. A mate carries an offset or a joint, never both.",
+      "properties": {
+        "side": { "enum": ["a", "b"], "description": "Whose interface frame slides; default a." },
+        "axis": { "enum": ["x", "y", "z"] },
+        "value": { "type": "number" },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "travel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["axis", "range"],
+      "description": "ASM-1 §9 (v1.4). How far a mate offset may slide this interface along one axis of its own frame, in mm.",
+      "properties": {
+        "axis": { "enum": ["x", "y", "z"] },
+        "range": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } }
+      }
     },
     "jointId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
     "joint": {

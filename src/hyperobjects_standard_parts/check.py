@@ -14,7 +14,8 @@ What the lane checks (each failure class has a test)
    vocabulary-membership rule (:func:`hyperobjects_lexicon.membership.manifest_vocabulary_problems`,
    the same machinery a manifest goes through); ``geometry_type`` equals that size key's
    ``geometry_type``; ``frame.part``, when written, is the entry key.
-7. **Frames evaluate** — every component evaluates, with ``y4d_spec.frame_eval`` (ASM-1
+7. **Frames evaluate** — every component (and every ``travel.range`` bound, ASM-1 §9 v1.4)
+   evaluates, with ``y4d_spec.frame_eval`` (ASM-1
    §1), at the parameter defaults and at every parameter's ``min`` and ``max``; every
    identifier an expression reads (in the frame or in the interface's ``let``) is a
    declared parameter or a ``let`` name, and every parameter read is listed in the
@@ -35,6 +36,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 
 from hyperobjects_schemas import load as load_schema
+from y4d_spec.frame_eval import evaluate_expression
 from y4d_spec.semantic_rules import LetCycleError, expression_names, let_evaluation_order
 
 from . import (
@@ -222,6 +224,8 @@ def _frame_problems(part: Mapping) -> list[str]:
         for vec in ("origin", "normal", "x_axis"):
             for component in frame.get(vec) or []:
                 read |= _names_read(component)
+        for component in (iface.get("travel") or {}).get("range") or []:
+            read |= _names_read(component)
         let_block = iface.get("let") or {}
         for name in sorted(set(let_block) & declared):
             out.append(f"interfaces[{iid!r}].let.{name} shadows a parameter")
@@ -248,6 +252,18 @@ def _frame_problems(part: Mapping) -> list[str]:
         except FrameEvaluationError as exc:
             out.append(f"at {label}: {exc}")
             continue
+        for iface in part.get("interfaces") or []:
+            travel = iface.get("travel") if isinstance(iface, Mapping) else None
+            if not travel:
+                continue
+            try:
+                low, high = (evaluate_expression(c, values, set(values)) for c in travel["range"])
+            except FrameEvaluationError as exc:
+                out.append(f"interfaces[{iface.get('id')!r}].travel at {label}: {exc}")
+                continue
+            if not low < high:
+                out.append(f"interfaces[{iface.get('id')!r}].travel at {label}: range "
+                           f"[{low:g}, {high:g}] is not lower < upper")
         for iid, frame in frames.items():
             n_len = math.sqrt(_dot(frame.normal, frame.normal))
             x_len = math.sqrt(_dot(frame.x_axis, frame.x_axis))

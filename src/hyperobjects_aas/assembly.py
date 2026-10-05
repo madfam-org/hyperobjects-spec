@@ -224,6 +224,11 @@ def _mates(proj: Projection, doc: Mapping, report, shorts: dict[str, str]) -> No
                 el.prop("RotationIndex", mate.get("rotation_index"), prefer="xs:integer"),
                 el.prop("AngleDeg", mate.get("angle_deg"), prefer="xs:double"),
                 el.prop("ThetaDeg", _num(check.theta_deg, 6), prefer="xs:double"),
+                # ASM-1 §9 (v1.4): a station on the mate; absent elements when there is none.
+                el.prop("OffsetSide", (mate.get("offset") or {}).get("side", "a")
+                        if mate.get("offset") else None),
+                el.prop("OffsetAxis", (mate.get("offset") or {}).get("axis")),
+                el.prop("OffsetMm", (mate.get("offset") or {}).get("value"), prefer="xs:double"),
                 el.prop("InTree", check.in_tree),
                 el.prop("OriginResidualMm", _num(check.origin_mm, 6), prefer="xs:double"),
                 el.prop("NormalResidualDeg", _num(check.normal_deg, 6), prefer="xs:double"),
