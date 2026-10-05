@@ -42,6 +42,33 @@ sheet are cited by page and row only, and none of Voron's geometry is used.
   fails closure; an MGN12H block on an MGN9 rail, an MGN12-pattern part on an MGN9H block and
   a belt end in a bore are refused. The axis audit covers the new idler's bore.
 
+### The 350 build plate and its M3 T-nut (Phase 6, lane P6-ZBED; owner approval 2026-10-04)
+
+Additive catalog and vocabulary data, plus the schema category `plate` (coordinator-approved
+one-liner); no grammar, gate or validator change. The guide gives the bed's mounting but not the plate's size, so the plate is cited from vendor
+listings, as the frame lengths were.
+
+#### Added
+
+- **`bed-plate-350`** (class): 355 × 355 mm cast aluminium (Spool3D, LDO via DREMC and
+  HoneyBadger via Fabreeko agree). `thickness_mm` 8–10 by maker, default 9.525 (3/8 in:
+  HoneyBadger, West3D); `standoff_mm` defaults to a DIN 466 M4 thumb nut's 9.5 (Aspen
+  Fasteners), the guide's spacer (p. 58). Four mount interfaces (`m3-screw-joint`, male) on
+  the rail lines x = ±65 (p. 20; the plate centred on them is a convention) under the
+  spacers, each with `travel` along its rail over its half of the plate: no listing
+  publishes the hole pattern, so a mate offset sets each hole. Envelope: the outline over
+  the thickness. The alloy (ATP5, MIC6, 5083) varies by maker and is not stated as a fact.
+- **`tnut-2020-m3`** (MISUMI HNTAP5-3: M3; 15 × 8 body): `slot` (`tslot-2020-6mm`) and
+  `thread` (`m3-screw-joint`), as `tnut-2020-m5`.
+- **Vocabulary:** `m3-screw-joint`.
+- **`standard-part.schema.json`**: category `plate` (after `structural-profile`), for the
+  build plate.
+- **Tests** (`tests/test_catalog_bed_plate.py`): the bottom of the 350 cube, the two bed
+  rails on four `bed-extrusion-mount` plates, four M3 T-nuts and the plate close with no
+  warning; the plate lands centred between the rails, 9.5 above them, its front edge 38
+  behind the frame's front face (p. 60), inside the uprights; a hole station that disagrees
+  with its nut fails closure; a hole beyond the plate is an `offset` error.
+
 ### The Voron 2.4-class Z drive, Z belt and bed hardware (Phase 6, lane P6-ZBED)
 
 Additive catalog and vocabulary data; no schema, grammar, gate or validator change. Phase 6 (D1) models the full 2.4 motion system, the four Z drives and

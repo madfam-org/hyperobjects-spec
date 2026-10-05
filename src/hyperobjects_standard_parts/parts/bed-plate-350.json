@@ -1,0 +1,351 @@
+{
+  "spec_version": 1,
+  "key": "bed-plate-350",
+  "category": "plate",
+  "name": {
+    "en": "Build plate 355 × 355, cast aluminium (2.4-class 350)",
+    "es": "Cama de 355 × 355, aluminio fundido (clase 2.4, 350)",
+    "fr": "Plateau 355 × 355, aluminium coulé (classe 2.4, 350)",
+    "pt": "Mesa de 355 × 355, alumínio fundido (classe 2.4, 350)"
+  },
+  "description": {
+    "en": "The cast aluminium tooling-plate build plate of a 350-size Voron 2.4-class printer: 355 × 355 mm, 8 to 10 mm thick by maker. It stands on M4 thumb-nut spacers over the two bed extrusions, screwed through into M3 T-nuts in their top slots. A commercial class: the plate's size is what the cited listings share; its thickness and alloy (ATP5, MIC6, 5083) vary by maker, and no listing publishes the hole pattern.",
+    "es": "La cama de placa de herramienta de aluminio fundido de una impresora de clase Voron 2.4 de tamaño 350: 355 × 355 mm y de 8 a 10 mm de espesor según el fabricante. Se apoya en separadores de tuercas moleteadas M4 sobre los dos perfiles de la cama, atornillada hasta tuercas en T M3 en sus ranuras superiores. Una clase comercial: el tamaño de la placa es lo que comparten los listados citados; su espesor y aleación (ATP5, MIC6, 5083) varían según el fabricante, y ningún listado publica el patrón de barrenos.",
+    "fr": "Le plateau en plaque d'outillage en aluminium coulé d'une imprimante de classe Voron 2.4 de taille 350 : 355 × 355 mm, de 8 à 10 mm d'épaisseur selon le fabricant. Il repose sur des entretoises en écrous moletés M4 au-dessus des deux profilés du plateau, vissé jusque dans des écrous en T M3 de leurs rainures supérieures. Une classe commerciale : la taille de la plaque est ce que partagent les fiches citées ; son épaisseur et son alliage (ATP5, MIC6, 5083) varient selon le fabricant, et aucune fiche ne publie le motif de perçage.",
+    "pt": "A mesa em placa de ferramenta de alumínio fundido de uma impressora de classe Voron 2.4 de tamanho 350: 355 × 355 mm, de 8 a 10 mm de espessura conforme o fabricante. Assenta em espaçadores de porcas serrilhadas M4 sobre os dois perfis da mesa, aparafusada até porcas em T M3 nas suas ranhuras superiores. Uma classe comercial: o tamanho da placa é o que as listagens citadas partilham; a espessura e a liga (ATP5, MIC6, 5083) variam conforme o fabricante, e nenhuma listagem publica o padrão de furos."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "Cast aluminium build plate 355 × 355 mm for a 350-size Voron 2.4-class printer",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Voron 2.4r2 and Trident cast aluminum bed (retailer listing, Spool3D)",
+      "url": "https://spool3d.ca/voron-2-4r2-and-trident-cast-aluminum-bed",
+      "publisher": "Spool3D",
+      "accessed": "2026-10-04",
+      "supports": "cast aluminum, 8 mm thick, pre-drilled and cut by CNC; sizes 255 × 255, 305 × 305 and 355 × 355 mm"
+    },
+    {
+      "title": "LDO Voron universal cast aluminium build plate assembly (retailer listing, DREMC)",
+      "url": "https://store.dremc.com.au/products/voron-universal-build-plate-255x255-305x305-355x355-mm",
+      "publisher": "DREMC",
+      "accessed": "2026-10-04",
+      "supports": "cast aluminium; 255 × 255, 305 × 305 or 355 × 355 mm; 10 mm thick; CNC machined; flatness within < 0.15 mm"
+    },
+    {
+      "title": "Voron ATP5 cast aluminum plates by HoneyBadger (retailer listing, Fabreeko)",
+      "url": "https://fabreeko.com/products/voron-atp5-cast-aluminum-beds-by-honeybadger",
+      "publisher": "Fabreeko",
+      "accessed": "2026-10-04",
+      "supports": "ATP5 cast aluminum; 9.525 (3/8 in) thick; actual sizes 255 / 305 / 355 mm for the 250 / 300 / 350"
+    },
+    {
+      "title": "Voron 2.4 build MIC6 aluminum build plate (retailer listing, West3D)",
+      "url": "https://west3d.com/products/voron-2-4-build-mic6-aluminum-build-plate",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "MIC6 / ATP5 cast aluminum tool plate, 3/8 in thick, milled flat, cut, drilled and tapped to the Voron 2.4 BOM; sizes 250 / 300 / 350"
+    },
+    {
+      "title": "M4-0.7 DIN 466 metric thumb nut, knurled, high type (retailer listing, Aspen Fasteners)",
+      "url": "https://www.aspenfasteners.com/m4-0-7-din-466-metric-thumb-nuts-knurled-flat-head-high-type-steel/",
+      "publisher": "Aspen Fasteners",
+      "accessed": "2026-10-04",
+      "supports": "DIN 466 M4: height 9.5 mm (min 9.14, max 9.5); head diameter 16 mm; shoulder diameter 8 mm"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 20 (Frame): the two bed extrusions are 130 mm apart, centred on the printer's centreline; p. 53 (Print bed): bolt heads sit flush or below the plate's top in bored holes; pp. 58–59 (Heated bed): M3x16 SHCS through the plate and M4 thumb nuts used as spacers into M3 T-nuts in the bed extrusions; p. 60: the plate's front edge sits 38 mm behind the frame's front edge"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the plate's underside. +z up through the plate to the build surface at z = thickness_mm; +x across the printer (left to right), +y from the front edge to the back edge; the plate spans x, y = ±177.5. The four mount interfaces are framed standoff_mm under the underside, on the two rail lines x = ±65, their x_axis along +y.",
+  "dimensions": {
+    "length": {
+      "value": 355,
+      "unit": "mm",
+      "source": 0,
+      "note": "front to back; the three plate listings agree (sources 0, 1, 2)"
+    },
+    "width": {
+      "value": 355,
+      "unit": "mm",
+      "source": 0,
+      "note": "left to right; sources 0, 1, 2 agree"
+    },
+    "thickness_spool3d": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0
+    },
+    "thickness_honeybadger": {
+      "value": 9.525,
+      "unit": "mm",
+      "source": 2,
+      "note": "3/8 in; West3D's MIC6 / 5083 plates are also 3/8 in (source 3)"
+    },
+    "thickness_ldo": {
+      "value": 10,
+      "unit": "mm",
+      "source": 1
+    },
+    "flatness_ldo": {
+      "value": 0.15,
+      "unit": "mm",
+      "source": 1,
+      "note": "LDO's stated flatness (< 0.15 mm), the only flatness a listing gives"
+    },
+    "spacer_height": {
+      "value": 9.5,
+      "unit": "mm",
+      "source": 4,
+      "note": "DIN 466 M4 thumb nut height, the guide's spacer (p. 58); the default of standoff_mm"
+    },
+    "rail_spacing": {
+      "value": 130,
+      "unit": "mm",
+      "source": 5,
+      "note": "the bed extrusions' spacing, centred on the centreline (p. 20)"
+    },
+    "front_edge_setback": {
+      "value": 38,
+      "unit": "mm",
+      "source": 5,
+      "note": "the plate's front edge behind the frame's front edge (p. 60)"
+    }
+  },
+  "parameters": [
+    {
+      "id": "thickness_mm",
+      "type": "number",
+      "label": {
+        "en": "Plate thickness",
+        "es": "Espesor de la placa",
+        "fr": "Épaisseur de la plaque",
+        "pt": "Espessura da placa"
+      },
+      "default": 9.525,
+      "min": 8,
+      "max": 10,
+      "unit": "mm",
+      "source": 2,
+      "note": "By maker: 8 (Spool3D, source 0), 9.525 = 3/8 in (HoneyBadger and West3D, sources 2 and 3: the default), 10 (LDO, source 1). The range is the listings'."
+    },
+    {
+      "id": "standoff_mm",
+      "type": "number",
+      "label": {
+        "en": "Spacer height",
+        "es": "Altura del separador",
+        "fr": "Hauteur de l'entretoise",
+        "pt": "Altura do espaçador"
+      },
+      "default": 9.5,
+      "min": 0,
+      "max": 30,
+      "unit": "mm",
+      "source": 4,
+      "note": "Plate underside to the bed extrusion's top face. The default is a DIN 466 M4 thumb nut's height (source 4), the guide's spacer (p. 58; the guide allows other heat-resistant spacers of the same length). The range is a catalog convention."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "mount_left_front",
+      "label": {
+        "en": "Left rail, front mount",
+        "es": "Riel izquierdo, montaje frontal",
+        "fr": "Rail gauche, fixation avant",
+        "pt": "Trilho esquerdo, fixação frontal"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m3-screw-joint",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          -65,
+          0,
+          "-standoff_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "standoff_mm"
+      ],
+      "travel": {
+        "axis": "x",
+        "range": [
+          "-177.5",
+          0
+        ]
+      },
+      "note": "Male: an M3 screw through the plate and its spacer into an M3 T-nut in a bed extrusion's top slot. Framed on the spacer's bottom face (standoff_mm under the plate), on the rail line x = -65 (the rails 130 apart, p. 20, with the plate centred on them: a convention). The hole's position along the rail is not cited by any listing, so the interface travels along +y over its half of the plate and the assembly's mate offset sets it."
+    },
+    {
+      "id": "mount_left_back",
+      "label": {
+        "en": "Left rail, back mount",
+        "es": "Riel izquierdo, montaje trasero",
+        "fr": "Rail gauche, fixation arrière",
+        "pt": "Trilho esquerdo, fixação traseira"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m3-screw-joint",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          -65,
+          0,
+          "-standoff_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "standoff_mm"
+      ],
+      "travel": {
+        "axis": "x",
+        "range": [
+          0,
+          "177.5"
+        ]
+      },
+      "note": "Male: an M3 screw through the plate and its spacer into an M3 T-nut in a bed extrusion's top slot. Framed on the spacer's bottom face (standoff_mm under the plate), on the rail line x = -65 (the rails 130 apart, p. 20, with the plate centred on them: a convention). The hole's position along the rail is not cited by any listing, so the interface travels along +y over its half of the plate and the assembly's mate offset sets it."
+    },
+    {
+      "id": "mount_right_front",
+      "label": {
+        "en": "Right rail, front mount",
+        "es": "Riel derecho, montaje frontal",
+        "fr": "Rail droit, fixation avant",
+        "pt": "Trilho direito, fixação frontal"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m3-screw-joint",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          65,
+          0,
+          "-standoff_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "standoff_mm"
+      ],
+      "travel": {
+        "axis": "x",
+        "range": [
+          "-177.5",
+          0
+        ]
+      },
+      "note": "Male: an M3 screw through the plate and its spacer into an M3 T-nut in a bed extrusion's top slot. Framed on the spacer's bottom face (standoff_mm under the plate), on the rail line x = 65 (the rails 130 apart, p. 20, with the plate centred on them: a convention). The hole's position along the rail is not cited by any listing, so the interface travels along +y over its half of the plate and the assembly's mate offset sets it."
+    },
+    {
+      "id": "mount_right_back",
+      "label": {
+        "en": "Right rail, back mount",
+        "es": "Riel derecho, montaje trasero",
+        "fr": "Rail droit, fixation arrière",
+        "pt": "Trilho direito, fixação traseira"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m3-screw-joint",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          65,
+          0,
+          "-standoff_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "standoff_mm"
+      ],
+      "travel": {
+        "axis": "x",
+        "range": [
+          0,
+          "177.5"
+        ]
+      },
+      "note": "Male: an M3 screw through the plate and its spacer into an M3 T-nut in a bed extrusion's top slot. Framed on the spacer's bottom face (standoff_mm under the plate), on the rail line x = 65 (the rails 130 apart, p. 20, with the plate centred on them: a convention). The hole's position along the rail is not cited by any listing, so the interface travels along +y over its half of the plate and the assembly's mate offset sets it."
+    }
+  ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -177.5,
+          -177.5,
+          0
+        ],
+        "max": [
+          177.5,
+          177.5,
+          "thickness_mm"
+        ],
+        "from": [
+          "length",
+          "width"
+        ]
+      }
+    ],
+    "parameters": [
+      "thickness_mm"
+    ],
+    "note": "The plate's outline over its thickness; holes and edge chamfers are not modelled. The spacers and screws are not part of the plate."
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The alloy varies by maker (ATP5, MIC6 / ATP5, 5083; sources 2, 3) and is not stated as a fact here. No listing publishes the hole pattern, so the mount interfaces travel along their rail; the guide's 38 mm front-edge setback (p. 60) and the rails' 130 mm spacing (p. 20) place the plate in the frame. Heater, magnet and thermal fuse are out of scope (D1)."
+}
