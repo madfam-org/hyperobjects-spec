@@ -43,6 +43,7 @@ FIXTURES = REPO / "tests" / "fixtures" / "y4d"
 GRAPH_BLOCK = FIXTURES / "graph-block"
 GRAPH_TWIN = FIXTURES / "graph-twin"
 GRAPH_TWIN_DIVERGENT = FIXTURES / "graph-twin-divergent"
+GRAPH_TWIN_EXPR = FIXTURES / "graph-twin-expr"
 VENDORED = REPO / "src" / "y4d_spec" / "graph"
 
 needs_geometry = pytest.mark.skipif(
@@ -429,3 +430,36 @@ def test_the_two_commons_graph_cartridges_have_no_twin_yet():
         for mode in manifest["modes"]:
             engines = {e for e, _ in mode_sources(mode)}
             assert engines == {"graph"}
+
+
+# ── 5. Graph format 1.1 (Wave D): expressions and the new nodes ───────────────
+
+
+def test_a_format_1_1_graph_transpiles_without_carrying_its_expression_text():
+    """Expressions are re-emitted from a syntax tree, never interpolated: the transpiled
+    script must not contain an expression's source text, only engine-owned names."""
+    manifest = json.loads((GRAPH_TWIN_EXPR / "project.json").read_text(encoding="utf-8"))
+    script = transpile_graph(GRAPH_TWIN_EXPR / "ring.graph.json", manifest)
+    assert "bore / 2 < r_out - 2" not in script
+    assert "_g_d_half_bore = " in script
+    assert '_g_in(_param(lambda: size, None), "S", "size", {"S": 12.0, "L": 20.0})' in script
+    assert "def _g_revolve(profile, angle, axis, where):" in script
+
+
+def test_the_vendored_engine_carries_the_wave_d_nodes():
+    from y4d_spec.graph import NODE_TYPES
+
+    assert {"select", "reflect", "profile_polyline", "revolve"} <= set(NODE_TYPES)
+
+
+@needs_geometry
+def test_a_format_1_1_golden_twin_reproduces_its_script_at_every_preset():
+    """select, reflect, profile_polyline, the bounded revolve, a `map`ped select and
+    derived clamps, compared against the script they twin at the defaults and both
+    presets (one of which flips the hand through reflect, one of which clamps)."""
+    from y4d_spec.conformance import check_cartridge
+
+    result = check_cartridge(GRAPH_TWIN_EXPR, render=True, parity=True, printability=False)
+    assert result.ok, result.problems
+    assert len(result.parity) == 3
+    assert all(p.ok and not p.exempt for p in result.parity), [p.summary for p in result.parity]
