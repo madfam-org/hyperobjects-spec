@@ -364,11 +364,27 @@ def test_digest_moves_with_parameters_files_and_catalog(tmp_path):
 
 
 # ── step 7 and the CLI ────────────────────────────────────────────────────────
-def test_collision_requested_is_reported_as_not_run_never_as_a_pass():
+def test_collision_without_the_cad_kernel_is_unavailable_never_a_pass(monkeypatch):
+    from y4d_spec.assembly import collision
+
+    def missing():
+        raise ImportError("no cadquery")
+
+    monkeypatch.setattr(collision, "_cq", missing)
     report = validate_assembly(_external_only(), ExternalResolver(), collision=True)
-    assert report.collision == "not run"
+    assert report.ok and report.collision == "unavailable"
     assert codes(report, "warning") == [("collision", None)]
-    assert "no mesh intersection was checked" in report.warnings[0].message
+    assert "no intersection was checked" in report.warnings[0].message
+
+
+@pytest.mark.geometry
+def test_collision_without_bodies_is_partial_never_a_pass():
+    """External designs with no envelope have no solid: --collision (ASM-1 §3.7) names
+    them and reports `partial`, never a pass."""
+    report = validate_assembly(_external_only(), ExternalResolver(), collision=True)
+    assert report.collision == "partial"
+    assert codes(report, "warning") == [("collision-unchecked", None)]
+    assert "declares no envelope" in report.warnings[0].message
 
 
 def _write(tmp_path, doc):
@@ -403,12 +419,13 @@ def test_cli_json_and_failure_exit(tmp_path, capsys):
     assert data["errors"][0]["subject"] == "bracket"
 
 
+@pytest.mark.geometry  # --collision needs the CAD kernel
 def test_cli_read_and_usage_errors(tmp_path, capsys):
     assert _cli(str(tmp_path / "missing.json")) == 2
     path = _write(tmp_path, _external_only())
     assert main(["assembly", "check", path, "--commons", str(tmp_path / "nope")]) == 2
     assert main(["assembly", "check", path, "--collision"]) == 0
-    assert "collision=not run" in capsys.readouterr().out
+    assert "collision=partial" in capsys.readouterr().out  # no envelopes: named, not passed
 
 
 # ── robustness: never a traceback ─────────────────────────────────────────────

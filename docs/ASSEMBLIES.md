@@ -162,7 +162,7 @@ so the next grammar step will explain itself to this one.
 | 5 | Closure: every mate, including the ones the BFS tree did not use, is re-checked in world space; on continuous symmetry the stated `angle_deg` too, when both frames declare an `x_axis` | `closure` (error), `rotation`, `angle-unchecked` (warnings) |
 | 6 | Every component is reachable from the root | `unreachable` |
 | 6b | ASM-1 §9 (v1.3): joints, machine bindings and paths are consistent; the pose sweep (each limit, then the Halton samples) re-checks every mate and cycle, passive and follower joints stay inside their limits, and every belt path is planar at home with its length reported at every pose. See [Kinematics](#kinematics-joints-axis-bindings-belt-paths-the-pose-sweep-asm-1-9-v13) | `joint`, `machine`, `pose-closure`, `joint-limit`, `path` (errors), `path-length` (warning) |
-| 7 | `--collision`: not implemented in v1, see below | `collision` (warning) |
+| 7 | `--collision`: rigid-body interference at every pose (see [Collision](#collision---collision-asm-1-37)) | `collision`, `allowed-overlap` (errors), `collision-unchecked`, `allowed-overlap-unused` (warnings) |
 | 8 | The report, the placement table and the assembly digest | — |
 
 A parameter value is **never clamped**. A value outside `[min, max]`, an option that a
@@ -712,17 +712,58 @@ bare string is refused by the schema. The vocabulary typed `process` as a string
 0.5.0; ASM-1, this document and both commons assemblies already wrote a list (P4-ASM2
 finding 5), so the vocabulary and the schema now say the same.
 
+## Collision (`--collision`, ASM-1 §3.7)
+
+`--collision` checks rigid-body interference at **every pose the sweep checks**: home, each
+limit and each Halton sample. It needs the geometry extra (CadQuery).
+
+- **The bodies.** Each component becomes a solid in its model frame:
+  - a **cartridge** is rendered at the assembly's parameters (full injection, every part
+    the component produces), through the same sandboxed execution `check --render` uses;
+  - a **standard part** is its catalog `envelope`: a union of axis-aligned boxes and
+    cylinders, each naming the cited `dimensions` it is built from (catalog rule 10);
+  - an **external design** is its declared `envelope`, an original proxy body (owner
+    decision D3), when it has one.
+  A component with no solid (no envelope, a graph- or OpenSCAD-only cartridge, a render
+  that raises) is named in a `collision-unchecked` warning and the summary reads
+  `collision=partial`; nothing is skipped in silence.
+- **The test.** The solids are placed by the validator's own transforms; every pair whose
+  bounding boxes overlap is intersected (OpenCASCADE boolean common). A pair is computed
+  once per relative placement, so a pair that does not move against itself costs one
+  boolean for the whole sweep. Flush contact has zero volume.
+- **The verdict.** An overlap above **1 mm³** (a convention: the bar the phase-4 render
+  probes used) is a `collision` error naming the pair, the worst volume, its pose and how
+  many poses it occurs at — unless the document declares it:
+
+  ```jsonc
+  "allowed_overlaps": [
+    {"a": "z_idler_axle", "b": "z_idler_bracket", "max_mm3": 60,
+     "reason": "the M5 shank cuts its thread in the Ø4.2 pilot"}
+  ]
+  ```
+
+  A declared pair may overlap up to `max_mm3` at every pose; more is an error. A declared
+  pair that never overlaps warns `allowed-overlap-unused`. `allowed-overlap` errors name a
+  declaration of an unknown component, of a component with itself, or of a pair twice.
+- **What envelopes leave out, and why it shows up as declared overlaps.** An envelope is
+  built only from cited dimensions. A 2020 extrusion is its 20 × 20 profile: no source the
+  catalog cites gives the slot depth, so a key or a T-nut seated in a slot overlaps the
+  profile. Bores are not hollowed (a union of solids has no holes), so a shaft in a
+  pulley, bearing or idler overlaps it. Each is a designed overlap the assembly declares
+  with its reason; the measured volumes match the phase-4 probes (the roller-bracket key
+  in the slot 208.8 mm³; the M5 axle in the Ø4.2 pilot 57.8 mm³).
+- **Cost.** Assembly A (29 components) runs in about 7 s, B in about 3 s, on a laptop.
+
 ## Limits
 
-- **No collision check.** `--collision` adds a warning that says no mesh intersection
-  was checked, and the summary line prints `collision=not run`. A requested check that
-  did not run never reads as a pass. ASM-1 §3.7 makes it reported, not gating, in v1.
+- **Collision is opt-in.** Without `--collision` the summary prints `collision=not run`;
+  the commons CI passes it. Components without a solid are reported, not checked.
 - **Butt joints are invisible to the mating rule** (P4-ASM2 finding 3a). An extrusion
   end pressed against another extrusion's face has no mate: the end taps are female
   interfaces with nothing male to receive them. A slot station that drives `frame_z`
   1 mm into `frame_x` still validates; the commons' render probe measured 400 mm³ of
-  overlap in that case. Only a collision check (`--collision`, still a stub), or a planar
-  end-face interface that two extrusions could mate on, would catch it.
+  overlap in that case. `--collision` now catches it (an undeclared overlap); a planar
+  end-face interface that two extrusions could mate on would catch it in the mate rule.
 - **Frames are not yet in the commons main.** At the time of writing, no cartridge on
   solid-hyperobjects main declares a frame; every interface reports `declares no frame`
   when mated. Frames arrive one cartridge per PR (solid-hyperobjects #111–#120 and on),

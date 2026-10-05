@@ -351,6 +351,28 @@
       "note": "Male: as hub_a, with the normal +z, so the pulley lies toward end B."
     }
   ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": "length_mm",
+        "from": [
+          "diameter"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The shaft's diameter over its cut length; the D cut is not modelled."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."

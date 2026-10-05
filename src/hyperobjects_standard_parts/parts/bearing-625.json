@@ -124,6 +124,26 @@
       "note": "Female: a 5 mm shaft passes through the inner ring. Framed at face B (z = 5), normal +z out of that face, as bearing-608's bore; shaft-5mm's journals are framed where face B lands."
     }
   ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 8,
+        "length": 5,
+        "from": [
+          "outside_diameter",
+          "width"
+        ]
+      }
+    ],
+    "note": "Outside diameter over the width; the bore is not hollowed, so its shaft overlaps it."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."

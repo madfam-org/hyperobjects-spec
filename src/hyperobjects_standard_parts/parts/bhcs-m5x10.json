@@ -106,6 +106,43 @@
       "note": "Male: the shank enters the host's clearance hole. As bhcs-m5x30: the origin is the centre of the under-head face and the normal points +z along the shank toward the host, so a hole framed at the head seat with its normal out of the hole takes the screw head on that face."
     }
   ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          -2.75
+        ],
+        "axis": "z",
+        "radius": 4.75,
+        "length": 2.75,
+        "from": [
+          "head_diameter",
+          "head_height"
+        ],
+        "note": "the button head"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": 10,
+        "from": [
+          "thread_diameter",
+          "length"
+        ],
+        "note": "the shank to the tip"
+      }
+    ],
+    "note": "Head and shank; the hex socket is not hollowed. The shank overlaps the hole or T-nut it is driven into: declare it."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."

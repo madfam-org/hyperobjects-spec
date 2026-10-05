@@ -15,7 +15,8 @@ They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
 Apache-2.0. They are copied unmodified, as test inputs only, because the GOC-1 tree
 digests of the cartridge directories enter the assembly digests the golden tests pin
-(A `35867ffd…` on this keystone's catalog, `296caa36…` before the slot `travel` of ASM-1 §9 v1.4
+(A `8172f814…` on this keystone's catalog, `35867ffd…` before the collision `envelope`s changed its
+catalog entries, `296caa36…` before the slot `travel` of ASM-1 §9 v1.4
 changed the `extrusion-2020` entry, `24322cc0…` before the `belt_engagement` of ASM-1 §9
 changed the `gt2-pulley-20t-5mm` entry, `58caf081…` before the blind-joint interfaces changed the
 `extrusion-2020` entry; B `96166430…` on this keystone's catalog, `f0db7bdb…` at

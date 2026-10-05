@@ -202,6 +202,44 @@
     ],
     "plane_note": "Derived from one listing's cited heights, not one cited number: the 8 mm hub, then the flanged toothed section to the 18 mm overall height with the belt centred in it, so the mid-plane is at 8 + (18 − 8)/2 = 13 from face A. The axis is the bore axis."
   },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 10,
+        "length": 8,
+        "from": [
+          "hub_diameter",
+          "hub_height"
+        ],
+        "note": "the hub"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          8
+        ],
+        "axis": "z",
+        "radius": 27.35,
+        "length": 10,
+        "from": [
+          "flange_diameter",
+          "hub_height",
+          "overall_length"
+        ],
+        "note": "the flanged toothed section at the flange diameter"
+      }
+    ],
+    "note": "Hub, then the flanged toothed section at the 'Small' variant's flange diameter; the bore is not hollowed, so the shaft overlaps it."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
