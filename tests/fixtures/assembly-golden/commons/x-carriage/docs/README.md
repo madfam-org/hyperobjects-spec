@@ -150,6 +150,17 @@ The belt tails beyond the jaw entrances are not modelled.
 underside, so the window the B folds go in through is 4.2 tall. Fold the B ends before the
 carriage goes on the block, or use a gantry with the B level higher.
 
+**Proven on the commons gantry (round 2).** The lane's proof document places this carriage and
+the commons `toolhead-proxy` in P6-GANTRY's round-2 gantry:
+- the MGN12 400 is centred on the X beam's front face (guide p. 101), with the X joint at ±175
+  (Klipper X 0..350, `Voron2_Octopus_Config.cfg` lines 56 and 68–69);
+- both A/B belts are anchored in these jaws.
+
+It closes 284/284 mates over 23 poses. Both paths measure 1682.288 mm with planarity 0 and a
+length spread of 0.000 across the X sweep, the CoreXY invariant. `--collision` is clean. At ±175
+the tower stays 3 mm inboard of the XY joints' belt elements. The first contact past the limit
+is the MGN12H block against an XY joint, at about ±176.
+
 ## Presets
 
 | Preset | Values | Notes |

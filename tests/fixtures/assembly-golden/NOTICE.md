@@ -4,15 +4,16 @@
 [madfam-org/solid-hyperobjects](https://github.com/madfam-org/solid-hyperobjects):
 
 - `assemblies/voron-2-4-class-350-motion-frame/assembly.json` (assembly A, the full Voron
-  2.4-class 350 motion system, lane P6-ASM: solid PR #164, head `27f89b3`) and `assemblies/fpv-5in-freestyle/assembly.json`
+  2.4-class 350 motion system, lane P6-ASM: solid PR #164, merged as main `345bc458`) and `assemblies/fpv-5in-freestyle/assembly.json`
   (assembly B, unchanged since `00e17651`, main 2026-10-04; B carries the camera cage since
   `ea0a835`, #136);
 - the fourteen cartridges they use. B: `motor-soft-mount`, `pcb-standoff`, `battery-pad`,
   `fpv-camera-cage` (main `00e17651`). A: `z-drive-housing`, `bed-extrusion-mount`,
-  `corner-idler-bracket` (main `294a81e`), `z-joint` (#162), `z-belt-clamp` (#152),
-  `xy-joint` (#150), `ab-front-idler` (#160), `ab-drive` (#161), `toolhead-proxy` (#158) and
-  `x-carriage` (P6-XCAR), copied from those PR heads on 2026-10-05. **Refresh them from
-  solid main once those PRs merge**: identical bytes keep every digest below.
+  `corner-idler-bracket`, `z-joint` (#162), `z-belt-clamp` (#152), `xy-joint` (#150),
+  `ab-front-idler` (#160), `ab-drive` (#161), `toolhead-proxy` (#158) and `x-carriage` (#163),
+  all byte-identical to solid main `345bc458` (verified file by file on 2026-10-05, after #164
+  merged). Refresh them from solid main whenever a part changes: identical bytes keep every
+  digest below.
 
 They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
