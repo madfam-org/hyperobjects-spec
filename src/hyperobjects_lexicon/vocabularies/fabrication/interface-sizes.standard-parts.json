@@ -432,6 +432,93 @@
       "notes": "Added with the blind-joint interfaces of extrusion-2020 (lane P4-AUTH-E). The access hole is not part of the key: no source read gives its diameter or position (MISUMI's alteration pages refuse automated reads, and the guide gives no number), so it is not modelled. The joint is square end on flat face, hence symmetry 4."
     },
     {
+      "key": "bearing-625-bore",
+      "label": {
+        "en": "625 bearing bore (5 mm shaft)",
+        "es": "Barreno de rodamiento 625 (flecha de 5 mm)",
+        "fr": "Alésage de roulement 625 (arbre de 5 mm)",
+        "pt": "Furo de rolamento 625 (eixo de 5 mm)"
+      },
+      "definition": {
+        "en": "The inner fit of a 625 ball bearing (5 × 16 × 5 mm): a Ø5 mm shaft through its 5 mm inner ring. Female is the bearing's bore; male is the shaft's journal where the bearing sits.",
+        "es": "El ajuste interior de un rodamiento de bolas 625 (5 × 16 × 5 mm): una flecha de Ø5 mm a través de su anillo interior de 5 mm. Hembra es el barreno del rodamiento; macho, el asiento de la flecha donde va el rodamiento.",
+        "fr": "L'ajustement intérieur d'un roulement à billes 625 (5 × 16 × 5 mm) : un arbre de Ø5 mm à travers sa bague intérieure de 5 mm. Femelle est l'alésage du roulement ; mâle, la portée de l'arbre où se place le roulement.",
+        "pt": "O ajuste interior de um rolamento de esferas 625 (5 × 16 × 5 mm): um eixo de Ø5 mm através do seu anel interior de 5 mm. Fêmea é o furo do rolamento; macho, o assento do eixo onde fica o rolamento."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 5, "unit": "mm", "source": 0},
+        "width": {"value": 5, "unit": "mm", "source": 0},
+        "shaft_diameter": {"value": 5, "unit": "mm", "source": 1, "note": "MISUMI D 5, g6 (−0.004/−0.012)"}
+      },
+      "sources": [
+        {"title": "SKF 625-2RS1 miniature deep groove ball bearing (distributor listing, Quality Bearings Online)", "url": "https://www.qualitybearingsonline.ca/625-2rs1-skf-miniature-deep-groove-5x16x5mm", "publisher": "Quality Bearings Online", "accessed": "2026-10-04", "supports": "625-2RS1: bore d 5 mm; outside diameter D 16 mm; width B 5 mm"},
+        {"title": "MISUMI linear shafts, high accuracy, standard type — straight (SFJ / SSFJ / PSFJ / PSSFJ), catalog p. 91", "url": "https://vn.misumi-ec.com/pdf/fa/2013/p91.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "D 5: tolerance g6, −0.004/−0.012 mm"}
+      ],
+      "term": "socket",
+      "notes": "Added with the catalog entries bearing-625 and shaft-5mm (lane P6-ZBED), as bearing-608-bore was for the 608. The base key bearing-625 is the outer fit."
+    },
+    {
+      "key": "z-drive-pulley-hub-5mm",
+      "label": {
+        "en": "Z drive pulley hub on a Ø5 shaft",
+        "es": "Cubo de polea del accionamiento Z en flecha de Ø5",
+        "fr": "Moyeu de poulie d'entraînement Z sur arbre de Ø5",
+        "pt": "Cubo de polia do acionamento Z em eixo de Ø5"
+      },
+      "definition": {
+        "en": "A timing pulley's 5 mm set-screw bore on the Ø5 mm D-cut output shaft of a Voron 2.4-class Z drive: the 80-tooth reduction pulley and the 20-tooth Z belt pulley. Female is the pulley's bore; male is the shaft's station where the pulley's end face lands.",
+        "es": "El barreno de 5 mm con prisioneros de una polea síncrona sobre la flecha de salida de Ø5 mm con plano de un accionamiento Z de clase Voron 2.4: la polea de reducción de 80 dientes y la polea de 20 dientes de la banda Z. Hembra es el barreno de la polea; macho, la posición de la flecha donde asienta la cara de la polea.",
+        "fr": "L'alésage de 5 mm à vis de pression d'une poulie crantée sur l'arbre de sortie de Ø5 mm à méplat d'un entraînement Z de classe Voron 2.4 : la poulie de réduction à 80 dents et la poulie à 20 dents de la courroie Z. Femelle est l'alésage de la poulie ; mâle, la station de l'arbre où se pose la face de la poulie.",
+        "pt": "O furo de 5 mm com parafusos de fixação de uma polia sincronizada no eixo de saída de Ø5 mm com rebaixo de um acionamento Z de classe Voron 2.4: a polia de redução de 80 dentes e a polia de 20 dentes da correia Z. Fêmea é o furo da polia; macho, a posição do eixo onde assenta a face da polia."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 5, "unit": "mm", "source": 0},
+        "set_screw": {"value": "M3", "unit": "thread", "source": 0, "note": "M3 x 3 set screws for the 5 mm bore"},
+        "shaft_diameter": {"value": 5, "unit": "mm", "source": 1, "note": "MISUMI D 5, g6 (−0.004/−0.012)"},
+        "shaft_length": {"value": 60, "unit": "mm", "source": 2, "note": "the guide's 5x60 shaft"}
+      },
+      "sources": [
+        {"title": "MISUMI High Torque Timing Pulleys, 2GT type (GPA□□GT2040 / GT2060 / GT2090), catalog page 1340 (2019 MX)", "url": "https://mx.misumi-ec.com/en/pdf/fa/2019/2019_MX_1340.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "shaft bore 5 (H7) with M3 tapped holes and M3 x 3 set screws"},
+        {"title": "MISUMI linear shafts, high accuracy, standard type — straight (SFJ / SSFJ / PSFJ / PSSFJ), catalog p. 91", "url": "https://vn.misumi-ec.com/pdf/fa/2013/p91.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "D 5: tolerance g6, −0.004/−0.012 mm"},
+        {"title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied", "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf", "publisher": "VoronDesign", "accessed": "2026-10-04", "supports": "p. 32 (Z Drives and Idlers, belt drive assembly): a GT2 20T 9 mm wide pulley on a 5x60 shaft, one set screw on the D cut, thread locker on both; p. 33: the GT2 80 tooth pulley on the same shaft"}
+      ],
+      "term": "socket",
+      "notes": "A Z-drive key (lane P6-ZBED): the same fit as nema-17-shaft-5mm in diameter, kept separate so a pulley cataloged for the Z drive's output shaft does not mate a motor shaft by accident, and the reverse."
+    },
+    {
+      "key": "z-belt-gt2-9mm-clamp",
+      "label": {
+        "en": "Z belt end in a clamp (GT2, 9 mm)",
+        "es": "Extremo de banda Z en una mordaza (GT2, 9 mm)",
+        "fr": "Extrémité de courroie Z dans une pince (GT2, 9 mm)",
+        "pt": "Extremidade de correia Z numa garra (GT2, 9 mm)"
+      },
+      "definition": {
+        "en": "The end of a 9 mm GT2 belt held in a clamp's jaw, as a Voron 2.4-class gantry holds both ends of each Z belt: the belt enters the jaw with its back face on the jaw's wall. Male is the belt end; female is the jaw's entrance, framed on the wall the back bears on.",
+        "es": "El extremo de una banda GT2 de 9 mm sujeto en la mordaza de una abrazadera, como el pórtico de clase Voron 2.4 sujeta ambos extremos de cada banda Z: la banda entra en la mordaza con el dorso contra la pared de esta. Macho es el extremo de la banda; hembra, la entrada de la mordaza, enmarcada en la pared donde apoya el dorso.",
+        "fr": "L'extrémité d'une courroie GT2 de 9 mm tenue dans la mâchoire d'une pince, comme le portique de classe Voron 2.4 tient les deux extrémités de chaque courroie Z : la courroie entre dans la mâchoire, le dos contre sa paroi. Mâle est l'extrémité de la courroie ; femelle, l'entrée de la mâchoire, repérée sur la paroi où porte le dos.",
+        "pt": "A extremidade de uma correia GT2 de 9 mm presa na garra de uma braçadeira, como o pórtico de classe Voron 2.4 prende ambas as extremidades de cada correia Z: a correia entra na garra com o dorso contra a parede desta. Macho é a extremidade da correia; fêmea, a entrada da garra, referenciada na parede onde apoia o dorso."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "pitch": {"value": 2, "unit": "mm", "source": 0},
+        "belt_width": {"value": 9, "unit": "mm", "source": 0},
+        "belt_height": {"value": 1.52, "unit": "mm", "source": 0, "note": "B, back to tooth tip"},
+        "tooth_depth": {"value": 0.76, "unit": "mm", "source": 0, "note": "T, the tooth height"}
+      },
+      "sources": [
+        {"title": "Gates PowerGrip belt drives — Drive Design Manual (publication 17195): Long Length Belting Specifications (printed p. 90); distributor-hosted copy", "url": "https://www.ahrinternational.com/PDF_catalogues/Gates/powergripdesignmanual17195.pdf", "publisher": "Gates Corporation (copy hosted by AHR International)", "accessed": "2026-10-04", "supports": "PowerGrip GT belting, 2MR pitch: pitch 2 mm; widths 4, 6, 9 mm; belt height 1.52 mm; tooth height 0.76 mm"},
+        {"title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied", "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf", "publisher": "VoronDesign", "accessed": "2026-10-04", "supports": "p. 111 (Z axis, Z bearing blocks): the 9 mm GT2 belt is clamped on the gantry, teeth into the printed part's serrations; pp. 117 and 120 (Z belt): the top belt clamp is tightened on the pulled belt end"}
+      ],
+      "term": "profile",
+      "notes": "A Z-belt key (lane P6-ZBED). How the jaw holds the belt (serrations, a screw, a fold) is the clamp's design and not part of the key. The pitch line lies inside the belt from the back face by B − T − U; U is not cited here."
+    },
+    {
       "key": "m3-screw-joint",
       "label": {
         "en": "M3 screw joint",

@@ -134,6 +134,21 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
         "bearing-f695.bore": -1,           # the bore runs +z from the flange face, normal −z
         "bearing-f695.outer_race": +1,     # the Ø13 ring runs +z from the flange underside
         "shim-5x10.bore": -1,              # the bore runs +z from face A, normal −z
+        "bearing-625.outer_race": +1,      # body z 0..5, normal +z (as bearing-608)
+        "bearing-625.bore": -1,            # bore z 0..5 under origin z = 5, normal +z
+        "bhcs-m5x10.head_seat": +1,        # the shank runs +z from the under-head face
+        "bhcs-m5x16.head_seat": +1,
+        "gt2-pulley-16t-5mm.bore": -1,     # the bore runs +z from face A, normal −z
+        "gt2-pulley-16t-5mm.bore_b": -1,   # …and −z from face B, normal +z
+        "gt2-pulley-20t-9mm.bore": -1,
+        "gt2-pulley-20t-9mm.bore_b": -1,
+        "gt2-pulley-80t-5mm.bore": -1,
+        "gt2-pulley-80t-5mm.bore_b": -1,
+        "shaft-5mm.journal_a": +1,         # the journal runs −z from face B toward end A
+        "shaft-5mm.journal_b": +1,
+        "shaft-5mm.journal_c": +1,
+        "shaft-5mm.hub_a": +1,             # the pulley's seat runs −z, toward end A
+        "shaft-5mm.hub_b": +1,             # …or +z, toward end B
     }
     seen = set()
     for key in hyperobjects_standard_parts.list_part_keys():
