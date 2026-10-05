@@ -8,8 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### The Voron 2.4-class Z drive, Z belt and bed hardware (Phase 6, lane P6-ZBED)
 
-Additive catalog and vocabulary data, plus the schema enum value `belt`; no grammar, gate
-or validator change. Phase 6 (D1) models the full 2.4 motion system, the four Z drives and
+Additive catalog and vocabulary data; no schema, grammar, gate or validator change. Phase 6 (D1) models the full 2.4 motion system, the four Z drives and
 the bed included, with belts as declared paths (ASM-1 §9, P6-JOINT). Facts cite datasheets
 and listings; the Voron 2.4r2 build guide (GPL-3.0) is cited by page and section only, and
 none of its geometry is used.
@@ -19,9 +18,9 @@ none of its geometry is used.
 - **`gt2-pulley-16t-5mm`** (class; MISUMI GPA 2GT: P.D. 10.19, O.D. 9.68, 6 mm belt, L 18,
   W 10.3; Gates 2MR-16S 0.401 in), **`gt2-pulley-20t-9mm`** (class; MISUMI GPA: P.D. 12.73,
   9 mm belt, L 21, W 13.3) and **`gt2-pulley-80t-5mm`** (class; Spool3D listing: 5 mm bore,
-  overall 18, hub 8, flange 54.7; Gates 2MR-80S: P.D. 2.005 in = 50.93). Each states a cited
-  `pitch_diameter` (on the 2 mm GT2 circle, N·2/π) and a `belt_midplane_from_face_a`, for
-  P6-JOINT's `belt_engagement`. Interfaces `bore` (face A, the hub end) and `bore_b` (face B,
+  overall 18, hub 8, flange 54.7; Gates 2MR-80S: P.D. 2.005 in = 50.93). Each carries a
+  `belt_engagement` (ASM-1 §9): the cited `pitch_diameter` (on the 2 mm GT2 circle, N·2/π)
+  and the belt mid-plane's centre, derived from cited lengths (`plane_note` says how). Interfaces `bore` (face A, the hub end) and `bore_b` (face B,
   the flange end), so a pulley mounts either way round: the 16-tooth on the NEMA 17 shaft
   (`nema-17-shaft-5mm`), the 20- and 80-tooth on the Z drive's output shaft
   (`z-drive-pulley-hub-5mm`). 80 / 16 = 5:1 (guide pp. 33, 38).
@@ -31,19 +30,22 @@ none of its geometry is used.
   journals `journal_a/b/c` (`bearing-625-bore`, male) and pulley hubs `hub_a` / `hub_b`
   (`z-drive-pulley-hub-5mm`, male) at station parameters whose defaults are the commons
   `z-drive-housing`'s (conventions).
-- **`gt2-belt-9mm`**, the catalog's first **belt** (Gates 2MR long-length belting, 17195
-  p. 90: pitch 2, width 9, height 1.52, tooth height 0.76): `end_a` / `end_b`
+- **`gt2-belt-9mm`**, the open Z belt (category `belt`; its `belt` block from Gates 2MR
+  long-length belting, 17195 p. 90: pitch 2, width 9, height 1.52, tooth depth 0.76): `end_a` / `end_b`
   (`z-belt-gt2-9mm-clamp`, male, sym 2) on the back face at the clamp stations;
   `length_mm` defaults to the guide's minimum cut length for the 350 (1200, p. 111). The
   pitch-line differential is not cited, so the teeth-/back-side offsets are not stated; the
   Z path runs teeth-on-toothed parts only.
+- **`gt2-belt-loop-188mm`**, the Z drive's reduction loop (category `belt`, no interfaces):
+  `belt.loop_length` 188 (guide p. 34), width 6 (the Voron 2.4 motion set's Gates loop),
+  pitch 2, height 1.52, tooth depth 0.76 (Gates 17195 p. 90); 94 teeth.
 - **`bhcs-m5x10`** and **`bhcs-m5x16`** (ISO 7380-1; Keller & Kalmbach): `head_seat` only.
   The guide fixes the Z drives and the bed extrusions with M5x10 (pp. 19, 42–43) and the
   frame's blind joints with M5x16 (p. 14).
 - **Vocabulary** (`interface-sizes.standard-parts.json`): `bearing-625-bore`,
   `z-drive-pulley-hub-5mm`, `z-belt-gt2-9mm-clamp`.
-- **`standard-part.schema.json`**: category `belt` (the same enum line P6-JOINT adds; its
-  `belt` block lands with ASM-1 §9, which lifts this entry's belt facts into it).
+- No schema change: the `belt` category, the `belt` and `belt_engagement` blocks and
+  minItems 0 for belts arrived with ASM-1 §9 (0.7.0, P6-JOINT); this lane's entries use them.
 - **Tests** (`tests/test_catalog_z_drive.py`): (i) a bottom corner — upright, two
   horizontals by blind joints, the Z drive housing framed as the commons cartridge
   `z-drive-housing` frames it, keyed into both bottom slots, T-nuts and M5x10s, three 625s,
@@ -56,8 +58,87 @@ none of its geometry is used.
   extrusion square, flush and butted; (v) the whole 350 frame cube at its cited cut lengths
   (530 uprights, 470 horizontals, 16 blind joints; Spool3D and LDO kit listings, guide
   pp. 13, 20) with a Z drive at each bottom corner and both bed rails on four bed mounts —
-  64 + 6 components close; a 471 horizontal or a 469 bed rail fails. Negative controls for
-  every new key.
+  64 + 6 components close; a 471 horizontal or a 469 bed rail fails; (vi) ASM-1 §9: the
+  16 → 80-tooth loop declared as a closed path in the Z drive closes at 188.006 mm with no
+  `path-length` warning, and 2 mm further out it warns at the open-belt formula's length.
+  Negative controls for every new key.
+
+### Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, contract v1.3, package 0.7.0) — projection version 2
+
+Phase 6 of the Voron live-twin programme, lane P6-JOINT. It applies owner decisions D1–D5
+(2026-10-04): belts are declared paths (D1), there is one logical Z joint with followers
+(D2), and forward kinematics live in the keystone as the reference and in the viewer,
+never in pravara (D4). The contract lands as **ASM-1 §9**, because §8 remains the frame
+authoring gate. Everything is optional: assemblies A and B validate unchanged, with one
+pose each.
+
+#### Added
+
+- **Joints on mates** (`assembly.schema.json` `mate.joint`; `y4d_spec.assembly.kinematics`):
+  - `prismatic` (mm) or `revolute` (degrees) about `x`/`y`/`z` of side a's interface
+    frame;
+  - value 0 is the mate;
+  - `T_b = T_a · H(F_a) · J(q) · Flip · Rz(θ) · H(F_b)^-1`;
+  - three roles: **driven** (`home`), **follower** (`follows: {terms, offset}`), and
+    **passive** (`passive: true`, measured: its mate only closes a cycle, with the degree
+    of freedom free).
+- **Machine-axis bindings** (`machine: {kinematics, axes: [{axis, joint, scale, offset}]}`):
+  identity by default; only a driven joint may be bound.
+- **Belt paths** (`paths[]`; `y4d_spec.assembly.paths`):
+  - vias are pulleys and idlers with a `belt_engagement` (`wrap` ccw/cw, `side`
+    teeth/back) or clamp anchors;
+  - the path must be planar at home (0.5°, 0.5 mm, conventions);
+  - the pitch-line length is reported at every pose. The tests prove it against the
+    textbook open-belt and crossed-belt formulas;
+  - `path-length` warns on a spread above 0.1 mm across the sweep, or a loop more than
+    0.5 mm off its catalog `loop_length` (conventions);
+  - the belt's catalog identity enters the digest (`path_parts`) only when a document
+    declares paths.
+- **The pose sweep** in `assembly check`, run once home passes:
+  - home, each driven joint's limits, and `--pose-samples N` (default 16, a convention)
+    Halton samples, seed 1;
+  - new findings: `joint`, `machine`, `pose-closure`, `joint-limit`, `path` (errors) and
+    `path-length` (a warning);
+  - the report gains `joints`, `poses` and `paths`; the summary line gains
+    `joints= poses=ok/total paths=`;
+  - the 21 poses of the 14-component fixture run in about 0.08 s.
+- **The reference forward kinematics.** `pose(doc, resolver, joint_values)`,
+  `pose_from_axes(...)`, `compile_kinematics`, `golden_poses(_json)` and
+  `y4d-spec assembly poses`.
+- **Golden pose files** (`hyperobjects.assembly-poses` 1.0.0):
+  - every computed number is a string in the canonical fixed format (6 decimals, ties
+    away from zero, which is JavaScript's `toFixed(6)`);
+  - a `tie_guard` lists the near-boundary entries;
+  - `scripts/refresh_pose_golden.py [--check]` is a new CI step;
+  - goldens exist for A, B and the new `tests/fixtures/kinematics/kinematic-gantry` (a
+    passive carriage closing a cycle, an X carriage, a follower pulley, a closed GT2 loop).
+- **Catalog** (`standard-part.schema.json`, `hyperobjects_standard_parts`):
+  - category `belt` and a `belt` block: `pitch` and `width`, plus optional `height`,
+    `tooth_depth`, `pitch_line_differential`, `teeth_side_offset`, `back_side_offset` and
+    `loop_length`. A belt may have no interfaces;
+  - an optional `belt_engagement` holding exactly one of `pitch_diameter` and
+    `running_diameter`, plus `center`, `axis`, `parameters` and `plane_note`;
+  - `belt_engagement()` and `belt_facts()`, and catalog-lane rule 9.
+- **`gt2-pulley-20t-5mm` and `gt2-idler-20t-9mm`** carry `belt_engagement`:
+  - pitch diameter 12.73 mm, cited from the Gates 20-2MR-PS-4 stock-pulley table via
+    CMT Co. (= 20 × 2 / π);
+  - the mid-planes (pulley z = 8; idler z = width / 2) are labelled conventions.
+- **`--standard-parts` is repeatable** (`FirstOfResolver`): directories are tried in order.
+
+#### Changed
+
+- **`PROJECTION_VERSION` 1 → 2.** Every assembly shell gains the **`Kinematics`**
+  submodel (MADFAM `smt/assembly-kinematics/1/0`): joints, axis bindings, paths and the
+  pose sweep. It is not an extension of `Mates`: followers and paths span several mates.
+  The drift guard refused the new bytes under the p1 ids until the bump. All 13
+  projection goldens were refreshed.
+- **`gt2-idler-20t-9mm`** no longer cites guide pp. 98/100. The XY-joint idlers carry the
+  6 mm A/B belt (guide p. 131); this entry keeps p. 8 and p. 48 (Z).
+- **Fixture A's digest moves** `24322cc0…` → `296caa36…`, through the pulley's catalog
+  digest. This is an ordinary refresh, not immutable drift.
+- `y4d_spec.assembly.validate` is split: the §9 steps live in `sweep.py`, and the mating
+  tolerances in `tolerances.py` (still re-exported).
+
 
 ### Graph engine Wave D re-vendored: graph format 1.1 (lane P8-ENGINE, 2026-10-04)
 

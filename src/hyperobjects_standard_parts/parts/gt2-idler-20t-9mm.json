@@ -39,7 +39,14 @@
       "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
       "publisher": "VoronDesign",
       "accessed": "2026-10-04",
-      "supports": "p. 8 (Hardware reference): GT2 idlers in the motion system; p. 48 (Z Drives and Idlers): a GT2 20-tooth idler 9 mm wide on an M5x30 BHCS; pp. 98 and 100 (Gantry, XY joints): a GT2 20-tooth idler on an M5x40 SHCS"
+      "supports": "p. 8 (Hardware reference): GT2 idlers in the motion system; p. 48 (Z Drives and Idlers): a GT2 20-tooth idler 9 mm wide on an M5x30 BHCS"
+    },
+    {
+      "title": "Gates PowerGrip GT2 2 mm pitch stock timing pulleys (2MR), distributor catalog reproducing the Gates stock-pulley table",
+      "url": "https://cmtco.com/product-catalogs/timing-pulley-stock/2m-gt2-2mm-pitch-ts",
+      "publisher": "CMT Co.",
+      "accessed": "2026-10-04",
+      "supports": "20-2MR-PS-4: 20 grooves, 2 mm pitch, pitch diameter 0.501 in (12.73 mm), outside diameter 0.481 in (12.22 mm)"
     }
   ],
   "frame_convention": "Origin at the centre of face A (the outer face of one flange), on the axis. +z runs along the axis through the idler to face B at z = width_mm. +x is an arbitrary radial reference: the idler is round, so every interface has continuous symmetry. The bore and face A share the origin; both normals there point −z, out of face A.",
@@ -192,5 +199,27 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The belt path is not an interface yet: no catalog belt exists to mate it. The pitch diameter of a 20-tooth GT2 wheel is the interface-sizes key gt2-pulley-20t-5mm's. The flange faces bear on shims or host walls; whether a maker's flange or inner ring stands proud is not stated by the sources and is not modelled."
+  "notes": "The belt engagement (ASM-1 §9) carries the pitch diameter of a 20-tooth 2 mm GT2 wheel, cited from the Gates stock pulley table (12.73 mm; equal to 20 × 2 mm / π): a toothed idler meshes the belt as a pulley of the same tooth count does. The flange faces bear on shims or host walls; whether a maker's flange or inner ring stands proud is not stated by the sources and is not modelled.",
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 12.73,
+      "unit": "mm",
+      "source": 3,
+      "note": "20-2MR-PS-4: 20 grooves × 2 mm pitch / π = 12.732 mm"
+    },
+    "center": [
+      0,
+      0,
+      "width_mm / 2"
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "parameters": [
+      "width_mm"
+    ],
+    "plane_note": "Convention: the idler is flanged on both sides, so the belt mid-plane is put at mid-width (z = width_mm / 2); no cited source states it. The axis is the bore axis."
+  }
 }

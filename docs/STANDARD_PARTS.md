@@ -104,6 +104,7 @@ size key's.
 | `fpv-camera-micro-19mm` | class | `side_mount` → `fpv-camera-micro-19mm` male, sym 0<br>`side_face_left`, `side_face_right` → `fpv-camera-micro-19mm` female, sym 0 (planar, y = ±9.5)<br>`front_face`, `back_face` → `fpv-camera-micro-19mm` male, sym 4 (planar) | `screw_axis_to_front_mm` | Rotorama, Team BlackSheep |
 | `fpv-frame-5in-x-225` | class | `motor_mount_fl … (4)` → `motor-mount-16x16-m3` male, sym 4, `x_axis` outward along the arm<br>`stack_mount` → `stack-30.5x30.5-m3` male, sym 4<br>`camera_bay` → `fpv-camera-micro-19mm` female, sym 0<br>`camera_plate_left`, `camera_plate_right` → `fpv-camera-micro-19mm` male, sym 0 (side plates' inner faces)<br>`camera_plate_left_outer`, `camera_plate_right_outer` → `fpv-camera-side-plate-screw` female, sym 0 (outer faces, for a cage's ears)<br>`rear_vtx_mount` → `vtx-mount-20x20` female, sym 4 (top plate's upper face, at the convention `rear_mount_x_mm`)<br>`battery_strap` → `battery-strap-20mm` female, sym 2 | `motor_half_x_mm`, `motor_half_y_mm`, `top_plate_z_mm`, `camera_axis_x_mm`, `camera_bay_width_mm`, `side_plate_thickness_mm`, `rear_mount_x_mm` | GEPRC |
 | `gt2-idler-20t-9mm` | class | `bore` → `m5-bolt-axle` female, sym 0<br>`face_a`, `face_b` → `m5-axle-stack-face` neutral, sym 0 | `width_mm` | KB-3D (Gates), Makersupplies, VoronDesign |
+| `gt2-belt-loop-188mm` | datasheet (category `belt`) | none: a closed loop, `belt.loop_length` 188 | — | Gates (17195), VoronDesign, West3D |
 | `gt2-belt-9mm` | datasheet (category `belt`) | `end_a`, `end_b` → `z-belt-gt2-9mm-clamp` male, sym 2 (on the back face at the clamp stations) | `length_mm` | Gates (17195), VoronDesign, West3D |
 | `gt2-pulley-16t-5mm` | class | `bore` (face A, hub end), `bore_b` (face B, flange end) → `nema-17-shaft-5mm` female, sym 0 | — | MISUMI, Gates (Royal Supply), West3D, VoronDesign |
 | `gt2-pulley-20t-9mm` | class | `bore`, `bore_b` → `z-drive-pulley-hub-5mm` female, sym 0 | — | MISUMI, West3D, VoronDesign |
@@ -143,9 +144,10 @@ three 625 bearings (`bearing-625`). The shaft carries an 80-tooth pulley
 NEMA 17 through a closed 188 mm GT2 loop, and a 20-tooth 9 mm pulley (`gt2-pulley-20t-9mm`)
 that drives the Z belt (`gt2-belt-9mm`). The Z belt runs up to the top-corner idler
 (`gt2-idler-20t-9mm`) and both its ends are clamped on the gantry
-(`z-belt-gt2-9mm-clamp`). Every pulley states a cited `pitch_diameter` and the mid-plane of
-its belt (`belt_midplane_from_face_a`), the two facts a belt path needs. The closed loop is
-not cataloged yet: under ASM-1 §9 a belt with no ends lives only in `paths[]`.
+(`z-belt-gt2-9mm-clamp`). Every pulley carries a `belt_engagement`: its cited
+`pitch_diameter` and the centre of its belt's mid-plane, derived from cited lengths. The
+reduction loop (`gt2-belt-loop-188mm`) has no ends, so no interfaces: a Z drive declares it
+as a closed path (`belt.loop_length` 188) round the two pulleys.
 
 Frame conventions, in brief (each entry's `frame_convention` is the full statement):
 
@@ -171,8 +173,9 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `gt2-idler-20t-9mm`, `shim-5x10` | centre of face A; +z through to face B at `width_mm` / `thickness_mm`; the bore and face A share the origin, normals −z |
 | `bearing-f695` | centre of the flange face (face A); +z to the plain face at z = 4; the outer-ring seat under the flange at z = 1 |
 | `bearing-625` | centre of side face A; +z to face B at z = 5; the bore framed at face B, as `bearing-608` |
-| `gt2-pulley-16t-5mm`, `gt2-pulley-20t-9mm`, `gt2-pulley-80t-5mm` | centre of face A, the hub end; +z through the hub and the flanged toothed section to face B at z = 18 / 21 / 18; the belt mid-plane at z = 12.85 / 14.35 / 13 (`belt_midplane_from_face_a`) |
+| `gt2-pulley-16t-5mm`, `gt2-pulley-20t-9mm`, `gt2-pulley-80t-5mm` | centre of face A, the hub end; +z through the hub and the flanged toothed section to face B at z = 18 / 21 / 18; the belt mid-plane at z = 12.85 / 14.35 / 13 (`belt_engagement.center`) |
 | `shaft-5mm` | centre of end A; +z to end B at `length_mm`; journals where a 625's face B lands (normal −z), hubs where a pulley's bore face lands (normal toward the pulley) |
+| `gt2-belt-loop-188mm` | no frame: a closed loop has no ends; its geometry is the declared path |
 | `gt2-belt-9mm` | the belt laid straight: end A's clamp station on the back face at mid-width; +x along the belt to end B at `length_mm`, +y across the width (±4.5), +z through the belt toward the teeth |
 | `tnut-2020-m5` | on the slotted face over the thread axis; +z out of the extrusion; +x along the slot |
 
@@ -212,8 +215,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=30 interfaces=93 failures=0
-standard_parts_status: parts=30 interfaces=93 dimensions=209 parameters=30 classes=11 review: signed=0 draft=30
+y4d-spec vocab standard-parts: parts=31 interfaces=93 failures=0
+standard_parts_status: parts=31 interfaces=93 dimensions=200 parameters=30 classes=11 review: signed=0 draft=31
 ```
 
 1. Schema-valid; the file is named for its `key`.
@@ -229,12 +232,45 @@ standard_parts_status: parts=30 interfaces=93 dimensions=209 parameters=30 class
    parameter or form a cycle).
 8. At each of those points the normal and `x_axis` are unit vectors and orthogonal
    (`AXIS_TOLERANCE = 1e-9`).
+9. Belt facts (ASM-1 §9, 0.7.0): a `belt` block (category `belt` only, and required there)
+   and a `belt_engagement` cite sources that exist and state positive numbers in mm; the
+   engagement's `center` and `axis` read only the parameters it lists, evaluate at the
+   same points, and give a unit `axis`.
 
 `y4d-spec vocab --standard-parts DIR` checks another catalog directory.
 
 **Frame evaluator.** Frame components are evaluated by `y4d_spec.frame_eval`, the ASM-1 §1
 evaluator the assembly validator and the render-time frame gate also use: the grammar
 check first, then a hand walk over floats; nothing reaches `eval`.
+
+## Belts and belt engagement (ASM-1 §9)
+
+An assembly's declared belt paths ([ASSEMBLIES.md](ASSEMBLIES.md#belt-paths)) read two
+optional blocks:
+
+- **`belt_engagement`** on a pulley, an idler or a bearing used as one: exactly one of
+  - `pitch_diameter`: a toothed part; the diameter the belt's pitch line runs on;
+  - `running_diameter`: a smooth part; the surface the belt runs on.
+
+  It also holds `center` (a frame-grammar point on the axis, in the belt mid-plane),
+  `axis` (an exact unit vector), `parameters` (the ones `center` reads) and `plane_note`,
+  which says whether the mid-plane position is cited or a convention.
+- **`belt`** on an entry of category `belt` (required there, refused elsewhere): `pitch`
+  and `width`, and optionally `height` (B), `tooth_depth` (T), `pitch_line_differential`
+  (U), the derived `teeth_side_offset` (T + U) and `back_side_offset` (B − T − U) that a
+  smooth via needs, and `loop_length` for a closed loop. A belt may declare no
+  interfaces: a closed loop has no end or seat to mate.
+
+| Entry | `belt_engagement` | Mid-plane |
+|---|---|---|
+| `gt2-pulley-20t-5mm` | `pitch_diameter` 12.73 mm (Gates 20-2MR-PS-4, the 2 mm GT2 stock-pulley table via CMT Co.; = 20 × 2 / π) | z = 8, **a convention** (mid-length; no source places the toothed section) |
+| `gt2-idler-20t-9mm` | `pitch_diameter` 12.73 mm (the same table: a 20-tooth 2 mm GT2 wheel) | z = `width_mm` / 2, **a convention** (flanged both sides) |
+| `gt2-pulley-16t-5mm` | `pitch_diameter` 10.19 mm (MISUMI GPA 2GT table; Gates 2MR-16S 0.401 in) | z = 12.85, **derived** from MISUMI's L 18 and W 10.3 (L − W/2) |
+| `gt2-pulley-20t-9mm` | `pitch_diameter` 12.73 mm (MISUMI GPA 2GT table) | z = 14.35, **derived** from MISUMI's L 21 and W 13.3 |
+| `gt2-pulley-80t-5mm` | `pitch_diameter` 50.93 mm (Gates 2MR-80S, 2.005 in) | z = 13, **derived** from the listing's hub 8 and overall 18 |
+
+Adding `belt_engagement` changed both entries' catalog digest, so assembly A's digest
+moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
 
 ## Adding a part
 

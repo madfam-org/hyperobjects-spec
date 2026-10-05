@@ -111,14 +111,72 @@
       "items": { "$ref": "#/$defs/parameter" }
     },
     "interfaces": {
-      "description": "Where the part mates, in the SEM-1 §2.3 shape. `frame`, `polarity`, `size_key` and `symmetry` are all required here (the manifest makes them optional; a catalog entry exists to be mated).",
+      "description": "Where the part mates, in the SEM-1 §2.3 shape. `frame`, `polarity`, `size_key` and `symmetry` are all required here (the manifest makes them optional; a catalog entry exists to be mated). At least one, except for a `belt` (ASM-1 §9): a closed-loop belt has no end or seat to mate and appears only in an assembly's `paths[]`.",
       "type": "array",
-      "minItems": 1,
       "items": { "$ref": "#/$defs/interface" }
     },
     "review_status": { "$ref": "#/$defs/reviewStatus" },
-    "notes": { "type": "string", "minLength": 10 }
+    "notes": { "type": "string", "minLength": 10 },
+    "belt": {
+      "description": "ASM-1 §9 (v1.3). Category `belt` only, and required there: the belt facts a declared belt path (`paths[]` of an assembly) reads. Both cite a source.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pitch", "width"],
+      "properties": {
+        "pitch": { "$ref": "#/$defs/dimension" },
+        "width": { "$ref": "#/$defs/dimension" },
+        "height": { "$ref": "#/$defs/dimension", "description": "B: overall belt height." },
+        "tooth_depth": { "$ref": "#/$defs/dimension", "description": "T: tooth depth." },
+        "pitch_line_differential": { "$ref": "#/$defs/dimension", "description": "U: from the tooth tips' line to the pitch line." },
+        "teeth_side_offset": { "$ref": "#/$defs/dimension", "description": "How far the pitch line sits from a smooth surface the TEETH run on (T + U). A path needs it to run this belt's teeth on a part with a `running_diameter`." },
+        "back_side_offset": { "$ref": "#/$defs/dimension", "description": "How far the pitch line sits from a smooth surface the BACK runs on (B − T − U). A path needs it to run this belt's back on a part with a `running_diameter`." },
+        "loop_length": { "$ref": "#/$defs/dimension", "description": "A closed-loop belt's pitch length. A path naming this belt must be closed; its computed length at home is reported beside this, and a difference above 0.5 mm (a convention) warns." }
+      }
+    },
+    "belt_engagement": {
+      "description": "ASM-1 §9 (v1.3). Where a belt wraps this part (a pulley, an idler or a bearing used as one), and the circle's centre and axis in the part's model frame. A toothed part states the cited `pitch_diameter` (the diameter the belt's pitch line runs on); a smooth part states the cited `running_diameter` (the surface the belt runs on), and a path adds the belt's pitch-line offset for the side that runs on it. Exactly one of the two. A belt path may pass only through components whose part declares this.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["center", "axis", "plane_note"],
+      "oneOf": [
+        { "required": ["pitch_diameter"], "not": { "required": ["running_diameter"] } },
+        { "required": ["running_diameter"], "not": { "required": ["pitch_diameter"] } }
+      ],
+      "properties": {
+        "pitch_diameter": { "$ref": "#/$defs/dimension" },
+        "running_diameter": { "$ref": "#/$defs/dimension" },
+        "center": {
+          "description": "A point on the axis, in the belt's mid-plane, in the frame grammar over this entry's parameters.",
+          "$ref": "#/$defs/frameVector"
+        },
+        "axis": {
+          "description": "The pitch circle's axis: an EXACT unit vector.",
+          "$ref": "#/$defs/frameVector"
+        },
+        "parameters": {
+          "description": "The entry's parameter ids `center` and `axis` depend on.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "plane_note": {
+          "description": "Where the mid-plane position along the axis comes from: a cited fact, or a convention labelled as one.",
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    }
   },
+  "allOf": [
+    {
+      "if": { "properties": { "category": { "const": "belt" } }, "required": ["category"] },
+      "then": { "required": ["belt"] },
+      "else": {
+        "not": { "required": ["belt"] },
+        "properties": { "interfaces": { "minItems": 1 } }
+      }
+    }
+  ],
   "$defs": {
     "quadrilingualString": {
       "type": "object",

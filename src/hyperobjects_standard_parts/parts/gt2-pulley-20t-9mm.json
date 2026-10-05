@@ -54,12 +54,6 @@
       "unit": "mm",
       "source": 0
     },
-    "pitch_diameter": {
-      "value": 12.73,
-      "unit": "mm",
-      "source": 0,
-      "note": "MISUMI P.D. for 20 teeth; 20 × 2 / π = 12.73"
-    },
     "outside_diameter": {
       "value": 12.22,
       "unit": "mm",
@@ -94,12 +88,6 @@
       "unit": "mm",
       "source": 0,
       "note": "MISUMI L"
-    },
-    "belt_midplane_from_face_a": {
-      "value": 14.35,
-      "unit": "mm",
-      "source": 0,
-      "note": "derived: L − W/2 (shape A is the hub, L − W = 7.7, then the toothed section W with the belt centred in it)"
     },
     "set_screw": {
       "value": "M3",
@@ -172,9 +160,28 @@
       "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 21, normal +z out of that face."
     }
   ],
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 12.73,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI P.D. for 20 teeth; 20 × 2 / π = 12.73"
+    },
+    "center": [
+      0,
+      0,
+      14.35
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Derived from cited facts, not one cited number: MISUMI GPA 9 mm-belt shape A is the hub (L − W = 7.7) then the flanged toothed section W = 13.3 with the belt centred in it, so the mid-plane is at L − W/2 = 14.35 from face A. The axis is the bore axis."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Belt engagement (for ASM-1 §9 belt paths, lifted into belt_engagement when that block exists): pitch_diameter 12.73 mm, centre (0, 0, 14.35), axis (0, 0, 1); the mid-plane is derived from MISUMI's L and W, not a single cited number. Not interchangeable with gt2-pulley-20t-5mm, which is the 6 mm-belt pulley for a motor shaft."
+  "notes": "Not interchangeable with gt2-pulley-20t-5mm, which is the 6 mm-belt pulley for a motor shaft."
 }

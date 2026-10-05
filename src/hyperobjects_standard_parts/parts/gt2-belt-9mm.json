@@ -44,28 +44,6 @@
   ],
   "frame_convention": "The belt laid straight. Origin at end A's clamp station, on the back face, at mid-width. +x runs along the belt to end B's clamp station at x = length_mm; +y runs across the width (the belt spans y = ±4.5); +z runs from the back face through the belt toward the teeth, whose tips are at z = 1.52. A clamp station is where the belt enters its clamp; the tail inside the clamp is beyond it and not part of length_mm.",
   "dimensions": {
-    "pitch": {
-      "value": 2,
-      "unit": "mm",
-      "source": 0
-    },
-    "width": {
-      "value": 9,
-      "unit": "mm",
-      "source": 0
-    },
-    "height": {
-      "value": 1.52,
-      "unit": "mm",
-      "source": 0,
-      "note": "B, the overall belt height, back to tooth tip"
-    },
-    "tooth_depth": {
-      "value": 0.76,
-      "unit": "mm",
-      "source": 0,
-      "note": "T, the tooth height"
-    },
     "voron_350_cut_length": {
       "value": 1200,
       "unit": "mm",
@@ -158,9 +136,33 @@
       "note": "Male: the belt end goes into a clamp's jaw. The origin is on the belt's back face at mid-width; the normal points along the belt away from its own length, into the clamp; x_axis runs across the width. End B is framed for the belt laid straight: in an assembly it is reached through a belt path (ASM-1 §9), not by a rigid mate that would have to close a loop through the pulleys."
     }
   ],
+  "belt": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, the overall belt height, back to tooth tip"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "T, the tooth height"
+    }
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Belt facts for ASM-1 §9 (lifted into the belt block when that block exists): pitch 2, width 9, height 1.52, tooth_depth 0.76. The pitch-line differential U is not stated by the cited sources, so the teeth-side and back-side offsets are not stated here; the Z belt path runs teeth-on-toothed parts only, which needs neither."
+  "notes": "The pitch-line differential U is not stated by the cited sources, so the teeth-side and back-side offsets are not stated here; the Z belt path runs teeth-on-toothed parts only (guide p. 118), which needs neither."
 }

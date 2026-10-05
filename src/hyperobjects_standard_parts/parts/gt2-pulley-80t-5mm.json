@@ -68,12 +68,6 @@
       "unit": "mm",
       "source": 0
     },
-    "pitch_diameter": {
-      "value": 50.93,
-      "unit": "mm",
-      "source": 1,
-      "note": "Gates 2MR-80S gives 2.005 in (sources 1 and 2) = 50.93 mm (×25.4, rounded to 0.01); 80 × 2 / π = 50.93"
-    },
     "tooth_outside_diameter": {
       "value": 50.3,
       "unit": "mm",
@@ -123,12 +117,6 @@
       "value": 2,
       "unit": "count",
       "source": 0
-    },
-    "belt_midplane_from_face_a": {
-      "value": 13,
-      "unit": "mm",
-      "source": 0,
-      "note": "derived: hub height 8 + (overall 18 − 8) / 2, the toothed section with its flanges beyond the hub"
     }
   },
   "interfaces": [
@@ -195,9 +183,28 @@
       "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 18, normal +z out of that face."
     }
   ],
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 50.93,
+      "unit": "mm",
+      "source": 1,
+      "note": "Gates 2MR-80S gives 2.005 in (sources 1 and 2) = 50.93 mm (×25.4, rounded to 0.01); 80 × 2 / π = 50.93"
+    },
+    "center": [
+      0,
+      0,
+      13
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Derived from one listing's cited heights, not one cited number: the 8 mm hub, then the flanged toothed section to the 18 mm overall height with the belt centred in it, so the mid-plane is at 8 + (18 − 8)/2 = 13 from face A. The axis is the bore axis."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Belt engagement (for ASM-1 §9 belt paths, lifted into belt_engagement when that block exists): pitch_diameter 50.93 mm, centre (0, 0, 13), axis (0, 0, 1); the mid-plane is derived from one listing's hub height and overall height. The pitch diameter is a Gates sprocket's: the 2 mm GT2 pitch circle of 80 grooves is the same for every maker."
+  "notes": "The pitch diameter is a Gates sprocket's: the 2 mm GT2 pitch circle of 80 grooves is the same for every maker."
 }

@@ -22,6 +22,10 @@ What the lane checks (each failure class has a test)
 8. **Axes are exact** — at every one of those points ``normal`` and ``x_axis`` are unit
    vectors and orthogonal, to ``AXIS_TOLERANCE``. A catalog entry carries no normalisation
    slack: the assembly placement (ASM-1 §3.4) builds its matrix from these vectors.
+9. **Belt facts are usable** (ASM-1 §9, v1.3) — a ``belt`` block (category ``belt``) and a
+   ``belt_engagement`` cite sources that exist, state positive numbers in mm, and the
+   engagement's ``center`` and ``axis`` read only the parameters it lists, evaluate at the
+   same parameter points, and give a unit ``axis``.
 """
 
 from __future__ import annotations
@@ -34,8 +38,11 @@ from hyperobjects_schemas import load as load_schema
 from y4d_spec.semantic_rules import LetCycleError, expression_names, let_evaluation_order
 
 from . import (
+    BELT_FACTS,
     SCHEMA_NAME,
     FrameEvaluationError,
+    belt_engagement,
+    belt_facts,
     interface_frames,
     load_catalog,
     resolve_parameters,
@@ -120,6 +127,12 @@ def _source_index_problems(part: Mapping) -> list[str]:
     for param in part.get("parameters") or []:
         if isinstance(param, Mapping) and "source" in param:
             cite(f"parameters[{param.get('id')!r}].source", param["source"])
+    for block, names in (("belt", tuple(BELT_FACTS)),
+                         ("belt_engagement", ("pitch_diameter", "running_diameter"))):
+        for name in names:
+            dim = (part.get(block) or {}).get(name)
+            if isinstance(dim, Mapping):
+                cite(f"{block}.{name}", dim.get("source"))
     return out
 
 
@@ -251,6 +264,40 @@ def _frame_problems(part: Mapping) -> list[str]:
     return out
 
 
+def _belt_problems(part: Mapping) -> list[str]:
+    """Rule 9: the belt block and the belt engagement (ASM-1 §9)."""
+    out = []
+    if "belt" in part and belt_facts(part) is None:
+        out.append("belt: every stated fact must be a positive number in mm")
+    block = part.get("belt_engagement")
+    if not isinstance(block, Mapping):
+        return out
+    declared = {p.get("id") for p in part.get("parameters") or [] if isinstance(p, Mapping)}
+    read = set()
+    for vec in ("center", "axis"):
+        for component in block.get(vec) or []:
+            read |= _names_read(component)
+    listed = set(block.get("parameters") or [])
+    for name in sorted(read - declared):
+        out.append(f"belt_engagement reads {name!r}, which is not a parameter")
+    for name in sorted(listed - declared):
+        out.append(f"belt_engagement.parameters lists {name!r}, which is not a parameter")
+    for name in sorted((read & declared) - listed):
+        out.append(f"belt_engagement reads {name!r} but does not list it")
+    if out:
+        return out
+    for label, values in _parameter_points(part):
+        try:
+            engagement = belt_engagement(part, values)
+        except (FrameEvaluationError, ValueError) as exc:
+            out.append(f"belt_engagement at {label}: {exc}")
+            continue
+        length = math.sqrt(_dot(engagement.axis, engagement.axis))
+        if abs(length - 1) > AXIS_TOLERANCE:
+            out.append(f"belt_engagement at {label}: |axis| = {length:.12g}, not 1")
+    return out
+
+
 def check_part(
     part: object, *, name: str | None = None, vocabularies: dict[str, dict] | None = None
 ) -> list[str]:
@@ -276,6 +323,7 @@ def check_part(
         seen.add(iface.get("id"))
     problems += _vocabulary_problems(part, vocabularies)
     problems += _frame_problems(part)
+    problems += _belt_problems(part)
     return problems
 
 

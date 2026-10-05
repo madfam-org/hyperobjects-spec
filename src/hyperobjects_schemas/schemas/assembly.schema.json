@@ -52,6 +52,12 @@
     "requirements_rollup": {
       "type": "boolean",
       "description": "Products: roll the fabricated components' `requirements` up into the assembly's requirement profile (ASM-1 §5)."
+    },
+    "machine": { "$ref": "#/$defs/machine" },
+    "paths": {
+      "type": "array",
+      "description": "ASM-1 §9 (v1.3). Declared paths through components, such as a belt around its pulleys and idlers. A path is not a component: it places nothing, and the validator checks it against the placed components.",
+      "items": { "$ref": "#/$defs/path" }
     }
   },
   "allOf": [
@@ -204,12 +210,158 @@
         "a": { "$ref": "#/$defs/interfaceRef" },
         "b": { "$ref": "#/$defs/interfaceRef" },
         "rotation_index": { "type": "integer", "minimum": 0, "maximum": 7 },
-        "angle_deg": { "type": "number", "minimum": -360, "maximum": 360 }
+        "angle_deg": { "type": "number", "minimum": -360, "maximum": 360 },
+        "joint": { "$ref": "#/$defs/joint" }
       },
       "oneOf": [
         { "required": ["rotation_index"], "not": { "required": ["angle_deg"] } },
         { "required": ["angle_deg"], "not": { "required": ["rotation_index"] } }
       ]
+    },
+    "jointId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
+    "joint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "axis"],
+      "description": "ASM-1 §9 (v1.3). Makes the mate a one-degree-of-freedom joint. The mate's frames coincide at joint value 0; at value q the child (side b) is displaced from the parent (side a) by q along (`prismatic`, mm) or about (`revolute`, degrees, right-handed) the named axis of side a's interface frame (`z` is that frame's normal). Placement: T_b = T_a · H(F_a) · J(q) · Flip · Rz(θ) · H(F_b)^-1.",
+      "properties": {
+        "id": { "$ref": "#/$defs/jointId" },
+        "type": { "enum": ["prismatic", "revolute"] },
+        "axis": { "enum": ["x", "y", "z"] },
+        "limits": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "[lower, upper], lower < upper, in mm (prismatic) or degrees (revolute). Required for a prismatic joint; a revolute joint without limits is continuous."
+        },
+        "home": {
+          "type": "number",
+          "description": "The joint value at the home pose, inside `limits`. Required for a driven joint; a follower's home is computed and a passive joint's is measured, so neither states one."
+        },
+        "passive": {
+          "type": "boolean",
+          "description": "true: the joint's value is not set but measured. The mate never places a component (it only closes a cycle), and its value must stay inside `limits` at every pose."
+        },
+        "follows": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["terms"],
+          "description": "The joint is a follower: its value is offset + Σ scale · value(joint). Used for coupled drives (ASM-1 §9, owner decision D2: the four Z drives follow one logical Z joint).",
+          "properties": {
+            "terms": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["joint", "scale"],
+                "properties": {
+                  "joint": { "$ref": "#/$defs/jointId" },
+                  "scale": { "type": "number" }
+                }
+              }
+            },
+            "offset": { "type": "number" }
+          }
+        },
+        "note": { "type": "string", "minLength": 1, "description": "Where the limits and home come from (a citation, or a labelled convention)." }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "prismatic" } } }, "then": { "required": ["limits"] } },
+        {
+          "if": { "properties": { "passive": { "const": true } }, "required": ["passive"] },
+          "then": { "not": { "anyOf": [{ "required": ["home"] }, { "required": ["follows"] }] } }
+        },
+        { "if": { "required": ["follows"] }, "then": { "not": { "required": ["home"] } } },
+        {
+          "if": {
+            "not": {
+              "anyOf": [
+                { "required": ["follows"] },
+                { "properties": { "passive": { "const": true } }, "required": ["passive"] }
+              ]
+            }
+          },
+          "then": { "required": ["home"] }
+        }
+      ]
+    },
+    "machine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kinematics", "axes"],
+      "description": "ASM-1 §9 (v1.3). Producers: how a machine's reported axis positions pose the twin. Each bound joint's value is scale · axis + offset (identity by default).",
+      "properties": {
+        "kinematics": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "description": "The kinematics class, named as the machine's firmware names it (Klipper `[printer] kinematics`: cartesian, corexy, corexz, delta, …)."
+        },
+        "axes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["axis", "joint"],
+            "properties": {
+              "axis": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 16 },
+              "joint": { "$ref": "#/$defs/jointId" },
+              "scale": { "type": "number" },
+              "offset": { "type": "number" },
+              "note": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "pathVia": {
+      "oneOf": [
+        { "$ref": "#/$defs/componentId" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["component"],
+          "properties": {
+            "component": { "$ref": "#/$defs/componentId" },
+            "wrap": { "enum": ["ccw", "cw"] },
+            "side": { "enum": ["teeth", "back"] }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["component", "interface"],
+          "properties": {
+            "component": { "$ref": "#/$defs/componentId" },
+            "interface": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "part", "via", "closed"],
+      "properties": {
+        "id": { "$ref": "#/$defs/jointId" },
+        "kind": { "enum": ["belt"] },
+        "part": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "description": "The standard-parts catalog key of the belt (category `belt`)."
+        },
+        "via": {
+          "type": "array",
+          "minItems": 2,
+          "description": "In order of travel. A component id, or {component, wrap, side}, is a pulley or idler with a cited `belt_engagement`; the belt wraps it counter-clockwise (`ccw`, the default) or clockwise seen from the path normal, with its `teeth` (the default) or its `back` on it. A toothed part takes only the teeth. {component, interface} is an anchor (a belt clamp), allowed only as the first and last via of an open path.",
+          "items": { "$ref": "#/$defs/pathVia" }
+        },
+        "closed": { "type": "boolean" },
+        "note": { "type": "string", "minLength": 1 }
+      }
     }
   }
 }

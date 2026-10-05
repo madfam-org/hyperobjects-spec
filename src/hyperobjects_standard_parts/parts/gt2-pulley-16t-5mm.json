@@ -61,12 +61,6 @@
       "unit": "mm",
       "source": 0
     },
-    "pitch_diameter": {
-      "value": 10.19,
-      "unit": "mm",
-      "source": 0,
-      "note": "MISUMI P.D. for 16 teeth; Gates 2MR-16S gives 0.401 in (source 1) = 10.19 mm, and 16 × 2 / π = 10.19"
-    },
     "outside_diameter": {
       "value": 9.68,
       "unit": "mm",
@@ -101,12 +95,6 @@
       "unit": "mm",
       "source": 0,
       "note": "MISUMI L"
-    },
-    "belt_midplane_from_face_a": {
-      "value": 12.85,
-      "unit": "mm",
-      "source": 0,
-      "note": "derived: L − W/2 (shape A is the hub, L − W = 7.7, then the toothed section W with the belt centred in it)"
     },
     "set_screw": {
       "value": "M3",
@@ -179,9 +167,28 @@
       "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 18, normal +z out of that face."
     }
   ],
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 10.19,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI P.D. for 16 teeth; Gates 2MR-16S gives 0.401 in (source 1) = 10.19 mm, and 16 × 2 / π = 10.19"
+    },
+    "center": [
+      0,
+      0,
+      12.85
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Derived from cited facts, not one cited number: MISUMI GPA 6 mm-belt shape A is the hub (L − W = 7.7) then the flanged toothed section W = 10.3 with the belt centred in it, so the mid-plane is at L − W/2 = 12.85 from face A. The axis is the bore axis."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Belt engagement (for ASM-1 §9 belt paths, lifted into belt_engagement when that block exists): pitch_diameter 10.19 mm, centre (0, 0, 12.85), axis (0, 0, 1); the mid-plane is derived from MISUMI's L and W, not a single cited number. Voron 2.4r2 (p. 38) mounts it on the Z motor; the commons z-drive-housing puts it flange end first (bore_b) so its mid-plane meets the 80-tooth pulley's."
+  "notes": "Voron 2.4r2 (p. 38) mounts it on the Z motor; the commons z-drive-housing puts it flange end first (bore_b) so its mid-plane meets the 80-tooth pulley's."
 }

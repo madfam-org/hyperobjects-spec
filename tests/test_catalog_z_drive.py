@@ -44,7 +44,7 @@ from y4d_spec.assembly import (
 CATALOG = Path(hyperobjects_standard_parts.__file__).parent / "parts"
 NEW_KEYS = ("bearing-625-bore", "z-drive-pulley-hub-5mm", "z-belt-gt2-9mm-clamp")
 NEW_PARTS = ("gt2-pulley-16t-5mm", "gt2-pulley-20t-9mm", "gt2-pulley-80t-5mm", "bearing-625",
-             "shaft-5mm", "gt2-belt-9mm", "bhcs-m5x10", "bhcs-m5x16")
+             "shaft-5mm", "gt2-belt-9mm", "gt2-belt-loop-188mm", "bhcs-m5x10", "bhcs-m5x16")
 
 
 def _resolver():
@@ -190,16 +190,17 @@ def test_the_new_parts_are_in_the_catalog():
     ("gt2-pulley-80t-5mm", 80, 50.93)])
 def test_every_pulley_states_a_cited_pitch_diameter_on_the_gt2_circle(key, teeth, pd):
     part = load_part(key)
-    dims = part["dimensions"]
+    dims, engagement = part["dimensions"], part["belt_engagement"]
     assert dims["tooth_count"]["value"] == teeth
     assert dims["pitch"]["value"] == 2
-    assert dims["pitch_diameter"]["value"] == pd
-    assert 0 <= dims["pitch_diameter"]["source"] < len(part["sources"])
+    assert engagement["pitch_diameter"]["value"] == pd
+    assert 0 <= engagement["pitch_diameter"]["source"] < len(part["sources"])
     # The cited pitch diameter is the 2 mm GT2 pitch circle of that many teeth.
     assert pd == pytest.approx(teeth * 2 / math.pi, abs=0.005)
-    # The belt mid-plane lies inside the pulley, between its end faces.
-    length = dims["overall_length"]["value"]
-    assert 0 < dims["belt_midplane_from_face_a"]["value"] < length
+    # The belt mid-plane lies on the bore axis, inside the pulley, between its end faces.
+    assert engagement["axis"] == [0, 0, 1]
+    assert engagement["center"][:2] == [0, 0]
+    assert 0 < engagement["center"][2] < dims["overall_length"]["value"]
 
 
 def test_the_reduction_is_five_to_one():
@@ -212,7 +213,7 @@ def test_the_reduction_is_five_to_one():
 def test_the_z_belt_states_the_belt_facts_a_path_reads():
     part = load_part("gt2-belt-9mm")
     assert part["category"] == "belt"
-    dims = part["dimensions"]
+    dims = part["belt"]
     assert (dims["pitch"]["value"], dims["width"]["value"], dims["height"]["value"],
             dims["tooth_depth"]["value"]) == (2, 9, 1.52, 0.76)
     # The 9 mm belt is the width the Z idler and the Z pulley carry.
@@ -296,12 +297,54 @@ def test_the_reduction_pulleys_share_a_plane_at_the_centre_distance():
 
 def test_the_centre_distance_closes_a_188_mm_loop():
     """The housing's default 40.8 puts the 16/80-tooth loop within 0.05 mm of 188 (guide p. 34)."""
-    big = load_part("gt2-pulley-80t-5mm")["dimensions"]["pitch_diameter"]["value"]
-    small = load_part("gt2-pulley-16t-5mm")["dimensions"]["pitch_diameter"]["value"]
+    big = load_part("gt2-pulley-80t-5mm")["belt_engagement"]["pitch_diameter"]["value"]
+    small = load_part("gt2-pulley-16t-5mm")["belt_engagement"]["pitch_diameter"]["value"]
     centre = 40.8
     phi = math.asin((big - small) / (2 * centre))
     length = 2 * centre * math.cos(phi) + math.pi * (big + small) / 2 + phi * (big - small)
     assert length == pytest.approx(188, abs=0.05)
+
+
+def test_the_reduction_loop_is_a_closed_188_mm_belt_with_no_interfaces():
+    part = load_part("gt2-belt-loop-188mm")
+    assert part["category"] == "belt" and part["interfaces"] == []
+    belt = part["belt"]
+    assert (belt["pitch"]["value"], belt["width"]["value"], belt["loop_length"]["value"]) == (
+        2, 6, 188)
+    # 94 teeth: the loop length over the pitch.
+    assert part["dimensions"]["tooth_count"]["value"] == 188 / 2
+
+
+def test_the_reduction_loop_path_closes_at_188_mm_with_no_warning():
+    """ASM-1 §9: the 16 → 80-tooth loop declared as a closed path in the Z drive."""
+    doc = _drive()
+    doc["paths"] = [{"id": "z_reduction", "kind": "belt", "part": "gt2-belt-loop-188mm",
+                     "closed": True, "via": ["motor_pulley", "big_pulley"]}]
+    report = validate_assembly(doc, _resolver())
+    assert report.ok, report.findings
+    (path,) = report.paths
+    assert path.ok and path.closed
+    assert path.loop_length_mm == 188
+    assert path.length_mm == pytest.approx(188.006, abs=0.005)
+    assert not [f for f in report.findings if f.code == "path-length"]
+
+
+def test_a_reduction_loop_two_mm_off_its_centre_distance_warns():
+    frames = [dict(f, frame=dict(f["frame"])) for f in HOUSING_FRAMES]
+    for f in frames:
+        if f["id"] == "z_drive_motor_face":
+            f["frame"]["origin"] = [55.8, -29.35, ZA]
+    doc = _drive(tuple(frames))
+    doc["paths"] = [{"id": "z_reduction", "kind": "belt", "part": "gt2-belt-loop-188mm",
+                     "closed": True, "via": ["motor_pulley", "big_pulley"]}]
+    report = validate_assembly(doc, _resolver())
+    assert report.ok, report.findings      # a warning, not an error (a tensioner's choice)
+    assert any(f.code == "path-length" for f in report.findings)
+    # The open-belt formula at 42.8: L = 2C·cos φ + π(D + d)/2 + φ(D − d).
+    big, small, centre = 50.93, 10.19, 42.8
+    phi = math.asin((big - small) / (2 * centre))
+    expected = 2 * centre * math.cos(phi) + math.pi * (big + small) / 2 + phi * (big - small)
+    assert report.paths[0].length_mm == pytest.approx(expected, abs=0.01)
 
 
 @pytest.mark.parametrize("angle", [0, 72, 301])
