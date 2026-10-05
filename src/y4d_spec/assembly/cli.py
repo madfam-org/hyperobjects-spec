@@ -16,9 +16,9 @@ writes the golden pose file (`hyperobjects.assembly-poses`, see posing.py) of a 
 assembly: the reference forward kinematics at every pose of the sweep.
 
 Exit 0 iff there is no error; 1 on any error; 2 when the document cannot be read or a
-directory option does not exist. `--collision` is accepted and reported as NOT run
-(a warning): v1 has no mesh intersection check, and a requested check that did not
-run must never read as one that passed.
+directory option does not exist. `--collision` (ASM-1 §3.7) checks rigid-body interference
+at every pose of the sweep and needs the geometry extra; `collision=checked`, `partial`
+(some component had no solid, named in a warning) or `unavailable` — never a silent pass.
 """
 
 from __future__ import annotations
@@ -42,6 +42,8 @@ def report_as_dict(doc: dict, report: AssemblyReport) -> dict:
         "ok": report.ok,
         "digest": report.digest,
         "collision": report.collision,
+        "collision_pairs": getattr(report.collision_result, "pairs", None),
+        "collision_unchecked": getattr(report.collision_result, "unchecked", None),
         "errors": [
             {"code": f.code, "subject": f.subject, "message": f.message} for f in report.errors
         ],
@@ -248,8 +250,10 @@ def add_assembly_parser(sub, prog: str = "y4d-spec") -> None:
     p_check.add_argument(
         "--collision",
         action="store_true",
-        help="request the mesh-intersection check (ASM-1 §3.7). NOT implemented in v1: "
-        "it is reported as not run, with a warning, and never as a pass",
+        help="check rigid-body interference (ASM-1 §3.7) at home, every limit and the "
+        "sweep: cartridges rendered at their parameters, standard parts and external "
+        "designs as their envelopes; an overlap above 1 mm³ not declared in "
+        "allowed_overlaps is an error (needs the geometry extra)",
     )
     p_check.add_argument(
         "--pose-samples", type=int, default=POSE_SAMPLES, metavar="N",

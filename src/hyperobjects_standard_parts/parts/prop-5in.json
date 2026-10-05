@@ -103,5 +103,26 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "A class entry: diameter and hub hole are the shared facts; pitch, blade count, hub size and mass are those of the cited HQProp model."
+  "notes": "A class entry: diameter and hub hole are the shared facts; pitch, blade count, hub size and mass are those of the cited HQProp model.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 63.5,
+        "length": 7,
+        "from": [
+          "diameter",
+          "hub_thickness"
+        ],
+        "note": "the swept disc: the 5 in (127 mm) diameter over the hub thickness"
+      }
+    ],
+    "note": "The disc the blades sweep, as thick as the hub: a proxy that covers every blade angle. The hub hole is not hollowed, so the motor shaft it sits on overlaps it."
+  }
 }

@@ -65,6 +65,50 @@ none of its geometry is used.
   `path-length` warning, and 2 mm further out it warns at the open-belt formula's length.
   Negative controls for every new key.
 
+### `--collision`: rigid-body interference at every pose (ASM-1 §3.7, package 0.9.0)
+
+Phase 6c, lane P6-JOINT. `--collision` is no longer a stub. The phase-4 lanes' scratch clash probes
+(P4-ASM2's render probe and P4-AUTH-E's `authe_probe_clash.py`) are promoted into the
+keystone.
+
+#### Added
+
+- **`y4d_spec.assembly.collision`.** Bodies:
+  - cartridges are rendered at the assembly's parameters (full injection, every part the
+    component produces);
+  - standard parts and external designs use their `envelope`.
+
+  They are placed at home, at every limit and at every Halton sample of the sweep. Pairs
+  whose boxes overlap are intersected (OCCT common), once per relative placement.
+
+  An overlap above 1 mm³ (a convention: the phase-4 probes' bar) is a `collision` error,
+  unless `allowed_overlaps: [{a, b, max_mm3, reason}]` declares it. Other findings:
+  - `allowed-overlap-unused`, `collision-unchecked` (warnings);
+  - `allowed-overlap` (errors).
+
+  `report.collision` is `checked`, `partial` or `unavailable`, never a silent pass. The
+  JSON report adds `collision_pairs` and `collision_unchecked`.
+- **Catalog `envelope`** (`standard-part.schema.json`, catalog rule 10): boxes and
+  cylinders, each naming the cited `dimensions` it is built from. Entries with one:
+  - extrusion, rail, carriage, NEMA 17, the GT2 pulley and idler;
+  - the 608 and F695 bearings, shim, shaft and the two M5 screws;
+  - prop, stack, antenna and PSU.
+
+  The rest are listed in docs/STANDARD_PARTS.md with the missing fact.
+  `mgn12h-carriage` gains the cited `rail_width` (HIWIN WR 12).
+- **External `envelope`** (numbers only): an original proxy body (D3).
+- **Tests** (`tests/test_assembly_collision.py`):
+  - a slider driven into a stop fails at `slide@upper` with exactly 2000 mm³;
+  - an allowance passes within it and fails above it;
+  - an unused allowance warns;
+  - a body-less component is named;
+  - a rendered cartridge against a catalog envelope.
+
+#### Changed
+
+- **Fixture A's digest moves** `35867ffd…` → `8172f814…`, through catalog digests (an
+  ordinary refresh; `PROJECTION_VERSION` stays 2).
+
 ### Stations on the mate: `offset` and interface `travel` (ASM-1 §9 v1.4, package 0.8.0)
 
 P6-ZBED found that `extrusion-2020` has one `slot_station_mm` shared by its eight slots, so

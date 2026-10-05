@@ -98,5 +98,25 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "A class entry: the SMA coupling thread is the shared fact; size and mass are those of the cited Foxeer antenna."
+  "notes": "A class entry: the SMA coupling thread is the shared fact; size and mass are those of the cited Foxeer antenna.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 5.5,
+        "length": 60,
+        "from": [
+          "body_diameter",
+          "length"
+        ]
+      }
+    ],
+    "note": "The cited antenna's body diameter over its length (Foxeer; the class varies)."
+  }
 }

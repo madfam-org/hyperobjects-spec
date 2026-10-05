@@ -19,8 +19,10 @@
        (`kinematics.pose_sweep`); a passive joint's measured value and a follower's
        computed value stay inside their limits; every declared path is planar at home
        and its pitch-line length is reported at every pose
-    7. (--collision) NOT implemented in v1: requesting it adds a warning saying no
-       intersection was checked. It never reports a pass.
+    7. (--collision) rigid-body interference at every pose of the sweep (`collision.py`):
+       cartridges rendered at their parameters, standard parts and external designs as
+       their envelopes; an undeclared overlap above 1 mm³ is an error. A component with
+       no solid is named (`collision-unchecked`), never silently passed.
     8. the report, the placement table (the home pose), and the canonical assembly digest
 
 A pure function of the document and the resolver: no file is read here, so a service
@@ -45,6 +47,7 @@ from .kinematics import (
     joint_values,
     joints_of,
     measured_joint_value,
+    pose_sweep,
     static_kinematic_problems,
 )
 from .paths import PATH_LENGTH_TOLERANCE_MM, PATH_LOOP_TOLERANCE_MM, PathResult
@@ -156,6 +159,8 @@ class AssemblyReport:
     paths: list[PathResult] = field(default_factory=list)
     pose_samples: int = POSE_SAMPLES
     pose_seed: int = POSE_SEED
+    #: The collision check's details (`collision.CollisionResult`) when it ran.
+    collision_result: object | None = None
     #: The compiled kinematic model (placement at any joint values), when every
     #: component resolved and the root is placed; None otherwise.
     kinematics: KinematicModel | None = None
@@ -529,6 +534,44 @@ def _offset_step(report: AssemblyReport, mate: Mapping, ia, ib) -> None:
                     f"along {axis} (never clamped)", mate["id"])
 
 
+def _allowed_overlap_problems(doc: Mapping, report: AssemblyReport) -> None:
+    ids = {c["id"] for c in doc["components"]}
+    seen: set[frozenset] = set()
+    for entry in doc.get("allowed_overlaps") or []:
+        a, b = entry["a"], entry["b"]
+        subject = f"{a}|{b}"
+        for cid in (a, b):
+            if cid not in ids:
+                report._err("allowed-overlap", f"'{cid}' is not a component", subject)
+        if a == b:
+            report._err("allowed-overlap", "a component cannot overlap itself", subject)
+        pair = frozenset((a, b))
+        if pair in seen:
+            report._err("allowed-overlap", "the pair is declared twice", subject)
+        seen.add(pair)
+
+
+def _collision_step(report: AssemblyReport, doc: Mapping) -> None:
+    """ASM-1 §3.7: interference at home and at every pose the sweep checked."""
+    from .collision import check_collisions  # noqa: PLC0415 — needs the geometry extra
+
+    model = report.kinematics
+    if model is None or not report.placements:
+        report._warn("collision", "--collision was requested but the assembly could not be "
+                     "placed, so no intersection was checked")
+        report.collision = "not run"
+        return
+    poses = [("home", report.placements)]
+    if len(report.poses) > 1:  # the sweep ran: the same poses, in the same order
+        for spec in pose_sweep(report.joints, report.pose_samples, report.pose_seed)[1:]:
+            poses.append((spec.name, model.place(model.values(spec.driven,
+                                                              check_limits=False))))
+    result = check_collisions(report, [c["id"] for c in doc["components"]], poses,
+                              doc.get("allowed_overlaps") or [])
+    report.collision = result.status
+    report.collision_result = result
+
+
 # ── entry point ───────────────────────────────────────────────────────────────
 def validate_assembly(
     doc: object, resolver: ComponentResolver, *, collision: bool = False,
@@ -544,6 +587,7 @@ def validate_assembly(
     for code, subject, message in static_kinematic_problems(doc):
         report._err(code, message, subject)
     path_static_step(doc, report)
+    _allowed_overlap_problems(doc, report)
     kinematics_ok = not report.errors
 
     for component in doc["components"]:
@@ -636,11 +680,7 @@ def validate_assembly(
                 )
 
     if collision:
-        report._warn(
-            "collision",
-            "--collision was requested but is not implemented in this version: no mesh "
-            "intersection was checked (ASM-1 §3.7 is reported, not gating, in v1)",
-        )
+        _collision_step(report, doc)
     if len(report.components) == len(doc["components"]):
         try:
             report.digest = assembly_digest(
