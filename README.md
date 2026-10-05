@@ -74,6 +74,7 @@ y4d-spec check ./cartridges/*/ -v          # many at once
 y4d-spec rules                             # what gets checked, and where each rule came from
 y4d-spec bundle check ./renders/           # GOC-1 variables.json + geometry (see "Generator output")
 y4d-spec assembly check assembly.json --commons ../solid --standard-parts ./parts   # ASM-1 assembly
+y4d-spec assembly poses assembly.json --commons ../solid --out a.poses.json   # ASM-1 §9 golden poses
 y4d-spec aas build ../solid/assemblies/fpv-5in-freestyle --out b.aas.json   # ASM-1 §5 assembly shell
 ```
 
@@ -1101,7 +1102,8 @@ needs new ids. The shell records its version twice: in the id, and in a
 the manifest semver. `aas check` fails a shell whose extension and id disagree, or whose
 submodels carry another version. The **drift guard** makes the bump mandatory:
 `scripts/refresh_assembly_golden.py --check` (a CI step) and `tests/test_projection_version.py`
-rebuild 13 goldens (assemblies A and B, their nine solid cartridges, a soft garment, a
+rebuild 13 goldens (projection version **2** since 0.7.0: every assembly shell gained the
+ASM-1 §9 `Kinematics` submodel) (assemblies A and B, their nine solid cartridges, a soft garment, a
 material card). When the bytes under an id a golden already carries change, both fail, and
 the refresh refuses to write until `PROJECTION_VERSION` is bumped. ConceptDescription-only
 changes are not drift of this kind: they follow the lexicon, and the store updates them in place. The metamodel limits `administration.version` to an
@@ -1456,7 +1458,11 @@ in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, p
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
 Twenty-six parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
 5-inch FPV quad) and the Phase-6 2.4 gantry (MGN9 Y rails, the A/B belt, the XY-joint idler); the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
-**classes**, stated by shared facts, never a copy of one vendor's design.
+**classes**, stated by shared facts, never a copy of one vendor's design. Since 0.7.0
+(ASM-1 §9) a pulley or idler may carry a cited `belt_engagement` (a toothed part's pitch
+diameter or a smooth part's running diameter, and where the belt's mid-plane sits) and a
+`belt` entry its pitch, width and pitch-line offsets, which an assembly's declared belt
+paths read.
 
 ```python
 from hyperobjects_standard_parts import load_part, resolve_parameters, interface_frames
@@ -1587,11 +1593,11 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry on **both engines** (CadQuery *and* OpenSCAD) at defaults *and* at every declared preset, printability notes, and the render-environment contract (`render-env`) |
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
-| `y4d_spec.assembly` | type-level assemblies (ASM-1): component resolvers, placement, closure of every mate, and the assembly digest (`y4d-spec assembly check`; see [`docs/ASSEMBLIES.md`](docs/ASSEMBLIES.md)) |
+| `y4d_spec.assembly` | type-level assemblies (ASM-1): component resolvers, placement, closure of every mate, and the assembly digest (`y4d-spec assembly check`); ASM-1 §9 (v1.3): joints on mates (driven, follower, passive), machine-axis bindings, belt paths, the seeded pose sweep, the reference forward kinematics `pose()` and the golden pose files (`y4d-spec assembly poses`, `scripts/refresh_pose_golden.py`); see [`docs/ASSEMBLIES.md`](docs/ASSEMBLIES.md) |
 | `y4d_spec.graph` | the **vendored** Yantra4D graph transpiler (`.graph.json` → CadQuery), byte-identical to the platform's, pinned by `graph.lock.json` and guarded by `scripts/qa/check_graph_sync.py` — see its `VENDORED.md` |
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
-| `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges, material cards and checked assemblies (ASM-1 §5: BoM, Mates, placement, capability, requirement roll-up) → AAS Environments, the resolver that reads stored type shells back for re-validation (`hyperobjects_aas.resolver`), the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
+| `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges, material cards and checked assemblies (ASM-1 §5: BoM, Mates, placement, Kinematics (§9), capability, requirement roll-up) → AAS Environments, the resolver that reads stored type shells back for re-validation (`hyperobjects_aas.resolver`), the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
 | `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
 
 ```python

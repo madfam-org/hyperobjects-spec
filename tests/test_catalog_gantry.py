@@ -181,7 +181,7 @@ def test_the_part_facts_match_their_datasheets():
     assert block["rail_top_depth"]["value"] == pytest.approx(10 - 6.5)
     belt = load_part("gt2-belt-6mm")
     assert belt["category"] == "belt"
-    d = {k: v["value"] for k, v in belt["dimensions"].items()}
+    d = {k: v["value"] for k, v in belt["belt"].items()}  # the ASM-1 §9 belt block
     assert (d["pitch"], d["width"], d["height"], d["tooth_depth"]) == (2, 6, 1.52, 0.76)
     assert d["pitch_line_differential"] == 0.254
     assert d["teeth_side_offset"] == pytest.approx(d["tooth_depth"] + d["pitch_line_differential"])
@@ -192,7 +192,10 @@ def test_the_part_facts_match_their_datasheets():
     assert (di["tooth_count"], di["bore"], di["belt_width"],
             di["outside_diameter"]) == (20, 5, 6, 18)
     # The cited pitch diameter is the GT2 identity pd = N·p/π, to the table's two decimals.
-    assert di["pitch_diameter"] == pytest.approx(20 * d["pitch"] / math.pi, abs=0.005)
+    engagement = idler["belt_engagement"]
+    assert engagement["pitch_diameter"]["value"] == pytest.approx(20 * d["pitch"] / math.pi,
+                                                                  abs=0.005)
+    assert engagement["center"] == [0, 0, "width_mm / 2"] and engagement["axis"] == [0, 0, 1]
     assert idler["parameters"][0]["default"] == di["overall_width"]
 
 
@@ -255,9 +258,9 @@ def test_the_stack_and_the_idler_tangent_the_same_belt_line():
     """Both elements touch the belt line through the joint's centre (y = 0), on opposite sides:
     the stack by its running diameter plus the belt's back-side offset, the idler by its pitch
     radius (ASM-1 §9 effective diameters)."""
-    belt = {k: v["value"] for k, v in load_part("gt2-belt-6mm")["dimensions"].items()}
+    belt = {k: v["value"] for k, v in load_part("gt2-belt-6mm")["belt"].items()}
     f695 = load_part("bearing-f695")["dimensions"]["outside_diameter"]["value"]
-    idler = load_part("gt2-idler-20t-6mm")["dimensions"]["pitch_diameter"]["value"]
+    idler = load_part("gt2-idler-20t-6mm")["belt_engagement"]["pitch_diameter"]["value"]
     assert STACK_Y == pytest.approx(-(f695 / 2 + belt["back_side_offset"]))
     assert IDLER_Y == pytest.approx(idler / 2, abs=0.003)
 

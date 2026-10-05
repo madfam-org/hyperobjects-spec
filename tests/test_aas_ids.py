@@ -16,13 +16,13 @@ IDSHORT = re.compile(r"^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$")
 def test_type_identifiers_follow_the_scheme():
     assert ids.asset_id("solid", "tslot-corner") == "https://id.madfam.io/asset/solid/tslot-corner"
     assert ids.shell_id("soft", "a-line-skirt", TREE) == (
-        "https://id.madfam.io/aas/soft/a-line-skirt/0123456789abcdef/p1")
+        "https://id.madfam.io/aas/soft/a-line-skirt/0123456789abcdef/p2")
     assert ids.submodel_id("solid", "tslot-corner", TREE, "Nameplate") == (
-        "https://id.madfam.io/sm/solid/tslot-corner/0123456789abcdef/p1/Nameplate")
+        "https://id.madfam.io/sm/solid/tslot-corner/0123456789abcdef/p2/Nameplate")
 
 
 def test_every_shell_and_submodel_id_carries_the_projection_version(monkeypatch):
-    assert ids.PROJECTION_VERSION == 1
+    assert ids.PROJECTION_VERSION == 2  # 2: the Kinematics submodel (ASM-1 §9, 0.7.0)
     assert ids.shell_id("solid", "x", TREE, version=7).endswith("/0123456789abcdef/p7")
     assert ids.submodel_id("assembly", "x", TREE, "Mates", version=7).endswith(
         "/0123456789abcdef/p7/Mates")
@@ -31,10 +31,10 @@ def test_every_shell_and_submodel_id_carries_the_projection_version(monkeypatch)
     assert ids.material_submodel_id("x-pla", card, "MaterialData", version=3).endswith(
         "/p3/MaterialData")
     # Read at call time, so a patched module constant is what new ids carry.
-    monkeypatch.setattr(ids, "PROJECTION_VERSION", 2)
-    assert ids.shell_id("solid", "x", TREE).endswith("/p2")
+    monkeypatch.setattr(ids, "PROJECTION_VERSION", 3)
+    assert ids.shell_id("solid", "x", TREE).endswith("/p3")
     assert ids.projection_extension() == {
-        "name": "ProjectionVersion", "valueType": "xs:positiveInteger", "value": "2"}
+        "name": "ProjectionVersion", "valueType": "xs:positiveInteger", "value": "3"}
 
 
 @pytest.mark.parametrize("bad", [0, -1, True, "1", 1.0])
@@ -95,7 +95,7 @@ def test_other_identifiers_follow_the_scheme():
 def test_material_shell_is_content_addressed():
     card = {"material": {"slug": "x-pla", "name": "X"}}
     a = ids.material_shell_id("x-pla", card)
-    assert re.fullmatch(r"https://id\.madfam\.io/aas/material/x-pla/[0-9a-f]{16}/p1", a)
+    assert re.fullmatch(r"https://id\.madfam\.io/aas/material/x-pla/[0-9a-f]{16}/p2", a)
     assert ids.material_shell_id("x-pla", {"material": {"slug": "x-pla", "name": "Y"}}) != a
     # Canonical JSON: key order and 12.0 vs 12 do not change the identity.
     assert ids.content16({"b": 12.0, "a": 1}) == ids.content16({"a": 1, "b": 12})

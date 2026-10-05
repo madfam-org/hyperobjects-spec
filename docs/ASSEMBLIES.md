@@ -1,4 +1,4 @@
-# Type-level assemblies (ASM-1 §2–§3, §5)
+# Type-level assemblies (ASM-1 §2–§3, §5, §9)
 
 An **assembly** says which components are mated at which interfaces: commons cartridges
 at given parameters, standard (COTS) parts from a catalog, and external third-party
@@ -11,6 +11,9 @@ y4d-spec assembly check assemblies/fpv-5in-freestyle/assembly.json \
     --commons ../solid-hyperobjects --standard-parts ./standard-parts
 y4d-spec assembly check assembly.json --commons DIR --json   # the report as JSON
 y4d-spec assembly check assembly.json --commons DIR --collision
+y4d-spec assembly check assembly.json --standard-parts A --standard-parts B   # tried in order
+y4d-spec assembly check assembly.json --commons DIR --pose-samples 64         # ASM-1 §9 sweep
+y4d-spec assembly poses assembly.json --commons DIR --out a.poses.json        # golden poses
 ```
 
 The exit code is 0 when there are no errors, 1 when there is any error, and 2 when the
@@ -158,6 +161,7 @@ so the next grammar step will explain itself to this one.
 | 4 | Placement by BFS from the root over the mates that passed step 3 | — |
 | 5 | Closure: every mate, including the ones the BFS tree did not use, is re-checked in world space; on continuous symmetry the stated `angle_deg` too, when both frames declare an `x_axis` | `closure` (error), `rotation`, `angle-unchecked` (warnings) |
 | 6 | Every component is reachable from the root | `unreachable` |
+| 6b | ASM-1 §9 (v1.3): joints, machine bindings and paths are consistent; the pose sweep (each limit, then the Halton samples) re-checks every mate and cycle, passive and follower joints stay inside their limits, and every belt path is planar at home with its length reported at every pose. See [Kinematics](#kinematics-joints-axis-bindings-belt-paths-the-pose-sweep-asm-1-9-v13) | `joint`, `machine`, `pose-closure`, `joint-limit`, `path` (errors), `path-length` (warning) |
 | 7 | `--collision`: not implemented in v1, see below | `collision` (warning) |
 | 8 | The report, the placement table and the assembly digest | — |
 
@@ -297,6 +301,244 @@ symmetry than the one the document states, that is a **warning** (`closes at
 rotation_index 0, but the document states 2`) rather than an error. The two are the same
 physical mating.
 
+## Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, v1.3)
+
+Contract v1.3 (hyperobjects-spec 0.7.0) makes an assembly posable. Everything here is
+**optional and additive**: a document without `joint`, `machine` or `paths` validates
+exactly as before, with one pose (home), and its digest does not move.
+
+### Joints on mates
+
+A mate may carry a `joint`, one degree of freedom between its two components:
+
+```jsonc
+{"id": "x_block_on_rail", "a": {"component": "x_rail", "interface": "track"},
+ "b": {"component": "x_block", "interface": "rail_way"}, "rotation_index": 0,
+ "joint": {"id": "x_carriage", "type": "prismatic", "axis": "x",
+           "limits": [-100, 100], "home": 0, "note": "where the numbers come from"}}
+```
+
+- **Value 0 is the mate.** The mate's frames coincide at joint value 0. At value q the child
+  (side **b**) is displaced from the parent (side **a**):
+  - `prismatic`: along the named axis, in mm;
+  - `revolute`: about it, in degrees, right-handed.
+- **The axis** is `x`, `y` or `z` of side a's interface frame, where `z` is that frame's
+  normal.
+- **Direction.** Parent → child is the mate's a → b. Swap the sides to reverse it; the
+  mating relation is symmetric.
+- **Placement** extends the ASM-1 §3.4 formula with `J(q)`:
+
+  ```
+  T_b = T_a · H(F_a) · J(q) · Flip · Rz(θ) · H(F_b)^-1      (from a)
+  T_a = T_b · H(F_b) · Flip · Rz(θ) · J(q)^-1 · H(F_a)^-1   (from b)
+  ```
+
+- **Limits.** `limits` is `[lower, upper]` with lower < upper. A prismatic joint must state
+  it. A revolute joint without limits is continuous. `home` lies inside the limits.
+- **Values are never clamped.** A value outside the limits is an error, as a parameter is.
+- **Roles.** Every joint has exactly one:
+
+| Role | Declared by | Its value |
+|---|---|---|
+| driven | `home` | set: a machine axis, a sample of the sweep, or `home` |
+| follower | `follows: {terms: [{joint, scale}], offset}` (no `home`) | `offset + Σ scale · value(joint)`, from driven joints and earlier followers. D2: the four Z drives follow one logical Z joint; CoreXY motors follow `x ± y` |
+| passive | `passive: true` (no `home`, no `follows`) | **measured** from the geometry. Its mate never places a component: it only closes a cycle, with the joint's degree of freedom free |
+
+**A passive joint is how a closed chain moves.** The right carriage of a gantry beam rides
+its rail passively: the beam places it, and its rail mate checks everything except the
+travel along the rail. The travel must stay inside the joint's limits. A driven joint that
+ends up closing a cycle is still checked at its set value, so declaring a carriage driven
+where it should be passive fails the sweep, not home (a test pins this).
+
+**Closure with a joint** compares `W_a · J(q)` with `W_b`, using the ASM-1 §3.5 residuals
+and tolerances (0.05 mm, 0.5°). For a passive joint, q is first measured from
+`W_a^-1 · W_b · Flip·Rz(θ)`:
+- prismatic: the translation along the axis;
+- revolute: the rotation about the axis, by `atan2`.
+
+### Machine-axis bindings
+
+```jsonc
+"machine": {"kinematics": "corexy",
+            "axes": [{"axis": "x", "joint": "x_carriage"},
+                     {"axis": "y", "joint": "gantry_y"},
+                     {"axis": "z", "joint": "gantry_z", "scale": 1, "offset": 0}]}
+```
+
+- **Mapping.** `joint = scale · axis + offset`. The default is the identity; any other value
+  is a convention and says so in `note`.
+- **`kinematics`** names the class the firmware names, Klipper's `[printer] kinematics`
+  (`cartesian`, `corexy`, …).
+- **What the validator checks:**
+  - every bound joint exists and is **driven**;
+  - no axis is bound twice;
+  - no joint is bound to two axes;
+  - every scale is finite and non-zero.
+- **Who computes poses (owner decision D4).** pravara forwards raw axis values. The viewer
+  maps them through these bindings and computes the pose itself. pravara never computes
+  kinematics.
+
+### Belt paths
+
+```jsonc
+"paths": [{"id": "belt_a", "kind": "belt", "part": "gt2-belt-6mm", "closed": false,
+           "via": [{"component": "toolhead", "interface": "belt_clamp_a"},
+                   "idler_front_left",
+                   {"component": "xy_joint_left_stack", "wrap": "cw", "side": "back"},
+                   {"component": "motor_a_pulley"},
+                   {"component": "toolhead", "interface": "belt_clamp_b"}]}]
+```
+
+- **`part`** is a catalog entry of category `belt`. Its `belt` block cites `pitch` and
+  `width`, and optionally:
+  - `height` (B), `tooth_depth` (T), `pitch_line_differential` (U);
+  - `teeth_side_offset` (T + U) and `back_side_offset` (B − T − U);
+  - `loop_length`, for a closed-loop belt. A belt may declare no interfaces at all.
+- **A pulley or idler via** must resolve to a catalog part with a `belt_engagement`, which
+  holds exactly one of:
+  - `pitch_diameter`, for a toothed part;
+  - `running_diameter`, for a smooth part (its running surface).
+
+  It also holds the circle's `center` (a frame-grammar point in the belt mid-plane), its
+  unit `axis`, and a `plane_note` saying whether the mid-plane is cited or a convention.
+- **The via's side.** `side` is `teeth` (the default) or `back`. A toothed part takes only
+  the teeth. On a smooth part the pitch line runs at `running_diameter + 2 · offset`, using
+  the belt's offset for that side.
+- **Wrap.** `wrap` is `ccw` (the default) or `cw`, seen from the path normal.
+- **Anchors.** An anchor (`{component, interface}`, a belt clamp) is that frame's origin.
+  - An open path starts and ends at an anchor and has none in between.
+  - A closed path has none.
+  - A belt with `loop_length` must be closed.
+- **The path normal** is the first pulley's world axis, signed so that its largest world
+  component is positive (a horizontal belt is seen from +z).
+- **Planarity at home.** Every pulley axis is within 0.5° of the normal, and every via
+  point is within **0.5 mm** of one plane. Both tolerances are conventions.
+- **The length** is the pitch-line length: tangent spans plus wrapped arcs. Seen from the
+  normal, use signed radii `s·r` (s = +1 for ccw, −1 for cw, 0 for an anchor). The span
+  from circle i to i+1 leaves at `φ = atan2(Δ) − atan2(k, L)`, where
+  `k = s₁r₁ − s₀r₀` and `L = √(|Δ|² − k²)`. The arc at a pulley is r times its turn,
+  mod 2π, in the wrap's sense. The tests prove the textbook open-belt and crossed-belt
+  formulas for two pulleys.
+- **Reported:**
+  - the length at home, with its tooth count (length / pitch);
+  - the length at every pose of the sweep;
+  - a closed-loop belt's catalog `loop_length` beside the computed one.
+- **Warnings** (`path-length`, conventions):
+  - the length spreads more than **0.1 mm** across the sweep (a CoreXY loop keeps its
+    length);
+  - a loop differs from its catalog length by more than **0.5 mm**. This is a warning, not
+    an error, because a tensioner makes the centre distance a choice.
+- **The digest.** The belt's catalog identity enters the assembly digest as `path_parts`,
+  only when a document declares a path.
+
+### The pose sweep
+
+`assembly check` poses the assembly at:
+1. **home**: every driven joint at `home`. This is the placement table, and the pose the
+   AAS `AssemblyPlacement` records;
+2. **the limits**: each driven joint at its lower, then its upper limit, with the others
+   at home;
+3. **the samples**: `--pose-samples N` (default **16**, a convention) points of a Halton
+   sequence over every driven joint at once.
+
+The sample formula: driven joint i (document order, from 0) takes
+`lower + (upper − lower) · φ_p(k + seed − 1)` at sample k = 1 … N, where:
+- φ_p is the radical inverse in the i-th prime base (2, 3, 5, …);
+- the seed is 1, a convention;
+- the value is rounded to 4 decimals;
+- a continuous revolute joint is sampled over [−180, 180) and has no limit poses.
+
+The sequence needs no random-number generator, so any language reproduces it.
+
+At every pose, every mate and cycle must close within the ASM-1 §3.5 tolerances. Every
+passive and follower joint must stay within its limits, with the same tolerance. The
+sweep runs once home passes.
+
+| Finding | Severity | When |
+|---|---|---|
+| `joint` | error | a duplicate joint id; limits not lower < upper; home outside the limits; `follows` naming an unknown, passive or own joint, a zero scale, or a cycle of followers |
+| `machine` | error | an axis bound twice; a joint that is not driven or does not exist; a zero scale |
+| `pose-closure` | error | a mate that holds at home fails at some pose; one finding per mate: the count and the first failing pose with its joint values |
+| `joint-limit` | error | a passive (measured) or follower (computed) value outside its limits |
+| `path` | error | the path problems above |
+| `path-length` | warning | the length spreads across the sweep, or a loop differs from its catalog length |
+
+**Budget.** 16 samples cost one placement and one closure pass per pose, in pure Python.
+The 14-component fixture's 21 poses take about 0.08 s on a laptop, so the default fits
+every-PR CI. Raise `--pose-samples` for a nightly.
+
+### Reference forward kinematics and golden poses
+
+```python
+from y4d_spec.assembly import pose, pose_from_axes, golden_poses
+pose(doc, resolver, {"x_carriage": 25.0})          # {component id: 4×4 world ← component}
+pose_from_axes(doc, resolver, {"x": 25.0, "y": 3})  # through machine.axes
+```
+
+`pose` raises `PoseError` in any of these cases:
+- an unknown joint;
+- a follower or passive joint is given a value;
+- a value that is not finite or lies outside its limits;
+- an assembly that does not pass.
+
+Joints that are not given stay at home, and followers are computed.
+
+`y4d-spec assembly poses <assembly.json> --out F` (or `golden_poses_json`) writes the
+**golden pose file**, `hyperobjects.assembly-poses` 1.0.0:
+
+```jsonc
+{"format": "hyperobjects.assembly-poses", "format_version": "1.0.0",
+ "assembly": "<slug>", "assembly_digest": "<sha256>",
+ "matrix_layout": "row-major 4x4, world <- component, mm",
+ "number_format": "decimal string with exactly 6 places: …",
+ "sweep": {"sequence": "halton", "samples": 16, "seed": 1},
+ "joints": [{"id": "x_carriage", "type": "prismatic", "axis": "x", "role": "driven", "unit": "mm"}],
+ "poses": [{"name": "sample-1", "kind": "sample",
+            "inputs": {"gantry_y": 0.0, "x_carriage": -33.3333},
+            "joints": {"gantry_y": "0.000000", "motor_rotation": "-299.999700", "x_carriage": "-33.333300"},
+            "transforms": {"toolhead": ["1.000000", "0.000000", …16 entries]}}],
+ "tie_guard": []}
+```
+
+- **`inputs`** are JSON numbers, which every language parses to the same double. They are
+  what a viewer is given.
+- **`joints`** holds the driven and follower values. A viewer computes the followers.
+- **`transforms`** holds every component, 16 entries row-major.
+- **The canonical number format.** Every computed number is a **string**: the exact binary
+  value rounded to 6 decimals, ties away from zero. This is exactly JavaScript's
+  `Number.prototype.toFixed(6)`; `"-0.000000"` is written `"0.000000"`.
+- **`tie_guard`** lists the entries within 1e-9 of a rounding boundary, where a last-ulp
+  difference between two correct implementations could flip the sixth decimal. Compare
+  those numerically (|Δ| ≤ 1e-6) and every other entry as a string.
+- **Passive joints** are not listed, since they place nothing.
+
+The goldens are written by `scripts/refresh_pose_golden.py`; `--check` is a CI step:
+- `tests/fixtures/assembly-golden/poses/` (A and B, rigid: home only);
+- `tests/fixtures/kinematics/kinematic-gantry.poses.json`, a gantry fixture with a passive
+  carriage closing a cycle, a follower pulley and a closed belt loop.
+
+### Projection (projection version 2)
+
+Every assembly shell gains a **`Kinematics`** submodel (MADFAM `smt/assembly-kinematics/1/0`):
+- `KinematicsClass`, `JointCount`;
+- `Joints`: per joint, the id, mate, type, axis, `AxisFrame` (`component.interface` of side
+  a), role, unit, `Parent` and `Child` references to the BoM nodes, limits or
+  `Continuous`, `Home`, `Follows` and `FollowOffset`, `Note`;
+- `AxisBindings`;
+- `Paths`: per path, the part and its asset id, `Closed`, `Via` (component, interface,
+  wrap, side), `PitchLengthMm` at home, `LoopLengthMm`, `PlanarityMm`, `LengthSpreadMm`,
+  `Validated`;
+- `PoseSweep`: `Sequence`, `Samples`, `Seed`, `PoseCount`, `FailedPoses`, `Validated`.
+
+It is a separate submodel rather than an extension of `Mates`, for three reasons:
+- the joints, bindings and paths are facts about the mechanism, not about any one mate
+  (a follower couples joints on different mates, and a path crosses many components);
+- a reader that only needs the rigid structure keeps reading `Mates` unchanged;
+- Phase 7 reads one submodel to pose the twin.
+
+A rigid assembly carries it with no joints and one pose. The bytes of every assembly shell
+change, so `PROJECTION_VERSION` is **2**.
+
 ## The assembly digest (`hyperobjects-assembly-v1`)
 
 ```
@@ -317,6 +559,10 @@ the digest. The resolved identity of each source type is:
 | cartridge | `{"type": "cartridge", "instance_id": …}`: the GOC-1 `instance_id` over the cartridge's `tree_sha256`, mode, part and `variables_sha256` at full injection. `variables` covers every declared parameter except the engine-control keys (`render_mode`, `target_part`, `mode`) and the physical denylist read from `generator-output.schema.json` |
 | standard | `{"type": "standard", "key", "catalog_sha256", "parameters"}`: the sha256 of the catalog entry's canonical JSON and the resolved parameter values |
 | external | `{"type": "external", "facts": {…}}`: the declared name, licence, URL, revision and interfaces |
+
+A document that declares belt paths (ASM-1 §9) adds `"path_parts": {<path id>: <the belt's
+standard identity>}` to the hashed object; without paths the payload, and so every earlier
+digest, is unchanged.
 
 The digest is computed whenever every component resolves, even when a mate fails, so a
 failing report still names the exact revision it judged. A cartridge's identity changes
@@ -374,7 +620,8 @@ standard parts from `--standard-parts` (default: the catalog bundled with the pa
 | `AssemblyDocument` (MADFAM `smt/assembly-document/1/0`) | the document exactly as checked, as a `Blob` of its canonical JSON, plus `AssemblyDigest` and `DigestAlgorithm` |
 | `BillOfMaterials` (IDTA 02011-1-1 HSEBoM when conformant) | `EntryNode` = the assembly; one `Node` per component with a `HasPart` from the entry node. A cartridge node names `asset/solid/{slug}`, carries the GOC-1 `instance_id` as a specificAssetId and a `DerivedFrom` reference to the exact type shell revision `aas/solid/{slug}/{tree16}/p{N}`, at the assembly's own projection version (the stored-shell resolver parses any version); a standard node names `asset/standard/{key}` (catalog key); an external node is a CoManaged entity with name, licence, URL and revision. `CountsBySource` aggregates the BoM by source |
 | `Mates` (MADFAM `smt/assembly-mates/1/0`) | one `AnnotatedRelationshipElement` per mate between the two component nodes, annotated with the interfaces, the stated rotation, `ThetaDeg`, `InTree`, the residuals, `MeasuredDeg` and `Validated` |
-| `AssemblyPlacement` (MADFAM) | each component's 4 × 4 world transform, row-major, mm, 9 decimals |
+| `AssemblyPlacement` (MADFAM) | each component's 4 × 4 world transform at the home pose, row-major, mm, 9 decimals |
+| `Kinematics` (MADFAM `smt/assembly-kinematics/1/0`, ASM-1 §9, projection version 2) | the joints, machine-axis bindings, belt paths and the pose sweep's verdict; see [Kinematics](#projection-projection-version-2) |
 | `CapabilityDescription` (producers; IDTA 02020-1-0 when conformant) | one `CapabilityContainer` per process in `capability_profile.process`, the other capabilities as its `PropertySet` |
 | `RequirementProfile` (products with `requirements_rollup`) | each fabricated component's `requirements` (top level and the parts it produces), and the union of their processes |
 
@@ -420,7 +667,7 @@ bare string is refused by the schema. The vocabulary typed `process` as a string
 0.5.0; ASM-1, this document and both commons assemblies already wrote a list (P4-ASM2
 finding 5), so the vocabulary and the schema now say the same.
 
-## Limits in v1
+## Limits
 
 - **No collision check.** `--collision` adds a warning that says no mesh intersection
   was checked, and the summary line prints `collision=not run`. A requested check that

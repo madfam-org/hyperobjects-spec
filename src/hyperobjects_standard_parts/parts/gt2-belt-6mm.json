@@ -73,6 +73,48 @@
       "unit": "mm",
       "source": 0,
       "note": "tooth depth T"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length (pitch line)",
+        "es": "Longitud de corte (línea de paso)",
+        "fr": "Longueur de coupe (ligne primitive)",
+        "pt": "Comprimento de corte (linha primitiva)"
+      },
+      "default": 2000,
+      "min": 20,
+      "max": 10000,
+      "unit": "mm",
+      "note": "A convention: the belt is cut to its path (sourcing sheet: length dependent on configuration). An assembly's belt path reports the length it needs."
+    }
+  ],
+  "belt": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 2,
+      "note": "the A/B belt (guide p. 131)"
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, belt height (back to tooth tip)"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "tooth depth T"
     },
     "pitch_line_differential": {
       "value": 0.254,
@@ -93,23 +135,6 @@
       "note": "derived: B − T − U, pitch line above a smooth surface the back runs on"
     }
   },
-  "parameters": [
-    {
-      "id": "length_mm",
-      "type": "number",
-      "label": {
-        "en": "Cut length (pitch line)",
-        "es": "Longitud de corte (línea de paso)",
-        "fr": "Longueur de coupe (ligne primitive)",
-        "pt": "Comprimento de corte (linha primitiva)"
-      },
-      "default": 2000,
-      "min": 20,
-      "max": 10000,
-      "unit": "mm",
-      "note": "A convention: the belt is cut to its path (sourcing sheet: length dependent on configuration). An assembly's belt path reports the length it needs."
-    }
-  ],
   "interfaces": [
     {
       "id": "end_a",
@@ -181,5 +206,5 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Pre-landing record for ASM-1 §9 (v1.3): pitch and width are the belt block's required fields; height (B), tooth_depth (T), pitch_line_differential (U), teeth_side_offset (T + U) and back_side_offset (B − T − U) are its optional ones. A smooth via's effective diameter is its running_diameter plus twice the offset of the side that runs on it."
+  "notes": "ASM-1 §9 (v1.3) belt block: pitch and width, height (B), tooth_depth (T), pitch_line_differential (U, the pitch line's distance from the belt's land, i.e. from the line a pulley's tooth tips touch), teeth_side_offset (T + U) and back_side_offset (B − T − U). A smooth via's effective diameter is its running_diameter plus twice the offset of the side that runs on it. An open belt: no loop_length; its path length is cut to fit."
 }

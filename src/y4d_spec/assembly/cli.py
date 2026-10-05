@@ -4,7 +4,16 @@ Prints the placement table (every component's world ← component transform), th
 table with its closure residuals, every finding, and a summary line:
 
     y4d-spec assembly check: <slug> components=N placed=P mates=M closed=C errors=E
-        warnings=W collision=not run digest=<sha256 | none>
+        warnings=W collision=not run joints=J poses=OK/TOTAL paths=K digest=<sha256 | none>
+
+With joints (ASM-1 §9, v1.3) it also prints the joint table, the pose sweep (one line
+per pose) and every declared path with its pitch-line length. `--pose-samples N` sets
+the Halton part of the sweep (default 16, a convention).
+
+    y4d-spec assembly poses <assembly.json> --commons DIR [--standard-parts DIR] [--out F]
+
+writes the golden pose file (`hyperobjects.assembly-poses`, see posing.py) of a passing
+assembly: the reference forward kinematics at every pose of the sweep.
 
 Exit 0 iff there is no error; 1 on any error; 2 when the document cannot be read or a
 directory option does not exist. `--collision` is accepted and reported as NOT run
@@ -18,6 +27,7 @@ import json
 import math
 from pathlib import Path
 
+from .kinematics import POSE_SAMPLES
 from .resolvers import CompositeResolver
 from .transforms import round_matrix
 from .validate import AssemblyReport, validate_assembly
@@ -50,6 +60,17 @@ def report_as_dict(doc: dict, report: AssemblyReport) -> dict:
             for cid, rc in report.components.items()
         },
         "mates": [m.as_dict() for m in report.mates],
+        "joints": [
+            {"id": j.id, "mate": j.mate_id, "type": j.type, "axis": j.axis, "role": j.role,
+             "unit": j.unit, "limits": list(j.limits) if j.limits else None, "home": j.home,
+             "follows": [{"joint": k, "scale": v} for k, v in j.follows],
+             "follow_offset": j.follow_offset}
+            for j in report.joints
+        ],
+        "pose_sweep": {"sequence": "halton", "samples": report.pose_samples,
+                       "seed": report.pose_seed},
+        "poses": [p.as_dict() for p in report.poses],
+        "paths": [p.as_dict() for p in report.paths],
     }
 
 
@@ -101,6 +122,32 @@ def _print_text(doc: dict, report: AssemblyReport) -> None:
                 f"θ={mc.theta_deg:g}° [{role}]  origin={mc.origin_mm:.4f} "
                 f"normal={mc.normal_deg:.4f} x={x}  {verdict}"
             )
+    if report.joints:
+        print("  joints (value at home; a passive joint's is measured):")
+        home = report.poses[0].joints if report.poses else {}
+        for j in report.joints:
+            limits = f"[{j.limits[0]:g}, {j.limits[1]:g}]" if j.limits else "continuous"
+            value = home.get(j.id)
+            shown = f"{round(value, 4) + 0.0:g}" if value is not None else "n/a"
+            print(f"    {j.id}: {j.type} along/about {j.axis} of {j.parent} → {j.child} "
+                  f"({j.mate_id}) {j.role} {limits} {j.unit} home={shown}")
+    if len(report.poses) > 1:
+        print(f"  poses (home, limits, {report.pose_samples} Halton samples, seed "
+              f"{report.pose_seed}; worst residuals):")
+        for p in report.poses:
+            verdict = "ok" if p.ok else "FAIL " + ", ".join(p.failing_mates + p.limit_violations)
+            print(f"    {p.name}: origin={p.worst_origin_mm:.4f} angle={p.worst_angle_deg:.4f}  "
+                  f"{verdict}")
+    for path in report.paths:
+        if path.length_mm is None:
+            print(f"    path {path.path_id}: NOT MEASURED (see errors)")
+            continue
+        teeth = f" ({path.length_mm / path.pitch_mm:.2f} pitches)" if path.pitch_mm else ""
+        loop = f" catalog loop {path.loop_length_mm:g} mm" if path.loop_length_mm else ""
+        spread = path.length_spread_mm or 0.0
+        print(f"  path {path.path_id}: {path.part} {'closed' if path.closed else 'open'} "
+              f"length={path.length_mm:.4f} mm{teeth}{loop} planarity={path.planarity_mm:.4f} "
+              f"spread={spread:.4f} {'ok' if path.ok else 'FAIL'}")
     for f in report.errors:
         print(f"  FAIL {f}")
     for f in report.warnings:
@@ -114,13 +161,15 @@ def _cmd_assembly_check(args) -> int:
     except (OSError, ValueError) as exc:
         print(f"  ERROR {path}: cannot read — {exc}")
         return 2
-    for option, value in (("--commons", args.commons), ("--standard-parts", args.standard_parts)):
+    for option, value in (("--commons", args.commons),
+                          *(("--standard-parts", d) for d in args.standard_parts or ())):
         if value is not None and not Path(value).is_dir():
             print(f"  ERROR {option} {value}: not a directory")
             return 2
 
     resolver = CompositeResolver.for_directories(args.commons, args.standard_parts)
-    report = validate_assembly(doc, resolver, collision=args.collision)
+    report = validate_assembly(doc, resolver, collision=args.collision,
+                               pose_samples=args.pose_samples)
 
     if args.json:
         print(json.dumps(report_as_dict(doc, report), indent=2, ensure_ascii=False))
@@ -133,9 +182,41 @@ def _cmd_assembly_check(args) -> int:
             f"components={len(doc.get('components') or []) if isinstance(doc, dict) else 0} "
             f"placed={len(report.placements)} mates={len(report.mates)} closed={closed} "
             f"errors={len(report.errors)} warnings={len(report.warnings)} "
-            f"collision={report.collision} digest={report.digest or 'none'}"
+            f"collision={report.collision} joints={len(report.joints)} "
+            f"poses={sum(1 for p in report.poses if p.ok)}/{len(report.poses)} "
+            f"paths={len(report.paths)} digest={report.digest or 'none'}"
         )
     return 0 if report.ok else 1
+
+
+def _cmd_assembly_poses(args) -> int:
+    from .posing import golden_poses_json
+
+    path = Path(args.assembly)
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"  ERROR {path}: cannot read — {exc}")
+        return 2
+    for option, value in (("--commons", args.commons),
+                          *(("--standard-parts", d) for d in args.standard_parts or ())):
+        if value is not None and not Path(value).is_dir():
+            print(f"  ERROR {option} {value}: not a directory")
+            return 2
+    resolver = CompositeResolver.for_directories(args.commons, args.standard_parts)
+    report = validate_assembly(doc, resolver, pose_samples=args.pose_samples)
+    if not report.ok:
+        for f in report.errors:
+            print(f"  FAIL {f}")
+        print(f"y4d-spec assembly poses: {path}: the assembly does not pass; no poses written")
+        return 1
+    text = golden_poses_json(doc, report)
+    if args.out:
+        Path(args.out).write_text(text, encoding="utf-8")
+        print(f"y4d-spec assembly poses: wrote {args.out} poses={len(report.poses)}")
+    else:
+        print(text, end="")
+    return 0
 
 
 def add_assembly_parser(sub, prog: str = "y4d-spec") -> None:
@@ -158,7 +239,10 @@ def add_assembly_parser(sub, prog: str = "y4d-spec") -> None:
     p_check.add_argument(
         "--standard-parts",
         metavar="DIR",
-        help="a directory of standard-part JSON entries; needed by any standard component",
+        action="append",
+        help="a directory of standard-part JSON entries; needed by any standard component. "
+        "Repeatable: directories are tried in order (e.g. the bundled catalog, then local "
+        "parts)",
     )
     p_check.add_argument("--json", action="store_true", help="print the report as JSON")
     p_check.add_argument(
@@ -167,4 +251,23 @@ def add_assembly_parser(sub, prog: str = "y4d-spec") -> None:
         help="request the mesh-intersection check (ASM-1 §3.7). NOT implemented in v1: "
         "it is reported as not run, with a warning, and never as a pass",
     )
+    p_check.add_argument(
+        "--pose-samples", type=int, default=POSE_SAMPLES, metavar="N",
+        help=f"Halton samples of the pose sweep (ASM-1 §9; default {POSE_SAMPLES}, a "
+        "convention); home and every joint limit are always checked",
+    )
     p_check.set_defaults(func=_cmd_assembly_check)
+
+    p_poses = asm_sub.add_parser(
+        "poses",
+        help="write the golden pose file of a passing assembly (ASM-1 §9): the reference "
+        "forward kinematics at home, every limit and every sample of the sweep",
+    )
+    p_poses.add_argument("assembly", help="the assembly.json")
+    p_poses.add_argument("--commons", metavar="DIR", help="the solid commons checkout")
+    p_poses.add_argument("--standard-parts", metavar="DIR", action="append",
+                         help="a directory of standard-part JSON entries (repeatable)")
+    p_poses.add_argument("--pose-samples", type=int, default=POSE_SAMPLES, metavar="N",
+                         help=f"Halton samples (default {POSE_SAMPLES})")
+    p_poses.add_argument("--out", metavar="FILE", help="write here instead of stdout")
+    p_poses.set_defaults(func=_cmd_assembly_poses)

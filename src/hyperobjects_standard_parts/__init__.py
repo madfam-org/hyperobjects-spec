@@ -37,9 +37,13 @@ from y4d_spec.frame_eval import FrameEvaluationError, evaluate_expression, resol
 
 __all__ = [
     "SCHEMA_NAME",
+    "BELT_FACTS",
+    "BeltEngagement",
     "Frame",
     "FrameEvaluationError",
     "ParameterError",
+    "belt_engagement",
+    "belt_facts",
     "interface_frames",
     "list_part_keys",
     "load_catalog",
@@ -173,6 +177,92 @@ def interface_frames(part: Mapping, values: Mapping[str, float] | None = None) -
             x_axis=_vector(frame.get("x_axis"), scope, f"{where}.x_axis"),
         )
     return frames
+
+
+@dataclass(frozen=True)
+class BeltEngagement:
+    """Where a belt wraps a part (ASM-1 §9), evaluated at a parameter point, in the part's
+    model frame (mm). A toothed part (``toothed``) states the diameter the belt's pitch
+    line runs on; a smooth part states the diameter of its running surface, and a path adds
+    the belt's pitch-line offset for the side on it. ``center`` is a point on the axis in
+    the belt mid-plane; ``axis`` is as written (the catalog check holds it to unit length)."""
+
+    toothed: bool
+    diameter_mm: float
+    center: Vector
+    axis: Vector
+
+    @property
+    def pitch_diameter_mm(self) -> float | None:
+        return self.diameter_mm if self.toothed else None
+
+
+def _positive_mm(dim: object) -> float | None:
+    value = dim.get("value") if isinstance(dim, Mapping) else None
+    if (isinstance(value, bool) or not isinstance(value, int | float) or value <= 0
+            or dim.get("unit") != "mm"):
+        return None
+    return float(value)
+
+
+def belt_engagement(part: Mapping, values: Mapping[str, float] | None = None
+                    ) -> BeltEngagement | None:
+    """The entry's ``belt_engagement`` at ``values`` (defaults when omitted), or None when
+    the entry declares none. Raises :class:`FrameEvaluationError` when a component does not
+    evaluate, or ValueError when the diameter is not one positive number in mm."""
+    block = part.get("belt_engagement")
+    if not isinstance(block, Mapping):
+        return None
+    if values is None:
+        values = resolve_parameters(part)
+    where = f"{part.get('key')}.belt_engagement"
+    stated = [k for k in ("pitch_diameter", "running_diameter") if k in block]
+    if len(stated) != 1:
+        raise ValueError(f"{where} must state exactly one of pitch_diameter and "
+                         f"running_diameter, not {stated or 'neither'}")
+    diameter = _positive_mm(block[stated[0]])
+    if diameter is None:
+        raise ValueError(f"{where}.{stated[0]} must be a positive number in mm, "
+                         f"not {block[stated[0]]!r}")
+    return BeltEngagement(
+        toothed=stated[0] == "pitch_diameter",
+        diameter_mm=diameter,
+        center=_vector(block.get("center"), values, f"{where}.center"),
+        axis=_vector(block.get("axis"), values, f"{where}.axis"),
+    )
+
+
+#: The ``belt`` block's dimensions and the name each takes in :func:`belt_facts`.
+BELT_FACTS = {
+    "pitch": "pitch_mm",
+    "width": "width_mm",
+    "height": "height_mm",
+    "tooth_depth": "tooth_depth_mm",
+    "pitch_line_differential": "pitch_line_differential_mm",
+    "teeth_side_offset": "teeth_side_offset_mm",
+    "back_side_offset": "back_side_offset_mm",
+    "loop_length": "loop_length_mm",
+}
+
+
+def belt_facts(part: Mapping) -> dict[str, float] | None:
+    """A belt entry's facts in mm (ASM-1 §9) — ``pitch_mm`` and ``width_mm`` always, the
+    others when stated — or None when the entry is not a belt (category ``belt`` with a
+    ``belt`` block whose stated facts are all positive numbers in mm)."""
+    block = part.get("belt")
+    if part.get("category") != "belt" or not isinstance(block, Mapping):
+        return None
+    out = {}
+    for name, key in BELT_FACTS.items():
+        if name not in block:
+            if name in ("pitch", "width"):
+                return None
+            continue
+        value = _positive_mm(block[name])
+        if value is None:
+            return None
+        out[key] = value
+    return out
 
 
 def part_digest(part: Mapping) -> str:

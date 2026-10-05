@@ -23,6 +23,7 @@ from hyperobjects_aas.assembly import (
     build_assembly_environment,
     component_type_shells,
 )
+from hyperobjects_aas.ids import PROJECTION_VERSION
 from hyperobjects_aas.resolver import (
     EnvironmentCartridgeResolver,
     bundled_standard_parts_dir,
@@ -47,7 +48,7 @@ B = "fpv-5in-freestyle"
 #: catalog digest enters the assembly digest, so the commons CI prints this one once its
 #: SPEC_PIN reaches this keystone.
 DIGESTS = {
-    A: "24322cc06fe30ff82dbf11515b6684a51c97a2be33c724943296844587d74614",
+    A: "296caa36711b97b91065b668ce9aa0338bed93f9899dc0474a3a8b5abb99c68e",
     B: "96166430930bbe5817f394ef382221f257f0f2de20b67cb38bec02c142e8f23c",
 }
 ID = "https://id.madfam.io"
@@ -117,7 +118,7 @@ def test_golden_environment_passes_aas_check(slug, envs):
 # ── shell and identifiers (ASM-1 §5) ──────────────────────────────────────────
 def test_shell_is_named_by_the_assembly_digest(envs):
     (shell,) = envs[B]["assetAdministrationShells"]
-    assert shell["id"] == f"{ID}/aas/assembly/{B}/{DIGESTS[B][:16]}/p1"
+    assert shell["id"] == f"{ID}/aas/assembly/{B}/{DIGESTS[B][:16]}/p{PROJECTION_VERSION}"
     info = shell["assetInformation"]
     assert info["assetKind"] == "Type"
     assert info["globalAssetId"] == f"{ID}/asset/assembly/{B}"
@@ -127,12 +128,14 @@ def test_shell_is_named_by_the_assembly_digest(envs):
         {"name": "assembly_digest", "value": DIGESTS[B]},
     ]
     for sm in envs[B]["submodels"]:
-        assert sm["id"] == f"{ID}/sm/assembly/{B}/{DIGESTS[B][:16]}/p1/{sm['idShort']}"
+        revision = f"{DIGESTS[B][:16]}/p{PROJECTION_VERSION}"
+        assert sm["id"] == f"{ID}/sm/assembly/{B}/{revision}/{sm['idShort']}"
 
 
 def test_producer_and_product_carry_their_own_submodels(envs):
     names = {slug: [sm["idShort"] for sm in env["submodels"]] for slug, env in envs.items()}
-    common = ["Nameplate", "AssemblyDocument", "BillOfMaterials", "Mates", "AssemblyPlacement"]
+    common = ["Nameplate", "AssemblyDocument", "BillOfMaterials", "Mates", "AssemblyPlacement",
+              "Kinematics"]
     assert names[A] == [*common, "CapabilityDescription"]
     assert names[B] == [*common, "RequirementProfile"]
 
@@ -170,7 +173,8 @@ def test_cartridge_node_names_its_type_shell_revision_and_instance_id(envs):
     assert node["specificAssetIds"] == [{"name": "instance_id", "value": iid}]
     derived = child(node, "DerivedFrom")["value"]["keys"]
     assert derived == [{"type": "AssetAdministrationShell",
-                        "value": f"{ID}/aas/solid/motor-soft-mount/{tree[:16]}/p1"}]
+                        "value": f"{ID}/aas/solid/motor-soft-mount/{tree[:16]}"
+                                 f"/p{PROJECTION_VERSION}"}]
     assert component_type_shells(envs[B])["pod_fl"] == derived[0]["value"]
 
 

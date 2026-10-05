@@ -1,0 +1,51 @@
+{
+  "spec_version": 1,
+  "key": "gt2-belt-6mm-test",
+  "category": "belt",
+  "name": {
+    "en": "GT2 belt, 6 mm (test fixture)",
+    "es": "Banda GT2 de 6 mm (dato de prueba)",
+    "fr": "Courroie GT2 de 6 mm (donnée de test)",
+    "pt": "Correia GT2 de 6 mm (dado de teste)"
+  },
+  "description": {
+    "en": "A test-fixture belt for ASM-1 §9 belt paths: a 2 mm pitch GT2 belt, 6 mm wide. Not a catalog entry.",
+    "es": "Una banda de prueba para las trayectorias de banda de ASM-1 §9: banda GT2 de 2 mm de paso y 6 mm de ancho. No es una entrada del catálogo.",
+    "fr": "Une courroie de test pour les trajets de courroie d'ASM-1 §9 : courroie GT2 au pas de 2 mm, 6 mm de large. Pas une entrée du catalogue.",
+    "pt": "Uma correia de teste para os percursos de correia de ASM-1 §9: correia GT2 de passo 2 mm e 6 mm de largura. Não é uma entrada do catálogo."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 2 mm pitch timing belt, 6 mm wide",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Gates PowerGrip GT2 2 mm pitch stock timing pulleys (2MR), distributor catalog reproducing the Gates stock-pulley table",
+      "url": "https://cmtco.com/product-catalogs/timing-pulley-stock/2m-gt2-2mm-pitch-ts",
+      "publisher": "CMT Co.",
+      "accessed": "2026-10-04",
+      "supports": "2 mm pitch (2MR)"
+    },
+    {
+      "title": "Adafruit product 1251 — aluminum GT2 timing pulley, 6 mm belt, 20 tooth, 5 mm bore",
+      "url": "https://www.adafruit.com/product/1251",
+      "publisher": "Adafruit Industries",
+      "accessed": "2026-10-02",
+      "supports": "6 mm belt"
+    }
+  ],
+  "frame_convention": "A belt has no rigid model frame: it appears only in an assembly's paths, never as a component. This test entry declares no interfaces.",
+  "dimensions": {
+    "pitch": { "value": 2, "unit": "mm", "source": 0 }
+  },
+  "interfaces": [],
+  "belt": {
+    "pitch": { "value": 2, "unit": "mm", "source": 0 },
+    "width": { "value": 6, "unit": "mm", "source": 1 }
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "A test fixture written by the P6-JOINT lane (2026-10-04)."
+  }
+}

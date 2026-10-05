@@ -15,7 +15,8 @@ They are licensed **CERN-OHL-W-2.0** by their authors (see each `project.json`;
 licence: <https://spdx.org/licenses/CERN-OHL-W-2.0.html>), not under this repository's
 Apache-2.0. They are copied unmodified, as test inputs only, because the GOC-1 tree
 digests of the cartridge directories enter the assembly digests the golden tests pin
-(A `24322cc0…` on this keystone's catalog, `58caf081…` before the blind-joint interfaces changed the
+(A `296caa36…` on this keystone's catalog, `24322cc0…` before the `belt_engagement` of ASM-1 §9
+changed the `gt2-pulley-20t-5mm` entry, `58caf081…` before the blind-joint interfaces changed the
 `extrusion-2020` entry; B `96166430…` on this keystone's catalog, `f0db7bdb…` at
 the commons' SPEC_PIN 8c12194, before #41 changed the FPV frame's entry). Do not edit them here; refresh them from the commons instead, then run
 `python3 scripts/refresh_assembly_golden.py` and review the diff.

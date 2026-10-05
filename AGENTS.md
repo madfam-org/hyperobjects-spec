@@ -326,6 +326,18 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
 - Read manifests defensively: a missing or odd field omits an element, it never
   fails the build. The SEM-1 §2–§3 fields are optional by design.
 
+## Assembly kinematics (`y4d_spec.assembly`, ASM-1 §9)
+
+- Joints, machine bindings and belt paths are **optional**; a document without them must
+  validate exactly as before (one pose, unchanged digest). Never make one required.
+- The keystone's forward kinematics is the **reference**; the viewer reproduces the
+  golden pose files string for string, and pravara never computes kinematics (owner
+  decision D4). Changing placement, the sweep or the number format moves the goldens:
+  run `scripts/refresh_pose_golden.py`, review the diff, and say in the PR that every
+  viewer must follow.
+- Every tolerance and the sample count are labelled **conventions** (`kinematics.py`,
+  `paths.py`); a new one is labelled too. Numbers in catalog belt facts cite a source.
+
 ## The `constraints[]` dialect — `safeFormula`, not expr-eval
 
 `project.json`'s `constraints[]` are evaluated **client-side in the Studio** by a
