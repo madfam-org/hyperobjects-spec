@@ -89,7 +89,7 @@ runbook.
     a producer's `capability_profile` is checked against the vocabulary
     (`process` is a list).
 - `hyperobjects_aas.assembly` / `hyperobjects_aas.resolver` — ASM-1 §5: a checked
-  assembly → one AAS Environment (shell `aas/assembly/{slug}/{digest16}`;
+  assembly → one AAS Environment (shell `aas/assembly/{slug}/{digest16}/p{N}`;
   AssemblyDocument, HSEBoM BillOfMaterials, Mates, AssemblyPlacement, IDTA 02020
   CapabilityDescription, RequirementProfile roll-up), and the resolver that
   reads stored type shells back so a service (asset-shells, ASM-1 §6)
@@ -111,6 +111,9 @@ runbook.
   reader. See docs/FABRICATION_VOCABULARIES.md.
 - `hyperobjects_aas` — the SEM-1 AAS v3.1 projection (`aas build|build-material|
   check` on both CLIs). `ids.py` is the permanent id scheme (`id.madfam.io`);
+  every shell and submodel id carries `PROJECTION_VERSION` (`…/{rev16}/p{N}`,
+  also the shell's `ProjectionVersion` extension), and `drift.py` + the golden
+  refresh `--check` refuse changed bytes under a minted id without a bump;
   `templates.py` holds the IDTA identifiers (copied, with source paths) and the
   conformance-claim rule; `concepts.py` builds ConceptDescriptions from the
   lexicon; `solid.py` / `soft.py` / `material.py` are the projections;
@@ -171,6 +174,14 @@ template semanticId only when every element that template marks mandatory is
 present (matched by semanticId); otherwise the MADFAM template id, with the IDTA
 id as a supplemental pointer. `aas check` fails an over-claim. A BaSyx
 round-trip that did not run is reported as `basyx=not installed`, not as a pass.
+
+**A shell id names a revision AND a projection version.** Shells and submodels
+are `…/{rev16}/p{N}` with `N` = `hyperobjects_aas.PROJECTION_VERSION` (also the
+shell's `ProjectionVersion` extension). Stores keep ids immutable (409 on new
+bytes), so a projection change that moves the bytes for the same inputs MUST bump
+the version; the golden drift guard (`scripts/refresh_assembly_golden.py --check`,
+`tests/test_projection_version.py`) fails until it does. Asset, concept,
+template and standard-part ids carry no version.
 
 **A skip is never a pass.** `renders=` counts meshes actually judged and
 `skipped=` counts the rest; `--require-openscad` turns a missing binary from a

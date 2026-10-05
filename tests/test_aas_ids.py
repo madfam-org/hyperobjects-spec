@@ -16,9 +16,71 @@ IDSHORT = re.compile(r"^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$")
 def test_type_identifiers_follow_the_scheme():
     assert ids.asset_id("solid", "tslot-corner") == "https://id.madfam.io/asset/solid/tslot-corner"
     assert ids.shell_id("soft", "a-line-skirt", TREE) == (
-        "https://id.madfam.io/aas/soft/a-line-skirt/0123456789abcdef")
+        "https://id.madfam.io/aas/soft/a-line-skirt/0123456789abcdef/p1")
     assert ids.submodel_id("solid", "tslot-corner", TREE, "Nameplate") == (
-        "https://id.madfam.io/sm/solid/tslot-corner/0123456789abcdef/Nameplate")
+        "https://id.madfam.io/sm/solid/tslot-corner/0123456789abcdef/p1/Nameplate")
+
+
+def test_every_shell_and_submodel_id_carries_the_projection_version(monkeypatch):
+    assert ids.PROJECTION_VERSION == 1
+    assert ids.shell_id("solid", "x", TREE, version=7).endswith("/0123456789abcdef/p7")
+    assert ids.submodel_id("assembly", "x", TREE, "Mates", version=7).endswith(
+        "/0123456789abcdef/p7/Mates")
+    card = {"material": {"slug": "x-pla"}}
+    assert ids.material_shell_id("x-pla", card, version=3).endswith("/p3")
+    assert ids.material_submodel_id("x-pla", card, "MaterialData", version=3).endswith(
+        "/p3/MaterialData")
+    # Read at call time, so a patched module constant is what new ids carry.
+    monkeypatch.setattr(ids, "PROJECTION_VERSION", 2)
+    assert ids.shell_id("solid", "x", TREE).endswith("/p2")
+    assert ids.projection_extension() == {
+        "name": "ProjectionVersion", "valueType": "xs:positiveInteger", "value": "2"}
+
+
+@pytest.mark.parametrize("bad", [0, -1, True, "1", 1.0])
+def test_a_projection_version_is_a_positive_integer(bad):
+    with pytest.raises(ValueError):
+        ids.shell_id("solid", "x", TREE, version=bad)
+
+
+def test_ids_that_name_no_projection_carry_no_version():
+    assert ids.asset_id("solid", "x") == "https://id.madfam.io/asset/solid/x"
+    assert ids.standard_part_id("m3") == "https://id.madfam.io/asset/standard/m3"
+    assert ids.concept_id("bolt-pattern") == "https://id.madfam.io/concept/bolt-pattern"
+    assert ids.template_id("mates", 1, 0) == "https://id.madfam.io/smt/mates/1/0"
+
+
+def test_versioned_ids_parse_back():
+    sid = ids.shell_id("assembly", "fpv-5in", TREE, version=12)
+    parts = ids.parse_shell_id(sid)
+    assert parts == ("assembly", "fpv-5in", "0123456789abcdef", 12)
+    assert parts.submodel_prefix == "https://id.madfam.io/sm/assembly/fpv-5in/0123456789abcdef/p12/"
+    assert sid.startswith(parts.revision_prefix)
+    assert ids.parse_submodel_id(parts.submodel_prefix + "Mates") == (
+        "assembly", "fpv-5in", "0123456789abcdef", 12, "Mates")
+    material = ids.material_shell_id("x-pla", {"a": 1})
+    assert ids.parse_shell_id(material).kind == "material"
+
+
+@pytest.mark.parametrize("bad", [
+    "https://id.madfam.io/aas/solid/x/0123456789abcdef",          # unversioned (pre-0.6.0)
+    "https://id.madfam.io/aas/solid/x/0123456789abcdef/p0",
+    "https://id.madfam.io/aas/solid/x/0123456789abcdef/p01",
+    "https://id.madfam.io/aas/solid/x/0123456789abcdef/v1",
+    "https://id.madfam.io/aas/solid/x/0123456789abcdef/p1/",
+    "https://id.madfam.io/aas/instance/0123456789abcdef/p1",
+    "https://id.madfam.io/sm/solid/x/0123456789abcdef/p1/Nameplate",
+    None,
+])
+def test_malformed_shell_ids_do_not_parse(bad):
+    assert ids.parse_shell_id(bad) is None
+
+
+def test_the_shell_extension_reads_back():
+    assert ids.shell_projection_version({"extensions": [ids.projection_extension(4)]}) == 4
+    assert ids.shell_projection_version({}) is None
+    assert ids.shell_projection_version(
+        {"extensions": [{"name": "ProjectionVersion", "value": "04"}]}) is None
 
 
 def test_other_identifiers_follow_the_scheme():
@@ -33,7 +95,7 @@ def test_other_identifiers_follow_the_scheme():
 def test_material_shell_is_content_addressed():
     card = {"material": {"slug": "x-pla", "name": "X"}}
     a = ids.material_shell_id("x-pla", card)
-    assert re.fullmatch(r"https://id\.madfam\.io/aas/material/x-pla/[0-9a-f]{16}", a)
+    assert re.fullmatch(r"https://id\.madfam\.io/aas/material/x-pla/[0-9a-f]{16}/p1", a)
     assert ids.material_shell_id("x-pla", {"material": {"slug": "x-pla", "name": "Y"}}) != a
     # Canonical JSON: key order and 12.0 vs 12 do not change the identity.
     assert ids.content16({"b": 12.0, "a": 1}) == ids.content16({"a": 1, "b": 12})

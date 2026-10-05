@@ -9,7 +9,7 @@ service resolving from stored type shells (``hyperobjects_aas.resolver``) — de
 same environment byte for byte, and a service can refuse a published assembly that is not
 exactly the projection of its own document.
 
-Shell ``https://id.madfam.io/aas/assembly/{slug}/{digest16}``, asset
+Shell ``https://id.madfam.io/aas/assembly/{slug}/{digest16}/p{N}``, asset
 ``https://id.madfam.io/asset/assembly/{slug}``; ``digest16`` is the first 16 hex of the
 canonical assembly digest (``hyperobjects-assembly-v1``). Submodels:
 
@@ -21,9 +21,10 @@ canonical assembly digest (``hyperobjects-assembly-v1``). Submodels:
   ``EntryNode``; one ``Node`` entity per component, ``HasPart`` from the entry node to each.
   A cartridge node names ``asset/solid/{slug}``, carries the GOC-1 ``instance_id`` as a
   specificAssetId and a ``DerivedFrom`` reference to the exact type shell revision
-  (``aas/solid/{slug}/{tree16}``) whose interfaces it was resolved from; a standard part
-  names ``asset/standard/{key}`` (catalog key); an external design is a CoManaged entity
-  with its name, licence, URL and revision (no MADFAM asset exists for it).
+  (``aas/solid/{slug}/{tree16}/p{N}``, at the assembly's own projection version) whose
+  interfaces it was resolved from; a standard part names ``asset/standard/{key}``
+  (catalog key); an external design is a CoManaged entity with its name, licence, URL and
+  revision (no MADFAM asset exists for it).
 * ``Mates`` (MADFAM ``smt/assembly-mates/1/0``) — one ``AnnotatedRelationshipElement`` per
   mate between the two component nodes, annotated with the two interface ids, the stated
   rotation, the closure residuals and ``Validated``.
@@ -121,7 +122,8 @@ def _component_node(proj: Projection, short: str, component: Mapping, resolved) 
     bulk["valueType"] = "xs:unsignedLong"
     if kind == "cartridge":
         slug, tree = source.get("slug"), details.get("tree_sha256")
-        type_shell = shell_id("solid", slug, tree)
+        # The type shell of the SAME projection version as this assembly's own shell.
+        type_shell = shell_id("solid", slug, tree, version=proj.version)
         return el.entity(short, [
             *common,
             el.prop("Commons", source.get("commons")),
