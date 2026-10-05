@@ -103,12 +103,12 @@ def _joint(stack_z=LOW, idler_z=HIGH, idler_width=9.0, carriage_size="mgn9-carri
                [32, STACK_Y, stack_z + 5], [0, 0, -1], [1, 0, 0]),
         _iface("xy_joint_stack_floor", "neutral", "m5-axle-stack-face", 0,
                [32, STACK_Y, stack_z - 5], [0, 0, 1], [1, 0, 0]),
-        _iface("xy_joint_idler_bolt", "female", "m5-clearance-hole", 0, [36, IDLER_Y, 31],
+        _iface("xy_joint_idler_bolt", "female", "m5-clearance-hole", 0, [37, IDLER_Y, 31],
                [0, 0, 1], [1, 0, 0]),
         _iface("xy_joint_idler_roof", "neutral", "m5-axle-stack-face", 0,
-               [36, IDLER_Y, idler_z + idler_width / 2], [0, 0, -1], [1, 0, 0]),
+               [37, IDLER_Y, idler_z + idler_width / 2], [0, 0, -1], [1, 0, 0]),
         _iface("xy_joint_idler_floor", "neutral", "m5-axle-stack-face", 0,
-               [36, IDLER_Y, idler_z - idler_width / 2], [0, 0, 1], [1, 0, 0]),
+               [37, IDLER_Y, idler_z - idler_width / 2], [0, 0, 1], [1, 0, 0]),
     )
 
 
