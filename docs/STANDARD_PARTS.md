@@ -301,9 +301,13 @@ optional blocks:
 | `gt2-pulley-16t-5mm` | `pitch_diameter` 10.19 mm (MISUMI GPA 2GT table; Gates 2MR-16S 0.401 in) | z = 12.85, **derived** from MISUMI's L 18 and W 10.3 (L − W/2) |
 | `gt2-pulley-20t-9mm` | `pitch_diameter` 12.73 mm (MISUMI GPA 2GT table) | z = 14.35, **derived** from MISUMI's L 21 and W 13.3 |
 | `gt2-pulley-80t-5mm` | `pitch_diameter` 50.93 mm (Gates 2MR-80S, 2.005 in) | z = 13, **derived** from the listing's hub 8 and overall 18 |
+| `bearing-f695` | `running_diameter` 13 mm (NSK F695ZZ, D: the outer ring the belt runs on, a smooth via) | z = 4, **a convention**: the plain-face junction of the guide's flanges-outward pair (pp. 65, 69, 97, 99); a via may name either bearing of the pair |
 
 Adding `belt_engagement` changed both entries' catalog digest, so assembly A's digest
 moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
+`bearing-f695`'s block (lane P6-GANTRY) moves no golden: no fixture assembly places an F695.
+A belt's teeth on an F695 stack make an effective diameter of 13 + 2 × `teeth_side_offset`, its
+back 13 + 2 × `back_side_offset` (15.028 and 14.012 for the 2 mm GT2 section).
 
 ## Envelopes (ASM-1 §3.7, `--collision`)
 
