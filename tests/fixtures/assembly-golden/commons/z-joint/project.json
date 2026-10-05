@@ -41,6 +41,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "z-joint.graph.json",
       "parts": [
         "z_joint"
       ],

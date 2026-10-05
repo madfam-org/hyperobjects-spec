@@ -39,6 +39,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "toolhead.graph.json",
       "parts": [
         "toolhead_proxy"
       ],

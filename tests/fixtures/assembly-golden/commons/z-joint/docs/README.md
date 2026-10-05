@@ -133,6 +133,13 @@ sweep.
 - **C Alongside the Block (`c_end` 6).** For a gantry whose C extrusion runs past the block.
 - **Narrower Gantry, Longer Reach.** `c_inboard` 30 and `c_end` 40, mirrored.
 
+## Graph twin
+
+`z-joint.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations and the same operations in the same order. Each `_box` is a centred `box` translated to its centre, and each clamp a min/max ternary pair in `derived`, as is `pad_y0`'s `min`. Each `_cyl` along y is an XZ `profile_circle` extruded along +Y (the XZ normal is −Y), and each along x a YZ `profile_circle` extruded along +X. Each is built at the origin, turned about its own axis (−90° about y, +90° about x) so the cylinder's seam sits at +Z where `makeCylinder` puts it, then translated into place; the seam decides where the tessellator puts vertices. The 2×2 M3 loop is unrolled in the script's order. `mirrored` is a `select` between the body and its pure YZ `reflect`, as `body.mirror("YZ")`. The constants keep `main.py`'s names, values and sources.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset (`front_left_back_right`, `front_right_back_left`, `short_reach`, `narrow_gantry_long_reach`; the two mirrored presets included); they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.

@@ -170,6 +170,15 @@ is the MGN12H block against an XY joint, at about ±176.
 | **Gentle Fold** | Ø6 post, 2.6 slot, `jaw_length` 11 | — |
 | **Teeth Forward, 10 mm Plate** | `teeth_toward_toolhead` on, `plate_t` 10 | — |
 
+## Graph twin
+
+`x-carriage.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations (clamps as min/max ternary pairs) and the same operations in the same order.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Branches.** `teeth_toward_toolhead` is the script's `_back` = −1 / +1 as a ternary. Every `min`, `max` and `sorted` of derived values is a ternary, and the two jaw sides (sign +1 / −1) are unrolled.
+- **Seam.** The pockets and posts run along +Y. The twin lays a Z cylinder down with `rotate` x −90 and spins it with `rotate` y −90, so the B-rep seam lands where `makeCylinder` puts it (x direction +Z) and the meshes stay vertex-identical.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset; they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.
@@ -204,3 +213,9 @@ Carro X impreso para un pórtico CoreXY con dos bandas GT2 de 6 mm apiladas:
 
 Es un diseño original. La guía de armado de la Voron 2.4r2 (GPL-3.0) se cita solo por página
 (pp. 101, 129–131, 139–141); no se copia su geometría. Licencia CERN-OHL-W-2.0.
+
+**Gemelo de grafo.** `x-carriage.graph.json` es un gemelo en grafo de nodos de `main.py` (formato 1.1): los
+mismos parámetros, las mismas derivaciones y las mismas operaciones en el mismo orden. `teeth_toward_toolhead` es un ternario y los dos lados de las mordazas se desenrollan.
+`y4d-spec check --render --parity` los compara en los valores por defecto y en cada preset, y
+coinciden a 0.000000 mm. `main.py` sigue siendo la fuente que se renderiza y el oráculo
+(decisión D5).

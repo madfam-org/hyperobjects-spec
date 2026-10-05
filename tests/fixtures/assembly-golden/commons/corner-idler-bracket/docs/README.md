@@ -100,6 +100,13 @@ That closure is the assembly A's top corner should use.
 - **Long Drop, Wide T-Nut Spacing.** Left-hand: the axle 36 mm down and 20 mm from the corner,
   with the T-nuts 30 mm apart.
 
+## Graph twin
+
+`corner-idler.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations and the same operations in the same order. Each `_box` is a centred `box` translated to its centre, and each clamp a min/max ternary pair in `derived`. Each `_cyl_y` is an XZ `profile_circle` extruded along +Y (the XZ normal is −Y, so the height is negative), turned −90° about its own axis so the cylinder's seam sits at +Z where `makeCylinder` puts it, then translated into place; the seam decides where the tessellator puts vertices, so without the turn the two meshes differ by 0.0016 mm. `mirrored` is a `select` between the body and its pure YZ `reflect`, as `body.mirror("YZ")`. The constants keep `main.py`'s names, values and sources.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset (`gates_9mm_right`, `gates_9mm_left`, `belt_6mm_right`, `long_drop_wide_pitch`; the two mirrored presets included); they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.

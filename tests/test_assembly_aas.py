@@ -50,7 +50,7 @@ B = "fpv-5in-freestyle"
 #: catalog digest enters the assembly digest, so the commons CI prints this one once its
 #: SPEC_PIN reaches this keystone.
 DIGESTS = {
-    A: "cb80b6790dbc704798bf97c64a20fb81e61e435af9a62136ad7794be64888570",
+    A: "57f3740692e2d2e943c02040899a5430b129c0b916383f04de6e5b169388eb49",
     B: "96166430930bbe5817f394ef382221f257f0f2de20b67cb38bec02c142e8f23c",
 }
 ID = "https://id.madfam.io"

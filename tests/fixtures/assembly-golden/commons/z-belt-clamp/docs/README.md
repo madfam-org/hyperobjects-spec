@@ -101,6 +101,13 @@ by B − T − U; U is not cited in the catalog yet.
   further off the extrusion face.
 - **Gentle Fold.** A Ø8 post and a 2.6 mm slot, for a stiffer belt.
 
+## Graph twin
+
+`z-belt-clamp.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations and the same operations in the same order. Each `_box` is a centred `box` translated to its centre, each `_cyl_z` an XY `profile_circle` extruded and translated to its start, each clamp a min/max ternary pair in `derived`, and the jaw slot's `min`/`max` ends ternaries; the jaw loop is unrolled (+x, then −x) and each pocket ring is the pocket cylinder cut by the post cylinder, as in the script. The constants keep `main.py`'s names, values and sources.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset (`standard`, `long_jaws`, `belt_further_out`, `gentle_fold`); they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.

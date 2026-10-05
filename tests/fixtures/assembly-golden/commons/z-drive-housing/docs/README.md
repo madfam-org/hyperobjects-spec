@@ -150,6 +150,13 @@ Z idler and the Z pulley share one belt plane and one vertical.
 - **Deeper Belt Plane, Wider Offset, Left-Hand.** `belt_offset` 20, `belt_plane` 24,
   `mount_pitch` 24, mirrored. This is for a top idler set further into the frame.
 
+## Graph twin
+
+`z-drive.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations and the same operations in the same order. Each `_box` is a centred `box` translated to its centre, each clamp a min/max ternary pair in `derived`, and the plain `min`/`max` of `X0`, `X1` and the corner key's end ternaries. Each `_cyl_z` is an XY `profile_circle` extruded and translated to its start. Each `_cyl_y` is an XZ `profile_circle` built at the origin, extruded along +Y (the XZ normal is −Y), turned −90° about y so the cylinder's seam sits at +Z where `makeCylinder` puts it, then translated into place; the seam decides where the tessellator puts vertices. Each `_slot_y` is the two end cylinders and the web box, unioned as in the script, and every loop (walls, mount screws, bearing seats, motor screw slots) is unrolled in the script's order. `mirrored` is a `select` between the body and its pure YZ `reflect`, as `body.mirror("YZ")`. The constants keep `main.py`'s names, values and sources.
+- **Declaration.** The mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset (`corner_right`, `corner_left`, `loop_tensioned`, `deep_plane_wide_offset`; the two mirrored presets included); they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial.
