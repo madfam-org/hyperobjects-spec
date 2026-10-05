@@ -167,5 +167,42 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Retention of the tip (a nut, a tapped hole, or a pilot hole the screw cuts its own thread in) is the host's design and not modelled. Only the first carried part mates the journal; the parts after it are placed face to face (m5-axle-stack-face), so one screw carries a stack of any order."
+  "notes": "Retention of the tip (a nut, a tapped hole, or a pilot hole the screw cuts its own thread in) is the host's design and not modelled. Only the first carried part mates the journal; the parts after it are placed face to face (m5-axle-stack-face), so one screw carries a stack of any order.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          -5
+        ],
+        "axis": "z",
+        "radius": 4.25,
+        "length": 5,
+        "from": [
+          "head_diameter",
+          "head_height"
+        ],
+        "note": "the cap head"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": 40,
+        "from": [
+          "thread_diameter",
+          "length"
+        ],
+        "note": "the shank to the tip"
+      }
+    ],
+    "note": "Head and shank; the socket is not hollowed. The shank overlaps the hole or pilot it is driven into: declare it."
+  }
 }

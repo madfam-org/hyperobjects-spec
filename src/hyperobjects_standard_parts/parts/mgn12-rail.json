@@ -175,5 +175,30 @@
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          0,
+          -6,
+          0
+        ],
+        "max": [
+          "length_mm",
+          6,
+          8
+        ],
+        "from": [
+          "rail_width",
+          "rail_height"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The rail's 12 x 8 section over its length; the counterbores are not hollowed."
   }
 }

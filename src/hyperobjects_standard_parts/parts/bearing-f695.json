@@ -204,5 +204,43 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The catalog key equals the interface-sizes key bearing-f695, which describes the same part's housing fit."
+  "notes": "The catalog key equals the interface-sizes key bearing-f695, which describes the same part's housing fit.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 7.5,
+        "length": 1,
+        "from": [
+          "flange_diameter",
+          "flange_width"
+        ],
+        "note": "the flange, z 0 to 1"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          1
+        ],
+        "axis": "z",
+        "radius": 6.5,
+        "length": 3,
+        "from": [
+          "outside_diameter",
+          "width",
+          "flange_width"
+        ],
+        "note": "the Ø13 seat, z 1 to 4"
+      }
+    ],
+    "note": "Flange and outer ring; the bore is not hollowed, so its axle overlaps it."
+  }
 }

@@ -221,5 +221,28 @@
       "width_mm"
     ],
     "plane_note": "Convention: the idler is flanged on both sides, so the belt mid-plane is put at mid-width (z = width_mm / 2); no cited source states it. The axis is the bore axis."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 9,
+        "length": "width_mm",
+        "from": [
+          "outside_diameter"
+        ],
+        "note": "OD 18 over the overall width (width_mm, cited default)"
+      }
+    ],
+    "parameters": [
+      "width_mm"
+    ],
+    "note": "A solid cylinder at the outside diameter; the bore is not hollowed, so its axle overlaps it."
   }
 }

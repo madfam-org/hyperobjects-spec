@@ -114,5 +114,25 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The catalog key equals the interface-sizes key bearing-608, which describes the same part's outer fit."
+  "notes": "The catalog key equals the interface-sizes key bearing-608, which describes the same part's outer fit.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 11,
+        "length": 7,
+        "from": [
+          "outside_diameter",
+          "width"
+        ]
+      }
+    ],
+    "note": "Outside diameter over the width; the bore is not hollowed, so its shaft overlaps it."
+  }
 }

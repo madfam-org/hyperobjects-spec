@@ -108,6 +108,11 @@ class ResolvedComponent:
     belt_engagement: object | None = None
     #: ASM-1 §9 (v1.3). A belt part's `{"pitch_mm", "width_mm"}`, or None.
     belt: Mapping | None = None
+    #: ASM-1 §3.7 (--collision): what the collision check can build a solid from, or None.
+    #: `{"kind": "envelope", "solids": [...]}` (catalog or external envelope, evaluated:
+    #: numbers in the component's model frame) or `{"kind": "cartridge", "dir", "sources",
+    #: "parts", "parameters"}` (render the cartridge). Never hashed, never projected.
+    geometry: Mapping | None = None
 
 
 @runtime_checkable

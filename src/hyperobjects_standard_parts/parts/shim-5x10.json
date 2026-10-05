@@ -182,5 +182,27 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "A DIN 125 / ISO 7089 washer is a different part (stamped, looser thickness); this entry is the DIN 988 shim only."
+  "notes": "A DIN 125 / ISO 7089 washer is a different part (stamped, looser thickness); this entry is the DIN 988 shim only.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 5,
+        "length": "thickness_mm",
+        "from": [
+          "outer_diameter"
+        ]
+      }
+    ],
+    "parameters": [
+      "thickness_mm"
+    ],
+    "note": "The ring's outer diameter over its thickness; the bore is not hollowed."
+  }
 }
