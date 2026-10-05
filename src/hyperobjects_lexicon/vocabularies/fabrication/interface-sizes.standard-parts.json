@@ -430,6 +430,31 @@
       ],
       "term": "profile",
       "notes": "Added with the blind-joint interfaces of extrusion-2020 (lane P4-AUTH-E). The access hole is not part of the key: no source read gives its diameter or position (MISUMI's alteration pages refuse automated reads, and the guide gives no number), so it is not modelled. The joint is square end on flat face, hence symmetry 4."
+    },
+    {
+      "key": "m3-screw-joint",
+      "label": {
+        "en": "M3 screw joint",
+        "es": "Unión atornillada M3",
+        "fr": "Assemblage vissé M3",
+        "pt": "Junta aparafusada M3"
+      },
+      "definition": {
+        "en": "The bolt pattern of one M3 screw: the clamped part's (or stack's) clearance-hole side (male) into an M3 thread under its face (female), e.g. a T-nut in a 2020 slot. Both are framed on the clamped face. As m5-screw-joint, at M3.",
+        "es": "El patrón de un tornillo M3: el lado del barreno de paso de la pieza (o pila) sujeta (macho) hacia una rosca M3 bajo su cara (hembra), p. ej. una tuerca en T en una ranura 2020. Ambos se enmarcan en la cara sujeta. Como m5-screw-joint, en M3.",
+        "fr": "Le motif d'une vis M3 : le côté trou de passage de la pièce (ou de l'empilement) serrée (mâle) vers un taraudage M3 sous sa face (femelle), p. ex. un écrou en T dans une rainure 2020. Les deux sont repérés sur la face serrée. Comme m5-screw-joint, en M3.",
+        "pt": "O padrão de um parafuso M3: o lado do furo de passagem da peça (ou pilha) apertada (macho) para uma rosca M3 sob a sua face (fêmea), p. ex. uma porca em T numa ranhura 2020. Ambos são referenciados na face apertada. Como m5-screw-joint, em M3."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {"title": "MISUMI post-assembly insertion nuts for HFS5 aluminum extrusions (HNTAP5 / SHNTAP5 with leaf spring), catalog page 2716 (2019 US)", "url": "https://mx.misumi-ec.com/en/pdf/fa/2019/2019_US_2716.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "HNTAP5 post-assembly insertion nuts for HFS5 are made in M3, M4 and M5"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added with tnut-2020-m3 and bed-plate-350 (lane P6-ZBED). The screw's length and head are the joint's own choice and not part of the key."
     }
   ]
 }
