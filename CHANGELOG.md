@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### One digest, one projection: project from the canonical document (SEM-1 §1, lane P6-PROJFIX)
+
+Finding F1 of lane P6-ASM. An assembly's shell id hashes the **canonical** document
+(GOC-1 §3.1: `20.0` and `20` hash the same), but the projection read the document as
+written. A cartridge parameter written `20.0` projected `xs:double` in
+BillOfMaterials → Parameters, while asset-shells re-projecting the stored
+`AssemblyDocument` blob (canonical JSON, so `20`) got `xs:integer`. The digest was the
+same and the bytes were not, under one id: a latent 409.
+
+#### Fixed
+
+- **Assemblies.** `project_assembly` projects the canonical document
+  (`normalize_numbers`), the same form the digest hashes and the blob stores. A standard
+  part's parameter values come from its resolved identity, so they are normalised too.
+  A whole number's `valueType` now follows its canonical value whatever the spelling.
+  The goldens do not move: the drift guard reports `drifted=0 immutable_drift=0` at
+  projection version 2, because every fixture already writes whole numbers as integers.
+
+#### Added
+
+- `tests/test_projection_canonical.py`:
+  - F1 reproduced on both paths: the golden refresh, and the blob →
+    `EnvironmentCartridgeResolver` → `build_assembly_environment` round trip. It covers
+    a cartridge parameter (`z0_z_joint.c_end`) and a standard-part parameter
+    (`u0.length_mm`).
+  - The property `project(doc) == project(canonical(doc))`, byte for byte, over every
+    assembly fixture (A, B, the kinematic gantry). Each is checked with every integer
+    respelt as a float and with two seeded random halves.
+  - A respelt cartridge manifest mints a new id, because a cartridge id hashes file
+    bytes, so it cannot collide.
+
 ### The golden assembly A is the full Voron 2.4-class 350 motion system (Phase 6, lane P6-ASM)
 
 Test fixtures and goldens only; no projection, schema, grammar, gate or validator change.

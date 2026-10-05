@@ -53,7 +53,7 @@ import math
 from collections.abc import Mapping
 from functools import cache
 
-from hyperobjects_schemas.generator_output import canonical_json
+from hyperobjects_schemas.generator_output import canonical_json, normalize_numbers
 
 from . import elements as el
 from .common import Projection, as_dict, as_list, build_environment, nameplate
@@ -106,10 +106,12 @@ def _assembly_document(proj: Projection, doc: Mapping, digest: str) -> None:
 
 
 def _parameters(id_short: str, values: Mapping) -> dict | None:
+    # Canonical numbers (GOC-1 §3.1), as the digest hashes them: a standard part's values
+    # come from its resolved identity, not the document, so they are normalised here too.
     alloc = IdShortAllocator()
     return el.smc(id_short, [
         el.smc(alloc.take(k, "Parameter"), [el.prop("ParameterId", k), el.prop("Value", v)])
-        for k, v in sorted(as_dict(values).items())
+        for k, v in sorted(as_dict(normalize_numbers(as_dict(values))).items())
     ])
 
 
@@ -445,6 +447,11 @@ def project_assembly(doc: Mapping, report, concepts: Concepts | None = None) -> 
     slug = doc.get("slug")
     if not isinstance(slug, str):
         raise AssemblyProjectionError("the assembly has no slug")
+    # One digest, one projection (SEM-1 §1; F1): project the canonical document the digest
+    # hashes and the AssemblyDocument blob stores, so the spelling of a whole number (20.0
+    # or 20) cannot reach the bytes. The publisher's document and the blob a store
+    # re-projects from then project identically.
+    doc = normalize_numbers(doc)
     proj = Projection("assembly", slug, report.digest, _pseudo_manifest(doc),
                       concepts if concepts is not None else Concepts())
     alloc = IdShortAllocator(reserved=("EntryNode",))
