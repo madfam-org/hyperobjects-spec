@@ -275,6 +275,15 @@ MADFAM: dict[str, MadfamTemplate] = {
            "component's model frame to the assembly's, in millimetres.",
            "La transformación al mundo de cada componente de un ensamble: una matriz 4 × 4 "
            "del marco de modelo del componente al del ensamble, en milímetros."),
+        _t("assembly-kinematics", "Assembly kinematics", "Cinemática del ensamble",
+           "Cinématique de l'assemblage", "Cinemática da montagem",
+           "The joints of an assembly (type, axis, limits, home, role), the machine axes "
+           "bound to them, the declared belt paths with their pitch-line lengths, and the "
+           "pose sweep the keystone validated (ASM-1 §9).",
+           "Las articulaciones de un ensamble (tipo, eje, límites, origen, función), los ejes "
+           "de máquina ligados a ellas, las trayectorias de banda declaradas con su longitud "
+           "en la línea de paso y el barrido de poses que validó la piedra angular "
+           "(ASM-1 §9)."),
         _t("capability-description", "Capability description", "Descripción de capacidades",
            "Description des capacités", "Descrição de capacidades",
            "What a producer machine can fabricate, keyed by the fabrication-capabilities "

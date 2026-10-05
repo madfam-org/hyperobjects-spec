@@ -14,9 +14,14 @@
        ≤ 0.5° whenever both frames declare an x_axis (else a cycle-closing mate warns
        `angle-unchecked`)
     6. every component reachable from the root
+    6b. (ASM-1 §9, v1.3) the pose sweep: when the document has driven joints, every mate
+       and cycle is re-checked at each joint's limits and over a seeded Halton sweep
+       (`kinematics.pose_sweep`); a passive joint's measured value and a follower's
+       computed value stay inside their limits; every declared path is planar at home
+       and its pitch-line length is reported at every pose
     7. (--collision) NOT implemented in v1: requesting it adds a warning saying no
        intersection was checked. It never reports a pass.
-    8. the report, the placement table, and the canonical assembly digest
+    8. the report, the placement table (the home pose), and the canonical assembly digest
 
 A pure function of the document and the resolver: no file is read here, so a service
 holding its components elsewhere calls it with its own resolver.
@@ -24,19 +29,43 @@ holding its components elsewhere calls it with its own resolver.
 
 from __future__ import annotations
 
+import dataclasses
 import math
 from collections import deque
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
 from .digest import assembly_digest
+from .kinematics import (
+    POSE_SAMPLES,
+    POSE_SEED,
+    Joint,
+    PoseError,
+    joint_matrix,
+    joint_values,
+    joints_of,
+    measured_joint_value,
+    static_kinematic_problems,
+)
+from .paths import PATH_LENGTH_TOLERANCE_MM, PATH_LOOP_TOLERANCE_MM, PathResult
 from .resolution import ComponentResolver, ResolutionError, ResolvedComponent, ResolvedInterface
+from .sweep import (
+    PoseResult,
+    limit_findings,
+    measure_paths,
+    path_static_step,
+    pose_result,
+    resolve_paths,
+    sweep_step,
+)
+from .tolerances import ANGLE_TOLERANCE_DEG, ORIGIN_TOLERANCE_MM
 from .transforms import (
     IDENTITY,
     Matrix,
     angle_between_deg,
     apply_vector,
     column,
+    flip_rz,
     mate_transform,
     matmul,
     rigid_inverse,
@@ -47,13 +76,12 @@ __all__ = [
     "ORIGIN_TOLERANCE_MM",
     "AssemblyFinding",
     "AssemblyReport",
+    "KinematicModel",
     "MateCheck",
+    "PoseResult",
     "validate_assembly",
 ]
 
-#: ASM-1 §3.5 / SEM-1 §2.3 mating rule.
-ORIGIN_TOLERANCE_MM = 0.05
-ANGLE_TOLERANCE_DEG = 0.5
 
 ERROR = "error"
 WARNING = "warning"
@@ -87,17 +115,30 @@ class MateCheck:
     x_axis_deg: float | None = None
     measured_deg: float | None = None
     ok: bool = False
+    #: ASM-1 §9: the mate's joint id, and its value at this pose (set, computed, or —
+    #: for a passive joint — measured from the geometry). None for a rigid mate.
+    joint: str | None = None
+    joint_value: float | None = None
 
     def as_dict(self) -> dict:
         def r(v):
             return None if v is None else round(v, 6) + 0.0
-        return {
+        out = {
             "mate": self.mate_id, "a": self.a, "b": self.b, "symmetry": self.symmetry,
             "theta_deg": r(self.theta_deg), "in_tree": self.in_tree,
             "origin_mm": r(self.origin_mm), "normal_deg": r(self.normal_deg),
             "x_axis_deg": r(self.x_axis_deg), "measured_deg": r(self.measured_deg),
             "ok": self.ok,
         }
+        if self.joint is not None:
+            out["joint"] = self.joint
+            out["joint_value"] = r(self.joint_value)
+        return out
+
+    def reset(self) -> MateCheck:
+        """A copy with the static facts only (for re-checking at another pose)."""
+        return dataclasses.replace(self, origin_mm=None, normal_deg=None, x_axis_deg=None,
+                                   measured_deg=None, ok=False, joint_value=None)
 
 
 @dataclass
@@ -108,6 +149,16 @@ class AssemblyReport:
     mates: list[MateCheck] = field(default_factory=list)
     digest: str | None = None
     collision: str = "not run"
+    #: ASM-1 §9 (v1.3): the document's joints, the pose sweep's verdicts (home first) and
+    #: the declared paths. Empty for a rigid assembly, whose only pose is home.
+    joints: list[Joint] = field(default_factory=list)
+    poses: list[PoseResult] = field(default_factory=list)
+    paths: list[PathResult] = field(default_factory=list)
+    pose_samples: int = POSE_SAMPLES
+    pose_seed: int = POSE_SEED
+    #: The compiled kinematic model (placement at any joint values), when every
+    #: component resolved and the root is placed; None otherwise.
+    kinematics: KinematicModel | None = None
 
     @property
     def errors(self) -> list[AssemblyFinding]:
@@ -260,38 +311,64 @@ def _ref(mate: Mapping, side: str) -> str:
 
 
 # ── steps 4 and 5 ─────────────────────────────────────────────────────────────
-def _place(root: str, edges: list[tuple[Mapping, MateCheck, ResolvedInterface,
-                                          ResolvedInterface]]) -> dict[str, Matrix]:
+Edge = tuple  # (mate, MateCheck, ResolvedInterface a, ResolvedInterface b, Joint | None)
+
+
+def _place(root: str, edges: list[Edge], values: Mapping[str, float]
+           ) -> tuple[dict[str, Matrix], set[str]]:
     """BFS from the root. Mates are visited in document order, which makes the tree —
-    and so the placement of an over-constrained assembly — deterministic."""
+    and so the placement of an over-constrained assembly — deterministic. A joint mate
+    places its child at the joint's value; a passive joint's mate never places anything
+    (it only closes a cycle). Returns the placements and the ids of the tree's mates."""
     placements: dict[str, Matrix] = {root: IDENTITY}
+    tree: set[str] = set()
     queue = deque([root])
     while queue:
         current = queue.popleft()
-        for mate, check, ia, ib in edges:
+        for mate, check, ia, ib, joint in edges:
             ca, cb = mate["a"]["component"], mate["b"]["component"]
-            if current not in (ca, cb):
+            if current not in (ca, cb) or (joint is not None and joint.passive):
                 continue
             theta = math.radians(check.theta_deg)
+            h_a, h_b = ia.frame.homogeneous(), ib.frame.homogeneous()
+            if joint is None:
+                j = j_inv = None
+            else:
+                j = joint_matrix(joint.type, joint.axis, values.get(joint.id, 0.0))
+                j_inv = rigid_inverse(j)
             if current == ca and cb not in placements:
-                placements[cb] = mate_transform(
-                    placements[ca], ia.frame.homogeneous(), ib.frame.homogeneous(), theta
-                )
+                if j is None:
+                    placements[cb] = mate_transform(placements[ca], h_a, h_b, theta)
+                else:  # T_b = T_a · H(F_a) · J(q) · M · H(F_b)^-1
+                    placements[cb] = matmul(placements[ca], h_a, j, flip_rz(theta),
+                                            rigid_inverse(h_b))
             elif current == cb and ca not in placements:
-                # M = Flip·Rz(θ) is an involution, so the same formula serves both ways.
-                placements[ca] = mate_transform(
-                    placements[cb], ib.frame.homogeneous(), ia.frame.homogeneous(), theta
-                )
+                # M = Flip·Rz(θ) is an involution, so the same formula serves both ways;
+                # a joint is undone from the child's side: T_a = T_b · H_b · M · J^-1 · H_a^-1.
+                if j is None:
+                    placements[ca] = mate_transform(placements[cb], h_b, h_a, theta)
+                else:
+                    placements[ca] = matmul(placements[cb], h_b, flip_rz(theta), j_inv,
+                                            rigid_inverse(h_a))
             else:
                 continue
-            check.in_tree = True
+            tree.add(mate["id"])
             queue.append(cb if current == ca else ca)
-    return placements
+    return placements, tree
 
 
-def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib) -> None:
+def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib,
+             joint: Joint | None = None, value: float | None = None) -> None:
     w_a = matmul(t_a, ia.frame.homogeneous())
     w_b = matmul(t_b, ib.frame.homogeneous())
+    if joint is not None:
+        if joint.passive:
+            # The value the geometry realises: J(q) ≈ W_a^-1 · W_b · M (M^-1 = M).
+            residual = matmul(rigid_inverse(w_a), w_b,
+                              flip_rz(math.radians(check.theta_deg)))
+            value = measured_joint_value(joint.type, joint.axis, residual)
+        w_a = matmul(w_a, joint_matrix(joint.type, joint.axis, value))
+        check.joint_value = value
     o_a, o_b = column(w_a, 3), column(w_b, 3)
     check.origin_mm = math.dist(o_a, o_b)
     n_a, n_b = column(w_a, 2), column(w_b, 2)
@@ -319,6 +396,42 @@ def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib) -> None:
         and check.normal_deg <= ANGLE_TOLERANCE_DEG
         and (check.x_axis_deg is None or check.x_axis_deg <= ANGLE_TOLERANCE_DEG)
     )
+
+
+@dataclass
+class KinematicModel:
+    """An assembly compiled for posing (ASM-1 §9): the root, the mates that passed the
+    mating rule (with their resolved interfaces and joints), and the joints. Built by
+    `validate_assembly`; `pose()` and the golden pose files use it."""
+
+    root: str
+    edges: list[Edge]
+    joints: list[Joint]
+
+    def values(self, driven: Mapping[str, object] | None = None, *,
+               check_limits: bool = True) -> dict[str, float]:
+        """Every driven and follower joint's value (`kinematics.joint_values`)."""
+        return joint_values(self.joints, driven, check_limits=check_limits)
+
+    def place(self, values: Mapping[str, float]) -> dict[str, Matrix]:
+        """Every component's world transform with the joints at `values`."""
+        return _place(self.root, self.edges, values)[0]
+
+    def evaluate(self, values: Mapping[str, float], checks: Mapping[str, MateCheck] | None = None
+                 ) -> tuple[dict[str, Matrix], list[MateCheck]]:
+        """Place at `values`, then check every mate in world space. `checks` (by mate id)
+        are filled in place when given (the home pose); otherwise fresh copies are."""
+        placements, tree = _place(self.root, self.edges, values)
+        out = []
+        for mate, check, ia, ib, joint in self.edges:
+            target = checks[mate["id"]] if checks is not None else check.reset()
+            target.in_tree = mate["id"] in tree
+            ca, cb = mate["a"]["component"], mate["b"]["component"]
+            if ca in placements and cb in placements:
+                _closure(target, placements[ca], placements[cb], ia, ib, joint,
+                         None if joint is None or joint.passive else values.get(joint.id, 0.0))
+            out.append(target)
+        return placements, out
 
 
 def _signed(deg: float) -> float:
@@ -373,13 +486,20 @@ def _closure_findings(report: AssemblyReport, check: MateCheck) -> None:
 
 # ── entry point ───────────────────────────────────────────────────────────────
 def validate_assembly(
-    doc: object, resolver: ComponentResolver, *, collision: bool = False
+    doc: object, resolver: ComponentResolver, *, collision: bool = False,
+    pose_samples: int = POSE_SAMPLES, pose_seed: int = POSE_SEED,
 ) -> AssemblyReport:
-    """Check an assembly document (ASM-1 §3). Never raises on a bad document; every
-    problem is a finding. `report.ok` is True iff there is no error."""
-    report = AssemblyReport()
+    """Check an assembly document (ASM-1 §3, §9). Never raises on a bad document; every
+    problem is a finding. `report.ok` is True iff there is no error. `pose_samples` and
+    `pose_seed` set the Halton part of the pose sweep (conventions; see kinematics.py)."""
+    report = AssemblyReport(pose_samples=pose_samples, pose_seed=pose_seed)
     if not _schema_step(doc, report):
         return report
+    report.joints = joints_of(doc)
+    for code, subject, message in static_kinematic_problems(doc):
+        report._err(code, message, subject)
+    path_static_step(doc, report)
+    kinematics_ok = not report.errors
 
     for component in doc["components"]:
         try:
@@ -391,34 +511,81 @@ def validate_assembly(
             report._err(
                 "resolve", f"the resolver failed: {type(exc).__name__}: {exc}", component["id"]
             )
+    paths = resolve_paths(doc, resolver, report) if kinematics_ok else {}
 
+    joints_by_mate = {j.mate_id: j for j in report.joints}
     edges = []
     for mate in doc["mates"]:
         ia = _interface(report, mate, "a", report.components)
         ib = _interface(report, mate, "b", report.components)
         check = _mate_rule_step(report, mate, ia, ib) if ia and ib else None
+        joint = joints_by_mate.get(mate["id"])
         if check is None:
-            report.mates.append(MateCheck(mate["id"], _ref(mate, "a"), _ref(mate, "b")))
+            report.mates.append(MateCheck(mate["id"], _ref(mate, "a"), _ref(mate, "b"),
+                                          joint=joint.id if joint else None))
             continue
+        check.joint = joint.id if joint else None
         report.mates.append(check)
-        edges.append((mate, check, ia, ib))
+        edges.append((mate, check, ia, ib, joint))
 
+    try:
+        home = joint_values(report.joints, check_limits=False) if kinematics_ok else {}
+    except PoseError:
+        home = {}
     if doc["root"] in report.components:
-        report.placements = _place(doc["root"], edges)
-    for mate, check, ia, ib in edges:
-        ca, cb = mate["a"]["component"], mate["b"]["component"]
-        if ca in report.placements and cb in report.placements:
-            _closure(check, report.placements[ca], report.placements[cb], ia, ib)
-            _closure_findings(report, check)
+        model = KinematicModel(doc["root"], edges, report.joints)
+        checks = {mate["id"]: check for mate, check, _ia, _ib, _j in edges}
+        report.placements, home_checks = model.evaluate(home, checks)
+        for check in home_checks:
+            if check.origin_mm is not None:
+                _closure_findings(report, check)
+        report.kinematics = model
+        report.poses.append(pose_result("home", "home", home, home_checks, report))
+        limits = {jid: [report.poses[0]] for jid in report.poses[0].limit_violations}
+        limit_findings(report, limits, 1)
 
+    passive_children = {j.child for j in report.joints if j.passive} | {
+        j.parent for j in report.joints if j.passive}
     for component in doc["components"] if doc["root"] in report.components else []:
         cid = component["id"]
         if cid in report.components and cid not in report.placements:
+            hint = (" (a passive joint's mate never places a component)"
+                    if cid in passive_children else "")
             report._err(
                 "unreachable",
-                "not reachable from the root through mates that pass the mating rule",
+                "not reachable from the root through mates that pass the mating rule" + hint,
                 cid,
             )
+
+    failed_paths: set[str] = set()
+    if report.placements:
+        measure_paths(paths, report.placements, "home", report, failed_paths)
+    driven = [j for j in report.joints if j.role == "driven"]
+    if report.kinematics is not None and driven and kinematics_ok and not report.errors:
+        sweep_step(report.kinematics, report, paths, failed_paths)
+    for result in report.paths:
+        if result.path_id not in failed_paths and result.length_mm is not None:
+            result.ok = True
+            loop = result.loop_length_mm
+            if loop is not None and abs(result.length_mm - loop) > PATH_LOOP_TOLERANCE_MM:
+                report._warn(
+                    "path-length",
+                    f"the computed pitch-line length at home is {result.length_mm:.4f} mm, but "
+                    f"the belt's catalog loop length is {loop:g} mm ({result.length_mm - loop:+.4f}"
+                    f" mm; > {PATH_LOOP_TOLERANCE_MM} mm, a convention)",
+                    result.path_id,
+                )
+            spread = result.length_spread_mm
+            if spread is not None and spread > PATH_LENGTH_TOLERANCE_MM:
+                low = min(result.lengths, key=result.lengths.get)
+                high = max(result.lengths, key=result.lengths.get)
+                report._warn(
+                    "path-length",
+                    f"the pitch-line length varies by {spread:.4f} mm across the sweep "
+                    f"(> {PATH_LENGTH_TOLERANCE_MM} mm, a convention): {result.lengths[low]:.4f} "
+                    f"at {low}, {result.lengths[high]:.4f} at {high}",
+                    result.path_id,
+                )
 
     if collision:
         report._warn(
@@ -429,7 +596,8 @@ def validate_assembly(
     if len(report.components) == len(doc["components"]):
         try:
             report.digest = assembly_digest(
-                doc, {cid: rc.identity for cid, rc in report.components.items()}
+                doc, {cid: rc.identity for cid, rc in report.components.items()},
+                path_parts=getattr(report, "_path_parts", None) or None,
             )
         except (TypeError, ValueError) as exc:  # NaN / Infinity has no canonical JSON
             report._err("digest", f"the document has no canonical JSON form: {exc}")

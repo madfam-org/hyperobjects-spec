@@ -27,6 +27,7 @@ from hyperobjects_aas import (
     project_material,
     project_solid,
 )
+from hyperobjects_aas.ids import PROJECTION_VERSION
 from hyperobjects_aas.templates import IDTA, MADFAM
 from hyperobjects_schemas.generator_output import canonical_json, tree_sha256
 
@@ -46,9 +47,10 @@ def test_solid_shell_header_follows_sem1():
     _ok(env)
     (shell,) = env["assetAdministrationShells"]
     tree = tree_sha256(SEM1_SOLID)
-    assert shell["id"] == f"https://id.madfam.io/aas/solid/sem1-bracket/{tree[:16]}/p1"
-    assert shell["extensions"] == [
-        {"name": "ProjectionVersion", "valueType": "xs:positiveInteger", "value": "1"}]
+    assert shell["id"] == (
+        f"https://id.madfam.io/aas/solid/sem1-bracket/{tree[:16]}/p{PROJECTION_VERSION}")
+    assert shell["extensions"] == [{"name": "ProjectionVersion", "valueType": "xs:positiveInteger",
+                                    "value": str(PROJECTION_VERSION)}]
     assert shell["idShort"] == "sem1-bracket"
     assert shell["administration"] == {"version": "2", "revision": "3"}
     info = shell["assetInformation"]
