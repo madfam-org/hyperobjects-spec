@@ -339,6 +339,16 @@
             "x_axis": { "$ref": "#/$defs/frameVector" }
           }
         },
+        "travel": {
+          "description": "ASM-1 §9 (v1.4). How far an assembly mate's `offset` may slide this interface along one axis of its own frame: `range` is [lower, upper] in mm, in the frame grammar over the entry's parameters (list them in `parameters`). A slot station on an extrusion travels the slot's run.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["axis", "range"],
+          "properties": {
+            "axis": { "type": "string", "enum": ["x", "y", "z"] },
+            "range": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/frameComponent" } }
+          }
+        },
         "parameters": {
           "description": "The entry's parameter ids this interface's frame depends on.",
           "type": "array",
