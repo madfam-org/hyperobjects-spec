@@ -328,6 +328,34 @@ def test_a_graph_parameter_with_an_empty_binding_is_dead(tmp_path):
     assert _graph_dead(tmp_path, []) == {"plate_radius"}
 
 
+# ── graph format 1.1: the expression door (`parameters` in the document) ─────
+def _expression_graph_dead(tmp_path: Path, declared: dict) -> set[str]:
+    doc = {
+        "version": "1.1.0",
+        "parameters": declared,
+        "nodes": [{"id": "outline", "type": "profile_circle",
+                   "params": {"r": {"expr": "plate_radius"}}}],
+        "outputs": {"flange": "outline"},
+    }
+    (tmp_path / "flange.graph.json").write_text(json.dumps(doc))
+    return _problem_ids(structure.dead_parameter_rules(tmp_path, _graph_doc(None)))
+
+
+def test_a_graph_parameter_read_by_an_expression_is_alive(tmp_path):
+    """Since graph 1.1 the graph itself declares the manifest ids its expressions read;
+    the render injects them like a script's bare globals, with no `binding`."""
+    assert _expression_graph_dead(tmp_path, {"plate_radius": {"default": 45}}) == set()
+
+
+def test_declaring_a_different_parameter_does_not_keep_this_one_alive(tmp_path):
+    assert _expression_graph_dead(tmp_path, {"other": {"default": 1}}) == {"plate_radius"}
+
+
+@pytest.mark.parametrize("text", ["{not json", "[]", '{"parameters": []}'])
+def test_an_unreadable_graph_is_not_evidence_of_a_reference(text):
+    assert rules.graph_expression_parameters(text) == set()
+
+
 # ── libraries: a reference from a file the cartridge SHIPS counts ────────────
 def _lib_cartridge(tmp_path: Path, include_line: str) -> dict:
     doc = {

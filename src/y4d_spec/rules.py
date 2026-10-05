@@ -45,6 +45,7 @@ ran could be switched off by switching the comparison off.
 
 from __future__ import annotations
 
+import json
 import re
 
 from hyperobjects_lexicon.membership import manifest_vocabulary_problems
@@ -728,6 +729,29 @@ def graph_bound_parameters(doc: dict) -> set[str]:
     return bound
 
 
+def graph_expression_parameters(text: str) -> set[str]:
+    """The manifest parameter ids a `.graph.json` reads through EXPRESSIONS (format 1.1).
+
+    The second door into a graph. Since graph format 1.1 (Wave D / G-EXPR) a graph may
+    declare, in its top-level `parameters` object, the manifest ids its `{"expr": ...}`
+    inputs read; the render injects the manifest value as it does for a script. The
+    transpiler refuses a declaration no expression reads (an unread name is a
+    transpile error), so a declared id IS a read one — no transpile is needed here,
+    which keeps this rule a pure function over text like the script and scad doors.
+
+    A document that does not parse yields nothing: it is not evidence of a reference,
+    and the render lane already reports the parse failure as itself.
+    """
+    try:
+        doc = json.loads(text)
+    except ValueError:
+        return set()
+    declared = doc.get("parameters") if isinstance(doc, dict) else None
+    if not isinstance(declared, dict):
+        return set()
+    return {pid for pid in declared if isinstance(pid, str)}
+
+
 def parameter_mode_listings(doc: dict) -> dict:
     """`{parameter id: [the mode dicts that list it]}` — the sources it must reach.
 
@@ -770,7 +794,9 @@ def dead_parameter_problems(doc: dict, sources: dict) -> list[str]:
       * `.py`/`.cq`  — the bare identifier, because params are injected as bare globals.
       * `.scad`      — the identifier outside its own declaration line, because
                        OpenSCAD accepts an unknown `-D` in silence.
-      * `.graph.json` — a `parameters[].binding` naming a node param.
+      * `.graph.json` — a `parameters[].binding` naming a node param, or (graph format
+                       1.1) the id declared in the graph's own `parameters` object,
+                       which its expressions read (`graph_expression_parameters`).
 
     A mode whose sources are all missing from `sources` is not evidence either way and
     is skipped: `mode_source_rules` already fails a mode that names a file it does not
@@ -829,7 +855,7 @@ def dead_parameter_problems(doc: dict, sources: dict) -> list[str]:
                     continue
                 checked.append(name)
                 if name.endswith(GRAPH_SUFFIX):
-                    if pid in bound_in_graph:
+                    if pid in bound_in_graph or pid in graph_expression_parameters(text):
                         break
                 elif name.endswith(SCRIPT_SUFFIXES):
                     if script_references(text, pid):
