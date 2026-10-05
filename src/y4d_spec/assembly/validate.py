@@ -314,6 +314,21 @@ def _ref(mate: Mapping, side: str) -> str:
 Edge = tuple  # (mate, MateCheck, ResolvedInterface a, ResolvedInterface b, Joint | None)
 
 
+def _frames(mate: Mapping, ia, ib) -> tuple[Matrix, Matrix]:
+    """H(F_a), H(F_b) — with a mate `offset` (ASM-1 §9, v1.4) applied: the station lives on
+    the mate, so the named side's frame slides `value` mm along its own axis before the
+    mate is formed. That is J(value) of a prismatic joint fixed at that value."""
+    h_a, h_b = ia.frame.homogeneous(), ib.frame.homogeneous()
+    offset = mate.get("offset")
+    if offset:
+        shift = joint_matrix("prismatic", offset["axis"], float(offset["value"]))
+        if offset.get("side", "a") == "a":
+            h_a = matmul(h_a, shift)
+        else:
+            h_b = matmul(h_b, shift)
+    return h_a, h_b
+
+
 def _place(root: str, edges: list[Edge], values: Mapping[str, float]
            ) -> tuple[dict[str, Matrix], set[str]]:
     """BFS from the root. Mates are visited in document order, which makes the tree —
@@ -330,7 +345,7 @@ def _place(root: str, edges: list[Edge], values: Mapping[str, float]
             if current not in (ca, cb) or (joint is not None and joint.passive):
                 continue
             theta = math.radians(check.theta_deg)
-            h_a, h_b = ia.frame.homogeneous(), ib.frame.homogeneous()
+            h_a, h_b = _frames(mate, ia, ib)
             if joint is None:
                 j = j_inv = None
             else:
@@ -358,9 +373,12 @@ def _place(root: str, edges: list[Edge], values: Mapping[str, float]
 
 
 def _closure(check: MateCheck, t_a: Matrix, t_b: Matrix, ia, ib,
-             joint: Joint | None = None, value: float | None = None) -> None:
-    w_a = matmul(t_a, ia.frame.homogeneous())
-    w_b = matmul(t_b, ib.frame.homogeneous())
+             joint: Joint | None = None, value: float | None = None,
+             frames: tuple[Matrix, Matrix] | None = None) -> None:
+    h_a, h_b = frames if frames is not None else (ia.frame.homogeneous(),
+                                                  ib.frame.homogeneous())
+    w_a = matmul(t_a, h_a)
+    w_b = matmul(t_b, h_b)
     if joint is not None:
         if joint.passive:
             # The value the geometry realises: J(q) ≈ W_a^-1 · W_b · M (M^-1 = M).
@@ -429,7 +447,8 @@ class KinematicModel:
             ca, cb = mate["a"]["component"], mate["b"]["component"]
             if ca in placements and cb in placements:
                 _closure(target, placements[ca], placements[cb], ia, ib, joint,
-                         None if joint is None or joint.passive else values.get(joint.id, 0.0))
+                         None if joint is None or joint.passive else values.get(joint.id, 0.0),
+                         _frames(mate, ia, ib))
             out.append(target)
         return placements, out
 
@@ -484,6 +503,32 @@ def _closure_findings(report: AssemblyReport, check: MateCheck) -> None:
             )
 
 
+def _offset_step(report: AssemblyReport, mate: Mapping, ia, ib) -> None:
+    """A mate `offset` (ASM-1 §9, v1.4) must stay inside the travel its interface declares:
+    the same axis, lower ≤ value ≤ upper. Undeclared travel cannot be checked: a warning,
+    never a silent pass."""
+    offset = mate.get("offset")
+    if not offset:
+        return
+    side = offset.get("side", "a")
+    iface = ia if side == "a" else ib
+    ref = f"{mate[side]['component']}.{mate[side]['interface']}"
+    value, axis = float(offset["value"]), offset["axis"]
+    if iface.travel is None:
+        report._warn("offset-unchecked",
+                     f"offset {value:g} mm along {axis} of {ref}, which declares no travel: "
+                     "the station is placed but not checked against the interface's run",
+                     mate["id"])
+        return
+    t_axis, low, high = iface.travel
+    if t_axis != axis:
+        report._err("offset", f"offset is along {axis}, but {ref} travels along {t_axis}",
+                    mate["id"])
+    elif not low <= value <= high:
+        report._err("offset", f"offset {value:g} mm leaves {ref}'s travel [{low:g}, {high:g}] mm "
+                    f"along {axis} (never clamped)", mate["id"])
+
+
 # ── entry point ───────────────────────────────────────────────────────────────
 def validate_assembly(
     doc: object, resolver: ComponentResolver, *, collision: bool = False,
@@ -527,6 +572,9 @@ def validate_assembly(
         check.joint = joint.id if joint else None
         report.mates.append(check)
         edges.append((mate, check, ia, ib, joint))
+
+    for mate, _check, ia, ib, _joint in edges:
+        _offset_step(report, mate, ia, ib)
 
     try:
         home = joint_values(report.joints, check_limits=False) if kinematics_ok else {}

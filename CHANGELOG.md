@@ -57,11 +57,53 @@ none of its geometry is used.
   `z-belt-clamp`'s jaws on a gantry beam; (iv) `bed-extrusion-mount` holding a bed
   extrusion square, flush and butted; (v) the whole 350 frame cube at its cited cut lengths
   (530 uprights, 470 horizontals, 16 blind joints; Spool3D and LDO kit listings, guide
-  pp. 13, 20) with a Z drive at each bottom corner and both bed rails on four bed mounts —
+  pp. 13, 20) with a Z drive at each bottom corner, keyed into both bottom horizontals (into
+  the x-running ones by a v1.4 mate offset of ∓160, since they carry the bed rails' station
+  170), and both bed rails on four bed mounts —
   64 + 6 components close; a 471 horizontal or a 469 bed rail fails; (vi) ASM-1 §9: the
   16 → 80-tooth loop declared as a closed path in the Z drive closes at 188.006 mm with no
   `path-length` warning, and 2 mm further out it warns at the open-belt formula's length.
   Negative controls for every new key.
+
+### Stations on the mate: `offset` and interface `travel` (ASM-1 §9 v1.4, package 0.8.0)
+
+P6-ZBED found that `extrusion-2020` has one `slot_station_mm` shared by its eight slots, so
+two parts on one extrusion at different stations could not both mate. The full 2.4 hits
+this constantly. The coordinator approved the fix on 2026-10-04. Lane P6-JOINT.
+
+#### Added
+
+- **`mate.offset: {side?, axis, value, note?}`.** The named side's interface frame
+  (default `a`) slides `value` mm along its own axis before the mate is formed: a
+  prismatic joint fixed at that value (`H(F)·J(value)`). A mate carries an offset or a
+  joint, never both (schema).
+- **Interface `travel: {axis, range}`** (catalog: frame-grammar bounds; external:
+  numbers), with two findings:
+  - an `offset` error when an offset runs along another axis or leaves the range (never
+    clamped);
+  - an `offset-unchecked` warning when the interface declares no travel.
+- **Catalog lane rule 7** evaluates every `travel.range` bound at each parameter point and
+  requires lower < upper.
+- **`extrusion-2020`**: every `slot_*` interface travels along x (the extrusion axis,
+  toward end B) over the slot's run, end A to end B, measured from the station. This adds
+  no new number.
+- **`Mates`** carries `OffsetSide`, `OffsetAxis` and `OffsetMm` on a mate with an
+  offset. Nothing is written for a mate without one, so there is no projection-version
+  bump.
+- **Tests** in `tests/test_assembly_offset.py`:
+  - two T-nuts on one slot at different stations;
+  - side b;
+  - the run's bounds;
+  - the wrong axis;
+  - undeclared travel;
+  - offset XOR joint;
+  - parity with `slot_station_mm`.
+
+#### Changed
+
+- **Fixture A's digest moves** `296caa36…` → `35867ffd…`, through `extrusion-2020`'s
+  catalog digest. This is an ordinary refresh: `PROJECTION_VERSION` stays 2.
+
 
 ### Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, contract v1.3, package 0.7.0) — projection version 2
 

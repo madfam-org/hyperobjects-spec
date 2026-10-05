@@ -27,7 +27,13 @@ from typing import Protocol, runtime_checkable
 from hyperobjects_schemas import load as load_schema
 from hyperobjects_schemas.generator_output import instance_id, variables_sha256
 
-from ..frame_eval import Frame, FrameEvaluationError, evaluate_frame, resolve_parameters
+from ..frame_eval import (
+    Frame,
+    FrameEvaluationError,
+    evaluate_expression,
+    evaluate_frame,
+    resolve_parameters,
+)
 from ..semantic_rules import canonical_number_key
 
 __all__ = [
@@ -76,6 +82,10 @@ class ResolvedInterface:
     #: slider map (ASM-1 v1.1) with no entry for the slider's value. A mate that needs
     #: the key names this reason instead of "declares no size_key".
     size_key_absent_reason: str | None = None
+    #: ASM-1 §9 (v1.4): how far a mate's `offset` may slide this interface along one
+    #: axis of its own frame: (axis, lower, upper) in mm, evaluated at the component's
+    #: parameters. None when the interface declares no `travel`.
+    travel: tuple[str, float, float] | None = None
 
 
 @dataclass(frozen=True)
@@ -328,6 +338,9 @@ def resolve_interfaces(
             else None
         )
         symmetry = iface.get("symmetry")
+        travel, travel_problem = _travel(iface.get("travel"), values, declared)
+        if travel_problem:
+            problems.append(travel_problem)
         out[iface["id"]] = ResolvedInterface(
             id=iface["id"],
             frame=frame,
@@ -336,5 +349,25 @@ def resolve_interfaces(
             symmetry=symmetry if _is_number(symmetry) else None,
             problems=tuple(problems),
             size_key_absent_reason=absent,
+            travel=travel,
         )
     return out
+
+
+def _travel(raw: object, values: Mapping, declared: Mapping
+            ) -> tuple[tuple[str, float, float] | None, str | None]:
+    """An interface's `travel: {axis, range: [lower, upper]}` (ASM-1 §9.2, v1.4), the range
+    in the frame grammar over the component's parameters; (None, None) when absent."""
+    if raw is None:
+        return None, None
+    if (not isinstance(raw, Mapping) or raw.get("axis") not in ("x", "y", "z")
+            or not isinstance(raw.get("range"), (list, tuple)) or len(raw["range"]) != 2):
+        return None, f"travel {raw!r} is not {{axis: x|y|z, range: [lower, upper]}}"
+    try:
+        low, high = (evaluate_expression(c, values, set(values) | set(declared))
+                     for c in raw["range"])
+    except FrameEvaluationError as exc:
+        return None, f"travel.range does not evaluate: {exc}"
+    if not low < high:
+        return None, f"travel.range [{low:g}, {high:g}] is not lower < upper"
+    return (raw["axis"], low, high), None

@@ -599,13 +599,15 @@ _CUBE = (  # (component, length, mates: (a, b) with rotation_index 0)
                              ("tx_back.end_b_blind", "u3.blind_xn_b")]),
 )
 #: corner: (y-running bottom horizontal, its bottom slot at this corner, mirrored, key
-#: rotation). The drive keys only into the y-running horizontal: the x-running ones carry
-#: the bed rails' station (one slot_station_mm per extrusion).
+#: rotation; x-running bottom horizontal, its bottom slot, the mate offset). The x-running
+#: horizontals carry the bed rails' station 170, so the drive's slot key reaches its own
+#: station 10 by a mate offset along the slot (ASM-1 §9 v1.4): 10 − 170 from end A, or
+#: toward end B by 160 from the b station.
 _DRIVES = {
-    "z0": ("by_left", "slot_xn_a", False, 0),
-    "z1": ("by_right", "slot_xn_a", True, 0),
-    "z2": ("by_left", "slot_xn_b", True, 1),
-    "z3": ("by_right", "slot_xn_b", False, 1),
+    "z0": ("by_left", "slot_xn_a", False, 0, "bx_front", "slot_xn_a", -160),
+    "z1": ("by_right", "slot_xn_a", True, 0, "bx_front", "slot_xn_b", 160),
+    "z2": ("by_left", "slot_xn_b", True, 1, "bx_back", "slot_xn_a", -160),
+    "z3": ("by_right", "slot_xn_b", False, 1, "bx_back", "slot_xn_b", 160),
 }
 _DRIVE_PARTS = (
     ("tnut_a", "tnut-2020-m5", {}), ("tnut_b", "tnut-2020-m5", {}),
@@ -629,7 +631,7 @@ def _housing_frames(mirrored):
     return out
 
 
-def _cube(horizontal=HORIZONTAL, bed_rail=HORIZONTAL):
+def _cube(horizontal=HORIZONTAL, bed_rail=HORIZONTAL, slot_key_offset=True):
     comps = [_std("u0", "extrusion-2020", length_mm=UPRIGHT)]
     mates = []
     for cid, length, pairs in _CUBE:
@@ -643,11 +645,14 @@ def _cube(horizontal=HORIZONTAL, bed_rail=HORIZONTAL):
     # Four Z drives: the bottom-corner chain of _drive(), keyed into the y horizontal.
     corner_only = ("h1_blind", "h2_blind", "housing_key_in_h1", "housing_key_in_h2")
     template = [m for m in _drive()["mates"] if m["id"] not in corner_only]
-    for z, (h2, slot, mirrored, rotation) in _DRIVES.items():
+    for z, (h2, slot, mirrored, rotation, h1, slot1, offset) in _DRIVES.items():
         comps.append(_external(f"{z}_housing", *_housing_frames(mirrored)))
         comps += [_std(f"{z}_{n}", key, **kw) for n, key, kw in _DRIVE_PARTS]
         mates.append(_mate(f"{z}_key", f"{h2}.{slot}", f"{z}_housing.z_drive_corner_key",
                            rotation_index=rotation))
+        if slot_key_offset:
+            mates.append(_mate(f"{z}_slot_key", f"{h1}.{slot1}", f"{z}_housing.z_drive_slot_key",
+                               rotation_index=rotation, offset={"axis": "x", "value": offset}))
         for m in template:
             a = f"{z}_{m['a']['component']}.{m['a']['interface']}"
             b = f"{z}_{m['b']['component']}.{m['b']['interface']}"
@@ -664,7 +669,8 @@ def _cube(horizontal=HORIZONTAL, bed_rail=HORIZONTAL):
             comps.append(_external(mount, *BED_MOUNT_FRAMES))
             mates += [
                 _mate(f"{mount}_on_frame", f"{horiz}.slot_xp_{end}",
-                      f"{mount}.bed_mount_frame_key", rotation_index=0),
+                      f"{mount}.bed_mount_frame_key",
+                      rotation_index=0 if side == "front" else 1),
                 _mate(f"{mount}_on_rail", f"{rail}.{rail_slot}", f"{mount}.bed_mount_bed_key",
                       rotation_index=0 if side == "front" else 1),
             ]
@@ -674,6 +680,7 @@ def _cube(horizontal=HORIZONTAL, bed_rail=HORIZONTAL):
 def test_the_350_cube_with_four_z_drives_and_the_bed_rails_closes():
     report = validate_assembly(_cube(), _resolver())
     assert report.ok, report.findings
+    assert not [f for f in report.findings if f.severity == "warning"], report.findings
     p = report.placements
     # Uprights at the four corners of a 510 × 510 outer frame (axes 490 apart), 530 tall.
     for u, (x, y) in {"u1": (490, 0), "u2": (0, 490), "u3": (490, 490)}.items():
@@ -694,6 +701,18 @@ def test_the_350_cube_with_four_z_drives_and_the_bed_rails_closes():
     assert _apply(p["rail_l"], (0, 0, 0)) == pytest.approx((180, 10, 10))
     assert _apply(p["rail_l"], (0, 0, HORIZONTAL)) == pytest.approx((180, 480, 10))
     assert _apply(p["rail_r"], (0, 0, 0))[0] == pytest.approx(310)
+
+
+def test_without_the_offset_the_drive_keys_into_one_horizontal_only():
+    """Before ASM-1 §9 v1.4 the drive could not key into a horizontal at another station."""
+    assert validate_assembly(_cube(slot_key_offset=False), _resolver()).ok
+    doc = _cube()
+    for mate in doc["mates"]:
+        if mate["id"] == "z0_slot_key":
+            del mate["offset"]
+    report = validate_assembly(doc, _resolver())
+    assert not report.ok
+    assert any(f.code == "closure" for f in report.errors), report.findings
 
 
 @pytest.mark.parametrize("given", [{"horizontal": 471}, {"bed_rail": 469}])
