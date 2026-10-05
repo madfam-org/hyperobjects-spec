@@ -379,6 +379,7 @@ The README's [Related repositories and contracts](README.md#related-repositories
 table names the document in each consumer that relies on a contract here. A breaking change
 to ASM-1 §9, the pose golden format, the graph format or `PROJECTION_VERSION` reaches every
 row of that table; name the affected rows in the PR. Consumers advance their own pins.
+The dated status (open PRs in merge order, the next pin bump) is [`docs/STATUS.md`](docs/STATUS.md).
 
 ## Changing this package
 

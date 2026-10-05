@@ -1633,6 +1633,9 @@ specific document, not the repository root.
 | asset-shells | [`README.md`](https://github.com/madfam-org/asset-shells/blob/main/README.md) (*Publish API*, *Twin graph*) | the AAS projection (SEM-1), projection versions 1–3 and the stored-shell resolver; it re-validates assembly shells with its pinned keystone (ASM-1 §6) |
 | pravara-mes | [`packages/sparkplug/README.md`](https://github.com/madfam-org/pravara-mes/blob/main/packages/sparkplug/README.md) | machine telemetry; raw axis values are mapped through an assembly's machine bindings (ASM-1 §9.2) by the viewer, never by the MES |
 
+Where the package stands — what landed, open PRs in merge order, the next pin bump — is in
+[`docs/STATUS.md`](docs/STATUS.md) (dated; the open-PR list on GitHub is authoritative).
+
 ---
 
 ## What is in the box

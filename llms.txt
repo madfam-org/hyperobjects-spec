@@ -84,6 +84,8 @@ unresolvable include is skipped rather than assumed. See `AGENTS.md`.
 
 ## Related repositories and contracts
 
+- `docs/STATUS.md` — dated status (2026-10-05): what landed, open PRs in merge
+  order, the next consumer pin bump.
 - solid-hyperobjects `assemblies/README.md` — ASM-1 assemblies; A (Voron 2.4-class
   350 motion system) is posable (§9), collision-clean, and is fixture A here. Its
   ten printed cartridges carry graph twins (format 1.1) checked by `--parity`.

@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - A new *Related repositories and contracts* section in the README, AGENTS.md and
   llms.txt links the specific consumer documents in solid-hyperobjects, soft-hyperobjects,
   yantra4d, asset-shells and pravara-mes.
+- `docs/STATUS.md`: a dated status (2026-10-05) with the open PRs in merge order and the
+  next consumer pin bump, linked from the README, AGENTS.md and llms.txt.
 
 ### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
 
