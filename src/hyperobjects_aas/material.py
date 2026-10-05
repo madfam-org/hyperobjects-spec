@@ -34,6 +34,8 @@ from .ids import (
     material_asset_id,
     material_shell_id,
     material_submodel_id,
+    projection_extension,
+    projection_version,
 )
 from .templates import IDTA, Conformance, apply_conformance
 
@@ -115,6 +117,8 @@ class MaterialProjection:
         self.concepts = concepts if concepts is not None else Concepts()
         self.conformance: list[Conformance] = []
         self.content_sha256 = hashlib.sha256(canonical_json(card)).hexdigest()
+        #: Read once: every id of the environment carries the same projection version.
+        self.version = projection_version()
 
     def _head(self) -> dict:
         block = "material" if self.platform == "yantra4d" else "fabric"
@@ -145,7 +149,7 @@ class MaterialProjection:
         ])
         sm = {
             "modelType": "Submodel",
-            "id": material_submodel_id(self.slug, card, "MaterialData"),
+            "id": material_submodel_id(self.slug, card, "MaterialData", version=self.version),
             "idShort": "MaterialData",
             "kind": "Instance",
             "submodelElements": [e for e in (system, classification, card_data) if e],
@@ -159,7 +163,8 @@ class MaterialProjection:
         head = self._head()
         shell: dict = {
             "modelType": "AssetAdministrationShell",
-            "id": material_shell_id(self.slug, self.card),
+            "extensions": [projection_extension(self.version)],
+            "id": material_shell_id(self.slug, self.card, version=self.version),
             "idShort": id_short(self.slug, "Material"),
             "assetInformation": {
                 "assetKind": "Type",

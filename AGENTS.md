@@ -309,7 +309,14 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
 ## The AAS projection (`hyperobjects_aas`, SEM-1 §5)
 
 - Identifiers are permanent (`https://id.madfam.io/…`, `ids.py`). Never change a
-  pattern; a new object kind gets a new pattern.
+  pattern; a new object kind gets a new pattern. The one owner-sanctioned change
+  (2026-10-04, package 0.6.0) put the projection version into every shell and
+  submodel id (`…/{rev16}/p{N}`), before any store went live.
+- **Changing what the projection writes?** If the shell or submodel bytes move for
+  the same inputs, bump `ids.PROJECTION_VERSION`, then run
+  `scripts/refresh_assembly_golden.py`. It refuses to write changed bytes under an id
+  a golden already carries (`hyperobjects_aas.drift`), because asset-shells answers
+  that with a 409. Lexicon text edits move only ConceptDescriptions: refresh, no bump.
 - IDTA semanticIds are **copied** from the published template JSON (path and commit
   in `templates.py`), never typed from memory. A submodel claims one only when
   every mandatory element is present; `aas check` fails an over-claim (R85).

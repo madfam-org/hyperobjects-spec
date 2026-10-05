@@ -12,6 +12,11 @@ Plain dicts, stdlib + jsonschema only; canonical JSON makes the output determini
 
 Command line: ``y4d-spec aas build|build-material|check`` and ``fc-spec aas …``.
 
+Every shell and submodel id carries :data:`PROJECTION_VERSION` (``…/{revision16}/p{N}``),
+and the shell records it in its ``ProjectionVersion`` extension (SEM-1 §1): a projection
+change that moves the bytes for the same inputs bumps the version, so it lands as new
+shells instead of colliding with immutable stored ones.
+
 Modules: ``ids`` (SEM-1 §1 identifiers), ``elements`` (AAS JSON builders), ``templates``
 (IDTA identifiers + the conformance-claim rule), ``concepts`` (ConceptDescriptions from the
 lexicon), ``common``/``solid``/``soft``/``material`` (the projections), ``check``.
@@ -21,11 +26,13 @@ from __future__ import annotations
 
 from .check import AasCheckResult, Finding, check_environment, check_environment_file
 from .common import Projection, build_environment
+from .ids import PROJECTION_VERSION
 from .material import build_material_environment, project_material
 from .soft import build_soft_environment, project_soft
 from .solid import build_solid_environment, project_solid
 
 __all__ = [
+    "PROJECTION_VERSION",
     "AasCheckResult",
     "Finding",
     "Projection",
@@ -41,4 +48,4 @@ __all__ = [
     "__version__",
 ]
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"

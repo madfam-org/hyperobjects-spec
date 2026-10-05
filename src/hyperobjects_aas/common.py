@@ -22,6 +22,8 @@ from .ids import (
     administration,
     asset_id,
     id_short,
+    projection_extension,
+    projection_version,
     shell_id,
     submodel_id,
 )
@@ -101,6 +103,9 @@ class Projection:
     conformance: list[Conformance] = field(default_factory=list)
     #: parameter id -> its idShort inside ParametricModel/Parameters.
     param_short: dict[str, str] = field(default_factory=dict)
+    #: The projection version every id of this environment carries (read once, so one
+    #: environment can never mix two versions).
+    version: int = field(default_factory=projection_version)
 
     @property
     def project(self) -> dict:
@@ -111,7 +116,8 @@ class Projection:
         return as_dict(self.manifest.get("hyperobject"))
 
     def sm_id(self, submodel_short: str) -> str:
-        return submodel_id(self.kind, self.slug, self.tree_sha256, submodel_short)
+        return submodel_id(self.kind, self.slug, self.tree_sha256, submodel_short,
+                           version=self.version)
 
     def add(self, short: str, elements: list, madfam: str, idta: str | None = None) -> None:
         """Append a submodel unless it has no elements; apply the conformance rule."""
@@ -337,7 +343,8 @@ def build_environment(proj: Projection) -> dict:
     }
     shell: dict = {
         "modelType": "AssetAdministrationShell",
-        "id": shell_id(proj.kind, proj.slug, proj.tree_sha256),
+        "extensions": [projection_extension(proj.version)],
+        "id": shell_id(proj.kind, proj.slug, proj.tree_sha256, version=proj.version),
         "idShort": id_short(proj.slug, "Shell"),
         "assetInformation": info,
         "submodels": [el.model_ref([("Submodel", sm["id"])]) for sm in proj.submodels],

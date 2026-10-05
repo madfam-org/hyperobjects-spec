@@ -46,7 +46,9 @@ def test_solid_shell_header_follows_sem1():
     _ok(env)
     (shell,) = env["assetAdministrationShells"]
     tree = tree_sha256(SEM1_SOLID)
-    assert shell["id"] == f"https://id.madfam.io/aas/solid/sem1-bracket/{tree[:16]}"
+    assert shell["id"] == f"https://id.madfam.io/aas/solid/sem1-bracket/{tree[:16]}/p1"
+    assert shell["extensions"] == [
+        {"name": "ProjectionVersion", "valueType": "xs:positiveInteger", "value": "1"}]
     assert shell["idShort"] == "sem1-bracket"
     assert shell["administration"] == {"version": "2", "revision": "3"}
     info = shell["assetInformation"]
