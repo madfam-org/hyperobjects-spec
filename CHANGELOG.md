@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Graph engine: the source name is written as an escaped literal (re-vendored from yantra4d)
+
+#### Changed
+
+- **`y4d_spec.graph.graph_engine`** (vendored). The transpiled script's `# Source:`
+  header now writes the graph file's base name as an escaped literal. A backslash and
+  every character `str.isprintable()` rejects (line terminators, form feed, NUL,
+  U+2028/U+2029 and every other control, format, separator or surrogate character) is
+  written as its Python escape sequence, so the header is always one line. A plain
+  printable name is written unchanged. Re-vendored byte for byte from the platform
+  branch `chore/graph-engine-source-name` (yantra4d `apps/api/services/engine/graph_engine.py`);
+  `graph.lock.json` re-pinned. `SPEC_PIN` is not moved here.
+- **No change to any existing transpilation.** All 29 graph files (the 15 in
+  solid-hyperobjects at `7de3a32e`, including the ten graph twins, and the 14 keystone
+  fixtures) transpile to byte-identical scripts before and after.
+
+#### Added
+
+- `tests/test_graph_source_name.py`: the header for `\n`, `\r`, `\r\n`, `\x0c`, NUL,
+  U+2028, U+2029 and the other control, format and surrogate characters is one tokenizer
+  comment on line 2; plain names, including spaces and non-ASCII, are unchanged; the
+  render-path entrypoint escapes the base name too.
+
 ### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
 
 BREAKING for id consumers: every shell and submodel id is now `…/p3`. No store is live yet
