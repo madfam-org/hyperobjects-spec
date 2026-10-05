@@ -38,6 +38,7 @@
         "stepper-motor",
         "brushless-motor",
         "structural-profile",
+        "plate",
         "linear-guide",
         "bearing",
         "shaft",

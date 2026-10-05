@@ -1,0 +1,210 @@
+{
+  "spec_version": 1,
+  "key": "gt2-belt-6mm",
+  "category": "belt",
+  "name": {
+    "en": "GT2 open timing belt, 2 mm pitch, 6 mm wide",
+    "es": "Banda síncrona abierta GT2, paso 2 mm, 6 mm de ancho",
+    "fr": "Courroie crantée ouverte GT2, pas de 2 mm, 6 mm de large",
+    "pt": "Correia sincronizada aberta GT2, passo 2 mm, 6 mm de largura"
+  },
+  "description": {
+    "en": "An open-ended GT2 timing belt (2 mm pitch, 6 mm wide), cut to length, whose two ends are clamped. The A and B belts of a 2.4-class CoreXY gantry. It mates a clamp by each end; its run over pulleys and idlers is an assembly's declared belt path.",
+    "es": "Una banda síncrona GT2 de extremos abiertos (paso 2 mm, 6 mm de ancho), cortada a medida y sujeta por sus dos extremos. Las bandas A y B de un pórtico CoreXY tipo 2.4. Se une a una mordaza por cada extremo; su recorrido por poleas es la trayectoria de banda declarada en un ensamble.",
+    "fr": "Une courroie crantée GT2 ouverte (pas de 2 mm, 6 mm de large), coupée à longueur, dont les deux bouts sont pincés. Les courroies A et B d'un portique CoreXY de type 2.4. Elle s'accouple à une pince par chaque bout ; son parcours sur poulies et galets est le chemin de courroie déclaré d'un assemblage.",
+    "pt": "Uma correia sincronizada GT2 de pontas abertas (passo 2 mm, 6 mm de largura), cortada à medida, presa pelas duas pontas. As correias A e B de um pórtico CoreXY do tipo 2.4. Acopla a uma garra por cada ponta; o seu percurso por polias é o caminho de correia declarado de uma montagem."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (Gates PowerGrip GT2, 2MR / LL-2GT) open belt, 2 mm pitch, 6 mm wide",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Timing Belt Tooth Profiles and Pitches (reference table)",
+      "url": "https://www.pfeiferindustries.com/documents/Timing%20Belt%20Tooth%20Profiles%20and%20Pitches.pdf",
+      "publisher": "Pfeifer Industries",
+      "accessed": "2026-10-04",
+      "supports": "2MR/PGGT2 (Gates PowerGrip GT2, 2 mm): pitch 2 mm (0.079 in), belt height 1.52 mm (0.060 in), tooth depth 0.76 mm (0.030 in)"
+    },
+    {
+      "title": "SDP/SI Technical Section, Timing Belts, Pulleys, Chains and Sprockets (D820)",
+      "url": "https://sdp-si.com/D820/PDFS/Technical-Section.pdf",
+      "publisher": "Stock Drive Products / Sterling Instrument",
+      "accessed": "2026-10-04",
+      "supports": "p. T-15, Fig. 19g (2 mm pitch GT3): pitch 2 mm, tooth height 0.030 in (0.76), belt height 0.060 in (1.52); p. T-16, §8 and Table 4: the pitch line lies in the tension cords, the distance U from the pitch line to the belt tooth bottom is 0.010 in (0.254 mm) for 2 mm GT3, and pulley OD = pd − 2U; p. T-66, Table 33 (2 mm PowerGrip GT2 belts): a 20-groove pulley has a pitch diameter of 12.73 mm (0.501 in); p. T-35, §13.3: at least 6 teeth in mesh and 60° of wrap on a loaded pulley"
+    },
+    {
+      "title": "VORON Design sourcing guide, sheet 'VORON 2.4' (the published Google sheet behind vorondesign.com/sourcing_guide, gid 1297316004)",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_jv9UtoSkgQoYD47VE9wIpTnjsEbzAREPG8895b6UL0v99OIfVEJQ4BHl2w_Rn6V0YUe1ldfPjone/pubhtml?gid=1297316004",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "GT2 Open Belt LL-2GT-6 (6mm wide), quantity 2, length dependent on configuration; Gates belts required for every open belt"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 125 (A/B Belts, overview): CoreXY belt path with the two belts stacked, the crossing omitted, both cut to the same length; p. 131: GT2 belt 6 mm wide, ends clamped in the X carriage with the teeth facing away from the extrusion"
+    }
+  ],
+  "frame_convention": "A straight belt laid out flat. Origin at end A, on the pitch line, at mid-width. +x runs along the belt to end B at x = length_mm; +y across the width; +z from the tooth side toward the back. The teeth lie between z = −1.014 (tooth tips) and z = −0.254 (tooth bottom, the land); the back is at z = +0.506. Both end interfaces are framed on the pitch line at the cut ends.",
+  "dimensions": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 2,
+      "note": "the A/B belt (guide p. 131)"
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, belt height (back to tooth tip)"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "tooth depth T"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length (pitch line)",
+        "es": "Longitud de corte (línea de paso)",
+        "fr": "Longueur de coupe (ligne primitive)",
+        "pt": "Comprimento de corte (linha primitiva)"
+      },
+      "default": 2000,
+      "min": 20,
+      "max": 10000,
+      "unit": "mm",
+      "note": "A convention: the belt is cut to its path (sourcing sheet: length dependent on configuration). An assembly's belt path reports the length it needs."
+    }
+  ],
+  "belt": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 2,
+      "note": "the A/B belt (guide p. 131)"
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, belt height (back to tooth tip)"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "tooth depth T"
+    },
+    "pitch_line_differential": {
+      "value": 0.254,
+      "unit": "mm",
+      "source": 1,
+      "note": "U, pitch line to tooth bottom: 0.010 in, SDP/SI Table 4 (2 mm GT3, the same 2 mm section: SDP/SI Fig. 19g and the cited 2MR/PGGT2 row agree on T 0.76 and B 1.52). Cross-check: the catalog's GT2 20T pulley (Adafruit 1251) has a toothed diameter of 12.2 against pd 12.73, i.e. U ≈ 0.27"
+    },
+    "teeth_side_offset": {
+      "value": 1.014,
+      "unit": "mm",
+      "source": 1,
+      "note": "derived: T + U, pitch line above a smooth surface the tooth tips run on"
+    },
+    "back_side_offset": {
+      "value": 0.506,
+      "unit": "mm",
+      "source": 1,
+      "note": "derived: B − T − U, pitch line above a smooth surface the back runs on"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "end_a",
+      "label": {
+        "en": "End A",
+        "es": "Extremo A",
+        "fr": "Bout A",
+        "pt": "Ponta A"
+      },
+      "geometry_type": "profile",
+      "size_key": "gt2-belt-6mm",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "note": "Male: the belt end goes into a clamp. Symmetry 1: the teeth must face the clamp's toothed side. x_axis points to the back (+z of the belt frame)."
+    },
+    {
+      "id": "end_b",
+      "label": {
+        "en": "End B",
+        "es": "Extremo B",
+        "fr": "Bout B",
+        "pt": "Ponta B"
+      },
+      "geometry_type": "profile",
+      "size_key": "gt2-belt-6mm",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          "length_mm",
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm"
+      ],
+      "note": "As end_a, at the other cut end."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "ASM-1 §9 (v1.3) belt block: pitch and width, height (B), tooth_depth (T), pitch_line_differential (U, the pitch line's distance from the belt's land, i.e. from the line a pulley's tooth tips touch), teeth_side_offset (T + U) and back_side_offset (B − T − U). A smooth via's effective diameter is its running_diameter plus twice the offset of the side that runs on it. An open belt: no loop_length; its path length is cut to fit."
+}
