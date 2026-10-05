@@ -41,6 +41,8 @@
         "linear-guide",
         "bearing",
         "shaft",
+        "fastener",
+        "spacer",
         "pulley",
         "power-supply",
         "switch",

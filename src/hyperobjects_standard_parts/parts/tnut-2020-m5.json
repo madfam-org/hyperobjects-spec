@@ -1,0 +1,146 @@
+{
+  "spec_version": 1,
+  "key": "tnut-2020-m5",
+  "category": "fastener",
+  "name": {
+    "en": "M5 post-assembly T-nut for a 2020 6 mm slot",
+    "es": "Tuerca en T M5 de inserción posterior para ranura de 6 mm de perfil 2020",
+    "fr": "Écrou en T M5 à insertion après montage pour rainure de 6 mm de profilé 2020",
+    "pt": "Porca em T M5 de inserção posterior para ranhura de 6 mm de perfil 2020"
+  },
+  "description": {
+    "en": "An M5 nut for the 6 mm slot of a series-5 2020 extrusion that goes in through the slot opening after the frame is assembled (a roll-in or post-assembly insertion nut), with a leaf spring that holds it in place. A screw through a part's clearance hole threads into it and clamps the part to the extrusion face.",
+    "es": "Una tuerca M5 para la ranura de 6 mm de un perfil 2020 serie 5 que entra por la abertura de la ranura después de armar el marco (tuerca de inserción posterior o abatible), con un resorte de lámina que la sostiene. Un tornillo que pasa por el barreno de paso de una pieza rosca en ella y aprieta la pieza contra la cara del perfil.",
+    "fr": "Un écrou M5 pour la rainure de 6 mm d'un profilé 2020 série 5, qui s'introduit par l'ouverture de la rainure après le montage du cadre (écrou à insertion après montage), avec un ressort à lame qui le maintient. Une vis passant par le trou de passage d'une pièce s'y visse et serre la pièce contre la face du profilé.",
+    "pt": "Uma porca M5 para a ranhura de 6 mm de um perfil 2020 série 5, que entra pela abertura da ranhura depois de montado o quadro (porca de inserção posterior), com uma mola de lâmina que a segura. Um parafuso que passa pelo furo de passagem de uma peça rosca nela e aperta a peça contra a face do perfil."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "MISUMI HNTAP5-5 / SHNTAP5-5 (series 5, M5)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI HNTAP5 / SHNTAP5-5 post-assembly insertion nut with leaf spring for HFS5 aluminum extrusions (MISUMI technical data sheet, as hosted by Clearpath Robotics; MISUMI's own pages refuse automated reads)",
+      "url": "https://docs.clearpathrobotics.com/assets/files/clearpath_robotics_026955-TDS1-a84dc4b6a6150e2d17149c124b64ab66.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "post-assembly insertion nut for 5 series (HFS5) extrusions; thread M5; thread length L 5 mm; nut 15 mm long and 8 mm wide; reference tightening torque 6.8 N·m"
+    },
+    {
+      "title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page",
+      "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-02",
+      "supports": "series-5 profile: 6 mm slot opening, Ø4.2 mm centre hole, cut length L ±0.5"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 7 (Hardware reference): post-install T-slot nuts (roll-in) in M3 and M5; p. 49 (Z Drives and Idlers, Z idler): two M5 T-nuts in the top extrusion hold the Z idler"
+    }
+  ],
+  "frame_convention": "Origin on the extrusion's slotted face, on the slot centreline, over the thread axis. +z points out of the extrusion along the thread axis; the nut's body lies below z = 0, under the slot lips. +x runs along the slot, the nut's 15 mm length.",
+  "dimensions": {
+    "thread": {
+      "value": "M5",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_length": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol L"
+    },
+    "length": {
+      "value": 15,
+      "unit": "mm",
+      "source": 0,
+      "note": "along the slot"
+    },
+    "width": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0,
+      "note": "across the slot, under the lips"
+    },
+    "slot_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 1,
+      "note": "the series-5 slot opening it is made for"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "slot",
+      "label": {
+        "en": "In the 2020 slot",
+        "es": "En la ranura del 2020",
+        "fr": "Dans la rainure du 2020",
+        "pt": "Na ranhura do 2020"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the nut goes into the extrusion's slot. The origin is on the slotted face (where the extrusion's slot interfaces are framed); the normal points −z, into the extrusion; x_axis runs along the slot, so the nut's length lies along the extrusion."
+    },
+    {
+      "id": "thread",
+      "label": {
+        "en": "M5 thread",
+        "es": "Rosca M5",
+        "fr": "Taraudage M5",
+        "pt": "Rosca M5"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m5-screw-joint",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the thread receives a screw through a part clamped on the slotted face. Framed on that face, normal +z out of the extrusion toward the part."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The face clamps the part, not the nut: the part's mounting face lies on the extrusion's slotted face, where both interfaces are framed. How deep the nut rides under the lips is not on the data sheet and is not modelled; a screw must reach past the lip into the 5 mm thread without bottoming on the slot floor."
+}

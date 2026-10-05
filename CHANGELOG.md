@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### M5 idler hardware and the 2020 blind joint (owner instruction 2026-10-04, lane P4-AUTH-E)
+
+Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.
+The owner asked for a GT2 20-tooth idler, its M5 screws and a Z-idler corner bracket's
+hardware (a Voron-style top corner), and for the F695 + shim stack, catalogued now and placed
+once an assembly models a gantry. Facts cite datasheets; the Voron 2.4r2 build guide
+(GPL-3.0) is cited by page and section only, and none of its geometry is used.
+
+#### Added
+
+- **`bhcs-m5x30`** (ISO 7380-1; Keller & Kalmbach: d 5, l 30, dk 9.5, k 2.75, s 3) and
+  **`shcs-m5x40`** (ISO 4762; d 5, l 40, dk 8.5, k 5, s 4, b 22): `head_seat`
+  (`m5-clearance-hole`, male) and `journal` (`m5-bolt-axle`, male, at the convention
+  `journal_offset_mm`). One entry per length: ISO lengths are discrete.
+- **`gt2-idler-20t-9mm`** (class; KB-3D listing of Gates G2GT-I-20-9: 20 T, Ø5 bore, 9 mm
+  belt, 14 mm overall; Makersupplies: OD 18): `bore` (`m5-bolt-axle`, female) and
+  `face_a` / `face_b` (`m5-axle-stack-face`, neutral). `width_mm` defaults to the Gates 14.
+- **`bearing-f695`** (NSK F695ZZ: 5 × 13 × 4, flange 15 × 1): `bore`, `flange_face`,
+  `plain_face`, and `outer_race` (`bearing-f695`, male, under the flange).
+- **`shim-5x10`** (DIN 988; Keller & Kalmbach: d1 5, d2 10; 0.1–1.5 mm): `bore`,
+  `face_a`, `face_b`; `thickness_mm` defaults to 1, a convention (the guide names none).
+- **`tnut-2020-m5`** (MISUMI HNTAP5-5 post-assembly nut: M5, thread length 5, 15 × 8):
+  `slot` (`tslot-2020-6mm`, male, sym 2) and `thread` (`m5-screw-joint`, female).
+- **`extrusion-2020`: the blind joint.** `end_a_blind` / `end_b_blind` (male) and eight
+  side stations `blind_{xp,xn,yp,yn}_{a,b}` (female) at the new `blind_station_mm`
+  (default 10, flush corner), key `tslot-2020-blind-joint-m5`, symmetry 4. The ten
+  existing interfaces are unchanged. This closes P4-ASM2 finding 2 for this joint: a butt
+  joint off its station now fails closure. The access hole is not modelled (no cited
+  diameter or position: MISUMI's alteration pages refuse automated reads).
+- **Vocabulary** (`interface-sizes.standard-parts.json`): `m5-bolt-axle`,
+  `m5-clearance-hole`, `m5-screw-joint`, `m5-axle-stack-face` (the catalog's first neutral
+  key), `bearing-f695`, `tslot-2020-blind-joint-m5`.
+- **`standard-part.schema.json`**: categories `fastener` and `spacer`.
+- **Tests** (`tests/test_catalog_m5_idlers.py`): (i) a top corner — an upright, two
+  horizontals by blind joints, a T-nut, the corner idler bracket framed as the commons
+  cartridge `corner-idler-bracket` frames it, keyed into the other horizontal and the
+  upright, its M5x30 and the idler — closes and places every part; a blind station 1 mm off
+  fails closure; (ii) M5x40 → shim → F695 → F695 → shim between two host walls closes,
+  flanges outward; a thicker shim fails until the walls move. The axis audit covers the
+  new axis interfaces.
+
+#### Changed
+
+- The assembly golden for A moves only through `extrusion-2020`'s catalog digest:
+  `58caf081…` → `24322cc0…` (`scripts/refresh_assembly_golden.py`).
+
 ### The 608 idler axle: `shaft-8mm` (assembly A's idler)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.

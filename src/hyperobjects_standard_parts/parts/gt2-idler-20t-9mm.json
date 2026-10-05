@@ -1,0 +1,196 @@
+{
+  "spec_version": 1,
+  "key": "gt2-idler-20t-9mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 20-tooth toothed idler, 9 mm belt, 5 mm bore",
+    "es": "Polea loca dentada GT2 de 20 dientes, banda de 9 mm, barreno de 5 mm",
+    "fr": "Galet denté GT2 à 20 dents, courroie de 9 mm, alésage de 5 mm",
+    "pt": "Polia louca dentada GT2 de 20 dentes, correia de 9 mm, furo de 5 mm"
+  },
+  "description": {
+    "en": "A flanged GT2 toothed idler for 9 mm belt: 20 teeth on a body that turns on a pair of ball bearings with a 5 mm bore, so it rides on an M5 screw used as an axle. A commercial class: the bore, tooth count, belt width and outside diameter are what the cited listings share; the overall width varies by maker and is a parameter.",
+    "es": "Una polea loca dentada GT2 con pestañas para banda de 9 mm: 20 dientes en un cuerpo que gira sobre un par de rodamientos de bolas con barreno de 5 mm, de modo que monta sobre un tornillo M5 usado como eje. Una clase comercial: el barreno, el número de dientes, el ancho de banda y el diámetro exterior son lo que comparten los listados citados; el ancho total varía según el fabricante y es un parámetro.",
+    "fr": "Un galet denté GT2 à flasques pour courroie de 9 mm : 20 dents sur un corps qui tourne sur deux roulements à billes d'alésage 5 mm, si bien qu'il se monte sur une vis M5 utilisée comme axe. Une classe commerciale : l'alésage, le nombre de dents, la largeur de courroie et le diamètre extérieur sont ce que partagent les fiches citées ; la largeur totale varie selon le fabricant et est un paramètre.",
+    "pt": "Uma polia louca dentada GT2 com flanges para correia de 9 mm: 20 dentes num corpo que gira sobre um par de rolamentos de esferas com furo de 5 mm, de modo que monta num parafuso M5 usado como eixo. Uma classe comercial: o furo, o número de dentes, a largura da correia e o diâmetro exterior são o que as listagens citadas partilham; a largura total varia conforme o fabricante e é um parâmetro."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 20-tooth toothed idler for 9 mm belt, 5 mm bore",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Gates PowerGrip 2GT idler, 9 mm, toothed, reference G2GT-I-20-9 (retailer listing, KB-3D; no public Gates drawing found)",
+      "url": "https://kb-3d.com/store/motion/207-gates-powergrip-2gt-idler-9mm-toothed-1634482148180.html",
+      "publisher": "KB-3D",
+      "accessed": "2026-10-04",
+      "supports": "20 teeth; 5 mm bore; for 9 mm 2GT belt; overall height 14 mm; a pair of ball bearings"
+    },
+    {
+      "title": "GT2 20T toothed idler with bearings, 9 mm belt, 5 mm bore (retailer listing, Makersupplies)",
+      "url": "https://makersupplies.dk/machine-components/transmission/belts-and-pulleys/gt2-belts-and-pulleys-belt-pulleys-voron-printers-gt2-20t-toothed-idler-w-bearings-9mm-belt-5mm-bore",
+      "publisher": "Makersupplies",
+      "accessed": "2026-10-04",
+      "supports": "GT2; 20 teeth; 9 mm belt; bore 5 mm; OD 18 mm"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 8 (Hardware reference): GT2 idlers in the motion system; p. 48 (Z Drives and Idlers): a GT2 20-tooth idler 9 mm wide on an M5x30 BHCS; pp. 98 and 100 (Gantry, XY joints): a GT2 20-tooth idler on an M5x40 SHCS"
+    }
+  ],
+  "frame_convention": "Origin at the centre of face A (the outer face of one flange), on the axis. +z runs along the axis through the idler to face B at z = width_mm. +x is an arbitrary radial reference: the idler is round, so every interface has continuous symmetry. The bore and face A share the origin; both normals there point −z, out of face A.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 20,
+      "unit": "count",
+      "source": 0
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0
+    },
+    "outside_diameter": {
+      "value": 18,
+      "unit": "mm",
+      "source": 1,
+      "note": "the flange diameter, the largest diameter of the body"
+    },
+    "overall_width_gates": {
+      "value": 14,
+      "unit": "mm",
+      "source": 0,
+      "note": "Gates G2GT-I-20-9 overall height (along the axis); the default of width_mm"
+    }
+  },
+  "parameters": [
+    {
+      "id": "width_mm",
+      "type": "number",
+      "label": {
+        "en": "Overall width",
+        "es": "Ancho total",
+        "fr": "Largeur totale",
+        "pt": "Largura total"
+      },
+      "default": 14,
+      "min": 9,
+      "max": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "Flange face to flange face along the axis. The default is the Gates G2GT-I-20-9 overall height (cited); other makers differ. The minimum is the 9 mm belt width (cited) and the maximum a catalog convention."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "5 mm bore",
+        "es": "Barreno de 5 mm",
+        "fr": "Alésage de 5 mm",
+        "pt": "Furo de 5 mm"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-bolt-axle",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bearings' 5 mm bore receives the screw's shank. Framed at face A, normal −z out of the face, so a journal framed where face A lands (normal toward the tip) puts the idler beyond it along the screw."
+    },
+    {
+      "id": "face_a",
+      "label": {
+        "en": "Face A",
+        "es": "Cara A",
+        "fr": "Face A",
+        "pt": "Face A"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: face A bears on the next part of a stack on the same axle (a shim, a host wall)."
+    },
+    {
+      "id": "face_b",
+      "label": {
+        "en": "Face B",
+        "es": "Cara B",
+        "fr": "Face B",
+        "pt": "Face B"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "width_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "width_mm"
+      ],
+      "note": "Neutral: face B, width_mm along the axis, bears on the next part of a stack."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The belt path is not an interface yet: no catalog belt exists to mate it. The pitch diameter of a 20-tooth GT2 wheel is the interface-sizes key gt2-pulley-20t-5mm's. The flange faces bear on shims or host walls; whether a maker's flange or inner ring stands proud is not stated by the sources and is not modelled."
+}

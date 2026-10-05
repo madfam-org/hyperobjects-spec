@@ -40,9 +40,16 @@
       "publisher": "MISUMI",
       "accessed": "2026-10-02",
       "supports": "HFS5-2020 end tapping: M5, depth 15, one hole per end"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 10 (Introduction, Blind joint basics): a BHCS in one extrusion's end, its head slid into the other extrusion's channel and tightened through an access hole; p. 14 (Frame): M5x16 BHCS in both ends of the 8 A extrusions; p. 15 (Frame assembly): the frame is joined by blind joints"
     }
   ],
-  "frame_convention": "Origin at the centre of end A's cut face, on the extrusion axis. +z runs along the extrusion toward end B, whose face is at z = length_mm. +x and +y are normal to two adjacent slotted faces; the four faces sit at x = ±10 and y = ±10. Each face carries two slot interfaces on its centreline, at slot_station_mm from end A and from end B; their x_axis runs along the extrusion (+z).",
+  "frame_convention": "Origin at the centre of end A's cut face, on the extrusion axis. +z runs along the extrusion toward end B, whose face is at z = length_mm. +x and +y are normal to two adjacent slotted faces; the four faces sit at x = ±10 and y = ±10. Each face carries two slot interfaces on its centreline, at slot_station_mm from end A and from end B; their x_axis runs along the extrusion (+z). For blind joints, each end also carries a male end_a_blind / end_b_blind (the tapped end with its M5 button head, framed on the end face) and each face two female blind stations (blind_{face}_a / _b) on its centreline at blind_station_mm from end A and from end B, normal out of the face, x_axis along the extrusion.",
   "dimensions": {
     "profile_square": {
       "value": 20,
@@ -113,6 +120,22 @@
       "max": 2000,
       "unit": "mm",
       "note": "Where the slot interfaces sit, measured from each end. A convention, not a fact: 10 mm puts them under a 20 mm wide bracket flush with the end. Keep it at most length_mm / 2."
+    },
+    {
+      "id": "blind_station_mm",
+      "type": "number",
+      "label": {
+        "en": "Blind-joint station",
+        "es": "Posición de las uniones ciegas",
+        "fr": "Position des assemblages borgnes",
+        "pt": "Posição das juntas cegas"
+      },
+      "default": 10,
+      "min": 0,
+      "max": 2000,
+      "unit": "mm",
+      "source": 1,
+      "note": "Where the blind-joint stations sit on each face, measured from each end. The default 10 is half the 20 mm profile (cited): a partner extrusion butted on the station then has its outer face flush with this end, as at a frame corner. Elsewhere it is a convention; keep it between 10 and length_mm − 10 so the partner's end lies on the face."
     }
   ],
   "interfaces": [
@@ -447,6 +470,340 @@
       "parameters": [
         "length_mm",
         "slot_station_mm"
+      ]
+    },
+    {
+      "id": "end_a_blind",
+      "label": {
+        "en": "End A, blind joint",
+        "es": "Extremo A, unión ciega",
+        "fr": "Extrémité A, assemblage borgne",
+        "pt": "Extremidade A, junta cega"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male when end A is tapped and carries its M5 button head screw: the end face butts a partner's slotted face with the head in that slot. The normal points out of the end, toward the partner. Same origin as end_a; a different joint (end_a takes a screw from outside, this one carries the screw)."
+    },
+    {
+      "id": "end_b_blind",
+      "label": {
+        "en": "End B, blind joint",
+        "es": "Extremo B, unión ciega",
+        "fr": "Extrémité B, assemblage borgne",
+        "pt": "Extremidade B, junta cega"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "male",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "length_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm"
+      ],
+      "note": "Male when end B is tapped and carries its M5 button head screw."
+    },
+    {
+      "id": "blind_xp_a",
+      "label": {
+        "en": "Blind-joint station +x, near end A",
+        "es": "Posición de unión ciega +x, cerca del extremo A",
+        "fr": "Station d'assemblage borgne +x, près de l'extrémité A",
+        "pt": "Posição de junta cega +x, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          10,
+          0,
+          "blind_station_mm"
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "blind_station_mm"
+      ],
+      "note": "Female: the face where a partner's tapped end butts, with its screw head in this face's slot and the screw tightened through an access hole (not modelled: no cited diameter or position). The other seven stations are the same on their faces and ends."
+    },
+    {
+      "id": "blind_xp_b",
+      "label": {
+        "en": "Blind-joint station +x, near end B",
+        "es": "Posición de unión ciega +x, cerca del extremo B",
+        "fr": "Station d'assemblage borgne +x, près de l'extrémité B",
+        "pt": "Posição de junta cega +x, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          10,
+          0,
+          "length_mm - blind_station_mm"
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_xn_a",
+      "label": {
+        "en": "Blind-joint station −x, near end A",
+        "es": "Posición de unión ciega −x, cerca del extremo A",
+        "fr": "Station d'assemblage borgne −x, près de l'extrémité A",
+        "pt": "Posição de junta cega −x, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          -10,
+          0,
+          "blind_station_mm"
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_xn_b",
+      "label": {
+        "en": "Blind-joint station −x, near end B",
+        "es": "Posición de unión ciega −x, cerca del extremo B",
+        "fr": "Station d'assemblage borgne −x, près de l'extrémité B",
+        "pt": "Posição de junta cega −x, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          -10,
+          0,
+          "length_mm - blind_station_mm"
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_yp_a",
+      "label": {
+        "en": "Blind-joint station +y, near end A",
+        "es": "Posición de unión ciega +y, cerca del extremo A",
+        "fr": "Station d'assemblage borgne +y, près de l'extrémité A",
+        "pt": "Posição de junta cega +y, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          10,
+          "blind_station_mm"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_yp_b",
+      "label": {
+        "en": "Blind-joint station +y, near end B",
+        "es": "Posición de unión ciega +y, cerca del extremo B",
+        "fr": "Station d'assemblage borgne +y, près de l'extrémité B",
+        "pt": "Posição de junta cega +y, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          10,
+          "length_mm - blind_station_mm"
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_yn_a",
+      "label": {
+        "en": "Blind-joint station −y, near end A",
+        "es": "Posición de unión ciega −y, cerca del extremo A",
+        "fr": "Station d'assemblage borgne −y, près de l'extrémité A",
+        "pt": "Posição de junta cega −y, perto da extremidade A"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          -10,
+          "blind_station_mm"
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "blind_station_mm"
+      ]
+    },
+    {
+      "id": "blind_yn_b",
+      "label": {
+        "en": "Blind-joint station −y, near end B",
+        "es": "Posición de unión ciega −y, cerca del extremo B",
+        "fr": "Station d'assemblage borgne −y, près de l'extrémité B",
+        "pt": "Posição de junta cega −y, perto da extremidade B"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-blind-joint-m5",
+      "polarity": "female",
+      "symmetry": 4,
+      "frame": {
+        "origin": [
+          0,
+          -10,
+          "length_mm - blind_station_mm"
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "x_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "parameters": [
+        "length_mm",
+        "blind_station_mm"
       ]
     }
   ],

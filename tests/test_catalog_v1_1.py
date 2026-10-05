@@ -126,6 +126,14 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
                                            # reference plane — a mated face, see note
         "shaft-8mm.host_end": +1,          # end A runs −z (toward the host) from the face
         "shaft-8mm.bearing_journal": +1,   # the journal runs −z from face B to face A
+        "bhcs-m5x30.head_seat": +1,        # the shank runs +z from the under-head face
+        "bhcs-m5x30.journal": +1,          # the shank continues +z through the idler
+        "shcs-m5x40.head_seat": +1,
+        "shcs-m5x40.journal": +1,
+        "gt2-idler-20t-9mm.bore": -1,      # the bore runs +z from face A, normal −z
+        "bearing-f695.bore": -1,           # the bore runs +z from the flange face, normal −z
+        "bearing-f695.outer_race": +1,     # the Ø13 ring runs +z from the flange underside
+        "shim-5x10.bore": -1,              # the bore runs +z from face A, normal −z
     }
     seen = set()
     for key in hyperobjects_standard_parts.list_part_keys():
