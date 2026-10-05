@@ -84,6 +84,12 @@
       "source": 0,
       "note": "derived: H 13 − HR 8"
     },
+    "rail_width": {
+      "value": 12,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN WR: the channel the block straddles"
+    },
     "mass": {
       "value": 54,
       "unit": "g",
@@ -157,5 +163,71 @@
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -22.7,
+          -13.5,
+          -5
+        ],
+        "max": [
+          22.7,
+          13.5,
+          0
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_top_depth"
+        ],
+        "note": "the block over the rail: top face down to the rail's top"
+      },
+      {
+        "shape": "box",
+        "min": [
+          -22.7,
+          6,
+          -10
+        ],
+        "max": [
+          22.7,
+          13.5,
+          -5
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_width",
+          "assembly_height",
+          "rail_clearance"
+        ],
+        "note": "the +y skirt beside the rail, down to H1 = 3 above the rail's bottom (z = -(13 - 3))"
+      },
+      {
+        "shape": "box",
+        "min": [
+          -22.7,
+          -13.5,
+          -10
+        ],
+        "max": [
+          22.7,
+          -6,
+          -5
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_width",
+          "assembly_height",
+          "rail_clearance"
+        ],
+        "note": "the -y skirt"
+      }
+    ],
+    "note": "The MGN12H block as three boxes that leave the 12 mm rail channel open, so a block on its rail does not overlap it. End seals are inside the 45.4 mm length."
   }
 }

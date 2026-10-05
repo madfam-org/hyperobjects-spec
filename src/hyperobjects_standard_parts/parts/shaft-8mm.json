@@ -203,5 +203,27 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-D lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Retention is not modelled: a real stack holds the shaft in the host by a press or clamp fit, a set screw or a shaft collar, and the bearing on the shaft by a collar or a retaining ring; those vary per design and are not catalog facts. An M8 bolt is not this key: its thread is not a g6 ground diameter."
+  "notes": "Retention is not modelled: a real stack holds the shaft in the host by a press or clamp fit, a set screw or a shaft collar, and the bearing on the shaft by a collar or a retaining ring; those vary per design and are not catalog facts. An M8 bolt is not this key: its thread is not a g6 ground diameter.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 4,
+        "length": "length_mm",
+        "from": [
+          "diameter"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The shaft's diameter over its cut length."
+  }
 }

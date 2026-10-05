@@ -146,5 +146,25 @@
       1
     ],
     "plane_note": "Convention: neither cited source places the toothed section along the pulley, so the belt mid-plane is put at mid-length (z = 8 of 16). The axis is the bore axis."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 8,
+        "length": 16,
+        "from": [
+          "flange_diameter",
+          "overall_length"
+        ]
+      }
+    ],
+    "note": "A solid cylinder at the flange diameter over the overall length; the bore is not hollowed, so the shaft it sits on overlaps it."
   }
 }

@@ -101,5 +101,27 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "A class entry: the mounting pattern is the shared fact; board size, height and mass are those of the cited Matek F405-HDTE and vary across the class."
+  "notes": "A class entry: the mounting pattern is the shared fact; board size, height and mass are those of the cited Matek F405-HDTE and vary across the class.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -18,
+          -18,
+          0
+        ],
+        "max": [
+          18,
+          18,
+          9
+        ],
+        "from": [
+          "board_size",
+          "board_height"
+        ]
+      }
+    ],
+    "note": "The cited board's 36 x 36 footprint over the stack height (Matek F405-HDTE; the class varies)."
+  }
 }

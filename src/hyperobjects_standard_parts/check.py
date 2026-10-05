@@ -27,6 +27,10 @@ What the lane checks (each failure class has a test)
    ``belt_engagement`` cite sources that exist, state positive numbers in mm, and the
    engagement's ``center`` and ``axis`` read only the parameters it lists, evaluate at the
    same parameter points, and give a unit ``axis``.
+10. **Envelopes are traceable** (ASM-1 §3.7, --collision) — every envelope solid names
+   the cited ``dimensions`` it is built from (each must exist), reads only the parameters
+   the envelope lists, and evaluates to a non-degenerate box or cylinder at every
+   parameter point.
 """
 
 from __future__ import annotations
@@ -45,6 +49,7 @@ from . import (
     FrameEvaluationError,
     belt_engagement,
     belt_facts,
+    envelope_solids,
     interface_frames,
     load_catalog,
     resolve_parameters,
@@ -314,6 +319,41 @@ def _belt_problems(part: Mapping) -> list[str]:
     return out
 
 
+def _envelope_problems(part: Mapping) -> list[str]:
+    """Rule 10: the envelope (ASM-1 §3.7)."""
+    envelope = part.get("envelope")
+    if not isinstance(envelope, Mapping):
+        return []
+    out = []
+    dims = set(part.get("dimensions") or {})
+    declared = {p.get("id") for p in part.get("parameters") or [] if isinstance(p, Mapping)}
+    read: set[str] = set()
+    for i, solid in enumerate(envelope.get("solids") or []):
+        for name in solid.get("from") or []:
+            if name not in dims:
+                out.append(f"envelope.solids[{i}].from names {name!r}, which is not a cited "
+                           "dimension of this entry")
+        for key in ("min", "max", "base"):
+            for component in solid.get(key) or []:
+                read |= _names_read(component)
+        for key in ("radius", "length"):
+            if key in solid:
+                read |= _names_read(solid[key])
+    listed = set(envelope.get("parameters") or [])
+    for name in sorted(read - declared):
+        out.append(f"envelope reads {name!r}, which is not a parameter")
+    for name in sorted((read & declared) - listed):
+        out.append(f"envelope reads {name!r} but does not list it")
+    if out:
+        return out
+    for label, values in _parameter_points(part):
+        try:
+            envelope_solids(envelope, values)
+        except (FrameEvaluationError, ValueError) as exc:
+            out.append(f"envelope at {label}: {exc}")
+    return out
+
+
 def check_part(
     part: object, *, name: str | None = None, vocabularies: dict[str, dict] | None = None
 ) -> list[str]:
@@ -340,6 +380,7 @@ def check_part(
     problems += _vocabulary_problems(part, vocabularies)
     problems += _frame_problems(part)
     problems += _belt_problems(part)
+    problems += _envelope_problems(part)
     return problems
 
 

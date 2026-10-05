@@ -44,6 +44,7 @@ __all__ = [
     "ParameterError",
     "belt_engagement",
     "belt_facts",
+    "envelope_solids",
     "interface_frames",
     "list_part_keys",
     "load_catalog",
@@ -262,6 +263,46 @@ def belt_facts(part: Mapping) -> dict[str, float] | None:
         if value is None:
             return None
         out[key] = value
+    return out
+
+
+#: The envelope solid shapes (ASM-1 §3.7): an axis-aligned box, or a cylinder along a
+#: model axis. Their union is the part's collision body.
+ENVELOPE_SHAPES = ("box", "cylinder")
+
+
+def envelope_solids(envelope: object, values: Mapping[str, float] | None = None,
+                    where: str = "envelope") -> list[dict] | None:
+    """An `envelope` (`{"solids": [...]}`) evaluated at `values`: every box as
+    `{"shape": "box", "min": (x, y, z), "max": (x, y, z)}` and every cylinder as
+    `{"shape": "cylinder", "base": (x, y, z), "axis": "x"|"y"|"z", "radius": r,
+    "length": l}`, in mm in the part's model frame. None when there is no envelope.
+    Raises FrameEvaluationError or ValueError naming the solid that does not evaluate
+    or is degenerate (min ≥ max, radius or length ≤ 0)."""
+    if not isinstance(envelope, Mapping):
+        return None
+    values = dict(values or {})
+    out = []
+    for i, solid in enumerate(envelope.get("solids") or []):
+        at = f"{where}.solids[{i}]"
+        shape = solid.get("shape") if isinstance(solid, Mapping) else None
+        if shape == "box":
+            low = _vector(solid.get("min"), values, f"{at}.min")
+            high = _vector(solid.get("max"), values, f"{at}.max")
+            if not all(a < b for a, b in zip(low, high, strict=True)):
+                raise ValueError(f"{at}: min {low} is not below max {high} on every axis")
+            out.append({"shape": "box", "min": low, "max": high})
+        elif shape == "cylinder":
+            base = _vector(solid.get("base"), values, f"{at}.base")
+            radius = evaluate_expression(solid.get("radius"), values, set(values))
+            length = evaluate_expression(solid.get("length"), values, set(values))
+            if solid.get("axis") not in ("x", "y", "z") or radius <= 0 or length <= 0:
+                raise ValueError(f"{at}: a cylinder needs axis x|y|z and a positive radius "
+                                 f"and length (got {solid.get('axis')!r}, {radius:g}, {length:g})")
+            out.append({"shape": "cylinder", "base": base, "axis": solid["axis"],
+                        "radius": radius, "length": length})
+        else:
+            raise ValueError(f"{at}: shape {shape!r} is not one of {', '.join(ENVELOPE_SHAPES)}")
     return out
 
 
