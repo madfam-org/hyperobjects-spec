@@ -6,6 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The 2.4 gantry's standard parts: MGN9, the A/B belt, the XY-joint idler (Phase 6, lane P6-GANTRY)
+
+Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.
+Facts cite the HIWIN MG series table, SDP/SI's Technical Section, Pfeifer's belt-profile table
+and a retailer listing; the Voron 2.4r2 build guide (GPL-3.0) and the VORON 2.4 sourcing
+sheet are cited by page and row only, and none of Voron's geometry is used.
+
+#### Added
+
+- **`mgn9-rail`** (HIWIN MGN9: WR 9, HR 6.5, P 20, E 7.5, M3x8): `track` (`mgn9-rail`,
+  male, sym 2), `base_first_hole` and the new **`base_at_station`** (`tslot-2020-6mm`, male,
+  sym 2, at `base_station_mm`, so a rail set back 25 mm from an extrusion end, guide p. 88,
+  mates the extrusion's slot station). `length_mm` defaults to 400, the 350 build's Y rail
+  (sourcing sheet).
+- **`mgn9h-carriage`** (HIWIN MGN9H: H 10, W 20, B 15 × C 16, M3x3, L 39.9): `top`
+  (`mgn9-carriage`, female, sym 2: the pattern is a rectangle) and `rail_way` (z −3.5).
+- **`gt2-belt-6mm`**, category **`belt`** (class: Gates PowerGrip GT2 2MR, 6 mm, the A/B
+  belts, guide p. 131 and sourcing sheet LL-2GT-6): pitch 2, width 6, height B 1.52, tooth
+  depth T 0.76 (Pfeifer 2MR/PGGT2), pitch-line differential U 0.254 (SDP/SI Table 4), and the
+  derived `teeth_side_offset` 1.014 and `back_side_offset` 0.506 that ASM-1 §9 (v1.3) belt
+  paths use on smooth vias. `end_a` / `end_b` (`gt2-belt-6mm`, male, sym 1) on the pitch
+  line. The belt facts sit in the ASM-1 §9 `belt` block.
+- **`gt2-idler-20t-6mm`** (class: Motedis listing, 20 T, Ø5 bore, 6 mm belt, OD 18, 9 wide;
+  `belt_engagement.pitch_diameter` 12.73, SDP/SI Table 33): the XY joints' toothed idlers (guide pp. 98, 100;
+  the sourcing sheet lists 6 mm toothed idlers there). Same interfaces as
+  `gt2-idler-20t-9mm`; belt mid-plane at `width_mm` / 2, a convention.
+- **Vocabulary** (`interface-sizes.standard-parts.json`): `mgn9-rail`, `mgn9-carriage`.
+- **`standard-part.schema.json`**: category `belt` (the line #45 also added; merged cleanly).
+- **Tests** (`tests/test_catalog_gantry.py`): a C extrusion → MGN9 rail at its 25 mm setback
+  → MGN9H block → an XY joint framed as the commons cartridge `xy-joint` frames it → M5x40 →
+  shim → F695 → F695 → shim between the joint's floor and roof, and M5x40 → 6 mm idler, close
+  and put the stack on the low belt level (22 above the C) and the idler on the high one
+  (31); the block runs along the rail; the mirrored joint swaps the levels; a roof 1 mm low
+  fails closure; an MGN12H block on an MGN9 rail, an MGN12-pattern part on an MGN9H block and
+  a belt end in a bore are refused. The axis audit covers the new idler's bore.
+
 ### The 350 build plate and its M3 T-nut (Phase 6, lane P6-ZBED; owner approval 2026-10-04)
 
 Additive catalog and vocabulary data, plus the schema category `plate` (coordinator-approved
