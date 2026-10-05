@@ -1,0 +1,505 @@
+{
+  "project": {
+    "name": "A/B Front Idler",
+    "slug": "ab-front-idler",
+    "version": "2.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed front idler for a CoreXY gantry with two stacked belts (a 2.4-class flying gantry). It sits on the front end of a gantry Y extrusion, held by an M5 screw into a T-nut in its top slot, and turns one belt through 180° on a GT2 20-tooth toothed idler outboard of the extrusion, on the belt's level above it; the idler turns on an M5x16 axle under a roof arm. Left (low level, B belt) and right (high level, A belt) versions.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una polea loca frontal impresa para un pórtico CoreXY con dos bandas apiladas (un pórtico volante tipo 2.4). Se asienta en el extremo frontal de un perfil Y del pórtico, sujeta con un tornillo M5 a una tuerca en T en su ranura superior, y gira una banda 180° en una polea dentada GT2 de 20 dientes por fuera del perfil, en el nivel de la banda sobre él; la polea gira en un eje M5x16 bajo un brazo. Versiones izquierda (nivel bajo, banda B) y derecha (nivel alto, banda A).\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/ab-front-idler.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "3d-printer",
+      "corexy",
+      "gantry",
+      "idler",
+      "gt2",
+      "belt",
+      "2020",
+      "t-slot",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "front_idler",
+      "label": {
+        "en": "Front Idler",
+        "es": "Polea Loca Frontal"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "front_idler"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "front_idler",
+      "label": {
+        "en": "Front Idler",
+        "es": "Polea Loca Frontal"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "idler",
+      "label": {
+        "en": "Idler",
+        "es": "Polea"
+      }
+    },
+    {
+      "id": "hand",
+      "label": {
+        "en": "Hand",
+        "es": "Mano"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "idler_y",
+      "unit": "mm",
+      "type": "slider",
+      "default": 26.0,
+      "min": 25.5,
+      "max": 27.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "front_idler"
+      ],
+      "label": {
+        "en": "Idler Position (mm)",
+        "es": "Posición de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "Idler axis from the C's front end; ≥ 25.5 keeps the Ø18 flange behind the Z-joint keep-out (16), ≤ 27 keeps the boss ahead of the Y block at Y = 0",
+        "es": "Eje de la polea desde el extremo frontal del perfil C; ≥ 25.5 deja la pestaña de Ø18 detrás de la zona del Z-joint (16), ≤ 27 deja el soporte antes del bloque Y en Y = 0"
+      }
+    },
+    {
+      "id": "idler_width",
+      "unit": "mm",
+      "type": "slider",
+      "default": 9.0,
+      "min": 6.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "front_idler"
+      ],
+      "label": {
+        "en": "Idler Width (mm)",
+        "es": "Ancho de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "GT2 20T 6 mm-belt idler, flange to flange (9 = the cited listing)",
+        "es": "Polea GT2 20T para banda de 6 mm, de pestaña a pestaña (9 = el listado citado)"
+      }
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "hand",
+      "modes": [
+        "front_idler"
+      ],
+      "label": {
+        "en": "Right-Hand (A) Idler (Mirrored)",
+        "es": "Polea Derecha (A) (Espejo)"
+      },
+      "tooltip": {
+        "en": "Build the right (A) idler: mirrored in x, on the high belt level",
+        "es": "Genera la polea derecha (A): en espejo en x, en el nivel de banda alto"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "left_b_350",
+      "mode": "front_idler",
+      "label": {
+        "en": "Left (B) Idler, 350 Gantry",
+        "es": "Polea Izquierda (B), Pórtico 350"
+      },
+      "values": {
+        "idler_y": 26,
+        "idler_width": 9,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "right_a_350",
+      "mode": "front_idler",
+      "label": {
+        "en": "Right (A) Idler, 350 Gantry",
+        "es": "Polea Derecha (A), Pórtico 350"
+      },
+      "values": {
+        "idler_y": 26,
+        "idler_width": 9,
+        "mirrored": true
+      }
+    },
+    {
+      "id": "left_b_wide_idler",
+      "mode": "front_idler",
+      "label": {
+        "en": "Left (B), 10 mm-Wide Idler",
+        "es": "Izquierda (B), Polea de 10 mm"
+      },
+      "values": {
+        "idler_y": 26,
+        "idler_width": 10,
+        "mirrored": false
+      }
+    }
+  ],
+  "constraints": [],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        -90,
+        80
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        10,
+        -140,
+        10
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        10,
+        12,
+        150
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 10,
+    "per_unit": 3,
+    "per_part": 12,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "front_idler_top_mount",
+        "label": {
+          "en": "Screw into a T-nut in the C extrusion's top slot",
+          "es": "Tornillo a una tuerca en T en la ranura superior del perfil C"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the block into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in the C's top slot, at the slot station 10 from its front end; framed on the C's top face",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            0,
+            10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "front_idler_top_mount_head",
+        "label": {
+          "en": "Head seat of the C screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo al perfil C (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the counterbore floor, 4.5 above the C's top face (5.5 of the screw passes into the nut)",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            0,
+            10,
+            4.5
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "front_idler_top_key",
+        "label": {
+          "en": "Tongue in the C extrusion's top slot",
+          "es": "Lengüeta en la ranura superior del perfil C"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the block bears on the C's top face, at the slot station 10 from its front end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            0,
+            10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "front_idler_idler_bolt",
+        "label": {
+          "en": "Idler axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la polea (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the idler; the toothed idler's axle, cut into a Ø4.2 pilot in the boss",
+        "parameters": [
+          "mirrored",
+          "idler_y",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            "-15.372 * s",
+            "idler_y",
+            "zf + idler_width / 2 + 3"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "front_idler_idler_roof",
+        "label": {
+          "en": "Idler roof (the arm over the idler)",
+          "es": "Techo de la polea (el brazo sobre la polea)"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's face A bears on the roof arm's underside, idler_width / 2 above the belt mid-plane",
+        "parameters": [
+          "mirrored",
+          "idler_y",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            "-15.372 * s",
+            "idler_y",
+            "zf + idler_width / 2"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "front_idler_idler_floor",
+        "label": {
+          "en": "Idler floor (the boss top)",
+          "es": "Piso de la polea (la parte superior del soporte)"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's face B bears on the boss, idler_width / 2 below the belt mid-plane",
+        "parameters": [
+          "mirrored",
+          "idler_y",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zf": "54 + 16 * mirrored"
+        },
+        "frame": {
+          "part": "front_idler",
+          "origin": [
+            "-15.372 * s",
+            "idler_y",
+            "zf - idler_width / 2"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable front idler for stacked-belt CoreXY gantries on 2020 extrusion: it uses off-the-shelf M5 screws, T-nuts and a GT2 toothed idler, its belt runs are derived from cited belt and pulley data, and its interfaces are machine-checked against the extrusion it mounts on.",
+      "es": "Una polea loca frontal abierta e imprimible para pórticos CoreXY de bandas apiladas sobre perfil 2020: usa tornillos M5, tuercas en T y una polea GT2 estándar, sus tramos de banda se derivan de datos citados de banda y polea, y sus interfaces se verifican por máquina contra el perfil donde se monta."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "corexy",
+    "idler",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,895 @@
+{
+  "project": {
+    "name": "A/B Drive",
+    "slug": "ab-drive",
+    "version": "2.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed A/B drive unit for a CoreXY gantry with two stacked belts (a 2.4-class flying gantry). It sits on the rear end of a gantry Y extrusion and reaches the rear gantry beam, on M5 T-nuts; a NEMA 17 hangs under its motor plate inboard of the extrusion. Its own belt wraps the GT2 20T pulley about 126° through a backside F695 stack (at least the 108° six teeth in mesh need) and turns into the outer run on a toothed corner idler; a pass-through F695 stack turns the other belt on the other level. Every element is clamped under a roof arm by an M5x16 axle. Left (B) and right (A) versions.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una unidad de tracción A/B impresa para un pórtico CoreXY con dos bandas apiladas (un pórtico volante tipo 2.4). Se asienta en el extremo trasero de un perfil Y del pórtico y alcanza la viga trasera, con tuercas en T M5; un NEMA 17 cuelga bajo su placa por dentro del perfil. Su propia banda abraza la polea GT2 de 20 dientes unos 126° mediante una pila F695 por el dorso (al menos los 108° que piden seis dientes engranados) y gira hacia el tramo exterior en una polea dentada de esquina; una pila F695 de paso gira la otra banda en el otro nivel. Cada elemento se sujeta bajo un brazo con un eje M5x16. Versiones izquierda (B) y derecha (A).\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/ab-drive.webp",
+    "difficulty": "advanced",
+    "tags": [
+      "3d-printer",
+      "corexy",
+      "gantry",
+      "drive",
+      "nema-17",
+      "gt2",
+      "pulley",
+      "f695",
+      "belt",
+      "2020",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "ab_drive",
+      "label": {
+        "en": "A/B Drive",
+        "es": "Tracción A/B"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "ab_drive"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 3,
+        "per_part": 25
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "ab_drive",
+      "label": {
+        "en": "A/B Drive",
+        "es": "Tracción A/B"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "hand",
+      "label": {
+        "en": "Hand",
+        "es": "Mano"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "e_end",
+      "unit": "mm",
+      "type": "slider",
+      "default": 34.0,
+      "min": 30.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "ab_drive"
+      ],
+      "label": {
+        "en": "Rear Beam End Inboard (mm)",
+        "es": "Extremo de la Viga Trasera (mm)"
+      },
+      "tooltip": {
+        "en": "How far E's end sits inboard of the C centre: half the C centre spacing − 340 / 2; 34 for a 408 spacing",
+        "es": "Cuánto queda el extremo de E por dentro del centro del perfil C: la mitad de la separación − 340 / 2; 34 para 408"
+      }
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "hand",
+      "modes": [
+        "ab_drive"
+      ],
+      "label": {
+        "en": "Right-Hand (A) Drive (Mirrored)",
+        "es": "Tracción Derecha (A) (Espejo)"
+      },
+      "tooltip": {
+        "en": "Build the right (A) drive: mirrored in x, its pulley, Q and K on the high belt level, S on the low one",
+        "es": "Genera la tracción derecha (A): en espejo en x, su polea, Q y K en el nivel alto, S en el bajo"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "left_b_350",
+      "mode": "ab_drive",
+      "label": {
+        "en": "Left (B) Drive, 350 Gantry",
+        "es": "Tracción Izquierda (B), Pórtico 350"
+      },
+      "values": {
+        "e_end": 34,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "right_a_350",
+      "mode": "ab_drive",
+      "label": {
+        "en": "Right (A) Drive, 350 Gantry",
+        "es": "Tracción Derecha (A), Pórtico 350"
+      },
+      "values": {
+        "e_end": 34,
+        "mirrored": true
+      }
+    }
+  ],
+  "constraints": [],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        140,
+        -120,
+        110
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        35,
+        12,
+        200
+      ]
+    },
+    {
+      "id": "back",
+      "label": {
+        "en": "Back",
+        "es": "Trasera"
+      },
+      "position": [
+        35,
+        200,
+        20
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 10,
+    "per_unit": 3,
+    "per_part": 25,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "ab_drive_motor_face",
+        "label": {
+          "en": "Motor face seat (NEMA 17)",
+          "es": "Asiento de la cara del motor (NEMA 17)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA 17 face (4 × M3 on 31, Ø22 pilot) under the motor plate, motor hanging below, inboard of the C; clearance holes, the M3 screws from above",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * 32",
+            8,
+            "zm"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "nema-17-face",
+        "symmetry": 4
+      },
+      {
+        "id": "ab_drive_c_mount",
+        "label": {
+          "en": "Screw into a T-nut in the C extrusion's top slot",
+          "es": "Tornillo a una tuerca en T en la ranura superior del perfil C"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the base into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in the C's top slot, at the slot station 10 from its rear end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            0,
+            -10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_c_mount_head",
+        "label": {
+          "en": "Head seat of the C screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo al perfil C (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the counterbore floor, 4.5 above the C's top face (5.5 of the screw passes into the nut)",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            0,
+            -10,
+            4.5
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_c_key",
+        "label": {
+          "en": "Tongue in the C extrusion's top slot",
+          "es": "Lengüeta en la ranura superior del perfil C"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the base bears on the C's top face behind the rail, at the slot station 10 from its rear end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            0,
+            -10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "ab_drive_e_mount",
+        "label": {
+          "en": "Screw into a T-nut in the rear beam's top slot",
+          "es": "Tornillo a una tuerca en T en la ranura superior de la viga trasera"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the arm into an M5 T-nut in the rear (E) beam's top slot, at the slot station 10 from its end; E's end e_end inboard of the C centre, its top face flush with the C's",
+        "parameters": [
+          "mirrored",
+          "e_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * (e_end + 10)",
+            -34,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_e_mount_head",
+        "label": {
+          "en": "Head seat of the rear-beam screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo a la viga trasera (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the counterbore floor, 4.5 above the beam's top face",
+        "parameters": [
+          "mirrored",
+          "e_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * (e_end + 10)",
+            -34,
+            4.5
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_e_key",
+        "label": {
+          "en": "Tongue in the rear beam's top slot",
+          "es": "Lengüeta en la ranura superior de la viga trasera"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the arm bears on the rear beam's top face, at the slot station 10 from its end",
+        "parameters": [
+          "mirrored",
+          "e_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * (e_end + 10)",
+            -34,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "ab_drive_corner_idler_bolt",
+        "label": {
+          "en": "Corner idler (K) axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la polea de esquina (K) (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the toothed idler; the GT2 20T 6 mm idler that turns the diagonal from the pulley into the outer run",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -15.372",
+            -25.5,
+            "zo + 4.5 + 3"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_corner_idler_roof",
+        "label": {
+          "en": "Corner idler (K) roof (the arm over it)",
+          "es": "Techo de la polea de esquina (K) (el brazo sobre ella)"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's top face bears on the roof arm's underside, 4.5 above its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -15.372",
+            -25.5,
+            "zo + 4.5"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_corner_idler_floor",
+        "label": {
+          "en": "Corner idler (K) floor",
+          "es": "Piso de la polea de esquina (K)"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's bottom face bears on its boss, 4.5 below its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -15.372",
+            -25.5,
+            "zo - 4.5"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_backside_bolt",
+        "label": {
+          "en": "Backside stack (Q) axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la pila trasera (Q) (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the F695 stack; the stack the own belt's back runs on, bending the rear run round the pulley",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * 45",
+            "yq",
+            "zo + 5.0 + 3"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_backside_roof",
+        "label": {
+          "en": "Backside stack (Q) roof (the arm over it)",
+          "es": "Techo de la pila trasera (Q) (el brazo sobre ella)"
+        },
+        "geometry_type": "surface",
+        "standard": "the F695 stack's top face bears on the roof arm's underside, 5.0 above its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * 45",
+            "yq",
+            "zo + 5.0"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_backside_floor",
+        "label": {
+          "en": "Backside stack (Q) floor",
+          "es": "Piso de la pila trasera (Q)"
+        },
+        "geometry_type": "surface",
+        "standard": "the F695 stack's bottom face bears on its boss, 5.0 below its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * 45",
+            "yq",
+            "zo - 5.0"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_pass_bolt",
+        "label": {
+          "en": "Pass-through stack (S) axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la pila de paso (S) (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the F695 stack; the stack the other belt's teeth run on, turning it from its Y run into its rear run",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -1.852",
+            "ys",
+            "zt + 5.0 + 3"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_pass_roof",
+        "label": {
+          "en": "Pass-through stack (S) roof (the arm over it)",
+          "es": "Techo de la pila de paso (S) (el brazo sobre ella)"
+        },
+        "geometry_type": "surface",
+        "standard": "the F695 stack's top face bears on the roof arm's underside, 5.0 above its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -1.852",
+            "ys",
+            "zt + 5.0"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "ab_drive_pass_floor",
+        "label": {
+          "en": "Pass-through stack (S) floor",
+          "es": "Piso de la pila de paso (S)"
+        },
+        "geometry_type": "surface",
+        "standard": "the F695 stack's bottom face bears on its boss, 5.0 below its belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zo": "54 + 16 * mirrored",
+          "zt": "70 - 16 * mirrored",
+          "zm": "44 + 16 * mirrored",
+          "yq": "-8.994 + mirrored",
+          "ys": "-22.514 - mirrored"
+        },
+        "frame": {
+          "part": "ab_drive",
+          "origin": [
+            "s * -1.852",
+            "ys",
+            "zt - 5.0"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable A/B drive for stacked-belt CoreXY gantries on 2020 extrusion: a standard NEMA 17, GT2 pulley, F695 bearings and M5 hardware, a pulley wrap derived from a cited teeth-in-mesh rule, and interfaces machine-checked against the extrusions and the motor it joins.",
+      "es": "Una tracción A/B abierta e imprimible para pórticos CoreXY de bandas apiladas sobre perfil 2020: un NEMA 17, una polea GT2, rodamientos F695 y tornillería M5 estándar, un abrazo de polea derivado de una regla citada de dientes engranados, e interfaces verificadas por máquina contra los perfiles y el motor que une."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "corexy",
+    "nema-17",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

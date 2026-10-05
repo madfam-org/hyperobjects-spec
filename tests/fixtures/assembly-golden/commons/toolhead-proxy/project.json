@@ -1,0 +1,502 @@
+{
+  "project": {
+    "name": "Toolhead Proxy",
+    "slug": "toolhead-proxy",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A PROXY, NOT A TOOLHEAD: a deliberately simple stand-in body for a 3-D printer's toolhead in a machine's digital twin. It gives the twin something to show and something for the collision check to test, and it carries the frame of the nozzle tip, which the twin poses and projects. It bolts to an X carriage's toolhead face with four M3 screws on a 20 mm square. Its shape is a narrow column with a wider cap above it, so a full X travel fits the gantry. It has no extruder, hotend, fans or ducts, and its sizes are labelled conventions chosen to bound a typical toolhead generously, not measurements of any real one.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "UN SUSTITUTO, NO UN CABEZAL: un cuerpo deliberadamente simple que representa el cabezal de una impresora 3D en el gemelo digital de la máquina. Le da al gemelo algo que mostrar y algo que la verificación de colisiones pueda probar, y lleva el marco de la punta de la boquilla, que el gemelo posiciona y proyecta. Se atornilla a la cara de cabezal de un carro X con cuatro tornillos M3 en un cuadrado de 20 mm. Su forma es una columna estrecha con un remate más ancho encima, para que un recorrido X completo quepa en el pórtico. No tiene extrusor, hotend, ventiladores ni ductos, y sus tamaños son convenciones declaradas, elegidas para envolver con holgura un cabezal típico, no medidas de ninguno real.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/toolhead-proxy.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "3d-printer",
+      "toolhead",
+      "proxy",
+      "digital-twin",
+      "collision",
+      "corexy",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "toolhead_proxy",
+      "label": {
+        "en": "Toolhead Proxy",
+        "es": "Sustituto de Cabezal"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "toolhead_proxy"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 2,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "toolhead_proxy",
+      "label": {
+        "en": "Toolhead Proxy",
+        "es": "Sustituto de Cabezal"
+      },
+      "render_mode": 0,
+      "color": "#8a6d3b"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo"
+      }
+    },
+    {
+      "id": "nozzle",
+      "label": {
+        "en": "Nozzle",
+        "es": "Boquilla"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "body_w",
+      "unit": "mm",
+      "type": "slider",
+      "default": 56.0,
+      "min": 30.0,
+      "max": 90.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Cap Width (mm)",
+        "es": "Ancho del Remate (mm)"
+      },
+      "tooltip": {
+        "en": "The cap above the column, across the X axis (a convention)",
+        "es": "El remate sobre la columna, a lo largo del eje X (una convención)"
+      }
+    },
+    {
+      "id": "band_w",
+      "unit": "mm",
+      "type": "slider",
+      "default": 36.0,
+      "min": 26.0,
+      "max": 90.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Column Width (mm)",
+        "es": "Ancho de la Columna (mm)"
+      },
+      "tooltip": {
+        "en": "The narrow column that passes the gantry's rails, blocks and idlers at the ends of X travel. A convention: 36 keeps a full X travel inside the commons gantry",
+        "es": "La columna estrecha que pasa junto a rieles, bloques y poleas del pórtico en los extremos del recorrido X. Una convención: 36 mantiene un recorrido X completo dentro del pórtico de los comunes"
+      }
+    },
+    {
+      "id": "body_d",
+      "unit": "mm",
+      "type": "slider",
+      "default": 56.0,
+      "min": 30.0,
+      "max": 90.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Body Depth (mm)",
+        "es": "Profundidad del Cuerpo (mm)"
+      },
+      "tooltip": {
+        "en": "Forward from the carriage's toolhead face (a convention)",
+        "es": "Hacia adelante desde la cara de cabezal del carro (una convención)"
+      }
+    },
+    {
+      "id": "body_top",
+      "unit": "mm",
+      "type": "slider",
+      "default": 25.0,
+      "min": 12.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Body Above the Mount (mm)",
+        "es": "Cuerpo Sobre el Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "From the mount pattern's centre up to the top (a convention; at least 12 to cover the pattern)",
+        "es": "Desde el centro del patrón de montaje hasta la parte superior (una convención; al menos 12 para cubrir el patrón)"
+      }
+    },
+    {
+      "id": "band_top",
+      "unit": "mm",
+      "type": "slider",
+      "default": 1.0,
+      "min": -12.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Column Top Above the Mount (mm)",
+        "es": "Tope de la Columna Sobre el Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "Where the column widens into the cap, above the mount pattern's centre (a convention set from the gantry's band)",
+        "es": "Donde la columna se ensancha en el remate, sobre el centro del patrón de montaje (una convención fijada desde la banda del pórtico)"
+      }
+    },
+    {
+      "id": "body_drop",
+      "unit": "mm",
+      "type": "slider",
+      "default": 94.0,
+      "min": 12.0,
+      "max": 160.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Column Below the Mount (mm)",
+        "es": "Columna Bajo el Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "From the mount pattern's centre down to the column's underside (a convention)",
+        "es": "Desde el centro del patrón de montaje hasta la cara inferior de la columna (una convención)"
+      }
+    },
+    {
+      "id": "nozzle_drop",
+      "unit": "mm",
+      "type": "slider",
+      "default": 102.0,
+      "min": 16.0,
+      "max": 180.0,
+      "step": 1.0,
+      "group": "nozzle",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Nozzle Tip Below the Mount (mm)",
+        "es": "Punta de Boquilla Bajo el Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "From the mount pattern's centre down to the nozzle tip (a convention; the twin's Z zero follows it)",
+        "es": "Desde el centro del patrón de montaje hasta la punta de la boquilla (una convención; el cero Z del gemelo la sigue)"
+      }
+    },
+    {
+      "id": "nozzle_reach",
+      "unit": "mm",
+      "type": "slider",
+      "default": 12.0,
+      "min": 6.0,
+      "max": 84.0,
+      "step": 1.0,
+      "group": "nozzle",
+      "modes": [
+        "toolhead_proxy"
+      ],
+      "label": {
+        "en": "Nozzle Ahead of the Mount (mm)",
+        "es": "Boquilla Delante del Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "From the carriage's toolhead face forward to the nozzle axis. A convention: 12 puts the tip 43 ahead of the X beam's centre line on the commons gantry, so the machine's Y 0..350 lands on the bed plate",
+        "es": "Desde la cara de cabezal del carro hacia adelante hasta el eje de la boquilla. Una convención: 12 pone la punta 43 delante de la línea central de la viga X en el pórtico de los comunes, de modo que la Y 0..350 de la máquina cae sobre la placa de cama"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "standard",
+      "mode": "toolhead_proxy",
+      "label": {
+        "en": "Standard",
+        "es": "Estándar"
+      },
+      "values": {
+        "body_w": 56,
+        "band_w": 36,
+        "body_d": 56,
+        "body_top": 25,
+        "band_top": 1,
+        "body_drop": 94,
+        "nozzle_drop": 102,
+        "nozzle_reach": 12
+      }
+    },
+    {
+      "id": "compact",
+      "mode": "toolhead_proxy",
+      "label": {
+        "en": "Compact",
+        "es": "Compacto"
+      },
+      "values": {
+        "body_w": 46,
+        "band_w": 32,
+        "body_d": 46,
+        "body_top": 20,
+        "band_top": 1,
+        "body_drop": 84,
+        "nozzle_drop": 92,
+        "nozzle_reach": 12
+      }
+    },
+    {
+      "id": "long_hotend",
+      "mode": "toolhead_proxy",
+      "label": {
+        "en": "Long Hotend",
+        "es": "Hotend Largo"
+      },
+      "values": {
+        "nozzle_drop": 116
+      }
+    },
+    {
+      "id": "generous",
+      "mode": "toolhead_proxy",
+      "label": {
+        "en": "Generous Cap",
+        "es": "Remate Holgado"
+      },
+      "values": {
+        "body_w": 66,
+        "body_d": 66,
+        "body_top": 35,
+        "body_drop": 100,
+        "nozzle_drop": 108,
+        "nozzle_reach": 12
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "nozzle_drop >= body_drop + 4",
+      "severity": "error",
+      "message": {
+        "en": "The nozzle tip must sit at least 4 mm below the block (the 3 mm taper plus 1)",
+        "es": "La punta de la boquilla debe quedar al menos 4 mm bajo el bloque (la conicidad de 3 mm más 1)"
+      }
+    },
+    {
+      "expression": "nozzle_reach <= body_d - 6",
+      "severity": "error",
+      "message": {
+        "en": "The nozzle must lie under the block (its Ø8 body plus 2 mm inside the depth)",
+        "es": "La boquilla debe quedar bajo el bloque (su cuerpo de Ø8 más 2 mm dentro de la profundidad)"
+      }
+    },
+    {
+      "expression": "band_w <= body_w",
+      "severity": "error",
+      "message": {
+        "en": "The column cannot be wider than the cap",
+        "es": "La columna no puede ser más ancha que el remate"
+      }
+    },
+    {
+      "expression": "band_top <= body_top - 4",
+      "severity": "error",
+      "message": {
+        "en": "The cap needs at least 4 mm above the column",
+        "es": "El remate necesita al menos 4 mm sobre la columna"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        110,
+        90,
+        140
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -10,
+        200
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        200,
+        -10,
+        30
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 2,
+    "per_part": 6,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "toolhead_proxy_mount",
+        "label": {
+          "en": "Mount face on the X carriage's toolhead face",
+          "es": "Cara de montaje sobre la cara de cabezal del carro X"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "4 × M3 on a 20 mm square (HIWIN MGN12H B 20 × C 20); the proxy's back face, framed at the pattern's centre; M3 screws through the proxy into the carriage's threads",
+        "frame": {
+          "part": "toolhead_proxy",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "toolhead-mount-20x20-m3",
+        "symmetry": 4
+      },
+      {
+        "id": "nozzle_tip",
+        "label": {
+          "en": "Nozzle tip: the point the machine positions",
+          "es": "Punta de la boquilla: el punto que la máquina posiciona"
+        },
+        "geometry_type": "boss",
+        "standard": "internal: the flat end of the proxy's nozzle (Ø3); the normal is the nozzle axis, out of the tip toward the bed; x_axis along the machine's X axis",
+        "parameters": [
+          "nozzle_drop",
+          "nozzle_reach"
+        ],
+        "frame": {
+          "part": "toolhead_proxy",
+          "origin": [
+            0,
+            "-nozzle_drop",
+            "nozzle_reach"
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "An open stand-in body for a printer toolhead, so a machine's digital twin can show and collision-check a toolhead and pose its nozzle tip without copying a GPL design: every size is a declared, adjustable convention, and the mount and nozzle frames are machine-checked against the rendered body.",
+      "es": "Un cuerpo sustituto abierto para el cabezal de una impresora, de modo que el gemelo digital de una máquina pueda mostrar y verificar colisiones de un cabezal y posicionar la punta de su boquilla sin copiar un diseño GPL: cada tamaño es una convención declarada y ajustable, y los marcos de montaje y de boquilla se verifican por máquina contra el cuerpo renderizado."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "toolhead",
+    "digital-twin",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

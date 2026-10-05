@@ -1,0 +1,726 @@
+{
+  "project": {
+    "name": "Corner Idler Bracket",
+    "slug": "corner-idler-bracket",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed bracket that carries a GT2 toothed idler in the inside top corner of a 2020 extrusion frame joined by blind joints. It bolts to a top horizontal's inner face with two M5 T-nuts, keys into the slot of the perpendicular horizontal it bears on and, with a heel below that horizontal, into the upright's slot. The idler turns on an M5x30 button head screw in a fork open at the bottom, so the belt leaves it downward. Right- and left-hand versions.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un soporte impreso que lleva una polea loca dentada GT2 en la esquina superior interior de un marco de perfil 2020 unido con uniones ciegas. Se atornilla a la cara interior de un travesaño superior con dos tuercas en T M5, se encaja en la ranura del travesaño perpendicular contra el que apoya y, con un talón bajo ese travesaño, en la ranura del poste. La polea gira sobre un tornillo de cabeza de botón M5x30 en una horquilla abierta por abajo, de modo que la banda sale hacia abajo. Versiones derecha e izquierda.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/corner-idler-bracket.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "3d-printer",
+      "idler",
+      "gt2",
+      "belt",
+      "2020",
+      "t-slot",
+      "extrusion",
+      "corner",
+      "bracket",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "corner_idler",
+      "label": {
+        "en": "Corner Idler Bracket",
+        "es": "Soporte de Polea Loca de Esquina"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "corner_idler"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "corner_idler",
+      "label": {
+        "en": "Corner Idler Bracket",
+        "es": "Soporte de Polea Loca de Esquina"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "idler",
+      "label": {
+        "en": "Idler",
+        "es": "Polea Loca"
+      }
+    },
+    {
+      "id": "mount",
+      "label": {
+        "en": "Frame Mount",
+        "es": "Montaje al Marco"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "idler_width",
+      "unit": "mm",
+      "type": "slider",
+      "default": 14.0,
+      "min": 9.0,
+      "max": 18.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Idler Width (mm)",
+        "es": "Ancho de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "GT2 idler flange to flange. 14 = Gates G2GT-I-20-9 (9 mm belt); 10 = a 6 mm-belt idler",
+        "es": "Polea GT2 de pestaña a pestaña. 14 = Gates G2GT-I-20-9 (banda de 9 mm); 10 = polea para banda de 6 mm"
+      }
+    },
+    {
+      "id": "idler_od",
+      "unit": "mm",
+      "type": "slider",
+      "default": 18.0,
+      "min": 12.0,
+      "max": 22.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Idler Outside Diameter (mm)",
+        "es": "Diámetro Exterior de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "The idler's largest diameter (its flanges); the pocket clears it by 1 mm",
+        "es": "El diámetro mayor de la polea (sus pestañas); el hueco la libra por 1 mm"
+      }
+    },
+    {
+      "id": "idler_clear",
+      "unit": "mm",
+      "type": "slider",
+      "default": 0.5,
+      "min": 0.2,
+      "max": 1.0,
+      "step": 0.05,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Idler Side Clearance (mm)",
+        "es": "Holgura Lateral de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "Axial gap on each side of the idler between the arms",
+        "es": "Espacio axial a cada lado de la polea entre los brazos"
+      },
+      "advanced": true
+    },
+    {
+      "id": "idler_offset",
+      "unit": "mm",
+      "type": "slider",
+      "default": 13.0,
+      "min": 13.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Idler Offset from Corner (mm)",
+        "es": "Distancia de la Polea a la Esquina (mm)"
+      },
+      "tooltip": {
+        "en": "Idler axle position along the horizontal, from the perpendicular horizontal's side",
+        "es": "Posición del eje de la polea a lo largo del travesaño, desde el costado del travesaño perpendicular"
+      }
+    },
+    {
+      "id": "idler_drop",
+      "unit": "mm",
+      "type": "slider",
+      "default": 24.0,
+      "min": 20.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Idler Drop (mm)",
+        "es": "Caída de la Polea (mm)"
+      },
+      "tooltip": {
+        "en": "Idler axle below the top horizontals' slot centre (the frame top is 10 above it)",
+        "es": "Eje de la polea por debajo del centro de la ranura de los travesaños superiores (la parte superior del marco está 10 más arriba)"
+      }
+    },
+    {
+      "id": "front_arm",
+      "unit": "mm",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 6.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Front Arm (mm)",
+        "es": "Brazo Frontal (mm)"
+      },
+      "tooltip": {
+        "en": "Arm under the axle screw's head; the rear arm takes the rest of the screw's 30 mm",
+        "es": "Brazo bajo la cabeza del tornillo del eje; el brazo trasero toma el resto de los 30 mm del tornillo"
+      },
+      "advanced": true
+    },
+    {
+      "id": "mount_grip",
+      "unit": "mm",
+      "type": "slider",
+      "default": 24.5,
+      "min": 22.0,
+      "max": 26.5,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Mount Screw Grip (mm)",
+        "es": "Agarre del Tornillo de Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "Mount face to the M5x30 head seat; 30 minus this passes the face into the T-nut (slot lip 2 mm, slot floor 6 mm down)",
+        "es": "De la cara de montaje al asiento de la cabeza del M5x30; 30 menos esto pasa la cara hacia la tuerca en T (labio de 2 mm, fondo de ranura a 6 mm)"
+      },
+      "advanced": true
+    },
+    {
+      "id": "mount_pitch",
+      "unit": "mm",
+      "type": "slider",
+      "default": 20.0,
+      "min": 16.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "mount",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "T-Nut Spacing (mm)",
+        "es": "Separación de Tuercas en T (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two mount screws along the horizontal (a T-nut is 15 mm long)",
+        "es": "Distancia entre los dos tornillos de montaje a lo largo del travesaño (una tuerca en T mide 15 mm)"
+      }
+    },
+    {
+      "id": "heel_reach",
+      "unit": "mm",
+      "type": "slider",
+      "default": 18.0,
+      "min": 15.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Heel Reach (mm)",
+        "es": "Alcance del Talón (mm)"
+      },
+      "tooltip": {
+        "en": "How far the heel reaches past the corner over the upright's 20 mm face",
+        "es": "Cuánto se extiende el talón más allá de la esquina sobre la cara de 20 mm del poste"
+      },
+      "advanced": true
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "mount",
+      "modes": [
+        "corner_idler"
+      ],
+      "label": {
+        "en": "Left-Hand (Mirrored)",
+        "es": "Mano Izquierda (Espejo)"
+      },
+      "tooltip": {
+        "en": "Build the mirrored bracket for the opposite corner",
+        "es": "Genera el soporte en espejo para la esquina opuesta"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "gates_9mm_right",
+      "mode": "corner_idler",
+      "label": {
+        "en": "9 mm Belt Idler, Right-Hand",
+        "es": "Polea para Banda de 9 mm, Derecha"
+      },
+      "values": {
+        "idler_width": 14,
+        "idler_od": 18,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "gates_9mm_left",
+      "mode": "corner_idler",
+      "label": {
+        "en": "9 mm Belt Idler, Left-Hand",
+        "es": "Polea para Banda de 9 mm, Izquierda"
+      },
+      "values": {
+        "idler_width": 14,
+        "idler_od": 18,
+        "mirrored": true
+      }
+    },
+    {
+      "id": "belt_6mm_right",
+      "mode": "corner_idler",
+      "label": {
+        "en": "6 mm Belt Idler (10 mm wide)",
+        "es": "Polea para Banda de 6 mm (10 mm de ancho)"
+      },
+      "values": {
+        "idler_width": 10,
+        "idler_od": 18,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "long_drop_wide_pitch",
+      "mode": "corner_idler",
+      "label": {
+        "en": "Long Drop, Wide T-Nut Spacing",
+        "es": "Caída Larga, Tuercas Separadas"
+      },
+      "values": {
+        "idler_drop": 36,
+        "idler_offset": 20,
+        "mount_pitch": 30,
+        "mirrored": true
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "front_arm + idler_width + 2 * idler_clear <= 26",
+      "severity": "error",
+      "message": {
+        "en": "The front arm, the idler and its clearances must leave at least 4 mm of the M5x30 in the rear arm",
+        "es": "El brazo frontal, la polea y sus holguras deben dejar al menos 4 mm del M5x30 en el brazo trasero"
+      }
+    },
+    {
+      "expression": "idler_drop >= idler_od / 2 + 9",
+      "severity": "error",
+      "message": {
+        "en": "The idler pocket must stay below the mount screws",
+        "es": "El hueco de la polea debe quedar por debajo de los tornillos de montaje"
+      }
+    },
+    {
+      "expression": "idler_offset >= idler_od / 2 + 2",
+      "severity": "error",
+      "message": {
+        "en": "The idler pocket must stay clear of the corner end",
+        "es": "El hueco de la polea debe quedar libre del extremo de la esquina"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        110,
+        60
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        20,
+        140,
+        -10
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        -140,
+        15,
+        -10
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 10,
+    "per_unit": 3,
+    "per_part": 12,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "corner_idler_mount_a",
+        "label": {
+          "en": "Mount screw A into a T-nut in the horizontal's slot",
+          "es": "Tornillo de montaje A a una tuerca en T en la ranura del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the bracket into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm slot; framed on the mount face",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "s * 10",
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "corner_idler_mount_b",
+        "label": {
+          "en": "Mount screw B into a T-nut in the horizontal's slot",
+          "es": "Tornillo de montaje B a una tuerca en T en la ranura del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the bracket into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm slot; framed on the mount face",
+        "parameters": [
+          "mirrored",
+          "mount_pitch"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "s * (10 + mount_pitch)",
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "corner_idler_mount_a_head",
+        "label": {
+          "en": "Head seat of mount screw A (M5x30 BHCS)",
+          "es": "Asiento de la cabeza del tornillo de montaje A (M5x30 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x30 button head, head on the counterbore floor",
+        "parameters": [
+          "mirrored",
+          "mount_grip"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "s * 10",
+            "mount_grip",
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "corner_idler_mount_b_head",
+        "label": {
+          "en": "Head seat of mount screw B (M5x30 BHCS)",
+          "es": "Asiento de la cabeza del tornillo de montaje B (M5x30 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x30 button head, head on the counterbore floor",
+        "parameters": [
+          "mirrored",
+          "mount_grip",
+          "mount_pitch"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "s * (10 + mount_pitch)",
+            "mount_grip",
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "corner_idler_corner_key",
+        "label": {
+          "en": "Corner tongue in the perpendicular horizontal's slot",
+          "es": "Lengüeta de esquina en la ranura del travesaño perpendicular"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the end face bears on the horizontal's side, 10 from its butted end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            0,
+            10,
+            0
+          ],
+          "normal": [
+            "-s",
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "corner_idler_upright_key",
+        "label": {
+          "en": "Heel tongue in the upright's slot",
+          "es": "Lengüeta del talón en la ranura del poste"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the heel bears on the upright's inner face, 30 below its top",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "-s * 10",
+            0,
+            -20
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "corner_idler_idler_bolt",
+        "label": {
+          "en": "Idler axle screw (M5x30 BHCS) head seat",
+          "es": "Asiento de la cabeza del tornillo eje (M5x30 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x30 button head through the front arm; the screw is the GT2 idler's axle and cuts its thread in the rear arm",
+        "parameters": [
+          "mirrored",
+          "idler_offset",
+          "idler_drop"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "corner_idler",
+          "origin": [
+            "s * idler_offset",
+            30,
+            "-idler_drop"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable corner idler for belt-driven machines built on 2020 extrusion: it uses off-the-shelf M5 screws, T-nuts and a standard GT2 idler, so a builder can replace or adapt it without a proprietary part, and its interfaces are machine-checked against the frame it mounts on.",
+      "es": "Una polea loca de esquina abierta e imprimible para máquinas con banda sobre perfil 2020: usa tornillos M5, tuercas en T y una polea GT2 estándar, de modo que quien la arma puede reponerla o adaptarla sin piezas propietarias, y sus interfaces se verifican por máquina contra el marco donde se monta."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "idler",
+    "gt2",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

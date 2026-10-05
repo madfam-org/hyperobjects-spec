@@ -94,16 +94,38 @@ def test_the_passive_mate_never_places_and_the_tree_is_reported():
     assert checks["y_block_left_on_rail"].in_tree
 
 
-def test_existing_rigid_assemblies_are_unchanged_one_pose_no_joints():
+def _golden(slug):
     resolver_ab = CompositeResolver.for_directories(GOLDEN / "commons",
                                                     bundled_standard_parts_dir())
-    for slug in (A, B):
-        doc = json.loads((GOLDEN / "commons" / "assemblies" / slug / "assembly.json")
-                         .read_text("utf-8"))
-        report = validate_assembly(doc, resolver_ab)
-        assert report.ok and not report.warnings
-        assert report.joints == [] and report.paths == []
-        assert [p.name for p in report.poses] == ["home"]
+    doc = json.loads((GOLDEN / "commons" / "assemblies" / slug / "assembly.json")
+                     .read_text("utf-8"))
+    return doc, validate_assembly(doc, resolver_ab)
+
+
+def test_the_rigid_golden_is_unchanged_one_pose_no_joints():
+    _doc, report = _golden(B)
+    assert report.ok and not report.warnings
+    assert report.joints == [] and report.paths == []
+    assert [p.name for p in report.poses] == ["home"]
+
+
+def test_golden_a_poses_over_the_whole_sweep_with_constant_belts():
+    """A is the full 2.4-class motion system (lane P6-ASM): three driven joints bound to
+    Klipper's corexy axes, followers for the CoreXY motors, the Z blocks and the Z drives,
+    and ten belt paths whose length never moves over the sweep."""
+    doc, report = _golden(A)
+    assert report.ok and not report.warnings, [str(f) for f in report.findings]
+    driven = [j for j in report.joints if j.role == "driven"]
+    assert {j.id for j in driven} == {"x_carriage", "gantry_y", "gantry_z"}
+    assert len(report.joints) == 25
+    assert len(report.poses) == 1 + 2 * 3 + 16 and all(p.ok for p in report.poses)
+    assert len(report.paths) == 10
+    for path in report.paths:
+        assert path.ok and path.length_spread_mm < 1e-6, path.path_id
+    axes = {b["axis"]: b for b in doc["machine"]["axes"]}
+    assert doc["machine"]["kinematics"] == "corexy"
+    assert {a: axes[a]["joint"] for a in axes} == {
+        "x": "x_carriage", "y": "gantry_y", "z": "gantry_z"}
 
 
 def test_home_is_the_placement_table_and_the_joints_move_the_children():

@@ -1,0 +1,749 @@
+{
+  "project": {
+    "name": "Z Drive Housing",
+    "slug": "z-drive-housing",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed housing that hangs under a bottom corner of a 2020 extrusion frame joined by blind joints and carries a belt-reduction Z drive. A NEMA 17 with a 16-tooth GT2 pulley drives an 80-tooth GT2 pulley through a closed GT2 loop (5:1) on a Ø5 output shaft in three 625 bearings; a 20-tooth 9 mm GT2 pulley on the same shaft drives the Z belt, which rises through the frame corner to a top-corner idler. Two M5 T-nuts and two slot tongues fix it to the frame; the motor's slots set the loop tension. Right- and left-hand versions for the four corners.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una carcasa impresa que cuelga bajo una esquina inferior de un marco de perfil 2020 unido con uniones ciegas y lleva un accionamiento Z con reducción por banda. Un NEMA 17 con polea GT2 de 16 dientes mueve una polea GT2 de 80 dientes por una banda GT2 cerrada (5:1) sobre una flecha de salida de Ø5 en tres rodamientos 625; una polea GT2 de 20 dientes y 9 mm en la misma flecha mueve la banda Z, que sube por la esquina del marco hasta una polea loca de esquina superior. Dos tuercas en T M5 y dos lengüetas de ranura la fijan al marco; las ranuras del motor dan la tensión de la banda. Versiones derecha e izquierda para las cuatro esquinas.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/z-drive-housing.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "3d-printer",
+      "z-axis",
+      "gt2",
+      "belt",
+      "reduction",
+      "nema17",
+      "2020",
+      "t-slot",
+      "extrusion",
+      "corner",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "z_drive",
+      "label": {
+        "en": "Z Drive Housing",
+        "es": "Carcasa de Accionamiento Z"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "z_drive"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 4,
+        "per_part": 15
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "z_drive",
+      "label": {
+        "en": "Z Drive Housing",
+        "es": "Carcasa de Accionamiento Z"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "drive",
+      "label": {
+        "en": "Drive",
+        "es": "Accionamiento"
+      }
+    },
+    {
+      "id": "mount",
+      "label": {
+        "en": "Frame Mount",
+        "es": "Montaje al Marco"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "belt_offset",
+      "unit": "mm",
+      "type": "slider",
+      "default": 13.0,
+      "min": 10.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "drive",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "Z Pulley Offset from Corner (mm)",
+        "es": "Distancia de la Polea Z a la Esquina (mm)"
+      },
+      "tooltip": {
+        "en": "Output shaft position along the horizontal, from the corner plane; match the top idler's offset so the Z belt runs vertical",
+        "es": "Posición de la flecha de salida a lo largo del travesaño, desde el plano de la esquina; iguálela a la de la polea loca superior para que la banda Z quede vertical"
+      }
+    },
+    {
+      "id": "belt_plane",
+      "unit": "mm",
+      "type": "slider",
+      "default": 17.5,
+      "min": 12.0,
+      "max": 29.0,
+      "step": 0.5,
+      "group": "drive",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "Z Belt Plane (mm)",
+        "es": "Plano de la Banda Z (mm)"
+      },
+      "tooltip": {
+        "en": "Z belt mid-plane, from the horizontal's inner face into the frame; 17.5 = corner-idler-bracket's idler at its defaults",
+        "es": "Plano medio de la banda Z, desde la cara interior del travesaño hacia el marco; 17.5 = la polea de corner-idler-bracket en sus valores por defecto"
+      }
+    },
+    {
+      "id": "center_distance",
+      "unit": "mm",
+      "type": "slider",
+      "default": 40.8,
+      "min": 38.8,
+      "max": 42.8,
+      "step": 0.05,
+      "group": "drive",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "Reduction Centre Distance (mm)",
+        "es": "Distancia entre Centros de la Reducción (mm)"
+      },
+      "tooltip": {
+        "en": "Motor axis to output shaft; 40.8 closes a 188 mm GT2 loop on 16 and 80 teeth (P.D. 10.19 / 50.93); the motor slots give ±2 for tension",
+        "es": "Del eje del motor a la flecha de salida; 40.8 cierra una banda GT2 de 188 mm sobre 16 y 80 dientes (D.P. 10.19 / 50.93); las ranuras del motor dan ±2 para tensar"
+      }
+    },
+    {
+      "id": "big_pulley_od",
+      "unit": "mm",
+      "type": "slider",
+      "default": 55.0,
+      "min": 50.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "drive",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "80-Tooth Pulley Flange (mm)",
+        "es": "Pestaña de la Polea de 80 Dientes (mm)"
+      },
+      "tooltip": {
+        "en": "Outside diameter of the 80-tooth pulley's flange; sets the shaft's depth below the frame (1.5 mm clearance above and below)",
+        "es": "Diámetro exterior de la pestaña de la polea de 80 dientes; fija la profundidad de la flecha bajo el marco (1.5 mm de holgura arriba y abajo)"
+      },
+      "advanced": true
+    },
+    {
+      "id": "mount_pitch",
+      "unit": "mm",
+      "type": "slider",
+      "default": 20.0,
+      "min": 16.0,
+      "max": 30.0,
+      "step": 1.0,
+      "group": "mount",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "T-Nut Spacing (mm)",
+        "es": "Separación de Tuercas en T (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two mount screws along the horizontal (a T-nut is 15 mm long)",
+        "es": "Distancia entre los dos tornillos de montaje a lo largo del travesaño (una tuerca en T mide 15 mm)"
+      }
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "mount",
+      "modes": [
+        "z_drive"
+      ],
+      "label": {
+        "en": "Left-Hand (Mirrored)",
+        "es": "Mano Izquierda (Espejo)"
+      },
+      "tooltip": {
+        "en": "Build the mirrored housing for the two opposite corners",
+        "es": "Genera la carcasa en espejo para las dos esquinas opuestas"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "corner_right",
+      "mode": "z_drive",
+      "label": {
+        "en": "Right-Hand Corner",
+        "es": "Esquina Derecha"
+      },
+      "values": {
+        "belt_offset": 13,
+        "belt_plane": 17.5,
+        "center_distance": 40.8,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "corner_left",
+      "mode": "z_drive",
+      "label": {
+        "en": "Left-Hand Corner (Mirrored)",
+        "es": "Esquina Izquierda (Espejo)"
+      },
+      "values": {
+        "belt_offset": 13,
+        "belt_plane": 17.5,
+        "center_distance": 40.8,
+        "mirrored": true
+      }
+    },
+    {
+      "id": "loop_tensioned",
+      "mode": "z_drive",
+      "label": {
+        "en": "Loop Tensioned (+1 mm)",
+        "es": "Banda Tensada (+1 mm)"
+      },
+      "values": {
+        "center_distance": 41.8
+      }
+    },
+    {
+      "id": "deep_plane_wide_offset",
+      "mode": "z_drive",
+      "label": {
+        "en": "Deeper Belt Plane, Wider Offset, Left-Hand",
+        "es": "Plano de Banda Más Adentro, Mayor Distancia, Izquierda"
+      },
+      "values": {
+        "belt_offset": 20,
+        "belt_plane": 24,
+        "mount_pitch": 24,
+        "mirrored": true
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "belt_offset - 6.37 - 1.52 - 1.5 >= 0",
+      "severity": "error",
+      "message": {
+        "en": "The Z belt's slot in the top plate must stay clear of the perpendicular horizontal",
+        "es": "La ranura de la banda Z en la placa superior debe quedar libre del travesaño perpendicular"
+      }
+    },
+    {
+      "expression": "20 + mount_pitch + 5.25 <= belt_offset + center_distance + 21.15 + 3",
+      "severity": "warning",
+      "message": {
+        "en": "Mount screw B is beyond the motor's end of the top plate",
+        "es": "El tornillo de montaje B queda más allá del extremo del motor en la placa superior"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        160,
+        140,
+        60
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        30,
+        220,
+        -45
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        -200,
+        0,
+        -45
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 4,
+    "per_part": 15,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "z_drive_mount_a",
+        "label": {
+          "en": "Mount screw A into a T-nut in the horizontal's bottom slot",
+          "es": "Tornillo de montaje A a una tuerca en T en la ranura inferior del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the housing's top plate into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm slot; framed on the top face, which bears on the horizontal's bottom face",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * 20",
+            -10,
+            -10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_mount_b",
+        "label": {
+          "en": "Mount screw B into a T-nut in the horizontal's bottom slot",
+          "es": "Tornillo de montaje B a una tuerca en T en la ranura inferior del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the housing's top plate into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm slot; framed on the top face, which bears on the horizontal's bottom face",
+        "parameters": [
+          "mirrored",
+          "mount_pitch"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * (20 + mount_pitch)",
+            -10,
+            -10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_mount_a_head",
+        "label": {
+          "en": "Head seat of mount screw A (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo de montaje A (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head, head on the counterbore floor (10 − 4.5 = 5.5 into the T-nut)",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * 20",
+            -10,
+            -14.5
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_mount_b_head",
+        "label": {
+          "en": "Head seat of mount screw B (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo de montaje B (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head, head on the counterbore floor (10 − 4.5 = 5.5 into the T-nut)",
+        "parameters": [
+          "mirrored",
+          "mount_pitch"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * (20 + mount_pitch)",
+            -10,
+            -14.5
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_slot_key",
+        "label": {
+          "en": "Tongue in the horizontal's bottom slot",
+          "es": "Lengüeta en la ranura inferior del travesaño"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the top face bears on the horizontal's bottom face, 10 from its butted end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * 10",
+            -10,
+            -10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "z_drive_corner_key",
+        "label": {
+          "en": "Tongue in the perpendicular horizontal's bottom slot",
+          "es": "Lengüeta en la ranura inferior del travesaño perpendicular"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the top face bears on the perpendicular horizontal's bottom face, 10 from its butted end",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "-s * 10",
+            10,
+            -10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "z_drive_bearing_a",
+        "label": {
+          "en": "Bearing seat A (wall A, frame side of the Z pulley)",
+          "es": "Asiento de rodamiento A (pared A, lado del marco de la polea Z)"
+        },
+        "geometry_type": "socket",
+        "standard": "625 bearing (5 × 16 × 5) in a Ø16.2 pocket 5 deep, face A flush with the opening face, a 1.5 mm shoulder with a Ø10 hole behind it",
+        "parameters": [
+          "mirrored",
+          "belt_offset",
+          "belt_plane",
+          "big_pulley_od"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * belt_offset",
+            "belt_plane + 13.65",
+            "-(19 + big_pulley_od / 2)"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "bearing-625",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_bearing_b",
+        "label": {
+          "en": "Bearing seat B (wall B, between the Z pulley and the 80-tooth pulley)",
+          "es": "Asiento de rodamiento B (pared B, entre la polea Z y la polea de 80 dientes)"
+        },
+        "geometry_type": "socket",
+        "standard": "625 bearing (5 × 16 × 5) in a Ø16.2 pocket 5 deep, face A flush with the opening face, a 1.5 mm shoulder with a Ø10 hole behind it",
+        "parameters": [
+          "mirrored",
+          "belt_offset",
+          "belt_plane",
+          "big_pulley_od"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * belt_offset",
+            "belt_plane - 14.85",
+            "-(19 + big_pulley_od / 2)"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "bearing-625",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_bearing_c",
+        "label": {
+          "en": "Bearing seat C (wall C, beyond the 80-tooth pulley)",
+          "es": "Asiento de rodamiento C (pared C, más allá de la polea de 80 dientes)"
+        },
+        "geometry_type": "socket",
+        "standard": "625 bearing (5 × 16 × 5) in a Ø16.2 pocket 5 deep, face A flush with the opening face, a 1.5 mm shoulder with a Ø10 hole behind it",
+        "parameters": [
+          "mirrored",
+          "belt_offset",
+          "belt_plane",
+          "big_pulley_od"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * belt_offset",
+            "belt_plane - 40.35",
+            "-(19 + big_pulley_od / 2)"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "bearing-625",
+        "symmetry": 0
+      },
+      {
+        "id": "z_drive_motor_face",
+        "label": {
+          "en": "NEMA 17 motor face on wall C (16-tooth pulley into the 80-tooth pulley's plane)",
+          "es": "Cara del motor NEMA 17 en la pared C (polea de 16 dientes en el plano de la de 80 dientes)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA 17 face: 31 mm square of M3 holes as slots ±2 along x for the loop tension, Ø23 pilot slot",
+        "parameters": [
+          "mirrored",
+          "belt_offset",
+          "belt_plane",
+          "big_pulley_od",
+          "center_distance"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_drive",
+          "origin": [
+            "s * (belt_offset + center_distance)",
+            "belt_plane - 46.85",
+            "-(19 + big_pulley_od / 2)"
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "nema-17-face",
+        "symmetry": 4
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable belt-reduction Z drive for machines built on 2020 extrusion: it uses an off-the-shelf NEMA 17, standard GT2 pulleys and belts, 625 bearings, M5 screws and T-nuts, so a builder can repair or adapt it without a proprietary part, and its interfaces are machine-checked against the frame, the bearings and the motor they meet.",
+      "es": "Un accionamiento Z con reducción por banda, abierto e imprimible, para máquinas sobre perfil 2020: usa un NEMA 17 comercial, poleas y bandas GT2 estándar, rodamientos 625, tornillos M5 y tuercas en T, de modo que quien lo arma puede repararlo o adaptarlo sin piezas propietarias, y sus interfaces se verifican por máquina contra el marco, los rodamientos y el motor que tocan."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "z-axis",
+    "gt2",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
