@@ -200,6 +200,25 @@
       "note": "Male: the outer ring goes into a Ø13 housing bore until the flange's underside (z = 1) lands on the housing face. The normal points +z, the side the housing lies on, so a seat framed at its entrance (normal out of the cavity) takes the bearing face B first."
     }
   ],
+  "belt_engagement": {
+    "running_diameter": {
+      "value": 13,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol D: the outer ring's cylindrical surface between the flanges, which the belt runs on"
+    },
+    "center": [
+      0,
+      0,
+      4
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Convention: the guide's idler stacks (pp. 65, 69, 97, 99) put two F695 plain face to plain face, flanges outward, so the belt runs on both outer rings between the two flanges and its mid-plane is the plain-face junction, z = 4 (face B) of either bearing; a path via may name either bearing of the pair and lands on the same circle. A single F695 used another way needs its own plane. The axis is the bore axis."
+  },
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
