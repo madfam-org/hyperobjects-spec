@@ -103,8 +103,12 @@ size key's.
 | `fpv-frame-5in-x-225` | class | `motor_mount_fl … (4)` → `motor-mount-16x16-m3` male, sym 4, `x_axis` outward along the arm<br>`stack_mount` → `stack-30.5x30.5-m3` male, sym 4<br>`camera_bay` → `fpv-camera-micro-19mm` female, sym 0<br>`camera_plate_left`, `camera_plate_right` → `fpv-camera-micro-19mm` male, sym 0 (side plates' inner faces)<br>`camera_plate_left_outer`, `camera_plate_right_outer` → `fpv-camera-side-plate-screw` female, sym 0 (outer faces, for a cage's ears)<br>`rear_vtx_mount` → `vtx-mount-20x20` female, sym 4 (top plate's upper face, at the convention `rear_mount_x_mm`)<br>`battery_strap` → `battery-strap-20mm` female, sym 2 | `motor_half_x_mm`, `motor_half_y_mm`, `top_plate_z_mm`, `camera_axis_x_mm`, `camera_bay_width_mm`, `side_plate_thickness_mm`, `rear_mount_x_mm` | GEPRC |
 | `gt2-idler-20t-9mm` | class | `bore` → `m5-bolt-axle` female, sym 0<br>`face_a`, `face_b` → `m5-axle-stack-face` neutral, sym 0 | `width_mm` | KB-3D (Gates), Makersupplies, VoronDesign |
 | `gt2-pulley-20t-5mm` | datasheet | `bore` → `nema-17-shaft-5mm` female, sym 0 | — | Adafruit Industries, ServoCity |
+| `gt2-belt-6mm` | class | `end_a`, `end_b` → `gt2-belt-6mm` male, sym 1 (on the pitch line at the cut ends) | `length_mm` | Pfeifer (Gates 2MR), SDP/SI, VoronDesign |
+| `gt2-idler-20t-6mm` | class | `bore` → `m5-bolt-axle` female, sym 0<br>`face_a`, `face_b` → `m5-axle-stack-face` neutral, sym 0 | `width_mm` | Motedis, SDP/SI, VoronDesign |
 | `mgn12-rail` | datasheet | `track` → `mgn12-rail` male, sym 2<br>`base_first_hole` → `tslot-2020-6mm` male, sym 2 | `length_mm`, `carriage_offset_mm` | HIWIN |
 | `mgn12h-carriage` | datasheet | `top` → `mgn12-carriage` female, sym 4<br>`rail_way` → `mgn12-rail` female, sym 2 | — | HIWIN |
+| `mgn9-rail` | datasheet | `track` → `mgn9-rail` male, sym 2<br>`base_first_hole`, `base_at_station` → `tslot-2020-6mm` male, sym 2 | `length_mm`, `carriage_offset_mm`, `base_station_mm` | HIWIN, VoronDesign |
+| `mgn9h-carriage` | datasheet | `top` → `mgn9-carriage` female, sym 2<br>`rail_way` → `mgn9-rail` female, sym 2 | — | HIWIN, VoronDesign |
 | `microswitch-d2f` | datasheet | `mount_a, mount_b` → `omron-d2f-mount-m2` male, sym 2 | — | Omron |
 | `motor-2207` | class | `base` → `motor-mount-16x16-m3` female, sym 4<br>`prop_shaft` → `prop-shaft-m5` male, sym 0 | `prop_seat_mm` | iFlight, BrotherHobby |
 | `nema-17-48mm` | datasheet | `face` → `nema-17-face` female, sym 4<br>`shaft` → `nema-17-shaft-5mm` male, sym 0 | `shaft_seat_mm` | LDO Motors, Nanotec Electronic |
@@ -128,6 +132,25 @@ a frame corner), key `tslot-2020-blind-joint-m5`, symmetry 4. A butt joint is th
 the closure check sees: a station 1 mm off breaks a closed corner. The access hole the screw is
 tightened through is not modelled: no source read gives its diameter or position.
 
+### The 2.4 gantry: MGN9 Y rails, the A/B belt and the XY-joint idler (lane P6-GANTRY)
+
+A 2.4-class gantry (Voron 2.4r2 build guide pp. 83–106, cited by page only; VORON 2.4
+sourcing sheet) runs its Y axis on two **MGN9** rails, one centred on each C extrusion with
+its end 25 mm from the extrusion's end (guide p. 88), 400 mm long for the 350 build size, each
+carrying an **MGN9H** block. `mgn9-rail` adds `base_at_station` beside the house
+`base_first_hole`: the same slot fit at any point of the base line (`base_station_mm`), so a
+rail set back from an extrusion end can mate the extrusion's slot station (10 − 25 = −15 on
+the 350 gantry).
+
+The A and B belts are **`gt2-belt-6mm`** (category `belt`; Gates 2MR GT2 section: pitch 2, B
+1.52, T 0.76; U = 0.254 from SDP/SI Table 4). The entry records, ahead of the ASM-1 §9 (v1.3)
+`belt` block, the two pitch-line offsets a smooth via needs: `teeth_side_offset` = T + U =
+1.014 and `back_side_offset` = B − T − U = 0.506. An F695 stack (Ø13 outer ring) is therefore
+an effective Ø15.03 where the teeth run on it (the front idlers, the drives' pass-through
+stacks) and Ø14.01 where the back does (the XY joints' stacks). The XY joints' toothed idler
+is **`gt2-idler-20t-6mm`** (pitch diameter 12.73, SDP/SI Table 33); the sourcing sheet lists
+6 mm toothed idlers there, not the 9 mm ones (those are the Z idlers).
+
 Frame conventions, in brief (each entry's `frame_convention` is the full statement):
 
 | Key | Origin and axes |
@@ -136,6 +159,8 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `extrusion-2020` | centre of end A; +z along the extrusion to end B at `length_mm`; faces at x, y = ±10 |
 | `mgn12-rail` | bottom face at end A, on the centreline; +x along the rail; top at z = 8 |
 | `mgn12h-carriage` | centre of the top mounting face; +z up; rail top at z = −5 (H 13 − HR 8) |
+| `mgn9-rail` | bottom face, centreline, end A; +x along the rail; top at z = 6.5; `base_at_station` at x = `base_station_mm` |
+| `mgn9h-carriage` | centre of the top mounting face; +z up; rail top at z = −3.5 (H 10 − HR 6.5) |
 | `bearing-608` | centre of side face A; +z along the axis to face B at z = 7 (both interface normals +z since v1.1) |
 | `gt2-pulley-20t-5mm` | centre of end face A (toward the motor); +z along the bore, away from the motor |
 | `psu-meanwell-lrs-200` | centre of the base footprint; +x away from the terminal block; top at z = 30 |
@@ -151,11 +176,13 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `bhcs-m5x30`, `shcs-m5x40` | centre of the under-head face; +z along the shank to the tip (30 / 40); the journal `journal_offset_mm` along it; both normals +z |
 | `gt2-idler-20t-9mm`, `shim-5x10` | centre of face A; +z through to face B at `width_mm` / `thickness_mm`; the bore and face A share the origin, normals −z |
 | `bearing-f695` | centre of the flange face (face A); +z to the plain face at z = 4; the outer-ring seat under the flange at z = 1 |
+| `gt2-idler-20t-6mm` | as `gt2-idler-20t-9mm`; belt mid-plane at `width_mm` / 2 (a convention) |
+| `gt2-belt-6mm` | end A on the pitch line at mid-width; +x along the belt; +z from the teeth toward the back (tooth tips z −1.014, back z +0.506) |
 | `tnut-2020-m5` | on the slotted face over the thread axis; +z out of the extrusion; +x along the slot |
 
 ### Interface sizes added for the catalog
 
-The base `interface-sizes.json` did not define every fit the catalog needs, so fifteen cited
+The base `interface-sizes.json` did not define every fit the catalog needs, so seventeen cited
 keys ship in a **supplement**, `interface-sizes.standard-parts.json`, which the loader
 merges into the `interface-sizes` vocabulary (a supplement is a whole document of the same
 vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
@@ -177,6 +204,8 @@ vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
 | `m5-axle-stack-face` | neutral face contact of parts stacked on one M5 axle (d1 5, the 5 × 10 shim's annulus) | Keller & Kalmbach (DIN 988), VoronDesign |
 | `bearing-f695` | 5 × 13 × 4 flanged bearing, flange 15 × 1, in a Ø13 housing | NSK F695ZZ |
 | `tslot-2020-blind-joint-m5` | 2020 blind joint: M5 tapped end (15 deep) with an ISO 7380-1 M5 head in the partner's 6 mm slot; sym 4; the access hole is not modelled (no cited number) | MISUMI, Keller & Kalmbach, VoronDesign |
+| `mgn9-rail` | MGN9 rail: WR 9, HR 6.5, M3x8 every 20 (E 7.5) | HIWIN MG series |
+| `mgn9-carriage` | MGN9H block top: 4 × M3 on 15 (across) × 16 (along), W 20, H 10; sym 2 | HIWIN MG series |
 
 ## What the lane checks
 
@@ -186,8 +215,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=22 interfaces=76 failures=0
-standard_parts_status: parts=22 interfaces=76 dimensions=148 parameters=23 classes=8 review: signed=0 draft=22
+y4d-spec vocab standard-parts: parts=26 interfaces=86 failures=0
+standard_parts_status: parts=26 interfaces=86 dimensions=182 parameters=28 classes=10 review: signed=0 draft=26
 ```
 
 1. Schema-valid; the file is named for its `key`.

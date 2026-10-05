@@ -1,0 +1,172 @@
+{
+  "spec_version": 1,
+  "key": "mgn9h-carriage",
+  "category": "linear-guide",
+  "name": {
+    "en": "MGN9H linear block",
+    "es": "Bloque lineal MGN9H",
+    "fr": "Patin linéaire MGN9H",
+    "pt": "Bloco linear MGN9H"
+  },
+  "description": {
+    "en": "The long (H) block of the 9 mm miniature linear guide: 20 mm wide, 39.9 mm long, with four M3 tapped holes on a 15 × 16 mm pattern on top. It mates its rail from below and a carriage part on top.",
+    "es": "El bloque largo (H) de la guía lineal miniatura de 9 mm: 20 mm de ancho, 39.9 mm de largo, con cuatro barrenos roscados M3 en un patrón de 15 × 16 mm en la parte superior. Se une a su riel por abajo y a una pieza de carro por arriba.",
+    "fr": "Le patin long (H) du guidage linéaire miniature de 9 mm : 20 mm de large, 39,9 mm de long, avec quatre trous taraudés M3 sur un motif de 15 × 16 mm sur le dessus. Il s'accouple à son rail par-dessous et à une pièce de chariot par-dessus.",
+    "pt": "O bloco longo (H) da guia linear miniatura de 9 mm: 20 mm de largura, 39,9 mm de comprimento, com quatro furos roscados M3 num padrão de 15 × 16 mm em cima. Acopla ao trilho por baixo e a uma peça de carro por cima."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "HIWIN MGN9H block (MG series)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "HIWIN linear guideways MG series — dimensions for MGN/MGW",
+      "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf",
+      "publisher": "HIWIN",
+      "accessed": "2026-10-04",
+      "supports": "MGN9: H 10, H1 2, N 5.5, W 20, B 15, B1 2.5, C 10 (C) / 16 (H), L1 18.9 / 29.9, L 28.9 / 39.9, M3x3, H2 1.8; rail WR 9, HR 6.5, D 6, h 3.5, d 3.5, P 20, E 7.5, bolt M3x8; block weight 0.016 (C) / 0.026 (H) kg, rail 0.38 kg/m"
+    },
+    {
+      "title": "VORON Design sourcing guide, sheet 'VORON 2.4' (the published Google sheet behind vorondesign.com/sourcing_guide, gid 1297316004)",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_jv9UtoSkgQoYD47VE9wIpTnjsEbzAREPG8895b6UL0v99OIfVEJQ4BHl2w_Rn6V0YUe1ldfPjone/pubhtml?gid=1297316004",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "Linear Rail MGN9H (the H block) for the 2.4's MGN9 rails"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the top mounting face (the face with the four M3 holes). +z up, out of that face; +x along the rail (the block's long direction); +y across. The rail's top face lies 3.5 mm below the top face (H 10 − rail height 6.5), so the rail interface sits at z = −3.5.",
+  "dimensions": {
+    "assembly_height": {
+      "value": 10,
+      "unit": "mm",
+      "source": 0,
+      "note": "H: rail bottom to block top"
+    },
+    "rail_clearance": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN H1"
+    },
+    "block_width": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN W"
+    },
+    "hole_spacing_b": {
+      "value": 15,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, across the rail"
+    },
+    "hole_spacing_c": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0,
+      "note": "C, along the rail (H block)"
+    },
+    "block_length": {
+      "value": 39.9,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN L"
+    },
+    "body_length": {
+      "value": 29.9,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN L1"
+    },
+    "mounting_thread": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_depth": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0
+    },
+    "rail_top_depth": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "derived: H 10 − HR 6.5"
+    },
+    "mass": {
+      "value": 26,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "top",
+      "label": {
+        "en": "Top mounting face",
+        "es": "Cara superior de montaje",
+        "fr": "Face supérieure de fixation",
+        "pt": "Face superior de montagem"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "mgn9-carriage",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: tapped holes receive the fastener's thread. Symmetry 2: the 16 (along) × 15 (across) pattern is a rectangle, so it repeats only at a half turn."
+    },
+    {
+      "id": "rail_way",
+      "label": {
+        "en": "Rail way",
+        "es": "Paso del riel",
+        "fr": "Passage du rail",
+        "pt": "Passagem do trilho"
+      },
+      "geometry_type": "rail",
+      "size_key": "mgn9-rail",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          -3.5
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the block receives the rail. z = −3.5 is derived from H 10 − HR 6.5."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  }
+}

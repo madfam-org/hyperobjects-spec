@@ -1421,12 +1421,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=102 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=104 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=43 cited=43 dimensions=143 provisional=2 review: signed=0 draft=43
+fabrication_status[interface-sizes]: entries=45 cited=45 dimensions=159 provisional=2 review: signed=0 draft=45
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1454,8 +1454,8 @@ An assembly references a commercial off-the-shelf part with
 cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
 in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
-Twenty-two parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
-5-inch FPV quad); the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
+Twenty-six parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad) and the Phase-6 2.4 gantry (MGN9 Y rails, the A/B belt, the XY-joint idler); the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
 **classes**, stated by shared facts, never a copy of one vendor's design.
 
 ```python
@@ -1466,7 +1466,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=22 interfaces=76 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=26 interfaces=86 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

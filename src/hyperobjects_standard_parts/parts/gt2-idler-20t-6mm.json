@@ -1,0 +1,209 @@
+{
+  "spec_version": 1,
+  "key": "gt2-idler-20t-6mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 20-tooth toothed idler, 6 mm belt, 5 mm bore",
+    "es": "Polea loca dentada GT2 de 20 dientes, banda de 6 mm, barreno de 5 mm",
+    "fr": "Galet denté GT2 à 20 dents, courroie de 6 mm, alésage de 5 mm",
+    "pt": "Polia louca dentada GT2 de 20 dentes, correia de 6 mm, furo de 5 mm"
+  },
+  "description": {
+    "en": "A flanged GT2 toothed idler for 6 mm belt: 20 teeth on a body that turns on ball bearings with a 5 mm bore, so it rides on an M5 screw used as an axle. A commercial class: the bore, tooth count, belt width and outside diameter are what the cited listings share; the overall width varies by maker and is a parameter.",
+    "es": "Una polea loca dentada GT2 con pestañas para banda de 6 mm: 20 dientes en un cuerpo que gira sobre rodamientos de bolas con barreno de 5 mm, de modo que monta sobre un tornillo M5 usado como eje. Una clase comercial: el barreno, el número de dientes, el ancho de banda y el diámetro exterior son lo que comparten los listados citados; el ancho total varía según el fabricante y es un parámetro.",
+    "fr": "Un galet denté GT2 à flasques pour courroie de 6 mm : 20 dents sur un corps qui tourne sur des roulements à billes d'alésage 5 mm, si bien qu'il se monte sur une vis M5 utilisée comme axe. Une classe commerciale : l'alésage, le nombre de dents, la largeur de courroie et le diamètre extérieur sont ce que partagent les fiches citées ; la largeur totale varie selon le fabricant et est un paramètre.",
+    "pt": "Uma polia louca dentada GT2 com flanges para correia de 6 mm: 20 dentes num corpo que gira sobre rolamentos de esferas com furo de 5 mm, de modo que monta num parafuso M5 usado como eixo. Uma classe comercial: o furo, o número de dentes, a largura da correia e o diâmetro exterior são o que as listagens citadas partilham; a largura total varia conforme o fabricante e é um parâmetro."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 20-tooth toothed idler for 6 mm belt, 5 mm bore",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Idler wheel GT2 20 teeth 5mm bore for 6mm belt (retailer listing)",
+      "url": "https://www.motedis.es/en/Idler-wheel-GT2-20-teeth-5mm-bore-for-6mm-belt",
+      "publisher": "Motedis",
+      "accessed": "2026-10-04",
+      "supports": "GT2; 20 teeth; bore 5 mm; for 6 mm belt; outside diameter 18 mm; width 9 mm; with bearings"
+    },
+    {
+      "title": "SDP/SI Technical Section, Timing Belts, Pulleys, Chains and Sprockets (D820)",
+      "url": "https://sdp-si.com/D820/PDFS/Technical-Section.pdf",
+      "publisher": "Stock Drive Products / Sterling Instrument",
+      "accessed": "2026-10-04",
+      "supports": "p. T-66, Table 33 (2 mm pitch PowerGrip GT2 belts): 20 grooves, pitch diameter 12.73 mm (0.501 in), i.e. 20 × 2 / π"
+    },
+    {
+      "title": "VORON Design sourcing guide, sheet 'VORON 2.4' (the published Google sheet behind vorondesign.com/sourcing_guide, gid 1297316004)",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_jv9UtoSkgQoYD47VE9wIpTnjsEbzAREPG8895b6UL0v99OIfVEJQ4BHl2w_Rn6V0YUe1ldfPjone/pubhtml?gid=1297316004",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "GT2 20T (6mm wide) Toothed Idler (5mm bore), quantity 2 (the XY joints; the 9 mm toothed idlers, quantity 4, are the Z idlers)"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "pp. 98 and 100 (Gantry, right and left XY joints): a GT2 20-tooth idler on an M5x40 SHCS screwed into plastic; p. 131: the A/B belt it carries is 6 mm wide"
+    }
+  ],
+  "frame_convention": "Origin at the centre of face A (the outer face of one flange), on the axis. +z runs along the axis through the idler to face B at z = width_mm. +x is an arbitrary radial reference: the idler is round, so every interface has continuous symmetry. The bore and face A share the origin; both normals there point −z, out of face A. The belt mid-plane is at z = width_mm / 2 (a convention: symmetric flanges).",
+  "dimensions": {
+    "tooth_count": {
+      "value": 20,
+      "unit": "count",
+      "source": 0
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0
+    },
+    "outside_diameter": {
+      "value": 18,
+      "unit": "mm",
+      "source": 0,
+      "note": "the flange diameter, the largest diameter of the body"
+    },
+    "overall_width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "note": "the cited listing's width; the default of width_mm"
+    },
+    "pitch_diameter": {
+      "value": 12.73,
+      "unit": "mm",
+      "source": 1,
+      "note": "belt_engagement.pitch_diameter (pre-landing record): the GT2 20-groove pitch diameter"
+    }
+  },
+  "parameters": [
+    {
+      "id": "width_mm",
+      "type": "number",
+      "label": {
+        "en": "Overall width",
+        "es": "Ancho total",
+        "fr": "Largeur totale",
+        "pt": "Largura total"
+      },
+      "default": 9,
+      "min": 6,
+      "max": 14,
+      "unit": "mm",
+      "source": 0,
+      "note": "Flange face to flange face along the axis. The default is the cited listing's 9; other makers differ. The minimum is the 6 mm belt width (cited) and the maximum a catalog convention."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "5 mm bore",
+        "es": "Barreno de 5 mm",
+        "fr": "Alésage de 5 mm",
+        "pt": "Furo de 5 mm"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-bolt-axle",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bearings' 5 mm bore receives the screw's shank. Framed at face A, as gt2-idler-20t-9mm's."
+    },
+    {
+      "id": "face_a",
+      "label": {
+        "en": "Face A",
+        "es": "Cara A",
+        "fr": "Face A",
+        "pt": "Face A"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: face A bears on the next part of a stack on the same axle (a shim, a host wall)."
+    },
+    {
+      "id": "face_b",
+      "label": {
+        "en": "Face B",
+        "es": "Cara B",
+        "fr": "Face B",
+        "pt": "Face B"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "width_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "width_mm"
+      ],
+      "note": "Neutral: face B, width_mm along the axis, bears on the next part of a stack."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Pre-landing record for ASM-1 §9 (v1.3) belt_engagement: pitch_diameter 12.73 (cited, Table 33); center [0, 0, width_mm / 2] and axis [0, 0, 1], plane_note: convention (symmetric flanges). A toothed part: a path via on its back side is an error."
+}
