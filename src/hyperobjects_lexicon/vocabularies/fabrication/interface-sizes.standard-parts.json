@@ -606,6 +606,33 @@
       ],
       "term": "bolt-pattern",
       "notes": "Added with tnut-2020-m3 and bed-plate-350 (lane P6-ZBED). The screw's length and head are the joint's own choice and not part of the key."
+    },
+    {
+      "key": "toolhead-mount-20x20-m3",
+      "label": {
+        "en": "Toolhead mount 20×20 M3",
+        "es": "Montaje de cabezal 20×20 M3",
+        "fr": "Fixation de tête 20×20 M3",
+        "pt": "Fixação de cabeça 20×20 M3"
+      },
+      "definition": {
+        "en": "The face where a 3-D printer's toolhead, or a stand-in body for one, bolts to its X carriage: four M3 screws on a 20 mm square, the MGN12H block's own pattern. Male is the toolhead's clamped face with the clearance holes; female is the carriage face that holds the threads (tapped holes or heat-set inserts). Both are framed on the contact face at the pattern's centre.",
+        "es": "La cara donde el cabezal de una impresora 3D, o un cuerpo que lo representa, se atornilla a su carro X: cuatro tornillos M3 en un cuadrado de 20 mm, el mismo patrón del bloque MGN12H. Macho es la cara sujeta del cabezal, con los barrenos de paso; hembra, la cara del carro que lleva las roscas (barrenos roscados o insertos termofijados). Ambos se enmarcan en la cara de contacto, en el centro del patrón.",
+        "fr": "La face où la tête d'une imprimante 3D, ou un corps qui la représente, se visse sur son chariot X : quatre vis M3 sur un carré de 20 mm, le motif même du patin MGN12H. Mâle est la face serrée de la tête, avec les trous de passage ; femelle, la face du chariot qui porte les filets (trous taraudés ou inserts thermo-sertis). Les deux sont repérés sur la face de contact, au centre du motif.",
+        "pt": "A face onde a cabeça de uma impressora 3D, ou um corpo que a representa, se aparafusa ao seu carro X: quatro parafusos M3 num quadrado de 20 mm, o próprio padrão do bloco MGN12H. Macho é a face apertada da cabeça, com os furos de passagem; fêmea, a face do carro que leva as roscas (furos roscados ou insertos termofixados). Ambos são referenciados na face de contacto, no centro do padrão."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {"value": 4, "unit": "count", "source": 0},
+        "hole_spacing": {"value": 20, "unit": "mm", "source": 0, "note": "HIWIN B and C of the MGN12H, both 20"},
+        "thread": {"value": "M3", "unit": "thread", "source": 0}
+      },
+      "sources": [
+        {"title": "HIWIN linear guideways MG series — dimensions for MGN/MGW", "url": "https://hiwin.co.uk/wp-content/uploads/2017/05/CRD-Hiwin-Linear-guides-MG-series.pdf", "publisher": "HIWIN", "accessed": "2026-10-05", "supports": "MGN12H: B 20, C 20 (H block), M3x3.5: four M3 holes on a 20 × 20 mm square"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "A toolhead key (lane P6-XCAR): the commons x-carriage's toolhead face and the toolhead-proxy's mount. The pattern repeats the MGN12H's so a toolhead made to bolt straight onto an MGN12H block also fits; it is a separate key from mgn12-carriage because the faces are a printed carriage's and a toolhead's, not the block's."
     }
   ]
 }
