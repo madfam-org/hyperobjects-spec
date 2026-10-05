@@ -82,6 +82,19 @@ confirmed by hand to be genuinely unreferenced. A parameter scoped to one mode
 and used there is alive; a reference in a shipped library counts; an
 unresolvable include is skipped rather than assumed. See `AGENTS.md`.
 
+## Related repositories and contracts
+
+- solid-hyperobjects `assemblies/README.md` — ASM-1 assemblies; A (Voron 2.4-class
+  350 motion system) is posable (§9), collision-clean, and is fixture A here. Its
+  ten printed cartridges carry graph twins (format 1.1) checked by `--parity`.
+- yantra4d `docs/guides/graph-cartridges.md` — graph format and the Studio graph
+  editor; `docs/operations/user-projects-storage.md`, `render-artifact-storage.md`.
+- asset-shells `README.md` — stores type, assembly and instance shells (projection
+  versions 1–3) and the twin graph; re-validates assemblies with this package.
+- pravara-mes `packages/sparkplug/README.md` — machine telemetry; the viewer, not
+  the MES, maps axis values through machine bindings.
+- Table with links: README.md#related-repositories-and-contracts
+
 ## Not here
 
 Repo-wide checks (catalog drift, cross-cartridge slug uniqueness) stay in the
