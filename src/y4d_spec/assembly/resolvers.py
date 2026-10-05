@@ -135,6 +135,8 @@ class CommonsManifestResolver:
             identity=identity,
             interfaces=resolve_interfaces(manifest, given, available_parts=available),
             details=details,
+            geometry={"kind": "cartridge", "dir": str(self.commons_dir / slug),
+                      "mode": dict(mode), "parts": list(available), "parameters": dict(values)},
         )
 
 
@@ -228,10 +230,11 @@ class StandardPartsResolver:
             "catalog_sha256": hashlib.sha256(canonical_json(entry)).hexdigest(),
             "parameters": {p["id"]: values.get(p["id"]) for p in parameters},
         }
-        from hyperobjects_standard_parts import belt_engagement, belt_facts
+        from hyperobjects_standard_parts import belt_engagement, belt_facts, envelope_solids
 
         try:
             engagement = belt_engagement(entry, values)
+            solids = envelope_solids(entry.get("envelope"), values, f"{key}.envelope")
         except ValueError as exc:  # FrameEvaluationError is a ValueError too
             raise ResolutionError([f"standard part '{key}': {exc}"]) from None
         return ResolvedComponent(
@@ -243,6 +246,7 @@ class StandardPartsResolver:
             details={"catalog_sha256": identity["catalog_sha256"]},
             belt_engagement=engagement,
             belt=belt_facts(entry),
+            geometry={"kind": "envelope", "solids": solids} if solids is not None else None,
         )
 
 
@@ -255,9 +259,15 @@ class ExternalResolver:
     """
 
     def resolve(self, component: Mapping) -> ResolvedComponent:
+        from hyperobjects_standard_parts import envelope_solids
+
         source = _source(component)
         facts = {k: v for k, v in source.items() if k != "type"}
         manifest = {"parameters": [], "hyperobject": {"cdg_interfaces": source.get("interfaces")}}
+        try:
+            solids = envelope_solids(source.get("envelope"), {}, "envelope")
+        except ValueError as exc:
+            raise ResolutionError([f"external '{source.get('name')}': {exc}"]) from None
         return ResolvedComponent(
             component_id=component["id"],
             source_type="external",
@@ -265,6 +275,7 @@ class ExternalResolver:
             identity={"type": "external", "facts": facts},
             interfaces=resolve_interfaces(manifest, {}, default_part="external"),
             details={"url": source.get("url")},
+            geometry={"kind": "envelope", "solids": solids} if solids is not None else None,
         )
 
 

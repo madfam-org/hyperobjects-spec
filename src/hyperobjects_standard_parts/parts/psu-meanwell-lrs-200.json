@@ -188,5 +188,28 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "All mounting holes are M4. Positions are the drawing's nominal values; its general tolerance is ±1 mm. Electrical ratings are deliberately not restated: they are per output-voltage model."
+  "notes": "All mounting holes are M4. Positions are the drawing's nominal values; its general tolerance is ±1 mm. Electrical ratings are deliberately not restated: they are per output-voltage model.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -107.5,
+          -57.5,
+          0
+        ],
+        "max": [
+          107.5,
+          57.5,
+          30
+        ],
+        "from": [
+          "case_length",
+          "case_width",
+          "case_height"
+        ]
+      }
+    ],
+    "note": "The case, 215 x 115 x 30, from its base."
+  }
 }

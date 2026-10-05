@@ -187,7 +187,7 @@ command, so CI's Vocabulary step covers it with no workflow change:
 $ y4d-spec vocab
 …
 y4d-spec vocab standard-parts: parts=22 interfaces=76 failures=0
-standard_parts_status: parts=22 interfaces=76 dimensions=148 parameters=23 classes=8 review: signed=0 draft=22
+standard_parts_status: parts=22 interfaces=76 dimensions=149 parameters=23 classes=8 review: signed=0 draft=22
 ```
 
 1. Schema-valid; the file is named for its `key`.
@@ -243,6 +243,32 @@ moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
 `bearing-f695`'s block (lane P6-GANTRY) moves no golden: no fixture assembly places an F695.
 A belt's teeth on an F695 stack make an effective diameter of 13 + 2 × `teeth_side_offset`, its
 back 13 + 2 × `back_side_offset` (15.028 and 14.012 for the 2 mm GT2 section).
+
+## Envelopes (ASM-1 §3.7, `--collision`)
+
+`envelope: {solids, parameters?, note}` is the part's collision body: a union of
+axis-aligned boxes (`min`, `max`) and cylinders (`base`, `axis` x|y|z, `radius`,
+`length`) in the model frame, in the frame grammar over the entry's parameters. Every
+solid names the cited `dimensions` it is built from in `from` (catalog rule 10). A shape
+no cited dimension bounds is left out and `note` says so — never guessed.
+
+| Entry | Solids | Left out (and why) |
+|---|---|---|
+| `extrusion-2020` | the 20 × 20 profile over `length_mm` | the slots (no cited depth): a key or nut in a slot is a declared overlap |
+| `mgn12-rail` | the 12 × 8 section over `length_mm` | counterbores |
+| `mgn12h-carriage` | a top slab and two skirts that leave the 12 mm rail channel open (`rail_width` now cited on the entry, HIWIN WR) | end seals, grease nipple |
+| `nema-17-48mm` | body, pilot, shaft | — (a pulley on the shaft is a declared overlap) |
+| `gt2-pulley-20t-5mm`, `gt2-idler-20t-9mm`, `bearing-608`, `bearing-f695`, `shim-5x10`, `shaft-8mm` | cylinders at the cited diameters and widths | bores (a union has no holes) |
+| `bhcs-m5x30`, `shcs-m5x40` | head and shank | sockets |
+| `prop-5in` | the swept disc (5 in) over the hub thickness | blade shape |
+| `fc-stack-30x30`, `vtx-antenna-sma`, `psu-meanwell-lrs-200` | the cited board, body or case | — |
+
+**No envelope yet** (no source the entry cites bounds the body): `microswitch-d2f` (no
+body height), `tnut-2020-m5` (no nut height under the face), `motor-2207` (whether
+Ø28.5 × 33.1 includes the shaft protrusion is not stated), `fpv-frame-5in-x-225` (a
+class: arm shape varies), `fpv-camera-micro-19mm` (the body's position along the
+optical axis from the screw axis), `sma-bulkhead-jack`. A component of one of these
+reads `collision-unchecked`.
 
 ## Interface travel (ASM-1 §9, v1.4)
 

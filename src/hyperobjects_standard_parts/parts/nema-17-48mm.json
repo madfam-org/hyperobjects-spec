@@ -203,5 +203,57 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The 48 mm body is the length class Voron 2.4 uses for its motors; the face, pilot and shaft facts are NEMA 17 facts that the Nanotec drawing confirms independently."
+  "notes": "The 48 mm body is the length class Voron 2.4 uses for its motors; the face, pilot and shaft facts are NEMA 17 facts that the Nanotec drawing confirms independently.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -21.15,
+          -21.15,
+          -48
+        ],
+        "max": [
+          21.15,
+          21.15,
+          0
+        ],
+        "from": [
+          "face_square",
+          "body_length"
+        ]
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 11,
+        "length": 2,
+        "from": [
+          "pilot_diameter",
+          "pilot_height"
+        ]
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": 24,
+        "from": [
+          "shaft_diameter",
+          "shaft_length"
+        ]
+      }
+    ],
+    "note": "Body, pilot boss and shaft. A pulley or coupling on the shaft overlaps it (no envelope has a bore): declare it in allowed_overlaps."
+  }
 }
