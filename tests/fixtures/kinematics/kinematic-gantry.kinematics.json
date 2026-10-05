@@ -1,0 +1,1071 @@
+{
+ "assembly": "kinematic-gantry-fixture",
+ "assembly_digest": "8aa9d8dbe0037b28779e4e3bba7d22168b22086f2be94868740c7dfa3ed0b438",
+ "components": [
+  {
+   "geometry": null,
+   "id": "frame",
+   "label": "external/Kinematic test frame (numbers only) (CERN-OHL-W-2.0)",
+   "source_type": "external"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       350.0,
+       6.0,
+       8.0
+      ],
+      "min": [
+       0.0,
+       -6.0,
+       0.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "y_rail_left",
+   "label": "standard/mgn12-rail",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       350.0,
+       6.0,
+       8.0
+      ],
+      "min": [
+       0.0,
+       -6.0,
+       0.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "y_rail_right",
+   "label": "standard/mgn12-rail",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       22.7,
+       13.5,
+       0.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -5.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       13.5,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       6.0,
+       -10.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       -6.0,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -10.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "y_block_left",
+   "label": "standard/mgn12h-carriage",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       22.7,
+       13.5,
+       0.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -5.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       13.5,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       6.0,
+       -10.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       -6.0,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -10.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "y_block_right",
+   "label": "standard/mgn12h-carriage",
+   "source_type": "standard"
+  },
+  {
+   "geometry": null,
+   "id": "beam",
+   "label": "external/Kinematic test X beam (numbers only) (CERN-OHL-W-2.0)",
+   "source_type": "external"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       250.0,
+       6.0,
+       8.0
+      ],
+      "min": [
+       0.0,
+       -6.0,
+       0.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "x_rail",
+   "label": "standard/mgn12-rail",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       22.7,
+       13.5,
+       0.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -5.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       13.5,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       6.0,
+       -10.0
+      ],
+      "shape": "box"
+     },
+     {
+      "max": [
+       22.7,
+       -6.0,
+       -5.0
+      ],
+      "min": [
+       -22.7,
+       -13.5,
+       -10.0
+      ],
+      "shape": "box"
+     }
+    ]
+   },
+   "id": "x_block",
+   "label": "standard/mgn12h-carriage",
+   "source_type": "standard"
+  },
+  {
+   "geometry": null,
+   "id": "toolhead",
+   "label": "external/Kinematic test toolhead (numbers only) (CERN-OHL-W-2.0)",
+   "source_type": "external"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "max": [
+       21.15,
+       21.15,
+       0.0
+      ],
+      "min": [
+       -21.15,
+       -21.15,
+       -48.0
+      ],
+      "shape": "box"
+     },
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 2.0,
+      "radius": 11.0,
+      "shape": "cylinder"
+     },
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 24.0,
+      "radius": 2.5,
+      "shape": "cylinder"
+     }
+    ]
+   },
+   "id": "motor",
+   "label": "standard/nema-17-48mm",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 16.0,
+      "radius": 8.0,
+      "shape": "cylinder"
+     }
+    ]
+   },
+   "id": "motor_pulley",
+   "label": "standard/gt2-pulley-20t-5mm",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 14.0,
+      "radius": 9.0,
+      "shape": "cylinder"
+     }
+    ]
+   },
+   "id": "idler_1",
+   "label": "standard/gt2-idler-20t-9mm",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 14.0,
+      "radius": 9.0,
+      "shape": "cylinder"
+     }
+    ]
+   },
+   "id": "idler_2",
+   "label": "standard/gt2-idler-20t-9mm",
+   "source_type": "standard"
+  },
+  {
+   "geometry": {
+    "kind": "envelope",
+    "solids": [
+     {
+      "axis": "z",
+      "base": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "length": 14.0,
+      "radius": 9.0,
+      "shape": "cylinder"
+     }
+    ]
+   },
+   "id": "idler_3",
+   "label": "standard/gt2-idler-20t-9mm",
+   "source_type": "standard"
+  }
+ ],
+ "edges": [
+  {
+   "a": "frame",
+   "b": "y_rail_left",
+   "h_a": [
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    10.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "y_rail_left_on_frame",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "frame",
+   "b": "y_rail_right",
+   "h_a": [
+    0.0,
+    -1.0,
+    0.0,
+    300.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    10.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "y_rail_right_on_frame",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "y_rail_left",
+   "b": "y_block_left",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    175.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    8.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    -5.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": "gantry_y",
+   "mate": "y_block_left_on_rail",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "y_block_left",
+   "b": "beam",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "beam_on_left_block",
+   "theta_deg": 90.0
+  },
+  {
+   "a": "y_block_right",
+   "b": "beam",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    300.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "beam_on_right_block",
+   "theta_deg": 90.0
+  },
+  {
+   "a": "y_rail_right",
+   "b": "y_block_right",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    175.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    8.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    -5.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": "gantry_y_right",
+   "mate": "y_block_right_on_rail",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "beam",
+   "b": "x_rail",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    40.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    20.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    10.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "x_rail_on_beam",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "x_rail",
+   "b": "x_block",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    125.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    8.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    -5.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": "x_carriage",
+   "mate": "x_block_on_rail",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "x_block",
+   "b": "toolhead",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "toolhead_on_block",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "frame",
+   "b": "motor",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    -80.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    -5.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "motor_on_frame",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "motor",
+   "b": "motor_pulley",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": "motor_rotation",
+   "mate": "pulley_on_shaft",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "frame",
+   "b": "idler_1",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    -160.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "idler_1_on_frame",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "frame",
+   "b": "idler_2",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    -80.0,
+    0.0,
+    1.0,
+    0.0,
+    200.0,
+    0.0,
+    0.0,
+    1.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "idler_2_on_frame",
+   "theta_deg": 0.0
+  },
+  {
+   "a": "frame",
+   "b": "idler_3",
+   "h_a": [
+    1.0,
+    0.0,
+    0.0,
+    -160.0,
+    0.0,
+    1.0,
+    0.0,
+    200.0,
+    0.0,
+    0.0,
+    1.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "h_b": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "joint": null,
+   "mate": "idler_3_on_frame",
+   "theta_deg": 0.0
+  }
+ ],
+ "format": "hyperobjects.assembly-kinematics",
+ "format_version": "1.0.0",
+ "joints": [
+  {
+   "axis": "x",
+   "child": "y_block_left",
+   "follows": null,
+   "home": 0.0,
+   "id": "gantry_y",
+   "limits": [
+    -150.0,
+    150.0
+   ],
+   "mate": "y_block_left_on_rail",
+   "parent": "y_rail_left",
+   "role": "driven",
+   "type": "prismatic",
+   "unit": "mm"
+  },
+  {
+   "axis": "x",
+   "child": "y_block_right",
+   "follows": null,
+   "home": null,
+   "id": "gantry_y_right",
+   "limits": [
+    -152.3,
+    152.3
+   ],
+   "mate": "y_block_right_on_rail",
+   "parent": "y_rail_right",
+   "role": "passive",
+   "type": "prismatic",
+   "unit": "mm"
+  },
+  {
+   "axis": "x",
+   "child": "x_block",
+   "follows": null,
+   "home": 0.0,
+   "id": "x_carriage",
+   "limits": [
+    -100.0,
+    100.0
+   ],
+   "mate": "x_block_on_rail",
+   "parent": "x_rail",
+   "role": "driven",
+   "type": "prismatic",
+   "unit": "mm"
+  },
+  {
+   "axis": "z",
+   "child": "motor_pulley",
+   "follows": {
+    "offset": 0.0,
+    "terms": [
+     {
+      "joint": "x_carriage",
+      "scale": 9.0
+     },
+     {
+      "joint": "gantry_y",
+      "scale": 9.0
+     }
+    ]
+   },
+   "home": null,
+   "id": "motor_rotation",
+   "limits": null,
+   "mate": "pulley_on_shaft",
+   "parent": "motor",
+   "role": "follower",
+   "type": "revolute",
+   "unit": "deg"
+  }
+ ],
+ "machine": {
+  "axes": [
+   {
+    "axis": "x",
+    "joint": "x_carriage",
+    "offset": 0.0,
+    "scale": 1.0
+   },
+   {
+    "axis": "y",
+    "joint": "gantry_y",
+    "offset": 0.0,
+    "scale": 1.0
+   }
+  ],
+  "kinematics": "cartesian"
+ },
+ "matrix_layout": "row-major 4x4 flattened to 16, column vectors, mm",
+ "number_format": "JSON numbers: the shortest decimal that round-trips the binary64 value (Python repr), so every IEEE-754 parser reads the same double",
+ "placement": "Breadth-first from `root` (placed at the identity). Pop a component; walk `edges` in order; skip an edge that does not touch it or whose joint is passive. With M = Flip·Rz(theta_deg) (Flip: a turn of pi about x) and J = J(q) of the edge's joint (q = its value, 0 when absent; prismatic: q mm along the axis; revolute: q degrees about it, right-handed): if the popped component is side a and b is unplaced, T_b = T_a·H_a·J·M·H_b^-1 (no J for a rigid edge); if it is side b and a is unplaced, T_a = T_b·H_b·M·J^-1·H_a^-1. Enqueue the newly placed component. H_a and H_b already carry any mate offset. Joint values: a driven joint takes its input (else `home`); a follower is offset + sum(scale·leader), leaders first; a machine axis gives joint = scale·axis + offset.",
+ "root": "frame"
+}
