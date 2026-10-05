@@ -239,6 +239,7 @@ vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
 | `tslot-2020-blind-joint-m5` | 2020 blind joint: M5 tapped end (15 deep) with an ISO 7380-1 M5 head in the partner's 6 mm slot; sym 4; the access hole is not modelled (no cited number) | MISUMI, Keller & Kalmbach, VoronDesign |
 | `mgn9-rail` | MGN9 rail: WR 9, HR 6.5, M3x8 every 20 (E 7.5) | HIWIN MG series |
 | `mgn9-carriage` | MGN9H block top: 4 × M3 on 15 (across) × 16 (along), W 20, H 10; sym 2 | HIWIN MG series |
+| `toolhead-mount-20x20-m3` | a toolhead's (or toolhead stand-in's) clamped face on its X carriage: 4 × M3 on a 20 mm square (the MGN12H's own pattern); male the toolhead, female the carriage face holding the threads; sym 4 | HIWIN MG series |
 
 ## What the lane checks
 
@@ -327,13 +328,16 @@ no cited dimension bounds is left out and `note` says so — never guessed.
 | `prop-5in` | the swept disc (5 in) over the hub thickness | blade shape |
 | `fc-stack-30x30`, `vtx-antenna-sma`, `psu-meanwell-lrs-200` | the cited board, body or case | — |
 | `bed-plate-350` | the 355 × 355 outline over `thickness_mm` | holes and chamfers (no hole pattern is published) |
+| `mgn9-rail` | the 9 × 6.5 section (WR × HR) over `length_mm` | counterbores |
+| `mgn9h-carriage` | a top slab and two skirts down to H1 = 2 that leave the 9 mm rail channel open (`rail_width` now cited on the entry, HIWIN WR), as `mgn12h-carriage` | end seals, grease nipple |
+| `gt2-idler-20t-6mm` | a cylinder at the OD 18 over `width_mm` | the bore |
 
 **No envelope yet** (no source the entry cites bounds the body): `microswitch-d2f` (no
 body height), `tnut-2020-m5` and `tnut-2020-m3` (no nut height under the face), `motor-2207` (whether
 Ø28.5 × 33.1 includes the shaft protrusion is not stated), `fpv-frame-5in-x-225` (a
 class: arm shape varies), `fpv-camera-micro-19mm` (the body's position along the
 optical axis from the screw axis), `sma-bulkhead-jack`, `gt2-pulley-16t-5mm` and `gt2-pulley-20t-9mm` (their entries cite
-the tooth O.D. but no flange diameter), `gt2-belt-9mm` and `gt2-belt-loop-188mm` (a belt
+the tooth O.D. but no flange diameter), `gt2-belt-6mm`, `gt2-belt-9mm` and `gt2-belt-loop-188mm` (a belt
 is a declared path, not a rigid body). A component of one of these
 reads `collision-unchecked`.
 

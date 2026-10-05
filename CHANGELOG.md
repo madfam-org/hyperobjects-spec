@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Collision envelopes for MGN9 and the 6 mm XY idler; the toolhead mount key (Phase 6, lane P6-XCAR)
+
+Additive catalog and vocabulary data; no schema, grammar, gate or validator change.
+
+#### Added
+
+- **Envelopes** (ASM-1 §3.7, for `--collision`), each from the entry's cited dimensions:
+  `mgn9-rail` (the 9 × 6.5 section, HIWIN WR × HR, over `length_mm`); `mgn9h-carriage` (a
+  top slab and two skirts down to HIWIN H1 = 2 that leave the 9 mm rail channel open, as
+  `mgn12h-carriage`; the entry now cites `rail_width` 9, HIWIN WR); `gt2-idler-20t-6mm`
+  (the OD 18 cylinder over `width_mm`). The Y and Z rails of a 2.4-class assembly and the
+  XY joints' toothed idlers are no longer `collision-unchecked`.
+- **Vocabulary** (`interface-sizes.standard-parts.json`): **`toolhead-mount-20x20-m3`**, the
+  face where a printer toolhead (or a stand-in body for one) bolts to its X carriage: four
+  M3 on a 20 mm square, the MGN12H's own pattern (HIWIN). Used by the commons
+  `x-carriage` and `toolhead-proxy` cartridges.
+- **Tests** (`tests/test_catalog_xcarriage_envelopes.py`): an MGN9H on its rail and the
+  6 mm idler on its M5x40 do not interfere beyond the declared bore overlap; the block's
+  envelope stays clear of the rail's at every station along it; the new key is in the
+  vocabulary.
+
+#### Not added
+
+- Flange envelopes for `gt2-pulley-16t-5mm` and `gt2-pulley-20t-9mm`: no source this lane may
+  read states the flange diameter unambiguously (P6-ZBED's MISUMI F/E question stands).
+- No 6 mm belt-end clamp key: a jaw that receives a `gt2-belt-6mm` end carries that key,
+  female, which mates the belt's own `end_a` / `end_b` (male) as they are.
+
 ### The 2.4 gantry's standard parts: MGN9, the A/B belt, the XY-joint idler (Phase 6, lane P6-GANTRY)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.

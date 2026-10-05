@@ -256,5 +256,30 @@
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          0,
+          -4.5,
+          0
+        ],
+        "max": [
+          "length_mm",
+          4.5,
+          6.5
+        ],
+        "from": [
+          "rail_width",
+          "rail_height"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The rail's 9 x 6.5 section (HIWIN WR x HR) over its length; the counterbores are not hollowed."
   }
 }

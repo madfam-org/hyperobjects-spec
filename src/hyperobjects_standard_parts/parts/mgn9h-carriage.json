@@ -95,6 +95,12 @@
       "source": 0,
       "note": "derived: H 10 − HR 6.5"
     },
+    "rail_width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "note": "HIWIN WR: the channel the block straddles"
+    },
     "mass": {
       "value": 26,
       "unit": "g",
@@ -168,5 +174,71 @@
   "review_status": {
     "state": "generated",
     "note": "Drafted in one pass by an agent (P6-GANTRY lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -19.95,
+          -10,
+          -3.5
+        ],
+        "max": [
+          19.95,
+          10,
+          0
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_top_depth"
+        ],
+        "note": "the block over the rail: top face down to the rail's top"
+      },
+      {
+        "shape": "box",
+        "min": [
+          -19.95,
+          4.5,
+          -8
+        ],
+        "max": [
+          19.95,
+          10,
+          -3.5
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_width",
+          "assembly_height",
+          "rail_clearance"
+        ],
+        "note": "the +y skirt beside the rail, down to H1 = 2 above the rail's bottom (z = -(10 - 2))"
+      },
+      {
+        "shape": "box",
+        "min": [
+          -19.95,
+          -10,
+          -8
+        ],
+        "max": [
+          19.95,
+          -4.5,
+          -3.5
+        ],
+        "from": [
+          "block_length",
+          "block_width",
+          "rail_width",
+          "assembly_height",
+          "rail_clearance"
+        ],
+        "note": "the -y skirt"
+      }
+    ],
+    "note": "The MGN9H block as three boxes that leave the 9 mm rail channel open, so a block on its rail does not overlap it (as mgn12h-carriage). End seals are inside the 39.9 mm length."
   }
 }
