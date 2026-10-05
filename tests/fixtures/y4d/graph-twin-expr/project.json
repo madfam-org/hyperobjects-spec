@@ -1,0 +1,196 @@
+{
+  "project": {
+    "name": "Graph Twin Ring",
+    "slug": "graph-twin-expr",
+    "version": "1.0.0",
+    "engine": "graph",
+    "description": {
+      "en": "A GOLDEN-TWIN test cartridge for graph format 1.1: a script and a node graph using expressions, select, reflect, a polyline profile and the bounded revolve, so --parity compares the graph against its script oracle.",
+      "es": "Un cartucho de prueba GEMELO DORADO para el formato de grafo 1.1: un guion y un grafo de nodos con expresiones, seleccion, reflexion, un perfil de polilinea y la revolucion acotada, para que --parity compare el grafo contra su guion oraculo."
+    },
+    "thumbnail": "/projects/dual-block.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "graph",
+      "parity",
+      "golden-twin",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "ring",
+      "label": {
+        "en": "Ring",
+        "es": "Anillo"
+      },
+      "scad_file": "ring.py",
+      "cq_file": "ring.py",
+      "graph_file": "ring.graph.json",
+      "parts": [
+        "ring"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "ring",
+      "label": {
+        "en": "Ring",
+        "es": "Anillo"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "size",
+      "type": "select",
+      "default": "S",
+      "group": "size",
+      "label": {
+        "en": "Size",
+        "es": "Tamaño"
+      },
+      "tooltip": {
+        "en": "Outer radius class.",
+        "es": "Clase de radio exterior."
+      },
+      "options": [
+        {
+          "value": "S",
+          "label": {
+            "en": "Small",
+            "es": "Chico"
+          }
+        },
+        {
+          "value": "L",
+          "label": {
+            "en": "Large",
+            "es": "Grande"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bore",
+      "type": "slider",
+      "default": 8.0,
+      "min": 2.0,
+      "max": 36.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Bore (mm)",
+        "es": "Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "Bore diameter.",
+        "es": "Diámetro del barreno."
+      }
+    },
+    {
+      "id": "height",
+      "type": "slider",
+      "default": 5.0,
+      "min": 2.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "size",
+      "label": {
+        "en": "Height (mm)",
+        "es": "Altura (mm)"
+      },
+      "tooltip": {
+        "en": "Ring height.",
+        "es": "Altura del anillo."
+      }
+    },
+    {
+      "id": "handed",
+      "type": "checkbox",
+      "default": false,
+      "group": "size",
+      "label": {
+        "en": "Mirrored",
+        "es": "Reflejado"
+      },
+      "tooltip": {
+        "en": "Mirror the tab to the other side.",
+        "es": "Refleja la pestaña al otro lado."
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "large_handed",
+      "mode": "ring",
+      "label": {
+        "en": "Large, mirrored",
+        "es": "Grande, reflejado"
+      },
+      "values": {
+        "size": "L",
+        "bore": 30.0,
+        "height": 8.0,
+        "handed": true
+      }
+    },
+    {
+      "id": "clamped_bore",
+      "mode": "ring",
+      "label": {
+        "en": "Bore clamped",
+        "es": "Barreno acotado"
+      },
+      "values": {
+        "size": "S",
+        "bore": 36.0
+      }
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "ring_face",
+        "label": {
+          "en": "Ring face",
+          "es": "Cara del anillo"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "height"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None - this is a test fixture, not a design. It exists so the graph render path is exercised in CI rather than only on the maintainer laptop.",
+      "es": "Ninguno - es un accesorio de prueba, no un diseno. Existe para ejercitar la ruta de render de grafos en CI y no solo en la maquina del mantenedor."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

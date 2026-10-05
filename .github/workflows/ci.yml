@@ -179,8 +179,12 @@ jobs:
           # --parity is on so the golden twin is actually COMPARED; the divergent twin is
           # a pytest case rather than a step here, because a CI step that must fail is a
           # step someone eventually "fixes".
+          # graph-twin-expr is the graph-format-1.1 golden twin: expressions (one
+          # parameter through a `map`), derived clamps, select, reflect, a polyline
+          # profile and the bounded revolve, compared against the script it twins.
           .venv/bin/y4d-spec check --render --parity \
-            tests/fixtures/y4d/graph-block tests/fixtures/y4d/graph-twin
+            tests/fixtures/y4d/graph-block tests/fixtures/y4d/graph-twin \
+            tests/fixtures/y4d/graph-twin-expr
           # G-DEADPARAM, the other way round: this fixture MUST fail, and must name the
           # three dead parameters. A rule whose only proof is that healthy cartridges
           # pass is a rule that could be switched off without anything going red.
