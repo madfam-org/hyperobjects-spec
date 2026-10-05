@@ -2,11 +2,14 @@
 
 **Validate a MADFAM hyperobject cartridge with zero platform code.**
 
-The MADFAM commons has two halves. [Yantra4D](https://github.com/madfam-org/yantra4d)
+The MADFAM commons has two halves. [solid-hyperobjects](https://github.com/madfam-org/solid-hyperobjects)
 holds the **solid** cartridges — printed and machined bodies, rendered from CadQuery or
-OpenSCAD. [Fashion Cabinet](https://github.com/madfam-org/fashion-cabinet) holds the
-**soft** ones — garments, notions, fabric cards. Both are commons: anyone may
-contribute a cartridge.
+OpenSCAD by the [Yantra4D](https://github.com/madfam-org/yantra4d) platform.
+[soft-hyperobjects](https://github.com/madfam-org/soft-hyperobjects) holds the **soft**
+ones — garments, notions, fabric cards — for the
+[Fashion Cabinet](https://github.com/madfam-org/fashion-cabinet) platform. Both are
+commons: anyone may contribute a cartridge. Where each contract is consumed:
+[Related repositories and contracts](#related-repositories-and-contracts).
 
 Until now you could not check one without cloning a platform. The bar lived inside the
 repos — half of it in an installable package, half in loose `scripts/qa/*.py` that
@@ -506,13 +509,27 @@ whenever it is not the cross-kernel one:
        Bounding boxes differ by 2.000000mm (A: [10.0, 10.0, 10.0], B: [12.0, 12.0, 12.0])
 ```
 
-This turns the commons' 494 verified scripts into the test set for the graphs, which is
-the strongest oracle available and already paid for. Neither commons graph cartridge has a
-twin today — both were authored graph-first — so the rule currently fires on nothing; it
-is here *before* the back-fill wave rather than after, because a rule added once the twins
-exist is a rule the twins were never checked by. `(openscad, graph)` is deliberately **not**
+This turns the commons' verified scripts into the test set for the graphs, which is
+the strongest oracle available and already paid for. The rule was added *before* the
+back-fill wave rather than after, because a rule added once the twins exist is a rule the
+twins were never checked by. Since 2026-10-05 it holds ten twins: the printed cartridges of
+solid-hyperobjects' assembly A (`ab-drive`, `ab-front-idler`, `bed-extrusion-mount`,
+`corner-idler-bracket`, `toolhead-proxy`, `x-carriage`, `xy-joint`, `z-belt-clamp`,
+`z-drive-housing`, `z-joint`), each in graph format 1.1 and each agreeing with its script
+at every preset. The script stays the rendered source until parity holds across the
+commons' nightly sweep; see that repo's [`assemblies/README.md`](https://github.com/madfam-org/solid-hyperobjects/blob/main/assemblies/README.md). `(openscad, graph)` is deliberately **not**
 compared: on a cartridge with all three, the graph is pinned to its CadQuery script and
 that script to the OpenSCAD one, so a third edge only reports one of the other two twice.
+
+**Graph format 1.1** (the Wave D engine, re-vendored in 0.7.0). A document may declare
+`parameters` and an ordered list of `derived` values, and any node input may be an
+`{"expr": …}` in the restricted expression dialect, so a twin can carry its script's
+derivations instead of frozen numbers. 1.1 also adds the `select`, `reflect`,
+`profile_polyline` and `revolve` nodes, for 23 node types in all
+(`src/y4d_spec/graph/graph-node-catalog.json`). The public contract is
+[`graph.schema.json`](src/y4d_spec/graph/graph.schema.json). The platform's
+[graph-cartridge guide](https://github.com/madfam-org/yantra4d/blob/main/docs/guides/graph-cartridges.md)
+explains how to author and edit one.
 
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A
@@ -1598,6 +1615,26 @@ all fail. There is no second code path that could drift from the build.
 Every count above, and in the two transcripts earlier on this page, is emitted by
 `scripts/refresh_reader_counts.py` (`--check` in CI) rather than typed — the same reason
 `refresh_vocabulary_counts.py` exists one layer down.
+
+---
+
+## Related repositories and contracts
+
+This package defines the contracts; these documents consume them. Each link goes to the
+specific document, not the repository root.
+
+| Repository | Document | What it takes from this package |
+|---|---|---|
+| solid-hyperobjects | [`assemblies/README.md`](https://github.com/madfam-org/solid-hyperobjects/blob/main/assemblies/README.md) | ASM-1 assemblies checked with `y4d-spec assembly check --collision`; assembly A, the [Voron 2.4-class 350 motion system](https://github.com/madfam-org/solid-hyperobjects/blob/main/assemblies/voron-2-4-class-350-motion-frame/README.md), is posable under ASM-1 §9 and is this package's fixture A and pose golden |
+| solid-hyperobjects | [`README.md`](https://github.com/madfam-org/solid-hyperobjects/blob/main/README.md) (*How CI verifies a change*) | `y4d-spec check --render --parity` at the pinned `SPEC_PIN`, graph twins included |
+| soft-hyperobjects | [`README.md`](https://github.com/madfam-org/soft-hyperobjects/blob/main/README.md) | `fc-spec` checks at its own `SPEC_PIN` |
+| yantra4d | [`docs/guides/graph-cartridges.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/guides/graph-cartridges.md) | the graph format (1.1) and the Studio graph editor; the transpiler vendored here is a byte-identical copy of the platform's |
+| yantra4d | [`docs/operations/user-projects-storage.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/operations/user-projects-storage.md), [`docs/operations/render-artifact-storage.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/operations/render-artifact-storage.md) | where forks are stored and how renders are produced; GOC-1 sidecars are described in [`docs/reference/generator-output.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/reference/generator-output.md) |
+| asset-shells | [`README.md`](https://github.com/madfam-org/asset-shells/blob/main/README.md) (*Publish API*, *Twin graph*) | the AAS projection (SEM-1), projection versions 1–3 and the stored-shell resolver; it re-validates assembly shells with its pinned keystone (ASM-1 §6) |
+| pravara-mes | [`packages/sparkplug/README.md`](https://github.com/madfam-org/pravara-mes/blob/main/packages/sparkplug/README.md) | machine telemetry; raw axis values are mapped through an assembly's machine bindings (ASM-1 §9.2) by the viewer, never by the MES |
+
+Where the package stands — what landed, open PRs in merge order, the next pin bump — is in
+[`docs/STATUS.md`](docs/STATUS.md) (dated; the open-PR list on GitHub is authoritative).
 
 ---
 

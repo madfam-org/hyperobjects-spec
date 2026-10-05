@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Docs: the commons topology and related contracts
+
+- The README's opening names solid-hyperobjects and soft-hyperobjects as the two commons,
+  with Yantra4D and Fashion Cabinet as their platforms.
+- The golden-twin rule now records its ten twins (solid-hyperobjects' assembly A), and the
+  graph section describes graph format 1.1 (declared `parameters`, ordered `derived`,
+  23 node types).
+- A new *Related repositories and contracts* section in the README, AGENTS.md and
+  llms.txt links the specific consumer documents in solid-hyperobjects, soft-hyperobjects,
+  yantra4d, asset-shells and pravara-mes.
+- `docs/STATUS.md`: a dated status (2026-10-05) with the open PRs in merge order and the
+  next consumer pin bump, linked from the README, AGENTS.md and llms.txt.
+
 ### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
 
 BREAKING for id consumers: every shell and submodel id is now `…/p3`. No store is live yet
