@@ -88,7 +88,11 @@ BASE = "https://id.madfam.io"
 #:   lexicon-attached interface terms) with the version itself added (package 0.6.0).
 #: * ``2`` — every assembly shell gains the ``Kinematics`` submodel (ASM-1 §9: joints,
 #:   machine-axis bindings, belt paths, the pose sweep) (package 0.7.0).
-PROJECTION_VERSION = 2
+#: * ``3`` — a material card is projected in its canonical form (GOC-1 §3.1), the form
+#:   its ``content16`` hashes, so a whole number's ``valueType`` follows its canonical
+#:   value (``220.0`` -> ``xs:integer``) whatever the spelling; assemblies likewise
+#:   project their canonical document (lane P6-PROJFIX, F1) (package 0.10.0).
+PROJECTION_VERSION = 3
 
 #: The type-asset kinds of SEM-1 §1 (plus ASM-1 §5's assemblies) and the commons
 #: repository each one lives in. Assemblies are authored in the solid commons

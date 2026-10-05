@@ -192,7 +192,10 @@ shell's `ProjectionVersion` extension). Stores keep ids immutable (409 on new
 bytes), so a projection change that moves the bytes for the same inputs MUST bump
 the version; the golden drift guard (`scripts/refresh_assembly_golden.py --check`,
 `tests/test_projection_version.py`) fails until it does. Asset, concept,
-template and standard-part ids carry no version.
+template and standard-part ids carry no version. Since projection version 3,
+a content-addressed input (an assembly document, a material card) is projected
+in the canonical form its id hashes (GOC-1 §3.1), so `20.0` and `20` write the
+same bytes (`tests/test_projection_canonical.py`).
 
 **A skip is never a pass.** `renders=` counts meshes actually judged and
 `skipped=` counts the rest; `--require-openscad` turns a missing binary from a

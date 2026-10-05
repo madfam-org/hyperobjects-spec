@@ -34,7 +34,7 @@ from pathlib import Path
 
 import pytest
 
-from hyperobjects_aas import build_solid_environment
+from hyperobjects_aas import build_material_environment, build_solid_environment
 from hyperobjects_aas.assembly import (
     assembly_document_from_environment,
     build_assembly_environment,
@@ -188,6 +188,17 @@ def test_assembly_projection_is_a_function_of_the_canonical_document(name):
     for label, variant in _variants(doc):
         assert canonical_json(variant) == canonical_json(doc), label
         assert _project(variant, resolver) == canonical, f"{name}: {label}"
+
+
+@pytest.mark.parametrize("name", sorted(MATERIALS))
+def test_material_projection_is_a_function_of_the_canonical_card(name):
+    card = _load(MATERIALS[name])
+    canonical = canonical_json(build_material_environment(normalize_numbers(card)))
+    assert canonical_json(build_material_environment(card)) == canonical
+    for label, variant in _variants(card):
+        assert canonical_json(variant) == canonical_json(card), label
+        assert canonical_json(build_material_environment(variant)) == canonical, \
+            f"{name}: {label}"
 
 
 def test_a_respelt_cartridge_is_a_new_revision_not_a_collision(tmp_path):

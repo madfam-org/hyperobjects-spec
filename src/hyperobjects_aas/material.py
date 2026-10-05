@@ -24,7 +24,7 @@ import re
 from functools import cache
 from pathlib import Path
 
-from hyperobjects_schemas.generator_output import canonical_json
+from hyperobjects_schemas.generator_output import canonical_json, normalize_numbers
 
 from . import elements as el
 from .concepts import Concepts, bundled_lexicon
@@ -112,7 +112,10 @@ class _Mirror:
 
 class MaterialProjection:
     def __init__(self, card: dict, concepts: Concepts | None = None) -> None:
-        self.card = card
+        # One content hash, one projection (SEM-1 §1): the shell id hashes the card's
+        # canonical JSON, so the card is projected in that form too and the spelling of a
+        # whole number (220.0 or 220) cannot change the bytes under the id.
+        self.card = normalize_numbers(card)
         self.platform, self.slug = card_source(card)
         self.concepts = concepts if concepts is not None else Concepts()
         self.conformance: list[Conformance] = []

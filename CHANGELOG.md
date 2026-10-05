@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### One digest, one projection: project from the canonical document (SEM-1 §1, lane P6-PROJFIX)
+### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
+
+BREAKING for id consumers: every shell and submodel id is now `…/p3`. No store is live yet
+(asset-shells is not deployed), so no stored shell moves; asset-shells accepts p3 next to
+p1 and p2.
 
 Finding F1 of lane P6-ASM. An assembly's shell id hashes the **canonical** document
 (GOC-1 §3.1: `20.0` and `20` hash the same), but the projection read the document as
@@ -23,6 +27,19 @@ same and the bytes were not, under one id: a latent 409.
   A whole number's `valueType` now follows its canonical value whatever the spelling.
   The goldens do not move: the drift guard reports `drifted=0 immutable_drift=0` at
   projection version 2, because every fixture already writes whole numbers as integers.
+- **Material cards, same hazard.** A card's shell id hashes the canonical card
+  (`content16`), but the card was projected as written. So a card reserialised by a tool
+  that writes `220` for `220.0` (any JavaScript `JSON.stringify`) had the same id and
+  different bytes. `MaterialProjection` now projects `normalize_numbers(card)`. This one
+  moves golden bytes: in `bambu-tpu-95a`'s `MaterialData`, six whole-float values go from
+  `xs:double` to `xs:integer`. They are `nanoscale.glass_transition_temp`,
+  `thermodynamics.glass_transition_temp`, `melting_temp` and `yield_strength`, and
+  `am_compensations.clearances.press_fit` and `minimum_features.hole_diameter`. The drift
+  guard therefore refused the refresh at version 2 (`immutable_drift=1`, on
+  `…/sm/material/bambu-tpu-95a/d97e07cfc05d7329/p2/MaterialData`), so
+  **`PROJECTION_VERSION` is 3**. All 18 goldens are refreshed. Apart from the version in
+  their ids and extension, only those six `valueType`s change.
+- Package 0.10.0.
 
 #### Added
 
@@ -32,10 +49,18 @@ same and the bytes were not, under one id: a latent 409.
     a cartridge parameter (`z0_z_joint.c_end`) and a standard-part parameter
     (`u0.length_mm`).
   - The property `project(doc) == project(canonical(doc))`, byte for byte, over every
-    assembly fixture (A, B, the kinematic gantry). Each is checked with every integer
-    respelt as a float and with two seeded random halves.
+    assembly fixture (A, B, the kinematic gantry) and every material card fixture
+    (`bambu-tpu-95a`, `manta-cruda`). Each is checked with every integer respelt as a
+    float and with two seeded random halves.
   - A respelt cartridge manifest mints a new id, because a cartridge id hashes file
     bytes, so it cannot collide.
+
+#### Not changed
+
+- The validator checks a fabrication-capability value against its vocabulary's
+  `value_type` as written, so `capability_profile.toolhead_count: 1.0` is a finding
+  ("is not a integer") while `1` passes. No shell is minted, so it fails visibly and
+  cannot cause a 409. It is reported, not changed here.
 
 ### The golden assembly A is the full Voron 2.4-class 350 motion system (Phase 6, lane P6-ASM)
 

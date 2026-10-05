@@ -15,6 +15,7 @@ import pytest
 from aas_support import child, submodel
 from hyperobjects_aas import check_environment
 from hyperobjects_aas.assembly import build_assembly_environment
+from hyperobjects_aas.ids import PROJECTION_VERSION
 from hyperobjects_aas.resolver import bundled_standard_parts_dir
 from hyperobjects_standard_parts import load_part
 from hyperobjects_standard_parts.check import check_part
@@ -295,7 +296,7 @@ def test_the_kinematics_submodel_carries_joints_bindings_paths_and_the_sweep():
     result = check_environment(env, basyx="off")
     assert result.ok, [str(f) for f in result.errors]
     sm = submodel(env, "Kinematics")
-    assert sm["id"].endswith("/p2/Kinematics")
+    assert sm["id"].endswith(f"/p{PROJECTION_VERSION}/Kinematics")
     assert child(sm, "KinematicsClass")["value"] == "cartesian"
     joints = child(sm, "Joints")["value"]
     roles = {child(j, "JointId")["value"]: child(j, "Role")["value"] for j in joints}
