@@ -226,8 +226,8 @@ standard_parts_status: parts=26 interfaces=86 dimensions=178 parameters=28 class
 5. Parameter ids are unique and `min ≤ default ≤ max`.
 6. Interface ids are unique; every `size_key` resolves through the membership rule;
    `geometry_type` equals the size key's; `frame.part`, if written, is the entry key.
-7. Every frame component evaluates at the defaults and at each parameter's `min` and
-   `max`; every identifier an expression reads is a declared parameter listed in the
+7. Every frame component (and every `travel.range` bound, with lower < upper) evaluates at
+   the defaults and at each parameter's `min` and `max`; every identifier an expression reads is a declared parameter listed in the
    interface's `parameters`, or one of the interface's `let` names (no `let` may shadow a
    parameter or form a cycle).
 8. At each of those points the normal and `x_axis` are unit vectors and orthogonal
@@ -268,6 +268,15 @@ optional blocks:
 
 Adding `belt_engagement` changed both entries' catalog digest, so assembly A's digest
 moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
+
+## Interface travel (ASM-1 §9, v1.4)
+
+An interface that is a run may declare `travel: {axis, range: [lower, upper]}`, in mm,
+along one axis of its own frame. The range is in the frame grammar over the entry's
+parameters, which the interface lists in `parameters`. An assembly mate's `offset`
+(a station on the mate) must stay inside it. `extrusion-2020`'s eight `slot_*`
+interfaces travel along x, the extrusion axis toward end B, over the whole slot,
+measured from the station. Its blind stations do not travel.
 
 ## Adding a part
 
