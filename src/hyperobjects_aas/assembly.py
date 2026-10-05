@@ -28,7 +28,13 @@ canonical assembly digest (``hyperobjects-assembly-v1``). Submodels:
 * ``Mates`` (MADFAM ``smt/assembly-mates/1/0``) — one ``AnnotatedRelationshipElement`` per
   mate between the two component nodes, annotated with the two interface ids, the stated
   rotation, the closure residuals and ``Validated``.
-* ``AssemblyPlacement`` (MADFAM) — each component's 4 × 4 world transform, row-major.
+* ``AssemblyPlacement`` (MADFAM) — each component's 4 × 4 world transform, row-major, at
+  the home pose.
+* ``Kinematics`` (MADFAM ``smt/assembly-kinematics/1/0``, ASM-1 §9, projection version 2) —
+  the joints (type, axis frame, limits, home, role, parent and child nodes, follower
+  terms), the machine-axis bindings, the declared belt paths with their pitch-line length
+  at home, and the pose sweep's count and verdict. Every assembly carries it; a rigid one
+  has no joints and one pose.
 * producers: ``CapabilityDescription`` (IDTA 02020-1-0 when conformant) from
   ``capability_profile``; products with ``requirements_rollup``: ``RequirementProfile``,
   the fabricated components' ``requirements`` rolled up.
@@ -248,6 +254,89 @@ def _placement(proj: Projection, doc: Mapping, report, shorts: dict[str, str]) -
     ], "assembly-placement")
 
 
+def _kinematics(proj: Projection, doc: Mapping, report, shorts: dict[str, str]) -> None:
+    """ASM-1 §9 (v1.3): the joints, the machine-axis bindings, the declared paths and the
+    pose sweep. Emitted for every assembly; a rigid one has no joints and one pose."""
+    from y4d_spec.assembly.kinematics import machine_bindings
+
+    bom = [("Submodel", proj.sm_id("BillOfMaterials")), ("Entity", "EntryNode")]
+    mates = {m["id"]: m for m in doc["mates"]}
+    alloc = IdShortAllocator()
+    joints = []
+    for j in report.joints:
+        a = mates[j.mate_id]["a"]
+        joints.append(el.smc(alloc.take(j.id, "Joint"), [
+            el.prop("JointId", j.id),
+            el.prop("MateId", j.mate_id),
+            el.prop("Type", j.type),
+            el.prop("Axis", j.axis),
+            el.prop("AxisFrame", f"{a['component']}.{a['interface']}"),
+            el.prop("Role", j.role),
+            el.prop("Unit", j.unit),
+            el.reference_element("Parent", el.model_ref([*bom, ("Entity", shorts[j.parent])])),
+            el.reference_element("Child", el.model_ref([*bom, ("Entity", shorts[j.child])])),
+            el.prop("LowerLimit", j.limits[0] if j.limits else None, prefer="xs:double"),
+            el.prop("UpperLimit", j.limits[1] if j.limits else None, prefer="xs:double"),
+            el.prop("Continuous", j.limits is None),
+            el.prop("Home", j.home, prefer="xs:double"),
+            el.sml("Follows", [
+                el.smc(None, [el.prop("Joint", leader),
+                              el.prop("Scale", scale, prefer="xs:double")])
+                for leader, scale in j.follows
+            ], type_value="SubmodelElementCollection"),
+            el.prop("FollowOffset", j.follow_offset if j.follows else None, prefer="xs:double"),
+            el.prop("Note", j.note),
+        ]))
+    bindings = [
+        el.smc(None, [
+            el.prop("Axis", b["axis"]),
+            el.prop("Joint", b["joint"]),
+            el.prop("Scale", b["scale"], prefer="xs:double"),
+            el.prop("Offset", b["offset"], prefer="xs:double"),
+            el.prop("Note", b["note"]),
+        ])
+        for b in machine_bindings(doc)
+    ]
+    path_alloc = IdShortAllocator()
+    paths = []
+    for result in report.paths:
+        spread = result.length_spread_mm
+        paths.append(el.smc(path_alloc.take(result.path_id, "Path"), [
+            el.prop("PathId", result.path_id),
+            el.prop("Kind", "belt"),
+            el.prop("Part", result.part, semantic_id=proj.concepts.term("standard-part")),
+            el.prop("PartAsset", standard_part_id(result.part), prefer="xs:anyURI"),
+            el.prop("Closed", result.closed),
+            el.sml("Via", [
+                el.smc(None, [el.prop("Component", v.component), el.prop("Interface", v.interface),
+                              el.prop("Wrap", v.wrap), el.prop("Side", v.side)])
+                for v in result.vias
+            ], type_value="SubmodelElementCollection"),
+            el.prop("PitchLengthMm", _num(result.length_mm, 6), prefer="xs:double"),
+            el.prop("LoopLengthMm", result.loop_length_mm, prefer="xs:double"),
+            el.prop("PlanarityMm", _num(result.planarity_mm, 6), prefer="xs:double"),
+            el.prop("LengthSpreadMm", _num(spread, 6), prefer="xs:double"),
+            el.prop("Validated", result.ok),
+        ]))
+    machine = as_dict(doc.get("machine"))
+    proj.add("Kinematics", [
+        el.prop("KinematicsClass", machine.get("kinematics")),
+        el.prop("JointCount", len(report.joints), prefer="xs:integer"),
+        el.sml("Joints", joints, type_value="SubmodelElementCollection"),
+        el.sml("AxisBindings", bindings, type_value="SubmodelElementCollection"),
+        el.sml("Paths", paths, type_value="SubmodelElementCollection"),
+        el.smc("PoseSweep", [
+            el.prop("Sequence", "halton"),
+            el.prop("Samples", report.pose_samples, prefer="xs:integer"),
+            el.prop("Seed", report.pose_seed, prefer="xs:integer"),
+            el.prop("PoseCount", len(report.poses), prefer="xs:integer"),
+            el.prop("FailedPoses", sum(1 for p in report.poses if not p.ok),
+                    prefer="xs:integer"),
+            el.prop("Validated", all(p.ok for p in report.poses)),
+        ]),
+    ], "assembly-kinematics")
+
+
 @cache
 def _vocabulary(name: str) -> dict[str, dict]:
     from hyperobjects_lexicon.fabrication import load_fabrication_vocabulary
@@ -360,6 +449,7 @@ def project_assembly(doc: Mapping, report, concepts: Concepts | None = None) -> 
     _bill_of_materials(proj, doc, report, shorts)
     _mates(proj, doc, report, shorts)
     _placement(proj, doc, report, shorts)
+    _kinematics(proj, doc, report, shorts)
     _capability_description(proj, doc)
     _requirement_rollup(proj, doc, report)
     return proj

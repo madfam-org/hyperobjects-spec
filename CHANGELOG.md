@@ -6,6 +6,82 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, contract v1.3, package 0.7.0) — projection version 2
+
+Phase 6 of the Voron live-twin programme, lane P6-JOINT. It applies owner decisions D1–D5
+(2026-10-04): belts are declared paths (D1), there is one logical Z joint with followers
+(D2), and forward kinematics live in the keystone as the reference and in the viewer,
+never in pravara (D4). The contract lands as **ASM-1 §9**, because §8 remains the frame
+authoring gate. Everything is optional: assemblies A and B validate unchanged, with one
+pose each.
+
+#### Added
+
+- **Joints on mates** (`assembly.schema.json` `mate.joint`; `y4d_spec.assembly.kinematics`):
+  - `prismatic` (mm) or `revolute` (degrees) about `x`/`y`/`z` of side a's interface
+    frame;
+  - value 0 is the mate;
+  - `T_b = T_a · H(F_a) · J(q) · Flip · Rz(θ) · H(F_b)^-1`;
+  - three roles: **driven** (`home`), **follower** (`follows: {terms, offset}`), and
+    **passive** (`passive: true`, measured: its mate only closes a cycle, with the degree
+    of freedom free).
+- **Machine-axis bindings** (`machine: {kinematics, axes: [{axis, joint, scale, offset}]}`):
+  identity by default; only a driven joint may be bound.
+- **Belt paths** (`paths[]`; `y4d_spec.assembly.paths`):
+  - vias are pulleys and idlers with a `belt_engagement` (`wrap` ccw/cw, `side`
+    teeth/back) or clamp anchors;
+  - the path must be planar at home (0.5°, 0.5 mm, conventions);
+  - the pitch-line length is reported at every pose. The tests prove it against the
+    textbook open-belt and crossed-belt formulas;
+  - `path-length` warns on a spread above 0.1 mm across the sweep, or a loop more than
+    0.5 mm off its catalog `loop_length` (conventions);
+  - the belt's catalog identity enters the digest (`path_parts`) only when a document
+    declares paths.
+- **The pose sweep** in `assembly check`, run once home passes:
+  - home, each driven joint's limits, and `--pose-samples N` (default 16, a convention)
+    Halton samples, seed 1;
+  - new findings: `joint`, `machine`, `pose-closure`, `joint-limit`, `path` (errors) and
+    `path-length` (a warning);
+  - the report gains `joints`, `poses` and `paths`; the summary line gains
+    `joints= poses=ok/total paths=`;
+  - the 21 poses of the 14-component fixture run in about 0.08 s.
+- **The reference forward kinematics.** `pose(doc, resolver, joint_values)`,
+  `pose_from_axes(...)`, `compile_kinematics`, `golden_poses(_json)` and
+  `y4d-spec assembly poses`.
+- **Golden pose files** (`hyperobjects.assembly-poses` 1.0.0):
+  - every computed number is a string in the canonical fixed format (6 decimals, ties
+    away from zero, which is JavaScript's `toFixed(6)`);
+  - a `tie_guard` lists the near-boundary entries;
+  - `scripts/refresh_pose_golden.py [--check]` is a new CI step;
+  - goldens exist for A, B and the new `tests/fixtures/kinematics/kinematic-gantry` (a
+    passive carriage closing a cycle, an X carriage, a follower pulley, a closed GT2 loop).
+- **Catalog** (`standard-part.schema.json`, `hyperobjects_standard_parts`):
+  - category `belt` and a `belt` block: `pitch` and `width`, plus optional `height`,
+    `tooth_depth`, `pitch_line_differential`, `teeth_side_offset`, `back_side_offset` and
+    `loop_length`. A belt may have no interfaces;
+  - an optional `belt_engagement` holding exactly one of `pitch_diameter` and
+    `running_diameter`, plus `center`, `axis`, `parameters` and `plane_note`;
+  - `belt_engagement()` and `belt_facts()`, and catalog-lane rule 9.
+- **`gt2-pulley-20t-5mm` and `gt2-idler-20t-9mm`** carry `belt_engagement`:
+  - pitch diameter 12.73 mm, cited from the Gates 20-2MR-PS-4 stock-pulley table via
+    CMT Co. (= 20 × 2 / π);
+  - the mid-planes (pulley z = 8; idler z = width / 2) are labelled conventions.
+- **`--standard-parts` is repeatable** (`FirstOfResolver`): directories are tried in order.
+
+#### Changed
+
+- **`PROJECTION_VERSION` 1 → 2.** Every assembly shell gains the **`Kinematics`**
+  submodel (MADFAM `smt/assembly-kinematics/1/0`): joints, axis bindings, paths and the
+  pose sweep. It is not an extension of `Mates`: followers and paths span several mates.
+  The drift guard refused the new bytes under the p1 ids until the bump. All 13
+  projection goldens were refreshed.
+- **`gt2-idler-20t-9mm`** no longer cites guide pp. 98/100. The XY-joint idlers carry the
+  6 mm A/B belt (guide p. 131); this entry keeps p. 8 and p. 48 (Z).
+- **Fixture A's digest moves** `24322cc0…` → `296caa36…`, through the pulley's catalog
+  digest. This is an ordinary refresh, not immutable drift.
+- `y4d_spec.assembly.validate` is split: the §9 steps live in `sweep.py`, and the mating
+  tolerances in `tolerances.py` (still re-exported).
+
 ### M5 idler hardware and the 2020 blind joint (owner instruction 2026-10-04, lane P4-AUTH-E)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.

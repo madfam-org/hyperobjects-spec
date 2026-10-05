@@ -92,6 +92,12 @@ class ResolvedComponent:
     identity: Mapping
     interfaces: Mapping[str, ResolvedInterface]
     details: Mapping = field(default_factory=dict)
+    #: ASM-1 §9 (v1.3). Where a belt wraps this component, in its model frame
+    #: (`hyperobjects_standard_parts.BeltEngagement`), or None. Only the standard-parts
+    #: resolver supplies one; a belt path may pass only through such components.
+    belt_engagement: object | None = None
+    #: ASM-1 §9 (v1.3). A belt part's `{"pitch_mm", "width_mm"}`, or None.
+    belt: Mapping | None = None
 
 
 @runtime_checkable

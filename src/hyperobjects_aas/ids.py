@@ -86,7 +86,9 @@ BASE = "https://id.madfam.io"
 #:
 #: * ``1`` — the 0.5.0 projection (assembly BoM/Mates/placement, IDTA 02020 capability,
 #:   lexicon-attached interface terms) with the version itself added (package 0.6.0).
-PROJECTION_VERSION = 1
+#: * ``2`` — every assembly shell gains the ``Kinematics`` submodel (ASM-1 §9: joints,
+#:   machine-axis bindings, belt paths, the pose sweep) (package 0.7.0).
+PROJECTION_VERSION = 2
 
 #: The type-asset kinds of SEM-1 §1 (plus ASM-1 §5's assemblies) and the commons
 #: repository each one lives in. Assemblies are authored in the solid commons

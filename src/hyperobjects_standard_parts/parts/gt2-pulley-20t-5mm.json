@@ -33,6 +33,13 @@
       "publisher": "ServoCity",
       "accessed": "2026-10-02",
       "supports": "2 mm GT2 pitch, 20 teeth, 5 mm bore, 6 mm belt"
+    },
+    {
+      "title": "Gates PowerGrip GT2 2 mm pitch stock timing pulleys (2MR), distributor catalog reproducing the Gates stock-pulley table",
+      "url": "https://cmtco.com/product-catalogs/timing-pulley-stock/2m-gt2-2mm-pitch-ts",
+      "publisher": "CMT Co.",
+      "accessed": "2026-10-04",
+      "supports": "20-2MR-PS-4: 20 grooves, 2 mm pitch, pitch diameter 0.501 in (12.73 mm), outside diameter 0.481 in (12.22 mm)"
     }
   ],
   "frame_convention": "Origin at the centre of end face A (the end that faces the motor when mounted), on the bore axis. +z runs along the bore away from the motor, to end face B at z = 16. +x is an arbitrary radial reference.",
@@ -120,5 +127,24 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "The belt engagement is not an interface in v1: the belt is not a catalog part, and neither cited source states where the toothed section sits along the pulley. The catalog key equals the interface-sizes key gt2-pulley-20t-5mm, which describes the pulley as a whole."
+  "notes": "The belt engagement (ASM-1 §9) carries the pitch diameter of a 20-groove 2 mm GT2 pulley, cited from the Gates stock table (12.73 mm; equal to 20 × 2 mm / π). The belt itself is a catalog part of category belt; a belt path names this component as a via.",
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 12.73,
+      "unit": "mm",
+      "source": 2,
+      "note": "20-2MR-PS-4: 20 grooves × 2 mm pitch / π = 12.732 mm"
+    },
+    "center": [
+      0,
+      0,
+      8
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Convention: neither cited source places the toothed section along the pulley, so the belt mid-plane is put at mid-length (z = 8 of 16). The axis is the bore axis."
+  }
 }

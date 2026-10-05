@@ -158,6 +158,13 @@ jobs:
         # already carries fail until hyperobjects_aas.ids.PROJECTION_VERSION is bumped.
         run: .venv/bin/python scripts/refresh_assembly_golden.py --check
 
+      - name: Pose golden guard
+        # ASM-1 §9. The golden pose files are the reference forward kinematics a viewer
+        # reproduces string for string (yantra4d, Phase 7): home, every limit and the
+        # seeded Halton samples of assemblies A and B and the kinematic gantry fixture.
+        # A pose that moves fails here until the files are refreshed and the diff reviewed.
+        run: .venv/bin/python scripts/refresh_pose_golden.py --check
+
       - name: Self-check against the bundled fixtures
         # Exercises the two console scripts exactly as a third party would.
         run: |
@@ -191,6 +198,15 @@ jobs:
           # …and must NOT name the ones that are alive, scoped, or allow-listed.
           ! grep -qE "'(base_w|lever_length|drainage_angle|target_part)'" dead-param.out
           rm -f dead-param.out
+          # ASM-1 §9: a posable assembly through the shipped console script — a passive
+          # carriage closing a cycle, a follower pulley and a closed belt loop, checked at
+          # home, every limit and the Halton sweep; the bundled catalog first, then the
+          # fixture's test belt (--standard-parts is repeatable).
+          .venv/bin/y4d-spec assembly check tests/fixtures/kinematics/kinematic-gantry.assembly.json \
+            --standard-parts src/hyperobjects_standard_parts/parts \
+            --standard-parts tests/fixtures/kinematics/standard-parts > kinematics.out
+          grep -q "joints=4 poses=21/21 paths=1" kinematics.out
+          rm -f kinematics.out
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
 

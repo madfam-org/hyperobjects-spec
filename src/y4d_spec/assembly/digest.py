@@ -5,6 +5,7 @@
             "algorithm":  "hyperobjects-assembly-v1",
             "document":   <the assembly document as parsed>,
             "components": {<component id>: <resolved identity>, ...},
+            "path_parts": {<path id>: <belt's resolved identity>, ...},   # only with paths
         }) )
 
 `canonical_json` is GOC-1 §3.1 (integral floats become ints, sorted keys, no
@@ -28,14 +29,20 @@ __all__ = ["ASSEMBLY_DIGEST_ALGORITHM", "assembly_digest"]
 ASSEMBLY_DIGEST_ALGORITHM = "hyperobjects-assembly-v1"
 
 
-def assembly_digest(doc: Mapping, identities: Mapping[str, Mapping]) -> str:
+def assembly_digest(doc: Mapping, identities: Mapping[str, Mapping],
+                    path_parts: Mapping[str, Mapping] | None = None) -> str:
     """sha256 hex of the canonical JSON of the document plus every component's identity.
 
     `identities` maps every component id to its `ResolvedComponent.identity`.
+    `path_parts` (ASM-1 §9, v1.3) maps every declared path id to its belt part's resolved
+    identity; it enters the payload as `"path_parts"` only when the document declares a
+    path, so the digest of every document without paths is unchanged.
     """
     payload = {
         "algorithm": ASSEMBLY_DIGEST_ALGORITHM,
         "document": doc,
         "components": dict(identities),
     }
+    if path_parts:
+        payload["path_parts"] = dict(path_parts)
     return hashlib.sha256(canonical_json(payload)).hexdigest()

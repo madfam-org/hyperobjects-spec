@@ -87,10 +87,17 @@ runbook.
     resolvers, and `y4d-spec assembly check`. See `docs/ASSEMBLIES.md`.
     Continuous-symmetry closing mates compare the stated `angle_deg` (0.5.0);
     a producer's `capability_profile` is checked against the vocabulary
-    (`process` is a list).
+    (`process` is a list). ASM-1 §9 (v1.3, 0.7.0): `kinematics.py` (joints on
+    mates — driven, follower, passive — machine-axis bindings, the Halton pose
+    sweep), `paths.py` (belt paths: pitch-line length, planarity), `sweep.py`
+    (the sweep's findings), `posing.py` (`pose()`, `pose_from_axes()`, golden
+    pose files with the toFixed(6) number format). pravara never computes
+    kinematics (owner decision D4): the keystone is the reference, the viewer
+    reproduces the golden poses.
 - `hyperobjects_aas.assembly` / `hyperobjects_aas.resolver` — ASM-1 §5: a checked
   assembly → one AAS Environment (shell `aas/assembly/{slug}/{digest16}/p{N}`;
-  AssemblyDocument, HSEBoM BillOfMaterials, Mates, AssemblyPlacement, IDTA 02020
+  AssemblyDocument, HSEBoM BillOfMaterials, Mates, AssemblyPlacement, Kinematics
+  (ASM-1 §9, projection version 2), IDTA 02020
   CapabilityDescription, RequirementProfile roll-up), and the resolver that
   reads stored type shells back so a service (asset-shells, ASM-1 §6)
   re-derives the same digest and environment. `y4d-spec aas build

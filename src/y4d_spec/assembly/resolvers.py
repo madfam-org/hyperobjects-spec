@@ -228,6 +228,12 @@ class StandardPartsResolver:
             "catalog_sha256": hashlib.sha256(canonical_json(entry)).hexdigest(),
             "parameters": {p["id"]: values.get(p["id"]) for p in parameters},
         }
+        from hyperobjects_standard_parts import belt_engagement, belt_facts
+
+        try:
+            engagement = belt_engagement(entry, values)
+        except ValueError as exc:  # FrameEvaluationError is a ValueError too
+            raise ResolutionError([f"standard part '{key}': {exc}"]) from None
         return ResolvedComponent(
             component_id=component["id"],
             source_type="standard",
@@ -235,6 +241,8 @@ class StandardPartsResolver:
             identity=identity,
             interfaces=resolve_interfaces(manifest, given, default_part=key),
             details={"catalog_sha256": identity["catalog_sha256"]},
+            belt_engagement=engagement,
+            belt=belt_facts(entry),
         )
 
 
@@ -260,6 +268,25 @@ class ExternalResolver:
         )
 
 
+class FirstOfResolver:
+    """Several resolvers of one kind, tried in order: the first that resolves wins, and a
+    miss everywhere is one ResolutionError naming every reason. `--standard-parts` given
+    more than once (the bundled catalog plus a directory of local or test parts) is this
+    over one StandardPartsResolver per directory."""
+
+    def __init__(self, *resolvers: ComponentResolver):
+        self.resolvers = resolvers
+
+    def resolve(self, component: Mapping) -> ResolvedComponent:
+        problems: list[str] = []
+        for resolver in self.resolvers:
+            try:
+                return resolver.resolve(component)
+            except ResolutionError as exc:
+                problems += exc.problems
+        raise ResolutionError(problems)
+
+
 # ── dispatch ──────────────────────────────────────────────────────────────────
 class CompositeResolver:
     """Dispatch on `source.type` to one resolver per source kind.
@@ -283,11 +310,21 @@ class CompositeResolver:
 
     @classmethod
     def for_directories(
-        cls, commons: str | Path | None = None, standard_parts: str | Path | None = None
+        cls, commons: str | Path | None = None,
+        standard_parts: str | Path | list[str | Path] | tuple | None = None,
     ) -> CompositeResolver:
+        """`standard_parts` may be one directory or several, tried in order."""
+        if isinstance(standard_parts, (list, tuple)):
+            dirs = list(standard_parts)
+            standard = (StandardPartsResolver(dirs[0]) if len(dirs) == 1 else
+                        FirstOfResolver(*(StandardPartsResolver(d) for d in dirs))
+                        if dirs else None)
+        else:
+            standard = (StandardPartsResolver(standard_parts)
+                        if standard_parts is not None else None)
         return cls(
             cartridge=CommonsManifestResolver(commons) if commons is not None else None,
-            standard=StandardPartsResolver(standard_parts) if standard_parts is not None else None,
+            standard=standard,
         )
 
     def resolve(self, component: Mapping) -> ResolvedComponent:

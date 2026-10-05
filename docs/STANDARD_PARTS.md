@@ -203,12 +203,42 @@ standard_parts_status: parts=22 interfaces=76 dimensions=148 parameters=23 class
    parameter or form a cycle).
 8. At each of those points the normal and `x_axis` are unit vectors and orthogonal
    (`AXIS_TOLERANCE = 1e-9`).
+9. Belt facts (ASM-1 §9, 0.7.0): a `belt` block (category `belt` only, and required there)
+   and a `belt_engagement` cite sources that exist and state positive numbers in mm; the
+   engagement's `center` and `axis` read only the parameters it lists, evaluate at the
+   same points, and give a unit `axis`.
 
 `y4d-spec vocab --standard-parts DIR` checks another catalog directory.
 
 **Frame evaluator.** Frame components are evaluated by `y4d_spec.frame_eval`, the ASM-1 §1
 evaluator the assembly validator and the render-time frame gate also use: the grammar
 check first, then a hand walk over floats; nothing reaches `eval`.
+
+## Belts and belt engagement (ASM-1 §9)
+
+An assembly's declared belt paths ([ASSEMBLIES.md](ASSEMBLIES.md#belt-paths)) read two
+optional blocks:
+
+- **`belt_engagement`** on a pulley, an idler or a bearing used as one: exactly one of
+  - `pitch_diameter`: a toothed part; the diameter the belt's pitch line runs on;
+  - `running_diameter`: a smooth part; the surface the belt runs on.
+
+  It also holds `center` (a frame-grammar point on the axis, in the belt mid-plane),
+  `axis` (an exact unit vector), `parameters` (the ones `center` reads) and `plane_note`,
+  which says whether the mid-plane position is cited or a convention.
+- **`belt`** on an entry of category `belt` (required there, refused elsewhere): `pitch`
+  and `width`, and optionally `height` (B), `tooth_depth` (T), `pitch_line_differential`
+  (U), the derived `teeth_side_offset` (T + U) and `back_side_offset` (B − T − U) that a
+  smooth via needs, and `loop_length` for a closed loop. A belt may declare no
+  interfaces: a closed loop has no end or seat to mate.
+
+| Entry | `belt_engagement` | Mid-plane |
+|---|---|---|
+| `gt2-pulley-20t-5mm` | `pitch_diameter` 12.73 mm (Gates 20-2MR-PS-4, the 2 mm GT2 stock-pulley table via CMT Co.; = 20 × 2 / π) | z = 8, **a convention** (mid-length; no source places the toothed section) |
+| `gt2-idler-20t-9mm` | `pitch_diameter` 12.73 mm (the same table: a 20-tooth 2 mm GT2 wheel) | z = `width_mm` / 2, **a convention** (flanged both sides) |
+
+Adding `belt_engagement` changed both entries' catalog digest, so assembly A's digest
+moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
 
 ## Adding a part
 
