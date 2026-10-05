@@ -1462,7 +1462,8 @@ Twenty-two parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion
 (ASM-1 §9) a pulley or idler may carry a cited `belt_engagement` (a toothed part's pitch
 diameter or a smooth part's running diameter, and where the belt's mid-plane sits) and a
 `belt` entry its pitch, width and pitch-line offsets, which an assembly's declared belt
-paths read.
+paths read. An `envelope` (boxes and cylinders built from cited dimensions) is the part's
+body for `assembly check --collision`.
 
 ```python
 from hyperobjects_standard_parts import load_part, resolve_parameters, interface_frames

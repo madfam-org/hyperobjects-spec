@@ -90,7 +90,10 @@ runbook.
     (`process` is a list). ASM-1 §9 (v1.3, 0.7.0): `kinematics.py` (joints on
     mates — driven, follower, passive — machine-axis bindings, the Halton pose
     sweep), `paths.py` (belt paths: pitch-line length, planarity), mate `offset` stations
-    checked against interface `travel` (v1.4, 0.8.0), `sweep.py`
+    checked against interface `travel` (v1.4, 0.8.0), `collision.py`
+    (`--collision`: rendered cartridges and catalog/external envelopes
+    intersected at every pose; undeclared overlaps > 1 mm³ fail;
+    `allowed_overlaps`), `sweep.py`
     (the sweep's findings), `posing.py` (`pose()`, `pose_from_axes()`, golden
     pose files with the toFixed(6) number format). pravara never computes
     kinematics (owner decision D4): the keystone is the reference, the viewer
