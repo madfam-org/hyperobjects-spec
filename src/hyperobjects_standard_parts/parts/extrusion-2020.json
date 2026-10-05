@@ -871,5 +871,29 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-STD lane, 2026-10-02); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "A slot is a continuous feature; v1 mates name a point on it (the two stations per face), so a partner placed elsewhere along the slot changes slot_station_mm. Since ASM-1 §9 v1.4 a mate may instead carry its own station: an offset along the slot frame's x (the extrusion axis, toward end B), inside each slot's travel, which is the slot's run from end A (z = 0) to end B (z = length_mm) measured from the station. The run is the extrusion's own length, so the travel adds no new number. The 0.5 kg/m mass is in the MISUMI table and is not restated as a dimension."
+  "notes": "A slot is a continuous feature; v1 mates name a point on it (the two stations per face), so a partner placed elsewhere along the slot changes slot_station_mm. Since ASM-1 §9 v1.4 a mate may instead carry its own station: an offset along the slot frame's x (the extrusion axis, toward end B), inside each slot's travel, which is the slot's run from end A (z = 0) to end B (z = length_mm) measured from the station. The run is the extrusion's own length, so the travel adds no new number. The 0.5 kg/m mass is in the MISUMI table and is not restated as a dimension.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -10,
+          -10,
+          0
+        ],
+        "max": [
+          10,
+          10,
+          "length_mm"
+        ],
+        "from": [
+          "profile_square"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The 20 x 20 outer profile over the cut length. The T-slots are not hollowed: no cited source states the slot depth (only its 6 mm width), so a key, nut or rail foot seated in a slot overlaps this envelope and is declared in the assembly's allowed_overlaps."
+  }
 }

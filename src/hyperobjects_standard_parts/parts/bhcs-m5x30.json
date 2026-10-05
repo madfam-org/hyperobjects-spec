@@ -161,5 +161,42 @@
     "state": "generated",
     "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
   },
-  "notes": "Retention of the tip (a nut, a tapped hole, or a pilot hole the screw cuts its own thread in) is the host's design and not modelled. Length variants are separate catalog entries: ISO 7380-1 lengths are discrete, so a length parameter would admit lengths nobody sells."
+  "notes": "Retention of the tip (a nut, a tapped hole, or a pilot hole the screw cuts its own thread in) is the host's design and not modelled. Length variants are separate catalog entries: ISO 7380-1 lengths are discrete, so a length parameter would admit lengths nobody sells.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          -2.75
+        ],
+        "axis": "z",
+        "radius": 4.75,
+        "length": 2.75,
+        "from": [
+          "head_diameter",
+          "head_height"
+        ],
+        "note": "the button head"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": 30,
+        "from": [
+          "thread_diameter",
+          "length"
+        ],
+        "note": "the shank to the tip"
+      }
+    ],
+    "note": "Head and shank; the hex socket is not hollowed. The shank overlaps the hole or pilot it is driven into: declare it."
+  }
 }

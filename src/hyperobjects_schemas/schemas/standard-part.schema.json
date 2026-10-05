@@ -133,6 +133,21 @@
         "loop_length": { "$ref": "#/$defs/dimension", "description": "A closed-loop belt's pitch length. A path naming this belt must be closed; its computed length at home is reported beside this, and a difference above 0.5 mm (a convention) warns." }
       }
     },
+    "envelope": {
+      "description": "ASM-1 §3.7 (--collision). The part's collision body: a union of axis-aligned boxes and axis-aligned cylinders in the part's model frame, in the frame grammar over its parameters. Every solid names the cited `dimensions` it is built from (`from`); a shape the dimensions do not bound (an uncited slot depth, a body height no source states) is left out and said so in `note`, never guessed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["solids", "note"],
+      "properties": {
+        "solids": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/envelopeSolid" } },
+        "parameters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        },
+        "note": { "type": "string", "minLength": 10 }
+      }
+    },
     "belt_engagement": {
       "description": "ASM-1 §9 (v1.3). Where a belt wraps this part (a pulley, an idler or a bearing used as one), and the circle's centre and axis in the part's model frame. A toothed part states the cited `pitch_diameter` (the diameter the belt's pitch line runs on); a smooth part states the cited `running_diameter` (the surface the belt runs on), and a path adds the belt's pitch-line offset for the side that runs on it. Exactly one of the two. A belt path may pass only through components whose part declares this.",
       "type": "object",
@@ -281,6 +296,36 @@
       "oneOf": [
         { "type": "number" },
         { "type": "string", "minLength": 1, "maxLength": 256 }
+      ]
+    },
+    "envelopeSolid": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["shape", "min", "max", "from"],
+          "properties": {
+            "shape": { "const": "box" },
+            "min": { "$ref": "#/$defs/frameVector" },
+            "max": { "$ref": "#/$defs/frameVector" },
+            "from": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "note": { "type": "string", "minLength": 4 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["shape", "base", "axis", "radius", "length", "from"],
+          "properties": {
+            "shape": { "const": "cylinder" },
+            "base": { "$ref": "#/$defs/frameVector" },
+            "axis": { "type": "string", "enum": ["x", "y", "z"] },
+            "radius": { "$ref": "#/$defs/frameComponent" },
+            "length": { "$ref": "#/$defs/frameComponent" },
+            "from": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "note": { "type": "string", "minLength": 4 }
+          }
+        }
       ]
     },
     "frameVector": {

@@ -1,6 +1,6 @@
 {
  "assembly": "kinematic-gantry-fixture",
- "assembly_digest": "b4d525bea2fb5c11ed5c1ad9e7980da429681cd2193170961c96643ccd875ca9",
+ "assembly_digest": "8aa9d8dbe0037b28779e4e3bba7d22168b22086f2be94868740c7dfa3ed0b438",
  "format": "hyperobjects.assembly-poses",
  "format_version": "1.0.0",
  "joints": [
