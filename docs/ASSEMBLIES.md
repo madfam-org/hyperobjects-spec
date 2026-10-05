@@ -356,6 +356,49 @@ and tolerances (0.05 mm, 0.5°). For a passive joint, q is first measured from
 - prismatic: the translation along the axis;
 - revolute: the rotation about the axis, by `atan2`.
 
+### Stations on the mate: `offset` (v1.4)
+
+A part whose interface is a **run**, such as a slot along an extrusion, used to put every
+partner at one station: `extrusion-2020`'s `slot_station_mm`, shared by its eight slots.
+Two parts on the same extrusion at different stations could not both mate. With v1.4
+(hyperobjects-spec 0.8.0), the station lives on the mate:
+
+```jsonc
+{"id": "bed_mount_on_front", "a": {"component": "frame_front", "interface": "slot_yp_a"},
+ "b": {"component": "bed_mount", "interface": "foot_slot"}, "rotation_index": 0,
+ "offset": {"axis": "x", "value": 160, "note": "160 mm past the station toward end B"}}
+```
+
+- **What it does.** Before the mate is formed, the named side's interface frame (`side`,
+  default `a`) slides `value` mm along its own `axis`. Placement and closure use
+  `H(F)·J(value)`, a prismatic joint fixed at that value, so the pose sweep, `pose()` and
+  the golden poses need nothing new.
+- **One or the other.** A mate carries an `offset` or a `joint`, never both (the schema
+  says so).
+- **Travel.** The interface may declare
+  `travel: {axis, range: [lower, upper]}` (catalog: frame-grammar expressions over its
+  parameters; external: numbers). The offset must be along that axis and inside the
+  range, or the mate is an `offset` error; the value is never clamped. An interface
+  without `travel` cannot be checked: the offset still places the part and the mate
+  warns `offset-unchecked`.
+- **`extrusion-2020`.** Every `slot_*` interface travels along **x**, its frame's x axis,
+  which is the extrusion axis pointing toward end B. The run is the whole slot, end A
+  (z = 0) to end B (z = `length_mm`), measured from the station:
+  - `slot_*_a`: `[−slot_station_mm, length_mm − slot_station_mm]`;
+  - `slot_*_b`: `[slot_station_mm − length_mm, slot_station_mm]`.
+
+  The blind-joint stations declare no travel, because a blind joint's access hole is
+  drilled at its station.
+- **Not checked in v1.4:** the partner's footprint. A part whose station is inside the
+  run but whose body overhangs the extrusion end is the collision check's to find, since
+  no cited footprint exists yet.
+- **Backward compatible.** `slot_station_mm` stays. A mate without an offset places
+  exactly as before, so A and B validate unchanged. A's digest moves only because the
+  `extrusion-2020` entry gained `travel` (an ordinary refresh).
+- **Projection.** A mate with an offset carries `OffsetSide`, `OffsetAxis` and
+  `OffsetMm` in `Mates`. A mate without one writes nothing new, so no projection version
+  bump is needed.
+
 ### Machine-axis bindings
 
 ```jsonc
@@ -456,6 +499,8 @@ sweep runs once home passes.
 
 | Finding | Severity | When |
 |---|---|---|
+| `offset` | error | a mate offset along another axis than its interface's travel, or outside it (v1.4) |
+| `offset-unchecked` | warning | a mate offset on an interface that declares no travel (v1.4) |
 | `joint` | error | a duplicate joint id; limits not lower < upper; home outside the limits; `follows` naming an unknown, passive or own joint, a zero scale, or a cycle of followers |
 | `machine` | error | an axis bound twice; a joint that is not driven or does not exist; a zero scale |
 | `pose-closure` | error | a mate that holds at home fails at some pose; one finding per mate: the count and the first failing pose with its joint values |

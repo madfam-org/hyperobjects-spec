@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Stations on the mate: `offset` and interface `travel` (ASM-1 §9 v1.4, package 0.8.0)
+
+P6-ZBED found that `extrusion-2020` has one `slot_station_mm` shared by its eight slots, so
+two parts on one extrusion at different stations could not both mate. The full 2.4 hits
+this constantly. The coordinator approved the fix on 2026-10-04. Lane P6-JOINT.
+
+#### Added
+
+- **`mate.offset: {side?, axis, value, note?}`.** The named side's interface frame
+  (default `a`) slides `value` mm along its own axis before the mate is formed: a
+  prismatic joint fixed at that value (`H(F)·J(value)`). A mate carries an offset or a
+  joint, never both (schema).
+- **Interface `travel: {axis, range}`** (catalog: frame-grammar bounds; external:
+  numbers), with two findings:
+  - an `offset` error when an offset runs along another axis or leaves the range (never
+    clamped);
+  - an `offset-unchecked` warning when the interface declares no travel.
+- **Catalog lane rule 7** evaluates every `travel.range` bound at each parameter point and
+  requires lower < upper.
+- **`extrusion-2020`**: every `slot_*` interface travels along x (the extrusion axis,
+  toward end B) over the slot's run, end A to end B, measured from the station. This adds
+  no new number.
+- **`Mates`** carries `OffsetSide`, `OffsetAxis` and `OffsetMm` on a mate with an
+  offset. Nothing is written for a mate without one, so there is no projection-version
+  bump.
+- **Tests** in `tests/test_assembly_offset.py`:
+  - two T-nuts on one slot at different stations;
+  - side b;
+  - the run's bounds;
+  - the wrong axis;
+  - undeclared travel;
+  - offset XOR joint;
+  - parity with `slot_station_mm`.
+
+#### Changed
+
+- **Fixture A's digest moves** `296caa36…` → `35867ffd…`, through `extrusion-2020`'s
+  catalog digest. This is an ordinary refresh: `PROJECTION_VERSION` stays 2.
+
 ### Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, contract v1.3, package 0.7.0) — projection version 2
 
 Phase 6 of the Voron live-twin programme, lane P6-JOINT. It applies owner decisions D1–D5
