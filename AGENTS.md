@@ -317,6 +317,11 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
   `scripts/refresh_assembly_golden.py`. It refuses to write changed bytes under an id
   a golden already carries (`hyperobjects_aas.drift`), because asset-shells answers
   that with a 409. Lexicon text edits move only ConceptDescriptions: refresh, no bump.
+- **Project the canonical input.** A content-addressed id hashes canonical JSON (an
+  assembly's `digest16`, a material card's `content16`; GOC-1 §3.1: `20.0` == `20`), so
+  project the `normalize_numbers` form too. Otherwise the spelling of a whole number moves
+  the bytes under one id (F1, projection version 3). `tests/test_projection_canonical.py`
+  is the property; extend it when you add a content-addressed kind.
 - IDTA semanticIds are **copied** from the published template JSON (path and commit
   in `templates.py`), never typed from memory. A submodel claims one only when
   every mandatory element is present; `aas check` fails an over-claim (R85).

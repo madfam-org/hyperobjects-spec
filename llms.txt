@@ -36,7 +36,7 @@ names, no runbook content. See the repo-boundary section of `AGENTS.md`.
     y4d-spec assembly check <assembly.json> --commons DIR [--standard-parts DIR ...] [--pose-samples N]   # ASM-1 (+ §9 joints, pose sweep, belt paths, mate offsets; --collision at every pose); docs/ASSEMBLIES.md
     y4d-spec assembly poses <assembly.json> --commons DIR --out F   # ASM-1 §9 golden poses (reference forward kinematics)
     y4d-spec aas build <assemblies/slug> [--commons-dir DIR]   # ASM-1 §5 assembly shell (checked first)
-    python scripts/refresh_assembly_golden.py --check   # projection drift guard: same id + new bytes => bump PROJECTION_VERSION (now 2)
+    python scripts/refresh_assembly_golden.py --check   # projection drift guard: same id + new bytes => bump PROJECTION_VERSION (now 3)
     python scripts/refresh_pose_golden.py --check       # golden pose files = the reference forward kinematics
     ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
 

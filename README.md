@@ -1088,7 +1088,7 @@ check error, and 2 for a usage or read error.
 **Identifiers** (SEM-1 §1, permanent). The asset is `https://id.madfam.io/asset/{solid|soft}/{slug}`.
 The shell is `…/aas/{kind}/{slug}/{tree16}/p{N}`, where `tree16` is the first 16 hex of the
 GOC-1 `tree_sha256` and `N` is the **projection version** (`hyperobjects_aas.PROJECTION_VERSION`,
-now `1`); there is one immutable shell per design revision and projection version. A
+now `3`); there is one immutable shell per design revision and projection version. A
 submodel is `…/sm/{kind}/{slug}/{tree16}/p{N}/{SubmodelIdShort}`. A concept is
 `…/concept/{lexicon-term}`. A MADFAM template is `…/smt/{name}/1/0`. A material card's shell
 uses `content16`, taken from the card's canonical JSON (`…/aas/material/{slug}/{content16}/p{N}`).
@@ -1102,10 +1102,25 @@ needs new ids. The shell records its version twice: in the id, and in a
 the manifest semver. `aas check` fails a shell whose extension and id disagree, or whose
 submodels carry another version. The **drift guard** makes the bump mandatory:
 `scripts/refresh_assembly_golden.py --check` (a CI step) and `tests/test_projection_version.py`
-rebuild 13 goldens (projection version **2** since 0.7.0: every assembly shell gained the
-ASM-1 §9 `Kinematics` submodel) (assemblies A and B, their nine solid cartridges, a soft garment, a
-material card). When the bytes under an id a golden already carries change, both fail, and
-the refresh refuses to write until `PROJECTION_VERSION` is bumped. ConceptDescription-only
+rebuild 18 goldens (assemblies A and B, the 14 solid cartridges they use, a soft garment,
+a material card). The projection version was **2** from 0.7.0, when every assembly shell
+gained the ASM-1 §9 `Kinematics` submodel. It is **3** since 0.10.0: a material card is
+projected in its canonical form. When the bytes under an id a golden already carries change, both fail, and
+the refresh refuses to write until `PROJECTION_VERSION` is bumped.
+
+**One digest, one projection** (lane P6-PROJFIX). A content-addressed id hashes canonical
+JSON (GOC-1 §3.1), in which `20.0` and `20` are one number. That covers an assembly's
+`digest16` and a material card's `content16`. So the projection reads the input in that
+same canonical form, and the spelling of a whole number cannot change the bytes under the
+id. A whole number's `valueType` follows its canonical value: `20` is `xs:integer`, `20.5`
+is `xs:double`, and a field the projection types explicitly keeps its type. An assembly
+projects its canonical document, the form its `AssemblyDocument` blob stores, so a
+publisher and a store that re-projects the blob write the same bytes.
+`tests/test_projection_canonical.py` holds the property `project(x) == project(canonical(x))`
+over every assembly and material fixture. A cartridge id hashes file bytes (`tree_sha256`),
+so a respelt manifest is a new revision with a new id.
+
+ConceptDescription-only
 changes are not drift of this kind: they follow the lexicon, and the store updates them in place. The metamodel limits `administration.version` to an
 integer of at most 4 characters, so `1.2.3` becomes version `1`, revision `2`, and the full
 semver goes in `Nameplate/ManifestVersion`. A manifest id that is not a valid idShort is

@@ -584,6 +584,13 @@ It is a separate submodel rather than an extension of `Mates`, for three reasons
 A rigid assembly carries it with no joints and one pose. The bytes of every assembly shell
 change, so `PROJECTION_VERSION` is **2**.
 
+**Projection version 3** (package 0.10.0, lane P6-PROJFIX). An assembly's bytes do not move:
+the assembly half of the canonical-projection fix needs no bump, because every fixture already
+writes whole numbers as integers. The bump comes from material cards, which are now projected
+in the canonical form their `content16` hashes. That changes the `valueType` of a card's
+whole-float values (`220.0` becomes `xs:integer`). The version is one for the whole package,
+so every id moves to `…/p3`. See [The AAS projection](#the-aas-projection-asm-1-5).
+
 ## The assembly digest (`hyperobjects-assembly-v1`)
 
 ```
@@ -671,7 +678,15 @@ standard parts from `--standard-parts` (default: the catalog bundled with the pa
 | `RequirementProfile` (products with `requirements_rollup`) | each fabricated component's `requirements` (top level and the parts it produces), and the union of their processes |
 
 The environment is a function of the document and the report alone, so any holder of
-the same components derives it byte for byte. `hyperobjects_aas.resolver` is the other
+the same components derives it byte for byte. More precisely, it is a function of the
+**canonical** document (GOC-1 §3.1), the form the digest hashes and the
+`AssemblyDocument` blob stores. Before projecting, `project_assembly` normalises the
+document, and a standard part's resolved parameter values, with `normalize_numbers`. So
+`"c_end": 20.0` and `"c_end": 20` write the same bytes under the same id, and a whole
+number's untyped `Value` is `xs:integer`. Before this fix, F1 of lane P6-ASM, the first
+spelling projected `xs:double` from the author's document and `xs:integer` from the blob:
+one digest, two byte projections, a latent 409. `tests/test_projection_canonical.py`
+covers both paths and the property `project(doc) == project(canonical(doc))`. `hyperobjects_aas.resolver` is the other
 half of that seam: `EnvironmentCartridgeResolver` resolves cartridge components from
 **stored type shells** (`ParametricModel`, `GeometryProvision`, `MatingInterfaces`,
 `RequirementProfile`), at the revision each node's `DerivedFrom` names
