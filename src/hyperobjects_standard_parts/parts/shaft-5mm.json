@@ -1,0 +1,381 @@
+{
+  "spec_version": 1,
+  "key": "shaft-5mm",
+  "category": "shaft",
+  "name": {
+    "en": "Shaft Ø5 mm, D-cut",
+    "es": "Flecha de Ø5 mm con plano",
+    "fr": "Arbre de Ø5 mm à méplat",
+    "pt": "Eixo de Ø5 mm com rebaixo"
+  },
+  "description": {
+    "en": "A hardened, ground Ø5 mm g6 shaft cut to length, with a flat (D cut) for set screws. A Voron 2.4-class Z drive's output shaft is one 60 mm long: three 625 bearings carry it, and it holds the 80-tooth reduction pulley and the 20-tooth Z belt pulley.",
+    "es": "Una flecha templada y rectificada de Ø5 mm g6 cortada a medida, con un plano (corte en D) para los prisioneros. La flecha de salida de un accionamiento Z de clase Voron 2.4 es una de 60 mm: la sostienen tres rodamientos 625 y lleva la polea de reducción de 80 dientes y la polea de 20 dientes de la banda Z.",
+    "fr": "Un arbre trempé et rectifié de Ø5 mm g6 coupé à longueur, avec un méplat (coupe en D) pour les vis de pression. L'arbre de sortie d'un entraînement Z de classe Voron 2.4 en est un de 60 mm : trois roulements 625 le portent, et il tient la poulie de réduction à 80 dents et la poulie à 20 dents de la courroie Z.",
+    "pt": "Um eixo temperado e retificado de Ø5 mm g6 cortado à medida, com um rebaixo (corte em D) para os parafusos de fixação. O eixo de saída de um acionamento Z de classe Voron 2.4 é um de 60 mm: três rolamentos 625 sustentam-no e ele leva a polia de redução de 80 dentes e a polia de 20 dentes da correia Z."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "MISUMI SFJ linear shaft, D 5 g6 (cut length L 10–400)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI linear shafts, high accuracy, standard type — straight (SFJ / SSFJ / PSFJ / PSSFJ), catalog p. 91",
+      "url": "https://vn.misumi-ec.com/pdf/fa/2013/p91.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "D 5: tolerance g6, −0.004/−0.012 mm; L 10–400 mm in 1 mm increments"
+    },
+    {
+      "title": "SKF 625-2RS1 miniature deep groove ball bearing (distributor listing, Quality Bearings Online)",
+      "url": "https://www.qualitybearingsonline.ca/625-2rs1-skf-miniature-deep-groove-5x16x5mm",
+      "publisher": "Quality Bearings Online",
+      "accessed": "2026-10-04",
+      "supports": "625-2RS1: bore d 5 mm; outside diameter D 16 mm; width B 5 mm; sealed both sides"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 32 (Z Drives and Idlers, belt drive assembly): a 5x60 shaft with a D cut, one pulley set screw on the D cut; p. 33: the 80 tooth pulley, three 625 bearings and M5 shims on it"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A, on the shaft axis. +z runs along the axis to end face B at z = length_mm. +x is an arbitrary radial reference (the flat for the set screws is not an interface: a pulley's set screw finds it at assembly). Each journal sits where a 625's face B lands, the bearing lying toward end A (its face A 5 mm nearer end A); both journal and hub normals follow the side the partner's body lies on.",
+  "dimensions": {
+    "diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "g6 (−0.004/−0.012)"
+    },
+    "length_min": {
+      "value": 10,
+      "unit": "mm",
+      "source": 0
+    },
+    "length_max": {
+      "value": 400,
+      "unit": "mm",
+      "source": 0
+    },
+    "length_increment": {
+      "value": 1,
+      "unit": "mm",
+      "source": 0
+    },
+    "z_drive_length": {
+      "value": 60,
+      "unit": "mm",
+      "source": 2,
+      "note": "the Voron 2.4r2 Z drive's 5x60 shaft; the default of length_mm"
+    },
+    "bearing_625_width": {
+      "value": 5,
+      "unit": "mm",
+      "source": 1,
+      "note": "a 625's width; a journal sits at its face B, 5 past its face A"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length",
+        "es": "Longitud de corte",
+        "fr": "Longueur de coupe",
+        "pt": "Comprimento de corte"
+      },
+      "default": 60,
+      "min": 10,
+      "max": 400,
+      "step": 1,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI's configurable range and increment; the default is the Voron 2.4r2 Z drive's 60 mm (source 2). No frame reads it: keep every station within it."
+    },
+    {
+      "id": "journal_a_mm",
+      "type": "number",
+      "label": {
+        "en": "Bearing A face B station",
+        "es": "Posición de la cara B del rodamiento A",
+        "fr": "Station de la face B du roulement A",
+        "pt": "Posição da face B do rolamento A"
+      },
+      "default": 5,
+      "min": 0,
+      "max": 400,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the default is the commons z-drive-housing at its defaults (walls and pulleys spaced as that cartridge's README states). Bearing A's face A is flush with end A."
+    },
+    {
+      "id": "journal_b_mm",
+      "type": "number",
+      "label": {
+        "en": "Bearing B face B station",
+        "es": "Posición de la cara B del rodamiento B",
+        "fr": "Station de la face B du roulement B",
+        "pt": "Posição da face B do rolamento B"
+      },
+      "default": 33.5,
+      "min": 0,
+      "max": 400,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the default is the commons z-drive-housing at its defaults (walls and pulleys spaced as that cartridge's README states)."
+    },
+    {
+      "id": "journal_c_mm",
+      "type": "number",
+      "label": {
+        "en": "Bearing C face B station",
+        "es": "Posición de la cara B del rodamiento C",
+        "fr": "Station de la face B du roulement C",
+        "pt": "Posição da face B do rolamento C"
+      },
+      "default": 59,
+      "min": 0,
+      "max": 400,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the default is the commons z-drive-housing at its defaults (walls and pulleys spaced as that cartridge's README states)."
+    },
+    {
+      "id": "hub_a_mm",
+      "type": "number",
+      "label": {
+        "en": "Hub A station (pulley toward end A)",
+        "es": "Posición del cubo A (polea hacia el extremo A)",
+        "fr": "Station du moyeu A (poulie vers l'extrémité A)",
+        "pt": "Posição do cubo A (polia para a extremidade A)"
+      },
+      "default": 28,
+      "min": 0,
+      "max": 400,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the default is the commons z-drive-housing at its defaults (walls and pulleys spaced as that cartridge's README states). The 20-tooth Z pulley's hub end lands here, the pulley lying toward end A."
+    },
+    {
+      "id": "hub_b_mm",
+      "type": "number",
+      "label": {
+        "en": "Hub B station (pulley toward end B)",
+        "es": "Posición del cubo B (polea hacia el extremo B)",
+        "fr": "Station du moyeu B (poulie vers l'extrémité B)",
+        "pt": "Posição do cubo B (polia para a extremidade B)"
+      },
+      "default": 35.5,
+      "min": 0,
+      "max": 400,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the default is the commons z-drive-housing at its defaults (walls and pulleys spaced as that cartridge's README states). The 80-tooth pulley's hub end lands here, the pulley lying toward end B."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "journal_a",
+      "label": {
+        "en": "Bearing journal A",
+        "es": "Asiento de rodamiento A",
+        "fr": "Portée de roulement A",
+        "pt": "Assento de rolamento A"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-625-bore",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "journal_a_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "journal_a_mm"
+      ],
+      "note": "Male: the shaft passes through a 625's inner ring. The origin is where that bearing's face B lands, journal_a_mm from end A; the normal points −z, so the bearing (bearing-625.bore is framed at face B, normal +z) lies between the origin and end A."
+    },
+    {
+      "id": "journal_b",
+      "label": {
+        "en": "Bearing journal B",
+        "es": "Asiento de rodamiento B",
+        "fr": "Portée de roulement B",
+        "pt": "Assento de rolamento B"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-625-bore",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "journal_b_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "journal_b_mm"
+      ],
+      "note": "Male: the shaft passes through a 625's inner ring. The origin is where that bearing's face B lands, journal_b_mm from end A; the normal points −z, so the bearing (bearing-625.bore is framed at face B, normal +z) lies between the origin and end A."
+    },
+    {
+      "id": "journal_c",
+      "label": {
+        "en": "Bearing journal C",
+        "es": "Asiento de rodamiento C",
+        "fr": "Portée de roulement C",
+        "pt": "Assento de rolamento C"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-625-bore",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "journal_c_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "journal_c_mm"
+      ],
+      "note": "Male: the shaft passes through a 625's inner ring. The origin is where that bearing's face B lands, journal_c_mm from end A; the normal points −z, so the bearing (bearing-625.bore is framed at face B, normal +z) lies between the origin and end A."
+    },
+    {
+      "id": "hub_a",
+      "label": {
+        "en": "Pulley hub A",
+        "es": "Cubo de polea A",
+        "fr": "Moyeu de poulie A",
+        "pt": "Cubo de polia A"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "hub_a_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "hub_a_mm"
+      ],
+      "note": "Male: a pulley's bore slides on here, its face A (or face B, by the pulley's bore_b) landing at hub_a_mm; the normal points −z, so the pulley lies toward end A."
+    },
+    {
+      "id": "hub_b",
+      "label": {
+        "en": "Pulley hub B",
+        "es": "Cubo de polea B",
+        "fr": "Moyeu de poulie B",
+        "pt": "Cubo de polia B"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "hub_b_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "hub_b_mm"
+      ],
+      "note": "Male: as hub_a, with the normal +z, so the pulley lies toward end B."
+    }
+  ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.5,
+        "length": "length_mm",
+        "from": [
+          "diameter"
+        ]
+      }
+    ],
+    "parameters": [
+      "length_mm"
+    ],
+    "note": "The shaft's diameter over its cut length; the D cut is not modelled."
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The stations are an assembly's choices: the closure check holds them to the housing's bearing seats and the pulleys' planes. The D cut's depth is not cited and not modelled."
+}

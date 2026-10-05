@@ -42,6 +42,68 @@ sheet are cited by page and row only, and none of Voron's geometry is used.
   fails closure; an MGN12H block on an MGN9 rail, an MGN12-pattern part on an MGN9H block and
   a belt end in a bore are refused. The axis audit covers the new idler's bore.
 
+### The Voron 2.4-class Z drive, Z belt and bed hardware (Phase 6, lane P6-ZBED)
+
+Additive catalog and vocabulary data; no schema, grammar, gate or validator change. Phase 6 (D1) models the full 2.4 motion system, the four Z drives and
+the bed included, with belts as declared paths (ASM-1 §9, P6-JOINT). Facts cite datasheets
+and listings; the Voron 2.4r2 build guide (GPL-3.0) is cited by page and section only, and
+none of its geometry is used.
+
+#### Added
+
+- **`gt2-pulley-16t-5mm`** (class; MISUMI GPA 2GT: P.D. 10.19, O.D. 9.68, 6 mm belt, L 18,
+  W 10.3; Gates 2MR-16S 0.401 in), **`gt2-pulley-20t-9mm`** (class; MISUMI GPA: P.D. 12.73,
+  9 mm belt, L 21, W 13.3) and **`gt2-pulley-80t-5mm`** (class; Spool3D listing: 5 mm bore,
+  overall 18, hub 8, flange 54.7; Gates 2MR-80S: P.D. 2.005 in = 50.93). Each carries a
+  `belt_engagement` (ASM-1 §9): the cited `pitch_diameter` (on the 2 mm GT2 circle, N·2/π)
+  and the belt mid-plane's centre, derived from cited lengths (`plane_note` says how). Interfaces `bore` (face A, the hub end) and `bore_b` (face B,
+  the flange end), so a pulley mounts either way round: the 16-tooth on the NEMA 17 shaft
+  (`nema-17-shaft-5mm`), the 20- and 80-tooth on the Z drive's output shaft
+  (`z-drive-pulley-hub-5mm`). 80 / 16 = 5:1 (guide pp. 33, 38).
+- **`bearing-625`** (SKF 625: 5 × 16 × 5): `outer_race` (`bearing-625`, male) and `bore`
+  (`bearing-625-bore`, female, at face B), framed as `bearing-608`.
+- **`shaft-5mm`** (MISUMI SFJ D5 g6, L 10–400; default 60, the guide's 5x60, p. 32):
+  journals `journal_a/b/c` (`bearing-625-bore`, male) and pulley hubs `hub_a` / `hub_b`
+  (`z-drive-pulley-hub-5mm`, male) at station parameters whose defaults are the commons
+  `z-drive-housing`'s (conventions).
+- **`gt2-belt-9mm`**, the open Z belt (category `belt`; its `belt` block from Gates 2MR
+  long-length belting, 17195 p. 90: pitch 2, width 9, height 1.52, tooth depth 0.76): `end_a` / `end_b`
+  (`z-belt-gt2-9mm-clamp`, male, sym 2) on the back face at the clamp stations;
+  `length_mm` defaults to the guide's minimum cut length for the 350 (1200, p. 111). The
+  pitch-line differential is not cited, so the teeth-/back-side offsets are not stated; the
+  Z path runs teeth-on-toothed parts only.
+- **`gt2-belt-loop-188mm`**, the Z drive's reduction loop (category `belt`, no interfaces):
+  `belt.loop_length` 188 (guide p. 34), width 6 (the Voron 2.4 motion set's Gates loop),
+  pitch 2, height 1.52, tooth depth 0.76 (Gates 17195 p. 90); 94 teeth.
+- **`bhcs-m5x10`** and **`bhcs-m5x16`** (ISO 7380-1; Keller & Kalmbach): `head_seat` only.
+  The guide fixes the Z drives and the bed extrusions with M5x10 (pp. 19, 42–43) and the
+  frame's blind joints with M5x16 (p. 14).
+- **Envelopes** (ASM-1 §3.7, for `--collision`): `bearing-625`, `shaft-5mm`, `bhcs-m5x10`,
+  `bhcs-m5x16` and `gt2-pulley-80t-5mm`, each from its cited dimensions. The 16- and
+  20-tooth pulleys have none (no flange diameter cited), and the belts have none (paths).
+- **Vocabulary** (`interface-sizes.standard-parts.json`): `bearing-625-bore`,
+  `z-drive-pulley-hub-5mm`, `z-belt-gt2-9mm-clamp`.
+- No schema change: the `belt` category, the `belt` and `belt_engagement` blocks and
+  minItems 0 for belts arrived with ASM-1 §9 (0.7.0, P6-JOINT); this lane's entries use them.
+- **Tests** (`tests/test_catalog_z_drive.py`): (i) a bottom corner — upright, two
+  horizontals by blind joints, the Z drive housing framed as the commons cartridge
+  `z-drive-housing` frames it, keyed into both bottom slots, T-nuts and M5x10s, three 625s,
+  the shaft through all three (two closed cycles), the 20- and 80-tooth pulleys, the NEMA 17
+  and its 16-tooth pulley — closes; the reduction pulleys are coplanar at the 40.8 mm centre
+  distance that closes a 188 mm loop within 0.05 mm; a bearing seat or a corner station 1 mm
+  off fails closure; (ii) the same upright's top corner with `corner-idler-bracket`: the Z
+  idler and the Z pulley share one belt plane and one vertical; (iii) a 9 mm belt end in
+  `z-belt-clamp`'s jaws on a gantry beam; (iv) `bed-extrusion-mount` holding a bed
+  extrusion square, flush and butted; (v) the whole 350 frame cube at its cited cut lengths
+  (530 uprights, 470 horizontals, 16 blind joints; Spool3D and LDO kit listings, guide
+  pp. 13, 20) with a Z drive at each bottom corner, keyed into both bottom horizontals (into
+  the x-running ones by a v1.4 mate offset of ∓160, since they carry the bed rails' station
+  170), and both bed rails on four bed mounts —
+  64 + 6 components close; a 471 horizontal or a 469 bed rail fails; (vi) ASM-1 §9: the
+  16 → 80-tooth loop declared as a closed path in the Z drive closes at 188.006 mm with no
+  `path-length` warning, and 2 mm further out it warns at the open-belt formula's length.
+  Negative controls for every new key.
+
 ### `--collision`: rigid-body interference at every pose (ASM-1 §3.7, package 0.9.0)
 
 Phase 6c, lane P6-JOINT. `--collision` is no longer a stub. The phase-4 lanes' scratch clash probes
@@ -86,6 +148,7 @@ keystone.
 - **Fixture A's digest moves** `35867ffd…` → `8172f814…`, through catalog digests (an
   ordinary refresh; `PROJECTION_VERSION` stays 2).
 
+
 ### Stations on the mate: `offset` and interface `travel` (ASM-1 §9 v1.4, package 0.8.0)
 
 P6-ZBED found that `extrusion-2020` has one `slot_station_mm` shared by its eight slots, so
@@ -124,6 +187,7 @@ this constantly. The coordinator approved the fix on 2026-10-04. Lane P6-JOINT.
 
 - **Fixture A's digest moves** `296caa36…` → `35867ffd…`, through `extrusion-2020`'s
   catalog digest. This is an ordinary refresh: `PROJECTION_VERSION` stays 2.
+
 
 ### Kinematics: joints, axis bindings, belt paths, the pose sweep (ASM-1 §9, contract v1.3, package 0.7.0) — projection version 2
 
@@ -201,6 +265,7 @@ pose each.
 - `y4d_spec.assembly.validate` is split: the §9 steps live in `sweep.py`, and the mating
   tolerances in `tolerances.py` (still re-exported).
 
+
 ### Graph engine Wave D re-vendored: graph format 1.1 (lane P8-ENGINE, 2026-10-04)
 
 The vendored Yantra4D graph engine (`src/y4d_spec/graph/`) moves in lockstep with the
@@ -225,6 +290,7 @@ the projection or any gate threshold.
   parameter is now also alive when the graph declares it in its own `parameters` object
   (`rules.graph_expression_parameters`). The transpiler refuses a declaration that no
   expression reads, so a declared id is a read one.
+
 
 ### M5 idler hardware and the 2020 blind joint (owner instruction 2026-10-04, lane P4-AUTH-E)
 

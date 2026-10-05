@@ -1,0 +1,91 @@
+{
+  "spec_version": 1,
+  "key": "gt2-belt-loop-188mm",
+  "category": "belt",
+  "name": {
+    "en": "GT2 closed belt loop, 188 mm, 6 mm",
+    "es": "Banda GT2 cerrada de 188 mm y 6 mm",
+    "fr": "Courroie GT2 fermée de 188 mm, 6 mm",
+    "pt": "Correia GT2 fechada de 188 mm e 6 mm"
+  },
+  "description": {
+    "en": "A closed GT2 (Gates PowerGrip GT, 2MR pitch) timing belt loop, 188 mm pitch length and 6 mm wide. A Voron 2.4-class Z drive runs one between the 16-tooth motor pulley and the 80-tooth pulley on its output shaft, the 5:1 reduction. It has no ends, so it mates nothing: an assembly declares it as a closed belt path round the two pulleys.",
+    "es": "Una banda síncrona GT2 cerrada (Gates PowerGrip GT, paso 2MR) de 188 mm de longitud primitiva y 6 mm de ancho. Un accionamiento Z de clase Voron 2.4 lleva una entre la polea de 16 dientes del motor y la de 80 dientes de su flecha de salida, la reducción 5:1. No tiene extremos, así que no se acopla a nada: un ensamble la declara como una trayectoria de banda cerrada alrededor de las dos poleas.",
+    "fr": "Une courroie crantée GT2 fermée (Gates PowerGrip GT, pas 2MR) de 188 mm de longueur primitive et 6 mm de large. Un entraînement Z de classe Voron 2.4 en fait tourner une entre la poulie moteur à 16 dents et la poulie à 80 dents de son arbre de sortie, la réduction 5:1. Elle n'a pas d'extrémités et ne s'assemble donc à rien : un assemblage la déclare comme un trajet de courroie fermé autour des deux poulies.",
+    "pt": "Uma correia sincronizada GT2 fechada (Gates PowerGrip GT, passo 2MR) de 188 mm de comprimento primitivo e 6 mm de largura. Um acionamento Z de classe Voron 2.4 usa uma entre a polia de 16 dentes do motor e a de 80 dentes do eixo de saída, a redução 5:1. Não tem extremidades, por isso não acopla a nada: uma montagem declara-a como um percurso de correia fechado à volta das duas polias."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "GT2 (Gates PowerGrip GT 2MR) closed belt loop, 188 mm pitch length, 6 mm wide",
+    "source": 2
+  },
+  "sources": [
+    {
+      "title": "Gates PowerGrip belt drives — Drive Design Manual (publication 17195): Long Length Belting (printed p. 86) and Long Length Belting Specifications (printed p. 90); distributor-hosted copy",
+      "url": "https://www.ahrinternational.com/PDF_catalogues/Gates/powergripdesignmanual17195.pdf",
+      "publisher": "Gates Corporation (copy hosted by AHR International)",
+      "accessed": "2026-10-04",
+      "supports": "PowerGrip GT belting, 2MR pitch, fiberglass tensile cord: pitch 2 mm; belt widths 4, 6, 9 mm; belt height 1.52 mm (.060 in); tooth height 0.76 mm (.030 in) (p. 90). Long-length belting LL2MR04 / LL2MR06 / LL2MR09 in widths 4, 6, 9 mm (p. 86)"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 34 (Z Drives and Idlers, Z drive): a GT2 188 mm belt loop on the 80 tooth pulley; p. 38: driven by the 16-tooth pulley on the Z motor"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    }
+  ],
+  "frame_convention": "A closed loop has no ends and no mating interface, so no frame is placed on it: its geometry is the belt path an assembly declares (ASM-1 §9), the pitch line wrapped round the pulleys it names.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 94,
+      "unit": "count",
+      "source": 1,
+      "note": "derived: the 188 mm pitch length (guide p. 34) over the 2 mm pitch (source 0)"
+    }
+  },
+  "interfaces": [],
+  "belt": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 2,
+      "note": "the Voron 2.4 motion set's loop is 6 mm wide; 6 is a Gates 2MR standard width (source 0)"
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, the overall belt height, back to tooth tip"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "T, the tooth height"
+    },
+    "loop_length": {
+      "value": 188,
+      "unit": "mm",
+      "source": 1,
+      "note": "the pitch length of the closed loop"
+    }
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The commons z-drive-housing's default centre distance (40.8 mm) closes this loop on the 16- and 80-tooth pitch diameters (10.19, 50.93) at 188.006 mm. The pitch-line differential is not cited, so no side offsets: the loop runs teeth-on-toothed pulleys only."
+}

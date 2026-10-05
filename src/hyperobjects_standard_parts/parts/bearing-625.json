@@ -1,0 +1,152 @@
+{
+  "spec_version": 1,
+  "key": "bearing-625",
+  "category": "bearing",
+  "name": {
+    "en": "625 ball bearing",
+    "es": "Rodamiento 625",
+    "fr": "Roulement 625",
+    "pt": "Rolamento 625"
+  },
+  "description": {
+    "en": "A single-row deep-groove ball bearing, 5 mm bore × 16 mm outside diameter × 5 mm wide. Its outer ring seats in a housing bore; a 5 mm shaft passes through its inner ring. A Voron 2.4-class Z drive carries its output shaft on three of them.",
+    "es": "Un rodamiento rígido de bolas de una hilera, de 5 mm de barreno × 16 mm de diámetro exterior × 5 mm de ancho. Su anillo exterior asienta en un alojamiento; por su anillo interior pasa una flecha de 5 mm. Un accionamiento Z de clase Voron 2.4 apoya su flecha de salida en tres de ellos.",
+    "fr": "Un roulement rigide à une rangée de billes, alésage 5 mm × diamètre extérieur 16 mm × largeur 5 mm. Sa bague extérieure se loge dans un alésage de logement ; un arbre de 5 mm traverse sa bague intérieure. Un entraînement Z de classe Voron 2.4 porte son arbre de sortie sur trois d'entre eux.",
+    "pt": "Um rolamento rígido de uma carreira de esferas, furo de 5 mm × diâmetro exterior de 16 mm × 5 mm de largura. O anel exterior assenta num alojamento; um eixo de 5 mm passa pelo anel interior. Um acionamento Z de classe Voron 2.4 apoia o eixo de saída em três deles."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "625 deep-groove ball bearing (boundary dimensions 5 × 16 × 5 mm)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "SKF 625-2RS1 miniature deep groove ball bearing (distributor listing, Quality Bearings Online)",
+      "url": "https://www.qualitybearingsonline.ca/625-2rs1-skf-miniature-deep-groove-5x16x5mm",
+      "publisher": "Quality Bearings Online",
+      "accessed": "2026-10-04",
+      "supports": "625-2RS1: bore d 5 mm; outside diameter D 16 mm; width B 5 mm; sealed both sides"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 8 (Hardware reference): the 625 bearing is used on the Voron Z drives; p. 33 (Z Drives and Idlers, belt drive assembly): three 625 bearings on the 5x60 shaft"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    }
+  ],
+  "frame_convention": "Origin at the centre of side face A, on the bearing axis. +z runs along the axis through the bearing to side face B at z = 5. +x is an arbitrary radial reference: the bearing is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "outside_diameter": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "outer_race",
+      "label": {
+        "en": "Outer ring",
+        "es": "Anillo exterior",
+        "fr": "Bague extérieure",
+        "pt": "Anel exterior"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-625",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the bearing goes into its housing bore. As bearing-608: the normal runs from face A toward face B, the side the housing lies on, so a seat framed at its entrance (normal out of the cavity) takes face B first and leaves face A flush with the entrance."
+    },
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore (inner ring)",
+        "es": "Barreno (anillo interior)",
+        "fr": "Alésage (bague intérieure)",
+        "pt": "Furo (anel interior)"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-625-bore",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          5
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a 5 mm shaft passes through the inner ring. Framed at face B (z = 5), normal +z out of that face, as bearing-608's bore; shaft-5mm's journals are framed where face B lands."
+    }
+  ],
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 8,
+        "length": 5,
+        "from": [
+          "outside_diameter",
+          "width"
+        ]
+      }
+    ],
+    "note": "Outside diameter over the width; the bore is not hollowed, so its shaft overlaps it."
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A shielded (2Z) or sealed (2RS) 625 has the same boundary dimensions. The fit of the host's bore is the host's design choice."
+}

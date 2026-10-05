@@ -1,0 +1,194 @@
+{
+  "spec_version": 1,
+  "key": "gt2-pulley-16t-5mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 16-tooth pulley, 6 mm belt, 5 mm bore",
+    "es": "Polea GT2 de 16 dientes, banda de 6 mm, barreno de 5 mm",
+    "fr": "Poulie GT2 à 16 dents, courroie de 6 mm, alésage de 5 mm",
+    "pt": "Polia GT2 de 16 dentes, correia de 6 mm, furo de 5 mm"
+  },
+  "description": {
+    "en": "A flanged GT2 (2GT) timing pulley with 16 teeth for a 6 mm belt and a 5 mm set-screw bore, the size a NEMA 17 motor shaft takes. A commercial class: the tooth count, pitch, pitch diameter and bore are shared; the hub and flange dimensions are one maker's (MISUMI GPA, shape A). In a Voron 2.4-class Z drive it is the motor pulley of the 5:1 reduction.",
+    "es": "Una polea síncrona GT2 (2GT) con pestañas, de 16 dientes para banda de 6 mm y barreno de 5 mm con prisioneros, la medida que toma la flecha de un motor NEMA 17. Una clase comercial: el número de dientes, el paso, el diámetro primitivo y el barreno son comunes; las medidas del cubo y las pestañas son de un fabricante (MISUMI GPA, forma A). En un accionamiento Z de clase Voron 2.4 es la polea del motor de la reducción 5:1.",
+    "fr": "Une poulie crantée GT2 (2GT) à flasques, à 16 dents pour courroie de 6 mm et alésage de 5 mm à vis de pression, la taille que prend l'arbre d'un moteur NEMA 17. Une classe commerciale : le nombre de dents, le pas, le diamètre primitif et l'alésage sont communs ; les cotes du moyeu et des flasques sont celles d'un fabricant (MISUMI GPA, forme A). Dans un entraînement Z de classe Voron 2.4, c'est la poulie moteur de la réduction 5:1.",
+    "pt": "Uma polia sincronizada GT2 (2GT) com flanges, de 16 dentes para correia de 6 mm e furo de 5 mm com parafusos de fixação, a medida do eixo de um motor NEMA 17. Uma classe comercial: o número de dentes, o passo, o diâmetro primitivo e o furo são comuns; as medidas do cubo e das flanges são de um fabricante (MISUMI GPA, forma A). Num acionamento Z de classe Voron 2.4 é a polia do motor da redução 5:1."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 16-tooth timing pulley for 6 mm belt, 5 mm bore",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI High Torque Timing Pulleys, 2GT type (GPA□□GT2040 / GT2060 / GT2090), catalog page 1340 (2019 MX)",
+      "url": "https://mx.misumi-ec.com/en/pdf/fa/2019/2019_MX_1340.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "2GT, pitch 2.0 mm. Number of teeth vs P.D./O.D.: 16 teeth P.D. 10.19, O.D. 9.68; 20 teeth P.D. 12.73, O.D. 12.22. Belt width 6 mm (GPA□□GT2060): A 7.0, W 10.3, L 18.0; belt width 9 mm (GPA□□GT2090): A 10.0, W 13.3, L 21.0 (A shape: the hub, then the flanged toothed section W, 1.65 each side of A). Shaft bore 5 (H7) with M3 tapped holes and M3 x 3 set screws."
+    },
+    {
+      "title": "Gates 2MR-16S-06 PowerGrip GT2 2 mm sprocket, Gates 7842-6005 (retailer listing, Royal Supply)",
+      "url": "https://www.royalsupply.com/store/pc/powergrip-gt-sprockets-2mr-16s-06.html",
+      "publisher": "Royal Supply",
+      "accessed": "2026-10-04",
+      "supports": "Gates PowerGrip GT2 2MR-16S-06: 2 mm pitch, 16 grooves, pitch diameter 0.401 in"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 38 (Z Drives and Idlers, Z drive): a GT2 16-tooth pulley on each Z NEMA 17 motor — the only 16-tooth pulleys in the printer; p. 34: the GT2 188 mm belt loop it drives"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A, the hub end, on the bore axis. +z runs along the bore through the hub and then the flanged toothed section to end face B, the flange end, at z = 18 (MISUMI GPA, 6 mm belt, shape A: L 18, W 10.3). The belt's mid-plane is the middle of the toothed section, z = 12.85. +x is an arbitrary radial reference: the pulley is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 16,
+      "unit": "count",
+      "source": 0
+    },
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "outside_diameter": {
+      "value": 9.68,
+      "unit": "mm",
+      "source": 0,
+      "note": "O.D., the tooth tips"
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0,
+      "note": "the GPA□□GT2060 series"
+    },
+    "toothed_width": {
+      "value": 7.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI A"
+    },
+    "toothed_section_width": {
+      "value": 10.3,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI W: the toothed width plus 1.65 each side"
+    },
+    "overall_length": {
+      "value": 18.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI L"
+    },
+    "set_screw": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0,
+      "note": "M3 x 3 set screws for the 5 mm bore"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore at the hub end (face A)",
+        "es": "Barreno en el extremo del cubo (cara A)",
+        "fr": "Alésage côté moyeu (face A)",
+        "pt": "Furo no lado do cubo (face A)"
+      },
+      "geometry_type": "socket",
+      "size_key": "nema-17-shaft-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bore takes the shaft hub end first. Framed at face A (the hub end), normal −z out of that face, so a shaft framed where face A lands, its normal toward the pulley, puts the pulley beyond it. The bore carries the NEMA 17 shaft's key: on a motor, the shaft's shaft_seat_mm is where this face lands."
+    },
+    {
+      "id": "bore_b",
+      "label": {
+        "en": "Bore at the flange end (face B)",
+        "es": "Barreno en el extremo de la pestaña (cara B)",
+        "fr": "Alésage côté flasque (face B)",
+        "pt": "Furo no lado da flange (face B)"
+      },
+      "geometry_type": "socket",
+      "size_key": "nema-17-shaft-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          18
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 18, normal +z out of that face."
+    }
+  ],
+  "belt_engagement": {
+    "pitch_diameter": {
+      "value": 10.19,
+      "unit": "mm",
+      "source": 0,
+      "note": "MISUMI P.D. for 16 teeth; Gates 2MR-16S gives 0.401 in (source 1) = 10.19 mm, and 16 × 2 / π = 10.19"
+    },
+    "center": [
+      0,
+      0,
+      12.85
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "plane_note": "Derived from cited facts, not one cited number: MISUMI GPA 6 mm-belt shape A is the hub (L − W = 7.7) then the flanged toothed section W = 10.3 with the belt centred in it, so the mid-plane is at L − W/2 = 12.85 from face A. The axis is the bore axis."
+  },
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Voron 2.4r2 (p. 38) mounts it on the Z motor; the commons z-drive-housing puts it flange end first (bore_b) so its mid-plane meets the 80-tooth pulley's."
+}
