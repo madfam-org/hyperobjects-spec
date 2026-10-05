@@ -82,6 +82,31 @@ pose each.
 - `y4d_spec.assembly.validate` is split: the §9 steps live in `sweep.py`, and the mating
   tolerances in `tolerances.py` (still re-exported).
 
+### Graph engine Wave D re-vendored: graph format 1.1 (lane P8-ENGINE, 2026-10-04)
+
+The vendored Yantra4D graph engine (`src/y4d_spec/graph/`) moves in lockstep with the
+platform's Wave D. Byte-identical copies of `graph_engine.py`, `graph.schema.json` and
+`graph-node-catalog.json`; `graph.lock.json` is re-pinned. No change to the parity bar,
+the projection or any gate threshold.
+
+#### Added
+
+- **Graph format 1.1.** `{"expr": ...}` inputs in the safeFormula dialect, top-level
+  `parameters` (the manifest ids a graph reads, with defaults and an option `map`) and
+  ordered `derived` values; the nodes `select`, `reflect`, `profile_polyline` and a
+  bounded `revolve` (angle in (0, 360], axis in the profile plane, no axis crossing,
+  1000 mm reach, valid positive-volume result).
+- **`tests/fixtures/y4d/graph-twin-expr`**, the 1.1 golden twin. A script and a graph
+  exercise every new feature, are compared under `--parity` at the defaults and two
+  presets, and are wired into CI's self-check step.
+
+#### Changed
+
+- **G-DEADPARAM learns the expression door.** In a `.graph.json` mode, a manifest
+  parameter is now also alive when the graph declares it in its own `parameters` object
+  (`rules.graph_expression_parameters`). The transpiler refuses a declaration that no
+  expression reads, so a declared id is a read one.
+
 ### M5 idler hardware and the 2020 blind joint (owner instruction 2026-10-04, lane P4-AUTH-E)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.

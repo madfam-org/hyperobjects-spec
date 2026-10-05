@@ -1,0 +1,35 @@
+{
+  "version": "1.1.0",
+  "units": "mm",
+  "meta": {
+    "title": "Graph Twin Ring",
+    "notes": "Golden twin of ring.py exercising graph format 1.1: declared parameters (one through a map), derived clamps, select, reflect, profile_polyline and the bounded revolve."
+  },
+  "parameters": {
+    "size": { "default": "S", "map": { "S": 12, "L": 20 } },
+    "bore": { "default": 8 },
+    "height": { "default": 5 },
+    "handed": { "default": false }
+  },
+  "derived": [
+    { "id": "r_out", "expr": "size" },
+    { "id": "half_bore", "expr": "bore / 2 < r_out - 2 ? bore / 2 : r_out - 2" },
+    { "id": "r_in", "expr": "2 > half_bore ? 2 : half_bore" }
+  ],
+  "nodes": [
+    { "id": "section", "type": "profile_rect", "params": {
+        "plane": "XZ", "x": { "expr": "(r_in + r_out) / 2" }, "y": { "expr": "height / 2" },
+        "w": { "expr": "r_out - r_in" }, "d": { "expr": "height" } } },
+    { "id": "ring", "type": "revolve", "inputs": { "profile": "section" }, "params": { "angle": 360, "axis": "z" } },
+    { "id": "wedge", "type": "profile_polyline", "params": {
+        "plane": "XZ",
+        "points": [[{ "expr": "r_out - 1" }, 0], [{ "expr": "r_out + 6" }, 0], [{ "expr": "r_out - 1" }, { "expr": "height" }]] } },
+    { "id": "tab_blank", "type": "extrude", "inputs": { "profile": "wedge" }, "params": { "height": -4 } },
+    { "id": "tab", "type": "translate", "inputs": { "shape": "tab_blank" }, "params": { "y": -2 } },
+    { "id": "body", "type": "union", "inputs": { "a": "ring", "b": "tab" } },
+    { "id": "mirrored", "type": "reflect", "inputs": { "shape": "body" }, "params": { "plane": "YZ" } },
+    { "id": "ring_part", "type": "select", "inputs": { "if_true": "mirrored", "if_false": "body" },
+      "params": { "when": { "expr": "handed" } } }
+  ],
+  "outputs": { "ring": "ring_part" }
+}
