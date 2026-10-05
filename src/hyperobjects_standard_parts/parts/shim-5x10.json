@@ -1,0 +1,186 @@
+{
+  "spec_version": 1,
+  "key": "shim-5x10",
+  "category": "spacer",
+  "name": {
+    "en": "DIN 988 shim ring 5 × 10 (M5 shim)",
+    "es": "Suplemento DIN 988 de 5 × 10 (suplemento M5)",
+    "fr": "Rondelle de calage DIN 988 5 × 10 (cale M5)",
+    "pt": "Anel de calço DIN 988 5 × 10 (calço M5)"
+  },
+  "description": {
+    "en": "A precision shim ring to DIN 988, 5 mm inside and 10 mm outside diameter, sold in fixed thicknesses. On an M5 screw used as an axle it spaces an idler or a flanged bearing from its host and from its neighbours; unlike a stamped washer its thickness is held to a standard.",
+    "es": "Un anillo suplemento de precisión según DIN 988, de 5 mm de diámetro interior y 10 mm exterior, vendido en espesores fijos. Sobre un tornillo M5 usado como eje separa una polea loca o un rodamiento con pestaña de su anfitrión y de sus vecinos; a diferencia de una arandela estampada, su espesor se ajusta a una norma.",
+    "fr": "Une rondelle de calage de précision selon DIN 988, diamètre intérieur 5 mm et extérieur 10 mm, vendue en épaisseurs fixes. Sur une vis M5 utilisée comme axe, elle écarte un galet ou un roulement à collerette de son hôte et de ses voisins ; contrairement à une rondelle emboutie, son épaisseur suit une norme.",
+    "pt": "Um anel de calço de precisão segundo a DIN 988, com 5 mm de diâmetro interior e 10 mm exterior, vendido em espessuras fixas. Num parafuso M5 usado como eixo afasta uma polia louca ou um rolamento com flange do seu hospedeiro e dos vizinhos; ao contrário de uma anilha estampada, a espessura segue uma norma."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "DIN 988 shim ring 5 × 10",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "DIN 988 shim ring 5x10x1 mm, steel (product datasheet 1009885101)",
+      "url": "https://www.keller-kalmbach.com/p/1009885101/pdf",
+      "publisher": "Keller & Kalmbach",
+      "accessed": "2026-10-04",
+      "supports": "DIN 988, d1 5 mm, d2 10 mm, s 1 mm; thickness variants for d1 5: 0.1, 0.2, 0.3, 0.5, 1 and 1.5 mm"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 8 (Hardware reference): shims to DIN 988 at every M5 call-out, not stamped washers; pp. 65 and 69 (A/B Drives and Idlers): M5 shims either side of the F695 pair on the M5x40 SHCS. The guide names no shim thickness."
+    }
+  ],
+  "frame_convention": "Origin at the centre of face A, on the axis. +z runs through the ring to face B at z = thickness_mm. +x is an arbitrary radial reference: the ring is round, so every interface has continuous symmetry.",
+  "dimensions": {
+    "inner_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol d1"
+    },
+    "outer_diameter": {
+      "value": 10,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol d2"
+    },
+    "thickness_min": {
+      "value": 0.1,
+      "unit": "mm",
+      "source": 0,
+      "note": "the thinnest listed variant for d1 5"
+    },
+    "thickness_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "the thickest listed variant for d1 5"
+    }
+  },
+  "parameters": [
+    {
+      "id": "thickness_mm",
+      "type": "number",
+      "label": {
+        "en": "Thickness",
+        "es": "Espesor",
+        "fr": "Épaisseur",
+        "pt": "Espessura"
+      },
+      "default": 1,
+      "min": 0.1,
+      "max": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "Sold in 0.1, 0.2, 0.3, 0.5, 1 and 1.5 mm for d1 5 (cited); use one of those. The default, 1 mm, is the variant the cited datasheet describes; the Voron guide names no thickness, so it is a catalog convention."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "5 mm bore",
+        "es": "Barreno de 5 mm",
+        "fr": "Alésage de 5 mm",
+        "pt": "Furo de 5 mm"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-bolt-axle",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the ring's bore receives the screw's shank. Framed at face A, normal −z out of the face."
+    },
+    {
+      "id": "face_a",
+      "label": {
+        "en": "Face A",
+        "es": "Cara A",
+        "fr": "Face A",
+        "pt": "Face A"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: face A bears on the next part of a stack."
+    },
+    {
+      "id": "face_b",
+      "label": {
+        "en": "Face B",
+        "es": "Cara B",
+        "fr": "Face B",
+        "pt": "Face B"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "thickness_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "thickness_mm"
+      ],
+      "note": "Neutral: face B, thickness_mm along the axis, bears on the next part of a stack."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A DIN 125 / ISO 7089 washer is a different part (stamped, looser thickness); this entry is the DIN 988 shim only."
+}

@@ -256,6 +256,180 @@
       ],
       "term": "socket",
       "notes": "Added for the idler axle (catalog entry shaft-8mm, lane P4-AUTH-D). The host bore's own fit (press, slip or clamp) is the host's design choice and not a fact of the key; the key says only that both sides are the 8 mm shaft."
+    },
+    {
+      "key": "m5-bolt-axle",
+      "label": {
+        "en": "M5 screw as an axle in a 5 mm bore",
+        "es": "Tornillo M5 como eje en un barreno de 5 mm",
+        "fr": "Vis M5 servant d'axe dans un alésage de 5 mm",
+        "pt": "Parafuso M5 como eixo num furo de 5 mm"
+      },
+      "definition": {
+        "en": "The shank of an M5 screw used as an axle, and the 5 mm bore of a part that turns or sits on it: a toothed idler's bearings, a flanged F695 bearing's inner ring, a 5 × 10 shim. The screw's head on a host is a separate key, `m5-clearance-hole`.",
+        "es": "El vástago de un tornillo M5 usado como eje, y el barreno de 5 mm de una pieza que gira o asienta sobre él: los rodamientos de una polea loca dentada, el anillo interior de un rodamiento con pestaña F695, un suplemento de 5 × 10. La cabeza del tornillo sobre un anfitrión es otra clave, `m5-clearance-hole`.",
+        "fr": "La tige d'une vis M5 servant d'axe, et l'alésage de 5 mm d'une pièce qui tourne ou se loge dessus : les roulements d'un galet denté, la bague intérieure d'un roulement à collerette F695, une cale de 5 × 10. La tête de la vis sur un hôte est une autre clé, `m5-clearance-hole`.",
+        "pt": "A haste de um parafuso M5 usado como eixo, e o furo de 5 mm de uma peça que gira ou assenta nele: os rolamentos de uma polia louca dentada, o anel interior de um rolamento com flange F695, um calço de 5 × 10. A cabeça do parafuso num hospedeiro é outra chave, `m5-clearance-hole`."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "shank_diameter": {"value": 5, "unit": "mm", "source": 0, "note": "d, the M5 nominal"},
+        "bore": {"value": 5, "unit": "mm", "source": 1, "note": "the F695's d; the idler's (source 3) and the DIN 988 shim's d1 (source 2) are also 5"}
+      },
+      "sources": [
+        {"title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x30, 010.9 (product datasheet 157380530)", "url": "https://www.keller-kalmbach.de/p/157380530/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "ISO 7380-1 M5x30: d 5 mm; l 30 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3; socket depth t 1.56 mm"},
+        {"title": "NSK F695ZZ flanged miniature deep groove ball bearing (product page F695ZZMC5)", "url": "https://www.nsk.com/engineering/f695zzmc5-apn.html", "publisher": "NSK", "accessed": "2026-10-04", "supports": "F695ZZ: bore d 5 mm; outside diameter D 13 mm; width B 4 mm; flange diameter D1 15 mm; flange width C1 1 mm; chamfer r min 0.2 mm; shields both sides"},
+        {"title": "DIN 988 shim ring 5x10x1 mm, steel (product datasheet 1009885101)", "url": "https://www.keller-kalmbach.com/p/1009885101/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "DIN 988, d1 5 mm, d2 10 mm, s 1 mm; thickness variants for d1 5: 0.1, 0.2, 0.3, 0.5, 1 and 1.5 mm"},
+        {"title": "Gates PowerGrip 2GT idler, 9 mm, toothed, reference G2GT-I-20-9 (retailer listing, KB-3D; no public Gates drawing found)", "url": "https://kb-3d.com/store/motion/207-gates-powergrip-2gt-idler-9mm-toothed-1634482148180.html", "publisher": "KB-3D", "accessed": "2026-10-04", "supports": "20 teeth; 5 mm bore; for 9 mm 2GT belt; overall height 14 mm; a pair of ball bearings"}
+      ],
+      "term": "socket",
+      "notes": "Added for the M5 idler hardware (catalog entries bhcs-m5x30, shcs-m5x40, gt2-idler-20t-9mm, bearing-f695, shim-5x10; lane P4-AUTH-E). The running fit of a threaded shank in a bearing bore is the design's choice and not a fact of the key."
+    },
+    {
+      "key": "m5-clearance-hole",
+      "label": {
+        "en": "M5 screw through a clearance hole, head on the face",
+        "es": "Tornillo M5 por un barreno de paso, cabeza sobre la cara",
+        "fr": "Vis M5 dans un trou de passage, tête sur la face",
+        "pt": "Parafuso M5 num furo de passagem, cabeça sobre a face"
+      },
+      "definition": {
+        "en": "An M5 screw passing a host's clearance hole with its head bearing on the host's outer face (a button head, ISO 7380-1, or a socket cap head, ISO 4762), and that hole. The hole's diameter is the host's design; the key says only that the screw is M5 and the face carries its head.",
+        "es": "Un tornillo M5 que pasa por el barreno de paso de una pieza anfitriona con la cabeza apoyada en su cara exterior (cabeza de botón, ISO 7380-1, o cabeza cilíndrica, ISO 4762), y ese barreno. El diámetro del barreno lo decide el anfitrión; la clave dice solo que el tornillo es M5 y que la cara recibe su cabeza.",
+        "fr": "Une vis M5 traversant le trou de passage d'une pièce hôte, la tête en appui sur la face extérieure de l'hôte (tête bombée, ISO 7380-1, ou tête cylindrique, ISO 4762), et ce trou. Le diamètre du trou relève de l'hôte ; la clé dit seulement que la vis est M5 et que la face reçoit sa tête.",
+        "pt": "Um parafuso M5 que passa pelo furo de passagem de uma peça hospedeira com a cabeça apoiada na face exterior do hospedeiro (cabeça de botão, ISO 7380-1, ou cabeça cilíndrica, ISO 4762), e esse furo. O diâmetro do furo é decisão do hospedeiro; a chave diz apenas que o parafuso é M5 e que a face recebe a cabeça."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "screw_diameter": {"value": 5, "unit": "mm", "source": 0, "note": "d, the M5 nominal"},
+        "button_head_diameter": {"value": 9.5, "unit": "mm", "source": 0, "note": "ISO 7380-1 dk"},
+        "socket_head_diameter": {"value": 8.5, "unit": "mm", "source": 1, "note": "ISO 4762 dk"}
+      },
+      "sources": [
+        {"title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x30, 010.9 (product datasheet 157380530)", "url": "https://www.keller-kalmbach.de/p/157380530/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "ISO 7380-1 M5x30: d 5 mm; l 30 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3; socket depth t 1.56 mm"},
+        {"title": "ISO 4762 / DIN 912 hexagon socket head cap screw, M5x40, 8.8 (product datasheet 240912540)", "url": "https://www.keller-kalmbach.de/p/240912540/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "ISO 4762 M5x40: d 5 mm; l 40 mm; head diameter dk 8.5 mm; head height k 5 mm; hexagon socket s 4; socket depth t 2.5 mm; thread length b 22 mm"}
+      ],
+      "term": "socket",
+      "notes": "Added for the M5 idler hardware (lane P4-AUTH-E). The screw's male side is the catalog bolt's head_seat; the female side is the host's hole, framed at its outer face. A counterbore, if any, is the host's."
+    },
+    {
+      "key": "m5-screw-joint",
+      "label": {
+        "en": "M5 screw joint into a nut",
+        "es": "Unión atornillada M5 a una tuerca",
+        "fr": "Assemblage vissé M5 dans un écrou",
+        "pt": "Junta aparafusada M5 numa porca"
+      },
+      "definition": {
+        "en": "A joint made by an M5 screw: the clearance-hole side of a part clamped on a face (male) and the M5 internal thread under that face that the screw goes into (female), such as a T-nut in an extrusion slot. The screw itself is implied, as in a motor face's bolt pattern.",
+        "es": "Una unión hecha con un tornillo M5: el lado del barreno de paso de una pieza apretada sobre una cara (macho) y la rosca interior M5 bajo esa cara donde entra el tornillo (hembra), como una tuerca en T en la ranura de un perfil. El tornillo queda implícito, como en el patrón de tornillos de la cara de un motor.",
+        "fr": "Un assemblage par vis M5 : le côté trou de passage d'une pièce serrée sur une face (mâle) et le taraudage M5 sous cette face où la vis s'engage (femelle), comme un écrou en T dans la rainure d'un profilé. La vis elle-même est implicite, comme dans le motif de fixation de la face d'un moteur.",
+        "pt": "Uma junta feita com um parafuso M5: o lado do furo de passagem de uma peça apertada numa face (macho) e a rosca interior M5 sob essa face onde o parafuso entra (fêmea), como uma porca em T na ranhura de um perfil. O parafuso fica implícito, como no padrão de furação da face de um motor."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "thread": {"value": "M5", "unit": "thread", "source": 0},
+        "nut_thread_length": {"value": 5, "unit": "mm", "source": 0, "note": "L of the series-5 post-assembly nut"},
+        "screw_diameter": {"value": 5, "unit": "mm", "source": 1, "note": "d, the M5 nominal"}
+      },
+      "sources": [
+        {"title": "MISUMI HNTAP5 / SHNTAP5-5 post-assembly insertion nut with leaf spring for HFS5 aluminum extrusions (MISUMI technical data sheet, as hosted by Clearpath Robotics; MISUMI's own pages refuse automated reads)", "url": "https://docs.clearpathrobotics.com/assets/files/clearpath_robotics_026955-TDS1-a84dc4b6a6150e2d17149c124b64ab66.pdf", "publisher": "MISUMI", "accessed": "2026-10-04", "supports": "post-assembly insertion nut for 5 series (HFS5) extrusions; thread M5; thread length L 5 mm; nut 15 mm long and 8 mm wide; reference tightening torque 6.8 N·m"},
+        {"title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x30, 010.9 (product datasheet 157380530)", "url": "https://www.keller-kalmbach.de/p/157380530/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "ISO 7380-1 M5x30: d 5 mm; l 30 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3; socket depth t 1.56 mm"}
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the M5 T-nut (catalog entry tnut-2020-m5, lane P4-AUTH-E). Polarity follows the catalog convention: the clearance-hole side is male, the thread female. Typed bolt_pattern, as nema-17-face is: both sides are framed on the clamped face (a one-screw pattern), which is the face the render-time frame gate checks on a printed part."
+    },
+    {
+      "key": "m5-axle-stack-face",
+      "label": {
+        "en": "Face contact in a stack on an M5 axle",
+        "es": "Contacto de caras en una pila sobre un eje M5",
+        "fr": "Contact de faces dans un empilage sur un axe M5",
+        "pt": "Contacto de faces numa pilha sobre um eixo M5"
+      },
+      "definition": {
+        "en": "Two parts threaded on the same M5 axle bearing face to face: a shim on a flanged bearing, two flanged bearings back to back, an idler on a shim, a stack's end on a host wall. Neutral: neither side inserts; both faces are centred on the 5 mm axle.",
+        "es": "Dos piezas ensartadas en el mismo eje M5 que se apoyan cara contra cara: un suplemento sobre un rodamiento con pestaña, dos rodamientos con pestaña espalda con espalda, una polea loca sobre un suplemento, el extremo de una pila sobre una pared del anfitrión. Neutra: ningún lado se inserta; ambas caras están centradas en el eje de 5 mm.",
+        "fr": "Deux pièces enfilées sur le même axe M5, en appui face contre face : une cale sur un roulement à collerette, deux roulements à collerette dos à dos, un galet sur une cale, l'extrémité d'un empilage sur une paroi de l'hôte. Neutre : aucun côté ne s'insère ; les deux faces sont centrées sur l'axe de 5 mm.",
+        "pt": "Duas peças enfiadas no mesmo eixo M5, apoiadas face contra face: um calço sobre um rolamento com flange, dois rolamentos com flange costas com costas, uma polia louca sobre um calço, a extremidade de uma pilha numa parede do hospedeiro. Neutra: nenhum lado se insere; ambas as faces estão centradas no eixo de 5 mm."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "surface",
+      "dimensions": {
+        "axle_diameter": {"value": 5, "unit": "mm", "source": 0, "note": "the shim's d1, the bore every stacked part shares"},
+        "shim_outer_diameter": {"value": 10, "unit": "mm", "source": 0, "note": "d2: the smallest annulus the catalog stacks"}
+      },
+      "sources": [
+        {"title": "DIN 988 shim ring 5x10x1 mm, steel (product datasheet 1009885101)", "url": "https://www.keller-kalmbach.com/p/1009885101/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "DIN 988, d1 5 mm, d2 10 mm, s 1 mm; thickness variants for d1 5: 0.1, 0.2, 0.3, 0.5, 1 and 1.5 mm"},
+        {"title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied", "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf", "publisher": "VoronDesign", "accessed": "2026-10-04", "supports": "pp. 65 and 69 (A/B Drives and Idlers) and pp. 97 and 99 (Gantry, XY joints): shim, F695, F695, shim on one M5x40 SHCS"}
+      ],
+      "notes": "Added for the F695 and shim stacks (lane P4-AUTH-E); the first neutral key of the catalog. A stack's parts mate face to face in order; only the first mates the screw's journal, so the stack's order and its total height are what the mates check."
+    },
+    {
+      "key": "bearing-f695",
+      "label": {
+        "en": "F695 flanged bearing seat",
+        "es": "Alojamiento de rodamiento con pestaña F695",
+        "fr": "Logement de roulement à collerette F695",
+        "pt": "Alojamento de rolamento com flange F695"
+      },
+      "definition": {
+        "en": "The outer fit of an F695 flanged ball bearing (5 × 13 × 4 mm, flange 15 × 1 mm) and the Ø13 housing bore it goes into until the flange lands on the housing face.",
+        "es": "El ajuste exterior de un rodamiento de bolas con pestaña F695 (5 × 13 × 4 mm, pestaña 15 × 1 mm) y el barreno de Ø13 del alojamiento donde entra hasta que la pestaña asienta en la cara del alojamiento.",
+        "fr": "L'ajustement extérieur d'un roulement à billes à collerette F695 (5 × 13 × 4 mm, collerette 15 × 1 mm) et l'alésage de Ø13 du logement où il entre jusqu'à ce que la collerette porte sur la face du logement.",
+        "pt": "O ajuste exterior de um rolamento de esferas com flange F695 (5 × 13 × 4 mm, flange 15 × 1 mm) e o furo de Ø13 do alojamento onde entra até a flange assentar na face do alojamento."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "socket",
+      "dimensions": {
+        "bore": {"value": 5, "unit": "mm", "source": 0},
+        "outside_diameter": {"value": 13, "unit": "mm", "source": 0},
+        "width": {"value": 4, "unit": "mm", "source": 0},
+        "flange_diameter": {"value": 15, "unit": "mm", "source": 0},
+        "flange_width": {"value": 1, "unit": "mm", "source": 0}
+      },
+      "sources": [
+        {"title": "NSK F695ZZ flanged miniature deep groove ball bearing (product page F695ZZMC5)", "url": "https://www.nsk.com/engineering/f695zzmc5-apn.html", "publisher": "NSK", "accessed": "2026-10-04", "supports": "F695ZZ: bore d 5 mm; outside diameter D 13 mm; width B 4 mm; flange diameter D1 15 mm; flange width C1 1 mm; chamfer r min 0.2 mm; shields both sides"}
+      ],
+      "term": "socket",
+      "notes": "Added with the catalog entry bearing-f695 (lane P4-AUTH-E). The housing bore's own fit is the host's design choice."
+    },
+    {
+      "key": "tslot-2020-blind-joint-m5",
+      "label": {
+        "en": "2020 blind joint (M5 button head in the slot)",
+        "es": "Unión ciega de 2020 (cabeza de botón M5 en la ranura)",
+        "fr": "Assemblage borgne de 2020 (tête bombée M5 dans la rainure)",
+        "pt": "Junta cega de 2020 (cabeça de botão M5 na ranhura)"
+      },
+      "definition": {
+        "en": "The butt joint of two series-5 2020 extrusions with no bracket: an M5 button head screw in the tapped end of one extrusion, its head slid into the 6 mm slot of the other, which the end face butts against; the screw is tightened through an access hole in the second extrusion. Male is the tapped end with the screw; female is the station on the slotted face where it lands.",
+        "es": "La unión a tope de dos perfiles 2020 serie 5 sin escuadra: un tornillo de cabeza de botón M5 en el extremo roscado de un perfil, con la cabeza deslizada en la ranura de 6 mm del otro, contra cuya cara apoya el extremo; el tornillo se aprieta por un barreno de acceso en el segundo perfil. Macho es el extremo roscado con el tornillo; hembra, la posición en la cara ranurada donde asienta.",
+        "fr": "L'assemblage bout à bout de deux profilés 2020 série 5 sans équerre : une vis à tête bombée M5 dans l'extrémité taraudée d'un profilé, la tête glissée dans la rainure de 6 mm de l'autre, contre la face duquel l'extrémité vient buter ; la vis se serre par un trou d'accès dans le second profilé. Mâle est l'extrémité taraudée avec la vis ; femelle, la station sur la face rainurée où elle se pose.",
+        "pt": "A junta de topo de dois perfis 2020 série 5 sem esquadro: um parafuso de cabeça de botão M5 na extremidade roscada de um perfil, com a cabeça deslizada na ranhura de 6 mm do outro, contra cuja face a extremidade encosta; o parafuso aperta-se por um furo de acesso no segundo perfil. Macho é a extremidade roscada com o parafuso; fêmea, a posição na face ranhurada onde assenta."
+      },
+      "review_status": {"state": "generated"},
+      "geometry_type": "profile",
+      "dimensions": {
+        "thread": {"value": "M5", "unit": "thread", "source": 0},
+        "tap_depth": {"value": 15, "unit": "mm", "source": 0},
+        "slot_width": {"value": 6, "unit": "mm", "source": 1},
+        "profile_square": {"value": 20, "unit": "mm", "source": 1},
+        "screw_head_diameter": {"value": 9.5, "unit": "mm", "source": 2, "note": "ISO 7380-1 M5 dk"},
+        "screw_head_height": {"value": 2.75, "unit": "mm", "source": 2, "note": "ISO 7380-1 M5 k"},
+        "screw_length": {"value": 16, "unit": "mm", "source": 3, "note": "the M5x16 BHCS the Voron 2.4r2 frame uses (p. 14); the head is the same at every M5 length (source 2)"}
+      },
+      "sources": [
+        {"title": "MISUMI aluminum extrusion alterations — end tapping (LTP/RTP/TPW) table", "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0681.pdf", "publisher": "MISUMI", "accessed": "2026-10-02", "supports": "HFS5-2020 end tapping: M5, depth 15, one hole per end"},
+        {"title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page", "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf", "publisher": "MISUMI", "accessed": "2026-10-02", "supports": "series-5 profile: 6 mm slot opening, Ø4.2 mm centre hole, cut length L ±0.5"},
+        {"title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x16, 010.9 (product datasheet 157380516)", "url": "https://www.keller-kalmbach.de/p/157380516/pdf", "publisher": "Keller & Kalmbach", "accessed": "2026-10-04", "supports": "ISO 7380-1 M5x16: d 5 mm; l 16 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3"},
+        {"title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied", "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf", "publisher": "VoronDesign", "accessed": "2026-10-04", "supports": "p. 10 (Introduction, Blind joint basics): the BHCS head slides into the channel of the other extrusion and is tightened through a small access hole in it; p. 14 (Frame): an M5x16 BHCS in both ends of each of the 8 A extrusions; p. 15 (Frame assembly): the frame is joined by blind joints"}
+      ],
+      "term": "profile",
+      "notes": "Added with the blind-joint interfaces of extrusion-2020 (lane P4-AUTH-E). The access hole is not part of the key: no source read gives its diameter or position (MISUMI's alteration pages refuse automated reads, and the guide gives no number), so it is not modelled. The joint is square end on flat face, hence symmetry 4."
     }
   ]
 }

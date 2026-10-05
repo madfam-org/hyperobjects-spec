@@ -152,7 +152,7 @@ def test_catalog_status_line(catalog):
 def test_resolve_parameters_full_injection():
     part = load_part("extrusion-2020")
     values = resolve_parameters(part, {"length_mm": 500})
-    assert values == {"length_mm": 500.0, "slot_station_mm": 10.0}
+    assert values == {"length_mm": 500.0, "slot_station_mm": 10.0, "blind_station_mm": 10.0}
 
 
 def test_out_of_range_is_an_error_never_clamped():

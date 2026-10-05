@@ -73,7 +73,10 @@ The mating rule pairs male with female and neutral with neutral. In this catalog
   goes into a bay or a housing, the clearance-hole side a screw passes through into a
   female partner (a frame's motor mount, a D2F switch's holes, a bearing's outer ring,
   an SMA bulkhead jack's threaded body);
-- **neutral** is face-to-face contact with no inserting side (no catalog entry uses it yet).
+- **neutral** is face-to-face contact with no inserting side: the faces of parts stacked on
+  one M5 axle (`m5-axle-stack-face` on `shim-5x10`, `bearing-f695`, `gt2-idler-20t-9mm`).
+  Only the first part of a stack mates the screw's `journal`; the rest follow face to face,
+  so a stack's order and height are what its mates check.
 
 Polarity is mechanical: an SMA antenna's coupling nut is female here, whatever RF naming
 calls the plug.
@@ -91,11 +94,14 @@ size key's.
 
 | Key | Governing | Interfaces → size key, polarity, symmetry | Parameters | Sources |
 |---|---|---|---|---|
+| `bearing-f695` | datasheet | `bore` → `m5-bolt-axle` female, sym 0 (at the flange face)<br>`flange_face`, `plain_face` → `m5-axle-stack-face` neutral, sym 0<br>`outer_race` → `bearing-f695` male, sym 0 (under the flange) | — | NSK, VoronDesign |
+| `bhcs-m5x30` | standard | `head_seat` → `m5-clearance-hole` male, sym 0<br>`journal` → `m5-bolt-axle` male, sym 0 (where a carried part's face A lands) | `journal_offset_mm` | Keller & Kalmbach, VoronDesign |
 | `bearing-608` | standard | `outer_race` → `bearing-608` male, sym 0<br>`bore` → `bearing-608-bore` female, sym 0 | — | 123Bearing |
-| `extrusion-2020` | datasheet | `end_a, end_b` → `tslot-2020-end-tap-m5` female, sym 4<br>`slot_xp_a … (8)` → `tslot-2020-6mm` female, sym 2 | `length_mm`, `slot_station_mm` | MISUMI |
+| `extrusion-2020` | datasheet | `end_a, end_b` → `tslot-2020-end-tap-m5` female, sym 4<br>`slot_xp_a … (8)` → `tslot-2020-6mm` female, sym 2<br>`end_a_blind, end_b_blind` → `tslot-2020-blind-joint-m5` male, sym 4<br>`blind_xp_a … (8)` → `tslot-2020-blind-joint-m5` female, sym 4 | `length_mm`, `slot_station_mm`, `blind_station_mm` | MISUMI, VoronDesign |
 | `fc-stack-30x30` | class | `mount` → `stack-30.5x30.5-m3` female, sym 4 | — | Matek Systems |
 | `fpv-camera-micro-19mm` | class | `side_mount` → `fpv-camera-micro-19mm` male, sym 0<br>`side_face_left`, `side_face_right` → `fpv-camera-micro-19mm` female, sym 0 (planar, y = ±9.5)<br>`front_face`, `back_face` → `fpv-camera-micro-19mm` male, sym 4 (planar) | `screw_axis_to_front_mm` | Rotorama, Team BlackSheep |
 | `fpv-frame-5in-x-225` | class | `motor_mount_fl … (4)` → `motor-mount-16x16-m3` male, sym 4, `x_axis` outward along the arm<br>`stack_mount` → `stack-30.5x30.5-m3` male, sym 4<br>`camera_bay` → `fpv-camera-micro-19mm` female, sym 0<br>`camera_plate_left`, `camera_plate_right` → `fpv-camera-micro-19mm` male, sym 0 (side plates' inner faces)<br>`camera_plate_left_outer`, `camera_plate_right_outer` → `fpv-camera-side-plate-screw` female, sym 0 (outer faces, for a cage's ears)<br>`rear_vtx_mount` → `vtx-mount-20x20` female, sym 4 (top plate's upper face, at the convention `rear_mount_x_mm`)<br>`battery_strap` → `battery-strap-20mm` female, sym 2 | `motor_half_x_mm`, `motor_half_y_mm`, `top_plate_z_mm`, `camera_axis_x_mm`, `camera_bay_width_mm`, `side_plate_thickness_mm`, `rear_mount_x_mm` | GEPRC |
+| `gt2-idler-20t-9mm` | class | `bore` → `m5-bolt-axle` female, sym 0<br>`face_a`, `face_b` → `m5-axle-stack-face` neutral, sym 0 | `width_mm` | KB-3D (Gates), Makersupplies, VoronDesign |
 | `gt2-pulley-20t-5mm` | datasheet | `bore` → `nema-17-shaft-5mm` female, sym 0 | — | Adafruit Industries, ServoCity |
 | `mgn12-rail` | datasheet | `track` → `mgn12-rail` male, sym 2<br>`base_first_hole` → `tslot-2020-6mm` male, sym 2 | `length_mm`, `carriage_offset_mm` | HIWIN |
 | `mgn12h-carriage` | datasheet | `top` → `mgn12-carriage` female, sym 4<br>`rail_way` → `mgn12-rail` female, sym 2 | — | HIWIN |
@@ -104,9 +110,23 @@ size key's.
 | `nema-17-48mm` | datasheet | `face` → `nema-17-face` female, sym 4<br>`shaft` → `nema-17-shaft-5mm` male, sym 0 | `shaft_seat_mm` | LDO Motors, Nanotec Electronic |
 | `prop-5in` | class | `hub` → `prop-shaft-m5` female, sym 0 | — | HQProp |
 | `sma-bulkhead-jack` | class | `panel` → `sma-bulkhead` male, sym 0<br>`coupling` → `sma-bulkhead` male, sym 0 | `mating_face_z_mm` | Amphenol RF |
+| `shcs-m5x40` | standard | `head_seat` → `m5-clearance-hole` male, sym 0<br>`journal` → `m5-bolt-axle` male, sym 0 | `journal_offset_mm` | Keller & Kalmbach, VoronDesign |
+| `shim-5x10` | standard | `bore` → `m5-bolt-axle` female, sym 0<br>`face_a`, `face_b` → `m5-axle-stack-face` neutral, sym 0 | `thickness_mm` | Keller & Kalmbach, VoronDesign |
 | `shaft-8mm` | datasheet | `host_end` → `shaft-8mm` male, sym 0 (end A in the host bore, at the host face)<br>`bearing_journal` → `bearing-608-bore` male, sym 0 (where the 608's face B lands) | `length_mm`, `host_depth_mm`, `bearing_gap_mm` | MISUMI, Keller & Kalmbach, 123Bearing |
 | `psu-meanwell-lrs-200` | datasheet | `base` → `meanwell-lrs-200-base-m4` female, sym 2<br>`side_pos_y, side_neg_y` → `meanwell-lrs-200-side-m4` female, sym 2 | — | Mean Well |
+| `tnut-2020-m5` | datasheet | `slot` → `tslot-2020-6mm` male, sym 2<br>`thread` → `m5-screw-joint` female, sym 0 | — | MISUMI, VoronDesign |
 | `vtx-antenna-sma` | class | `connector` → `sma-bulkhead` female, sym 0 | — | Amphenol RF, Drone-FPV-Racer |
+
+### The blind joint (2020 frames joined without brackets)
+
+A 2020 frame joined by blind joints (Voron 2.4r2 build guide pp. 10, 14–15) has an M5 button
+head screw in each tapped end of one extrusion, its head slid into the slot of the other, which
+the end butts. `extrusion-2020` carries it as `end_a_blind` / `end_b_blind` (male, on the end
+face) and eight side stations `blind_{xp,xn,yp,yn}_{a,b}` (female, on each face's centreline at
+`blind_station_mm` from each end; the default 10 puts a butted partner flush with the end, as at
+a frame corner), key `tslot-2020-blind-joint-m5`, symmetry 4. A butt joint is therefore a mate
+the closure check sees: a station 1 mm off breaks a closed corner. The access hole the screw is
+tightened through is not modelled: no source read gives its diameter or position.
 
 Frame conventions, in brief (each entry's `frame_convention` is the full statement):
 
@@ -128,10 +148,14 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `vtx-antenna-sma` | centre of the coupling nut's mating face; +z along the antenna |
 | `sma-bulkhead-jack` | centre of the panel shoulder face; +z along the threaded body to the mating face at `mating_face_z_mm` |
 | `shaft-8mm` | centre of end A; +z along the axis to end B at `length_mm`; host face at `host_depth_mm`, the 608's face A `bearing_gap_mm` (one ISO 7089 washer, 1.6) beyond it; both normals −z |
+| `bhcs-m5x30`, `shcs-m5x40` | centre of the under-head face; +z along the shank to the tip (30 / 40); the journal `journal_offset_mm` along it; both normals +z |
+| `gt2-idler-20t-9mm`, `shim-5x10` | centre of face A; +z through to face B at `width_mm` / `thickness_mm`; the bore and face A share the origin, normals −z |
+| `bearing-f695` | centre of the flange face (face A); +z to the plain face at z = 4; the outer-ring seat under the flange at z = 1 |
+| `tnut-2020-m5` | on the slotted face over the thread axis; +z out of the extrusion; +x along the slot |
 
 ### Interface sizes added for the catalog
 
-The base `interface-sizes.json` did not define every fit the catalog needs, so nine cited
+The base `interface-sizes.json` did not define every fit the catalog needs, so fifteen cited
 keys ship in a **supplement**, `interface-sizes.standard-parts.json`, which the loader
 merges into the `interface-sizes` vocabulary (a supplement is a whole document of the same
 vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
@@ -147,6 +171,12 @@ vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
 | `meanwell-lrs-200-side-m4` | 2-M4 per side, 5 mm deep, 150 apart, 12.5 above the base | Mean Well LRS-200 spec |
 | `omron-d2f-mount-m2` | 2 × Ø2 (+0.12/0) holes, 6.5 ±0.15 apart, M2 screws | Omron D2F datasheet |
 | `shaft-8mm` | Ø8 g6 (−0.005/−0.014) plain shaft in a host's 8 mm bore (the idler axle seat) | MISUMI SFJ / PSFJ |
+| `m5-bolt-axle` | an M5 screw's shank (d 5) as the axle of a 5 mm bore (idler, F695, DIN 988 shim) | Keller & Kalmbach, NSK, KB-3D |
+| `m5-clearance-hole` | an M5 screw through a host's clearance hole, head on the face (ISO 7380-1 dk 9.5, ISO 4762 dk 8.5) | Keller & Kalmbach |
+| `m5-screw-joint` | bolt pattern of one M5 screw: the clamped part's clearance-hole side (male) into an M5 thread under the face (female), e.g. a T-nut (thread length 5); both framed on the clamped face | MISUMI HNTAP5, Keller & Kalmbach |
+| `m5-axle-stack-face` | neutral face contact of parts stacked on one M5 axle (d1 5, the 5 × 10 shim's annulus) | Keller & Kalmbach (DIN 988), VoronDesign |
+| `bearing-f695` | 5 × 13 × 4 flanged bearing, flange 15 × 1, in a Ø13 housing | NSK F695ZZ |
+| `tslot-2020-blind-joint-m5` | 2020 blind joint: M5 tapped end (15 deep) with an ISO 7380-1 M5 head in the partner's 6 mm slot; sym 4; the access hole is not modelled (no cited number) | MISUMI, Keller & Kalmbach, VoronDesign |
 
 ## What the lane checks
 
@@ -156,8 +186,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=16 interfaces=50 failures=0
-standard_parts_status: parts=16 interfaces=50 dimensions=115 parameters=18 classes=7 review: signed=0 draft=16
+y4d-spec vocab standard-parts: parts=22 interfaces=76 failures=0
+standard_parts_status: parts=22 interfaces=76 dimensions=148 parameters=23 classes=8 review: signed=0 draft=22
 ```
 
 1. Schema-valid; the file is named for its `key`.

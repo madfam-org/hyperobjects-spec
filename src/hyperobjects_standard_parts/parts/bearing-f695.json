@@ -1,0 +1,208 @@
+{
+  "spec_version": 1,
+  "key": "bearing-f695",
+  "category": "bearing",
+  "name": {
+    "en": "F695 flanged ball bearing (5 × 13 × 4, flange 15 × 1)",
+    "es": "Rodamiento de bolas con pestaña F695 (5 × 13 × 4, pestaña 15 × 1)",
+    "fr": "Roulement à billes à collerette F695 (5 × 13 × 4, collerette 15 × 1)",
+    "pt": "Rolamento de esferas com flange F695 (5 × 13 × 4, flange 15 × 1)"
+  },
+  "description": {
+    "en": "A miniature deep groove ball bearing with a flange on its outer ring: 5 mm bore, 13 mm outside diameter, 4 mm wide, with a 15 mm flange 1 mm thick. Two of them, flanges outward, make a smooth belt idler on an M5 screw; one can also seat in a housing on its flange.",
+    "es": "Un rodamiento rígido de bolas miniatura con pestaña en el anillo exterior: barreno de 5 mm, diámetro exterior de 13 mm, 4 mm de ancho, con una pestaña de 15 mm y 1 mm de espesor. Dos de ellos, con las pestañas hacia afuera, forman una polea loca lisa sobre un tornillo M5; uno solo también puede asentar en un alojamiento sobre su pestaña.",
+    "fr": "Un roulement rigide à billes miniature avec une collerette sur la bague extérieure : alésage de 5 mm, diamètre extérieur de 13 mm, largeur de 4 mm, collerette de 15 mm et 1 mm d'épaisseur. Deux d'entre eux, collerettes vers l'extérieur, forment un galet lisse sur une vis M5 ; un seul peut aussi se loger dans un logement en appui sur sa collerette.",
+    "pt": "Um rolamento rígido de esferas miniatura com flange no anel exterior: furo de 5 mm, diâmetro exterior de 13 mm, 4 mm de largura, com uma flange de 15 mm e 1 mm de espessura. Dois deles, com as flanges para fora, formam uma polia louca lisa num parafuso M5; um só também pode assentar num alojamento apoiado na flange."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "NSK F695ZZ (5 × 13 × 4 mm, flange 15 × 1 mm)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "NSK F695ZZ flanged miniature deep groove ball bearing (product page F695ZZMC5)",
+      "url": "https://www.nsk.com/engineering/f695zzmc5-apn.html",
+      "publisher": "NSK",
+      "accessed": "2026-10-04",
+      "supports": "F695ZZ: bore d 5 mm; outside diameter D 13 mm; width B 4 mm; flange diameter D1 15 mm; flange width C1 1 mm; chamfer r min 0.2 mm; shields both sides"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 8 (Hardware reference): F695 flanged bearings in the gantry; pp. 65 and 69 (A/B Drives and Idlers) and pp. 97 and 99 (Gantry, XY joints): two F695 between M5 shims on an M5x40 SHCS, flanges outward"
+    }
+  ],
+  "frame_convention": "Origin at the centre of face A, the flange side, on the axis. +z runs along the axis to face B, the plain side, at z = 4. The flange occupies z 0 to 1 out to Ø15; the outer ring's Ø13 seat runs from z = 1 to 4. +x is an arbitrary radial reference: the bearing is round, so every interface has continuous symmetry.",
+  "dimensions": {
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol d"
+    },
+    "outside_diameter": {
+      "value": 13,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol D"
+    },
+    "width": {
+      "value": 4,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol B"
+    },
+    "flange_diameter": {
+      "value": 15,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol D1"
+    },
+    "flange_width": {
+      "value": 1,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol C1"
+    },
+    "chamfer_min": {
+      "value": 0.2,
+      "unit": "mm",
+      "source": 0,
+      "note": "r min"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "Inner-ring bore",
+        "es": "Barreno del anillo interior",
+        "fr": "Alésage de la bague intérieure",
+        "pt": "Furo do anel interior"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-bolt-axle",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bore receives the screw's shank. Framed at face A (the flange side), normal −z out of the face."
+    },
+    {
+      "id": "flange_face",
+      "label": {
+        "en": "Flange face (face A)",
+        "es": "Cara de la pestaña (cara A)",
+        "fr": "Face de la collerette (face A)",
+        "pt": "Face da flange (face A)"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the flange side bears on the next part of a stack (a shim)."
+    },
+    {
+      "id": "plain_face",
+      "label": {
+        "en": "Plain face (face B)",
+        "es": "Cara lisa (cara B)",
+        "fr": "Face lisse (face B)",
+        "pt": "Face lisa (face B)"
+      },
+      "geometry_type": "surface",
+      "size_key": "m5-axle-stack-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          4
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the plain side bears on the next part of a stack; two F695 meet plain face to plain face, flanges outward."
+    },
+    {
+      "id": "outer_race",
+      "label": {
+        "en": "Outer ring under the flange",
+        "es": "Anillo exterior bajo la pestaña",
+        "fr": "Bague extérieure sous la collerette",
+        "pt": "Anel exterior sob a flange"
+      },
+      "geometry_type": "socket",
+      "size_key": "bearing-f695",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          1
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the outer ring goes into a Ø13 housing bore until the flange's underside (z = 1) lands on the housing face. The normal points +z, the side the housing lies on, so a seat framed at its entrance (normal out of the cavity) takes the bearing face B first."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The catalog key equals the interface-sizes key bearing-f695, which describes the same part's housing fit."
+}

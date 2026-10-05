@@ -1,0 +1,165 @@
+{
+  "spec_version": 1,
+  "key": "bhcs-m5x30",
+  "category": "fastener",
+  "name": {
+    "en": "Button head screw M5x30",
+    "es": "Tornillo de cabeza de botón M5x30",
+    "fr": "Vis à tête bombée M5x30",
+    "pt": "Parafuso de cabeça de botão M5x30"
+  },
+  "description": {
+    "en": "An ISO 7380-1 hexagon socket button head screw, M5 × 30 mm. In a belt drive it is both a fastener and an axle: its shank passes a host's clearance hole and carries an idler's bearings, with the head bearing on the host's outer face.",
+    "es": "Un tornillo de cabeza de botón con hexágono interior ISO 7380-1, M5 × 30 mm. En una transmisión por banda es a la vez sujetador y eje: su vástago pasa por el barreno de paso de una pieza anfitriona y lleva los rodamientos de una polea loca, con la cabeza apoyada en la cara exterior del anfitrión.",
+    "fr": "Une vis à tête bombée à six pans creux ISO 7380-1, M5 × 30 mm. Dans une transmission par courroie, elle est à la fois fixation et axe : sa tige traverse le trou de passage d'une pièce hôte et porte les roulements d'un galet, la tête en appui sur la face extérieure de l'hôte.",
+    "pt": "Um parafuso de cabeça de botão com sextavado interno ISO 7380-1, M5 × 30 mm. Numa transmissão por correia é ao mesmo tempo fixador e eixo: a haste passa pelo furo de passagem de uma peça hospedeira e leva os rolamentos de uma polia louca, com a cabeça apoiada na face exterior do hospedeiro."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "ISO 7380-1 hexagon socket button head screw M5x30",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x30, 010.9 (product datasheet 157380530)",
+      "url": "https://www.keller-kalmbach.de/p/157380530/pdf",
+      "publisher": "Keller & Kalmbach",
+      "accessed": "2026-10-04",
+      "supports": "ISO 7380-1 M5x30: d 5 mm; l 30 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3; socket depth t 1.56 mm"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 48 (Z Drives and Idlers, Z idler): a GT2 20-tooth 9 mm idler turns on an M5x30 BHCS; p. 49: M5x30 BHCS into two M5 T-nuts fix the Z idler to the top extrusion; p. 7 (Hardware reference): BHCS per ISO 7380-1"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the under-head bearing face, on the screw axis. +z runs along the shank to the tip at z = 30; the head lies on the −z side. +x is an arbitrary radial reference: the screw is round, so both interfaces have continuous symmetry. The head_seat interface is the under-head face; journal sits journal_offset_mm along the shank, where the carried part's face A lands.",
+  "dimensions": {
+    "thread_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "d, the M5 nominal"
+    },
+    "length": {
+      "value": 30,
+      "unit": "mm",
+      "source": 0
+    },
+    "head_diameter": {
+      "value": 9.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol dk"
+    },
+    "head_height": {
+      "value": 2.75,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol k"
+    },
+    "socket_size": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0,
+      "note": "hexagon socket s"
+    },
+    "socket_depth": {
+      "value": 1.56,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol t"
+    }
+  },
+  "parameters": [
+    {
+      "id": "journal_offset_mm",
+      "type": "number",
+      "label": {
+        "en": "Journal offset from the head",
+        "es": "Desplazamiento del asiento desde la cabeza",
+        "fr": "Décalage de la portée depuis la tête",
+        "pt": "Deslocamento do assento desde a cabeça"
+      },
+      "default": 5.5,
+      "min": 0,
+      "max": 30,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the distance from the under-head face to the face A of the part the shank carries (the host wall under the head plus any gap). The default 5.5 is the commons corner-idler-bracket at its defaults: a 5 mm front arm and 0.5 mm clearance to the idler."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "head_seat",
+      "label": {
+        "en": "Head seat (under the head)",
+        "es": "Asiento de la cabeza (bajo la cabeza)",
+        "fr": "Appui de la tête (sous la tête)",
+        "pt": "Assento da cabeça (sob a cabeça)"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-clearance-hole",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shank enters the host's clearance hole. The origin is the centre of the under-head bearing face; the normal points +z, along the shank, toward the host, so a hole framed at the host's outer face with its normal out of the hole (female) takes the screw with the head on that face."
+    },
+    {
+      "id": "journal",
+      "label": {
+        "en": "Axle journal",
+        "es": "Asiento de eje",
+        "fr": "Portée d'axe",
+        "pt": "Assento de eixo"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-bolt-axle",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          "journal_offset_mm"
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "parameters": [
+        "journal_offset_mm"
+      ],
+      "note": "Male: the shank carries an idler, a flanged bearing or a shim as an axle. The origin is where the carried part's face A lands, journal_offset_mm from the under-head face; the normal points +z, toward the tip, into the carried part, whose bore is framed at its face A with the normal out of that face (female)."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P4-AUTH-E lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Retention of the tip (a nut, a tapped hole, or a pilot hole the screw cuts its own thread in) is the host's design and not modelled. Length variants are separate catalog entries: ISO 7380-1 lengths are discrete, so a length parameter would admit lengths nobody sells."
+}
