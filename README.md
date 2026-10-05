@@ -1423,12 +1423,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=105 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=106 failures=0
 fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
 fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=46 cited=46 dimensions=154 provisional=2 review: signed=0 draft=46
+fabrication_status[interface-sizes]: entries=47 cited=47 dimensions=155 provisional=2 review: signed=0 draft=47
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1456,8 +1456,8 @@ An assembly references a commercial off-the-shelf part with
 cited dimensions, optional parameters (an extrusion's cut length), and mating interfaces
 in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
-Thirty-one parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
-5-inch FPV quad) and the 2.4-class Z drive, Z belts and bed hardware; the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
+Thirty-three parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
+5-inch FPV quad) and the 2.4-class Z drive, Z belts, bed hardware and 350 build plate; the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
 **classes**, stated by shared facts, never a copy of one vendor's design. Since 0.7.0
 (ASM-1 §9) a pulley or idler may carry a cited `belt_engagement` (a toothed part's pitch
 diameter or a smooth part's running diameter, and where the belt's mid-plane sits) and a
@@ -1473,7 +1473,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=31 interfaces=93 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=33 interfaces=99 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

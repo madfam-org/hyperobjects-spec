@@ -1,0 +1,140 @@
+{
+  "spec_version": 1,
+  "key": "tnut-2020-m3",
+  "category": "fastener",
+  "name": {
+    "en": "T-nut M3 for a 2020 slot (post-assembly)",
+    "es": "Tuerca en T M3 para ranura 2020 (inserción posterior)",
+    "fr": "Écrou en T M3 pour rainure 2020 (insertion après montage)",
+    "pt": "Porca em T M3 para ranhura 2020 (inserção posterior)"
+  },
+  "description": {
+    "en": "A post-assembly insertion nut with an M3 thread for the 6 mm slot of a series-5 2020 extrusion: it is dropped into the slot after the frame is built and turned under the lips. A Voron 2.4-class bed plate is screwed through its spacers into M3 T-nuts in the bed extrusions' top slots.",
+    "es": "Una tuerca de inserción posterior con rosca M3 para la ranura de 6 mm de un perfil 2020 serie 5: se mete en la ranura con el marco ya armado y se gira bajo los labios. La cama de una impresora de clase Voron 2.4 se atornilla a través de sus separadores a tuercas en T M3 en las ranuras superiores de los perfiles de la cama.",
+    "fr": "Un écrou d'insertion après montage à taraudage M3 pour la rainure de 6 mm d'un profilé 2020 série 5 : il se glisse dans la rainure une fois le cadre monté et pivote sous les lèvres. Le plateau d'une imprimante de classe Voron 2.4 se visse à travers ses entretoises dans des écrous en T M3 des rainures supérieures des profilés du plateau.",
+    "pt": "Uma porca de inserção posterior com rosca M3 para a ranhura de 6 mm de um perfil 2020 série 5: entra na ranhura com o quadro já montado e roda sob os lábios. A mesa de uma impressora de classe Voron 2.4 aparafusa-se através dos seus espaçadores a porcas em T M3 nas ranhuras superiores dos perfis da mesa."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "MISUMI HNTAP5-3 post-assembly insertion nut, HFS5 series",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MISUMI post-assembly insertion nuts for HFS5 aluminum extrusions (HNTAP5 / SHNTAP5 with leaf spring), catalog page 2716 (2019 US)",
+      "url": "https://mx.misumi-ec.com/en/pdf/fa/2019/2019_US_2716.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-04",
+      "supports": "HNTAP5 / SHNTAP5 post-assembly insertion nut with leaf spring for HFS5 (6 mm slot) extrusions, thread M = 3, 4 or 5; body 15 mm long and 8 mm wide"
+    },
+    {
+      "title": "MISUMI HFS5 series aluminum extrusions (20/25/40 mm) catalog page",
+      "url": "https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf",
+      "publisher": "MISUMI",
+      "accessed": "2026-10-02",
+      "supports": "series-5 profile: 6 mm slot opening, Ø4.2 mm centre hole, cut length L ±0.5"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 7 (Hardware reference): post-install T-slot nuts in M3 and M5; p. 58 (Heated bed): M3 T-nuts in the bed extrusions take the bed plate's screws"
+    }
+  ],
+  "frame_convention": "Origin on the extrusion's slotted face, on the slot centreline, over the thread axis. +z points out of the extrusion along the thread axis; the nut's body lies below z = 0, under the slot lips. +x runs along the slot, the nut's 15 mm length. As tnut-2020-m5.",
+  "dimensions": {
+    "thread": {
+      "value": "M3",
+      "unit": "thread",
+      "source": 0
+    },
+    "length": {
+      "value": 15,
+      "unit": "mm",
+      "source": 0,
+      "note": "along the slot"
+    },
+    "width": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0,
+      "note": "across the slot, under the lips"
+    },
+    "slot_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 1,
+      "note": "the series-5 slot opening it is made for"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "slot",
+      "label": {
+        "en": "In the 2020 slot",
+        "es": "En la ranura del 2020",
+        "fr": "Dans la rainure du 2020",
+        "pt": "Na ranhura do 2020"
+      },
+      "geometry_type": "profile",
+      "size_key": "tslot-2020-6mm",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the nut goes into the extrusion's slot, as tnut-2020-m5.slot."
+    },
+    {
+      "id": "thread",
+      "label": {
+        "en": "M3 thread",
+        "es": "Rosca M3",
+        "fr": "Taraudage M3",
+        "pt": "Rosca M3"
+      },
+      "geometry_type": "bolt_pattern",
+      "size_key": "m3-screw-joint",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the thread receives a screw through a part (or stack) clamped on the slotted face. Framed on that face, normal +z out of the extrusion toward the part."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "No envelope and no thread length: the cited page gives the body's length and width for M3, M4 and M5 alike but no height or thread length for the M3. The body under the slot lips is a declared overlap with the extrusion anyway."
+}
