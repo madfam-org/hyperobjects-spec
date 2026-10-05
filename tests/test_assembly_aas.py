@@ -117,7 +117,7 @@ def test_golden_environment_passes_aas_check(slug, envs):
 # ── shell and identifiers (ASM-1 §5) ──────────────────────────────────────────
 def test_shell_is_named_by_the_assembly_digest(envs):
     (shell,) = envs[B]["assetAdministrationShells"]
-    assert shell["id"] == f"{ID}/aas/assembly/{B}/{DIGESTS[B][:16]}"
+    assert shell["id"] == f"{ID}/aas/assembly/{B}/{DIGESTS[B][:16]}/p1"
     info = shell["assetInformation"]
     assert info["assetKind"] == "Type"
     assert info["globalAssetId"] == f"{ID}/asset/assembly/{B}"
@@ -127,7 +127,7 @@ def test_shell_is_named_by_the_assembly_digest(envs):
         {"name": "assembly_digest", "value": DIGESTS[B]},
     ]
     for sm in envs[B]["submodels"]:
-        assert sm["id"] == f"{ID}/sm/assembly/{B}/{DIGESTS[B][:16]}/{sm['idShort']}"
+        assert sm["id"] == f"{ID}/sm/assembly/{B}/{DIGESTS[B][:16]}/p1/{sm['idShort']}"
 
 
 def test_producer_and_product_carry_their_own_submodels(envs):
@@ -170,7 +170,7 @@ def test_cartridge_node_names_its_type_shell_revision_and_instance_id(envs):
     assert node["specificAssetIds"] == [{"name": "instance_id", "value": iid}]
     derived = child(node, "DerivedFrom")["value"]["keys"]
     assert derived == [{"type": "AssetAdministrationShell",
-                        "value": f"{ID}/aas/solid/motor-soft-mount/{tree[:16]}"}]
+                        "value": f"{ID}/aas/solid/motor-soft-mount/{tree[:16]}/p1"}]
     assert component_type_shells(envs[B])["pod_fl"] == derived[0]["value"]
 
 

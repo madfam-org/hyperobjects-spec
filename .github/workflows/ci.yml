@@ -150,6 +150,14 @@ jobs:
         # skipping legible in the log instead of invisible inside a green run.
         run: .venv/bin/python -m pytest -ra
 
+      - name: Projection drift guard
+        # SEM-1 §1 (owner decision 2026-10-04). Every shell and submodel id carries the
+        # projection version (…/p{N}), and a store keeps those ids immutable (asset-shells
+        # answers new bytes under a stored id with a 409). So the goldens — one of every
+        # kind of shell — are rebuilt here, and bytes that moved under an id a golden
+        # already carries fail until hyperobjects_aas.ids.PROJECTION_VERSION is bumped.
+        run: .venv/bin/python scripts/refresh_assembly_golden.py --check
+
       - name: Self-check against the bundled fixtures
         # Exercises the two console scripts exactly as a third party would.
         run: |

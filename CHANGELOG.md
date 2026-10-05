@@ -6,6 +6,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The projection version in every shell id (SEM-1 §1, package 0.6.0) — BREAKING for id consumers
+
+Owner decision 2026-10-04: "go with versioning the projection into the shell id". A shell
+id named a design revision but not the projection that produced its bytes, so once a store
+that keeps shells immutable (asset-shells) went live, any projection change would have been
+a 409 for every revision already published (P4-GRAPH decision 7).
+
+#### Changed
+
+- **Every shell and submodel id carries the projection version** as a path segment after
+  the revision digest: `…/aas/{kind}/{slug}/{tree16}/p{N}`,
+  `…/sm/{kind}/{slug}/{tree16}/p{N}/{idShort}`, materials
+  `…/aas/material/{slug}/{content16}/p{N}` (and `…/sm/material/…/p{N}/{idShort}`). Solid,
+  soft, assembly and material shells alike. `N` is `hyperobjects_aas.PROJECTION_VERSION`,
+  `1` for this projection (the 0.5.0 projection plus the version itself). Asset, concept,
+  template and standard-part ids are unchanged.
+- **The shell records its version** in a `ProjectionVersion` extension
+  (`xs:positiveInteger`), so a reader need not parse the id. `administration` stays the
+  manifest semver.
+- **BoM `DerivedFrom`** (assembly → type shell) names the type shell at the assembly's
+  own projection version. The stored-shell resolver (`resolver.py`) parses versioned ids
+  of any version; a pre-0.6.0 unversioned id no longer parses.
+- **`aas check`**: the shell id must be versioned, its `ProjectionVersion` extension must
+  state the same version (`projection-version`), and every submodel id must carry it.
+- `hyperobjects_aas` 0.3.0; `ids.py` gains `PROJECTION_VERSION`, `parse_shell_id`,
+  `parse_submodel_id`, `projection_extension`, `shell_projection_version`, and a
+  keyword-only `version=` on every shell/submodel id function.
+
+#### Added
+
+- **The drift guard** (`hyperobjects_aas.drift`). When the bytes under an id the golden
+  already carries change, the projection moved for the same inputs. `scripts/refresh_assembly_golden.py`
+  then refuses to write, and `--check` fails, until `PROJECTION_VERSION` is bumped.
+  ConceptDescription-only changes (lexicon text) are ordinary drift. `--check` is now a CI
+  step.
+- **Goldens for every kind of shell** (13): assemblies A and B, now also their nine solid
+  cartridges (`tests/fixtures/assembly-golden/golden/cartridges/`), a soft garment
+  (`sem1-garment`) and a material card (`bambu-tpu-95a`) in `tests/fixtures/aas/golden/`.
+  Each records the version it was made with (ids and extension).
+- `tests/test_projection_version.py`.
+
 ### The 608 idler axle: `shaft-8mm` (assembly A's idler)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.

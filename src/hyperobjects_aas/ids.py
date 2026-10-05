@@ -4,12 +4,13 @@ Every identifier this package mints is built here and nowhere else, so the schem
 one implementation that the projection and the checker share:
 
     asset_id("solid", "tslot-corner")                 # globalAssetId of the type asset
-    shell_id("solid", "tslot-corner", tree)           # one shell per design revision
+    shell_id("solid", "tslot-corner", tree)           # …/aas/solid/tslot-corner/{tree16}/p1
     shell_id("assembly", "fpv-5in-freestyle", digest) # one shell per assembly digest (ASM-1 §5)
-    submodel_id("solid", "tslot-corner", tree, "Nameplate")
-    material_shell_id("bambu-tpu-95a", card)          # content-addressed card shell
+    submodel_id("solid", "tslot-corner", tree, "Nameplate")   # …/{tree16}/p1/Nameplate
+    material_shell_id("bambu-tpu-95a", card)          # content-addressed card shell, …/p1
     concept_id("bolt-pattern")                        # semanticId of a lexicon term
     template_id("mating-interfaces", 1, 0)            # a MADFAM submodel template
+    parse_shell_id(ident)                             # -> ShellIdParts | None
 
 ``tree16`` is the first 16 hex characters of the GOC-1 ``tree_sha256`` of the cartridge
 directory (``hyperobjects_schemas.generator_output.tree_sha256``), so a shell id names
@@ -17,6 +18,16 @@ one immutable revision of a design. For an ``assembly`` (ASM-1 §5) the same 16 
 the prefix of the canonical assembly digest (``hyperobjects-assembly-v1``), which moves
 whenever the document or any component's resolved identity moves. ``content16`` is the
 same prefix of the sha256 of a material card's canonical JSON.
+
+**Projection version** (owner decision 2026-10-04). A shell id names the design revision
+*and* the projection that produced its bytes: every shell and submodel id ends its
+revision part with ``/p{N}``, where ``N`` is :data:`PROJECTION_VERSION`. Shells are
+immutable per id (asset-shells refuses different bytes under a stored id with a 409), so
+a projection change that moves the bytes for the same inputs must bump the version; the
+new projection then lands as *new* shells beside the old ones instead of colliding with
+them. ``scripts/refresh_assembly_golden.py --check`` and ``tests/test_projection_version.py``
+enforce the bump. Asset ids, concept ids, template ids and standard-part ids name things
+that do not depend on the projection, and carry no version.
 
 The AAS v3.1.2 metamodel constrains ``idShort`` to ``^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$``
 (at least two characters, at most 128) and ``administration.version`` / ``revision`` to
@@ -30,6 +41,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import re
+from typing import NamedTuple
 
 from hyperobjects_schemas.generator_output import canonical_json
 
@@ -37,7 +49,11 @@ __all__ = [
     "BASE",
     "COMMONS_REPOS",
     "KINDS",
+    "PROJECTION_EXTENSION",
+    "PROJECTION_VERSION",
     "IdShortAllocator",
+    "ShellIdParts",
+    "SubmodelIdParts",
     "administration",
     "asset_id",
     "concept_id",
@@ -48,6 +64,11 @@ __all__ = [
     "material_asset_id",
     "material_shell_id",
     "material_submodel_id",
+    "parse_shell_id",
+    "parse_submodel_id",
+    "projection_extension",
+    "projection_version",
+    "shell_projection_version",
     "shell_id",
     "standard_part_id",
     "submodel_id",
@@ -57,6 +78,15 @@ __all__ = [
 
 #: The permanent namespace (owner decision, SEM-1 §0).
 BASE = "https://id.madfam.io"
+
+#: The version of the AAS projection this package writes (owner decision 2026-10-04). It is
+#: part of every shell and submodel id (``…/{revision16}/p{N}``) and is recorded in the shell
+#: as the ``ProjectionVersion`` extension. Bump it whenever the projected shell or submodel
+#: bytes change for the same inputs; the golden drift guard fails until you do.
+#:
+#: * ``1`` — the 0.5.0 projection (assembly BoM/Mates/placement, IDTA 02020 capability,
+#:   lexicon-attached interface terms) with the version itself added (package 0.6.0).
+PROJECTION_VERSION = 1
 
 #: The type-asset kinds of SEM-1 §1 (plus ASM-1 §5's assemblies) and the commons
 #: repository each one lives in. Assemblies are authored in the solid commons
@@ -77,6 +107,16 @@ _ID_SHORT_MAX = 128
 _VERSION_PART = re.compile(r"^(0|[1-9][0-9]*)$")
 _SEMVER_HEAD = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:\.|$)")
 _HEX = re.compile(r"^[0-9a-f]{64}$")
+#: Every kind that mints a shell: the type kinds plus content-addressed material cards.
+_SHELL_KINDS = (*KINDS, "material")
+_SHELL_KIND_RE = "|".join(_SHELL_KINDS)
+_SLUG_RE = r"[a-z0-9][a-z0-9_-]*"
+#: ``p`` + a positive integer without leading zeros.
+_VERSION_RE = r"p([1-9][0-9]*)"
+_SHELL_ID = re.compile(
+    rf"^{re.escape(BASE)}/aas/({_SHELL_KIND_RE})/({_SLUG_RE})/([0-9a-f]{{16}})/{_VERSION_RE}$")
+_SUBMODEL_ID = re.compile(
+    rf"^{re.escape(BASE)}/sm/({_SHELL_KIND_RE})/({_SLUG_RE})/([0-9a-f]{{16}})/{_VERSION_RE}/([^/]+)$")
 
 
 def _slug(slug: str) -> str:
@@ -89,6 +129,19 @@ def _kind(kind: str) -> str:
     if kind not in KINDS:
         raise ValueError(f"unknown asset kind {kind!r}; expected one of {', '.join(KINDS)}")
     return kind
+
+
+def projection_version(version: int | None = None) -> int:
+    """The projection version to mint with: ``version`` when given, else the module's
+    :data:`PROJECTION_VERSION` read at call time (so a test can patch it)."""
+    value = PROJECTION_VERSION if version is None else version
+    if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+        raise ValueError(f"not a projection version: {value!r} (a positive integer)")
+    return value
+
+
+def _p(version: int | None) -> str:
+    return f"p{projection_version(version)}"
 
 
 def tree16(tree_sha256: str) -> str:
@@ -108,16 +161,18 @@ def asset_id(kind: str, slug: str) -> str:
     return f"{BASE}/asset/{_kind(kind)}/{_slug(slug)}"
 
 
-def shell_id(kind: str, slug: str, tree_sha256: str) -> str:
-    """Type shell id: ``…/aas/{solid|soft}/{slug}/{tree16}``."""
-    return f"{BASE}/aas/{_kind(kind)}/{_slug(slug)}/{tree16(tree_sha256)}"
+def shell_id(kind: str, slug: str, tree_sha256: str, *, version: int | None = None) -> str:
+    """Type shell id: ``…/aas/{solid|soft|assembly}/{slug}/{tree16}/p{N}``."""
+    return f"{BASE}/aas/{_kind(kind)}/{_slug(slug)}/{tree16(tree_sha256)}/{_p(version)}"
 
 
-def submodel_id(kind: str, slug: str, tree_sha256: str, submodel_id_short: str) -> str:
-    """Type submodel id: ``…/sm/{solid|soft}/{slug}/{tree16}/{SubmodelIdShort}``."""
+def submodel_id(kind: str, slug: str, tree_sha256: str, submodel_id_short: str, *,
+                version: int | None = None) -> str:
+    """Type submodel id: ``…/sm/{solid|soft|assembly}/{slug}/{tree16}/p{N}/{SubmodelIdShort}``."""
     if not is_id_short(submodel_id_short):
         raise ValueError(f"not a valid idShort: {submodel_id_short!r}")
-    return f"{BASE}/sm/{_kind(kind)}/{_slug(slug)}/{tree16(tree_sha256)}/{submodel_id_short}"
+    return (f"{BASE}/sm/{_kind(kind)}/{_slug(slug)}/{tree16(tree_sha256)}/{_p(version)}/"
+            f"{submodel_id_short}")
 
 
 def material_asset_id(slug: str) -> str:
@@ -125,17 +180,86 @@ def material_asset_id(slug: str) -> str:
     return f"{BASE}/asset/material/{_slug(slug)}"
 
 
-def material_shell_id(slug: str, card: object) -> str:
-    """Material card shell: ``…/aas/material/{slug}/{content16}``."""
-    return f"{BASE}/aas/material/{_slug(slug)}/{content16(card)}"
+def material_shell_id(slug: str, card: object, *, version: int | None = None) -> str:
+    """Material card shell: ``…/aas/material/{slug}/{content16}/p{N}``."""
+    return f"{BASE}/aas/material/{_slug(slug)}/{content16(card)}/{_p(version)}"
 
 
-def material_submodel_id(slug: str, card: object, submodel_id_short: str) -> str:
+def material_submodel_id(slug: str, card: object, submodel_id_short: str, *,
+                         version: int | None = None) -> str:
     """Material card submodel, following the type-submodel pattern of §1:
-    ``…/sm/material/{slug}/{content16}/{SubmodelIdShort}``."""
+    ``…/sm/material/{slug}/{content16}/p{N}/{SubmodelIdShort}``."""
     if not is_id_short(submodel_id_short):
         raise ValueError(f"not a valid idShort: {submodel_id_short!r}")
-    return f"{BASE}/sm/material/{_slug(slug)}/{content16(card)}/{submodel_id_short}"
+    return (f"{BASE}/sm/material/{_slug(slug)}/{content16(card)}/{_p(version)}/"
+            f"{submodel_id_short}")
+
+
+#: The name of the shell extension that records the projection version (SEM-1 §1).
+PROJECTION_EXTENSION = "ProjectionVersion"
+
+
+def projection_extension(version: int | None = None) -> dict:
+    """The shell's ``extensions`` entry recording its projection version.
+
+    ``administration`` is already the manifest semver (``version``/``revision``) and a
+    shell has no submodel elements of its own, so the version goes where AAS v3.1 puts a
+    fact about the element itself: a ``HasExtensions`` Extension on the shell. A reader
+    gets it without parsing the id; ``aas check`` fails a shell whose extension and id
+    disagree."""
+    return {"name": PROJECTION_EXTENSION, "valueType": "xs:positiveInteger",
+            "value": str(projection_version(version))}
+
+
+def shell_projection_version(shell: object) -> int | None:
+    """The projection version a shell records in its extension, or None."""
+    for ext in (shell.get("extensions") or []) if isinstance(shell, dict) else []:
+        if isinstance(ext, dict) and ext.get("name") == PROJECTION_EXTENSION:
+            value = ext.get("value")
+            if isinstance(value, str) and re.fullmatch(r"[1-9][0-9]*", value):
+                return int(value)
+            return None
+    return None
+
+
+class ShellIdParts(NamedTuple):
+    """A parsed shell id: kind (solid, soft, assembly, material), slug, the 16-hex revision
+    and the projection version."""
+
+    kind: str
+    slug: str
+    revision16: str
+    version: int
+
+    @property
+    def submodel_prefix(self) -> str:
+        """Every submodel of this shell has an id that starts with this."""
+        return f"{BASE}/sm/{self.kind}/{self.slug}/{self.revision16}/p{self.version}/"
+
+    @property
+    def revision_prefix(self) -> str:
+        """The shell ids of every projection of this revision start with this."""
+        return f"{BASE}/aas/{self.kind}/{self.slug}/{self.revision16}/"
+
+
+class SubmodelIdParts(NamedTuple):
+    kind: str
+    slug: str
+    revision16: str
+    version: int
+    id_short: str
+
+
+def parse_shell_id(value: object) -> ShellIdParts | None:
+    """The parts of a versioned shell id, or None (an unversioned id is not one)."""
+    m = _SHELL_ID.match(value) if isinstance(value, str) else None
+    return ShellIdParts(m[1], m[2], m[3], int(m[4])) if m else None
+
+
+def parse_submodel_id(value: object) -> SubmodelIdParts | None:
+    """The parts of a versioned submodel id, or None."""
+    m = _SUBMODEL_ID.match(value) if isinstance(value, str) else None
+    return SubmodelIdParts(m[1], m[2], m[3], int(m[4]), m[5]) if m else None
 
 
 def standard_part_id(key: str) -> str:

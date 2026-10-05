@@ -13,8 +13,9 @@ Three layers, reported as findings with a severity (an ``error`` fails the check
    ``pattern`` keyword matches UTF-16 code units, as the schema's patterns are written
    (see :func:`_utf16_pattern`).
 2. **MADFAM rules** — the SEM-1 §1 identifier scheme (shell, asset and submodel ids agree
-   on kind, slug and revision; the revision prefix matches the full digest in
-   ``specificAssetIds``); idShort rules the schema cannot express (AASd-117 required
+   on kind, slug, revision and projection version; the revision prefix matches the full
+   digest in ``specificAssetIds``; the shell's ``ProjectionVersion`` extension states the
+   version its id carries); idShort rules the schema cannot express (AASd-117 required
    outside lists, AASd-120 absent inside them, AASd-022 unique among siblings); the
    conformance-claim rule (a submodel naming an IDTA template has every mandatory
    element, or it must not name it); and every MADFAM semanticId has a
@@ -40,7 +41,7 @@ from pathlib import Path
 from jsonschema import Draft201909Validator, ValidationError, validators
 
 from .concepts import bundled_lexicon
-from .ids import BASE, is_id_short
+from .ids import BASE, is_id_short, parse_shell_id, parse_submodel_id, shell_projection_version
 from .templates import IDTA, MADFAM, missing_mandatory
 
 __all__ = [
@@ -56,11 +57,7 @@ ERROR, WARNING = "error", "warning"
 
 _SLUG = r"[a-z0-9][a-z0-9_-]*"
 _KINDS = "solid|soft|material|assembly"
-_SHELL = re.compile(rf"^{re.escape(BASE)}/aas/({_KINDS})/({_SLUG})/([0-9a-f]{{16}})$")
 _ASSET = re.compile(rf"^{re.escape(BASE)}/asset/({_KINDS})/({_SLUG})$")
-_SUBMODEL = re.compile(
-    rf"^{re.escape(BASE)}/sm/({_KINDS})/({_SLUG})/([0-9a-f]{{16}})/([^/]+)$"
-)
 _CONCEPT_PREFIX = f"{BASE}/concept/"
 _TEMPLATE_PREFIX = f"{BASE}/smt/"
 _DIGEST_KEY = {"solid": "tree_sha256", "soft": "tree_sha256", "material": "content_sha256",
@@ -269,13 +266,17 @@ def _id_findings(env: dict) -> tuple[list[Finding], dict | None]:
     if not shells or not isinstance(shells[0], dict):
         return out, None
     shell = shells[0]
-    m = _SHELL.match(shell.get("id") or "")
-    if not m:
+    parts = parse_shell_id(shell.get("id"))
+    if parts is None:
         out.append(Finding(ERROR, "id-scheme", "shell", f"shell id {shell.get('id')!r} is "
-                           "not https://id.madfam.io/aas/{kind}/{slug}/{16 hex} "
-                           f"(kind: {_KINDS.replace('|', ', ')})"))
+                           "not https://id.madfam.io/aas/{kind}/{slug}/{16 hex}/p{N} "
+                           f"(kind: {_KINDS.replace('|', ', ')}; N: the projection version)"))
         return out, None
-    kind, slug, rev = m.groups()
+    kind, slug, rev, version = parts.kind, parts.slug, parts.revision16, parts.version
+    if shell_projection_version(shell) != version:
+        out.append(Finding(ERROR, "projection-version", "shell/extensions",
+                           f"the shell's ProjectionVersion extension must state {version}, the "
+                           "version its id carries"))
     info = shell.get("assetInformation") or {}
     if info.get("assetKind") != "Type":
         out.append(Finding(ERROR, "asset-kind", "shell", "a commons shell must be assetKind Type"))
@@ -299,10 +300,9 @@ def _id_findings(env: dict) -> tuple[list[Finding], dict | None]:
     for sm in env.get("submodels") or []:
         sid = sm.get("id") or ""
         present.add(sid)
-        sm_m = _SUBMODEL.match(sid)
-        if not sm_m or sm_m.groups() != (kind, slug, rev, sm.get("idShort")):
+        if parse_submodel_id(sid) != (kind, slug, rev, version, sm.get("idShort")):
             out.append(Finding(ERROR, "id-scheme", f"submodel {sm.get('idShort')}",
-                               f"id {sid!r} is not {BASE}/sm/{kind}/{slug}/{rev}/"
+                               f"id {sid!r} is not {parts.submodel_prefix}"
                                f"{sm.get('idShort')}"))
     for missing in sorted(referenced - present, key=str):
         out.append(Finding(ERROR, "dangling", "shell/submodels",

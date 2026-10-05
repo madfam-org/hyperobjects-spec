@@ -14,7 +14,11 @@ Which revision of a cartridge a component means is not in the assembly document 
 a slug); it is in the assembly environment's ``BillOfMaterials`` (``DerivedFrom`` on each
 cartridge node, see ``hyperobjects_aas.assembly.component_type_shells``). The resolver is
 built with that ``{component id: type shell id}`` map and a ``fetch(shell_id)`` that
-returns ``(shell, {submodel idShort: submodel})`` or None.
+returns ``(shell, {submodel idShort: submodel})`` or None. Those ids are versioned
+(``…/aas/solid/{slug}/{tree16}/p{N}``, SEM-1 §1); the resolver reads whichever projection
+version the BoM names. A service that re-projects the assembly with its own keystone names
+the type shells of *its* version, so an assembly published against another projection
+version fails the byte-equality check there (ASM-1 §6) rather than here.
 
     resolver = CompositeResolver(
         cartridge=EnvironmentCartridgeResolver(component_type_shells(env), fetch),
@@ -36,7 +40,7 @@ from y4d_spec.assembly import (
 )
 from y4d_spec.frame_eval import resolve_parameters
 
-from .ids import BASE
+from .ids import parse_shell_id
 
 __all__ = [
     "EnvironmentCartridgeResolver",
@@ -49,7 +53,6 @@ __all__ = [
 #: ``fetch(type shell id) -> (shell, {submodel idShort: submodel}) | None``
 Fetch = Callable[[str], "tuple[Mapping, Mapping[str, Mapping]] | None"]
 
-_SOLID_SHELL = re.compile(rf"^{re.escape(BASE)}/aas/solid/([a-z0-9][a-z0-9_-]*)/([0-9a-f]{{16}})$")
 _INTEGRAL = re.compile(r"^-?[0-9]+$")
 
 
@@ -307,16 +310,17 @@ class EnvironmentCartridgeResolver:
             raise ResolutionError([
                 f"no type shell is named for cartridge component '{cid}' (its BillOfMaterials "
                 "node carries no DerivedFrom reference)"])
-        match = _SOLID_SHELL.match(shell_id)
-        if not match or match.group(1) != slug:
+        parts = parse_shell_id(shell_id)
+        if parts is None or parts.kind != "solid" or parts.slug != slug:
             raise ResolutionError([
-                f"type shell {shell_id!r} is not a revision of the solid cartridge {slug!r}"])
+                f"type shell {shell_id!r} is not a revision of the solid cartridge {slug!r} "
+                f"(…/aas/solid/{slug}/{{tree16}}/p{{N}})"])
         fetched = self.fetch(shell_id)
         if fetched is None:
             raise ResolutionError([f"type shell {shell_id!r} is not published"])
         shell, submodels = fetched
         tree = _specific(shell).get("tree_sha256")
-        if not isinstance(tree, str) or not tree.startswith(match.group(2)):
+        if not isinstance(tree, str) or not tree.startswith(parts.revision16):
             raise ResolutionError([f"type shell {shell_id!r} carries no matching tree_sha256"])
         manifest = manifest_from_submodels(submodels)
         mode_id, part = source.get("mode"), source.get("part")
