@@ -1,0 +1,166 @@
+{
+  "spec_version": 1,
+  "key": "gt2-belt-9mm",
+  "category": "belt",
+  "name": {
+    "en": "GT2 belt, 9 mm, open",
+    "es": "Banda GT2 de 9 mm, abierta",
+    "fr": "Courroie GT2 de 9 mm, ouverte",
+    "pt": "Correia GT2 de 9 mm, aberta"
+  },
+  "description": {
+    "en": "An open-ended GT2 (Gates PowerGrip GT, 2MR pitch) timing belt 9 mm wide, cut from long-length belting. A Voron 2.4-class printer hangs its gantry on four of them: each runs from the gantry down round the Z drive's 20-tooth pulley, up over the top-corner 20-tooth idler and back down to the gantry, both ends clamped there.",
+    "es": "Una banda síncrona GT2 (Gates PowerGrip GT, paso 2MR) de extremos abiertos y 9 mm de ancho, cortada de banda en rollo. Una impresora de clase Voron 2.4 cuelga su pórtico de cuatro de ellas: cada una baja del pórtico, rodea la polea de 20 dientes del accionamiento Z, sube por encima de la polea loca de 20 dientes de la esquina superior y vuelve a bajar al pórtico, con ambos extremos sujetos ahí.",
+    "fr": "Une courroie crantée GT2 (Gates PowerGrip GT, pas 2MR) à extrémités ouvertes de 9 mm de large, coupée dans une courroie au mètre. Une imprimante de classe Voron 2.4 suspend son portique à quatre d'entre elles : chacune descend du portique, contourne la poulie à 20 dents de l'entraînement Z, remonte par-dessus le galet à 20 dents du coin supérieur et redescend au portique, les deux extrémités y étant serrées.",
+    "pt": "Uma correia sincronizada GT2 (Gates PowerGrip GT, passo 2MR) de extremidades abertas e 9 mm de largura, cortada de correia em rolo. Uma impressora de classe Voron 2.4 suspende o pórtico em quatro delas: cada uma desce do pórtico, contorna a polia de 20 dentes do acionamento Z, sobe por cima da polia louca de 20 dentes do canto superior e volta a descer ao pórtico, com ambas as extremidades presas aí."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Gates PowerGrip GT 2MR long-length belting, 9 mm (LL2MR09)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Gates PowerGrip belt drives — Drive Design Manual (publication 17195): Long Length Belting (printed p. 86) and Long Length Belting Specifications (printed p. 90); distributor-hosted copy",
+      "url": "https://www.ahrinternational.com/PDF_catalogues/Gates/powergripdesignmanual17195.pdf",
+      "publisher": "Gates Corporation (copy hosted by AHR International)",
+      "accessed": "2026-10-04",
+      "supports": "PowerGrip GT belting, 2MR pitch, fiberglass tensile cord: pitch 2 mm; belt widths 4, 6, 9 mm; belt height 1.52 mm (.060 in); tooth height 0.76 mm (.030 in) (p. 90). Long-length belting LL2MR04 / LL2MR06 / LL2MR09 in widths 4, 6, 9 mm (p. 86)"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 111 (Z axis, Z bearing blocks): GT2 belt 9 mm wide, teeth down into the serrations of the printed clamp; minimum recommended belt cut length 1000 / 1100 / 1200 mm for the 250 / 300 / 350 spec; p. 118 (Z belt routing): the belt's teeth are on the inside of the loop"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    }
+  ],
+  "frame_convention": "The belt laid straight. Origin at end A's clamp station, on the back face, at mid-width. +x runs along the belt to end B's clamp station at x = length_mm; +y runs across the width (the belt spans y = ±4.5); +z runs from the back face through the belt toward the teeth, whose tips are at z = 1.52. A clamp station is where the belt enters its clamp; the tail inside the clamp is beyond it and not part of length_mm.",
+  "dimensions": {
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "width": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0
+    },
+    "height": {
+      "value": 1.52,
+      "unit": "mm",
+      "source": 0,
+      "note": "B, the overall belt height, back to tooth tip"
+    },
+    "tooth_depth": {
+      "value": 0.76,
+      "unit": "mm",
+      "source": 0,
+      "note": "T, the tooth height"
+    },
+    "voron_350_cut_length": {
+      "value": 1200,
+      "unit": "mm",
+      "source": 1,
+      "note": "the guide's minimum recommended cut length for the 350 spec; the default of length_mm"
+    }
+  },
+  "parameters": [
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Length between clamp stations",
+        "es": "Longitud entre posiciones de sujeción",
+        "fr": "Longueur entre stations de serrage",
+        "pt": "Comprimento entre posições de fixação"
+      },
+      "default": 1200,
+      "min": 100,
+      "max": 5000,
+      "unit": "mm",
+      "source": 1,
+      "note": "The default is the guide's minimum cut length for a 350 (source 1); the free length between the clamps is shorter by the clamped tails. The maximum is a 5 m roll (source 2); the minimum is a catalog convention. A belt path computes the length the routing needs."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "end_a",
+      "label": {
+        "en": "End A (clamped)",
+        "es": "Extremo A (sujeto)",
+        "fr": "Extrémité A (serrée)",
+        "pt": "Extremidade A (presa)"
+      },
+      "geometry_type": "profile",
+      "size_key": "z-belt-gt2-9mm-clamp",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "note": "Male: the belt end goes into a clamp's jaw. The origin is on the belt's back face at mid-width; the normal points along the belt away from its own length, into the clamp; x_axis runs across the width."
+    },
+    {
+      "id": "end_b",
+      "label": {
+        "en": "End B (clamped)",
+        "es": "Extremo B (sujeto)",
+        "fr": "Extrémité B (serrée)",
+        "pt": "Extremidade B (presa)"
+      },
+      "geometry_type": "profile",
+      "size_key": "z-belt-gt2-9mm-clamp",
+      "polarity": "male",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          "length_mm",
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm"
+      ],
+      "note": "Male: the belt end goes into a clamp's jaw. The origin is on the belt's back face at mid-width; the normal points along the belt away from its own length, into the clamp; x_axis runs across the width. End B is framed for the belt laid straight: in an assembly it is reached through a belt path (ASM-1 §9), not by a rigid mate that would have to close a loop through the pulleys."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Belt facts for ASM-1 §9 (lifted into the belt block when that block exists): pitch 2, width 9, height 1.52, tooth_depth 0.76. The pitch-line differential U is not stated by the cited sources, so the teeth-side and back-side offsets are not stated here; the Z belt path runs teeth-on-toothed parts only, which needs neither."
+}

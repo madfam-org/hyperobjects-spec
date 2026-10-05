@@ -1,0 +1,114 @@
+{
+  "spec_version": 1,
+  "key": "bhcs-m5x16",
+  "category": "fastener",
+  "name": {
+    "en": "Button head screw M5x16",
+    "es": "Tornillo de cabeza de botón M5x16",
+    "fr": "Vis à tête bombée M5x16",
+    "pt": "Parafuso de cabeça de botão M5x16"
+  },
+  "description": {
+    "en": "An ISO 7380-1 hexagon socket button head screw, M5 × 16 mm: the head bears on a host's face or counterbore floor and the shank passes its clearance hole into a thread under it, such as a T-nut in a 2020 slot.",
+    "es": "Un tornillo de cabeza de botón con hexágono interior ISO 7380-1, M5 × 16 mm: la cabeza apoya en la cara o en el fondo del avellanado de una pieza anfitriona y el vástago pasa por su barreno de paso hacia una rosca debajo, como una tuerca en T en una ranura 2020.",
+    "fr": "Une vis à tête bombée à six pans creux ISO 7380-1, M5 × 16 mm : la tête porte sur la face ou le fond de lamage d'une pièce hôte et la tige traverse son trou de passage vers un filetage en dessous, comme un écrou en T dans une rainure 2020.",
+    "pt": "Um parafuso de cabeça de botão com sextavado interno ISO 7380-1, M5 × 16 mm: a cabeça apoia na face ou no fundo do rebaixo de uma peça hospedeira e a haste passa pelo furo de passagem até uma rosca por baixo, como uma porca em T numa ranhura 2020."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "ISO 7380-1 hexagon socket button head screw M5x16",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "DIN EN ISO 7380-1 button head screw with hexagon socket, M5x16, 010.9 (product datasheet 157380516)",
+      "url": "https://www.keller-kalmbach.de/p/157380516/pdf",
+      "publisher": "Keller & Kalmbach",
+      "accessed": "2026-10-04",
+      "supports": "ISO 7380-1 M5x16: d 5 mm; l 16 mm; head diameter dk 9.5 mm; head height k 2.75 mm; hexagon socket s 3; socket depth t 1.56 mm"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 14 (Frame): an M5x16 BHCS in both ends of each of the 8 A extrusions (the blind joints); p. 45 (Z drive): an M5x16 BHCS with the rubber foot; p. 7 (Hardware reference): BHCS per ISO 7380-1"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the under-head bearing face, on the screw axis. +z runs along the shank to the tip at z = 16; the head lies on the −z side. +x is an arbitrary radial reference: the screw is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "thread_diameter": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0,
+      "note": "d, the M5 nominal"
+    },
+    "length": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0
+    },
+    "head_diameter": {
+      "value": 9.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol dk"
+    },
+    "head_height": {
+      "value": 2.75,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol k"
+    },
+    "socket_size": {
+      "value": 3,
+      "unit": "mm",
+      "source": 0,
+      "note": "hexagon socket s"
+    },
+    "socket_depth": {
+      "value": 1.56,
+      "unit": "mm",
+      "source": 0,
+      "note": "datasheet symbol t"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "head_seat",
+      "label": {
+        "en": "Head seat (under the head)",
+        "es": "Asiento de la cabeza (bajo la cabeza)",
+        "fr": "Appui de la tête (sous la tête)",
+        "pt": "Assento da cabeça (sob a cabeça)"
+      },
+      "geometry_type": "socket",
+      "size_key": "m5-clearance-hole",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shank enters the host's clearance hole. As bhcs-m5x30: the origin is the centre of the under-head face and the normal points +z along the shank toward the host, so a hole framed at the head seat with its normal out of the hole takes the screw head on that face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "No journal interface: at 16 mm the screw is a fastener, not an axle. The thread it engages (a T-nut, a tapped end) is mated by the host's m5-screw-joint interface, not by the screw. Length variants are separate entries, as bhcs-m5x30."
+}

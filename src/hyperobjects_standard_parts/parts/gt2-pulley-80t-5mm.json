@@ -1,0 +1,203 @@
+{
+  "spec_version": 1,
+  "key": "gt2-pulley-80t-5mm",
+  "category": "pulley",
+  "name": {
+    "en": "GT2 80-tooth pulley, 6 mm belt, 5 mm bore",
+    "es": "Polea GT2 de 80 dientes, banda de 6 mm, barreno de 5 mm",
+    "fr": "Poulie GT2 à 80 dents, courroie de 6 mm, alésage de 5 mm",
+    "pt": "Polia GT2 de 80 dentes, correia de 6 mm, furo de 5 mm"
+  },
+  "description": {
+    "en": "A flanged GT2 (2GT) timing pulley with 80 teeth for a 6 mm belt and a 5 mm set-screw bore. A commercial class: the tooth count, pitch, pitch diameter and bore are shared; the hub and flange dimensions are one listing's ('Small' variant). In a Voron 2.4-class Z drive it is the driven pulley of the 5:1 reduction, on the 5 mm output shaft.",
+    "es": "Una polea síncrona GT2 (2GT) con pestañas, de 80 dientes para banda de 6 mm y barreno de 5 mm con prisioneros. Una clase comercial: el número de dientes, el paso, el diámetro primitivo y el barreno son comunes; las medidas del cubo y las pestañas son de un listado (variante «Small»). En un accionamiento Z de clase Voron 2.4 es la polea conducida de la reducción 5:1, en la flecha de salida de 5 mm.",
+    "fr": "Une poulie crantée GT2 (2GT) à flasques, à 80 dents pour courroie de 6 mm et alésage de 5 mm à vis de pression. Une classe commerciale : le nombre de dents, le pas, le diamètre primitif et l'alésage sont communs ; les cotes du moyeu et des flasques sont celles d'une fiche (variante « Small »). Dans un entraînement Z de classe Voron 2.4, c'est la poulie menée de la réduction 5:1, sur l'arbre de sortie de 5 mm.",
+    "pt": "Uma polia sincronizada GT2 (2GT) com flanges, de 80 dentes para correia de 6 mm e furo de 5 mm com parafusos de fixação. Uma classe comercial: o número de dentes, o passo, o diâmetro primitivo e o furo são comuns; as medidas do cubo e das flanges são de uma listagem (variante «Small»). Num acionamento Z de classe Voron 2.4 é a polia movida da redução 5:1, no eixo de saída de 5 mm."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "GT2 (2GT) 80-tooth timing pulley for 6 mm belt, 5 mm bore",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "2GT pulley, 80 teeth (retailer listing, Spool3D)",
+      "url": "https://spool3d.ca/2gt-pulley-80-teeth",
+      "publisher": "Spool3D",
+      "accessed": "2026-10-04",
+      "supports": "2GT, 80 teeth, 2 mm pitch, 5 mm bore, 2 set screws; tooth width 7 to 7.2 mm by variant; tooth outer diameter 50.3 mm; overall height 18 mm; variant 'Small': hub outer diameter 20 mm, flange outer diameter 54.7 mm, hub height 8 mm (other variants: flange 54.1 or 55 mm, hub 7 or 7.5 mm)"
+    },
+    {
+      "title": "Gates 2MR-80S-06 PowerGrip GT2 2 mm sprocket, Gates 7842-6025 (retailer listing, Royal Supply)",
+      "url": "https://www.royalsupply.com/store/pc/powergrip-gt-sprockets-2mr-80s-06.html",
+      "publisher": "Royal Supply",
+      "accessed": "2026-10-04",
+      "supports": "Gates PowerGrip GT2 2MR-80S-06: 2 mm pitch, 80 grooves, pitch diameter 2.005 in"
+    },
+    {
+      "title": "Gates 2MR-80S-09 PowerGrip GT2 2 mm sprocket, Gates 7842-6050 (retailer listing, Royal Supply)",
+      "url": "https://www.royalsupply.com/store/pc/powergrip-gt-sprockets-2mr-80s-09.html",
+      "publisher": "Royal Supply",
+      "accessed": "2026-10-04",
+      "supports": "Gates PowerGrip GT2 2MR-80S-09: 2 mm pitch, 80 grooves, pitch diameter 2.005 in, for 9 mm wide belts"
+    },
+    {
+      "title": "POWGE / Gates Voron 2.4 motion set (retailer listing, West3D)",
+      "url": "https://west3d.com/en-de/products/powge-gates-voron-2-4-motion-set-black-or-silver",
+      "publisher": "West3D",
+      "accessed": "2026-10-04",
+      "supports": "Voron 2.4 motion set: GT2 open belt LL-2GT-9 (9 mm wide, Gates); GT2 belt loop 6 mm wide, 188 mm, 4 pcs (Gates); GT2 16T pulley, 5 mm bore, 4 pcs; GT2 20T pulley 9 mm wide, 5 mm bore, 4 pcs; GT2 80T pulley 6 mm wide, 5 mm bore, 4 pcs; 625 2RS bearings, 12 pcs; 5 × 60 mm shaft with ground flat, 4 pcs"
+    },
+    {
+      "title": "Voron 2.4r2 build guide, version 2023-07-04 (VoronDesign/Voron-2 @ a192410, Manual/Assembly_Manual_2.4r2.pdf, GPL-3.0); cited by page and section only, nothing copied",
+      "url": "https://github.com/VoronDesign/Voron-2/blob/a192410/Manual/Assembly_Manual_2.4r2.pdf",
+      "publisher": "VoronDesign",
+      "accessed": "2026-10-04",
+      "supports": "p. 33 (Z Drives and Idlers, belt drive assembly): a GT2 80 tooth pulley on the 5x60 shaft, with 625 bearings and M5 shims; p. 34: the GT2 188 mm belt loop runs on it"
+    }
+  ],
+  "frame_convention": "Origin at the centre of end face A, the hub end, on the bore axis. +z runs along the bore through the hub (8 mm) and then the flanged toothed section to end face B, the flange end, at z = 18 (the cited 'Small' variant). The belt's mid-plane is taken at the middle of the 10 mm beyond the hub, z = 13. +x is an arbitrary radial reference: the pulley is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "tooth_count": {
+      "value": 80,
+      "unit": "count",
+      "source": 0
+    },
+    "pitch": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0
+    },
+    "pitch_diameter": {
+      "value": 50.93,
+      "unit": "mm",
+      "source": 1,
+      "note": "Gates 2MR-80S gives 2.005 in (sources 1 and 2) = 50.93 mm (×25.4, rounded to 0.01); 80 × 2 / π = 50.93"
+    },
+    "tooth_outside_diameter": {
+      "value": 50.3,
+      "unit": "mm",
+      "source": 0
+    },
+    "flange_diameter": {
+      "value": 54.7,
+      "unit": "mm",
+      "source": 0,
+      "note": "'Small' variant; the listing's other variants give 54.1 and 55"
+    },
+    "hub_diameter": {
+      "value": 20,
+      "unit": "mm",
+      "source": 0,
+      "note": "'Small' variant"
+    },
+    "hub_height": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0,
+      "note": "'Small' variant"
+    },
+    "overall_length": {
+      "value": 18,
+      "unit": "mm",
+      "source": 0
+    },
+    "toothed_width": {
+      "value": 7.2,
+      "unit": "mm",
+      "source": 0,
+      "note": "the listing gives 7 to 7.2 by variant"
+    },
+    "bore": {
+      "value": 5,
+      "unit": "mm",
+      "source": 0
+    },
+    "belt_width": {
+      "value": 6,
+      "unit": "mm",
+      "source": 3,
+      "note": "the Voron 2.4 motion set's 80T is the 6 mm-wide pulley"
+    },
+    "set_screws": {
+      "value": 2,
+      "unit": "count",
+      "source": 0
+    },
+    "belt_midplane_from_face_a": {
+      "value": 13,
+      "unit": "mm",
+      "source": 0,
+      "note": "derived: hub height 8 + (overall 18 − 8) / 2, the toothed section with its flanges beyond the hub"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore at the hub end (face A)",
+        "es": "Barreno en el extremo del cubo (cara A)",
+        "fr": "Alésage côté moyeu (face A)",
+        "pt": "Furo no lado do cubo (face A)"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the bore takes the shaft hub end first. Framed at face A (the hub end), normal −z out of that face, so a shaft framed where face A lands, its normal toward the pulley, puts the pulley beyond it. The bore carries the Z drive's shaft-hub key (z-drive-pulley-hub-5mm): a set-screw hub on a Ø5 D-cut shaft."
+    },
+    {
+      "id": "bore_b",
+      "label": {
+        "en": "Bore at the flange end (face B)",
+        "es": "Barreno en el extremo de la pestaña (cara B)",
+        "fr": "Alésage côté flasque (face B)",
+        "pt": "Furo no lado da flange (face B)"
+      },
+      "geometry_type": "socket",
+      "size_key": "z-drive-pulley-hub-5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          18
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: the same bore entered flange end first (the pulley turned round). Framed at face B, z = 18, normal +z out of that face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (P6-ZBED lane, 2026-10-04); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Belt engagement (for ASM-1 §9 belt paths, lifted into belt_engagement when that block exists): pitch_diameter 50.93 mm, centre (0, 0, 13), axis (0, 0, 1); the mid-plane is derived from one listing's hub height and overall height. The pitch diameter is a Gates sprocket's: the 2 mm GT2 pitch circle of 80 grooves is the same for every maker."
+}

@@ -6,6 +6,59 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The Voron 2.4-class Z drive, Z belt and bed hardware (Phase 6, lane P6-ZBED)
+
+Additive catalog and vocabulary data, plus the schema enum value `belt`; no grammar, gate
+or validator change. Phase 6 (D1) models the full 2.4 motion system, the four Z drives and
+the bed included, with belts as declared paths (ASM-1 §9, P6-JOINT). Facts cite datasheets
+and listings; the Voron 2.4r2 build guide (GPL-3.0) is cited by page and section only, and
+none of its geometry is used.
+
+#### Added
+
+- **`gt2-pulley-16t-5mm`** (class; MISUMI GPA 2GT: P.D. 10.19, O.D. 9.68, 6 mm belt, L 18,
+  W 10.3; Gates 2MR-16S 0.401 in), **`gt2-pulley-20t-9mm`** (class; MISUMI GPA: P.D. 12.73,
+  9 mm belt, L 21, W 13.3) and **`gt2-pulley-80t-5mm`** (class; Spool3D listing: 5 mm bore,
+  overall 18, hub 8, flange 54.7; Gates 2MR-80S: P.D. 2.005 in = 50.93). Each states a cited
+  `pitch_diameter` (on the 2 mm GT2 circle, N·2/π) and a `belt_midplane_from_face_a`, for
+  P6-JOINT's `belt_engagement`. Interfaces `bore` (face A, the hub end) and `bore_b` (face B,
+  the flange end), so a pulley mounts either way round: the 16-tooth on the NEMA 17 shaft
+  (`nema-17-shaft-5mm`), the 20- and 80-tooth on the Z drive's output shaft
+  (`z-drive-pulley-hub-5mm`). 80 / 16 = 5:1 (guide pp. 33, 38).
+- **`bearing-625`** (SKF 625: 5 × 16 × 5): `outer_race` (`bearing-625`, male) and `bore`
+  (`bearing-625-bore`, female, at face B), framed as `bearing-608`.
+- **`shaft-5mm`** (MISUMI SFJ D5 g6, L 10–400; default 60, the guide's 5x60, p. 32):
+  journals `journal_a/b/c` (`bearing-625-bore`, male) and pulley hubs `hub_a` / `hub_b`
+  (`z-drive-pulley-hub-5mm`, male) at station parameters whose defaults are the commons
+  `z-drive-housing`'s (conventions).
+- **`gt2-belt-9mm`**, the catalog's first **belt** (Gates 2MR long-length belting, 17195
+  p. 90: pitch 2, width 9, height 1.52, tooth height 0.76): `end_a` / `end_b`
+  (`z-belt-gt2-9mm-clamp`, male, sym 2) on the back face at the clamp stations;
+  `length_mm` defaults to the guide's minimum cut length for the 350 (1200, p. 111). The
+  pitch-line differential is not cited, so the teeth-/back-side offsets are not stated; the
+  Z path runs teeth-on-toothed parts only.
+- **`bhcs-m5x10`** and **`bhcs-m5x16`** (ISO 7380-1; Keller & Kalmbach): `head_seat` only.
+  The guide fixes the Z drives and the bed extrusions with M5x10 (pp. 19, 42–43) and the
+  frame's blind joints with M5x16 (p. 14).
+- **Vocabulary** (`interface-sizes.standard-parts.json`): `bearing-625-bore`,
+  `z-drive-pulley-hub-5mm`, `z-belt-gt2-9mm-clamp`.
+- **`standard-part.schema.json`**: category `belt` (the same enum line P6-JOINT adds; its
+  `belt` block lands with ASM-1 §9, which lifts this entry's belt facts into it).
+- **Tests** (`tests/test_catalog_z_drive.py`): (i) a bottom corner — upright, two
+  horizontals by blind joints, the Z drive housing framed as the commons cartridge
+  `z-drive-housing` frames it, keyed into both bottom slots, T-nuts and M5x10s, three 625s,
+  the shaft through all three (two closed cycles), the 20- and 80-tooth pulleys, the NEMA 17
+  and its 16-tooth pulley — closes; the reduction pulleys are coplanar at the 40.8 mm centre
+  distance that closes a 188 mm loop within 0.05 mm; a bearing seat or a corner station 1 mm
+  off fails closure; (ii) the same upright's top corner with `corner-idler-bracket`: the Z
+  idler and the Z pulley share one belt plane and one vertical; (iii) a 9 mm belt end in
+  `z-belt-clamp`'s jaws on a gantry beam; (iv) `bed-extrusion-mount` holding a bed
+  extrusion square, flush and butted; (v) the whole 350 frame cube at its cited cut lengths
+  (530 uprights, 470 horizontals, 16 blind joints; Spool3D and LDO kit listings, guide
+  pp. 13, 20) with a Z drive at each bottom corner and both bed rails on four bed mounts —
+  64 + 6 components close; a 471 horizontal or a 469 bed rail fails. Negative controls for
+  every new key.
+
 ### M5 idler hardware and the 2020 blind joint (owner instruction 2026-10-04, lane P4-AUTH-E)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change.
