@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### `bearing-f695` as a smooth belt via: its running diameter (ASM-1 §9, lane P6-GANTRY)
+
+Catalog data and tests only. #45 gave the two GT2 entries a `belt_engagement`; a 2.4-class
+gantry's A/B belts also run round F695 stacks (Voron 2.4r2 build guide, cited by page only:
+pp. 65, 69, 97, 99), so a belt path through one needs the bearing's.
+
+#### Added
+
+- **`bearing-f695.belt_engagement`**: `running_diameter` 13 (NSK F695ZZ, D), `center`
+  [0, 0, 4], axis +z. The mid-plane is **a convention**: the plain-face junction of the
+  guide's flanges-outward pair, so a via may name either bearing of the pair and lands on the
+  same circle. A path adds the belt's side offset: teeth 13 + 2 × 1.014 = 15.028, back
+  13 + 2 × 0.506 = 14.012 for the 2 mm GT2 section.
+- **Tests** (`tests/test_catalog_f695_belt.py`): the entry's cited diameter and junction
+  plane; `effective_diameter` gives 15.028 / 14.012; a belt turning 90° round an M5x40 →
+  shim → F695 → F695 → shim stack measures two spans plus a quarter of the effective circle
+  for either side and either bearing of the pair; a belt without the side's offset is
+  refused; anchors 1 mm off the junction fail planarity. No golden moves: no fixture
+  assembly places an F695.
+
 ### Stations on the mate: `offset` and interface `travel` (ASM-1 §9 v1.4, package 0.8.0)
 
 P6-ZBED found that `extrusion-2020` has one `slot_station_mm` shared by its eight slots, so

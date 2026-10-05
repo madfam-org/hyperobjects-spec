@@ -236,9 +236,13 @@ optional blocks:
 |---|---|---|
 | `gt2-pulley-20t-5mm` | `pitch_diameter` 12.73 mm (Gates 20-2MR-PS-4, the 2 mm GT2 stock-pulley table via CMT Co.; = 20 × 2 / π) | z = 8, **a convention** (mid-length; no source places the toothed section) |
 | `gt2-idler-20t-9mm` | `pitch_diameter` 12.73 mm (the same table: a 20-tooth 2 mm GT2 wheel) | z = `width_mm` / 2, **a convention** (flanged both sides) |
+| `bearing-f695` | `running_diameter` 13 mm (NSK F695ZZ, D: the outer ring the belt runs on, a smooth via) | z = 4, **a convention**: the plain-face junction of the guide's flanges-outward pair (pp. 65, 69, 97, 99); a via may name either bearing of the pair |
 
 Adding `belt_engagement` changed both entries' catalog digest, so assembly A's digest
 moved (`24322cc0…` → `296caa36…` on the keystone's fixture A).
+`bearing-f695`'s block (lane P6-GANTRY) moves no golden: no fixture assembly places an F695.
+A belt's teeth on an F695 stack make an effective diameter of 13 + 2 × `teeth_side_offset`, its
+back 13 + 2 × `back_side_offset` (15.028 and 14.012 for the 2 mm GT2 section).
 
 ## Interface travel (ASM-1 §9, v1.4)
 
