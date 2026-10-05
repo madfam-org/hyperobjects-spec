@@ -131,6 +131,7 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
         "shcs-m5x40.head_seat": +1,
         "shcs-m5x40.journal": +1,
         "gt2-idler-20t-9mm.bore": -1,      # the bore runs +z from face A, normal −z
+        "gt2-idler-20t-6mm.bore": -1,      # the bore runs +z from face A, normal −z
         "bearing-f695.bore": -1,           # the bore runs +z from the flange face, normal −z
         "bearing-f695.outer_race": +1,     # the Ø13 ring runs +z from the flange underside
         "shim-5x10.bore": -1,              # the bore runs +z from face A, normal −z
