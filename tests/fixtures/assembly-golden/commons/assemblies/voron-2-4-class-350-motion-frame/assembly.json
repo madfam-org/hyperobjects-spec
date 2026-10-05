@@ -4,451 +4,709 @@
   "slug": "voron-2-4-class-350-motion-frame",
   "kind": "producer",
   "name": {
-    "en": "Voron 2.4-class motion-frame subset",
-    "es": "Subconjunto de marco y movimiento clase Voron 2.4"
+    "en": "Voron 2.4-class 350 motion system",
+    "es": "Sistema de movimiento clase Voron 2.4 350"
   },
   "description": {
-    "en": "A type-level subset of a Voron 2.4-class CoreXY printer: one frame corner of 2020 extrusions with corner braces, an MGN12 rail and block carrying the Voron Stealthburner (an external GPL-3.0 design, referenced and never copied), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop and a drag-chain anchor. Static: no motion is modelled.",
-    "es": "Subconjunto a nivel de tipo de una impresora CoreXY clase Voron 2.4: una esquina del marco de perfiles 2020 con escuadras, un riel MGN12 con su carro que lleva el Voron Stealthburner (diseño externo GPL-3.0, referenciado y nunca copiado), un NEMA 17 sobre un soporte para perfil con polea GT2, un final de carrera y un anclaje de cadena portacables. Estático: no modela movimiento."
+    "en": "The full motion system of a Voron 2.4-class 350 CoreXY printer as a posable type-level assembly (owner decision D1): the 350 frame cube of 2020 extrusions, four top corners with their GT2 Z idlers, four MGN9 Z rails and blocks, four belt-reduction Z drives, the fixed bed with its build plate, and the flying gantry (C/D/E extrusions, MGN9 Y rails, XY joints, front idlers, A/B drives with their motors) hung on four Z joints, with the MGN12 X rail, the X carriage and an original toolhead proxy (D3). Joints: x_carriage, gantry_y (the right block follows), gantry_z (three Z blocks follow, D2), the A/B motors and every Z shaft and motor as followers. Klipper's corexy machine coordinates bind to the three driven joints. Belts are declared paths: A and B, four Z belts and four reduction loops, all constant-length over the sweep. Every printed part is an original commons design; Voron facts are cited by page from the 2.4r2 build guide (GPL-3.0), never copied.",
+    "es": "El sistema de movimiento completo de una impresora CoreXY clase Voron 2.4 350 como ensamble posable a nivel de tipo (decisión D1): el cubo del marco 350 de perfiles 2020, cuatro esquinas superiores con sus poleas Z GT2, cuatro rieles Z MGN9 con sus carros, cuatro accionamientos Z con reducción por banda, la cama fija con su placa, y el pórtico volante (perfiles C/D/E, rieles Y MGN9, uniones XY, poleas delanteras, accionamientos A/B con sus motores) colgado de cuatro uniones Z, con el riel X MGN12, el carro X y un sustituto original del cabezal (D3). Articulaciones: x_carriage, gantry_y (el carro derecho la sigue), gantry_z (tres carros Z la siguen, D2), y los motores A/B y cada flecha y motor Z como seguidores. Las coordenadas de máquina corexy de Klipper se enlazan a las tres articulaciones motrices. Las bandas son trayectorias declaradas: A y B, cuatro bandas Z y cuatro lazos de reducción, todas de longitud constante en el barrido. Cada pieza impresa es un diseño original del commons; los datos Voron se citan por página de la guía de armado 2.4r2 (GPL-3.0), nunca se copian."
   },
   "license": "CERN-OHL-W-2.0",
-  "root": "frame_x",
+  "root": "u0",
   "components": [
-    {
-      "id": "frame_x",
-      "label": {
-        "en": "Frame extrusion X (root), 350 mm",
-        "es": "Perfil del marco X (raíz), 350 mm"
-      },
-      "source": {
-        "type": "standard",
-        "key": "extrusion-2020",
-        "parameters": {
-          "length_mm": 350,
-          "slot_station_mm": 30
-        }
-      }
-    },
-    {
-      "id": "frame_y",
-      "label": {
-        "en": "Frame extrusion Y, 350 mm, butting frame X",
-        "es": "Perfil del marco Y, 350 mm, a tope contra el X"
-      },
-      "source": {
-        "type": "standard",
-        "key": "extrusion-2020",
-        "parameters": {
-          "length_mm": 350,
-          "slot_station_mm": 10
-        }
-      }
-    },
-    {
-      "id": "frame_z",
-      "label": {
-        "en": "Frame upright Z, 350 mm, standing on frame X",
-        "es": "Poste Z del marco, 350 mm, sobre el perfil X"
-      },
-      "source": {
-        "type": "standard",
-        "key": "extrusion-2020",
-        "parameters": {
-          "length_mm": 350,
-          "slot_station_mm": 10
-        }
-      }
-    },
-    {
-      "id": "corner_xy",
-      "label": {
-        "en": "Corner brace X–Y",
-        "es": "Escuadra X–Y"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "tslot-corner",
-        "mode": "corner_2way",
-        "part": null,
-        "parameters": {
-          "series": "2020"
-        }
-      }
-    },
-    {
-      "id": "corner_xz",
-      "label": {
-        "en": "Corner brace X–Z",
-        "es": "Escuadra X–Z"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "tslot-corner",
-        "mode": "corner_2way",
-        "part": null,
-        "parameters": {
-          "series": "2020"
-        }
-      }
-    },
-    {
-      "id": "corner_yz",
-      "label": {
-        "en": "Corner bracket Y–Z (15 mm legs)",
-        "es": "Escuadra Y–Z (patas de 15 mm)"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "tslot-2020",
-        "mode": "corner_bracket",
-        "part": null,
-        "parameters": {
-          "slot_series": "2020",
-          "bracket_leg": 15,
-          "bracket_thick": 5
-        }
-      }
-    },
-    {
-      "id": "x_rail",
-      "label": {
-        "en": "MGN12 rail, 250 mm",
-        "es": "Riel MGN12, 250 mm"
-      },
-      "source": {
-        "type": "standard",
-        "key": "mgn12-rail",
-        "parameters": {
-          "length_mm": 250
-        }
-      }
-    },
-    {
-      "id": "x_block",
-      "label": {
-        "en": "MGN12H block",
-        "es": "Carro MGN12H"
-      },
-      "source": {
-        "type": "standard",
-        "key": "mgn12h-carriage"
-      }
-    },
-    {
-      "id": "toolhead",
-      "label": {
-        "en": "Voron Stealthburner toolhead (external, GPL-3.0; referenced, not copied)",
-        "es": "Cabezal Voron Stealthburner (externo, GPL-3.0; referenciado, no copiado)"
-      },
-      "source": {
-        "type": "external",
-        "name": "Voron Stealthburner",
-        "license": "GPL-3.0",
-        "url": "https://github.com/VoronDesign/Voron-Stealthburner",
-        "revision": "8bcb9c246fac19d8ac03931ef97fa07c5e5f0f2b",
-        "interfaces": [
-          {
-            "id": "x_carriage_block_mount",
-            "label": {
-              "en": "Bolts to the MGN12H block's four M3 holes through the Voron 2.4 X-carriage frames",
-              "es": "Se atornilla a los cuatro barrenos M3 del carro MGN12H mediante los marcos de carro X del Voron 2.4"
-            },
-            "geometry_type": "bolt_pattern",
-            "frame": {
-              "origin": [
-                0,
-                0,
-                0
-              ],
-              "normal": [
-                0,
-                0,
-                -1
-              ],
-              "x_axis": [
-                1,
-                0,
-                0
-              ]
-            },
-            "polarity": "male",
-            "size_key": "mgn12-carriage",
-            "symmetry": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "endstop_x",
-      "label": {
-        "en": "Endstop mount on the extrusion, D2F hole span 6.5 mm",
-        "es": "Soporte de final de carrera sobre el perfil, separación D2F de 6.5 mm"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "endstop-mount",
-        "mode": "extrusion_endstop",
-        "part": null,
-        "parameters": {
-          "hole_span": 6.5
-        }
-      }
-    },
-    {
-      "id": "chain_anchor",
-      "label": {
-        "en": "Drag-chain anchor on the extrusion",
-        "es": "Anclaje de cadena portacables sobre el perfil"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "chain-mount",
-        "mode": "extrusion_bracket",
-        "part": null
-      }
-    },
-    {
-      "id": "motor_bracket_a",
-      "label": {
-        "en": "NEMA 17 extrusion mount (A motor)",
-        "es": "Soporte NEMA 17 para perfil (motor A)"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "nema-bracket",
-        "mode": "extrusion_mount",
-        "part": null,
-        "parameters": {
-          "nema": "NEMA17"
-        }
-      }
-    },
-    {
-      "id": "motor_a",
-      "label": {
-        "en": "NEMA 17 stepper, 48 mm (A motor)",
-        "es": "Motor a pasos NEMA 17, 48 mm (motor A)"
-      },
-      "source": {
-        "type": "standard",
-        "key": "nema-17-48mm"
-      }
-    },
-    {
-      "id": "pulley_a",
-      "label": {
-        "en": "GT2 20T pulley, 5 mm bore",
-        "es": "Polea GT2 20T, barreno de 5 mm"
-      },
-      "source": {
-        "type": "standard",
-        "key": "gt2-pulley-20t-5mm"
-      }
-    },
-    {
-      "id": "endstop_switch",
-      "label": {
-        "en": "Omron D2F microswitch",
-        "es": "Microinterruptor Omron D2F"
-      },
-      "source": {
-        "type": "standard",
-        "key": "microswitch-d2f"
-      }
-    }
+    {"id": "u0", "label": {"en": "Upright, front left, 530 mm (root)", "es": "Poste, delantero izquierdo, 530 mm (raíz)"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 530}}},
+    {"id": "bx_front", "label": {"en": "Bottom horizontal, front, 470 mm", "es": "Travesaño inferior, delantero, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470, "slot_station_mm": 170}}},
+    {"id": "by_left", "label": {"en": "Bottom horizontal, left, 470 mm", "es": "Travesaño inferior, izquierdo, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "u1", "label": {"en": "Upright, front right, 530 mm", "es": "Poste, delantero derecho, 530 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 530}}},
+    {"id": "u2", "label": {"en": "Upright, back left, 530 mm", "es": "Poste, trasero izquierdo, 530 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 530}}},
+    {"id": "by_right", "label": {"en": "Bottom horizontal, right, 470 mm", "es": "Travesaño inferior, derecho, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "bx_back", "label": {"en": "Bottom horizontal, back, 470 mm", "es": "Travesaño inferior, trasero, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470, "slot_station_mm": 170}}},
+    {"id": "u3", "label": {"en": "Upright, back right, 530 mm", "es": "Poste, trasero derecho, 530 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 530}}},
+    {"id": "tx_front", "label": {"en": "Top horizontal, front, 470 mm", "es": "Travesaño superior, delantero, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "ty_left", "label": {"en": "Top horizontal, left, 470 mm", "es": "Travesaño superior, izquierdo, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "ty_right", "label": {"en": "Top horizontal, right, 470 mm", "es": "Travesaño superior, derecho, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "tx_back", "label": {"en": "Top horizontal, back, 470 mm", "es": "Travesaño superior, trasero, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "z0_housing", "label": {"en": "Z drive housing, front left (Z0)", "es": "Caja del accionamiento Z, delantera izquierda (Z0)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-drive-housing", "mode": "z_drive", "part": null, "parameters": {"mirrored": false}}},
+    {"id": "z0_tnut_a", "label": {"en": "M5 T-nut A, Z0", "es": "Tuerca en T M5 A, Z0"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z0_tnut_b", "label": {"en": "M5 T-nut B, Z0", "es": "Tuerca en T M5 B, Z0"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z0_screw_a", "label": {"en": "M5x10 BHCS A, Z0", "es": "Tornillo M5x10 BHCS A, Z0"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z0_screw_b", "label": {"en": "M5x10 BHCS B, Z0", "es": "Tornillo M5x10 BHCS B, Z0"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z0_bearing_a", "label": {"en": "625 bearing A, Z0", "es": "Rodamiento 625 A, Z0"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z0_bearing_b", "label": {"en": "625 bearing B, Z0", "es": "Rodamiento 625 B, Z0"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z0_bearing_c", "label": {"en": "625 bearing C, Z0", "es": "Rodamiento 625 C, Z0"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z0_shaft", "label": {"en": "5 mm output shaft, Z0", "es": "Flecha de salida de 5 mm, Z0"}, "source": {"type": "standard", "key": "shaft-5mm"}},
+    {"id": "z0_z_pulley", "label": {"en": "GT2 20T 9 mm Z belt pulley, Z0", "es": "Polea GT2 20T de 9 mm de la banda Z, Z0"}, "source": {"type": "standard", "key": "gt2-pulley-20t-9mm"}},
+    {"id": "z0_big_pulley", "label": {"en": "GT2 80T reduction pulley, Z0", "es": "Polea de reducción GT2 80T, Z0"}, "source": {"type": "standard", "key": "gt2-pulley-80t-5mm"}},
+    {"id": "z0_motor", "label": {"en": "Z motor, NEMA 17, Z0", "es": "Motor Z, NEMA 17, Z0"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 6.85}}},
+    {"id": "z0_motor_pulley", "label": {"en": "GT2 16T motor pulley, Z0", "es": "Polea GT2 16T del motor, Z0"}, "source": {"type": "standard", "key": "gt2-pulley-16t-5mm"}},
+    {"id": "z1_housing", "label": {"en": "Z drive housing, front right (Z1)", "es": "Caja del accionamiento Z, delantera derecha (Z1)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-drive-housing", "mode": "z_drive", "part": null, "parameters": {"mirrored": true}}},
+    {"id": "z1_tnut_a", "label": {"en": "M5 T-nut A, Z1", "es": "Tuerca en T M5 A, Z1"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z1_tnut_b", "label": {"en": "M5 T-nut B, Z1", "es": "Tuerca en T M5 B, Z1"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z1_screw_a", "label": {"en": "M5x10 BHCS A, Z1", "es": "Tornillo M5x10 BHCS A, Z1"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z1_screw_b", "label": {"en": "M5x10 BHCS B, Z1", "es": "Tornillo M5x10 BHCS B, Z1"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z1_bearing_a", "label": {"en": "625 bearing A, Z1", "es": "Rodamiento 625 A, Z1"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z1_bearing_b", "label": {"en": "625 bearing B, Z1", "es": "Rodamiento 625 B, Z1"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z1_bearing_c", "label": {"en": "625 bearing C, Z1", "es": "Rodamiento 625 C, Z1"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z1_shaft", "label": {"en": "5 mm output shaft, Z1", "es": "Flecha de salida de 5 mm, Z1"}, "source": {"type": "standard", "key": "shaft-5mm"}},
+    {"id": "z1_z_pulley", "label": {"en": "GT2 20T 9 mm Z belt pulley, Z1", "es": "Polea GT2 20T de 9 mm de la banda Z, Z1"}, "source": {"type": "standard", "key": "gt2-pulley-20t-9mm"}},
+    {"id": "z1_big_pulley", "label": {"en": "GT2 80T reduction pulley, Z1", "es": "Polea de reducción GT2 80T, Z1"}, "source": {"type": "standard", "key": "gt2-pulley-80t-5mm"}},
+    {"id": "z1_motor", "label": {"en": "Z motor, NEMA 17, Z1", "es": "Motor Z, NEMA 17, Z1"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 6.85}}},
+    {"id": "z1_motor_pulley", "label": {"en": "GT2 16T motor pulley, Z1", "es": "Polea GT2 16T del motor, Z1"}, "source": {"type": "standard", "key": "gt2-pulley-16t-5mm"}},
+    {"id": "z2_housing", "label": {"en": "Z drive housing, back left (Z2)", "es": "Caja del accionamiento Z, trasera izquierda (Z2)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-drive-housing", "mode": "z_drive", "part": null, "parameters": {"mirrored": true}}},
+    {"id": "z2_tnut_a", "label": {"en": "M5 T-nut A, Z2", "es": "Tuerca en T M5 A, Z2"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z2_tnut_b", "label": {"en": "M5 T-nut B, Z2", "es": "Tuerca en T M5 B, Z2"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z2_screw_a", "label": {"en": "M5x10 BHCS A, Z2", "es": "Tornillo M5x10 BHCS A, Z2"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z2_screw_b", "label": {"en": "M5x10 BHCS B, Z2", "es": "Tornillo M5x10 BHCS B, Z2"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z2_bearing_a", "label": {"en": "625 bearing A, Z2", "es": "Rodamiento 625 A, Z2"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z2_bearing_b", "label": {"en": "625 bearing B, Z2", "es": "Rodamiento 625 B, Z2"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z2_bearing_c", "label": {"en": "625 bearing C, Z2", "es": "Rodamiento 625 C, Z2"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z2_shaft", "label": {"en": "5 mm output shaft, Z2", "es": "Flecha de salida de 5 mm, Z2"}, "source": {"type": "standard", "key": "shaft-5mm"}},
+    {"id": "z2_z_pulley", "label": {"en": "GT2 20T 9 mm Z belt pulley, Z2", "es": "Polea GT2 20T de 9 mm de la banda Z, Z2"}, "source": {"type": "standard", "key": "gt2-pulley-20t-9mm"}},
+    {"id": "z2_big_pulley", "label": {"en": "GT2 80T reduction pulley, Z2", "es": "Polea de reducción GT2 80T, Z2"}, "source": {"type": "standard", "key": "gt2-pulley-80t-5mm"}},
+    {"id": "z2_motor", "label": {"en": "Z motor, NEMA 17, Z2", "es": "Motor Z, NEMA 17, Z2"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 6.85}}},
+    {"id": "z2_motor_pulley", "label": {"en": "GT2 16T motor pulley, Z2", "es": "Polea GT2 16T del motor, Z2"}, "source": {"type": "standard", "key": "gt2-pulley-16t-5mm"}},
+    {"id": "z3_housing", "label": {"en": "Z drive housing, back right (Z3)", "es": "Caja del accionamiento Z, trasera derecha (Z3)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-drive-housing", "mode": "z_drive", "part": null, "parameters": {"mirrored": false}}},
+    {"id": "z3_tnut_a", "label": {"en": "M5 T-nut A, Z3", "es": "Tuerca en T M5 A, Z3"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z3_tnut_b", "label": {"en": "M5 T-nut B, Z3", "es": "Tuerca en T M5 B, Z3"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z3_screw_a", "label": {"en": "M5x10 BHCS A, Z3", "es": "Tornillo M5x10 BHCS A, Z3"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z3_screw_b", "label": {"en": "M5x10 BHCS B, Z3", "es": "Tornillo M5x10 BHCS B, Z3"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z3_bearing_a", "label": {"en": "625 bearing A, Z3", "es": "Rodamiento 625 A, Z3"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z3_bearing_b", "label": {"en": "625 bearing B, Z3", "es": "Rodamiento 625 B, Z3"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z3_bearing_c", "label": {"en": "625 bearing C, Z3", "es": "Rodamiento 625 C, Z3"}, "source": {"type": "standard", "key": "bearing-625"}},
+    {"id": "z3_shaft", "label": {"en": "5 mm output shaft, Z3", "es": "Flecha de salida de 5 mm, Z3"}, "source": {"type": "standard", "key": "shaft-5mm"}},
+    {"id": "z3_z_pulley", "label": {"en": "GT2 20T 9 mm Z belt pulley, Z3", "es": "Polea GT2 20T de 9 mm de la banda Z, Z3"}, "source": {"type": "standard", "key": "gt2-pulley-20t-9mm"}},
+    {"id": "z3_big_pulley", "label": {"en": "GT2 80T reduction pulley, Z3", "es": "Polea de reducción GT2 80T, Z3"}, "source": {"type": "standard", "key": "gt2-pulley-80t-5mm"}},
+    {"id": "z3_motor", "label": {"en": "Z motor, NEMA 17, Z3", "es": "Motor Z, NEMA 17, Z3"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 6.85}}},
+    {"id": "z3_motor_pulley", "label": {"en": "GT2 16T motor pulley, Z3", "es": "Polea GT2 16T del motor, Z3"}, "source": {"type": "standard", "key": "gt2-pulley-16t-5mm"}},
+    {"id": "bed_rail_l", "label": {"en": "Bed extrusion, left, 470 mm", "es": "Perfil de la cama, izquierdo, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "bed_rail_l_front_mount", "label": {"en": "Bed extrusion mount, left front", "es": "Soporte del perfil de la cama, left front"}, "source": {"type": "cartridge", "commons": "solid", "slug": "bed-extrusion-mount", "mode": "bed_mount", "part": null}},
+    {"id": "bed_rail_l_front_mount_tnut_frame_a", "label": {"en": "M5 T-nut, bed_rail_l_front_mount frame_a", "es": "Tuerca en T M5, bed_rail_l_front_mount frame_a"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_front_mount_screw_frame_a", "label": {"en": "M5x10 BHCS, bed_rail_l_front_mount frame_a", "es": "Tornillo M5x10 BHCS, bed_rail_l_front_mount frame_a"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_l_front_mount_tnut_frame_b", "label": {"en": "M5 T-nut, bed_rail_l_front_mount frame_b", "es": "Tuerca en T M5, bed_rail_l_front_mount frame_b"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_front_mount_screw_frame_b", "label": {"en": "M5x10 BHCS, bed_rail_l_front_mount frame_b", "es": "Tornillo M5x10 BHCS, bed_rail_l_front_mount frame_b"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_l_front_mount_tnut_bed", "label": {"en": "M5 T-nut, bed_rail_l_front_mount bed", "es": "Tuerca en T M5, bed_rail_l_front_mount bed"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_front_mount_screw_bed", "label": {"en": "M5x10 BHCS, bed_rail_l_front_mount bed", "es": "Tornillo M5x10 BHCS, bed_rail_l_front_mount bed"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_l_back_mount", "label": {"en": "Bed extrusion mount, left back", "es": "Soporte del perfil de la cama, left back"}, "source": {"type": "cartridge", "commons": "solid", "slug": "bed-extrusion-mount", "mode": "bed_mount", "part": null}},
+    {"id": "bed_rail_l_back_mount_tnut_frame_a", "label": {"en": "M5 T-nut, bed_rail_l_back_mount frame_a", "es": "Tuerca en T M5, bed_rail_l_back_mount frame_a"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_back_mount_screw_frame_a", "label": {"en": "M5x10 BHCS, bed_rail_l_back_mount frame_a", "es": "Tornillo M5x10 BHCS, bed_rail_l_back_mount frame_a"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_l_back_mount_tnut_frame_b", "label": {"en": "M5 T-nut, bed_rail_l_back_mount frame_b", "es": "Tuerca en T M5, bed_rail_l_back_mount frame_b"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_back_mount_screw_frame_b", "label": {"en": "M5x10 BHCS, bed_rail_l_back_mount frame_b", "es": "Tornillo M5x10 BHCS, bed_rail_l_back_mount frame_b"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_l_back_mount_tnut_bed", "label": {"en": "M5 T-nut, bed_rail_l_back_mount bed", "es": "Tuerca en T M5, bed_rail_l_back_mount bed"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_l_back_mount_screw_bed", "label": {"en": "M5x10 BHCS, bed_rail_l_back_mount bed", "es": "Tornillo M5x10 BHCS, bed_rail_l_back_mount bed"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r", "label": {"en": "Bed extrusion, right, 470 mm", "es": "Perfil de la cama, derecho, 470 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 470}}},
+    {"id": "bed_rail_r_front_mount", "label": {"en": "Bed extrusion mount, right front", "es": "Soporte del perfil de la cama, right front"}, "source": {"type": "cartridge", "commons": "solid", "slug": "bed-extrusion-mount", "mode": "bed_mount", "part": null}},
+    {"id": "bed_rail_r_front_mount_tnut_frame_a", "label": {"en": "M5 T-nut, bed_rail_r_front_mount frame_a", "es": "Tuerca en T M5, bed_rail_r_front_mount frame_a"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_front_mount_screw_frame_a", "label": {"en": "M5x10 BHCS, bed_rail_r_front_mount frame_a", "es": "Tornillo M5x10 BHCS, bed_rail_r_front_mount frame_a"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r_front_mount_tnut_frame_b", "label": {"en": "M5 T-nut, bed_rail_r_front_mount frame_b", "es": "Tuerca en T M5, bed_rail_r_front_mount frame_b"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_front_mount_screw_frame_b", "label": {"en": "M5x10 BHCS, bed_rail_r_front_mount frame_b", "es": "Tornillo M5x10 BHCS, bed_rail_r_front_mount frame_b"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r_front_mount_tnut_bed", "label": {"en": "M5 T-nut, bed_rail_r_front_mount bed", "es": "Tuerca en T M5, bed_rail_r_front_mount bed"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_front_mount_screw_bed", "label": {"en": "M5x10 BHCS, bed_rail_r_front_mount bed", "es": "Tornillo M5x10 BHCS, bed_rail_r_front_mount bed"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r_back_mount", "label": {"en": "Bed extrusion mount, right back", "es": "Soporte del perfil de la cama, right back"}, "source": {"type": "cartridge", "commons": "solid", "slug": "bed-extrusion-mount", "mode": "bed_mount", "part": null}},
+    {"id": "bed_rail_r_back_mount_tnut_frame_a", "label": {"en": "M5 T-nut, bed_rail_r_back_mount frame_a", "es": "Tuerca en T M5, bed_rail_r_back_mount frame_a"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_back_mount_screw_frame_a", "label": {"en": "M5x10 BHCS, bed_rail_r_back_mount frame_a", "es": "Tornillo M5x10 BHCS, bed_rail_r_back_mount frame_a"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r_back_mount_tnut_frame_b", "label": {"en": "M5 T-nut, bed_rail_r_back_mount frame_b", "es": "Tuerca en T M5, bed_rail_r_back_mount frame_b"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_back_mount_screw_frame_b", "label": {"en": "M5x10 BHCS, bed_rail_r_back_mount frame_b", "es": "Tornillo M5x10 BHCS, bed_rail_r_back_mount frame_b"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_rail_r_back_mount_tnut_bed", "label": {"en": "M5 T-nut, bed_rail_r_back_mount bed", "es": "Tuerca en T M5, bed_rail_r_back_mount bed"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "bed_rail_r_back_mount_screw_bed", "label": {"en": "M5x10 BHCS, bed_rail_r_back_mount bed", "es": "Tornillo M5x10 BHCS, bed_rail_r_back_mount bed"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "bed_plate", "label": {"en": "Build plate, 355 × 355", "es": "Placa de impresión, 355 × 355"}, "source": {"type": "standard", "key": "bed-plate-350"}},
+    {"id": "bed_plate_nut_left_front", "label": {"en": "M3 T-nut, build plate left front", "es": "Tuerca en T M3, placa left front"}, "source": {"type": "standard", "key": "tnut-2020-m3"}},
+    {"id": "bed_plate_nut_left_back", "label": {"en": "M3 T-nut, build plate left back", "es": "Tuerca en T M3, placa left back"}, "source": {"type": "standard", "key": "tnut-2020-m3"}},
+    {"id": "bed_plate_nut_right_front", "label": {"en": "M3 T-nut, build plate right front", "es": "Tuerca en T M3, placa right front"}, "source": {"type": "standard", "key": "tnut-2020-m3"}},
+    {"id": "bed_plate_nut_right_back", "label": {"en": "M3 T-nut, build plate right back", "es": "Tuerca en T M3, placa right back"}, "source": {"type": "standard", "key": "tnut-2020-m3"}},
+    {"id": "z0_idler_bracket", "label": {"en": "Z idler corner bracket, front left (Z0)", "es": "Soporte de esquina de la polea Z, delantera izquierda (Z0)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "corner-idler-bracket", "mode": "corner_idler", "part": null, "parameters": {"mirrored": false}}},
+    {"id": "z0_idler_tnut_a", "label": {"en": "M5 T-nut, Z idler mount A, Z0", "es": "Tuerca en T M5, montaje A de la polea Z, Z0"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z0_idler_tnut_b", "label": {"en": "M5 T-nut, Z idler mount B, Z0", "es": "Tuerca en T M5, montaje B de la polea Z, Z0"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z0_idler_screw_a", "label": {"en": "M5x30 BHCS, Z idler mount A, Z0", "es": "Tornillo M5x30 BHCS, montaje A, Z0"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z0_idler_screw_b", "label": {"en": "M5x30 BHCS, Z idler mount B, Z0", "es": "Tornillo M5x30 BHCS, montaje B, Z0"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z0_idler_axle", "label": {"en": "M5x30 BHCS, Z idler axle, Z0", "es": "Tornillo M5x30 BHCS, eje de la polea Z, Z0"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z0_idler", "label": {"en": "GT2 20T idler, 9 mm belt (Z idler), Z0", "es": "Polea loca GT2 20T, banda de 9 mm (polea Z), Z0"}, "source": {"type": "standard", "key": "gt2-idler-20t-9mm"}},
+    {"id": "z1_idler_bracket", "label": {"en": "Z idler corner bracket, front right (Z1)", "es": "Soporte de esquina de la polea Z, delantera derecha (Z1)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "corner-idler-bracket", "mode": "corner_idler", "part": null, "parameters": {"mirrored": true}}},
+    {"id": "z1_idler_tnut_a", "label": {"en": "M5 T-nut, Z idler mount A, Z1", "es": "Tuerca en T M5, montaje A de la polea Z, Z1"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z1_idler_tnut_b", "label": {"en": "M5 T-nut, Z idler mount B, Z1", "es": "Tuerca en T M5, montaje B de la polea Z, Z1"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z1_idler_screw_a", "label": {"en": "M5x30 BHCS, Z idler mount A, Z1", "es": "Tornillo M5x30 BHCS, montaje A, Z1"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z1_idler_screw_b", "label": {"en": "M5x30 BHCS, Z idler mount B, Z1", "es": "Tornillo M5x30 BHCS, montaje B, Z1"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z1_idler_axle", "label": {"en": "M5x30 BHCS, Z idler axle, Z1", "es": "Tornillo M5x30 BHCS, eje de la polea Z, Z1"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z1_idler", "label": {"en": "GT2 20T idler, 9 mm belt (Z idler), Z1", "es": "Polea loca GT2 20T, banda de 9 mm (polea Z), Z1"}, "source": {"type": "standard", "key": "gt2-idler-20t-9mm"}},
+    {"id": "z2_idler_bracket", "label": {"en": "Z idler corner bracket, back left (Z2)", "es": "Soporte de esquina de la polea Z, trasera izquierda (Z2)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "corner-idler-bracket", "mode": "corner_idler", "part": null, "parameters": {"mirrored": true}}},
+    {"id": "z2_idler_tnut_a", "label": {"en": "M5 T-nut, Z idler mount A, Z2", "es": "Tuerca en T M5, montaje A de la polea Z, Z2"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z2_idler_tnut_b", "label": {"en": "M5 T-nut, Z idler mount B, Z2", "es": "Tuerca en T M5, montaje B de la polea Z, Z2"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z2_idler_screw_a", "label": {"en": "M5x30 BHCS, Z idler mount A, Z2", "es": "Tornillo M5x30 BHCS, montaje A, Z2"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z2_idler_screw_b", "label": {"en": "M5x30 BHCS, Z idler mount B, Z2", "es": "Tornillo M5x30 BHCS, montaje B, Z2"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z2_idler_axle", "label": {"en": "M5x30 BHCS, Z idler axle, Z2", "es": "Tornillo M5x30 BHCS, eje de la polea Z, Z2"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z2_idler", "label": {"en": "GT2 20T idler, 9 mm belt (Z idler), Z2", "es": "Polea loca GT2 20T, banda de 9 mm (polea Z), Z2"}, "source": {"type": "standard", "key": "gt2-idler-20t-9mm"}},
+    {"id": "z3_idler_bracket", "label": {"en": "Z idler corner bracket, back right (Z3)", "es": "Soporte de esquina de la polea Z, trasera derecha (Z3)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "corner-idler-bracket", "mode": "corner_idler", "part": null, "parameters": {"mirrored": false}}},
+    {"id": "z3_idler_tnut_a", "label": {"en": "M5 T-nut, Z idler mount A, Z3", "es": "Tuerca en T M5, montaje A de la polea Z, Z3"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z3_idler_tnut_b", "label": {"en": "M5 T-nut, Z idler mount B, Z3", "es": "Tuerca en T M5, montaje B de la polea Z, Z3"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z3_idler_screw_a", "label": {"en": "M5x30 BHCS, Z idler mount A, Z3", "es": "Tornillo M5x30 BHCS, montaje A, Z3"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z3_idler_screw_b", "label": {"en": "M5x30 BHCS, Z idler mount B, Z3", "es": "Tornillo M5x30 BHCS, montaje B, Z3"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z3_idler_axle", "label": {"en": "M5x30 BHCS, Z idler axle, Z3", "es": "Tornillo M5x30 BHCS, eje de la polea Z, Z3"}, "source": {"type": "standard", "key": "bhcs-m5x30"}},
+    {"id": "z3_idler", "label": {"en": "GT2 20T idler, 9 mm belt (Z idler), Z3", "es": "Polea loca GT2 20T, banda de 9 mm (polea Z), Z3"}, "source": {"type": "standard", "key": "gt2-idler-20t-9mm"}},
+    {"id": "z0_rail", "label": {"en": "MGN9 Z rail, 400 mm, front left (Z0)", "es": "Riel Z MGN9, 400 mm, delantera izquierda (Z0)"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -13}}},
+    {"id": "z0_block", "label": {"en": "MGN9H Z block, front left (Z0)", "es": "Carro Z MGN9H, delantera izquierda (Z0)"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "z1_rail", "label": {"en": "MGN9 Z rail, 400 mm, front right (Z1)", "es": "Riel Z MGN9, 400 mm, delantera derecha (Z1)"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -13}}},
+    {"id": "z1_block", "label": {"en": "MGN9H Z block, front right (Z1)", "es": "Carro Z MGN9H, delantera derecha (Z1)"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "z2_rail", "label": {"en": "MGN9 Z rail, 400 mm, back left (Z2)", "es": "Riel Z MGN9, 400 mm, trasera izquierda (Z2)"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -13}}},
+    {"id": "z2_block", "label": {"en": "MGN9H Z block, back left (Z2)", "es": "Carro Z MGN9H, trasera izquierda (Z2)"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "z3_rail", "label": {"en": "MGN9 Z rail, 400 mm, back right (Z3)", "es": "Riel Z MGN9, 400 mm, trasera derecha (Z3)"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -13}}},
+    {"id": "z3_block", "label": {"en": "MGN9H Z block, back right (Z3)", "es": "Carro Z MGN9H, trasera derecha (Z3)"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "z0_z_joint", "label": {"en": "Z joint, front left (Z0)", "es": "Unión Z, delantera izquierda (Z0)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-joint", "mode": "z_joint", "part": null, "parameters": {"c_inboard": 21, "c_end": 20, "mirrored": false}}},
+    {"id": "z0_belt_clamp", "label": {"en": "Z belt clamp, front left (Z0)", "es": "Abrazadera de banda Z, delantera izquierda (Z0)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-belt-clamp", "mode": "z_belt_clamp", "part": null}},
+    {"id": "z0_clamp_screw", "label": {"en": "M5x10 BHCS, Z belt clamp Z0", "es": "Tornillo M5x10 BHCS, abrazadera de banda Z Z0"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z1_z_joint", "label": {"en": "Z joint, front right (Z1)", "es": "Unión Z, delantera derecha (Z1)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-joint", "mode": "z_joint", "part": null, "parameters": {"c_inboard": 21, "c_end": 20, "mirrored": true}}},
+    {"id": "z1_belt_clamp", "label": {"en": "Z belt clamp, front right (Z1)", "es": "Abrazadera de banda Z, delantera derecha (Z1)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-belt-clamp", "mode": "z_belt_clamp", "part": null}},
+    {"id": "z1_clamp_screw", "label": {"en": "M5x10 BHCS, Z belt clamp Z1", "es": "Tornillo M5x10 BHCS, abrazadera de banda Z Z1"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z2_z_joint", "label": {"en": "Z joint, back left (Z2)", "es": "Unión Z, trasera izquierda (Z2)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-joint", "mode": "z_joint", "part": null, "parameters": {"c_inboard": 21, "c_end": 20, "mirrored": true}}},
+    {"id": "z2_belt_clamp", "label": {"en": "Z belt clamp, back left (Z2)", "es": "Abrazadera de banda Z, trasera izquierda (Z2)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-belt-clamp", "mode": "z_belt_clamp", "part": null}},
+    {"id": "z2_clamp_screw", "label": {"en": "M5x10 BHCS, Z belt clamp Z2", "es": "Tornillo M5x10 BHCS, abrazadera de banda Z Z2"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z3_z_joint", "label": {"en": "Z joint, back right (Z3)", "es": "Unión Z, trasera derecha (Z3)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-joint", "mode": "z_joint", "part": null, "parameters": {"c_inboard": 21, "c_end": 20, "mirrored": false}}},
+    {"id": "z3_belt_clamp", "label": {"en": "Z belt clamp, back right (Z3)", "es": "Abrazadera de banda Z, trasera derecha (Z3)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "z-belt-clamp", "mode": "z_belt_clamp", "part": null}},
+    {"id": "z3_clamp_screw", "label": {"en": "M5x10 BHCS, Z belt clamp Z3", "es": "Tornillo M5x10 BHCS, abrazadera de banda Z Z3"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z0_pad_tnut", "label": {"en": "M5 T-nut, Z joint pad Z0", "es": "Tuerca en T M5, cojín de la unión Z Z0"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z0_pad_screw", "label": {"en": "M5x10 BHCS, Z joint pad Z0", "es": "Tornillo M5x10 BHCS, cojín de la unión Z Z0"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z1_pad_tnut", "label": {"en": "M5 T-nut, Z joint pad Z1", "es": "Tuerca en T M5, cojín de la unión Z Z1"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z1_pad_screw", "label": {"en": "M5x10 BHCS, Z joint pad Z1", "es": "Tornillo M5x10 BHCS, cojín de la unión Z Z1"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z2_pad_tnut", "label": {"en": "M5 T-nut, Z joint pad Z2", "es": "Tuerca en T M5, cojín de la unión Z Z2"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z2_pad_screw", "label": {"en": "M5x10 BHCS, Z joint pad Z2", "es": "Tornillo M5x10 BHCS, cojín de la unión Z Z2"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "z3_pad_tnut", "label": {"en": "M5 T-nut, Z joint pad Z3", "es": "Tuerca en T M5, cojín de la unión Z Z3"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "z3_pad_screw", "label": {"en": "M5x10 BHCS, Z joint pad Z3", "es": "Tornillo M5x10 BHCS, cojín de la unión Z Z3"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "c_left", "label": {"en": "Gantry Y extrusion (C), left, 450 mm", "es": "Perfil Y del pórtico (C), izquierdo, 450 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 450}}},
+    {"id": "c_right", "label": {"en": "Gantry Y extrusion (C), right, 450 mm", "es": "Perfil Y del pórtico (C), derecho, 450 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 450}}},
+    {"id": "x_beam", "label": {"en": "X beam (D), 430 mm", "es": "Viga X (D), 430 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 430}}},
+    {"id": "rear_beam", "label": {"en": "Rear gantry beam (E), 340 mm", "es": "Viga trasera del pórtico (E), 340 mm"}, "source": {"type": "standard", "key": "extrusion-2020", "parameters": {"length_mm": 340}}},
+    {"id": "y_rail_l", "label": {"en": "Y rail, left, MGN9, 400 mm", "es": "Riel Y, izquierdo, MGN9, 400 mm"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -15}}},
+    {"id": "y_block_l", "label": {"en": "Y block, left, MGN9H", "es": "Carro Y, izquierdo, MGN9H"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "joint_l", "label": {"en": "XY joint, left", "es": "Unión XY, izquierda"}, "source": {"type": "cartridge", "commons": "solid", "slug": "xy-joint", "mode": "xy_joint", "part": null, "parameters": {"mirrored": false, "d_end": 11, "idler_width": 9}}},
+    {"id": "js_l_screw", "label": {"en": "XY joint stack, left: axle, M5x16 BHCS", "es": "Pila de la unión XY, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "js_l_shim_1", "label": {"en": "XY joint stack, left: upper M5 shim", "es": "Pila de la unión XY, izquierda: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "js_l_f695_1", "label": {"en": "XY joint stack, left: upper F695", "es": "Pila de la unión XY, izquierda: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "js_l_f695_2", "label": {"en": "XY joint stack, left: lower F695", "es": "Pila de la unión XY, izquierda: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "js_l_shim_2", "label": {"en": "XY joint stack, left: lower M5 shim", "es": "Pila de la unión XY, izquierda: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ji_l_screw", "label": {"en": "XY joint idler, left: axle, M5x16 BHCS", "es": "Polea de la unión XY, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "ji_l", "label": {"en": "XY joint idler, left: GT2 20T 6 mm toothed idler", "es": "Polea de la unión XY, izquierda: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "front_idler_l", "label": {"en": "A/B front idler, left", "es": "Polea delantera A/B, izquierda"}, "source": {"type": "cartridge", "commons": "solid", "slug": "ab-front-idler", "mode": "front_idler", "part": null, "parameters": {"mirrored": false, "idler_y": 26, "idler_width": 9}}},
+    {"id": "front_idler_l_c_tnut", "label": {"en": "M5 T-nut, front idler left on C", "es": "Tuerca en T M5, polea delantera izquierda sobre C"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "front_idler_l_c_screw", "label": {"en": "M5x10 BHCS, front idler left on C", "es": "Tornillo M5x10 BHCS, polea delantera izquierda sobre C"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "fi_l_screw", "label": {"en": "Front idler, left: axle, M5x16 BHCS", "es": "Polea delantera, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "fi_l", "label": {"en": "Front idler, left: GT2 20T 6 mm toothed idler", "es": "Polea delantera, izquierda: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "drive_l", "label": {"en": "A/B drive, left", "es": "Accionamiento A/B, izquierdo"}, "source": {"type": "cartridge", "commons": "solid", "slug": "ab-drive", "mode": "ab_drive", "part": null, "parameters": {"mirrored": false, "e_end": 34}}},
+    {"id": "drive_l_c_tnut", "label": {"en": "M5 T-nut, A/B drive left on C", "es": "Tuerca en T M5, accionamiento A/B izquierdo sobre C"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "drive_l_c_screw", "label": {"en": "M5x10 BHCS, A/B drive left on C", "es": "Tornillo M5x10 BHCS, accionamiento A/B izquierdo sobre C"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "dk_l_screw", "label": {"en": "A/B drive corner idler, left: axle, M5x16 BHCS", "es": "Polea de esquina del accionamiento A/B, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "dk_l", "label": {"en": "A/B drive corner idler, left: GT2 20T 6 mm toothed idler", "es": "Polea de esquina del accionamiento A/B, izquierda: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "dq_l_screw", "label": {"en": "A/B drive backside stack, left: axle, M5x16 BHCS", "es": "Pila dorsal del accionamiento A/B, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "dq_l_shim_1", "label": {"en": "A/B drive backside stack, left: upper M5 shim", "es": "Pila dorsal del accionamiento A/B, izquierda: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "dq_l_f695_1", "label": {"en": "A/B drive backside stack, left: upper F695", "es": "Pila dorsal del accionamiento A/B, izquierda: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "dq_l_f695_2", "label": {"en": "A/B drive backside stack, left: lower F695", "es": "Pila dorsal del accionamiento A/B, izquierda: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "dq_l_shim_2", "label": {"en": "A/B drive backside stack, left: lower M5 shim", "es": "Pila dorsal del accionamiento A/B, izquierda: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ds_l_screw", "label": {"en": "A/B drive pass-through stack, left: axle, M5x16 BHCS", "es": "Pila de paso del accionamiento A/B, izquierda: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "ds_l_shim_1", "label": {"en": "A/B drive pass-through stack, left: upper M5 shim", "es": "Pila de paso del accionamiento A/B, izquierda: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ds_l_f695_1", "label": {"en": "A/B drive pass-through stack, left: upper F695", "es": "Pila de paso del accionamiento A/B, izquierda: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "ds_l_f695_2", "label": {"en": "A/B drive pass-through stack, left: lower F695", "es": "Pila de paso del accionamiento A/B, izquierda: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "ds_l_shim_2", "label": {"en": "A/B drive pass-through stack, left: lower M5 shim", "es": "Pila de paso del accionamiento A/B, izquierda: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "motor_l", "label": {"en": "A/B motor, left (NEMA 17; turns as x + y)", "es": "Motor A/B, izquierdo (NEMA 17; gira como x + y)"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 2}}},
+    {"id": "pulley_l", "label": {"en": "GT2 20T pulley, left A/B motor", "es": "Polea GT2 20T, motor A/B izquierdo"}, "source": {"type": "standard", "key": "gt2-pulley-20t-5mm"}},
+    {"id": "y_rail_r", "label": {"en": "Y rail, right, MGN9, 400 mm", "es": "Riel Y, derecho, MGN9, 400 mm"}, "source": {"type": "standard", "key": "mgn9-rail", "parameters": {"length_mm": 400, "base_station_mm": -15}}},
+    {"id": "y_block_r", "label": {"en": "Y block, right, MGN9H", "es": "Carro Y, derecho, MGN9H"}, "source": {"type": "standard", "key": "mgn9h-carriage"}},
+    {"id": "joint_r", "label": {"en": "XY joint, right", "es": "Unión XY, derecha"}, "source": {"type": "cartridge", "commons": "solid", "slug": "xy-joint", "mode": "xy_joint", "part": null, "parameters": {"mirrored": true, "d_end": 11, "idler_width": 9}}},
+    {"id": "js_r_screw", "label": {"en": "XY joint stack, right: axle, M5x16 BHCS", "es": "Pila de la unión XY, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "js_r_shim_1", "label": {"en": "XY joint stack, right: upper M5 shim", "es": "Pila de la unión XY, derecha: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "js_r_f695_1", "label": {"en": "XY joint stack, right: upper F695", "es": "Pila de la unión XY, derecha: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "js_r_f695_2", "label": {"en": "XY joint stack, right: lower F695", "es": "Pila de la unión XY, derecha: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "js_r_shim_2", "label": {"en": "XY joint stack, right: lower M5 shim", "es": "Pila de la unión XY, derecha: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ji_r_screw", "label": {"en": "XY joint idler, right: axle, M5x16 BHCS", "es": "Polea de la unión XY, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "ji_r", "label": {"en": "XY joint idler, right: GT2 20T 6 mm toothed idler", "es": "Polea de la unión XY, derecha: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "front_idler_r", "label": {"en": "A/B front idler, right", "es": "Polea delantera A/B, derecha"}, "source": {"type": "cartridge", "commons": "solid", "slug": "ab-front-idler", "mode": "front_idler", "part": null, "parameters": {"mirrored": true, "idler_y": 26, "idler_width": 9}}},
+    {"id": "front_idler_r_c_tnut", "label": {"en": "M5 T-nut, front idler right on C", "es": "Tuerca en T M5, polea delantera derecha sobre C"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "front_idler_r_c_screw", "label": {"en": "M5x10 BHCS, front idler right on C", "es": "Tornillo M5x10 BHCS, polea delantera derecha sobre C"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "fi_r_screw", "label": {"en": "Front idler, right: axle, M5x16 BHCS", "es": "Polea delantera, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "fi_r", "label": {"en": "Front idler, right: GT2 20T 6 mm toothed idler", "es": "Polea delantera, derecha: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "drive_r", "label": {"en": "A/B drive, right", "es": "Accionamiento A/B, derecho"}, "source": {"type": "cartridge", "commons": "solid", "slug": "ab-drive", "mode": "ab_drive", "part": null, "parameters": {"mirrored": true, "e_end": 34}}},
+    {"id": "drive_r_c_tnut", "label": {"en": "M5 T-nut, A/B drive right on C", "es": "Tuerca en T M5, accionamiento A/B derecho sobre C"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "drive_r_c_screw", "label": {"en": "M5x10 BHCS, A/B drive right on C", "es": "Tornillo M5x10 BHCS, accionamiento A/B derecho sobre C"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "dk_r_screw", "label": {"en": "A/B drive corner idler, right: axle, M5x16 BHCS", "es": "Polea de esquina del accionamiento A/B, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "dk_r", "label": {"en": "A/B drive corner idler, right: GT2 20T 6 mm toothed idler", "es": "Polea de esquina del accionamiento A/B, derecha: polea dentada GT2 20T de 6 mm"}, "source": {"type": "standard", "key": "gt2-idler-20t-6mm"}},
+    {"id": "dq_r_screw", "label": {"en": "A/B drive backside stack, right: axle, M5x16 BHCS", "es": "Pila dorsal del accionamiento A/B, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "dq_r_shim_1", "label": {"en": "A/B drive backside stack, right: upper M5 shim", "es": "Pila dorsal del accionamiento A/B, derecha: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "dq_r_f695_1", "label": {"en": "A/B drive backside stack, right: upper F695", "es": "Pila dorsal del accionamiento A/B, derecha: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "dq_r_f695_2", "label": {"en": "A/B drive backside stack, right: lower F695", "es": "Pila dorsal del accionamiento A/B, derecha: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "dq_r_shim_2", "label": {"en": "A/B drive backside stack, right: lower M5 shim", "es": "Pila dorsal del accionamiento A/B, derecha: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ds_r_screw", "label": {"en": "A/B drive pass-through stack, right: axle, M5x16 BHCS", "es": "Pila de paso del accionamiento A/B, derecha: eje, tornillo M5x16 BHCS"}, "source": {"type": "standard", "key": "bhcs-m5x16"}},
+    {"id": "ds_r_shim_1", "label": {"en": "A/B drive pass-through stack, right: upper M5 shim", "es": "Pila de paso del accionamiento A/B, derecha: arandela M5 superior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "ds_r_f695_1", "label": {"en": "A/B drive pass-through stack, right: upper F695", "es": "Pila de paso del accionamiento A/B, derecha: F695 superior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "ds_r_f695_2", "label": {"en": "A/B drive pass-through stack, right: lower F695", "es": "Pila de paso del accionamiento A/B, derecha: F695 inferior"}, "source": {"type": "standard", "key": "bearing-f695"}},
+    {"id": "ds_r_shim_2", "label": {"en": "A/B drive pass-through stack, right: lower M5 shim", "es": "Pila de paso del accionamiento A/B, derecha: arandela M5 inferior"}, "source": {"type": "standard", "key": "shim-5x10"}},
+    {"id": "motor_r", "label": {"en": "A/B motor, right (NEMA 17; turns as x − y)", "es": "Motor A/B, derecho (NEMA 17; gira como x − y)"}, "source": {"type": "standard", "key": "nema-17-48mm", "parameters": {"shaft_seat_mm": 2}}},
+    {"id": "pulley_r", "label": {"en": "GT2 20T pulley, right A/B motor", "es": "Polea GT2 20T, motor A/B derecho"}, "source": {"type": "standard", "key": "gt2-pulley-20t-5mm"}},
+    {"id": "joint_l_d_tnut", "label": {"en": "M5 T-nut, XY joint left on D", "es": "Tuerca en T M5, unión XY izquierda sobre D"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "joint_l_d_screw", "label": {"en": "M5x10 BHCS, XY joint left on D", "es": "Tornillo M5x10 BHCS, unión XY izquierda sobre D"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "joint_r_d_tnut", "label": {"en": "M5 T-nut, XY joint right on D", "es": "Tuerca en T M5, unión XY derecha sobre D"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "joint_r_d_screw", "label": {"en": "M5x10 BHCS, XY joint right on D", "es": "Tornillo M5x10 BHCS, unión XY derecha sobre D"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "drive_l_e_tnut", "label": {"en": "M5 T-nut, A/B drive left on E", "es": "Tuerca en T M5, accionamiento A/B izquierdo sobre E"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "drive_l_e_screw", "label": {"en": "M5x10 BHCS, A/B drive left on E", "es": "Tornillo M5x10 BHCS, accionamiento A/B izquierdo sobre E"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "drive_r_e_tnut", "label": {"en": "M5 T-nut, A/B drive right on E", "es": "Tuerca en T M5, accionamiento A/B derecho sobre E"}, "source": {"type": "standard", "key": "tnut-2020-m5"}},
+    {"id": "drive_r_e_screw", "label": {"en": "M5x10 BHCS, A/B drive right on E", "es": "Tornillo M5x10 BHCS, accionamiento A/B derecho sobre E"}, "source": {"type": "standard", "key": "bhcs-m5x10"}},
+    {"id": "x_rail", "label": {"en": "X rail, MGN12, 400 mm", "es": "Riel X, MGN12, 400 mm"}, "source": {"type": "standard", "key": "mgn12-rail", "parameters": {"length_mm": 400}}},
+    {"id": "x_block", "label": {"en": "X block, MGN12H", "es": "Carro X, MGN12H"}, "source": {"type": "standard", "key": "mgn12h-carriage"}},
+    {"id": "x_carriage", "label": {"en": "X carriage (original, P6-XCAR)", "es": "Carro X (original, P6-XCAR)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "x-carriage", "mode": "x_carriage", "part": null, "parameters": {"belt_line": 23, "belt_a_level": 38, "belt_b_level": 22, "clamp_x": 20}}},
+    {"id": "toolhead", "label": {"en": "Toolhead proxy (original stand-in body, owner decision D3)", "es": "Sustituto del cabezal (cuerpo original, decisión D3)"}, "source": {"type": "cartridge", "commons": "solid", "slug": "toolhead-proxy", "mode": "toolhead_proxy", "part": null, "parameters": {}}}
   ],
   "mates": [
-    {
-      "id": "corner_xy_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_xp_a"
-      },
-      "b": {
-        "component": "corner_xy",
-        "interface": "corner_2way_leg_x"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "corner_xy_on_y",
-      "a": {
-        "component": "corner_xy",
-        "interface": "corner_2way_leg_z"
-      },
-      "b": {
-        "component": "frame_y",
-        "interface": "slot_yn_a"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "corner_yz_on_y",
-      "a": {
-        "component": "frame_y",
-        "interface": "slot_xn_a"
-      },
-      "b": {
-        "component": "corner_yz",
-        "interface": "corner_bracket_leg_a"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "corner_yz_on_z",
-      "a": {
-        "component": "corner_yz",
-        "interface": "corner_bracket_leg_b"
-      },
-      "b": {
-        "component": "frame_z",
-        "interface": "slot_xp_a"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "corner_xz_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_yp_a"
-      },
-      "b": {
-        "component": "corner_xz",
-        "interface": "corner_2way_leg_x"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "corner_xz_on_z",
-      "a": {
-        "component": "corner_xz",
-        "interface": "corner_2way_leg_z"
-      },
-      "b": {
-        "component": "frame_z",
-        "interface": "slot_yn_a"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "rail_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_xn_b"
-      },
-      "b": {
-        "component": "x_rail",
-        "interface": "base_first_hole"
-      },
-      "rotation_index": 1
-    },
-    {
-      "id": "block_on_rail",
-      "a": {
-        "component": "x_rail",
-        "interface": "track"
-      },
-      "b": {
-        "component": "x_block",
-        "interface": "rail_way"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "toolhead_on_block",
-      "a": {
-        "component": "x_block",
-        "interface": "top"
-      },
-      "b": {
-        "component": "toolhead",
-        "interface": "x_carriage_block_mount"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "endstop_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_xp_b"
-      },
-      "b": {
-        "component": "endstop_x",
-        "interface": "extrusion_endstop_foot_slot"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "chain_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_yn_b"
-      },
-      "b": {
-        "component": "chain_anchor",
-        "interface": "extrusion_bracket_foot_slot"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "motor_bracket_on_x",
-      "a": {
-        "component": "frame_x",
-        "interface": "slot_yp_b"
-      },
-      "b": {
-        "component": "motor_bracket_a",
-        "interface": "extrusion_mount_foot_slot"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "motor_on_bracket",
-      "a": {
-        "component": "motor_bracket_a",
-        "interface": "extrusion_mount_motor_face"
-      },
-      "b": {
-        "component": "motor_a",
-        "interface": "face"
-      },
-      "rotation_index": 0
-    },
-    {
-      "id": "pulley_on_shaft",
-      "a": {
-        "component": "motor_a",
-        "interface": "shaft"
-      },
-      "b": {
-        "component": "pulley_a",
-        "interface": "bore"
-      },
-      "angle_deg": 0
-    },
-    {
-      "id": "switch_on_endstop",
-      "a": {
-        "component": "endstop_x",
-        "interface": "extrusion_endstop_switch_face"
-      },
-      "b": {
-        "component": "endstop_switch",
-        "interface": "mount_a"
-      },
-      "rotation_index": 0
-    }
+    {"id": "u0_bx_front_blind", "a": {"component": "u0", "interface": "blind_xp_a"}, "b": {"component": "bx_front", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "u0_by_left_blind", "a": {"component": "u0", "interface": "blind_yp_a"}, "b": {"component": "by_left", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "bx_front_u1_blind", "a": {"component": "bx_front", "interface": "end_b_blind"}, "b": {"component": "u1", "interface": "blind_xn_a"}, "rotation_index": 0},
+    {"id": "by_left_u2_blind", "a": {"component": "by_left", "interface": "end_b_blind"}, "b": {"component": "u2", "interface": "blind_yn_a"}, "rotation_index": 0},
+    {"id": "u1_by_right_blind", "a": {"component": "u1", "interface": "blind_yp_a"}, "b": {"component": "by_right", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "u2_bx_back_blind", "a": {"component": "u2", "interface": "blind_xp_a"}, "b": {"component": "bx_back", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "by_right_u3_blind", "a": {"component": "by_right", "interface": "end_b_blind"}, "b": {"component": "u3", "interface": "blind_yn_a"}, "rotation_index": 0},
+    {"id": "bx_back_u3_blind", "a": {"component": "bx_back", "interface": "end_b_blind"}, "b": {"component": "u3", "interface": "blind_xn_a"}, "rotation_index": 0},
+    {"id": "u0_tx_front_blind", "a": {"component": "u0", "interface": "blind_xp_b"}, "b": {"component": "tx_front", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "tx_front_u1_blind", "a": {"component": "tx_front", "interface": "end_b_blind"}, "b": {"component": "u1", "interface": "blind_xn_b"}, "rotation_index": 0},
+    {"id": "u0_ty_left_blind", "a": {"component": "u0", "interface": "blind_yp_b"}, "b": {"component": "ty_left", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "ty_left_u2_blind", "a": {"component": "ty_left", "interface": "end_b_blind"}, "b": {"component": "u2", "interface": "blind_yn_b"}, "rotation_index": 0},
+    {"id": "u1_ty_right_blind", "a": {"component": "u1", "interface": "blind_yp_b"}, "b": {"component": "ty_right", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "ty_right_u3_blind", "a": {"component": "ty_right", "interface": "end_b_blind"}, "b": {"component": "u3", "interface": "blind_yn_b"}, "rotation_index": 0},
+    {"id": "u2_tx_back_blind", "a": {"component": "u2", "interface": "blind_xp_b"}, "b": {"component": "tx_back", "interface": "end_a_blind"}, "rotation_index": 0},
+    {"id": "tx_back_u3_blind", "a": {"component": "tx_back", "interface": "end_b_blind"}, "b": {"component": "u3", "interface": "blind_xn_b"}, "rotation_index": 0},
+    {"id": "z0_corner_key", "a": {"component": "by_left", "interface": "slot_xn_a"}, "b": {"component": "z0_housing", "interface": "z_drive_corner_key"}, "rotation_index": 0},
+    {"id": "z0_slot_key", "a": {"component": "bx_front", "interface": "slot_xn_a"}, "b": {"component": "z0_housing", "interface": "z_drive_slot_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": -160, "note": "the drive's own station 10 on a horizontal whose slot_station_mm is the bed rails' 170: 10 − 170 from end A, or 170 − 10 toward end B"}},
+    {"id": "z0_tnut_a", "a": {"component": "z0_housing", "interface": "z_drive_mount_a"}, "b": {"component": "z0_tnut_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z0_tnut_b", "a": {"component": "z0_housing", "interface": "z_drive_mount_b"}, "b": {"component": "z0_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z0_screw_a_seat", "a": {"component": "z0_housing", "interface": "z_drive_mount_a_head"}, "b": {"component": "z0_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_screw_b_seat", "a": {"component": "z0_housing", "interface": "z_drive_mount_b_head"}, "b": {"component": "z0_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_bearing_a_seat", "a": {"component": "z0_housing", "interface": "z_drive_bearing_a"}, "b": {"component": "z0_bearing_a", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z0_bearing_b_seat", "a": {"component": "z0_housing", "interface": "z_drive_bearing_b"}, "b": {"component": "z0_bearing_b", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z0_bearing_c_seat", "a": {"component": "z0_housing", "interface": "z_drive_bearing_c"}, "b": {"component": "z0_bearing_c", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z0_shaft_in_a", "a": {"component": "z0_bearing_a", "interface": "bore"}, "b": {"component": "z0_shaft", "interface": "journal_a"}, "joint": {"id": "z0_shaft_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "gantry_z", "scale": -9.001693560578525}], "offset": 0}, "note": "the output shaft: z / (π · 12.73) turns, the 20T Z pulley's pitch circle (catalog gt2-pulley-20t-9mm, MISUMI GPA); in degrees 360 / (π · 12.73) per mm. The sign is set by hand from the belt's sense at this corner"}, "angle_deg": 0},
+    {"id": "z0_shaft_in_b", "a": {"component": "z0_bearing_b", "interface": "bore"}, "b": {"component": "z0_shaft", "interface": "journal_b"}, "joint": {"id": "z0_shaft_in_b", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z0_shaft_in_c", "a": {"component": "z0_bearing_c", "interface": "bore"}, "b": {"component": "z0_shaft", "interface": "journal_c"}, "joint": {"id": "z0_shaft_in_c", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z0_z_pulley_on_shaft", "a": {"component": "z0_shaft", "interface": "hub_a"}, "b": {"component": "z0_z_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z0_big_pulley_on_shaft", "a": {"component": "z0_shaft", "interface": "hub_b"}, "b": {"component": "z0_big_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z0_motor_on_housing", "a": {"component": "z0_housing", "interface": "z_drive_motor_face"}, "b": {"component": "z0_motor", "interface": "face"}, "rotation_index": 0},
+    {"id": "z0_motor_pulley_on_motor", "a": {"component": "z0_motor", "interface": "shaft"}, "b": {"component": "z0_motor_pulley", "interface": "bore_b"}, "joint": {"id": "z0_motor_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "z0_shaft_turn", "scale": -5}], "offset": 0}, "note": "the motor pulley turns 80 / 16 = 5 times the output shaft (guide p. 38; catalog gt2-pulley-80t-5mm and gt2-pulley-16t-5mm). The sign follows the shared 188 loop: both pulleys turn the same way about the world axis"}, "angle_deg": 0},
+    {"id": "z1_corner_key", "a": {"component": "by_right", "interface": "slot_xn_a"}, "b": {"component": "z1_housing", "interface": "z_drive_corner_key"}, "rotation_index": 0},
+    {"id": "z1_slot_key", "a": {"component": "bx_front", "interface": "slot_xn_b"}, "b": {"component": "z1_housing", "interface": "z_drive_slot_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": 160, "note": "the drive's own station 10 on a horizontal whose slot_station_mm is the bed rails' 170: 10 − 170 from end A, or 170 − 10 toward end B"}},
+    {"id": "z1_tnut_a", "a": {"component": "z1_housing", "interface": "z_drive_mount_a"}, "b": {"component": "z1_tnut_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z1_tnut_b", "a": {"component": "z1_housing", "interface": "z_drive_mount_b"}, "b": {"component": "z1_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z1_screw_a_seat", "a": {"component": "z1_housing", "interface": "z_drive_mount_a_head"}, "b": {"component": "z1_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_screw_b_seat", "a": {"component": "z1_housing", "interface": "z_drive_mount_b_head"}, "b": {"component": "z1_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_bearing_a_seat", "a": {"component": "z1_housing", "interface": "z_drive_bearing_a"}, "b": {"component": "z1_bearing_a", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z1_bearing_b_seat", "a": {"component": "z1_housing", "interface": "z_drive_bearing_b"}, "b": {"component": "z1_bearing_b", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z1_bearing_c_seat", "a": {"component": "z1_housing", "interface": "z_drive_bearing_c"}, "b": {"component": "z1_bearing_c", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z1_shaft_in_a", "a": {"component": "z1_bearing_a", "interface": "bore"}, "b": {"component": "z1_shaft", "interface": "journal_a"}, "joint": {"id": "z1_shaft_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "gantry_z", "scale": 9.001693560578525}], "offset": 0}, "note": "the output shaft: z / (π · 12.73) turns, the 20T Z pulley's pitch circle (catalog gt2-pulley-20t-9mm, MISUMI GPA); in degrees 360 / (π · 12.73) per mm. The sign is set by hand from the belt's sense at this corner"}, "angle_deg": 0},
+    {"id": "z1_shaft_in_b", "a": {"component": "z1_bearing_b", "interface": "bore"}, "b": {"component": "z1_shaft", "interface": "journal_b"}, "joint": {"id": "z1_shaft_in_b", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z1_shaft_in_c", "a": {"component": "z1_bearing_c", "interface": "bore"}, "b": {"component": "z1_shaft", "interface": "journal_c"}, "joint": {"id": "z1_shaft_in_c", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z1_z_pulley_on_shaft", "a": {"component": "z1_shaft", "interface": "hub_a"}, "b": {"component": "z1_z_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z1_big_pulley_on_shaft", "a": {"component": "z1_shaft", "interface": "hub_b"}, "b": {"component": "z1_big_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z1_motor_on_housing", "a": {"component": "z1_housing", "interface": "z_drive_motor_face"}, "b": {"component": "z1_motor", "interface": "face"}, "rotation_index": 0},
+    {"id": "z1_motor_pulley_on_motor", "a": {"component": "z1_motor", "interface": "shaft"}, "b": {"component": "z1_motor_pulley", "interface": "bore_b"}, "joint": {"id": "z1_motor_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "z1_shaft_turn", "scale": -5}], "offset": 0}, "note": "the motor pulley turns 80 / 16 = 5 times the output shaft (guide p. 38; catalog gt2-pulley-80t-5mm and gt2-pulley-16t-5mm). The sign follows the shared 188 loop: both pulleys turn the same way about the world axis"}, "angle_deg": 0},
+    {"id": "z2_corner_key", "a": {"component": "by_left", "interface": "slot_xn_b"}, "b": {"component": "z2_housing", "interface": "z_drive_corner_key"}, "rotation_index": 1},
+    {"id": "z2_slot_key", "a": {"component": "bx_back", "interface": "slot_xn_a"}, "b": {"component": "z2_housing", "interface": "z_drive_slot_key"}, "rotation_index": 1, "offset": {"axis": "x", "value": -160, "note": "the drive's own station 10 on a horizontal whose slot_station_mm is the bed rails' 170: 10 − 170 from end A, or 170 − 10 toward end B"}},
+    {"id": "z2_tnut_a", "a": {"component": "z2_housing", "interface": "z_drive_mount_a"}, "b": {"component": "z2_tnut_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z2_tnut_b", "a": {"component": "z2_housing", "interface": "z_drive_mount_b"}, "b": {"component": "z2_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z2_screw_a_seat", "a": {"component": "z2_housing", "interface": "z_drive_mount_a_head"}, "b": {"component": "z2_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_screw_b_seat", "a": {"component": "z2_housing", "interface": "z_drive_mount_b_head"}, "b": {"component": "z2_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_bearing_a_seat", "a": {"component": "z2_housing", "interface": "z_drive_bearing_a"}, "b": {"component": "z2_bearing_a", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z2_bearing_b_seat", "a": {"component": "z2_housing", "interface": "z_drive_bearing_b"}, "b": {"component": "z2_bearing_b", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z2_bearing_c_seat", "a": {"component": "z2_housing", "interface": "z_drive_bearing_c"}, "b": {"component": "z2_bearing_c", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z2_shaft_in_a", "a": {"component": "z2_bearing_a", "interface": "bore"}, "b": {"component": "z2_shaft", "interface": "journal_a"}, "joint": {"id": "z2_shaft_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "gantry_z", "scale": 9.001693560578525}], "offset": 0}, "note": "the output shaft: z / (π · 12.73) turns, the 20T Z pulley's pitch circle (catalog gt2-pulley-20t-9mm, MISUMI GPA); in degrees 360 / (π · 12.73) per mm. The sign is set by hand from the belt's sense at this corner"}, "angle_deg": 0},
+    {"id": "z2_shaft_in_b", "a": {"component": "z2_bearing_b", "interface": "bore"}, "b": {"component": "z2_shaft", "interface": "journal_b"}, "joint": {"id": "z2_shaft_in_b", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z2_shaft_in_c", "a": {"component": "z2_bearing_c", "interface": "bore"}, "b": {"component": "z2_shaft", "interface": "journal_c"}, "joint": {"id": "z2_shaft_in_c", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z2_z_pulley_on_shaft", "a": {"component": "z2_shaft", "interface": "hub_a"}, "b": {"component": "z2_z_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z2_big_pulley_on_shaft", "a": {"component": "z2_shaft", "interface": "hub_b"}, "b": {"component": "z2_big_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z2_motor_on_housing", "a": {"component": "z2_housing", "interface": "z_drive_motor_face"}, "b": {"component": "z2_motor", "interface": "face"}, "rotation_index": 0},
+    {"id": "z2_motor_pulley_on_motor", "a": {"component": "z2_motor", "interface": "shaft"}, "b": {"component": "z2_motor_pulley", "interface": "bore_b"}, "joint": {"id": "z2_motor_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "z2_shaft_turn", "scale": -5}], "offset": 0}, "note": "the motor pulley turns 80 / 16 = 5 times the output shaft (guide p. 38; catalog gt2-pulley-80t-5mm and gt2-pulley-16t-5mm). The sign follows the shared 188 loop: both pulleys turn the same way about the world axis"}, "angle_deg": 0},
+    {"id": "z3_corner_key", "a": {"component": "by_right", "interface": "slot_xn_b"}, "b": {"component": "z3_housing", "interface": "z_drive_corner_key"}, "rotation_index": 1},
+    {"id": "z3_slot_key", "a": {"component": "bx_back", "interface": "slot_xn_b"}, "b": {"component": "z3_housing", "interface": "z_drive_slot_key"}, "rotation_index": 1, "offset": {"axis": "x", "value": 160, "note": "the drive's own station 10 on a horizontal whose slot_station_mm is the bed rails' 170: 10 − 170 from end A, or 170 − 10 toward end B"}},
+    {"id": "z3_tnut_a", "a": {"component": "z3_housing", "interface": "z_drive_mount_a"}, "b": {"component": "z3_tnut_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z3_tnut_b", "a": {"component": "z3_housing", "interface": "z_drive_mount_b"}, "b": {"component": "z3_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z3_screw_a_seat", "a": {"component": "z3_housing", "interface": "z_drive_mount_a_head"}, "b": {"component": "z3_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_screw_b_seat", "a": {"component": "z3_housing", "interface": "z_drive_mount_b_head"}, "b": {"component": "z3_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_bearing_a_seat", "a": {"component": "z3_housing", "interface": "z_drive_bearing_a"}, "b": {"component": "z3_bearing_a", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z3_bearing_b_seat", "a": {"component": "z3_housing", "interface": "z_drive_bearing_b"}, "b": {"component": "z3_bearing_b", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z3_bearing_c_seat", "a": {"component": "z3_housing", "interface": "z_drive_bearing_c"}, "b": {"component": "z3_bearing_c", "interface": "outer_race"}, "angle_deg": 0},
+    {"id": "z3_shaft_in_a", "a": {"component": "z3_bearing_a", "interface": "bore"}, "b": {"component": "z3_shaft", "interface": "journal_a"}, "joint": {"id": "z3_shaft_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "gantry_z", "scale": -9.001693560578525}], "offset": 0}, "note": "the output shaft: z / (π · 12.73) turns, the 20T Z pulley's pitch circle (catalog gt2-pulley-20t-9mm, MISUMI GPA); in degrees 360 / (π · 12.73) per mm. The sign is set by hand from the belt's sense at this corner"}, "angle_deg": 0},
+    {"id": "z3_shaft_in_b", "a": {"component": "z3_bearing_b", "interface": "bore"}, "b": {"component": "z3_shaft", "interface": "journal_b"}, "joint": {"id": "z3_shaft_in_b", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z3_shaft_in_c", "a": {"component": "z3_bearing_c", "interface": "bore"}, "b": {"component": "z3_shaft", "interface": "journal_c"}, "joint": {"id": "z3_shaft_in_c", "type": "revolute", "axis": "z", "passive": true, "note": "the shaft's second and third journals close their bearings with the rotation free"}, "angle_deg": 0},
+    {"id": "z3_z_pulley_on_shaft", "a": {"component": "z3_shaft", "interface": "hub_a"}, "b": {"component": "z3_z_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z3_big_pulley_on_shaft", "a": {"component": "z3_shaft", "interface": "hub_b"}, "b": {"component": "z3_big_pulley", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z3_motor_on_housing", "a": {"component": "z3_housing", "interface": "z_drive_motor_face"}, "b": {"component": "z3_motor", "interface": "face"}, "rotation_index": 0},
+    {"id": "z3_motor_pulley_on_motor", "a": {"component": "z3_motor", "interface": "shaft"}, "b": {"component": "z3_motor_pulley", "interface": "bore_b"}, "joint": {"id": "z3_motor_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "z3_shaft_turn", "scale": -5}], "offset": 0}, "note": "the motor pulley turns 80 / 16 = 5 times the output shaft (guide p. 38; catalog gt2-pulley-80t-5mm and gt2-pulley-16t-5mm). The sign follows the shared 188 loop: both pulleys turn the same way about the world axis"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_on_frame", "a": {"component": "bx_front", "interface": "slot_xp_a"}, "b": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_frame_key"}, "rotation_index": 0},
+    {"id": "bed_rail_l_front_mount_on_rail", "a": {"component": "bed_rail_l", "interface": "slot_xp_a"}, "b": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_bed_key"}, "rotation_index": 0},
+    {"id": "bed_rail_l_front_mount_tnut_frame_a_on_mount", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_frame_a"}, "b": {"component": "bed_rail_l_front_mount_tnut_frame_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_screw_frame_a_seat", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_frame_a_head"}, "b": {"component": "bed_rail_l_front_mount_screw_frame_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_tnut_frame_b_on_mount", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_frame_b"}, "b": {"component": "bed_rail_l_front_mount_tnut_frame_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_screw_frame_b_seat", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_frame_b_head"}, "b": {"component": "bed_rail_l_front_mount_screw_frame_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_tnut_bed_on_mount", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_bed"}, "b": {"component": "bed_rail_l_front_mount_tnut_bed", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_front_mount_screw_bed_seat", "a": {"component": "bed_rail_l_front_mount", "interface": "bed_mount_bed_head"}, "b": {"component": "bed_rail_l_front_mount_screw_bed", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_on_frame", "a": {"component": "bx_back", "interface": "slot_xp_a"}, "b": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_frame_key"}, "rotation_index": 1},
+    {"id": "bed_rail_l_back_mount_on_rail", "a": {"component": "bed_rail_l", "interface": "slot_xp_b"}, "b": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_bed_key"}, "rotation_index": 1},
+    {"id": "bed_rail_l_back_mount_tnut_frame_a_on_mount", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_frame_a"}, "b": {"component": "bed_rail_l_back_mount_tnut_frame_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_screw_frame_a_seat", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_frame_a_head"}, "b": {"component": "bed_rail_l_back_mount_screw_frame_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_tnut_frame_b_on_mount", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_frame_b"}, "b": {"component": "bed_rail_l_back_mount_tnut_frame_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_screw_frame_b_seat", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_frame_b_head"}, "b": {"component": "bed_rail_l_back_mount_screw_frame_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_tnut_bed_on_mount", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_bed"}, "b": {"component": "bed_rail_l_back_mount_tnut_bed", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_l_back_mount_screw_bed_seat", "a": {"component": "bed_rail_l_back_mount", "interface": "bed_mount_bed_head"}, "b": {"component": "bed_rail_l_back_mount_screw_bed", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_on_frame", "a": {"component": "bx_front", "interface": "slot_xp_b"}, "b": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_frame_key"}, "rotation_index": 0},
+    {"id": "bed_rail_r_front_mount_on_rail", "a": {"component": "bed_rail_r", "interface": "slot_xp_a"}, "b": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_bed_key"}, "rotation_index": 0},
+    {"id": "bed_rail_r_front_mount_tnut_frame_a_on_mount", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_frame_a"}, "b": {"component": "bed_rail_r_front_mount_tnut_frame_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_screw_frame_a_seat", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_frame_a_head"}, "b": {"component": "bed_rail_r_front_mount_screw_frame_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_tnut_frame_b_on_mount", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_frame_b"}, "b": {"component": "bed_rail_r_front_mount_tnut_frame_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_screw_frame_b_seat", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_frame_b_head"}, "b": {"component": "bed_rail_r_front_mount_screw_frame_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_tnut_bed_on_mount", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_bed"}, "b": {"component": "bed_rail_r_front_mount_tnut_bed", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_front_mount_screw_bed_seat", "a": {"component": "bed_rail_r_front_mount", "interface": "bed_mount_bed_head"}, "b": {"component": "bed_rail_r_front_mount_screw_bed", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_on_frame", "a": {"component": "bx_back", "interface": "slot_xp_b"}, "b": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_frame_key"}, "rotation_index": 1},
+    {"id": "bed_rail_r_back_mount_on_rail", "a": {"component": "bed_rail_r", "interface": "slot_xp_b"}, "b": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_bed_key"}, "rotation_index": 1},
+    {"id": "bed_rail_r_back_mount_tnut_frame_a_on_mount", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_frame_a"}, "b": {"component": "bed_rail_r_back_mount_tnut_frame_a", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_screw_frame_a_seat", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_frame_a_head"}, "b": {"component": "bed_rail_r_back_mount_screw_frame_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_tnut_frame_b_on_mount", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_frame_b"}, "b": {"component": "bed_rail_r_back_mount_tnut_frame_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_screw_frame_b_seat", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_frame_b_head"}, "b": {"component": "bed_rail_r_back_mount_screw_frame_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_tnut_bed_on_mount", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_bed"}, "b": {"component": "bed_rail_r_back_mount_tnut_bed", "interface": "thread"}, "angle_deg": 0},
+    {"id": "bed_rail_r_back_mount_screw_bed_seat", "a": {"component": "bed_rail_r_back_mount", "interface": "bed_mount_bed_head"}, "b": {"component": "bed_rail_r_back_mount_screw_bed", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "bed_plate_nut_left_front_in_slot", "a": {"component": "bed_rail_l", "interface": "slot_xp_a"}, "b": {"component": "bed_plate_nut_left_front", "interface": "slot"}, "rotation_index": 0, "offset": {"axis": "x", "value": 35.5, "note": "CONVENTION (keystone test_catalog_bed_plate): the plate's holes 150 either side of its centre; its centre 38 + 355/2 behind the frame's front face (guide p. 60)"}},
+    {"id": "bed_plate_on_bed_plate_nut_left_front", "a": {"component": "bed_plate_nut_left_front", "interface": "thread"}, "b": {"component": "bed_plate", "interface": "mount_left_front"}, "angle_deg": 0, "offset": {"side": "b", "axis": "x", "value": -150, "note": "CONVENTION: the plate's mount 150 from its centre along the rail"}},
+    {"id": "bed_plate_nut_left_back_in_slot", "a": {"component": "bed_rail_l", "interface": "slot_xp_a"}, "b": {"component": "bed_plate_nut_left_back", "interface": "slot"}, "rotation_index": 0, "offset": {"axis": "x", "value": 335.5, "note": "CONVENTION (keystone test_catalog_bed_plate): the plate's holes 150 either side of its centre; its centre 38 + 355/2 behind the frame's front face (guide p. 60)"}},
+    {"id": "bed_plate_on_bed_plate_nut_left_back", "a": {"component": "bed_plate_nut_left_back", "interface": "thread"}, "b": {"component": "bed_plate", "interface": "mount_left_back"}, "angle_deg": 0, "offset": {"side": "b", "axis": "x", "value": 150, "note": "CONVENTION: the plate's mount 150 from its centre along the rail"}},
+    {"id": "bed_plate_nut_right_front_in_slot", "a": {"component": "bed_rail_r", "interface": "slot_xp_a"}, "b": {"component": "bed_plate_nut_right_front", "interface": "slot"}, "rotation_index": 0, "offset": {"axis": "x", "value": 35.5, "note": "CONVENTION (keystone test_catalog_bed_plate): the plate's holes 150 either side of its centre; its centre 38 + 355/2 behind the frame's front face (guide p. 60)"}},
+    {"id": "bed_plate_on_bed_plate_nut_right_front", "a": {"component": "bed_plate_nut_right_front", "interface": "thread"}, "b": {"component": "bed_plate", "interface": "mount_right_front"}, "angle_deg": 0, "offset": {"side": "b", "axis": "x", "value": -150, "note": "CONVENTION: the plate's mount 150 from its centre along the rail"}},
+    {"id": "bed_plate_nut_right_back_in_slot", "a": {"component": "bed_rail_r", "interface": "slot_xp_a"}, "b": {"component": "bed_plate_nut_right_back", "interface": "slot"}, "rotation_index": 0, "offset": {"axis": "x", "value": 335.5, "note": "CONVENTION (keystone test_catalog_bed_plate): the plate's holes 150 either side of its centre; its centre 38 + 355/2 behind the frame's front face (guide p. 60)"}},
+    {"id": "bed_plate_on_bed_plate_nut_right_back", "a": {"component": "bed_plate_nut_right_back", "interface": "thread"}, "b": {"component": "bed_plate", "interface": "mount_right_back"}, "angle_deg": 0, "offset": {"side": "b", "axis": "x", "value": 150, "note": "CONVENTION: the plate's mount 150 from its centre along the rail"}},
+    {"id": "z0_idler_tnut_a_in_top", "a": {"component": "tx_front", "interface": "slot_yn_a"}, "b": {"component": "z0_idler_tnut_a", "interface": "slot"}, "rotation_index": 0},
+    {"id": "z0_idler_bracket_on_tnut_a", "a": {"component": "z0_idler_tnut_a", "interface": "thread"}, "b": {"component": "z0_idler_bracket", "interface": "corner_idler_mount_a"}, "angle_deg": 0},
+    {"id": "z0_idler_key", "a": {"component": "ty_left", "interface": "slot_yp_a"}, "b": {"component": "z0_idler_bracket", "interface": "corner_idler_corner_key"}, "rotation_index": 0},
+    {"id": "z0_idler_heel", "a": {"component": "u0", "interface": "slot_yp_b"}, "b": {"component": "z0_idler_bracket", "interface": "corner_idler_upright_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": -20, "note": "the heel at the upright's station 30 from its top (A's top corner): 20 below the default station 10"}},
+    {"id": "z0_idler_tnut_b_on_bracket", "a": {"component": "z0_idler_bracket", "interface": "corner_idler_mount_b"}, "b": {"component": "z0_idler_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z0_idler_screw_a_seat", "a": {"component": "z0_idler_bracket", "interface": "corner_idler_mount_a_head"}, "b": {"component": "z0_idler_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_idler_screw_b_seat", "a": {"component": "z0_idler_bracket", "interface": "corner_idler_mount_b_head"}, "b": {"component": "z0_idler_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_idler_axle_seat", "a": {"component": "z0_idler_bracket", "interface": "corner_idler_idler_bolt"}, "b": {"component": "z0_idler_axle", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_idler_on_axle", "a": {"component": "z0_idler_axle", "interface": "journal"}, "b": {"component": "z0_idler", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z1_idler_tnut_a_in_top", "a": {"component": "tx_front", "interface": "slot_yn_b"}, "b": {"component": "z1_idler_tnut_a", "interface": "slot"}, "rotation_index": 0},
+    {"id": "z1_idler_bracket_on_tnut_a", "a": {"component": "z1_idler_tnut_a", "interface": "thread"}, "b": {"component": "z1_idler_bracket", "interface": "corner_idler_mount_a"}, "angle_deg": 0},
+    {"id": "z1_idler_key", "a": {"component": "ty_right", "interface": "slot_yn_a"}, "b": {"component": "z1_idler_bracket", "interface": "corner_idler_corner_key"}, "rotation_index": 0},
+    {"id": "z1_idler_heel", "a": {"component": "u1", "interface": "slot_yp_b"}, "b": {"component": "z1_idler_bracket", "interface": "corner_idler_upright_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": -20, "note": "the heel at the upright's station 30 from its top (A's top corner): 20 below the default station 10"}},
+    {"id": "z1_idler_tnut_b_on_bracket", "a": {"component": "z1_idler_bracket", "interface": "corner_idler_mount_b"}, "b": {"component": "z1_idler_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z1_idler_screw_a_seat", "a": {"component": "z1_idler_bracket", "interface": "corner_idler_mount_a_head"}, "b": {"component": "z1_idler_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_idler_screw_b_seat", "a": {"component": "z1_idler_bracket", "interface": "corner_idler_mount_b_head"}, "b": {"component": "z1_idler_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_idler_axle_seat", "a": {"component": "z1_idler_bracket", "interface": "corner_idler_idler_bolt"}, "b": {"component": "z1_idler_axle", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_idler_on_axle", "a": {"component": "z1_idler_axle", "interface": "journal"}, "b": {"component": "z1_idler", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z2_idler_tnut_a_in_top", "a": {"component": "tx_back", "interface": "slot_yp_a"}, "b": {"component": "z2_idler_tnut_a", "interface": "slot"}, "rotation_index": 1},
+    {"id": "z2_idler_bracket_on_tnut_a", "a": {"component": "z2_idler_tnut_a", "interface": "thread"}, "b": {"component": "z2_idler_bracket", "interface": "corner_idler_mount_a"}, "angle_deg": 0},
+    {"id": "z2_idler_key", "a": {"component": "ty_left", "interface": "slot_yp_b"}, "b": {"component": "z2_idler_bracket", "interface": "corner_idler_corner_key"}, "rotation_index": 1},
+    {"id": "z2_idler_heel", "a": {"component": "u2", "interface": "slot_yn_b"}, "b": {"component": "z2_idler_bracket", "interface": "corner_idler_upright_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": -20, "note": "the heel at the upright's station 30 from its top (A's top corner): 20 below the default station 10"}},
+    {"id": "z2_idler_tnut_b_on_bracket", "a": {"component": "z2_idler_bracket", "interface": "corner_idler_mount_b"}, "b": {"component": "z2_idler_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z2_idler_screw_a_seat", "a": {"component": "z2_idler_bracket", "interface": "corner_idler_mount_a_head"}, "b": {"component": "z2_idler_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_idler_screw_b_seat", "a": {"component": "z2_idler_bracket", "interface": "corner_idler_mount_b_head"}, "b": {"component": "z2_idler_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_idler_axle_seat", "a": {"component": "z2_idler_bracket", "interface": "corner_idler_idler_bolt"}, "b": {"component": "z2_idler_axle", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_idler_on_axle", "a": {"component": "z2_idler_axle", "interface": "journal"}, "b": {"component": "z2_idler", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z3_idler_tnut_a_in_top", "a": {"component": "tx_back", "interface": "slot_yp_b"}, "b": {"component": "z3_idler_tnut_a", "interface": "slot"}, "rotation_index": 1},
+    {"id": "z3_idler_bracket_on_tnut_a", "a": {"component": "z3_idler_tnut_a", "interface": "thread"}, "b": {"component": "z3_idler_bracket", "interface": "corner_idler_mount_a"}, "angle_deg": 0},
+    {"id": "z3_idler_key", "a": {"component": "ty_right", "interface": "slot_yn_b"}, "b": {"component": "z3_idler_bracket", "interface": "corner_idler_corner_key"}, "rotation_index": 1},
+    {"id": "z3_idler_heel", "a": {"component": "u3", "interface": "slot_yn_b"}, "b": {"component": "z3_idler_bracket", "interface": "corner_idler_upright_key"}, "rotation_index": 0, "offset": {"axis": "x", "value": -20, "note": "the heel at the upright's station 30 from its top (A's top corner): 20 below the default station 10"}},
+    {"id": "z3_idler_tnut_b_on_bracket", "a": {"component": "z3_idler_bracket", "interface": "corner_idler_mount_b"}, "b": {"component": "z3_idler_tnut_b", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z3_idler_screw_a_seat", "a": {"component": "z3_idler_bracket", "interface": "corner_idler_mount_a_head"}, "b": {"component": "z3_idler_screw_a", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_idler_screw_b_seat", "a": {"component": "z3_idler_bracket", "interface": "corner_idler_mount_b_head"}, "b": {"component": "z3_idler_screw_b", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_idler_axle_seat", "a": {"component": "z3_idler_bracket", "interface": "corner_idler_idler_bolt"}, "b": {"component": "z3_idler_axle", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_idler_on_axle", "a": {"component": "z3_idler_axle", "interface": "journal"}, "b": {"component": "z3_idler", "interface": "bore"}, "angle_deg": 0},
+    {"id": "z0_rail_on_upright", "a": {"component": "u0", "interface": "slot_xp_a"}, "b": {"component": "z0_rail", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "z0_block_on_rail", "a": {"component": "z0_rail", "interface": "track"}, "b": {"component": "z0_block", "interface": "rail_way"}, "joint": {"id": "gantry_z", "type": "prismatic", "axis": "x", "limits": [-168.975, 146.025], "home": 0, "note": "the logical Z (owner decision D2): the front-left block's travel along its rail from the rail's mid-length (z 223), upward positive. Limits = Klipper's soft range position_min −5 (cfg :155) to position_max 310 (cfg :152) through the machine binding; the rail allows ±180.05 (400 rail, MGN9H L 39.9). Home 0 is a convention (mid-rail)"}, "rotation_index": 0},
+    {"id": "z1_rail_on_upright", "a": {"component": "u1", "interface": "slot_xn_a"}, "b": {"component": "z1_rail", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "z1_block_on_rail", "a": {"component": "z1_rail", "interface": "track"}, "b": {"component": "z1_block", "interface": "rail_way"}, "joint": {"id": "z1_block_follow", "type": "prismatic", "axis": "x", "limits": [-180.05, 180.05], "follows": {"terms": [{"joint": "gantry_z", "scale": 1}], "offset": 0}, "note": "follows gantry_z one to one (D2: the four Z drives follow one logical Z; quad gantry levelling tilt is later fidelity)"}, "rotation_index": 0},
+    {"id": "z2_rail_on_upright", "a": {"component": "u2", "interface": "slot_xp_a"}, "b": {"component": "z2_rail", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "z2_block_on_rail", "a": {"component": "z2_rail", "interface": "track"}, "b": {"component": "z2_block", "interface": "rail_way"}, "joint": {"id": "z2_block_follow", "type": "prismatic", "axis": "x", "limits": [-180.05, 180.05], "follows": {"terms": [{"joint": "gantry_z", "scale": 1}], "offset": 0}, "note": "follows gantry_z one to one (D2: the four Z drives follow one logical Z; quad gantry levelling tilt is later fidelity)"}, "rotation_index": 0},
+    {"id": "z3_rail_on_upright", "a": {"component": "u3", "interface": "slot_xn_a"}, "b": {"component": "z3_rail", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "z3_block_on_rail", "a": {"component": "z3_rail", "interface": "track"}, "b": {"component": "z3_block", "interface": "rail_way"}, "joint": {"id": "z3_block_follow", "type": "prismatic", "axis": "x", "limits": [-180.05, 180.05], "follows": {"terms": [{"joint": "gantry_z", "scale": 1}], "offset": 0}, "note": "follows gantry_z one to one (D2: the four Z drives follow one logical Z; quad gantry levelling tilt is later fidelity)"}, "rotation_index": 0},
+    {"id": "z0_z_joint_on_block", "a": {"component": "z0_block", "interface": "top"}, "b": {"component": "z0_z_joint", "interface": "z_joint_carriage"}, "rotation_index": 0},
+    {"id": "z0_clamp_key", "a": {"component": "z0_z_joint", "interface": "z_joint_clamp_slot"}, "b": {"component": "z0_belt_clamp", "interface": "z_belt_clamp_key"}, "rotation_index": 0},
+    {"id": "z0_clamp_screw_joint", "a": {"component": "z0_z_joint", "interface": "z_joint_clamp_mount"}, "b": {"component": "z0_belt_clamp", "interface": "z_belt_clamp_mount"}, "angle_deg": 0},
+    {"id": "z0_clamp_screw_seat", "a": {"component": "z0_belt_clamp", "interface": "z_belt_clamp_mount_head"}, "b": {"component": "z0_clamp_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_z_joint_on_block", "a": {"component": "z1_block", "interface": "top"}, "b": {"component": "z1_z_joint", "interface": "z_joint_carriage"}, "rotation_index": 0},
+    {"id": "z1_clamp_key", "a": {"component": "z1_z_joint", "interface": "z_joint_clamp_slot"}, "b": {"component": "z1_belt_clamp", "interface": "z_belt_clamp_key"}, "rotation_index": 0},
+    {"id": "z1_clamp_screw_joint", "a": {"component": "z1_z_joint", "interface": "z_joint_clamp_mount"}, "b": {"component": "z1_belt_clamp", "interface": "z_belt_clamp_mount"}, "angle_deg": 0},
+    {"id": "z1_clamp_screw_seat", "a": {"component": "z1_belt_clamp", "interface": "z_belt_clamp_mount_head"}, "b": {"component": "z1_clamp_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_z_joint_on_block", "a": {"component": "z2_block", "interface": "top"}, "b": {"component": "z2_z_joint", "interface": "z_joint_carriage"}, "rotation_index": 0},
+    {"id": "z2_clamp_key", "a": {"component": "z2_z_joint", "interface": "z_joint_clamp_slot"}, "b": {"component": "z2_belt_clamp", "interface": "z_belt_clamp_key"}, "rotation_index": 0},
+    {"id": "z2_clamp_screw_joint", "a": {"component": "z2_z_joint", "interface": "z_joint_clamp_mount"}, "b": {"component": "z2_belt_clamp", "interface": "z_belt_clamp_mount"}, "angle_deg": 0},
+    {"id": "z2_clamp_screw_seat", "a": {"component": "z2_belt_clamp", "interface": "z_belt_clamp_mount_head"}, "b": {"component": "z2_clamp_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_z_joint_on_block", "a": {"component": "z3_block", "interface": "top"}, "b": {"component": "z3_z_joint", "interface": "z_joint_carriage"}, "rotation_index": 0},
+    {"id": "z3_clamp_key", "a": {"component": "z3_z_joint", "interface": "z_joint_clamp_slot"}, "b": {"component": "z3_belt_clamp", "interface": "z_belt_clamp_key"}, "rotation_index": 0},
+    {"id": "z3_clamp_screw_joint", "a": {"component": "z3_z_joint", "interface": "z_joint_clamp_mount"}, "b": {"component": "z3_belt_clamp", "interface": "z_belt_clamp_mount"}, "angle_deg": 0},
+    {"id": "z3_clamp_screw_seat", "a": {"component": "z3_belt_clamp", "interface": "z_belt_clamp_mount_head"}, "b": {"component": "z3_clamp_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z0_pad_tnut_on_joint", "a": {"component": "z0_z_joint", "interface": "z_joint_c_mount"}, "b": {"component": "z0_pad_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z0_pad_screw_seat", "a": {"component": "z0_z_joint", "interface": "z_joint_c_mount_head"}, "b": {"component": "z0_pad_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z1_pad_tnut_on_joint", "a": {"component": "z1_z_joint", "interface": "z_joint_c_mount"}, "b": {"component": "z1_pad_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z1_pad_screw_seat", "a": {"component": "z1_z_joint", "interface": "z_joint_c_mount_head"}, "b": {"component": "z1_pad_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z2_pad_tnut_on_joint", "a": {"component": "z2_z_joint", "interface": "z_joint_c_mount"}, "b": {"component": "z2_pad_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z2_pad_screw_seat", "a": {"component": "z2_z_joint", "interface": "z_joint_c_mount_head"}, "b": {"component": "z2_pad_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "z3_pad_tnut_on_joint", "a": {"component": "z3_z_joint", "interface": "z_joint_c_mount"}, "b": {"component": "z3_pad_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "z3_pad_screw_seat", "a": {"component": "z3_z_joint", "interface": "z_joint_c_mount_head"}, "b": {"component": "z3_pad_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "c_left_on_z0", "a": {"component": "z0_z_joint", "interface": "z_joint_c_key"}, "b": {"component": "c_left", "interface": "slot_yn_a"}, "rotation_index": 0},
+    {"id": "c_right_on_z1", "a": {"component": "z1_z_joint", "interface": "z_joint_c_key"}, "b": {"component": "c_right", "interface": "slot_yn_a"}, "rotation_index": 0},
+    {"id": "c_left_on_z2", "a": {"component": "z2_z_joint", "interface": "z_joint_c_key"}, "b": {"component": "c_left", "interface": "slot_yn_b"}, "rotation_index": 1},
+    {"id": "c_right_on_z3", "a": {"component": "z3_z_joint", "interface": "z_joint_c_key"}, "b": {"component": "c_right", "interface": "slot_yn_b"}, "rotation_index": 1},
+    {"id": "y_rail_l_on_c", "a": {"component": "c_left", "interface": "slot_yp_a"}, "b": {"component": "y_rail_l", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "y_block_l_on_rail", "a": {"component": "y_rail_l", "interface": "track"}, "b": {"component": "y_block_l", "interface": "rail_way"}, "rotation_index": 0, "joint": {"id": "gantry_y", "type": "prismatic", "axis": "x", "limits": [-174, 176], "home": 0, "note": "the left Y block's travel from its rail's mid-length (frame y 245), backward positive. Limits = Klipper Y 0..350 (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:95, :107–108) through the machine binding: [−174, 176], inside the block's collision-free range −176.75…177.25 (P6-GANTRY). Home 0 is a convention (mid-rail)"}},
+    {"id": "joint_l_on_block", "a": {"component": "y_block_l", "interface": "top"}, "b": {"component": "joint_l", "interface": "xy_joint_carriage"}, "rotation_index": 0},
+    {"id": "js_l_screw_seat", "a": {"component": "joint_l", "interface": "xy_joint_stack_bolt"}, "b": {"component": "js_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "js_l_on_roof", "a": {"component": "joint_l", "interface": "xy_joint_stack_roof"}, "b": {"component": "js_l_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "js_l_f1", "a": {"component": "js_l_shim_1", "interface": "face_b"}, "b": {"component": "js_l_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "js_l_b2b", "a": {"component": "js_l_f695_1", "interface": "plain_face"}, "b": {"component": "js_l_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "js_l_f2", "a": {"component": "js_l_f695_2", "interface": "flange_face"}, "b": {"component": "js_l_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "js_l_on_floor", "a": {"component": "js_l_shim_2", "interface": "face_b"}, "b": {"component": "joint_l", "interface": "xy_joint_stack_floor"}, "angle_deg": 0},
+    {"id": "ji_l_screw_seat", "a": {"component": "joint_l", "interface": "xy_joint_idler_bolt"}, "b": {"component": "ji_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "ji_l_on_roof", "a": {"component": "joint_l", "interface": "xy_joint_idler_roof"}, "b": {"component": "ji_l", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ji_l_on_floor", "a": {"component": "ji_l", "interface": "face_b"}, "b": {"component": "joint_l", "interface": "xy_joint_idler_floor"}, "angle_deg": 0},
+    {"id": "front_idler_l_on_c", "a": {"component": "c_left", "interface": "slot_yp_a"}, "b": {"component": "front_idler_l", "interface": "front_idler_top_key"}, "rotation_index": 0},
+    {"id": "front_idler_l_c_tnut_in_slot", "a": {"component": "c_left", "interface": "slot_yp_a"}, "b": {"component": "front_idler_l_c_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "front_idler_l_c_screw_joint", "a": {"component": "front_idler_l", "interface": "front_idler_top_mount"}, "b": {"component": "front_idler_l_c_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "front_idler_l_c_screw_seat", "a": {"component": "front_idler_l", "interface": "front_idler_top_mount_head"}, "b": {"component": "front_idler_l_c_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "fi_l_screw_seat", "a": {"component": "front_idler_l", "interface": "front_idler_idler_bolt"}, "b": {"component": "fi_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "fi_l_on_roof", "a": {"component": "front_idler_l", "interface": "front_idler_idler_roof"}, "b": {"component": "fi_l", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "fi_l_on_floor", "a": {"component": "fi_l", "interface": "face_b"}, "b": {"component": "front_idler_l", "interface": "front_idler_idler_floor"}, "angle_deg": 0},
+    {"id": "drive_l_on_c", "a": {"component": "c_left", "interface": "slot_yp_b"}, "b": {"component": "drive_l", "interface": "ab_drive_c_key"}, "rotation_index": 0},
+    {"id": "drive_l_c_tnut_in_slot", "a": {"component": "c_left", "interface": "slot_yp_b"}, "b": {"component": "drive_l_c_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "drive_l_c_screw_joint", "a": {"component": "drive_l", "interface": "ab_drive_c_mount"}, "b": {"component": "drive_l_c_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "drive_l_c_screw_seat", "a": {"component": "drive_l", "interface": "ab_drive_c_mount_head"}, "b": {"component": "drive_l_c_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dk_l_screw_seat", "a": {"component": "drive_l", "interface": "ab_drive_corner_idler_bolt"}, "b": {"component": "dk_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dk_l_on_roof", "a": {"component": "drive_l", "interface": "ab_drive_corner_idler_roof"}, "b": {"component": "dk_l", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dk_l_on_floor", "a": {"component": "dk_l", "interface": "face_b"}, "b": {"component": "drive_l", "interface": "ab_drive_corner_idler_floor"}, "angle_deg": 0},
+    {"id": "dq_l_screw_seat", "a": {"component": "drive_l", "interface": "ab_drive_backside_bolt"}, "b": {"component": "dq_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dq_l_on_roof", "a": {"component": "drive_l", "interface": "ab_drive_backside_roof"}, "b": {"component": "dq_l_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dq_l_f1", "a": {"component": "dq_l_shim_1", "interface": "face_b"}, "b": {"component": "dq_l_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "dq_l_b2b", "a": {"component": "dq_l_f695_1", "interface": "plain_face"}, "b": {"component": "dq_l_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "dq_l_f2", "a": {"component": "dq_l_f695_2", "interface": "flange_face"}, "b": {"component": "dq_l_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dq_l_on_floor", "a": {"component": "dq_l_shim_2", "interface": "face_b"}, "b": {"component": "drive_l", "interface": "ab_drive_backside_floor"}, "angle_deg": 0},
+    {"id": "ds_l_screw_seat", "a": {"component": "drive_l", "interface": "ab_drive_pass_bolt"}, "b": {"component": "ds_l_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "ds_l_on_roof", "a": {"component": "drive_l", "interface": "ab_drive_pass_roof"}, "b": {"component": "ds_l_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ds_l_f1", "a": {"component": "ds_l_shim_1", "interface": "face_b"}, "b": {"component": "ds_l_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "ds_l_b2b", "a": {"component": "ds_l_f695_1", "interface": "plain_face"}, "b": {"component": "ds_l_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "ds_l_f2", "a": {"component": "ds_l_f695_2", "interface": "flange_face"}, "b": {"component": "ds_l_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ds_l_on_floor", "a": {"component": "ds_l_shim_2", "interface": "face_b"}, "b": {"component": "drive_l", "interface": "ab_drive_pass_floor"}, "angle_deg": 0},
+    {"id": "motor_l_face", "a": {"component": "drive_l", "interface": "ab_drive_motor_face"}, "b": {"component": "motor_l", "interface": "face"}, "rotation_index": 0},
+    {"id": "pulley_l_on_shaft", "a": {"component": "motor_l", "interface": "shaft"}, "b": {"component": "pulley_l", "interface": "bore"}, "angle_deg": 0, "joint": {"id": "motor_l_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "x_carriage", "scale": 9.001693560578525}, {"joint": "gantry_y", "scale": 9.001693560578525}], "offset": 0}, "note": "the left A/B motor (belt_b) turns as x + y (CoreXY a = x + y): 360 / (π · 12.73) degrees per mm on the GT2 20T pitch circle (PD 12.73, Gates 20-2MR, catalog gt2-pulley-20t-5mm). Sign measured from the belt path by finite differences (P6-ASM)"}},
+    {"id": "y_rail_r_on_c", "a": {"component": "c_right", "interface": "slot_yp_a"}, "b": {"component": "y_rail_r", "interface": "base_at_station"}, "rotation_index": 0},
+    {"id": "y_block_r_on_rail", "a": {"component": "y_rail_r", "interface": "track"}, "b": {"component": "y_block_r", "interface": "rail_way"}, "rotation_index": 0, "joint": {"id": "gantry_y_right", "type": "prismatic", "axis": "x", "limits": [-174, 176], "follows": {"terms": [{"joint": "gantry_y", "scale": 1}], "offset": 0}, "note": "follows gantry_y one to one: the right Y block rides its rail with the gantry (P6-GANTRY)"}},
+    {"id": "joint_r_on_block", "a": {"component": "y_block_r", "interface": "top"}, "b": {"component": "joint_r", "interface": "xy_joint_carriage"}, "rotation_index": 0},
+    {"id": "js_r_screw_seat", "a": {"component": "joint_r", "interface": "xy_joint_stack_bolt"}, "b": {"component": "js_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "js_r_on_roof", "a": {"component": "joint_r", "interface": "xy_joint_stack_roof"}, "b": {"component": "js_r_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "js_r_f1", "a": {"component": "js_r_shim_1", "interface": "face_b"}, "b": {"component": "js_r_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "js_r_b2b", "a": {"component": "js_r_f695_1", "interface": "plain_face"}, "b": {"component": "js_r_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "js_r_f2", "a": {"component": "js_r_f695_2", "interface": "flange_face"}, "b": {"component": "js_r_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "js_r_on_floor", "a": {"component": "js_r_shim_2", "interface": "face_b"}, "b": {"component": "joint_r", "interface": "xy_joint_stack_floor"}, "angle_deg": 0},
+    {"id": "ji_r_screw_seat", "a": {"component": "joint_r", "interface": "xy_joint_idler_bolt"}, "b": {"component": "ji_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "ji_r_on_roof", "a": {"component": "joint_r", "interface": "xy_joint_idler_roof"}, "b": {"component": "ji_r", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ji_r_on_floor", "a": {"component": "ji_r", "interface": "face_b"}, "b": {"component": "joint_r", "interface": "xy_joint_idler_floor"}, "angle_deg": 0},
+    {"id": "front_idler_r_on_c", "a": {"component": "c_right", "interface": "slot_yp_a"}, "b": {"component": "front_idler_r", "interface": "front_idler_top_key"}, "rotation_index": 0},
+    {"id": "front_idler_r_c_tnut_in_slot", "a": {"component": "c_right", "interface": "slot_yp_a"}, "b": {"component": "front_idler_r_c_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "front_idler_r_c_screw_joint", "a": {"component": "front_idler_r", "interface": "front_idler_top_mount"}, "b": {"component": "front_idler_r_c_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "front_idler_r_c_screw_seat", "a": {"component": "front_idler_r", "interface": "front_idler_top_mount_head"}, "b": {"component": "front_idler_r_c_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "fi_r_screw_seat", "a": {"component": "front_idler_r", "interface": "front_idler_idler_bolt"}, "b": {"component": "fi_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "fi_r_on_roof", "a": {"component": "front_idler_r", "interface": "front_idler_idler_roof"}, "b": {"component": "fi_r", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "fi_r_on_floor", "a": {"component": "fi_r", "interface": "face_b"}, "b": {"component": "front_idler_r", "interface": "front_idler_idler_floor"}, "angle_deg": 0},
+    {"id": "drive_r_on_c", "a": {"component": "c_right", "interface": "slot_yp_b"}, "b": {"component": "drive_r", "interface": "ab_drive_c_key"}, "rotation_index": 0},
+    {"id": "drive_r_c_tnut_in_slot", "a": {"component": "c_right", "interface": "slot_yp_b"}, "b": {"component": "drive_r_c_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "drive_r_c_screw_joint", "a": {"component": "drive_r", "interface": "ab_drive_c_mount"}, "b": {"component": "drive_r_c_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "drive_r_c_screw_seat", "a": {"component": "drive_r", "interface": "ab_drive_c_mount_head"}, "b": {"component": "drive_r_c_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dk_r_screw_seat", "a": {"component": "drive_r", "interface": "ab_drive_corner_idler_bolt"}, "b": {"component": "dk_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dk_r_on_roof", "a": {"component": "drive_r", "interface": "ab_drive_corner_idler_roof"}, "b": {"component": "dk_r", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dk_r_on_floor", "a": {"component": "dk_r", "interface": "face_b"}, "b": {"component": "drive_r", "interface": "ab_drive_corner_idler_floor"}, "angle_deg": 0},
+    {"id": "dq_r_screw_seat", "a": {"component": "drive_r", "interface": "ab_drive_backside_bolt"}, "b": {"component": "dq_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "dq_r_on_roof", "a": {"component": "drive_r", "interface": "ab_drive_backside_roof"}, "b": {"component": "dq_r_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dq_r_f1", "a": {"component": "dq_r_shim_1", "interface": "face_b"}, "b": {"component": "dq_r_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "dq_r_b2b", "a": {"component": "dq_r_f695_1", "interface": "plain_face"}, "b": {"component": "dq_r_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "dq_r_f2", "a": {"component": "dq_r_f695_2", "interface": "flange_face"}, "b": {"component": "dq_r_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "dq_r_on_floor", "a": {"component": "dq_r_shim_2", "interface": "face_b"}, "b": {"component": "drive_r", "interface": "ab_drive_backside_floor"}, "angle_deg": 0},
+    {"id": "ds_r_screw_seat", "a": {"component": "drive_r", "interface": "ab_drive_pass_bolt"}, "b": {"component": "ds_r_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "ds_r_on_roof", "a": {"component": "drive_r", "interface": "ab_drive_pass_roof"}, "b": {"component": "ds_r_shim_1", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ds_r_f1", "a": {"component": "ds_r_shim_1", "interface": "face_b"}, "b": {"component": "ds_r_f695_1", "interface": "flange_face"}, "angle_deg": 0},
+    {"id": "ds_r_b2b", "a": {"component": "ds_r_f695_1", "interface": "plain_face"}, "b": {"component": "ds_r_f695_2", "interface": "plain_face"}, "angle_deg": 0},
+    {"id": "ds_r_f2", "a": {"component": "ds_r_f695_2", "interface": "flange_face"}, "b": {"component": "ds_r_shim_2", "interface": "face_a"}, "angle_deg": 0},
+    {"id": "ds_r_on_floor", "a": {"component": "ds_r_shim_2", "interface": "face_b"}, "b": {"component": "drive_r", "interface": "ab_drive_pass_floor"}, "angle_deg": 0},
+    {"id": "motor_r_face", "a": {"component": "drive_r", "interface": "ab_drive_motor_face"}, "b": {"component": "motor_r", "interface": "face"}, "rotation_index": 0},
+    {"id": "pulley_r_on_shaft", "a": {"component": "motor_r", "interface": "shaft"}, "b": {"component": "pulley_r", "interface": "bore"}, "angle_deg": 0, "joint": {"id": "motor_r_turn", "type": "revolute", "axis": "z", "follows": {"terms": [{"joint": "x_carriage", "scale": 9.001693560578525}, {"joint": "gantry_y", "scale": -9.001693560578525}], "offset": 0}, "note": "the right A/B motor (belt_a) turns as x − y (CoreXY b = x − y): 360 / (π · 12.73) degrees per mm on the GT2 20T pitch circle. Sign measured from the belt path by finite differences (P6-ASM)"}},
+    {"id": "d_on_joint_l", "a": {"component": "joint_l", "interface": "xy_joint_beam_key"}, "b": {"component": "x_beam", "interface": "slot_yn_a"}, "rotation_index": 0},
+    {"id": "joint_r_under_d", "a": {"component": "x_beam", "interface": "slot_yn_b"}, "b": {"component": "joint_r", "interface": "xy_joint_beam_key"}, "rotation_index": 0},
+    {"id": "joint_l_d_tnut_in_slot", "a": {"component": "x_beam", "interface": "slot_xp_a"}, "b": {"component": "joint_l_d_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "joint_l_d_screw_joint", "a": {"component": "joint_l", "interface": "xy_joint_beam_mount"}, "b": {"component": "joint_l_d_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "joint_l_d_screw_seat", "a": {"component": "joint_l", "interface": "xy_joint_beam_mount_head"}, "b": {"component": "joint_l_d_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "joint_r_d_tnut_in_slot", "a": {"component": "x_beam", "interface": "slot_xp_b"}, "b": {"component": "joint_r_d_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "joint_r_d_screw_joint", "a": {"component": "joint_r", "interface": "xy_joint_beam_mount"}, "b": {"component": "joint_r_d_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "joint_r_d_screw_seat", "a": {"component": "joint_r", "interface": "xy_joint_beam_mount_head"}, "b": {"component": "joint_r_d_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "e_on_drive_l", "a": {"component": "drive_l", "interface": "ab_drive_e_key"}, "b": {"component": "rear_beam", "interface": "slot_yp_a"}, "rotation_index": 0},
+    {"id": "drive_r_on_e", "a": {"component": "rear_beam", "interface": "slot_yp_b"}, "b": {"component": "drive_r", "interface": "ab_drive_e_key"}, "rotation_index": 0},
+    {"id": "drive_l_e_tnut_in_slot", "a": {"component": "rear_beam", "interface": "slot_yp_a"}, "b": {"component": "drive_l_e_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "drive_l_e_screw_joint", "a": {"component": "drive_l", "interface": "ab_drive_e_mount"}, "b": {"component": "drive_l_e_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "drive_l_e_screw_seat", "a": {"component": "drive_l", "interface": "ab_drive_e_mount_head"}, "b": {"component": "drive_l_e_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "drive_r_e_tnut_in_slot", "a": {"component": "rear_beam", "interface": "slot_yp_b"}, "b": {"component": "drive_r_e_tnut", "interface": "slot"}, "rotation_index": 0},
+    {"id": "drive_r_e_screw_joint", "a": {"component": "drive_r", "interface": "ab_drive_e_mount"}, "b": {"component": "drive_r_e_tnut", "interface": "thread"}, "angle_deg": 0},
+    {"id": "drive_r_e_screw_seat", "a": {"component": "drive_r", "interface": "ab_drive_e_mount_head"}, "b": {"component": "drive_r_e_screw", "interface": "head_seat"}, "angle_deg": 0},
+    {"id": "x_rail_on_d", "a": {"component": "x_beam", "interface": "slot_xn_a"}, "b": {"component": "x_rail", "interface": "base_first_hole"}, "rotation_index": 0, "offset": {"axis": "x", "value": 15, "note": "rail end 15 from D's end (guide p. 101): first hole at 25, the slot station is 10"}},
+    {"id": "x_block_on_rail", "a": {"component": "x_rail", "interface": "track"}, "b": {"component": "x_block", "interface": "rail_way"}, "rotation_index": 0, "joint": {"id": "x_carriage", "type": "prismatic", "axis": "x", "limits": [-175, 175], "home": 0, "note": "X carriage from D's mid-length; Klipper X 0..350 (Octopus cfg :56, :68-69) maps to -175..175"}},
+    {"id": "x_carriage_on_block", "a": {"component": "x_block", "interface": "top"}, "b": {"component": "x_carriage", "interface": "x_carriage_block"}, "rotation_index": 0},
+    {"id": "toolhead_on_carriage", "a": {"component": "x_carriage", "interface": "x_carriage_toolhead"}, "b": {"component": "toolhead", "interface": "toolhead_proxy_mount"}, "rotation_index": 0}
   ],
-  "capability_profile": {
-    "process": [
-      "fff"
-    ],
-    "toolhead_count": 1
-  }
+  "paths": [
+    {"id": "z0_reduction_loop", "kind": "belt", "part": "gt2-belt-loop-188mm", "closed": true, "via": ["z0_motor_pulley", "z0_big_pulley"]},
+    {"id": "z1_reduction_loop", "kind": "belt", "part": "gt2-belt-loop-188mm", "closed": true, "via": ["z1_motor_pulley", "z1_big_pulley"]},
+    {"id": "z2_reduction_loop", "kind": "belt", "part": "gt2-belt-loop-188mm", "closed": true, "via": ["z2_motor_pulley", "z2_big_pulley"]},
+    {"id": "z3_reduction_loop", "kind": "belt", "part": "gt2-belt-loop-188mm", "closed": true, "via": ["z3_motor_pulley", "z3_big_pulley"]},
+    {"id": "z0_z_belt", "kind": "belt", "part": "gt2-belt-9mm", "closed": false, "via": [{"component": "z0_belt_clamp", "interface": "z_belt_clamp_lower"}, {"component": "z0_z_pulley", "wrap": "cw", "side": "teeth"}, {"component": "z0_idler", "wrap": "cw", "side": "teeth"}, {"component": "z0_belt_clamp", "interface": "z_belt_clamp_upper"}]},
+    {"id": "z1_z_belt", "kind": "belt", "part": "gt2-belt-9mm", "closed": false, "via": [{"component": "z1_belt_clamp", "interface": "z_belt_clamp_upper"}, {"component": "z1_z_pulley", "wrap": "ccw", "side": "teeth"}, {"component": "z1_idler", "wrap": "ccw", "side": "teeth"}, {"component": "z1_belt_clamp", "interface": "z_belt_clamp_lower"}]},
+    {"id": "z2_z_belt", "kind": "belt", "part": "gt2-belt-9mm", "closed": false, "via": [{"component": "z2_belt_clamp", "interface": "z_belt_clamp_upper"}, {"component": "z2_z_pulley", "wrap": "cw", "side": "teeth"}, {"component": "z2_idler", "wrap": "cw", "side": "teeth"}, {"component": "z2_belt_clamp", "interface": "z_belt_clamp_lower"}]},
+    {"id": "z3_z_belt", "kind": "belt", "part": "gt2-belt-9mm", "closed": false, "via": [{"component": "z3_belt_clamp", "interface": "z_belt_clamp_lower"}, {"component": "z3_z_pulley", "wrap": "ccw", "side": "teeth"}, {"component": "z3_idler", "wrap": "ccw", "side": "teeth"}, {"component": "z3_belt_clamp", "interface": "z_belt_clamp_upper"}]},
+    {"id": "belt_b", "kind": "belt", "part": "gt2-belt-6mm", "closed": false, "via": [{"component": "x_carriage", "interface": "x_carriage_belt_b_xp"}, {"component": "ji_r", "wrap": "ccw", "side": "teeth"}, {"component": "ds_r_f695_1", "wrap": "ccw", "side": "teeth"}, {"component": "dq_l_f695_1", "wrap": "cw", "side": "back"}, {"component": "pulley_l", "wrap": "ccw", "side": "teeth"}, {"component": "dk_l", "wrap": "ccw", "side": "teeth"}, {"component": "fi_l", "wrap": "ccw", "side": "teeth"}, {"component": "js_l_f695_1", "wrap": "cw", "side": "back"}, {"component": "x_carriage", "interface": "x_carriage_belt_b_xn"}]},
+    {"id": "belt_a", "kind": "belt", "part": "gt2-belt-6mm", "closed": false, "via": [{"component": "x_carriage", "interface": "x_carriage_belt_a_xn"}, {"component": "ji_l", "wrap": "cw", "side": "teeth"}, {"component": "ds_l_f695_1", "wrap": "cw", "side": "teeth"}, {"component": "dq_r_f695_1", "wrap": "ccw", "side": "back"}, {"component": "pulley_r", "wrap": "cw", "side": "teeth"}, {"component": "dk_r", "wrap": "cw", "side": "teeth"}, {"component": "fi_r", "wrap": "cw", "side": "teeth"}, {"component": "js_r_f695_1", "wrap": "ccw", "side": "back"}, {"component": "x_carriage", "interface": "x_carriage_belt_a_xp"}]}
+  ],
+  "machine": {"kinematics": "corexy", "axes": [{"axis": "x", "joint": "x_carriage", "scale": 1, "offset": -175, "note": "Klipper X 0..350 (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:56 position_min 0, :68–69 position_endstop/position_max 350): joint = X − 175, the carriage's travel from the X rail's mid-length (CONVENTION: X 175 at mid-rail)"}, {"axis": "y", "joint": "gantry_y", "scale": 1, "offset": -174, "note": "Klipper Y 0..350 (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:95 position_min 0, :107–108 position_endstop/position_max 350): joint = Y − 174. CONVENTION: Y 0 puts toolhead-proxy's nozzle_tip over the bed plate's front edge, frame y 28 (guide p. 60: the plate's front edge 38 behind the frame's front face at y −10); the tip is 43.0 ahead of the Y blocks' centre (P6-XCAR's reach convention), so the blocks are at frame y 71 and Y 350 puts the tip at y 378, inside the plate (rear edge 383)"}, {"axis": "z", "joint": "gantry_z", "scale": 1, "offset": -163.975, "note": "Klipper Z (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:155 position_min −5, :152 position_max 310, :142 position_endstop −0.5): joint = Z − 163.975. CONVENTION: Z 0 puts toolhead-proxy's nozzle_tip on the bed plate's top face: the tip is at frame z 203.0 at gantry_z 0, the plate's top at 29.5 + 9.525 = 39.025 (keystone bed-plate-350: spacer 9.5, thickness 9.525)"}], "note": "kinematics corexy (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:34). pravara forwards raw axis values; the viewer maps them through these bindings (D4)"},
+  "allowed_overlaps": [
+    {"a": "bed_plate", "b": "toolhead", "max_mm3": 190, "reason": "Klipper's probe overtravel: position_min −5 (VoronDesign/Voron-2 @ a192410, firmware/klipper_configurations/Octopus/Voron2_Octopus_Config.cfg:155) lets Z go 5 mm below the bed's surface, and gantry_z's limits cover the machine's whole soft range so every position Klipper reports poses (D4). Physically the bed stops the nozzle; the twin's proxy nozzle passes 5 mm into the plate at gantry_z's lower limit only. Measured 176.7 mm3 (owner-programme option (a), 2026-10-05)."},
+    {"a": "bed_rail_l", "b": "bed_rail_l_back_mount", "max_mm3": 142, "reason": "bed_rail_l_back_mount (bed-extrusion-mount) keys its tongue into bed_rail_l's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 132.3 mm3."},
+    {"a": "bed_rail_l", "b": "bed_rail_l_back_mount_screw_bed", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bed_rail_l's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bed_rail_l", "b": "bed_rail_l_front_mount", "max_mm3": 142, "reason": "bed_rail_l_front_mount (bed-extrusion-mount) keys its tongue into bed_rail_l's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 132.3 mm3."},
+    {"a": "bed_rail_l", "b": "bed_rail_l_front_mount_screw_bed", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bed_rail_l's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bed_rail_r", "b": "bed_rail_r_back_mount", "max_mm3": 142, "reason": "bed_rail_r_back_mount (bed-extrusion-mount) keys its tongue into bed_rail_r's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 132.3 mm3."},
+    {"a": "bed_rail_r", "b": "bed_rail_r_back_mount_screw_bed", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bed_rail_r's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bed_rail_r", "b": "bed_rail_r_front_mount", "max_mm3": 142, "reason": "bed_rail_r_front_mount (bed-extrusion-mount) keys its tongue into bed_rail_r's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 132.3 mm3."},
+    {"a": "bed_rail_r", "b": "bed_rail_r_front_mount_screw_bed", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bed_rail_r's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "bed_rail_l_back_mount", "max_mm3": 402, "reason": "bed_rail_l_back_mount (bed-extrusion-mount) keys its tongue into bx_back's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 374.8 mm3."},
+    {"a": "bx_back", "b": "bed_rail_l_back_mount_screw_frame_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "bed_rail_l_back_mount_screw_frame_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "bed_rail_r_back_mount", "max_mm3": 402, "reason": "bed_rail_r_back_mount (bed-extrusion-mount) keys its tongue into bx_back's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 374.8 mm3."},
+    {"a": "bx_back", "b": "bed_rail_r_back_mount_screw_frame_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "bed_rail_r_back_mount_screw_frame_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "z2_housing", "max_mm3": 470, "reason": "z2_housing (z-drive-housing) keys its tongue into bx_back's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 438.6 mm3."},
+    {"a": "bx_back", "b": "z2_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "z2_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "z3_housing", "max_mm3": 470, "reason": "z3_housing (z-drive-housing) keys its tongue into bx_back's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 438.6 mm3."},
+    {"a": "bx_back", "b": "z3_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_back", "b": "z3_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "bed_rail_l_front_mount", "max_mm3": 402, "reason": "bed_rail_l_front_mount (bed-extrusion-mount) keys its tongue into bx_front's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 374.8 mm3."},
+    {"a": "bx_front", "b": "bed_rail_l_front_mount_screw_frame_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "bed_rail_l_front_mount_screw_frame_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "bed_rail_r_front_mount", "max_mm3": 402, "reason": "bed_rail_r_front_mount (bed-extrusion-mount) keys its tongue into bx_front's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 374.8 mm3."},
+    {"a": "bx_front", "b": "bed_rail_r_front_mount_screw_frame_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "bed_rail_r_front_mount_screw_frame_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "z0_housing", "max_mm3": 470, "reason": "z0_housing (z-drive-housing) keys its tongue into bx_front's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 438.6 mm3."},
+    {"a": "bx_front", "b": "z0_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "z0_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "z1_housing", "max_mm3": 470, "reason": "z1_housing (z-drive-housing) keys its tongue into bx_front's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 438.6 mm3."},
+    {"a": "bx_front", "b": "z1_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "bx_front", "b": "z1_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into bx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "by_left", "b": "z0_housing", "max_mm3": 348, "reason": "z0_housing (z-drive-housing) keys its tongue into by_left's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 324.8 mm3."},
+    {"a": "by_left", "b": "z2_housing", "max_mm3": 348, "reason": "z2_housing (z-drive-housing) keys its tongue into by_left's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 324.8 mm3."},
+    {"a": "by_right", "b": "z1_housing", "max_mm3": 348, "reason": "z1_housing (z-drive-housing) keys its tongue into by_right's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 324.8 mm3."},
+    {"a": "by_right", "b": "z3_housing", "max_mm3": 348, "reason": "z3_housing (z-drive-housing) keys its tongue into by_right's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 324.8 mm3."},
+    {"a": "c_left", "b": "drive_l", "max_mm3": 234.83, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 213.48 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_left", "b": "drive_l_c_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_left", "b": "front_idler_l", "max_mm3": 228.45, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 207.68 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_left", "b": "front_idler_l_c_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_right", "b": "drive_r", "max_mm3": 234.83, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 213.48 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_right", "b": "drive_r_c_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_right", "b": "front_idler_r", "max_mm3": 228.45, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 207.68 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "c_right", "b": "front_idler_r_c_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dk_l_screw", "b": "dk_l", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dk_r_screw", "b": "dk_r", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_l_screw", "b": "dq_l_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_l_screw", "b": "dq_l_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_l_screw", "b": "dq_l_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_l_screw", "b": "dq_l_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_r_screw", "b": "dq_r_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_r_screw", "b": "dq_r_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_r_screw", "b": "dq_r_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "dq_r_screw", "b": "dq_r_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_l", "b": "dk_l_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_l", "b": "dq_l_screw", "max_mm3": 17.19, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 15.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_l", "b": "ds_l_screw", "max_mm3": 19.07, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 17.34 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_r", "b": "dk_r_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_r", "b": "dq_r_screw", "max_mm3": 16.93, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 15.39 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "drive_r", "b": "ds_r_screw", "max_mm3": 19.07, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 17.34 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_l_screw", "b": "ds_l_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_l_screw", "b": "ds_l_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_l_screw", "b": "ds_l_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_l_screw", "b": "ds_l_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_r_screw", "b": "ds_r_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_r_screw", "b": "ds_r_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_r_screw", "b": "ds_r_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ds_r_screw", "b": "ds_r_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "fi_l_screw", "b": "fi_l", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "fi_r_screw", "b": "fi_r", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "front_idler_l", "b": "fi_l_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "front_idler_r", "b": "fi_r_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ji_l_screw", "b": "ji_l", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "ji_r_screw", "b": "ji_r", "max_mm3": 194.38, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 176.71 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "joint_l", "b": "ji_l_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "joint_l", "b": "js_l_screw", "max_mm3": 19.07, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 17.34 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "joint_r", "b": "ji_r_screw", "max_mm3": 25.43, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 23.12 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "joint_r", "b": "js_r_screw", "max_mm3": 19.07, "reason": "the M5x16 axle's shank in its Ø4.2 pilot in the printed host (the thread it cuts); measured 17.34 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_l_screw", "b": "js_l_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_l_screw", "b": "js_l_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_l_screw", "b": "js_l_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_l_screw", "b": "js_l_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_r_screw", "b": "js_r_f695_1", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_r_screw", "b": "js_r_f695_2", "max_mm3": 86.39, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 78.54 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_r_screw", "b": "js_r_shim_1", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "js_r_screw", "b": "js_r_shim_2", "max_mm3": 21.59, "reason": "the M5x16 axle's shank in the bore of the part it carries (envelopes are solid); measured 19.63 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "motor_l", "b": "pulley_l", "max_mm3": 345.58, "reason": "the motor's Ø5 shaft in the pulley's bore; measured 314.16 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "motor_r", "b": "pulley_r", "max_mm3": 345.58, "reason": "the motor's Ø5 shaft in the pulley's bore; measured 314.16 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "rear_beam", "b": "drive_l", "max_mm3": 164.65, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 149.68 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "rear_beam", "b": "drive_l_e_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "rear_beam", "b": "drive_r", "max_mm3": 164.65, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 149.68 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "rear_beam", "b": "drive_r_e_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "tx_back", "b": "z2_idler_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_back", "b": "z2_idler_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_back", "b": "z3_idler_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_back", "b": "z3_idler_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_back's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_front", "b": "z0_idler_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_front", "b": "z0_idler_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_front", "b": "z1_idler_screw_a", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "tx_front", "b": "z1_idler_screw_b", "max_mm3": 116, "reason": "the bhcs-m5x30 shank runs into tx_front's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "ty_left", "b": "z0_idler_bracket", "max_mm3": 323, "reason": "z0_idler_bracket (corner-idler-bracket) keys its tongue into ty_left's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 301.6 mm3."},
+    {"a": "ty_left", "b": "z2_idler_bracket", "max_mm3": 323, "reason": "z2_idler_bracket (corner-idler-bracket) keys its tongue into ty_left's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 301.6 mm3."},
+    {"a": "ty_right", "b": "z1_idler_bracket", "max_mm3": 323, "reason": "z1_idler_bracket (corner-idler-bracket) keys its tongue into ty_right's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 301.6 mm3."},
+    {"a": "ty_right", "b": "z3_idler_bracket", "max_mm3": 323, "reason": "z3_idler_bracket (corner-idler-bracket) keys its tongue into ty_right's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 301.6 mm3."},
+    {"a": "u0", "b": "z0_idler_bracket", "max_mm3": 205, "reason": "z0_idler_bracket (corner-idler-bracket) keys its tongue into u0's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 191.4 mm3."},
+    {"a": "u1", "b": "z1_idler_bracket", "max_mm3": 205, "reason": "z1_idler_bracket (corner-idler-bracket) keys its tongue into u1's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 191.4 mm3."},
+    {"a": "u2", "b": "z2_idler_bracket", "max_mm3": 205, "reason": "z2_idler_bracket (corner-idler-bracket) keys its tongue into u2's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 191.4 mm3."},
+    {"a": "u3", "b": "z3_idler_bracket", "max_mm3": 205, "reason": "z3_idler_bracket (corner-idler-bracket) keys its tongue into u3's slot; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 191.4 mm3."},
+    {"a": "x_beam", "b": "joint_l", "max_mm3": 172.26, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 156.6 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "x_beam", "b": "joint_l_d_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "x_beam", "b": "joint_r", "max_mm3": 172.26, "reason": "the printed part's 2 mm tongue in the extrusion's 6 mm slot (the extrusion's envelope is solid); measured 156.6 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "x_beam", "b": "joint_r_d_screw", "max_mm3": 118.79, "reason": "an M5 screw's shank in the extrusion's slot, into its T-nut (the extrusion's envelope is solid); measured 107.99 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "z0_bearing_a", "b": "z0_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z0_bearing_a; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z0_bearing_b", "b": "z0_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z0_bearing_b; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z0_bearing_c", "b": "z0_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z0_bearing_c; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z0_idler_axle", "b": "z0_idler", "max_mm3": 295, "reason": "the M5 axle runs through the bore of z0_idler; an envelope has no bore. Measured 274.9 mm3."},
+    {"a": "z0_idler_bracket", "b": "z0_idler_axle", "max_mm3": 62, "reason": "the M5 screw cuts its thread in the printed pilot of z0_idler_bracket (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 57.8 mm3."},
+    {"a": "z0_pad_screw", "b": "c_left", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into c_left's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "z0_shaft", "b": "z0_big_pulley", "max_mm3": 379, "reason": "a 5 mm shaft runs through the bore of z0_big_pulley; an envelope has no bore. Measured 353.4 mm3."},
+    {"a": "z0_z_joint", "b": "c_left", "max_mm3": 253.97, "reason": "the z-joint's 6 mm tongue in the C's bottom slot (P6-ASM's pad; the C's envelope is the solid 20 × 20 square); measured 230.88 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "z0_z_joint", "b": "z0_clamp_screw", "max_mm3": 19, "reason": "the M5 screw cuts its thread in the printed pilot of z0_z_joint (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 17.3 mm3."},
+    {"a": "z1_bearing_a", "b": "z1_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z1_bearing_a; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z1_bearing_b", "b": "z1_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z1_bearing_b; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z1_bearing_c", "b": "z1_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z1_bearing_c; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z1_idler_axle", "b": "z1_idler", "max_mm3": 295, "reason": "the M5 axle runs through the bore of z1_idler; an envelope has no bore. Measured 274.9 mm3."},
+    {"a": "z1_idler_bracket", "b": "z1_idler_axle", "max_mm3": 62, "reason": "the M5 screw cuts its thread in the printed pilot of z1_idler_bracket (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 57.8 mm3."},
+    {"a": "z1_pad_screw", "b": "c_right", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into c_right's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "z1_shaft", "b": "z1_big_pulley", "max_mm3": 379, "reason": "a 5 mm shaft runs through the bore of z1_big_pulley; an envelope has no bore. Measured 353.4 mm3."},
+    {"a": "z1_z_joint", "b": "c_right", "max_mm3": 253.97, "reason": "the z-joint's 6 mm tongue in the C's bottom slot (P6-ASM's pad; the C's envelope is the solid 20 × 20 square); measured 230.88 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "z1_z_joint", "b": "z1_clamp_screw", "max_mm3": 19, "reason": "the M5 screw cuts its thread in the printed pilot of z1_z_joint (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 17.3 mm3."},
+    {"a": "z2_bearing_a", "b": "z2_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z2_bearing_a; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z2_bearing_b", "b": "z2_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z2_bearing_b; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z2_bearing_c", "b": "z2_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z2_bearing_c; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z2_idler_axle", "b": "z2_idler", "max_mm3": 295, "reason": "the M5 axle runs through the bore of z2_idler; an envelope has no bore. Measured 274.9 mm3."},
+    {"a": "z2_idler_bracket", "b": "z2_idler_axle", "max_mm3": 62, "reason": "the M5 screw cuts its thread in the printed pilot of z2_idler_bracket (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 57.8 mm3."},
+    {"a": "z2_pad_screw", "b": "c_left", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into c_left's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "z2_shaft", "b": "z2_big_pulley", "max_mm3": 379, "reason": "a 5 mm shaft runs through the bore of z2_big_pulley; an envelope has no bore. Measured 353.4 mm3."},
+    {"a": "z2_z_joint", "b": "c_left", "max_mm3": 253.97, "reason": "the z-joint's 6 mm tongue in the C's bottom slot (P6-ASM's pad; the C's envelope is the solid 20 × 20 square); measured 230.88 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "z2_z_joint", "b": "z2_clamp_screw", "max_mm3": 19, "reason": "the M5 screw cuts its thread in the printed pilot of z2_z_joint (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 17.3 mm3."},
+    {"a": "z3_bearing_a", "b": "z3_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z3_bearing_a; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z3_bearing_b", "b": "z3_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z3_bearing_b; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z3_bearing_c", "b": "z3_shaft", "max_mm3": 106, "reason": "a 5 mm shaft runs through the bore of z3_bearing_c; an envelope has no bore. Measured 98.2 mm3."},
+    {"a": "z3_idler_axle", "b": "z3_idler", "max_mm3": 295, "reason": "the M5 axle runs through the bore of z3_idler; an envelope has no bore. Measured 274.9 mm3."},
+    {"a": "z3_idler_bracket", "b": "z3_idler_axle", "max_mm3": 62, "reason": "the M5 screw cuts its thread in the printed pilot of z3_idler_bracket (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 57.8 mm3."},
+    {"a": "z3_pad_screw", "b": "c_right", "max_mm3": 116, "reason": "the bhcs-m5x10 shank runs into c_right's slot to its T-nut; the 2020 envelope is the solid profile (no cited slot depth), so the slot is not hollowed. Measured 108.0 mm3."},
+    {"a": "z3_shaft", "b": "z3_big_pulley", "max_mm3": 379, "reason": "a 5 mm shaft runs through the bore of z3_big_pulley; an envelope has no bore. Measured 353.4 mm3."},
+    {"a": "z3_z_joint", "b": "c_right", "max_mm3": 253.97, "reason": "the z-joint's 6 mm tongue in the C's bottom slot (P6-ASM's pad; the C's envelope is the solid 20 × 20 square); measured 230.88 mm³, allowance +10 % (P6-JOINT's convention)"},
+    {"a": "z3_z_joint", "b": "z3_clamp_screw", "max_mm3": 19, "reason": "the M5 screw cuts its thread in the printed pilot of z3_z_joint (Ø4.2, as P4-AUTH-E measured for the corner idler). Measured 17.3 mm3."}
+  ],
+  "capability_profile": {"process": ["fff"], "toolhead_count": 1}
 }

@@ -50,7 +50,9 @@ def test_the_goldens_cover_every_kind_of_shell():
         shell = json.loads(path.read_bytes())["assetAdministrationShells"][0]
         kinds.add(ids.parse_shell_id(shell["id"]).kind)
     assert kinds == {"solid", "soft", "assembly", "material"}
-    assert len(TARGETS) == 13
+    # A and B, the 14 cartridges they use (A: the 2.4-class motion system), a soft garment
+    # and a material card.
+    assert len(TARGETS) == 18
 
 
 @pytest.mark.parametrize("target", TARGETS, ids=_name)

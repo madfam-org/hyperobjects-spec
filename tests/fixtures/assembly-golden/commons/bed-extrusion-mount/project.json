@@ -1,0 +1,535 @@
+{
+  "project": {
+    "name": "Bed Extrusion Mount",
+    "slug": "bed-extrusion-mount",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed T-plate that joins the end of a bed-support 2020 extrusion to the frame's bottom horizontal it butts against, tops flush. The crossbar bolts to the horizontal's top slot with two M5 T-nuts, the stem to the bed extrusion's top slot with one, and a tongue in each slot holds the bed extrusion square and at its butt. Symmetric, so one part serves all four ends of a printer's two bed extrusions.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una placa en T impresa que une el extremo de un perfil 2020 de soporte de cama con el travesaño inferior del marco contra el que apoya, con las caras superiores a ras. El travesaño de la T se atornilla a la ranura superior del travesaño con dos tuercas en T M5, el vástago a la ranura superior del perfil de la cama con una, y una lengüeta en cada ranura mantiene el perfil de la cama a escuadra y en su tope. Simétrica, así que una sola pieza sirve para los cuatro extremos de los dos perfiles de cama de una impresora.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/bed-extrusion-mount.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "3d-printer",
+      "bed",
+      "2020",
+      "t-slot",
+      "extrusion",
+      "bracket",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "bed_mount",
+      "label": {
+        "en": "Bed Extrusion Mount",
+        "es": "Soporte de Perfil de Cama"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "bed_mount"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 2,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "bed_mount",
+      "label": {
+        "en": "Bed Extrusion Mount",
+        "es": "Soporte de Perfil de Cama"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "mount",
+      "label": {
+        "en": "Mount",
+        "es": "Montaje"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "screw_offset",
+      "unit": "mm",
+      "type": "slider",
+      "default": 14.0,
+      "min": 8.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "bed_mount"
+      ],
+      "label": {
+        "en": "Frame Screw Offset (mm)",
+        "es": "Separación de los Tornillos al Marco (mm)"
+      },
+      "tooltip": {
+        "en": "Each frame screw's distance from the bed extrusion's centreline along the horizontal (T-nuts are 15 mm long)",
+        "es": "Distancia de cada tornillo al marco desde el eje del perfil de la cama, a lo largo del travesaño (las tuercas en T miden 15 mm)"
+      }
+    },
+    {
+      "id": "stem_length",
+      "unit": "mm",
+      "type": "slider",
+      "default": 17.5,
+      "min": 15.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "bed_mount"
+      ],
+      "label": {
+        "en": "Stem Length (mm)",
+        "es": "Longitud del Vástago (mm)"
+      },
+      "tooltip": {
+        "en": "How far the plate runs along the bed extrusion from the butt; 17.5 stays inside the 18 mm before a Voron-class bed plate's front edge",
+        "es": "Cuánto avanza la placa sobre el perfil de la cama desde el tope; 17.5 queda dentro de los 18 mm previos al borde frontal de una cama de clase Voron"
+      }
+    },
+    {
+      "id": "plate_t",
+      "unit": "mm",
+      "type": "slider",
+      "default": 4.5,
+      "min": 4.0,
+      "max": 5.0,
+      "step": 0.25,
+      "group": "mount",
+      "modes": [
+        "bed_mount"
+      ],
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Espesor de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Also the M5x10's grip: 10 − 4.5 = 5.5 into the T-nut",
+        "es": "También el agarre del M5x10: 10 − 4.5 = 5.5 dentro de la tuerca en T"
+      },
+      "advanced": true
+    }
+  ],
+  "presets": [
+    {
+      "id": "standard",
+      "mode": "bed_mount",
+      "label": {
+        "en": "Standard",
+        "es": "Estándar"
+      },
+      "values": {
+        "screw_offset": 14,
+        "stem_length": 17.5,
+        "plate_t": 4.5
+      }
+    },
+    {
+      "id": "wide_long",
+      "mode": "bed_mount",
+      "label": {
+        "en": "Wide and Long",
+        "es": "Ancha y Larga"
+      },
+      "values": {
+        "screw_offset": 20,
+        "stem_length": 26
+      }
+    },
+    {
+      "id": "thin_plate",
+      "mode": "bed_mount",
+      "label": {
+        "en": "Thin Plate",
+        "es": "Placa Delgada"
+      },
+      "values": {
+        "plate_t": 4.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "2 * screw_offset >= 16",
+      "severity": "error",
+      "message": {
+        "en": "The two frame T-nuts (15 mm long) must not overlap",
+        "es": "Las dos tuercas en T del marco (15 mm de largo) no deben traslaparse"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        60,
+        70,
+        50
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        110
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -110,
+        15
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 2,
+    "per_part": 6,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "bed_mount_frame_a",
+        "label": {
+          "en": "Frame screw A into a T-nut in the horizontal's top slot",
+          "es": "Tornillo A al marco, a una tuerca en T en la ranura superior del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the plate into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm top slot; framed on the plate's underside, which bears on the extrusion's top face",
+        "parameters": [
+          "screw_offset"
+        ],
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            "-screw_offset",
+            -10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_frame_b",
+        "label": {
+          "en": "Frame screw B into a T-nut in the horizontal's top slot",
+          "es": "Tornillo B al marco, a una tuerca en T en la ranura superior del travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the plate into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm top slot; framed on the plate's underside, which bears on the extrusion's top face",
+        "parameters": [
+          "screw_offset"
+        ],
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            "screw_offset",
+            -10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_bed",
+        "label": {
+          "en": "Bed screw into a T-nut in the bed extrusion's top slot",
+          "es": "Tornillo a la cama, a una tuerca en T en la ranura superior del perfil de la cama"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the plate into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm top slot; framed on the plate's underside, which bears on the extrusion's top face",
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            0,
+            10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_frame_a_head",
+        "label": {
+          "en": "Head seat of frame screw A (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo A al marco (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the plate's top face (10 − plate_t into the T-nut)",
+        "parameters": [
+          "screw_offset",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            "-screw_offset",
+            -10,
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_frame_b_head",
+        "label": {
+          "en": "Head seat of frame screw B (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo B al marco (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the plate's top face (10 − plate_t into the T-nut)",
+        "parameters": [
+          "screw_offset",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            "screw_offset",
+            -10,
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_bed_head",
+        "label": {
+          "en": "Head seat of the bed screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo a la cama (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the plate's top face (10 − plate_t into the T-nut)",
+        "parameters": [
+          "plate_t"
+        ],
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            0,
+            10,
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "bed_mount_frame_key",
+        "label": {
+          "en": "Tongue in the horizontal's top slot",
+          "es": "Lengüeta en la ranura superior del travesaño"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the plate's underside bears on the horizontal's top face",
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            0,
+            -10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "bed_mount_bed_key",
+        "label": {
+          "en": "Tongue in the bed extrusion's top slot",
+          "es": "Lengüeta en la ranura superior del perfil de la cama"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the plate's underside bears on the bed extrusion's top face, 10 from its butted end",
+        "frame": {
+          "part": "bed_mount",
+          "origin": [
+            0,
+            10,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable joint for a printer's bed supports on 2020 extrusion: it uses only M5 screws and T-nuts, so a builder can print, replace or adapt it without a proprietary bracket, and its interfaces are machine-checked against both extrusions it joins.",
+      "es": "Una unión abierta e imprimible para los soportes de cama de una impresora sobre perfil 2020: usa solo tornillos M5 y tuercas en T, de modo que quien la arma puede imprimirla, reponerla o adaptarla sin escuadras propietarias, y sus interfaces se verifican por máquina contra los dos perfiles que une."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "bed",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

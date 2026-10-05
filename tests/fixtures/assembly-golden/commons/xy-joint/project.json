@@ -1,0 +1,678 @@
+{
+  "project": {
+    "name": "XY Joint",
+    "slug": "xy-joint",
+    "version": "2.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed XY joint for a CoreXY gantry with two stacked belts (a 2.4-class flying gantry). It is screwed onto an MGN9H block on the Y rail and holds the end of the 2020 X beam so that the beam crosses above the Y extrusions; over the beam, a shelf carries a GT2 20-tooth toothed idler and a stack of two F695 flanged bearings, which turn the two belts through 90° on their two levels, each clamped under a roof arm by an M5x16 axle. Left- and right-hand versions; the right hand swaps the belt levels.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una unión XY impresa para un pórtico CoreXY con dos bandas apiladas (un pórtico volante tipo 2.4). Se atornilla sobre un bloque MGN9H en el riel Y y sostiene el extremo de la viga X de perfil 2020 de modo que la viga cruza por encima de los perfiles Y; sobre la viga, una repisa lleva una polea dentada GT2 de 20 dientes y una pila de dos rodamientos con pestaña F695, que giran 90° las dos bandas en sus dos niveles, cada una sujeta bajo un brazo por un eje M5x16. Versiones izquierda y derecha; la derecha intercambia los niveles de banda.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/xy-joint.webp",
+    "difficulty": "advanced",
+    "tags": [
+      "3d-printer",
+      "corexy",
+      "gantry",
+      "xy-joint",
+      "gt2",
+      "belt",
+      "idler",
+      "f695",
+      "mgn9",
+      "2020",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "xy_joint",
+      "label": {
+        "en": "XY Joint",
+        "es": "Unión XY"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "xy_joint"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 3,
+        "per_part": 20
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "xy_joint",
+      "label": {
+        "en": "XY Joint",
+        "es": "Unión XY"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "idler",
+      "label": {
+        "en": "Idler",
+        "es": "Polea"
+      }
+    },
+    {
+      "id": "hand",
+      "label": {
+        "en": "Hand",
+        "es": "Mano"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "idler_width",
+      "unit": "mm",
+      "type": "slider",
+      "default": 9.0,
+      "min": 6.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "idler",
+      "modes": [
+        "xy_joint"
+      ],
+      "label": {
+        "en": "Toothed Idler Width (mm)",
+        "es": "Ancho de la Polea Dentada (mm)"
+      },
+      "tooltip": {
+        "en": "GT2 20T 6 mm-belt idler, flange to flange (9 = the cited listing; 10 = a Gates-style one)",
+        "es": "Polea GT2 20T para banda de 6 mm, de pestaña a pestaña (9 = el listado citado; 10 = una tipo Gates)"
+      }
+    },
+    {
+      "id": "d_end",
+      "unit": "mm",
+      "type": "slider",
+      "default": 11.0,
+      "min": 8.0,
+      "max": 13.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "xy_joint"
+      ],
+      "label": {
+        "en": "D's End Past the Rail Centre (mm)",
+        "es": "Extremo de D Respecto al Centro del Riel (mm)"
+      },
+      "tooltip": {
+        "en": "How far D's end sits outboard of the Y rail's centre: (430 / 2) − half the C centre spacing; 11 for a 408 spacing",
+        "es": "Cuánto queda el extremo de D por fuera del centro del riel Y: (430 / 2) − la mitad de la separación de los C; 11 para 408"
+      }
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "hand",
+      "modes": [
+        "xy_joint"
+      ],
+      "label": {
+        "en": "Right-Hand Joint (Mirrored)",
+        "es": "Unión Derecha (Espejo)"
+      },
+      "tooltip": {
+        "en": "Build the right joint: mirrored in x, with the stack and the idler on swapped belt levels",
+        "es": "Genera la unión derecha: en espejo en x, con la pila y la polea en niveles de banda intercambiados"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "left_350",
+      "mode": "xy_joint",
+      "label": {
+        "en": "Left Joint, 350 Gantry",
+        "es": "Unión Izquierda, Pórtico 350"
+      },
+      "values": {
+        "idler_width": 9,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "right_350",
+      "mode": "xy_joint",
+      "label": {
+        "en": "Right Joint, 350 Gantry",
+        "es": "Unión Derecha, Pórtico 350"
+      },
+      "values": {
+        "idler_width": 9,
+        "mirrored": true
+      }
+    },
+    {
+      "id": "left_10mm_idler",
+      "mode": "xy_joint",
+      "label": {
+        "en": "Left Joint, 10 mm-Wide Idler",
+        "es": "Unión Izquierda, Polea de 10 mm"
+      },
+      "values": {
+        "idler_width": 10,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "right_10mm_idler",
+      "mode": "xy_joint",
+      "label": {
+        "en": "Right Joint, 10 mm-Wide Idler",
+        "es": "Unión Derecha, Polea de 10 mm"
+      },
+      "values": {
+        "idler_width": 10,
+        "mirrored": true
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "idler_width <= 10",
+      "severity": "error",
+      "message": {
+        "en": "A low idler wider than 10 mm reaches the high belt level",
+        "es": "Una polea baja de más de 10 mm alcanza el nivel de banda alto"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        120,
+        -110,
+        90
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        25,
+        -160,
+        10
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        25,
+        0,
+        170
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 10,
+    "per_unit": 3,
+    "per_part": 20,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "xy_joint_carriage",
+        "label": {
+          "en": "Mounting face on the MGN9H block",
+          "es": "Cara de montaje sobre el bloque MGN9H"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "HIWIN MGN9H top: 4 × M3 on 15 (across) × 16 (along), M3x3 threads; the joint's underside, M3x8 screws through it",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "mgn9-carriage",
+        "symmetry": 2
+      },
+      {
+        "id": "xy_joint_beam_key",
+        "label": {
+          "en": "Tongue in the X beam's bottom slot (D's end)",
+          "es": "Lengüeta en la ranura inferior de la viga X (extremo de D)"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); D's bottom face rests on the saddle; the frame sits 10 from D's end (its slot station)",
+        "parameters": [
+          "mirrored",
+          "d_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "s * xm",
+            0,
+            12
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "xy_joint_beam_mount",
+        "label": {
+          "en": "Screw into a T-nut in the X beam's back slot",
+          "es": "Tornillo a una tuerca en T en la ranura trasera de la viga X"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the back wall into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in D's back slot, 10 from D's end; framed on D's back face",
+        "parameters": [
+          "mirrored",
+          "d_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "s * xm",
+            10,
+            22
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_beam_mount_head",
+        "label": {
+          "en": "Head seat of the back-slot screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo trasero (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the back wall's outer face, 4.5 behind D's back face (5.5 of the screw passes into the nut)",
+        "parameters": [
+          "mirrored",
+          "d_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "s * xm",
+            14.5,
+            22
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_stack_bolt",
+        "label": {
+          "en": "F695 stack axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la pila F695 (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the stack; the screw is the stack's axle and cuts its thread in a Ø4.2 pilot below the stack (guide pp. 97, 99: the stack on a screw into plastic)",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-2 * s",
+            -7.006,
+            "zs + 8"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_stack_roof",
+        "label": {
+          "en": "Stack roof (the arm over the stack)",
+          "es": "Techo de la pila (el brazo sobre la pila)"
+        },
+        "geometry_type": "surface",
+        "standard": "the stack's upper shim bears on the roof arm's underside here, 5 above the stack's belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-2 * s",
+            -7.006,
+            "zs + 5"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_stack_floor",
+        "label": {
+          "en": "Stack floor",
+          "es": "Piso de la pila"
+        },
+        "geometry_type": "surface",
+        "standard": "the stack's lower shim bears here, 5 below the stack's belt mid-plane",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-2 * s",
+            -7.006,
+            "zs - 5"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_idler_bolt",
+        "label": {
+          "en": "Toothed idler axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la polea dentada (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the idler; the GT2 20T idler's axle, screwed into a Ø4.2 pilot (guide pp. 98, 100)",
+        "parameters": [
+          "mirrored",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-3 * s",
+            6.366,
+            "zi + idler_width / 2 + 3"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_idler_roof",
+        "label": {
+          "en": "Idler roof (the arm over the idler)",
+          "es": "Techo de la polea (el brazo sobre la polea)"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's face A bears on the roof arm's underside here; idler_width / 2 above its belt mid-plane",
+        "parameters": [
+          "mirrored",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-3 * s",
+            6.366,
+            "zi + idler_width / 2"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_idler_floor",
+        "label": {
+          "en": "Idler floor",
+          "es": "Piso de la polea"
+        },
+        "geometry_type": "surface",
+        "standard": "the toothed idler's face B bears here",
+        "parameters": [
+          "mirrored",
+          "idler_width"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-3 * s",
+            6.366,
+            "zi - idler_width / 2"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": "m5-axle-stack-face",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable XY joint for stacked-belt CoreXY gantries built from 2020 extrusion and miniature rails: it takes only off-the-shelf M5 screws, T-nuts, F695 bearings and a standard GT2 idler, its belt geometry is derived from cited belt and bearing data, and its interfaces are machine-checked against the rail block and the beam it joins.",
+      "es": "Una unión XY abierta e imprimible para pórticos CoreXY de bandas apiladas hechos con perfil 2020 y rieles miniatura: solo usa tornillos M5, tuercas en T, rodamientos F695 y una polea GT2 estándar, su geometría de banda se deriva de datos citados de banda y rodamiento, y sus interfaces se verifican por máquina contra el bloque del riel y la viga que une."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "corexy",
+    "gt2",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

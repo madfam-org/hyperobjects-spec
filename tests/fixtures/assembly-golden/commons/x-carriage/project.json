@@ -1,0 +1,684 @@
+{
+  "project": {
+    "name": "X Carriage",
+    "slug": "x-carriage",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed X carriage for a CoreXY gantry with two stacked 6 mm GT2 belts (a 2.4-class flying gantry). It bolts to an MGN12H block on the X rail, holds all four belt ends with no screws on the belt, and presents a toolhead face (four M3 inserts on a 20 mm square). Each belt end goes down a slot two plies wide, round a post and back beside itself, so the plies lock tooth into tooth and the belt's pull tightens the fold; the belt is tensioned by folding it a tooth further. The belt line, both belt levels, the jaws' x and the teeth's side are parameters, so the carriage follows the gantry it rides.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un carro X impreso para un pórtico CoreXY con dos bandas GT2 de 6 mm apiladas (un pórtico volante tipo 2.4). Se atornilla a un bloque MGN12H en el riel X, sujeta los cuatro extremos de banda sin tornillos sobre la banda y ofrece una cara de cabezal (cuatro insertos M3 en un cuadrado de 20 mm). Cada extremo baja por una ranura de dos capas, rodea un poste y vuelve junto a sí mismo, de modo que las capas se traban diente con diente y el tirón de la banda aprieta el doblez; la banda se tensa doblándola un diente más. La línea de banda, ambos niveles, la x de las mordazas y el lado de los dientes son parámetros, así que el carro sigue al pórtico en el que corre.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/x-carriage.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "3d-printer",
+      "corexy",
+      "gantry",
+      "x-carriage",
+      "gt2",
+      "belt",
+      "clamp",
+      "mgn12",
+      "toolhead",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "x_carriage",
+      "label": {
+        "en": "X Carriage",
+        "es": "Carro X"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "x_carriage"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "x_carriage",
+      "label": {
+        "en": "X Carriage",
+        "es": "Carro X"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "gantry",
+      "label": {
+        "en": "Gantry",
+        "es": "Pórtico"
+      }
+    },
+    {
+      "id": "jaws",
+      "label": {
+        "en": "Jaws",
+        "es": "Mordazas"
+      }
+    },
+    {
+      "id": "toolhead",
+      "label": {
+        "en": "Toolhead Face",
+        "es": "Cara de Cabezal"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "belt_line",
+      "unit": "mm",
+      "type": "slider",
+      "default": 23.0,
+      "min": 15.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Belt Line Behind the Block (mm)",
+        "es": "Línea de Banda Detrás del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "From the MGN12H's top face back to the belts' pitch line at the carriage (the gantry's number)",
+        "es": "Desde la cara superior del MGN12H hacia atrás hasta la línea primitiva de las bandas en el carro (dato del pórtico)"
+      }
+    },
+    {
+      "id": "belt_a_level",
+      "unit": "mm",
+      "type": "slider",
+      "default": 38.0,
+      "min": 22.0,
+      "max": 70.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "A Belt Level (mm)",
+        "es": "Nivel de la Banda A (mm)"
+      },
+      "tooltip": {
+        "en": "The A belt's mid-plane above the MGN12H's centre (the gantry's number)",
+        "es": "El plano medio de la banda A sobre el centro del MGN12H (dato del pórtico)"
+      }
+    },
+    {
+      "id": "belt_b_level",
+      "unit": "mm",
+      "type": "slider",
+      "default": 22.0,
+      "min": 22.0,
+      "max": 70.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "B Belt Level (mm)",
+        "es": "Nivel de la Banda B (mm)"
+      },
+      "tooltip": {
+        "en": "The B belt's mid-plane above the MGN12H's centre (the gantry's number)",
+        "es": "El plano medio de la banda B sobre el centro del MGN12H (dato del pórtico)"
+      }
+    },
+    {
+      "id": "clamp_x",
+      "unit": "mm",
+      "type": "slider",
+      "default": 20.0,
+      "min": 12.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Jaw Entrances (± mm)",
+        "es": "Entradas de las Mordazas (± mm)"
+      },
+      "tooltip": {
+        "en": "The jaws' entrances at ±clamp_x from the block's centre: also the carriage's half-width at the belt levels",
+        "es": "Las entradas de las mordazas a ±clamp_x del centro del bloque: también la semianchura del carro en los niveles de banda"
+      }
+    },
+    {
+      "id": "teeth_toward_toolhead",
+      "type": "checkbox",
+      "default": false,
+      "group": "gantry",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Teeth Toward the Toolhead",
+        "es": "Dientes Hacia el Cabezal"
+      },
+      "tooltip": {
+        "en": "Off: the belts' backs face the toolhead and their teeth the X beam's far side (the commons gantry's routing). On: the reverse",
+        "es": "Apagado: el dorso de las bandas mira al cabezal y sus dientes al lado opuesto de la viga X (el recorrido del pórtico de los comunes). Encendido: al revés"
+      }
+    },
+    {
+      "id": "jaw_length",
+      "unit": "mm",
+      "type": "slider",
+      "default": 12.0,
+      "min": 6.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "jaws",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Jaw Length (mm)",
+        "es": "Longitud de la Mordaza (mm)"
+      },
+      "tooltip": {
+        "en": "Slot from the entrance to the post's axis: the belt that locks tooth into tooth",
+        "es": "Ranura desde la entrada hasta el eje del poste: la banda que se traba diente con diente"
+      }
+    },
+    {
+      "id": "post_d",
+      "unit": "mm",
+      "type": "slider",
+      "default": 5.0,
+      "min": 4.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "jaws",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Post Diameter (mm)",
+        "es": "Diámetro del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "The post each end folds round; the pocket clears it by one belt height plus 0.3",
+        "es": "El poste alrededor del que se dobla cada extremo; el hueco lo libra por una altura de banda más 0.3"
+      }
+    },
+    {
+      "id": "slot_w",
+      "unit": "mm",
+      "type": "slider",
+      "default": 2.4,
+      "min": 2.3,
+      "max": 3.2,
+      "step": 0.05,
+      "group": "jaws",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Slot Width (mm)",
+        "es": "Ancho de la Ranura (mm)"
+      },
+      "tooltip": {
+        "en": "Two plies tooth into tooth are 2 × 1.52 − 0.76 = 2.28 thick (Gates 2MR); 2.4 leaves 0.12",
+        "es": "Dos capas diente con diente miden 2 × 1.52 − 0.76 = 2.28 (Gates 2MR); 2.4 deja 0.12"
+      },
+      "advanced": true
+    },
+    {
+      "id": "plate_t",
+      "unit": "mm",
+      "type": "slider",
+      "default": 8.0,
+      "min": 6.0,
+      "max": 14.0,
+      "step": 0.5,
+      "group": "toolhead",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Front Plate Thickness (mm)",
+        "es": "Espesor de la Placa Frontal (mm)"
+      },
+      "tooltip": {
+        "en": "Block face to toolhead face. At 8, M3x8 screws hold the block (3.5 counterbore + 3.5 thread)",
+        "es": "De la cara del bloque a la cara de cabezal. Con 8, tornillos M3x8 sujetan el bloque (3.5 de caja + 3.5 de rosca)"
+      }
+    },
+    {
+      "id": "toolhead_y",
+      "unit": "mm",
+      "type": "slider",
+      "default": 30.0,
+      "min": 26.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "toolhead",
+      "modes": [
+        "x_carriage"
+      ],
+      "label": {
+        "en": "Toolhead Pattern Height (mm)",
+        "es": "Altura del Patrón de Cabezal (mm)"
+      },
+      "tooltip": {
+        "en": "The toolhead pattern's centre above the block's centre, clear of the block's four screws",
+        "es": "El centro del patrón de cabezal sobre el centro del bloque, libre de los cuatro tornillos del bloque"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "gantry_350",
+      "mode": "x_carriage",
+      "label": {
+        "en": "Commons Gantry (350)",
+        "es": "Pórtico de los Comunes (350)"
+      },
+      "values": {
+        "belt_line": 23,
+        "belt_a_level": 38,
+        "belt_b_level": 22,
+        "clamp_x": 20,
+        "teeth_toward_toolhead": false,
+        "jaw_length": 12,
+        "post_d": 5,
+        "slot_w": 2.4,
+        "plate_t": 8,
+        "toolhead_y": 30
+      }
+    },
+    {
+      "id": "compact_jaws",
+      "mode": "x_carriage",
+      "label": {
+        "en": "Compact Jaws",
+        "es": "Mordazas Compactas"
+      },
+      "values": {
+        "clamp_x": 16,
+        "jaw_length": 9
+      }
+    },
+    {
+      "id": "gentle_fold",
+      "mode": "x_carriage",
+      "label": {
+        "en": "Gentle Fold",
+        "es": "Doblez Suave"
+      },
+      "values": {
+        "post_d": 6,
+        "slot_w": 2.6,
+        "jaw_length": 11
+      }
+    },
+    {
+      "id": "teeth_forward_thick_plate",
+      "mode": "x_carriage",
+      "label": {
+        "en": "Teeth Forward, 10 mm Plate",
+        "es": "Dientes al Frente, Placa de 10 mm"
+      },
+      "values": {
+        "teeth_toward_toolhead": true,
+        "plate_t": 10
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "abs(belt_a_level - belt_b_level) >= 9",
+      "severity": "error",
+      "message": {
+        "en": "The two belt levels need 9 mm between mid-planes: two 6.6 mm slots and a 2.4 mm rib",
+        "es": "Los dos niveles de banda necesitan 9 mm entre planos medios: dos ranuras de 6.6 mm y una costilla de 2.4 mm"
+      }
+    },
+    {
+      "expression": "clamp_x - jaw_length - (post_d + 3.64) / 2 >= 1.5",
+      "severity": "error",
+      "message": {
+        "en": "The two jaws of one level would meet in the middle: shorten the jaws or move the entrances out",
+        "es": "Las dos mordazas de un nivel se tocarían en el centro: acorte las mordazas o aleje las entradas"
+      }
+    },
+    {
+      "expression": "slot_w >= 2 * 1.52 - 0.76",
+      "severity": "error",
+      "message": {
+        "en": "The slot must take two plies tooth into tooth (2.28 mm)",
+        "es": "La ranura debe admitir dos capas diente con diente (2.28 mm)"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        110,
+        90,
+        120
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        15,
+        180
+      ]
+    },
+    {
+      "id": "rear",
+      "label": {
+        "en": "Rear",
+        "es": "Trasera"
+      },
+      "position": [
+        0,
+        40,
+        -180
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 3,
+    "per_part": 14,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "x_carriage_block",
+        "label": {
+          "en": "Mounting face on the MGN12H block",
+          "es": "Cara de montaje sobre el bloque MGN12H"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "HIWIN MGN12H top: 4 × M3 on 20 × 20; the plate's back face, M3x8 SHCS through it into the block",
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "mgn12-carriage",
+        "symmetry": 4
+      },
+      {
+        "id": "x_carriage_toolhead",
+        "label": {
+          "en": "Toolhead face",
+          "es": "Cara de cabezal"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "4 × M3 heat-set inserts on a 20 mm square (the MGN12H's pattern, HIWIN); the plate's front face, framed at the pattern's centre",
+        "parameters": [
+          "toolhead_y",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            0,
+            "toolhead_y",
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "toolhead-mount-20x20-m3",
+        "symmetry": 4
+      },
+      {
+        "id": "x_carriage_belt_a_xp",
+        "label": {
+          "en": "A belt jaw, +x end: the end that comes in from +x",
+          "es": "Mordaza de la banda A, extremo +x: el que entra desde +x"
+        },
+        "geometry_type": "profile",
+        "standard": "6 mm GT2 belt end (Gates 2MR: B 1.52, T 0.76; SDP/SI U 0.254): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed at the jaw entrance on the belt's pitch line (B − T − U = 0.506 off the wall its back bears on) and its mid-width; the path anchor of ASM-1 §9",
+        "parameters": [
+          "clamp_x",
+          "belt_a_level",
+          "belt_line",
+          "teeth_toward_toolhead"
+        ],
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            "clamp_x",
+            "belt_a_level",
+            "-belt_line"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "1 - 2 * teeth_toward_toolhead"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "gt2-belt-6mm",
+        "symmetry": 1
+      },
+      {
+        "id": "x_carriage_belt_a_xn",
+        "label": {
+          "en": "A belt jaw, −x end: the end that comes in from −x",
+          "es": "Mordaza de la banda A, extremo −x: el que entra desde −x"
+        },
+        "geometry_type": "profile",
+        "standard": "6 mm GT2 belt end (Gates 2MR: B 1.52, T 0.76; SDP/SI U 0.254): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed at the jaw entrance on the belt's pitch line (B − T − U = 0.506 off the wall its back bears on) and its mid-width; the path anchor of ASM-1 §9",
+        "parameters": [
+          "clamp_x",
+          "belt_a_level",
+          "belt_line",
+          "teeth_toward_toolhead"
+        ],
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            "-clamp_x",
+            "belt_a_level",
+            "-belt_line"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "1 - 2 * teeth_toward_toolhead"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "gt2-belt-6mm",
+        "symmetry": 1
+      },
+      {
+        "id": "x_carriage_belt_b_xp",
+        "label": {
+          "en": "B belt jaw, +x end: the end that comes in from +x",
+          "es": "Mordaza de la banda B, extremo +x: el que entra desde +x"
+        },
+        "geometry_type": "profile",
+        "standard": "6 mm GT2 belt end (Gates 2MR: B 1.52, T 0.76; SDP/SI U 0.254): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed at the jaw entrance on the belt's pitch line (B − T − U = 0.506 off the wall its back bears on) and its mid-width; the path anchor of ASM-1 §9",
+        "parameters": [
+          "clamp_x",
+          "belt_b_level",
+          "belt_line",
+          "teeth_toward_toolhead"
+        ],
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            "clamp_x",
+            "belt_b_level",
+            "-belt_line"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "1 - 2 * teeth_toward_toolhead"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "gt2-belt-6mm",
+        "symmetry": 1
+      },
+      {
+        "id": "x_carriage_belt_b_xn",
+        "label": {
+          "en": "B belt jaw, −x end: the end that comes in from −x",
+          "es": "Mordaza de la banda B, extremo −x: el que entra desde −x"
+        },
+        "geometry_type": "profile",
+        "standard": "6 mm GT2 belt end (Gates 2MR: B 1.52, T 0.76; SDP/SI U 0.254): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed at the jaw entrance on the belt's pitch line (B − T − U = 0.506 off the wall its back bears on) and its mid-width; the path anchor of ASM-1 §9",
+        "parameters": [
+          "clamp_x",
+          "belt_b_level",
+          "belt_line",
+          "teeth_toward_toolhead"
+        ],
+        "frame": {
+          "part": "x_carriage",
+          "origin": [
+            "-clamp_x",
+            "belt_b_level",
+            "-belt_line"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "1 - 2 * teeth_toward_toolhead"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "gt2-belt-6mm",
+        "symmetry": 1
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable X carriage for stacked-belt CoreXY gantries: it holds standard 6 mm GT2 belts with no screws on the belt, takes an off-the-shelf MGN12H block, follows the gantry's belt geometry through its parameters, and its interfaces (the block, the toolhead face and the four belt anchors) are machine-checked against the rendered part.",
+      "es": "Un carro X abierto e imprimible para pórticos CoreXY de bandas apiladas: sujeta bandas GT2 estándar de 6 mm sin tornillos sobre la banda, usa un bloque MGN12H comercial, sigue la geometría de banda del pórtico mediante sus parámetros, y sus interfaces (el bloque, la cara de cabezal y los cuatro anclajes de banda) se verifican por máquina contra la pieza renderizada."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "corexy",
+    "gt2",
+    "mgn12",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

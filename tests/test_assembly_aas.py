@@ -42,13 +42,15 @@ GOLDEN = Path(__file__).parent / "fixtures" / "assembly-golden"
 COMMONS = GOLDEN / "commons"
 A = "voron-2-4-class-350-motion-frame"
 B = "fpv-5in-freestyle"
-#: A's digest is the one the commons CI prints. B (solid #136: the camera cage on the side
+#: A's digest is the one the commons CI prints once A's cartridges land in the commons byte for
+#: byte as copied here (the full 2.4-class motion system, lane P6-ASM; `8172f814…` was the
+#: phase-4 static subset on this keystone's catalog). B (solid #136: the camera cage on the side
 #: plates' outer faces, 13 mates) hashes the `fpv-frame-5in-x-225` catalog entry, which #41
 #: changed after the commons' SPEC_PIN (8c12194, where B is f0db7bdb…): a standard part's
 #: catalog digest enters the assembly digest, so the commons CI prints this one once its
 #: SPEC_PIN reaches this keystone.
 DIGESTS = {
-    A: "8172f814a71dfbe3e117cd1fb8a51523e4dbff4526a38e096f3eade208b1a389",
+    A: "cb80b6790dbc704798bf97c64a20fb81e61e435af9a62136ad7794be64888570",
     B: "96166430930bbe5817f394ef382221f257f0f2de20b67cb38bec02c142e8f23c",
 }
 ID = "https://id.madfam.io"
@@ -91,14 +93,14 @@ def _fetch(store):
 
 
 # ── the golden assemblies validate exactly as in the commons ─────────────────
-@pytest.mark.parametrize("slug,components", [(A, 15), (B, 13)])
-def test_golden_assemblies_pass_with_the_commons_digests(slug, components):
+@pytest.mark.parametrize("slug,components,mates", [(A, 235, 292), (B, 13, 13)])
+def test_golden_assemblies_pass_with_the_commons_digests(slug, components, mates):
     report = _report(slug)
     assert report.ok, [str(f) for f in report.findings]
     assert not report.warnings
     assert report.digest == DIGESTS[slug]
     assert len(report.placements) == components
-    assert len(report.mates) == components and all(m.ok for m in report.mates)
+    assert len(report.mates) == mates and all(m.ok for m in report.mates)
 
 
 @pytest.mark.parametrize("slug", [A, B])
@@ -180,17 +182,39 @@ def test_cartridge_node_names_its_type_shell_revision_and_instance_id(envs):
 
 def test_standard_and_external_nodes(envs):
     entry = child(submodel(envs[A], "BillOfMaterials"), "EntryNode")
-    motor = child(entry, "motor_a")
+    motor = child(entry, "motor_l")
     assert motor["globalAssetId"] == f"{ID}/asset/standard/nema-17-48mm"
     assert child(motor, "Key")["value"] == "nema-17-48mm"
-    toolhead = child(entry, "toolhead")
-    assert toolhead["entityType"] == "CoManagedEntity" and "globalAssetId" not in toolhead
-    assert child(toolhead, "License")["value"] == "GPL-3.0"
-    assert child(toolhead, "Url")["valueType"] == "xs:anyURI"
     counts = {child(c, "Source")["value"]: int(child(c, "Count")["value"])
               for c in child(submodel(envs[A], "BillOfMaterials"), "CountsBySource")["value"]}
-    assert counts[f"{ID}/asset/standard/extrusion-2020"] == 3
-    assert counts[f"{ID}/asset/solid/tslot-corner"] == 2
+    assert counts[f"{ID}/asset/standard/extrusion-2020"] == 18
+    assert counts[f"{ID}/asset/solid/z-joint"] == 4
+    # Neither golden carries an external design any more (A's toolhead is now the original
+    # toolhead-proxy, owner decision D3), so the external node is projected from a small
+    # document: a CoManagedEntity with its licence and URL, never a globalAssetId.
+    doc = {"format": "hyperobjects.assembly", "format_version": "1.0.0", "slug": "ext-node",
+           "kind": "product", "name": {"en": "x", "es": "x"}, "license": "CERN-OHL-W-2.0",
+           "root": "beam",
+           "components": [
+               {"id": "beam", "source": {"type": "standard", "key": "extrusion-2020"}},
+               {"id": "toolhead", "source": {
+                   "type": "external", "name": "Example toolhead", "license": "GPL-3.0",
+                   "url": "https://example.org/toolhead", "revision": "0" * 40,
+                   "interfaces": [{"id": "key", "polarity": "male", "size_key": "tslot-2020-6mm",
+                                   "symmetry": 2, "frame": {"origin": [0, 0, 0],
+                                                            "normal": [0, 0, -1],
+                                                            "x_axis": [1, 0, 0]}}]}}],
+           "mates": [{"id": "toolhead_on_beam",
+                      "a": {"component": "beam", "interface": "slot_xp_a"},
+                      "b": {"component": "toolhead", "interface": "key"}, "rotation_index": 0}]}
+    report = validate_assembly(doc, CompositeResolver.for_directories(
+        COMMONS, bundled_standard_parts_dir()))
+    assert report.ok, [str(f) for f in report.findings]
+    ext = child(child(submodel(build_assembly_environment(doc, report), "BillOfMaterials"),
+                      "EntryNode"), "toolhead")
+    assert ext["entityType"] == "CoManagedEntity" and "globalAssetId" not in ext
+    assert child(ext, "License")["value"] == "GPL-3.0"
+    assert child(ext, "Url")["valueType"] == "xs:anyURI"
 
 
 # ── Mates, placement, capability, requirements ────────────────────────────────
@@ -289,21 +313,21 @@ def test_manifest_read_back_keeps_the_written_checkbox_default(tmp_path):
     GOC-1 identity (which hashes 1, not true) survives the round trip."""
     import shutil
 
-    dst = tmp_path / "nema-bracket"
-    shutil.copytree(COMMONS / "nema-bracket", dst)
+    dst = tmp_path / "z-joint"
+    shutil.copytree(COMMONS / "z-joint", dst)
     manifest = json.loads((dst / "project.json").read_text("utf-8"))
-    gusset = next(p for p in manifest["parameters"] if p["id"] == "gusset")
-    gusset["default"] = 1
+    flag = next(p for p in manifest["parameters"] if p["id"] == "mirrored")
+    flag["default"] = 1
     (dst / "project.json").write_text(json.dumps(manifest), "utf-8")
     env = build_solid_environment(dst)
     params = child(submodel(env, "ParametricModel"), "Parameters")
-    sm_gusset = next(p for p in params["value"] if child(p, "ParameterId")["value"] == "gusset")
-    assert child(sm_gusset, "Default")["value"] == "true"
-    assert child(sm_gusset, "DefaultAsWritten") | {} == {
+    sm_flag = next(p for p in params["value"] if child(p, "ParameterId")["value"] == "mirrored")
+    assert child(sm_flag, "Default")["value"] == "true"
+    assert child(sm_flag, "DefaultAsWritten") | {} == {
         "modelType": "Property", "idShort": "DefaultAsWritten", "valueType": "xs:integer",
         "value": "1"}
     back = manifest_from_submodels({s["idShort"]: s for s in env["submodels"]})
-    assert next(p for p in back["parameters"] if p["id"] == "gusset")["default"] == 1
+    assert next(p for p in back["parameters"] if p["id"] == "mirrored")["default"] == 1
     units = [child(p, "Unit") for p in params["value"] if has_child(p, "Unit")]
     assert units and all(semantic(u) == f"{ID}/concept/parameter-unit" for u in units)
 

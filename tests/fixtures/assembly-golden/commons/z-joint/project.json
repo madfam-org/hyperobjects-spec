@@ -1,0 +1,510 @@
+{
+  "project": {
+    "name": "Z Joint",
+    "slug": "z-joint",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed Z joint for a CoreXY flying gantry (a 2.4-class machine). It bolts to the MGN9H block of a Z rail on a frame upright, holds one corner of the gantry by a pad under the gantry's C extrusion (a tongue in its bottom slot and an M5 into a T-nut), and carries that corner's Z belt clamp on a backer placed so the clamped belt strand runs vertical, tangent to the Z drive pulley and the top idler. Rigid: one logical Z. Four per machine, two hands.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una unión Z impresa para un pórtico volante CoreXY (una máquina tipo 2.4). Se atornilla al carro MGN9H de un riel Z en un poste del marco, sostiene una esquina del pórtico con un cojín bajo el perfil C del pórtico (una lengüeta en su ranura inferior y un M5 a una tuerca en T) y lleva la abrazadera de banda Z de esa esquina en un respaldo colocado para que el tramo de banda sujeto corra vertical, tangente a la polea del accionamiento Z y a la polea loca superior. Rígida: un solo Z lógico. Cuatro por máquina, dos manos.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/z-joint.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "3d-printer",
+      "z-axis",
+      "corexy",
+      "mgn9",
+      "linear-rail",
+      "gantry",
+      "2020",
+      "t-slot",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "z_joint",
+      "label": {
+        "en": "Z Joint",
+        "es": "Unión Z"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "z_joint"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 3,
+        "per_part": 15
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "z_joint",
+      "label": {
+        "en": "Z Joint",
+        "es": "Unión Z"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "gantry",
+      "label": {
+        "en": "Gantry",
+        "es": "Pórtico"
+      }
+    },
+    {
+      "id": "hand",
+      "label": {
+        "en": "Hand",
+        "es": "Mano"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "c_inboard",
+      "unit": "mm",
+      "type": "slider",
+      "default": 21.0,
+      "min": 21.0,
+      "max": 45.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "z_joint"
+      ],
+      "label": {
+        "en": "C Extrusion Inboard (mm)",
+        "es": "Perfil C hacia Adentro (mm)"
+      },
+      "tooltip": {
+        "en": "From the block's top face to the gantry C extrusion's centre line. At least 21: the C's outer face must stay 1 mm clear of the free Z belt strand",
+        "es": "De la cara superior del carro a la línea central del perfil C del pórtico. Al menos 21: la cara exterior del C debe librar 1 mm el tramo libre de la banda Z"
+      }
+    },
+    {
+      "id": "c_end",
+      "unit": "mm",
+      "type": "slider",
+      "default": 20.0,
+      "min": 0.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "gantry",
+      "modes": [
+        "z_joint"
+      ],
+      "label": {
+        "en": "C Extrusion End (mm)",
+        "es": "Extremo del Perfil C (mm)"
+      },
+      "tooltip": {
+        "en": "From the block's centre, along the upright's face into the frame, to the end of the C extrusion; the pad's T-nut sits 10 further on",
+        "es": "Desde el centro del carro, a lo largo de la cara del poste hacia el marco, hasta el extremo del perfil C; la tuerca en T del cojín va 10 más allá"
+      }
+    },
+    {
+      "id": "mirrored",
+      "type": "checkbox",
+      "default": false,
+      "group": "hand",
+      "modes": [
+        "z_joint"
+      ],
+      "label": {
+        "en": "Front-Right / Back-Left Joint (Mirrored)",
+        "es": "Unión Delantera Derecha / Trasera Izquierda (Espejo)"
+      },
+      "tooltip": {
+        "en": "The default is the front-left joint, which turned 180° is the back-right one; mirrored builds the other two",
+        "es": "La predeterminada es la unión delantera izquierda, que girada 180° es la trasera derecha; en espejo genera las otras dos"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "front_left_back_right",
+      "mode": "z_joint",
+      "label": {
+        "en": "Front Left / Back Right",
+        "es": "Delantera Izquierda / Trasera Derecha"
+      },
+      "values": {
+        "c_inboard": 21,
+        "c_end": 20,
+        "mirrored": false
+      }
+    },
+    {
+      "id": "front_right_back_left",
+      "mode": "z_joint",
+      "label": {
+        "en": "Front Right / Back Left",
+        "es": "Delantera Derecha / Trasera Izquierda"
+      },
+      "values": {
+        "c_inboard": 21,
+        "c_end": 20,
+        "mirrored": true
+      }
+    },
+    {
+      "id": "short_reach",
+      "mode": "z_joint",
+      "label": {
+        "en": "C Alongside the Block (c_end 6)",
+        "es": "C Junto al Carro (c_end 6)"
+      },
+      "values": {
+        "c_end": 6
+      }
+    },
+    {
+      "id": "narrow_gantry_long_reach",
+      "mode": "z_joint",
+      "label": {
+        "en": "Narrower Gantry, Longer Reach",
+        "es": "Pórtico Más Angosto, Alcance Mayor"
+      },
+      "values": {
+        "c_inboard": 30,
+        "c_end": 40,
+        "mirrored": true
+      }
+    }
+  ],
+  "constraints": [],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        80,
+        -70,
+        60
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        140
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -140,
+        10
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 3,
+    "per_part": 15,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "z_joint_carriage",
+        "label": {
+          "en": "Mounting face on the Z rail's MGN9H block",
+          "es": "Cara de montaje sobre el carro MGN9H del riel Z"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "HIWIN MGN9H top: 4 × M3 on 15 (across) × 16 (along); the plate's face, M3 screws through it",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            "-s",
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "male",
+        "size_key": "mgn9-carriage",
+        "symmetry": 2
+      },
+      {
+        "id": "z_joint_clamp_mount",
+        "label": {
+          "en": "Z belt clamp's M5x10, threaded into the backer's pilot",
+          "es": "M5x10 de la abrazadera de banda Z, roscado en el piloto del respaldo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through z-belt-clamp into a Ø4.2 pilot (the hole MISUMI taps M5); framed on the backer's face the clamp bears on",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            "s * (-10 + 13 - 12.73 / 2 + 1.2)",
+            "10 + 17.5 - 8.3",
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "s"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "z_joint_clamp_slot",
+        "label": {
+          "en": "Groove for the Z belt clamp's tongue",
+          "es": "Ranura para la lengüeta de la abrazadera de banda Z"
+        },
+        "geometry_type": "profile",
+        "standard": "A 6 mm groove 2.5 deep along z for a 5.8 tongue, as a 2020 slot's opening (MISUMI HFS5); framed on the backer's face",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            "s * (-10 + 13 - 12.73 / 2 + 1.2)",
+            "10 + 17.5 - 8.3",
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            "s"
+          ]
+        },
+        "polarity": "female",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "z_joint_c_key",
+        "label": {
+          "en": "Tongue in the gantry C extrusion's bottom slot",
+          "es": "Lengüeta en la ranura inferior del perfil C del pórtico"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 6 mm slot (MISUMI HFS5): a 5.8 tongue 2 high on the pad's top face, along the C",
+        "parameters": [
+          "c_inboard",
+          "c_end",
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            "s * c_inboard",
+            "c_end + 10",
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "z_joint_c_mount",
+        "label": {
+          "en": "M5 into a T-nut in the C's bottom slot",
+          "es": "M5 a una tuerca en T en la ranura inferior del C"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the pad into an M5 T-nut in a 2020 6 mm slot; framed on the pad's top face, which bears on the C's bottom face",
+        "parameters": [
+          "c_inboard",
+          "c_end",
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            "s * c_inboard",
+            "c_end + 10",
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "z_joint_c_mount_head",
+        "label": {
+          "en": "Head seat of the pad's M5x10 BHCS",
+          "es": "Asiento de la cabeza del M5x10 BHCS del cojín"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the pad's underside (10 − 4.5 into the T-nut)",
+        "parameters": [
+          "c_inboard",
+          "c_end",
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored"
+        },
+        "frame": {
+          "part": "z_joint",
+          "origin": [
+            "s * c_inboard",
+            "c_end + 10",
+            -4.5
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable Z joint for flying-gantry printers: it ties a gantry corner to its Z rail and carries the Z belt clamp, with every interface machine-checked against the rail block, the extrusion and the clamp it meets, so a builder can print, replace or adapt it.",
+      "es": "Una unión Z abierta e imprimible para impresoras de pórtico volante: une una esquina del pórtico a su riel Z y lleva la abrazadera de banda Z, con cada interfaz verificada por máquina contra el carro del riel, el perfil y la abrazadera que toca, de modo que quien la arma puede imprimirla, reponerla o adaptarla."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "z-axis",
+    "mgn9",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}

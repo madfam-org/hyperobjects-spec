@@ -1,0 +1,476 @@
+{
+  "project": {
+    "name": "Z Belt Clamp",
+    "slug": "z-belt-clamp",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A printed clamp that holds both ends of a 9 mm GT2 Z belt on a gantry built from 2020 extrusion, with no screws on the belt. One M5 T-nut and a slot tongue fix it to the extrusion. Each end of the belt goes down a jaw's slot, round a post and back beside itself, so the two plies lock tooth into tooth and the belt's pull tightens the fold. The upper jaw takes the end from the top idler, the lower jaw the end from the Z drive; both lie on one line, so the belt runs straight past the gantry.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una abrazadera impresa que sujeta ambos extremos de una banda Z GT2 de 9 mm en un pórtico de perfil 2020, sin tornillos sobre la banda. Una tuerca en T M5 y una lengüeta de ranura la fijan al perfil. Cada extremo de la banda baja por la ranura de una mordaza, rodea un poste y vuelve junto a sí mismo, de modo que las dos capas se traban diente con diente y el tirón de la banda aprieta el doblez. La mordaza superior toma el extremo que viene de la polea loca superior y la inferior el que viene del accionamiento Z; ambas están en una línea, así que la banda pasa recta junto al pórtico.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/z-belt-clamp.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "3d-printer",
+      "z-axis",
+      "gt2",
+      "belt",
+      "clamp",
+      "2020",
+      "t-slot",
+      "gantry",
+      "voron-style",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "z_belt_clamp",
+      "label": {
+        "en": "Z Belt Clamp",
+        "es": "Abrazadera de Banda Z"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "z_belt_clamp"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 2,
+        "per_part": 8
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "z_belt_clamp",
+      "label": {
+        "en": "Z Belt Clamp",
+        "es": "Abrazadera de Banda Z"
+      },
+      "render_mode": 0,
+      "color": "#5a6b7d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "clamp",
+      "label": {
+        "en": "Clamp",
+        "es": "Abrazadera"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "jaw_length",
+      "unit": "mm",
+      "type": "slider",
+      "default": 14.0,
+      "min": 10.0,
+      "max": 24.0,
+      "step": 0.5,
+      "group": "clamp",
+      "modes": [
+        "z_belt_clamp"
+      ],
+      "label": {
+        "en": "Jaw Length (mm)",
+        "es": "Longitud de la Mordaza (mm)"
+      },
+      "tooltip": {
+        "en": "Straight slot from the end face to the post's axis: the length of belt that locks tooth into tooth",
+        "es": "Ranura recta desde la cara del extremo hasta el eje del poste: la longitud de banda que se traba diente con diente"
+      }
+    },
+    {
+      "id": "post_d",
+      "unit": "mm",
+      "type": "slider",
+      "default": 6.0,
+      "min": 4.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "clamp",
+      "modes": [
+        "z_belt_clamp"
+      ],
+      "label": {
+        "en": "Post Diameter (mm)",
+        "es": "Diámetro del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "The post the belt folds round; the pocket clears it by one belt height plus 0.3",
+        "es": "El poste alrededor del que se dobla la banda; el hueco lo libra por una altura de banda más 0.3"
+      }
+    },
+    {
+      "id": "slot_w",
+      "unit": "mm",
+      "type": "slider",
+      "default": 2.4,
+      "min": 2.3,
+      "max": 3.2,
+      "step": 0.05,
+      "group": "clamp",
+      "modes": [
+        "z_belt_clamp"
+      ],
+      "label": {
+        "en": "Slot Width (mm)",
+        "es": "Ancho de la Ranura (mm)"
+      },
+      "tooltip": {
+        "en": "Two plies tooth into tooth are 2 × 1.52 − 0.76 = 2.28 thick (Gates 2MR); 2.4 leaves 0.12",
+        "es": "Dos capas diente con diente miden 2 × 1.52 − 0.76 = 2.28 (Gates 2MR); 2.4 deja 0.12"
+      },
+      "advanced": true
+    },
+    {
+      "id": "base_t",
+      "unit": "mm",
+      "type": "slider",
+      "default": 3.5,
+      "min": 2.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "clamp",
+      "modes": [
+        "z_belt_clamp"
+      ],
+      "label": {
+        "en": "Floor Thickness (mm)",
+        "es": "Espesor del Piso (mm)"
+      },
+      "tooltip": {
+        "en": "Material under the slots; the belt's mid-plane stands base_t + 4.8 off the extrusion face",
+        "es": "Material bajo las ranuras; el plano medio de la banda queda a base_t + 4.8 de la cara del perfil"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "standard",
+      "mode": "z_belt_clamp",
+      "label": {
+        "en": "Standard",
+        "es": "Estándar"
+      },
+      "values": {
+        "jaw_length": 14,
+        "post_d": 6,
+        "slot_w": 2.4,
+        "base_t": 3.5
+      }
+    },
+    {
+      "id": "long_jaws",
+      "mode": "z_belt_clamp",
+      "label": {
+        "en": "Long Jaws",
+        "es": "Mordazas Largas"
+      },
+      "values": {
+        "jaw_length": 20
+      }
+    },
+    {
+      "id": "belt_further_out",
+      "mode": "z_belt_clamp",
+      "label": {
+        "en": "Belt Further Out (6 mm floor)",
+        "es": "Banda Más Afuera (piso de 6 mm)"
+      },
+      "values": {
+        "base_t": 6
+      }
+    },
+    {
+      "id": "gentle_fold",
+      "mode": "z_belt_clamp",
+      "label": {
+        "en": "Gentle Fold",
+        "es": "Doblez Suave"
+      },
+      "values": {
+        "post_d": 8,
+        "slot_w": 2.6
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "slot_w >= 2 * 1.52 - 0.76",
+      "severity": "error",
+      "message": {
+        "en": "The slot must take two plies tooth into tooth (2.28 mm)",
+        "es": "La ranura debe admitir dos capas diente con diente (2.28 mm)"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        70,
+        -60,
+        60
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        120
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -120,
+        10
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 6,
+    "per_unit": 2,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "z_belt_clamp_mount",
+        "label": {
+          "en": "Mount screw into a T-nut in the extrusion's slot",
+          "es": "Tornillo de montaje a una tuerca en T en la ranura del perfil"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the clamp into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in a 2020 6 mm slot; framed on the mount face",
+        "frame": {
+          "part": "z_belt_clamp",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "z_belt_clamp_mount_head",
+        "label": {
+          "en": "Head seat of the mount screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo de montaje (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head, head on the counterbore floor (10 − 4.5 = 5.5 into the T-nut)",
+        "frame": {
+          "part": "z_belt_clamp",
+          "origin": [
+            0,
+            0,
+            4.5
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "z_belt_clamp_key",
+        "label": {
+          "en": "Tongue in the extrusion's slot",
+          "es": "Lengüeta en la ranura del perfil"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 series-5 slot (6 mm opening); the mount face bears on the extrusion face",
+        "frame": {
+          "part": "z_belt_clamp",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "z_belt_clamp_upper",
+        "label": {
+          "en": "Upper jaw: the belt end from the top idler",
+          "es": "Mordaza superior: el extremo de banda que viene de la polea loca superior"
+        },
+        "geometry_type": "profile",
+        "standard": "9 mm GT2 belt end (Gates 2MR, B 1.52, T 0.76): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed on the slot wall the back bears on, at the jaw entrance and mid-width",
+        "parameters": [
+          "jaw_length",
+          "post_d",
+          "slot_w",
+          "base_t"
+        ],
+        "frame": {
+          "part": "z_belt_clamp",
+          "origin": [
+            "9.25 + (post_d + 3.64) / 2 + jaw_length",
+            "-slot_w / 2",
+            "base_t + 4.8"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "female",
+        "size_key": "z-belt-gt2-9mm-clamp",
+        "symmetry": 2
+      },
+      {
+        "id": "z_belt_clamp_lower",
+        "label": {
+          "en": "Lower jaw: the belt end from the Z drive",
+          "es": "Mordaza inferior: el extremo de banda que viene del accionamiento Z"
+        },
+        "geometry_type": "profile",
+        "standard": "9 mm GT2 belt end (Gates 2MR, B 1.52, T 0.76): down a slot two plies wide, round the post and back beside itself, teeth into teeth; framed on the slot wall the back bears on, at the jaw entrance and mid-width",
+        "parameters": [
+          "jaw_length",
+          "post_d",
+          "slot_w",
+          "base_t"
+        ],
+        "frame": {
+          "part": "z_belt_clamp",
+          "origin": [
+            "-(9.25 + (post_d + 3.64) / 2 + jaw_length)",
+            "-slot_w / 2",
+            "base_t + 4.8"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "female",
+        "size_key": "z-belt-gt2-9mm-clamp",
+        "symmetry": 2
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "An open, printable belt clamp for machines that hang an axis on GT2 belts: it holds a standard 9 mm belt with no screws or proprietary parts, so a builder can print, replace or adapt it, and its interfaces are machine-checked against the extrusion and the belt they meet.",
+      "es": "Una abrazadera de banda abierta e imprimible para máquinas que cuelgan un eje de bandas GT2: sujeta una banda estándar de 9 mm sin tornillos ni piezas propietarias, de modo que quien la arma puede imprimirla, reponerla o adaptarla, y sus interfaces se verifican por máquina contra el perfil y la banda que tocan."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "3d-printer",
+    "z-axis",
+    "gt2",
+    "2020",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
