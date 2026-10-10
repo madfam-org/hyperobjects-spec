@@ -1,0 +1,73 @@
+{
+  "project": {
+    "name": {"en": "Valley fold", "es": "Pliegue en valle", "fr": "Pli vallée", "pt": "Dobra em vale"},
+    "slug": "valley-fold",
+    "version": "0.1.0",
+    "engine": "pliego",
+    "description": {
+      "en": "The first fold: a square folded once along its diagonal so the two halves rotate toward the front. Crease it, unfold it, and the paper keeps the memory of the line.",
+      "es": "El primer pliegue: un cuadrado doblado una vez por su diagonal, de modo que las dos mitades giran hacia el frente. Se marca, se desdobla, y el papel guarda la memoria de la línea.",
+      "fr": "Le premier pli : un carré plié une fois selon sa diagonale, les deux moitiés tournant vers l'avant. On marque le pli, on déplie, et le papier garde la mémoire de la ligne.",
+      "pt": "A primeira dobra: um quadrado dobrado uma vez pela diagonal, de modo que as duas metades giram para a frente. Vinca-se, desdobra-se, e o papel guarda a memória da linha."
+    },
+    "thumbnail": "/projects/valley-fold.webp",
+    "difficulty": "beginner",
+    "tags": ["technique", "origami", "hyperobject", "commons"],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [{"source": "Traditional technique (the valley fold of origami diagrams)", "license": "public-domain"}]
+    }
+  },
+  "modes": [
+    {
+      "id": "default",
+      "label": {"en": "Fold", "es": "Doblar", "fr": "Plier", "pt": "Dobrar"},
+      "script_file": "main.py",
+      "sheets": ["square"]
+    }
+  ],
+  "sheets": [
+    {"id": "square", "label": {"en": "Square", "es": "Cuadrado", "fr": "Carré", "pt": "Quadrado"}}
+  ],
+  "parameters": [
+    {
+      "id": "size",
+      "type": "slider",
+      "label": {"en": "Side (mm)", "es": "Lado (mm)", "fr": "Côté (mm)", "pt": "Lado (mm)"},
+      "default": 150,
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "mm"
+    },
+    {
+      "id": "stock",
+      "type": "select",
+      "label": {"en": "Paper", "es": "Papel", "fr": "Papier", "pt": "Papel"},
+      "default": "kami",
+      "options": [
+        {"value": "kami", "label": {"en": "Kami (origami paper)", "es": "Kami (papel de origami)", "fr": "Kami (papier origami)", "pt": "Kami (papel de origami)"}},
+        {"value": "copy-80", "label": {"en": "Copy paper 80 g/m²", "es": "Papel bond 80 g/m²", "fr": "Papier ramette 80 g/m²", "pt": "Papel sulfite 80 g/m²"}}
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "size >= 50 && size <= 300",
+      "severity": "error",
+      "message": {"en": "The side must be between 50 and 300 mm.", "es": "El lado debe medir entre 50 y 300 mm.", "fr": "Le côté doit mesurer entre 50 et 300 mm.", "pt": "O lado deve medir entre 50 e 300 mm."}
+    }
+  ],
+  "controls": [
+    {"id": "sequence", "kind": "sequence", "label": {"en": "Fold program", "es": "Secuencia de pliegues", "fr": "Séquence de pliage", "pt": "Sequência de dobras"}, "min": 0, "max": 1, "default": 0}
+  ],
+  "export_formats": ["svg", "pdf", "fold", "glb"],
+  "stock": {"default": "kami", "alternatives": ["copy-80"]},
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "technique",
+    "kernel": "sheet",
+    "commons_license": "CERN-OHL-W-2.0"
+  }
+}

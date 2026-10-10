@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "mountain-fold",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "mountain fold",
+    "es": "pliegue en monte",
+    "fr": "pli montagne",
+    "pt": "dobra em montanha"
+  },
+  "definition": {
+    "en": "A fold that bends the paper away from you, so the crease rises toward you like a ridge. Seen from the other side of the sheet it is a valley fold: mountain and valley name the same crease from opposite faces, which is why a crease pattern must say which face it is drawn from.",
+    "es": "Un pliegue que dobla el papel alejándolo de ti, de modo que la arista se levanta hacia ti como una cresta. Visto desde la otra cara del pliego es un pliegue en valle: monte y valle nombran el mismo doblez desde caras opuestas, y por eso un patrón de pliegues debe decir desde qué cara está dibujado.",
+    "fr": "Un pli qui replie le papier loin de soi, si bien que l'arête se dresse vers soi comme une crête. Vu de l'autre face de la feuille, c'est un pli vallée : montagne et vallée nomment le même pli depuis deux faces opposées, c'est pourquoi un canevas de plis doit dire de quelle face il est dessiné.",
+    "pt": "Uma dobra que dobra o papel para longe de ti, de modo que o vinco se ergue na tua direção como uma crista. Visto do outro lado da folha é uma dobra em vale: montanha e vale nomeiam o mesmo vinco a partir de faces opostas, e por isso um padrão de vincos tem de dizer de que face foi desenhado."
+  },
+  "aliases": [
+    {
+      "name": "M",
+      "repo": "pliego",
+      "note": "FOLD edges_assignment value; in a sheet document a mountain's edges_foldAngle is NEGATIVE (FOLD convention: positive = valley)."
+    }
+  ],
+  "see_also": [
+    "valley-fold",
+    "crease-pattern",
+    "maekawa-theorem"
+  ],
+  "constraints": "Fold angle sign follows FOLD: a mountain carries a negative edges_foldAngle in [-180, 0). An author who writes +180 for a mountain gets a valley, and the folded form comes out mirrored with no error anywhere.",
+  "sources": [
+    "Wikipedia (en), \"Yoshizawa–Randlett system\" — the dash-dot mountain line of origami diagrams",
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §1 — fold angle sign"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

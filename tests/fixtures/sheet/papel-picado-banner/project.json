@@ -1,0 +1,96 @@
+{
+  "project": {
+    "name": {"en": "Papel picado banner", "es": "Banderita de papel picado", "fr": "Fanion de papel picado", "pt": "Bandeirinha de papel picado"},
+    "slug": "papel-picado-banner",
+    "version": "0.1.0",
+    "engine": "pliego",
+    "description": {
+      "en": "One flag of a papel picado string: tissue paper folded and cut so a symmetric motif opens out, with a fold-over top edge that the string runs through. A tradition of San Salvador Huixcolotla, Puebla.",
+      "es": "Una banderita de una tira de papel picado: papel de china doblado y recortado para que se abra un motivo simétrico, con un dobladillo superior por donde pasa el cordel. Una tradición de San Salvador Huixcolotla, Puebla.",
+      "fr": "Un fanion d'une guirlande de papel picado : du papier de soie plié et découpé pour qu'un motif symétrique s'ouvre, avec un rabat supérieur où passe la ficelle. Une tradition de San Salvador Huixcolotla, Puebla.",
+      "pt": "Uma bandeirinha de um cordão de papel picado: papel de seda dobrado e recortado para que se abra um motivo simétrico, com uma bainha superior por onde passa o cordel. Uma tradição de San Salvador Huixcolotla, Puebla."
+    },
+    "thumbnail": "/projects/papel-picado-banner.webp",
+    "difficulty": "beginner",
+    "tags": ["papercut", "heritage", "hyperobject", "commons"],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [{"source": "Papel picado, the papercut tradition of San Salvador Huixcolotla, Puebla (traditional; motif generated, not copied from a maker's design)", "license": "traditional"}]
+    }
+  },
+  "modes": [
+    {
+      "id": "flag",
+      "label": {"en": "Flag", "es": "Banderita", "fr": "Fanion", "pt": "Bandeirinha"},
+      "sheets": ["flag"]
+    }
+  ],
+  "sheets": [
+    {"id": "flag", "label": {"en": "Flag", "es": "Banderita", "fr": "Fanion", "pt": "Bandeirinha"}}
+  ],
+  "parameters": [
+    {
+      "id": "width",
+      "type": "slider",
+      "label": {"en": "Width (mm)", "es": "Ancho (mm)", "fr": "Largeur (mm)", "pt": "Largura (mm)"},
+      "default": 280, "min": 150, "max": 400, "unit": "mm"
+    },
+    {
+      "id": "height",
+      "type": "slider",
+      "label": {"en": "Height (mm)", "es": "Alto (mm)", "fr": "Hauteur (mm)", "pt": "Altura (mm)"},
+      "default": 360, "min": 180, "max": 500, "unit": "mm"
+    },
+    {
+      "id": "symmetry",
+      "type": "select",
+      "label": {"en": "Folds", "es": "Dobleces", "fr": "Plis", "pt": "Dobras"},
+      "default": 2,
+      "options": [
+        {"value": 1, "label": {"en": "One fold (mirror)", "es": "Un doblez (espejo)", "fr": "Un pli (miroir)", "pt": "Uma dobra (espelho)"}},
+        {"value": 2, "label": {"en": "Two folds (quarters)", "es": "Dos dobleces (cuartos)", "fr": "Deux plis (quarts)", "pt": "Duas dobras (quartos)"}}
+      ]
+    },
+    {
+      "id": "hem",
+      "type": "slider",
+      "label": {"en": "String hem (mm)", "es": "Dobladillo del cordel (mm)", "fr": "Rabat de la ficelle (mm)", "pt": "Bainha do cordel (mm)"},
+      "default": 15, "min": 8, "max": 30, "unit": "mm"
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "hem * 6 < height",
+      "severity": "warning",
+      "message": {"en": "A deep hem leaves little room for the motif.", "es": "Un dobladillo muy hondo deja poco espacio al motivo.", "fr": "Un rabat trop profond laisse peu de place au motif.", "pt": "Uma bainha muito funda deixa pouco espaço para o motivo."}
+    }
+  ],
+  "export_formats": ["svg", "dxf", "pdf", "hpgl", "fold"],
+  "stock": {"default": "papel-de-china"},
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "papercut",
+    "kernel": "sheet",
+    "interfaces": [
+      {
+        "id": "string_hem",
+        "type": "track",
+        "label": {"en": "String hem", "es": "Dobladillo del cordel", "fr": "Rabat de la ficelle", "pt": "Bainha do cordel"},
+        "edges": [{"sheet": "flag", "edge": "top"}],
+        "parameters": ["hem"],
+        "polarity": "female"
+      }
+    ],
+    "heritage": {
+      "tradition": "Papel picado",
+      "region": "San Salvador Huixcolotla, Puebla, México",
+      "community": "The papel picado makers of San Salvador Huixcolotla",
+      "sources": [
+        "Wikipedia (es), «Papel picado» — San Salvador Huixcolotla, Puebla, as the craft's best-known centre",
+        "Wikipedia (en), \"Papel picado\" — the craft, its tools and its use in Día de Muertos ofrendas"
+      ]
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  }
+}

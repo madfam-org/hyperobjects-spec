@@ -1,0 +1,35 @@
+{
+  "spec_version": 4,
+  "id": "gutter",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "gutter",
+    "es": "pliegue central (medianil)",
+    "fr": "pliure centrale (petit fond)",
+    "pt": "dobra central (medianiz)"
+  },
+  "definition": {
+    "en": "The fold line between the two pages of a spread. In paper engineering it is the axis every pop-up turns about and the line a pop-up piece mounts across, so it is the interface a spread exposes to the pieces that stand on it.",
+    "es": "La línea de doblez entre las dos páginas de un pliego abierto. En ingeniería de papel es el eje alrededor del cual gira todo pop-up y la línea sobre la que se monta cada pieza, de modo que es la interfaz que un pliego ofrece a las piezas que se levantan sobre él.",
+    "fr": "La ligne de pli entre les deux pages d'une double page. En ingénierie papier, c'est l'axe autour duquel tourne tout pop-up et la ligne sur laquelle se monte chaque pièce : l'interface qu'une double page offre aux pièces qui s'y dressent.",
+    "pt": "A linha de dobra entre as duas páginas de uma página dupla. Em engenharia de papel é o eixo em torno do qual roda todo o pop-up e a linha sobre a qual se monta cada peça, sendo por isso a interface que uma página dupla oferece às peças que nela se levantam."
+  },
+  "aliases": [
+    {
+      "name": "gutter",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (neutral polarity); a pop-up piece's glue_flap mounts on a spread exposing one."
+    }
+  ],
+  "see_also": [
+    "pop-up",
+    "v-fold",
+    "parallel-fold",
+    "signature"
+  ],
+  "constraints": "A piece mounted across the gutter must leave it free: glue that bridges the gutter line itself locks the spread, which then neither opens fully nor closes flat.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

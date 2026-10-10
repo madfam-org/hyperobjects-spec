@@ -1,0 +1,27 @@
+{
+  "spec_version": 4,
+  "id": "v-fold",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "V-fold",
+    "es": "pliegue en V",
+    "fr": "pli en V",
+    "pt": "dobra em V"
+  },
+  "definition": {
+    "en": "The basic angled pop-up: a folded piece glued across the gutter with its two glue lines at an angle to it, so opening the spread pulls the lines apart and the piece rises. The angle sets how far it leans and how high it stands.",
+    "es": "El pop-up angular básico: una pieza doblada que se pega atravesando el lomo con sus dos líneas de pegado en ángulo respecto a él, de modo que al abrir el pliego las líneas se separan y la pieza se levanta. El ángulo fija cuánto se inclina y qué tan alto queda.",
+    "fr": "Le pop-up oblique de base : une pièce pliée collée de part et d'autre de la pliure, ses deux lignes de collage formant un angle avec elle, si bien qu'à l'ouverture les lignes s'écartent et la pièce se dresse. L'angle règle son inclinaison et sa hauteur.",
+    "pt": "O pop-up angular básico: uma peça dobrada colada atravessando a dobra, com as duas linhas de colagem em ângulo em relação a ela, de modo que ao abrir a página dupla as linhas se afastam e a peça se levanta. O ângulo define quanto se inclina e que altura atinge."
+  },
+  "see_also": [
+    "pop-up",
+    "parallel-fold",
+    "gutter"
+  ],
+  "constraints": "The piece's own fold, its two glue lines and the gutter must meet at one point; a piece whose fold misses that point cannot fold flat and either buckles or tears its tabs when the spread closes.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

@@ -88,7 +88,7 @@ jobs:
         # perfectly healthy install. A bare system soname — `libXrender.so.1` — is the
         # real signal.
         run: |
-          .venv/bin/python -c "import fc_spec, y4d_spec, commons_sandbox, hyperobjects_schemas; print('packages ok')"
+          .venv/bin/python -c "import fc_spec, y4d_spec, pliego_spec, commons_sandbox, hyperobjects_schemas; print('packages ok')"
           .venv/bin/python - <<'PY' || true
           import platform, sys, traceback
 
@@ -213,6 +213,19 @@ jobs:
           rm -f kinematics.out
           .venv/bin/y4d-spec identity examples/chainmail-panel.identity.json
           .venv/bin/y4d-spec rules
+          # THE THIRD KERNEL (pliego-spec, the sheet commons). The fixtures are faithful
+          # minimal sheet cartridges standing in for the commons' first real ones. The greps
+          # are the read-proof: the summary must count what it checked AND say what it did
+          # not (no document was built, no sheet geometry was judged).
+          .venv/bin/pliego-spec list
+          .venv/bin/pliego-spec check cartridge tests/fixtures/sheet/valley-fold \
+            tests/fixtures/sheet/v-fold-popup tests/fixtures/sheet/papel-picado-banner > sheet.out
+          grep -q "cartridges=3 failures=0 notes=3 documents=NOT built geometry=NOT verified" sheet.out
+          .venv/bin/pliego-spec check sheet-manifest tests/fixtures/sheet/*/project.json
+          .venv/bin/pliego-spec check sheet-document tests/fixtures/sheet-documents/valley-fold.fold > sheet.out
+          grep -q "sheets=1 vertices=4 edges=5 faces=2 joins=0 geometry=NOT verified" sheet.out
+          rm -f sheet.out
+          .venv/bin/pliego-spec rules
 
       - name: Lexicon lane
         # Hermetic (bundled slug snapshot): schema-valid, quadrilingual-complete,
@@ -252,3 +265,4 @@ jobs:
           .venv/bin/y4d-spec define negative_ease_knit | grep -q "knit-negative-ease"
           .venv/bin/fc-spec lookup fashion-cabinet/garter-belt | grep -q "strap-slot"
           .venv/bin/y4d-spec related tape-edge | grep -q "zipper_tape"
+          .venv/bin/pliego-spec define papel-picado --lang es | grep -q "Huixcolotla"

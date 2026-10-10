@@ -1,0 +1,27 @@
+{
+  "spec_version": 4,
+  "id": "parallel-fold",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "parallel fold",
+    "es": "pliegue paralelo",
+    "fr": "pli parallèle",
+    "pt": "dobra paralela"
+  },
+  "definition": {
+    "en": "The pop-up whose folds all run parallel to the gutter: a strip or box that stands up square to the page as the spread opens, the mechanism behind steps, stages and floating layers.",
+    "es": "El pop-up cuyos pliegues corren todos paralelos al lomo: una tira o caja que se levanta en escuadra con la página al abrirse el pliego, el mecanismo detrás de escalones, escenarios y capas flotantes.",
+    "fr": "Le pop-up dont tous les plis sont parallèles à la pliure : une bande ou une boîte qui se dresse d'équerre avec la page à l'ouverture, le mécanisme des marches, des scènes et des plans flottants.",
+    "pt": "O pop-up cujas dobras correm todas paralelas à dobra da página dupla: uma tira ou caixa que se levanta em esquadria com a página ao abrir, o mecanismo por trás de degraus, cenários e camadas flutuantes."
+  },
+  "see_also": [
+    "pop-up",
+    "v-fold",
+    "gutter"
+  ],
+  "constraints": "The piece and the two half-pages form a parallelogram linkage: opposite sides must be equal — each panel of the piece equals the distance, on the opposite half-page, from the gutter to the other panel's glue line — or the piece will not close flat.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}
