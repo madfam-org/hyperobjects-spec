@@ -8,6 +8,11 @@ Ported from yantra4d/scripts/audit_compliance.py:
   (declared-vs-shipped license, shipped half; scripts/qa/check_licenses.py)
                                                     -> shipped_license_rules
 
+`shipped_license_bodies` (NOTE ONLY) is the body half this package adds: the
+title check above reads the first lines, so a LICENSE titled CERN-OHL-W carrying the
+CERN-OHL-S body passed it (solid-hyperobjects#177). The judgement lives in
+hyperobjects_licenses; check_cartridge turns verdicts into notes and counts them.
+
 Plus two rules this package originates, both of which need the mode SOURCES and so
 cannot live in `rules.py` with the pure manifest checks. `default_drift_rules`
 (y4d_spec.default_drift, NOTE ONLY) compares each manifest default with the literal
@@ -30,6 +35,7 @@ __all__ = [
     "source_path_rules",
     "vendor_rules",
     "shipped_license_rules",
+    "shipped_license_bodies",
     "mode_source_rules",
     "dead_parameter_rules",
     "all_structure_rules",
@@ -134,11 +140,7 @@ def shipped_license_rules(cartridge_dir: Path, manifest: dict) -> list[str]:
     if not isinstance(declared, str) or not declared:
         return problems
 
-    candidates = [
-        p
-        for p in sorted(cartridge_dir.iterdir())
-        if p.is_file() and p.name.upper().startswith(("LICENSE", "COPYING"))
-    ]
+    candidates = _license_candidates(cartridge_dir)
     if not candidates:
         return problems
 
@@ -160,6 +162,41 @@ def shipped_license_rules(cartridge_dir: Path, manifest: dict) -> list[str]:
                 f"'{declared}' — declared-vs-shipped conflict"
             )
     return problems
+
+
+def _license_candidates(cartridge_dir: Path) -> list[Path]:
+    """The licence files a cartridge ships: LICENSE* / COPYING* at its top level."""
+    return [
+        p
+        for p in sorted(cartridge_dir.iterdir())
+        if p.is_file() and p.name.upper().startswith(("LICENSE", "COPYING"))
+    ]
+
+
+def shipped_license_bodies(cartridge_dir: Path, manifest: dict) -> list:
+    """Compare each shipped LICENSE BODY with the canonical SPDX text (notes only).
+
+    Same files as `shipped_license_rules`, judged against the declared
+    `commons_license` by hyperobjects_licenses.classify_license_file: canonical text,
+    a recognised short CERN-OHL notice, a mismatch (naming the canonical body it is
+    closest to), or unjudged (no vendored text for the declared id). Returns the
+    verdicts; a verdict's `notes()` are what check_cartridge prints. Nothing here
+    ever adds a problem: the rule lands as a note first (AGENTS.md), and becomes a
+    failure only after its whole-commons false-positive analysis.
+    """
+    from hyperobjects_licenses import classify_license_file
+
+    ho = manifest.get("hyperobject") if isinstance(manifest.get("hyperobject"), dict) else {}
+    declared = ho.get("commons_license")
+    declared = declared if isinstance(declared, str) and declared else None
+    verdicts = []
+    for lic in _license_candidates(cartridge_dir):
+        try:
+            verdicts.append(classify_license_file(lic, declared, rel=lic.name))
+        except OSError:
+            # shipped_license_rules already reports an unreadable file as a problem.
+            continue
+    return verdicts
 
 
 # Distinctive title text per license family, used to tell a shipped LICENSE apart
@@ -304,7 +341,12 @@ def dead_parameter_rules(cartridge_dir: Path, manifest: dict) -> list[str]:
 
 
 def all_structure_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], list[str]]:
-    """Every on-disk rule, in one call. Returns (problems, notes)."""
+    """Every on-disk rule, in one call. Returns (problems, notes).
+
+    The licence-body notes are not added here: check_cartridge both prints and COUNTS
+    them (`licence-body:` in the summary), so it calls shipped_license_bodies
+    itself rather than classifying every file twice.
+    """
     problems: list[str] = []
     problems.extend(mode_source_rules(cartridge_dir, manifest))
     path_problems, notes = source_path_rules(cartridge_dir)

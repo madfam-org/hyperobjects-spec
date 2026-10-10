@@ -6,6 +6,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
+
+The declared-vs-shipped rule (`structure.shipped_license_rules`) reads only a LICENSE's
+title line. solid-hyperobjects therefore shipped the CERN-OHL-S-2.0 body under a
+"Weakly Reciprocal" title, in its root LICENSE and 12 cartridges, with CI green
+(fixed by solid-hyperobjects#177).
+
+#### Added
+
+- **`hyperobjects_licenses`.** Canonical texts copied byte for byte from SPDX
+  license-list-data v3.29.0 (`31ba1a5`): CERN-OHL-W/S/P-2.0, plus Apache-2.0,
+  CC-BY-SA-4.0, CC-BY-NC-ND-4.0 and GPL-2.0-only, which solid manifests cite in
+  attribution. They are pinned by `licenses.lock.json` (sha256, git blob id, size) and
+  covered by a lock test. `classify_license_text` normalises (NFC, whitespace) and
+  folds three documented GitHub-catalogue spellings (`DOCUMENTED_VARIANTS`). It then
+  returns canonical, notice (a short CERN-OHL v2 notice; a malformed URL is a finding),
+  mismatch (naming the closest canonical body) or unjudged.
+- **`y4d-spec check`** runs it on every LICENSE/COPYING a cartridge ships
+  (`structure.shipped_license_bodies`, `CartridgeResult.license_bodies`). Findings are
+  **notes**, so the exit code is unchanged. The summary line gains
+  `licence-body: files=N canonical=C notices=S mismatched=M unjudged=U` when a licence
+  file was checked.
+- **`y4d-spec license-body` / `fc-spec license-body <file|dir> [--declared ID]`** run
+  the same check on any tree, including a commons root LICENSE, which belongs to no
+  cartridge. fc-spec had no licence check before. Both exit 0 whatever they find, and
+  2 when there is nothing to check.
+
+#### Whole-commons false-positive analysis (2026-10-10)
+
+solid `b299908` (after #177): 52 files, 15 canonical, 27 notices (all with the one-slash
+`https:/cern.ch/cern-ohl` URL), 10 mismatched (the 184-line reworded W text, closest
+canonical CERN-OHL-W-2.0 at 24%). soft `c7edcd9`: its one LICENSE (the root) is the same
+reworded text. Nothing healthy was flagged: every flagged file is a real defect, and
+the PR records the per-file list. Under `y4d-spec check` over solid's 512 top-level
+cartridges: `failures=0`, notes 36 → 72.
+
+**Flip condition.** Mismatches and malformed notice URLs become failures in a separate
+change once the replacement texts (lane licB, in solid, soft, fashion-cabinet and
+yantra4d) have merged and a re-run over both commons' `main` prints `mismatched=0` and
+no URL note. Unjudged stays a note.
+
 ### One digest, one projection: project from the canonical document (SEM-1 §1, package 0.10.0, lane P6-PROJFIX) — projection version 3
 
 BREAKING for id consumers: every shell and submodel id is now `…/p3`. No store is live yet

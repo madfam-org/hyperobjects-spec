@@ -97,7 +97,30 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
    vendored tree, no shipped LICENSE contradicting the declared one, and **every
    declared parameter is actually referenced by a source** (below). As a note only,
    every manifest `default` that differs from the literal the source falls back to
-   (`default-drift`, below).
+   (`default-drift`, below), and every shipped LICENSE whose **body** is not the
+   canonical text of the declared licence (`licence-body`, below).
+
+**Licence bodies (note-first).** The declared-vs-shipped rule reads a LICENSE's title
+line. That let a file titled CERN-OHL-W carry the whole CERN-OHL-S body, in
+solid-hyperobjects' root and 12 cartridges, with CI green (fixed in
+solid-hyperobjects#177). `hyperobjects_licenses` now compares the whole body with the
+SPDX license-list-data text, vendored and sha256-locked (`VENDORED.md`). It normalises
+Unicode (NFC) and whitespace and tolerates only the three spellings in
+`DOCUMENTED_VARIANTS`, where GitHub's licence catalogue renders CERN-OHL-W differently
+from SPDX. Each file lands in one bucket:
+
+- **canonical**: the declared licence's text.
+- **notice**: a short CERN-OHL v2 notice that names the declared variant and repeats its
+  warranty disclaimer. A malformed URL such as `https:/cern.ch/cern-ohl` is still a note.
+- **mismatch**: anything else. The note names the closest canonical text, so an S body
+  under a W title reads `body is CERN-OHL-S-2.0`.
+- **unjudged**: no vendored text exists for the declared id. That is not a pass.
+
+Every finding is a **note** and the exit code does not change. The summary gains
+`licence-body: files=N canonical=C notices=S mismatched=M unjudged=U` (C+S+M+U = N)
+whenever a checked cartridge ships a licence file. A commons root LICENSE belongs to no
+cartridge, so `y4d-spec license-body <dir> --declared CERN-OHL-W-2.0` (also on
+`fc-spec`) checks any tree the same way and exits 0 whatever it finds.
 
 **Every declared parameter must reach geometry.** A parameter the sources never read is
 a control the UI offers that changes nothing, and it fails the check. OpenSCAD is where
@@ -1614,6 +1637,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `hyperobjects_schemas` | every bundled JSON Schema, plus the identity key and the GOC-1 generator-output digests and checker |
 | `hyperobjects_lexicon` | the Commons Lexicon corpus, the controlled vocabularies, the fabrication vocabularies and their manifest-membership rule (SEM-1 §4), the article-frontmatter contract, the dictionary tools, the cross-commons reader (G4), and their lanes |
 | `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges, material cards and checked assemblies (ASM-1 §5: BoM, Mates, placement, Kinematics (§9), capability, requirement roll-up) → AAS Environments, the resolver that reads stored type shells back for re-validation (`hyperobjects_aas.resolver`), the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
+| `hyperobjects_licenses` | the shipped-LICENSE body check (`license-body`, note-first) against canonical licence texts **vendored** byte-identical from SPDX license-list-data and pinned by `licenses.lock.json` — see its `VENDORED.md` |
 | `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
 
 ```python
@@ -1724,7 +1748,9 @@ visible instead of silent.
 
 Apache-2.0. The commons tooling is permissive so anyone can adopt it. One third-party
 file is vendored under its own licence: `src/hyperobjects_aas/schemas/aas.json`, the
-IDTA AAS v3.1.2 JSON Schema, CC-BY-4.0, with its attribution and licence text beside it. The platform
+IDTA AAS v3.1.2 JSON Schema, CC-BY-4.0, with its attribution and licence text beside it.
+The canonical licence texts in `src/hyperobjects_licenses/texts/` are copied unmodified
+from SPDX license-list-data, and each is governed by its own terms. The platform
 repos carry their own license (source-available per RFC 0038 P1); the commons objects
 carry theirs (CERN-OHL-W-2.0 for solids; the FC1 ruling for soft goods).
 
