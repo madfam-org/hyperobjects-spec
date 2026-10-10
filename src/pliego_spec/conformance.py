@@ -156,7 +156,12 @@ def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
             "only the local half (params_map reads declared parameters) was checked"
         )
     if isinstance(doc, dict) and isinstance(doc.get("material_ref"), list):
-        notes.append("material_ref: the Fashion Cabinet fabric cards were NOT resolved")
+        platforms = sorted({r.get("platform") for r in doc["material_ref"]
+                            if isinstance(r, dict) and isinstance(r.get("platform"), str)})
+        notes.append(
+            f"material_ref: the referenced material cards ({', '.join(platforms) or 'none'}) "
+            "were NOT resolved"
+        )
     return CartridgeResult(slug=slug, ok=not problems, problems=problems, notes=notes)
 
 

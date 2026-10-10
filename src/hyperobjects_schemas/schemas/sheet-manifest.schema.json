@@ -231,20 +231,10 @@
       }
     },
     "material_ref": {
-      "description": "Bridges to Fashion Cabinet fabric cards (materials/<slug>/material.json) for the non-paper materials a sheet object uses: book cloth on a spine, a ribbon, a hinge tape. No precedent existed before the sheet commons; the shape is deliberately the smallest honest one.",
+      "description": "Materials another platform owns, used by reference: a Fashion Cabinet fabric card (book cloth on a spine, a ribbon, a hinge tape, felt), a Pliego stock card (a foam or board layer) or a Yantra4D thin-print card. Each item is either a role-only bridge ({platform, material_slug, role[, linked]}) or the sheet-behaviour contract's (cross-commons) reference with behaviour \"sheet\", which asks the owning card to carry, or map to, a sheet_behaviour document. Both keys may appear together.",
       "type": "array",
       "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": ["platform", "material_slug", "role"],
-        "additionalProperties": false,
-        "properties": {
-          "platform": { "type": "string", "enum": ["fashion-cabinet"] },
-          "material_slug": { "$ref": "#/$defs/slug" },
-          "role": { "type": "string", "enum": ["cover", "spine", "hinge", "ribbon", "lining", "custom"] },
-          "linked": { "type": "boolean" }
-        }
-      }
+      "items": { "$ref": "#/$defs/material_ref" }
     },
     "hyperobject": {
       "type": "object",
@@ -292,6 +282,20 @@
     }
   },
   "$defs": {
+    "material_ref": {
+      "description": "Same keys as the sheet-behaviour contract's material_ref ({platform, material_slug, behaviour, role, linked}), with role narrowed to the sheet commons' roles. A role-only item (no behaviour) is the original bridge shape and stays valid.",
+      "type": "object",
+      "required": ["platform", "material_slug"],
+      "anyOf": [{ "required": ["role"] }, { "required": ["behaviour"] }],
+      "additionalProperties": false,
+      "properties": {
+        "platform": { "type": "string", "enum": ["fashion-cabinet", "pliego", "yantra4d"] },
+        "material_slug": { "$ref": "#/$defs/slug" },
+        "behaviour": { "type": "string", "enum": ["sheet"] },
+        "role": { "type": "string", "enum": ["cover", "spine", "hinge", "ribbon", "lining", "custom"] },
+        "linked": { "type": "boolean" }
+      }
+    },
     "i18n": {
       "description": "A user-visible text, born quadrilingual: en, es, fr AND pt are all required (Spanish is the house register and the quality bar).",
       "type": "object",

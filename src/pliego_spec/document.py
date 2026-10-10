@@ -16,14 +16,21 @@ engine's ``loadDocument()``. This module checks the subset that needs no geometr
   §8.8  every sequence target is an M/V/F edge, and every release index is in range;
   §8.9  (structural half) a 3-D frame has one coordinate per vertex;
   §8.10 `pliego:meta.digest`, when present, equals the SHA-256 of the GOC-1 canonical
-        serialisation of the document with `digest` set to null.
+        serialisation of the document with `digest` set to null;
+  §8.13 (structural half) every `pliego:dielines` / `pliego:finishes` / `pliego:artwork`
+        entry names a declared sheet;
+  §8.14 (structural half) every `pliego:annotations` entry names a declared sheet and its
+        text is printable; `pliego:pages` has a margin under half the page, unique page
+        ids, and no two pages overlap (rectangle arithmetic, no polygon kernel).
 
 NOT checked here, and said so on every run (``geometry=NOT verified``): §8.3 (faces
 simple, counter-clockwise, non-degenerate, tiling their sheet), §8.5 (sheets do not
-overlap in the layout frame), §8.7's point-in-sheet containment, and §8.9's
-developability and glue-weld tolerances. Those need a polygon kernel; they arrive with
-a public verifier (a keystone geometry lane or the published Pliego kernel), and until
-then a pass here is a STRUCTURAL pass only.
+overlap in the layout frame), §8.7's point-in-sheet containment, §8.9's
+developability and glue-weld tolerances, §8.11 (pieces) and §8.12 (stacks), and the
+containment halves of §8.13 (panel, glue and finish polygons on their sheet) and §8.14
+(an annotation's point on its sheet; the `sheet_off_page` warning). Those need a polygon
+kernel or the face graph; the Pliego kernel's ``pliego.document.verify()`` judges them,
+and a pass here is a STRUCTURAL pass only.
 """
 
 from __future__ import annotations
@@ -65,7 +72,16 @@ ZERO_ANGLE = frozenset("BFCJU")
 FOLDABLE = frozenset("MVF")
 
 #: The §8 rules this module does not verify — printed with every verdict.
-UNCHECKED_RULES = ("8.3", "8.5", "8.7 containment", "8.9 developability")
+UNCHECKED_RULES = (
+    "8.3",
+    "8.5",
+    "8.7 containment",
+    "8.9 developability",
+    "8.11",
+    "8.12",
+    "8.13 containment",
+    "8.14 containment",
+)
 
 
 @dataclass
@@ -140,6 +156,41 @@ def _arr(doc: dict, key: str) -> list:
 
 def _is_index(value: object, bound: int) -> bool:
     return isinstance(value, int) and not isinstance(value, bool) and 0 <= value < bound
+
+
+def _pages_problems(pages: object) -> list[str]:
+    """§8.14's arithmetic on `pliego:pages` (the schema has already judged the shape)."""
+    if not isinstance(pages, dict):
+        return []
+    size, items = pages.get("size"), pages.get("pages")
+    if not (isinstance(size, list) and len(size) == 2 and isinstance(items, list)
+            and all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in size)):
+        return []
+    w, h = float(size[0]), float(size[1])
+    margin = pages.get("margin", 0)
+    out = []
+    if isinstance(margin, (int, float)) and not margin < min(w, h) / 2:
+        out.append(f"§8.14 pliego:pages: margin {margin} is not under half the page "
+                   f"({min(w, h) / 2:g} mm)")
+    rects = []
+    seen: set = set()
+    for page in items:
+        if not isinstance(page, dict):
+            continue
+        pid, origin = page.get("id"), page.get("origin")
+        if pid in seen:
+            out.append(f"§8.14 pliego:pages: page id '{pid}' is declared more than once")
+        seen.add(pid)
+        if isinstance(origin, list) and len(origin) >= 2 and all(
+                isinstance(c, (int, float)) and not isinstance(c, bool) for c in origin[:2]):
+            rects.append((pid, float(origin[0]), float(origin[1])))
+    eps = 1e-9
+    for i, (a, ax, ay) in enumerate(rects):
+        for b, bx, by in rects[i + 1:]:
+            if (ax < bx + w - eps and bx < ax + w - eps
+                    and ay < by + h - eps and by < ay + h - eps):
+                out.append(f"§8.14 pliego:pages: pages '{a}' and '{b}' overlap")
+    return out
 
 
 def _structural_problems(doc: dict) -> list[str]:
@@ -320,6 +371,23 @@ def _structural_problems(doc: dict) -> list[str]:
         if len(_arr(frame, "vertices_coords")) != n_v:
             say(f"§8.9 file_frames[{i}] ('{title}'): {len(_arr(frame, 'vertices_coords'))} "
                 f"coordinates for {n_v} vertices")
+
+    # §8.13 structural half: packaging blocks name a declared sheet
+    for key in ("pliego:dielines", "pliego:finishes", "pliego:artwork"):
+        for k, block in enumerate(_arr(doc, key)):
+            if isinstance(block, dict) and block.get("sheet") not in known_sheets:
+                say(f"§8.13 {key}[{k}]: unknown sheet '{block.get('sheet')}'")
+
+    # §8.14 structural half: annotations and print pages
+    for k, note in enumerate(_arr(doc, "pliego:annotations")):
+        if not isinstance(note, dict):
+            continue
+        if note.get("sheet") not in known_sheets:
+            say(f"§8.14 pliego:annotations[{k}]: unknown sheet '{note.get('sheet')}'")
+        text = note.get("text")
+        if isinstance(text, str) and not text.isprintable():
+            say(f"§8.14 pliego:annotations[{k}]: text {text!r} is not printable")
+    problems.extend(_pages_problems(doc.get("pliego:pages")))
 
     # §8.10 digest
     meta = doc.get("pliego:meta")

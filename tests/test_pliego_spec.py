@@ -96,7 +96,7 @@ def test_kernel_0_2_stock_snapshot_keys_are_accepted():
     assert check("sheet-document", doc).ok, check("sheet-document", doc).problems
 
 
-@pytest.mark.parametrize("slug", ["cardstock-250", "washi-kozo-30"])
+@pytest.mark.parametrize("slug", ["cardstock-250", "washi-kozo-30", "corrugated-b-flute"])
 def test_real_stock_cards_pass_the_stock_card_contract(slug):
     card = json.loads((ROOT / "tests" / "fixtures" / "sheet-stock" / f"{slug}.stock.json")
                       .read_text(encoding="utf-8"))
@@ -561,3 +561,177 @@ def test_real_kernel_0_2_documents_pass(name):
 def test_the_reveal_block_document_exercises_pieces_and_remove():
     text = (KERNEL_02 / "reveal-block.default.preview.fold").read_text(encoding="utf-8")
     assert '"pliego:pieces"' in text and '"remove"' in text
+
+
+# ── pliego:meta, as the kernel writes it ─────────────────────────────────────
+def test_meta_min_feature_mm_is_accepted_and_meta_stays_closed():
+    """`Assembly(min_feature_mm=…)` writes `pliego:meta.min_feature_mm` (spec §5.7); the copy
+    the commons pinned before refused it. The vendored meta stays exactly as closed as the
+    kernel's own schema: an unknown key is refused, never waved through."""
+    doc = _document()
+    doc["pliego:meta"]["min_feature_mm"] = 0.8
+    doc["pliego:meta"]["digest"] = document_digest(doc)
+    assert check("sheet-document", doc).ok, check("sheet-document", doc).problems
+    doc["pliego:meta"]["min_feature_mm"] = 0
+    assert any("min_feature_mm" in p or "pliego:meta" in p
+               for p in check("sheet-document", doc).problems)
+    doc["pliego:meta"]["min_feature_mm"] = 0.8
+    doc["pliego:meta"]["designer"] = "someone"
+    assert not check("sheet-document", doc).ok
+
+
+def test_meta_keys_are_the_kernel_writers_keys():
+    """`pliego.document_build.build_document` writes kernel, min_feature_mm, digest and the
+    cartridge runner's cartridge/mode/params; the vendored meta admits exactly those."""
+    meta = pliego_spec.document.load_document_schema()["$defs"]["meta"]
+    assert sorted(meta["properties"]) == sorted(
+        ["cartridge", "mode", "params", "kernel", "digest", "min_feature_mm"])
+    assert meta["additionalProperties"] is False
+
+
+# ── material_ref: role bridges and the sheet-behaviour contract's reference ─────
+def _with_material_ref(*refs: dict) -> dict:
+    doc = _manifest()
+    doc["material_ref"] = list(refs)
+    return doc
+
+
+@pytest.mark.parametrize("ref", [
+    {"platform": "fashion-cabinet", "material_slug": "book-cloth", "role": "spine"},
+    {"platform": "fashion-cabinet", "material_slug": "felt-wool", "behaviour": "sheet"},
+    {"platform": "pliego", "material_slug": "eva-foam-2", "behaviour": "sheet",
+     "role": "custom", "linked": True},
+    {"platform": "yantra4d", "material_slug": "bambu-tpu-95a", "behaviour": "sheet"},
+])
+def test_material_ref_accepts_role_bridges_and_sheet_behaviour_refs(ref):
+    problems = check_manifest(_with_material_ref(ref))
+    assert not any("material_ref" in p for p in problems), problems
+
+
+@pytest.mark.parametrize("ref", [
+    {"platform": "fashion-cabinet", "material_slug": "book-cloth"},  # neither role nor behaviour
+    {"platform": "solid-hyperobjects", "material_slug": "pla", "behaviour": "sheet"},
+    {"platform": "pliego", "material_slug": "eva-foam-2", "behaviour": "solid"},
+    {"platform": "pliego", "material_slug": "eva-foam-2", "role": "core"},
+    {"platform": "pliego", "material_slug": "Eva Foam", "behaviour": "sheet"},
+    {"platform": "pliego", "material_slug": "eva-foam-2", "behaviour": "sheet", "grade": "x"},
+])
+def test_material_ref_stays_closed(ref):
+    assert any("material_ref" in p for p in check_manifest(_with_material_ref(ref)))
+
+
+def test_material_ref_note_names_the_unresolved_platforms(tmp_path):
+    cart = _copy(tmp_path)
+    doc = _with_material_ref(
+        {"platform": "yantra4d", "material_slug": "bambu-tpu-95a", "behaviour": "sheet"},
+        {"platform": "fashion-cabinet", "material_slug": "book-cloth", "role": "spine"},
+    )
+    _write(cart, doc)
+    result = check_cartridge(cart)
+    assert result.ok, result.problems
+    assert any("material_ref" in n and "fashion-cabinet, yantra4d" in n and "NOT resolved" in n
+               for n in result.notes)
+
+
+# ── §8.13 / §8.14 structural halves (packaging blocks, print layout) ──────────
+def _restamp(doc: dict) -> dict:
+    doc["pliego:meta"]["digest"] = document_digest(doc)
+    return doc
+
+
+def _sheet_id(doc: dict) -> str:
+    return doc["pliego:sheets"][0]["id"]
+
+
+def test_packaging_blocks_must_name_a_declared_sheet():
+    doc = _document()
+    finish = {"id": "logo", "kind": "deboss", "sheet": _sheet_id(doc), "side": "front",
+              "region": [[[1, 1], [5, 1], [5, 5]]], "depth_mm": 0.3, "profile": "flat"}
+    doc["pliego:finishes"] = [finish]
+    assert check("sheet-document", _restamp(doc)).ok, check("sheet-document", doc).problems
+    finish["sheet"] = "nowhere"
+    problems = check("sheet-document", _restamp(doc)).problems
+    assert any(p.startswith("§8.13 pliego:finishes[0]: unknown sheet 'nowhere'") for p in problems)
+
+
+def test_annotations_must_name_a_declared_sheet_with_printable_text():
+    doc = _document()
+    note = {"sheet": _sheet_id(doc), "at": [10, 10], "text": "12", "size": 3}
+    doc["pliego:annotations"] = [note]
+    assert check("sheet-document", _restamp(doc)).ok, check("sheet-document", doc).problems
+    note.update(sheet="nowhere", text="1\t2")
+    problems = check("sheet-document", _restamp(doc)).problems
+    assert any("§8.14 pliego:annotations[0]: unknown sheet" in p for p in problems)
+    assert any("§8.14 pliego:annotations[0]: text" in p for p in problems)
+
+
+def test_print_pages_margin_ids_and_overlap():
+    doc = _document()
+    doc["pliego:pages"] = {"size": [210, 297], "margin": 10,
+                           "pages": [{"id": "p1", "origin": [0, 0]},
+                                     {"id": "p2", "origin": [220, 0]}]}
+    assert check("sheet-document", _restamp(doc)).ok, check("sheet-document", doc).problems
+    doc["pliego:pages"]["margin"] = 105
+    doc["pliego:pages"]["pages"][1] = {"id": "p1", "origin": [100, 0]}
+    problems = check("sheet-document", _restamp(doc)).problems
+    assert any("§8.14 pliego:pages: margin 105" in p for p in problems)
+    assert any("page id 'p1' is declared more than once" in p for p in problems)
+    assert any("pages 'p1' and 'p1' overlap" in p for p in problems)
+
+
+def test_containment_rules_are_named_as_not_verified(capsys):
+    from pliego_spec.document import UNCHECKED_RULES
+
+    assert {"8.11", "8.12", "8.13 containment", "8.14 containment"} <= set(UNCHECKED_RULES)
+    assert cli.main(["rules"]) == 0
+    out = capsys.readouterr().out
+    assert "§8.13 containment" in out and "§8.14 containment" in out
+
+
+# ── real kernel documents with the packaging and print-layout blocks ─────────
+PACKAGING_DOCUMENTS = {
+    "folding-carton.carton.fold": ("pliego:dielines", "pliego:artwork"),
+    "embossed-stationery.card.fold": ("pliego:finishes",),
+    "papercraft-unfold.fold.crystal.fold": ("pliego:annotations", "pliego:pages"),
+}
+
+
+@pytest.mark.parametrize("name", sorted(PACKAGING_DOCUMENTS))
+def test_real_packaging_and_print_layout_documents_pass(name):
+    """pliego@6b6243a output (NOTICE.md). Each file really carries the blocks it is here
+    for, so a pass is a verdict on them and not on their absence."""
+    doc = json.loads((KERNEL_02 / name).read_text(encoding="utf-8"))
+    for key in PACKAGING_DOCUMENTS[name]:
+        assert doc.get(key), f"{name} lost {key}"
+    result = check("sheet-document", doc)
+    assert result.ok, result.problems[:5]
+
+
+def test_the_vendored_schema_validates_the_packaging_blocks_rather_than_passing_them():
+    """The copy this replaced admitted any `pliego:`-prefixed key unvalidated, so a dieline
+    with a made-up family passed. Now the block is held to Pliego's definition."""
+    doc = json.loads((KERNEL_02 / "folding-carton.carton.fold").read_text(encoding="utf-8"))
+    doc["pliego:dielines"][0]["family"] = "crate"
+    problems = check("sheet-document", _restamp(doc)).problems
+    assert any("pliego:dielines/0/family" in p for p in problems), problems
+    doc = json.loads((KERNEL_02 / "papercraft-unfold.fold.crystal.fold")
+                     .read_text(encoding="utf-8"))
+    doc["pliego:annotations"][0]["size"] = 80
+    assert not check("sheet-document", _restamp(doc)).ok
+
+
+def test_a_real_min_feature_document_passes():
+    doc = json.loads((KERNEL_02 / "origamic-architecture.default.fold")
+                     .read_text(encoding="utf-8"))
+    assert doc["pliego:meta"]["min_feature_mm"] > 0
+    assert check("sheet-document", doc).ok, check("sheet-document", doc).problems[:5]
+
+
+def test_a_board_card_carries_construction_and_it_is_validated():
+    """The copy this replaced refused all 8 board cards on Pliego main: `construction` was
+    unknown to it. Now the block is accepted and held to `pliego.board v1`."""
+    card = json.loads((ROOT / "tests" / "fixtures" / "sheet-stock" /
+                       "corrugated-b-flute.stock.json").read_text(encoding="utf-8"))
+    assert card["construction"]["layers"]
+    card["construction"]["model"] = "pliego.board v2"
+    assert any("construction" in p for p in check("stock-card", card).problems)

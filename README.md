@@ -936,7 +936,11 @@ Interfaces
 (`tab`, `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`,
 `pivot`, `track`, `custom`) bind sheet edges and carry polarity, symmetry, a size key and
 an optional frame in a declared folded state. `hardware_ref` bridges to a yantra4d
-cartridge (Fashion Cabinet's shape); `material_ref` to a Fashion Cabinet fabric card.
+cartridge (Fashion Cabinet's shape). `material_ref` uses a material another platform owns
+(`fashion-cabinet`, `pliego` or `yantra4d`): either a role bridge
+(`{platform, material_slug, role[, linked]}`) or the sheet-behaviour contract's
+(cross-commons) reference with `behaviour: "sheet"`; the cards are not resolved here, and
+the cartridge check says so in a note.
 
 **The licence is one constant.** `project.attribution.license` and
 `hyperobject.commons_license` must both equal `CERN-OHL-W-2.0`
@@ -962,9 +966,11 @@ depend on the Pliego kernel; build documents with `python -m pliego.cartridge` a
 them with `check sheet-document`). `geometry=NOT verified` — the document check is the
 **structural** subset of the spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
 stock, join, mechanism and control references, sequence targets, one 3-D coordinate per
-vertex, the GOC-1 canonical digest). Face simplicity and tiling (§8.3), sheet overlap
-(§8.5), point containment and developability (§8.9) need a polygon kernel and are not
-judged; a pass is a structural pass.
+vertex, the GOC-1 canonical digest, packaging blocks and annotations naming a declared
+sheet, print pages with a margin under half the page, unique ids and no overlap). Face
+simplicity and tiling (§8.3), sheet overlap (§8.5), point containment and developability
+(§8.9), pieces and stacks (§8.11, §8.12) and the containment halves of §8.13 and §8.14
+need a polygon kernel or the face graph and are not judged; a pass is a structural pass.
 
 **Strict from birth.** Every sheet rule is a failure from its first release, not a note:
 the commons held zero cartridges when the rules landed, so the whole-commons
@@ -974,9 +980,10 @@ cartridges standing in for real ones until the commons' first re-pin.
 
 **The vendored contracts.** `sheet-document` and `stock-card` are byte-identical copies of
 Pliego's `packages/schemas/` at a published main commit, pinned in `pliego.lock.json`
-(`check stock-card` is schema-only: derive drift is Pliego's own gate). The copy is taken
-from Pliego main before madfam-org/pliego#8 (packaging) merged, so one more re-vendor is
-due.
+(`check stock-card` is schema-only: derive drift is Pliego's own gate). The copy is
+`pliego@6b6243a`, which includes the packaging blocks (`pliego:dielines`,
+`pliego:finishes`, `pliego:artwork`), the print layout (`pliego:annotations`,
+`pliego:pages`) and the stock card's board `construction` block.
 
 **Pending, deliberately:** no sheet size keys in the
 interface-sizes vocabulary yet (so a sheet `size_key` fails membership until cited keys

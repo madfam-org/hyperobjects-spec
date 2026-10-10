@@ -23,7 +23,10 @@ solid or soft verdict, digest, golden or identifier moves.
   (en/es/fr/pt), `project.name` included (an i18n object, never a bare string, as the
   Pliego API enforces); strict kebab slugs; closed objects; `controls` (an informational mirror
   of `pliego:controls`), `stock`, `hardware_ref` (to yantra4d, FC's shape) and
-  `material_ref` (to FC fabric cards).
+  `material_ref`: a material another platform owns (`fashion-cabinet`, `pliego`,
+  `yantra4d`), as a role bridge (`{platform, material_slug, role[, linked]}`) or as the
+  sheet-behaviour contract's (cross-commons) reference with `behaviour: "sheet"`; at
+  least one of `role` and `behaviour`, closed otherwise.
 - **`pliego_spec`** and the **`pliego-spec`** console script: `list`, `check
   sheet-manifest|sheet-document|stock-card|cartridge`, `rules`, and the shared `lexicon`, `vocab`,
   `article`, `define`, `lookup`, `related`. House rules: licence (both fields equal
@@ -35,15 +38,20 @@ solid or soft verdict, digest, golden or identifier moves.
   reused). Summary lines say `documents=NOT built` and `geometry=NOT verified`.
 - **The vendored Pliego contracts** (`pliego_spec/schemas/`, `pliego.lock.json`): the
   `sheet-document` and `stock-card` schemas, byte-identical copies of
-  `packages/schemas/` at `pliego@4b3fbfe` (published main: kernel 0.2.0 with the stock
-  snapshot's `appearance`, `G12`, `score_yield_deg` and `perf_*` keys, plus
-  `pliego:pieces`, `pliego:stacks` and the step `remove` from pliego#6). Each is pinned by
-  sha-256, size and git blob id. A sheet document is checked against the schema plus the
-  structural subset of the spec's §8 (lengths and ranges, sheet membership, treatment
-  pairs, references, sequence targets, frame sizes, the GOC-1 canonical digest). A stock
-  card is checked against the schema only; derive drift is Pliego's own gate. A second
-  re-vendor follows pliego#8 (packaging: dielines, finishes, artwork, the stock-card
-  `construction` block).
+  `packages/schemas/` at `pliego@6b6243a` (published main: kernel 0.2.0 with the stock
+  snapshot's `appearance`, `G12`, `score_yield_deg` and `perf_*` keys; `pliego:pieces`,
+  `pliego:stacks` and the step `remove` from pliego#6; `pliego:meta.min_feature_mm`; the
+  packaging blocks `pliego:dielines`, `pliego:finishes` and `pliego:artwork` from
+  pliego#8; the print layout `pliego:annotations` and `pliego:pages` from pliego#9; the
+  stock card's board `construction` block). Each is pinned by sha-256, size and git blob
+  id. A sheet document is checked against the schema plus the structural subset of the
+  spec's §8 (lengths and ranges, sheet membership, treatment pairs, references, sequence
+  targets, frame sizes, the GOC-1 canonical digest, and the structural halves of rules 13
+  and 14: packaging blocks and annotations name a declared sheet, annotation text is
+  printable, print pages have a margin under half the page, unique ids and no overlap).
+  The containment halves of rules 13 and 14, and rules 11 and 12, are listed as NOT
+  verified. A stock card is checked against the schema only; derive drift is Pliego's own
+  gate.
 - **Lexicon term contract 4** (additive over 3): the `sheet-folding` domain and the
   `pliego` repo in `aliases` and `embodied_by`, with the lane refusing either under a
   lower `spec_version`. 21 seed terms, born quadrilingual, `generated`, cited where they
@@ -51,9 +59,10 @@ solid or soft verdict, digest, golden or identifier moves.
   Puebla); no `embodied_by` (the commons is empty).
 - Fixtures: three faithful minimal sheet cartridges (`tests/fixtures/sheet/`) and one
   hand-written sheet document, to be replaced by real commons cartridges in the first
-  re-pin. Two real kernel-0.2 documents (`sheet-documents/kernel-0.2/`: `valley-fold` and
-  `reveal-block`'s preview, which uses `pliego:pieces` and `remove`) and two real stock
-  cards (`sheet-stock/`) are added, each with a NOTICE. The CI self-check runs `pliego-spec`
+  re-pin. Real kernel-0.2 documents (`sheet-documents/kernel-0.2/`: `valley-fold`,
+  `reveal-block`'s preview, which uses `pliego:pieces` and `remove`, and packaging and
+  print-layout documents) and three real stock cards (`sheet-stock/`, one a corrugated
+  board with a `construction` block) are added, each with a NOTICE. The CI self-check runs `pliego-spec`
   with read-proof greps.
 
 #### Changed (additive widening of two-commons hard-codes)
