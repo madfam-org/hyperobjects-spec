@@ -1,0 +1,49 @@
+{
+  "source": "https://github.com/spdx/license-list-data",
+  "tag": "v3.29.0",
+  "commit": "31ba1a50e5397e00a304dbadc76531740e89ee48",
+  "files": {
+    "CERN-OHL-W-2.0": {
+      "path": "text/CERN-OHL-W-2.0.txt",
+      "git_blob_sha1": "0f882860afce5f8dea62795cfcd8ee0d422d873b",
+      "sha256": "c1432111d0aeefc9d1ced8105d2d4ed07d5dcb1fd43abb5d4616c4f9ef96e08f",
+      "bytes": 14529
+    },
+    "CERN-OHL-S-2.0": {
+      "path": "text/CERN-OHL-S-2.0.txt",
+      "git_blob_sha1": "114486fd9446c39da1b69101597e25e33877fca6",
+      "sha256": "d6475a84171f0cf7ff52667dea714df268fc65cea42f0bf328b0b70d4cd0ebab",
+      "bytes": 13419
+    },
+    "CERN-OHL-P-2.0": {
+      "path": "text/CERN-OHL-P-2.0.txt",
+      "git_blob_sha1": "f19d2b7adcbe2744d36889dd75dd0bdc5c280701",
+      "sha256": "eeecc593866fa1c3b80189c7e3dc0ceb77740557fa92f81771f891cc54c579cb",
+      "bytes": 8855
+    },
+    "Apache-2.0": {
+      "path": "text/Apache-2.0.txt",
+      "git_blob_sha1": "137069b823873b8bcf42979bcf8e9371052d26a2",
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+      "bytes": 10280
+    },
+    "CC-BY-SA-4.0": {
+      "path": "text/CC-BY-SA-4.0.txt",
+      "git_blob_sha1": "835a6836b385fa068fdd625685548845cda60c2f",
+      "sha256": "cde7883b9050a1104f4ac19a1572aafd6e5d7323b68351aaf51fbf4beba54966",
+      "bytes": 18375
+    },
+    "CC-BY-NC-ND-4.0": {
+      "path": "text/CC-BY-NC-ND-4.0.txt",
+      "git_blob_sha1": "6f2a684c1a830377189cd8133538e6b3458f211c",
+      "sha256": "4f3c4a321eb0c73182eee7afa3fe0111e24dec193f2d6febcf4207f26af26839",
+      "bytes": 17452
+    },
+    "GPL-2.0-only": {
+      "path": "text/GPL-2.0-only.txt",
+      "git_blob_sha1": "17cb286430a4d8094e473d06bd7f50f40438ddba",
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3",
+      "bytes": 17337
+    }
+  }
+}

@@ -67,6 +67,10 @@ class CartridgeResult:
     #: frame gate (frame_gate.py). Empty without --render, and empty on a manifest
     #: that declares no frame — the gate is a no-op there.
     frames: list = field(default_factory=list)
+    #: One LicenseBodyVerdict per LICENSE*/COPYING* the cartridge ships
+    #: (structure.shipped_license_bodies). Their findings are in `notes`;
+    #: they never affect `ok`.
+    license_bodies: list = field(default_factory=list)
 
     def __bool__(self) -> bool:
         return self.ok
@@ -238,6 +242,9 @@ def check_cartridge(
     structure_problems, notes = structure.all_structure_rules(path, doc)
     result.problems.extend(structure_problems)
     result.notes.extend(notes)
+    result.license_bodies = structure.shipped_license_bodies(path, doc)
+    for verdict in result.license_bodies:
+        result.notes.extend(verdict.notes())
 
     if render:
         # Lazy: geometry pulls cadquery on first render, and a manifest-only check

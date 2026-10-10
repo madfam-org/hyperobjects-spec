@@ -12,6 +12,7 @@
     y4d-spec article <path> [...] [--catalog bundled]
     y4d-spec reader [--out DIR] [--check] [--status]
     y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
+    y4d-spec license-body <file|dir> [...] [--declared SPDX_ID]
     y4d-spec render-env [--apt] [--openscad-version] [--openscad-sha256] [--json]
     y4d-spec rules
 
@@ -36,6 +37,7 @@ from hyperobjects_lexicon.cli import (
     add_reader_parser,
     add_vocabulary_parser,
 )
+from hyperobjects_licenses import add_license_body_parser
 from hyperobjects_schemas.identity import check_identity_file
 
 from .assembly.cli import add_assembly_parser
@@ -106,6 +108,7 @@ def _cmd_check(args) -> int:
     parity_placement = 0
     parity_failed = 0
     frame_checks = frame_passed = frame_unverified = frame_failed = 0
+    license_bodies: list = []
     for d in args.cartridges:
         try:
             result = check_cartridge(
@@ -141,6 +144,7 @@ def _cmd_check(args) -> int:
         frame_passed += sum(1 for f in result.frames if f.status == "pass")
         frame_unverified += sum(1 for f in result.frames if f.status == "unverified")
         frame_failed += sum(1 for f in result.frames if f.status == "fail")
+        license_bodies.extend(result.license_bodies)
 
         if result.ok:
             suffix = ""
@@ -235,10 +239,19 @@ def _cmd_check(args) -> int:
             f" frames={frame_passed}/{frame_checks} ok, unverified={frame_unverified}, "
             f"failures={frame_failed}"
         )
+    # `licence-body: files=N canonical=C notices=S mismatched=M unjudged=U` (C+S+M+U =
+    # N) — appended only when a cartridge shipped a licence file, like `frames=`. The
+    # body check is NOTE ONLY: mismatched files print notes and never fail the run.
+    license_part = ""
+    if license_bodies:
+        from hyperobjects_licenses import summary_clause
+
+        license_part = f" {summary_clause(license_bodies)}"
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
         f"presets={preset_targets} skipped={skipped_targets}{parity_part}{frames_part}"
+        f"{license_part}"
     )
     return 1 if failures else 0
 
@@ -323,6 +336,7 @@ def _cmd_rules(args) -> int:
         structure.source_path_rules,
         structure.vendor_rules,
         structure.shipped_license_rules,
+        structure.shipped_license_bodies,
         structure.dead_parameter_rules,
         default_drift.default_drift_rules,
     ):
@@ -539,6 +553,7 @@ def main(argv: list[str] | None = None) -> int:
     add_dictionary_parsers(sub, "y4d-spec")
     add_reader_parser(sub, "y4d-spec")
     add_aas_parser(sub, "y4d-spec", "solid")
+    add_license_body_parser(sub, "y4d-spec")
 
     p_env = sub.add_parser(
         "render-env",

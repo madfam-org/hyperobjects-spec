@@ -11,6 +11,7 @@
     fc-spec article <path> [...] [--catalog bundled]
     fc-spec reader [--out DIR] [--check] [--status]
     fc-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
+    fc-spec license-body <file|dir> [...] [--declared SPDX_ID]
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
 read errors. Output is read-proof: it prints how many files it checked, and
@@ -27,6 +28,10 @@ from a shell.
 (GOC-1) is an added contract, checked exactly as `y4d-spec bundle check` checks it:
 a directory argument means every variables.json beneath it, geometry files are
 re-hashed against each document's own directory, and warnings print but never fail.
+`license-body` compares shipped LICENSE files with the canonical SPDX texts
+(hyperobjects_licenses), exactly as `y4d-spec license-body` does. fc-spec checks
+manifests, not directories, so this is how a soft commons sees its own LICENSE. It is
+note-first: it exits 0 whatever it finds.
 """
 
 from __future__ import annotations
@@ -45,6 +50,7 @@ from hyperobjects_lexicon.cli import (
     add_vocabulary_parser,
     run_lexicon,
 )
+from hyperobjects_licenses import add_license_body_parser
 
 from .conformance import CONTRACTS, check, list_contracts
 
@@ -107,13 +113,16 @@ def main(argv: list[str] | None = None) -> int:
     add_dictionary_parsers(sub, "fc-spec")
     add_reader_parser(sub, "fc-spec")
     add_aas_parser(sub, "fc-spec", "soft")
+    add_license_body_parser(sub, "fc-spec")
 
     args = parser.parse_args(argv)
 
     if args.cmd == "lexicon":
         return run_lexicon(args, "fc-spec")
 
-    if args.cmd in ("vocab", "article", "reader", "define", "lookup", "related", "aas"):
+    if args.cmd in (
+        "vocab", "article", "reader", "define", "lookup", "related", "aas", "license-body",
+    ):
         return args.func(args)
 
     if args.cmd == "list":

@@ -118,6 +118,18 @@ minimum keystone (0.4.0). An older pin fails those manifests on the features
 themselves, so a commons repins before it merges its first v1.1 cartridge
 (docs/ASSEMBLIES.md, "Forward compatibility").
 
+When a checked cartridge ships a LICENSE, a licence-body clause is appended
+(`hyperobjects_licenses`, note-first):
+
+```
+licence-body: files=N canonical=C notices=S mismatched=M unjudged=U
+```
+
+`C + S + M + U = N`. A mismatched body is a note, never a failure, until its flip
+condition is met (CHANGELOG). The texts in `src/hyperobjects_licenses/texts/` are
+**vendored** from SPDX license-list-data and sha256-locked, so never hand-edit them. A
+spelling that legitimately differs from SPDX goes in `DOCUMENTED_VARIANTS`, with a test.
+
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
 against the whole commons is written down (see `rules.py` for the killed ones).

@@ -83,6 +83,9 @@ hyperobjects_aas = ["schemas/*.json", "schemas/*.md", "schemas/*.txt"]
 hyperobjects_lexicon = [
   "terms/*.json", "catalogs/*.json", "vocabularies/*.json", "vocabularies/fabrication/*.json",
 ]
+# Canonical licence texts, byte-identical to SPDX license-list-data (VENDORED.md), and
+# their sha256 lock. Read by the shipped-LICENSE body check.
+hyperobjects_licenses = ["texts/*.txt", "licenses.lock.json", "VENDORED.md"]
 # The standard-parts catalog (ASM-1 §4): one JSON file per COTS part, validated by
 # hyperobjects_schemas' standard-part.schema.json.
 hyperobjects_standard_parts = ["parts/*.json"]
