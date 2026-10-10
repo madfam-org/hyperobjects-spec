@@ -342,6 +342,9 @@
       },
       "additionalProperties": false
     },
+    "construction": {
+      "$ref": "#/$defs/boardConstruction"
+    },
     "derived": {
       "type": "object",
       "required": [
@@ -708,6 +711,132 @@
           }
         }
       ]
+    },
+    "boardConstruction": {
+      "description": "Lane P (wave 2b) draft: a board's construction, evaluated by pliego.board (corrugated sandwich or laminated plies, top layer first). When present, pliego.stock.derive() computes grammage, caliper, effective moduli and bending stiffness from it, and physical.gsm/caliper_um/E_md_gpa/E_cd_gpa must equal the values it implies.",
+      "type": "object",
+      "required": [
+        "kind",
+        "model",
+        "layers"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "corrugated",
+            "laminate"
+          ]
+        },
+        "model": {
+          "const": "pliego.board v1"
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/boardLayer"
+          }
+        },
+        "adhesive_gsm_per_glueline": {
+          "type": "number",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boardLayer": {
+      "type": "object",
+      "required": [
+        "role",
+        "gsm",
+        "caliper_um",
+        "E_md_gpa",
+        "E_cd_gpa",
+        "status"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "liner",
+            "medium",
+            "ply"
+          ]
+        },
+        "flute": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "E",
+            "F"
+          ]
+        },
+        "gsm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "caliper_um": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "E_md_gpa": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "E_cd_gpa": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "status": {
+          "enum": [
+            "measured",
+            "nominal",
+            "estimated"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "medium"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "flute"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "estimated"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "basis"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
     }
   }
 }

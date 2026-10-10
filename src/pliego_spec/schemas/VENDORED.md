@@ -13,17 +13,19 @@ Pliego platform publishes ([madfam-org/pliego](https://github.com/madfam-org/pli
 
 | Vendored here | Canonical source | Vendored at | Last changed in |
 |:--|:--|:--|:--|
-| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@4b3fbfe` (main) | `6efe23e` (removable pieces, stacks and tear-away, spec §5.8; pliego#6) |
-| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@4b3fbfe` (main) | `0bc4bf9` (derived block mirrors the sheet-document snapshot) |
+| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@6b6243a` (main) | `863c8fd` (packaging blocks `pliego:dielines`, `pliego:finishes`, `pliego:artwork`, spec §5.9–§5.11, pliego#8; print layout `pliego:annotations` and `pliego:pages`, §5.12, pliego#9) |
+| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@6b6243a` (main) | `944adcb` (the board `construction` block, `pliego.board`; pliego#8) |
 
 <!-- markdownlint-enable MD013 -->
 
 Do **not** hand-edit a vendored file. Change the canonical source in Pliego and
 re-vendor. `pliego.lock.json` and this file are written by the keystone.
 
-**A second re-vendor is due.** madfam-org/pliego#8 (packaging: `pliego:dielines`,
-`pliego:finishes`, `pliego:artwork` and the stock-card `construction` block) was still open
-when this copy was taken. Re-vendor from main once it merges.
+This is the second re-vendor. The first (`pliego@4b3fbfe`) predates madfam-org/pliego#8
+(packaging) and #9 (papercraft print layout); both are merged at `6b6243a`, so nothing
+published is missing from this copy. `last_changed` is the last commit that touched each
+file (`git log -1 <commit> -- <path>`), which for the sheet document is the coordinator's
+merge of #8 into #9's branch.
 
 ## Lock and drift guard
 

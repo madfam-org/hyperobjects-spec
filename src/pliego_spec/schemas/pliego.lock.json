@@ -2,25 +2,25 @@
   "_comment": "sha256 of the vendored Pliego contracts. Canonical source: github.com/madfam-org/pliego at `commit` (main when vendored); `last_changed` is the last commit before it that touched each file. Never hand-edit a vendored file: change Pliego and re-vendor; see VENDORED.md.",
   "canonical_repo": "https://github.com/madfam-org/pliego",
   "published": true,
-  "commit": "4b3fbfea27bfa2f461b2c3ace5f277883742c79d",
+  "commit": "6b6243a7d96d236d1fe48f147415f308214f21a8",
   "canonical_paths": {
     "sheet-document.schema.json": "packages/schemas/sheet-document.schema.json",
     "stock-card.schema.json": "packages/schemas/stock-card.schema.json"
   },
   "last_changed": {
-    "sheet-document.schema.json": "6efe23e5cb29972cdb87b04929d8249303512464",
-    "stock-card.schema.json": "0bc4bf9d9de54a9810799dd433aa0f00156874e8"
+    "sheet-document.schema.json": "863c8fd9958bcb2a7a0a791b70c983dbab409383",
+    "stock-card.schema.json": "944adcb306869532c82c4793cbc54bfbad346083"
   },
   "git_blob_sha1": {
-    "sheet-document.schema.json": "490969c6a6384cc3922dcc19c94a9ffe7eb67b2c",
-    "stock-card.schema.json": "9c3ae8718c81241ed5543ecbe64659503e3104c7"
+    "sheet-document.schema.json": "1ee64d1ac712df7e2f73c95bfb484e22b9985d03",
+    "stock-card.schema.json": "e2bcc4f2981f54a5f440d318d6422080cbfb0680"
   },
   "hashes": {
-    "sheet-document.schema.json": "eef474c10f2594f3ad94901e9b01f0b3db59b77c8ef38c7bac76564520e74ebc",
-    "stock-card.schema.json": "20341fa0881f44bf3993e25c5d6610d56a206cba531a6d16ffe69f49258ab975"
+    "sheet-document.schema.json": "ce55e90121dd65c70acc478003b2a4fa2572d435d7038ef89d0e05158ab8e86c",
+    "stock-card.schema.json": "a120a94d803e2e36d0a595788ee01dd3c896d9a3493f706061381eac86543afa"
   },
   "bytes": {
-    "sheet-document.schema.json": 32177,
-    "stock-card.schema.json": 15690
+    "sheet-document.schema.json": 43236,
+    "stock-card.schema.json": 18552
   }
 }

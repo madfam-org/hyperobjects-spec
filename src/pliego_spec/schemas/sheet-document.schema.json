@@ -305,6 +305,37 @@
           }
         ]
       }
+    },
+    "pliego:dielines": {
+      "description": "Packaging dieline blocks (spec §5.9).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dielineBlock"
+      }
+    },
+    "pliego:finishes": {
+      "description": "Pressing and burning regions (spec §5.10).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finish"
+      }
+    },
+    "pliego:artwork": {
+      "description": "Brand artwork placed on sheet sides (spec §5.11).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artwork"
+      }
+    },
+    "pliego:annotations": {
+      "description": "§5.12 print annotations (edge numbers, part names): text printed on a sheet's front; no physics",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/annotation"
+      }
+    },
+    "pliego:pages": {
+      "$ref": "#/$defs/pages"
     }
   },
   "patternProperties": {
@@ -1436,6 +1467,478 @@
             }
           },
           "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "polygon2": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/vec2"
+      }
+    },
+    "dielineBlock": {
+      "type": "object",
+      "required": [
+        "style",
+        "family",
+        "sheet",
+        "inside",
+        "caliper_mm",
+        "bleed_mm",
+        "safe_mm",
+        "panels"
+      ],
+      "properties": {
+        "style": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "enum": [
+            "corrugated",
+            "folding-carton",
+            "envelope",
+            "rigid",
+            "board"
+          ]
+        },
+        "sheet": {
+          "$ref": "#/$defs/slug"
+        },
+        "inside": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "caliper_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "bleed_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "safe_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "panels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "kind",
+              "label",
+              "polygon",
+              "print"
+            ],
+            "properties": {
+              "name": {
+                "$ref": "#/$defs/slug"
+              },
+              "kind": {
+                "enum": [
+                  "panel",
+                  "flap",
+                  "dust-flap",
+                  "tuck",
+                  "lid",
+                  "glue-flap",
+                  "lock",
+                  "bottom",
+                  "pocket",
+                  "window-frame"
+                ]
+              },
+              "label": {
+                "$ref": "#/$defs/i18n"
+              },
+              "polygon": {
+                "$ref": "#/$defs/polygon2"
+              },
+              "print": {
+                "type": "boolean"
+              },
+              "safe": {
+                "$ref": "#/$defs/polygon2"
+              },
+              "bleed": {
+                "$ref": "#/$defs/polygon2"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "glue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "polygon"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "kind": {
+                "enum": [
+                  "glue",
+                  "gum",
+                  "peel-and-seal",
+                  "tape",
+                  "hot-melt"
+                ]
+              },
+              "polygon": {
+                "$ref": "#/$defs/polygon2"
+              },
+              "panel": {
+                "$ref": "#/$defs/slug"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "text"
+            ],
+            "properties": {
+              "from": {
+                "$ref": "#/$defs/vec2"
+              },
+              "to": {
+                "$ref": "#/$defs/vec2"
+              },
+              "offset": {
+                "type": "number"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "grain": {
+          "type": "object",
+          "required": [
+            "kind",
+            "angle_deg",
+            "at"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "grain",
+                "flute"
+              ]
+            },
+            "angle_deg": {
+              "type": "number"
+            },
+            "at": {
+              "$ref": "#/$defs/vec2"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "finish": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "sheet",
+        "side",
+        "region",
+        "depth_mm"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "kind": {
+          "enum": [
+            "emboss",
+            "deboss",
+            "foil",
+            "varnish",
+            "letterpress",
+            "burn"
+          ]
+        },
+        "sheet": {
+          "$ref": "#/$defs/slug"
+        },
+        "side": {
+          "enum": [
+            "front",
+            "back"
+          ]
+        },
+        "region": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/polygon2"
+          }
+        },
+        "depth_mm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "profile": {
+          "enum": [
+            "flat",
+            "dome",
+            "bevel",
+            "sculpted"
+          ]
+        },
+        "registered": {
+          "type": "boolean"
+        },
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "finish": {
+          "enum": [
+            "metallic",
+            "matte",
+            "gloss",
+            "holographic",
+            "soft-touch",
+            "spot-uv"
+          ]
+        },
+        "process": {
+          "enum": [
+            "iron",
+            "laser"
+          ]
+        },
+        "char": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "emboss",
+                  "deboss"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "profile"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "foil",
+                  "letterpress",
+                  "burn"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "color"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "foil",
+                  "varnish"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "finish"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "burn"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "process",
+              "char"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "artwork": {
+      "type": "object",
+      "required": [
+        "id",
+        "sheet",
+        "side",
+        "asset",
+        "at",
+        "size",
+        "rotation_deg",
+        "clip"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "sheet": {
+          "$ref": "#/$defs/slug"
+        },
+        "side": {
+          "enum": [
+            "front",
+            "back"
+          ]
+        },
+        "asset": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_][A-Za-z0-9_./-]*\\.(svg|png|jpg|jpeg|webp)$"
+        },
+        "at": {
+          "$ref": "#/$defs/vec2"
+        },
+        "size": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "rotation_deg": {
+          "type": "number"
+        },
+        "panel": {
+          "$ref": "#/$defs/slug"
+        },
+        "clip": {
+          "enum": [
+            "panel",
+            "bleed",
+            "none"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "annotation": {
+      "description": "§5.12: centred at `at` (sheet-local mm), baseline `angle` degrees from +u, `size` mm cap height",
+      "type": "object",
+      "required": [
+        "sheet",
+        "at",
+        "text",
+        "size"
+      ],
+      "properties": {
+        "sheet": {
+          "$ref": "#/$defs/slug"
+        },
+        "at": {
+          "$ref": "#/$defs/vec2"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "angle": {
+          "type": "number"
+        },
+        "size": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 50
+        }
+      },
+      "additionalProperties": false
+    },
+    "pages": {
+      "description": "§5.12 print pages in the layout frame: rectangles of `size` mm at each `origin`; sheets lie inside a page's printable area (inset by `margin`)",
+      "type": "object",
+      "required": [
+        "size",
+        "pages"
+      ],
+      "properties": {
+        "size": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "margin": {
+          "type": "number",
+          "minimum": 0
+        },
+        "pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "origin"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "origin": {
+                "$ref": "#/$defs/vec2"
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
