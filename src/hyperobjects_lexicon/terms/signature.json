@@ -1,0 +1,31 @@
+{
+  "spec_version": 4,
+  "id": "signature",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "signature",
+    "es": "pliego (cuadernillo)",
+    "fr": "cahier",
+    "pt": "caderno (assinatura)"
+  },
+  "definition": {
+    "en": "A large sheet printed with several pages and folded, once or more, into a gathering of pages in reading order; books are sewn or glued from signatures. In Spanish the folded sheet is the pliego, the word the Pliego platform is named after.",
+    "es": "Una hoja grande impresa con varias páginas y doblada una o más veces hasta formar un cuadernillo con las páginas en orden de lectura; los libros se cosen o se encolan a partir de pliegos. En español la hoja doblada es el pliego, la palabra de la que toma su nombre la plataforma Pliego.",
+    "fr": "Une grande feuille imprimée de plusieurs pages et pliée une ou plusieurs fois pour former un cahier aux pages dans l'ordre de lecture ; les livres sont cousus ou collés à partir de cahiers. En espagnol, la feuille pliée se dit pliego, le mot qui a donné son nom à la plateforme Pliego.",
+    "pt": "Uma folha grande impressa com várias páginas e dobrada uma ou mais vezes até formar um caderno com as páginas em ordem de leitura; os livros cosem-se ou colam-se a partir de cadernos. Em espanhol a folha dobrada chama-se pliego, a palavra que dá nome à plataforma Pliego."
+  },
+  "see_also": [
+    "gutter",
+    "grain-direction",
+    "leporello"
+  ],
+  "constraints": "Page order on the flat sheet (the imposition) is decided by the folds: changing the number of folds or the fold order moves every page, so a signature's imposition is computed from its fold sequence, never laid out by hand.",
+  "heritage": true,
+  "sources": [
+    "Real Academia Española, Diccionario de la lengua española, s.v. «pliego»"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

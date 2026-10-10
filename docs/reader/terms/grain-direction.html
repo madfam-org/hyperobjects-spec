@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>grain-direction — Lector del procomún</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="../index.html">Lector del procomún</a>
+  <nav aria-label="Secciones">
+      <a href="../terms/index.html">Términos</a>
+      <a href="../yantra4d/index.html">Yantra4D</a>
+      <a href="../fashion-cabinet/index.html">Fashion Cabinet</a>
+      <a href="../bridges.html">Puentes</a>
+  </nav>
+</header>
+<main>
+<h1>grain-direction</h1>
+<p class="lede">Dominio: <span class="mono">sheet-folding</span></p>
+<nav class="langs" aria-label="Idiomas" data-langs="es en fr pt">
+  <span class="langs-label">Idiomas</span>
+  <a href="#es" hreflang="es" lang="es">Español</a>
+  <a href="#en" hreflang="en" lang="en">English</a>
+  <a href="#fr" hreflang="fr" lang="fr">Français</a>
+  <a href="#pt" hreflang="pt" lang="pt">Português</a>
+  <a class="all" href="grain-direction.html">Todos</a>
+</nav>
+<section class="lang" id="es" lang="es">
+<h2>Español</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+<h3>Término</h3>
+<p class="headword">dirección de la fibra</p>
+<h3>Definición</h3>
+<p>La dirección en que se alinea la mayoría de las fibras de un papel hecho a máquina (la dirección de máquina). A lo largo de ella el papel dobla más limpio, se ondula y se dilata menos, y es más rígido a la flexión; un documento de pliego la registra por pliego como grain_deg.</p>
+</section>
+<section class="lang" id="en" lang="en">
+<h2>English</h2>
+<p class="review"><span class="badge badge-generated">generated</span> written by a drafting pass, not natively reviewed</p>
+<h3>Term</h3>
+<p class="headword">grain direction</p>
+<h3>Definition</h3>
+<p>The direction in which most fibres of a machine-made paper lie (the machine direction). Paper folds more cleanly, curls and expands less, and is stiffer in bending along it; a sheet document records it per sheet as grain_deg.</p>
+</section>
+<section class="lang" id="fr" lang="fr">
+<h2>Français</h2>
+<p class="review"><span class="badge badge-generated">generated</span> rédigé par une passe de brouillon, sans relecture native</p>
+<h3>Terme</h3>
+<p class="headword">sens des fibres</p>
+<h3>Définition</h3>
+<p>La direction dans laquelle s&#x27;alignent la plupart des fibres d&#x27;un papier fabriqué à la machine (le sens machine). Le long de cette direction, le papier se plie plus net, gondole et se dilate moins, et résiste mieux à la flexion ; un document de feuille l&#x27;enregistre par feuille sous grain_deg.</p>
+</section>
+<section class="lang" id="pt" lang="pt">
+<h2>Português</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redigido por uma passagem de rascunho, sem revisão nativa</p>
+<h3>Termo</h3>
+<p class="headword">direção da fibra</p>
+<h3>Definição</h3>
+<p>A direção em que se alinha a maioria das fibras de um papel feito à máquina (a direção de máquina). Ao longo dela o papel dobra de forma mais limpa, ondula e dilata menos, e é mais rígido à flexão; um documento de folha regista-a por folha como grain_deg.</p>
+</section>
+<h2>Restricción</h2>
+<blockquote class="constraint" lang="en"><p>Bending stiffness differs by roughly a factor of two between machine and cross direction (D_md vs D_cd); a pop-up or book whose folds run across the grain needs scoring, and a book&#x27;s grain should run parallel to its spine.</p></blockquote>
+<h2>Cómo se escribe en cada repositorio</h2>
+<table>
+<thead><tr><th>clave</th><th>repositorio</th><th>nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">grain_deg</span></td><td><span class="mono">pliego</span></td><td>pliego:sheets[].grain_deg: the machine direction in sheet-local coordinates, degrees counter-clockwise from +u, default 90.</td></tr>
+</tbody>
+</table>
+<h2>Véase también</h2><ul class="cols"><li><a href="score.html">score</a></li><li><a href="signature.html">signature</a></li><li><a href="grainline.html">grainline</a></li></ul>
+<h2>Fuentes</h2><ul><li>Pliego docs/spec/v1/sheet-document.md §5.1-§5.2 — grain_deg and the MD/CD stiffness pair</li><li>Pliego docs/spec/v1/stock-card.md — MD/CD ratio basis (Baum et al. 1981)</li></ul>
+<h2>Notas</h2><p lang="en">Not the textile grainline: the cloth&#x27;s grainline (fashion-cabinet) and the paper&#x27;s grain are both fibre directions, but paper has no bias stretch to exploit and its grain is fixed at the mill, not chosen on the marker.</p>
+<h2>Revisión</h2>
+<p class="review"><span class="badge badge-generated">generated</span> redactado por una pasada de borrador, sin revisión nativa</p>
+</main>
+<footer class="site">
+  <p>Construido de instantáneas fijadas (RFC 0039 G4): yantra4d <span class="mono">f0cdb74e9</span> · fashion-cabinet <span class="mono">4feb3ec50</span>. Sin JavaScript. <a href="../bridges.html">Procedencia completa</a>.</p>
+</footer>
+</body>
+</html>

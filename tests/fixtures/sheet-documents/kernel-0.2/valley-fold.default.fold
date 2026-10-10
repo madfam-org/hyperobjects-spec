@@ -1,0 +1,276 @@
+{
+ "edges_assignment": [
+  "B",
+  "B",
+  "V",
+  "B",
+  "B"
+ ],
+ "edges_foldAngle": [
+  0,
+  0,
+  180,
+  0,
+  0
+ ],
+ "edges_vertices": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   2
+  ],
+  [
+   0,
+   3
+  ],
+  [
+   1,
+   3
+  ],
+  [
+   2,
+   3
+  ]
+ ],
+ "faces_vertices": [
+  [
+   0,
+   2,
+   3
+  ],
+  [
+   0,
+   3,
+   1
+  ]
+ ],
+ "file_classes": [
+  "singleModel"
+ ],
+ "file_creator": "pliego-kernel 0.2.0",
+ "file_frames": [
+  {
+   "frame_attributes": [
+    "3D"
+   ],
+   "frame_classes": [
+    "foldedForm"
+   ],
+   "frame_inherit": true,
+   "frame_parent": 0,
+   "frame_title": "target:folded",
+   "vertices_coords": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     150,
+     0,
+     0
+    ],
+    [
+     150,
+     0,
+     0
+    ],
+    [
+     150,
+     0,
+     -150
+    ]
+   ]
+  }
+ ],
+ "file_spec": 1.2,
+ "file_title": "Valley fold",
+ "frame_attributes": [
+  "2D",
+  "noCuts",
+  "noJoins"
+ ],
+ "frame_classes": [
+  "creasePattern"
+ ],
+ "frame_unit": "mm",
+ "pliego:controls": [
+  {
+   "default": 0,
+   "id": "sequence",
+   "kind": "sequence",
+   "label": {
+    "en": "Fold program",
+    "es": "Secuencia de pliegues",
+    "fr": "Séquence de pliage",
+    "pt": "Sequência de dobras"
+   },
+   "max": 1,
+   "min": 0,
+   "unit": "step"
+  }
+ ],
+ "pliego:edges_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:edges_treatment": [
+  "none",
+  "none",
+  "crease",
+  "none",
+  "none"
+ ],
+ "pliego:faces_sheet": [
+  0,
+  0
+ ],
+ "pliego:meta": {
+  "cartridge": "valley-fold",
+  "digest": "sha256:a8045f45146acc0abd463d7a9df8e47a4136bdbbc5779390d771d97f5dd6f272",
+  "kernel": "pliego-kernel 0.2.0",
+  "mode": "default",
+  "params": {
+   "angle": 180,
+   "fold_line": "diagonal",
+   "size": 150,
+   "stock": "kami"
+  }
+ },
+ "pliego:sequence": {
+  "mode": "physical",
+  "steps": [
+   {
+    "duration_ms": 1500,
+    "id": "valley-fold",
+    "label": {
+     "en": "Valley-fold along the diagonal",
+     "es": "Dobla en valle por la diagonal",
+     "fr": "Plier en vallée selon la diagonale",
+     "pt": "Dobre em vale pela diagonal"
+    },
+    "note": {
+     "en": "The front faces close onto each other; the back stays outside.",
+     "es": "Las caras del frente se cierran una sobre otra; el reverso queda por fuera.",
+     "fr": "Les faces avant se referment l'une sur l'autre ; le verso reste à l'extérieur.",
+     "pt": "As faces da frente se fecham uma sobre a outra; o verso fica do lado de fora."
+    },
+    "release": [],
+    "targets": [
+     [
+      2,
+      180
+     ]
+    ]
+   }
+  ]
+ },
+ "pliego:sheets": [
+  {
+   "back": {
+    "art": null,
+    "color": "#f6f3ec"
+   },
+   "front": {
+    "art": null,
+    "color": "#d9382b"
+   },
+   "grain_deg": 90,
+   "id": "square",
+   "kinematic": null,
+   "label": {
+    "en": "Square",
+    "es": "Cuadrado",
+    "fr": "Carré",
+    "pt": "Quadrado"
+   },
+   "offset": [
+    0,
+    0
+   ],
+   "placement": {
+    "origin": [
+     0,
+     0,
+     0
+    ],
+    "rotation": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "stock": "kami"
+  }
+ ],
+ "pliego:stocks": {
+  "kami": {
+   "appearance": {
+    "back": "#f6f3ec",
+    "front": "#d9382b"
+   },
+   "caliper_mm": 0.072,
+   "derived": {
+    "D_cd": 78257.5,
+    "D_md": 170125,
+    "E_cd": 2300000000,
+    "E_md": 5000000000,
+    "G12": 1312380000,
+    "areal_density": 6.3e-05,
+    "collision_thickness": 0.072,
+    "crease_k": 8012.81,
+    "crease_set_rate": 0.5,
+    "crease_yield_deg": 35,
+    "friction": 0.4,
+    "nu": 0.293,
+    "perf_bridge_mm": 1,
+    "perf_cut_mm": 3,
+    "perf_factor": 0.25,
+    "score_factor": 0.35,
+    "score_yield_deg": 12.25,
+    "tear_strain": 0.015,
+    "thickness": 0.072
+   },
+   "derived_basis": "pliego.stock.derive v1",
+   "gsm": 63,
+   "name": {
+    "en": "Kami origami paper",
+    "es": "Papel kami para origami",
+    "fr": "Papier kami pour origami",
+    "pt": "Papel kami para origami"
+   }
+  }
+ },
+ "pliego:version": 1,
+ "pliego:vertices_sheet": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "vertices_coords": [
+  [
+   0,
+   0
+  ],
+  [
+   0,
+   150
+  ],
+  [
+   150,
+   0
+  ],
+  [
+   150,
+   150
+  ]
+ ]
+}

@@ -5,8 +5,10 @@
 The MADFAM commons has two halves. [Yantra4D](https://github.com/madfam-org/yantra4d)
 holds the **solid** cartridges — printed and machined bodies, rendered from CadQuery or
 OpenSCAD. [Fashion Cabinet](https://github.com/madfam-org/fashion-cabinet) holds the
-**soft** ones — garments, notions, fabric cards. Both are commons: anyone may
-contribute a cartridge.
+**soft** ones — garments, notions, fabric cards. A third commons, the **sheet** one
+(`sheet-hyperobjects`, rendered by the Pliego platform: origami, kirigami, papercut,
+pop-up and paper engineering, book structures, paper dioramas), is checked by
+`pliego-spec` from day one. All are commons: anyone may contribute a cartridge.
 
 Until now you could not check one without cloning a platform. The bar lived inside the
 repos — half of it in an installable package, half in loose `scripts/qa/*.py` that
@@ -18,6 +20,7 @@ pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyp
 
 y4d-spec check ./my-cartridge --render          # a Yantra4D cartridge, geometry and all
 fc-spec check garment-manifest ./my-garment.json
+pliego-spec check cartridge ./my-sheet-object    # a sheet-commons (Pliego) cartridge
 ```
 
 Passing these checks and passing the platforms' CI are meant to be the same thing.
@@ -900,6 +903,96 @@ if not result.ok:
 
 ---
 
+## `pliego-spec` — sheet-commons (Pliego) cartridges
+
+The keystone's third kernel. The sheet commons, `sheet-hyperobjects`, holds origami,
+kirigami, papercut, pop-up and paper engineering, book structures and paper dioramas,
+rendered by the Pliego platform. Its checker ships here before its first cartridge does,
+so the commons starts with its bar enforced instead of retro-fitting one.
+
+```bash
+pliego-spec list
+pliego-spec check cartridge ./valley-fold ./v-fold-popup     # the triple, manifest, files
+pliego-spec check sheet-manifest ./valley-fold/project.json
+pliego-spec check sheet-document ./valley-fold.fold          # what the Pliego kernel writes
+pliego-spec check stock-card ./materials/kami/stock.json     # a Pliego stock card
+pliego-spec rules                                            # every check, in order
+```
+
+| Contract | Validates | Schema home |
+|---|---|---|
+| `sheet-manifest` | a cartridge's `project.json` | **here** (`hyperobjects_schemas`), authored from day one |
+| `sheet-document` | a sheet document (FOLD 1.2 + `pliego:` fields) | Pliego, **vendored** byte-identical and sha-256-locked in `pliego_spec/schemas/` |
+| `stock-card` | a paper stock card (`materials/<slug>/stock.json`) | Pliego, **vendored** the same way |
+
+**The manifest** is designed from both sibling manifests' lessons: the `hyperobject`
+block lives at the top level only (`project.hyperobject` is refused); `attribution`
+requires an author, a licence and a lineage; every user-visible text object, `project.name` included,
+requires **en, es, fr and pt** (born quadrilingual, and a blank value fails too); slugs are strict
+kebab case; closed objects refuse unknown keys, so a typo is an error.
+`hyperobject.domain` is one of `technique`, `base`, `model`, `tessellation`, `kirigami`,
+`papercut`, `popup`, `mechanism`, `book`, `toy`, `diorama`, `packaging` and `stationery`.
+Interfaces
+(`tab`, `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`,
+`pivot`, `track`, `custom`) bind sheet edges and carry polarity, symmetry, a size key and
+an optional frame in a declared folded state. `hardware_ref` bridges to a yantra4d
+cartridge (Fashion Cabinet's shape); `material_ref` to a Fashion Cabinet fabric card.
+
+**The licence is one constant.** `project.attribution.license` and
+`hyperobject.commons_license` must both equal `CERN-OHL-W-2.0`
+(`pliego_spec.rules.SHEET_COMMONS_LICENSE`, owner ruling 2026-10-10) and so agree.
+
+**A cartridge** is the triple `project.json` / `main.py` / `docs/README.md`, in a directory
+named for its slug, with no `LICENSE`/`COPYING` at any depth (the licence lives once, at
+the commons root), scripts that import only `pliego` and `math`, and every parameter read
+by a script of a mode that lists it (G-DEADPARAM, `y4d_spec`'s rule reused unchanged).
+A directory without `project.json` is a failure, never a skip. The constraint dialect is
+`safeFormula`'s, and a constraint the Studio would silently swallow (a function call, a
+string, an unknown or non-numeric identifier) fails here.
+
+**Read the summary line for what was not checked:**
+
+```
+pliego-spec check: cartridges=3 failures=0 notes=3 documents=NOT built geometry=NOT verified
+pliego-spec check: contract=sheet-document files=1 failures=0 sheets=1 vertices=4 edges=5 faces=2 joins=0 geometry=NOT verified
+```
+
+`documents=NOT built` — a cartridge check does not run the scripts (the keystone does not
+depend on the Pliego kernel; build documents with `python -m pliego.cartridge` and check
+them with `check sheet-document`). `geometry=NOT verified` — the document check is the
+**structural** subset of the spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
+stock, join, mechanism and control references, sequence targets, one 3-D coordinate per
+vertex, the GOC-1 canonical digest). Face simplicity and tiling (§8.3), sheet overlap
+(§8.5), point containment and developability (§8.9) need a polygon kernel and are not
+judged; a pass is a structural pass.
+
+**Strict from birth.** Every sheet rule is a failure from its first release, not a note:
+the commons held zero cartridges when the rules landed, so the whole-commons
+false-positive analysis is over an empty set, and it is written down in
+`pliego_spec/rules.py`. The fixtures in `tests/fixtures/sheet/` are faithful minimal
+cartridges standing in for real ones until the commons' first re-pin.
+
+**The vendored contracts.** `sheet-document` and `stock-card` are byte-identical copies of
+Pliego's `packages/schemas/` at a published main commit, pinned in `pliego.lock.json`
+(`check stock-card` is schema-only: derive drift is Pliego's own gate). The copy is taken
+from Pliego main before madfam-org/pliego#8 (packaging) merged, so one more re-vendor is
+due.
+
+**Pending, deliberately:** no sheet size keys in the
+interface-sizes vocabulary yet (so a sheet `size_key` fails membership until cited keys
+land); the AAS projection, the identity key, ASM-1 assemblies, `ho-bridge` and the reader
+do not yet know the sheet commons.
+
+As a library:
+
+```python
+from pliego_spec import check, check_cartridge
+check("sheet-manifest", my_doc).problems
+check_cartridge("./valley-fold").ok
+```
+
+---
+
 ## `ho-bridge` — does the hardware link actually hold?
 
 `fc-spec check hardware-ref --resolve` answers the **structural** question: the slug
@@ -1217,8 +1310,8 @@ fc-spec related tape-edge
 <!-- counts:lexicon-status:start -->
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=157 failures=0 embodied_by=resolved
-lexicon_status: 157/157 terms quadrilingual (es/en/fr/pt) domains=9 review: reviewed=0 generated=127 unmarked=30
+y4d-spec lexicon: terms=178 failures=0 embodied_by=resolved
+lexicon_status: 178/178 terms quadrilingual (es/en/fr/pt) domains=10 review: reviewed=0 generated=148 unmarked=30
 ```
 <!-- counts:lexicon-status:end -->
 
@@ -1321,6 +1414,18 @@ from hyperobjects_lexicon import concept_iri, entry_concept_iri
 concept_iri("bolt-pattern")                      # 'https://id.madfam.io/concept/bolt-pattern'
 entry_concept_iri("processes", "fff")            # 'https://id.madfam.io/concept/processes/fff'
 ```
+
+### Term contract 4: the sheet commons
+
+Contract 4 is additive over contract 3. It adds the `sheet-folding` domain and the
+`pliego` repo to `aliases[].repo` and `embodied_by`. An entry using any of them declares
+`spec_version: 4`, and the lane refuses one that declares less, so a reader pinned to
+contract 3 knows why it is refusing the entry. The 21 seed terms (mountain and valley
+folds, crease pattern, flat-foldability, Maekawa's and Kawasaki's theorems, kirigami,
+papel picado, pop-up, V-fold, parallel fold, score, perforation, grain direction, gutter,
+signature, leporello, tunnel book, volvelle, flexagon, screenfold codex) carry no
+`embodied_by`: the commons holds no cartridge yet, and a term may only point at a
+cartridge that exists.
 
 ### How platforms consume it
 
@@ -1557,7 +1662,7 @@ fc-spec reader --status        # just the reader_status line
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 157 | 157 / 157 / 157 / 157 |
+| terms | 178 | 178 / 178 / 178 / 178 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -1574,8 +1679,8 @@ fc-spec reader --status        # just the reader_status line
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1199 differences=0
-reader_status: pages=1199 terms=157 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1220 differences=0
+reader_status: pages=1220 terms=178 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
@@ -1629,6 +1734,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | Package | What it is |
 |---|---|
 | `fc_spec` | the Fashion Cabinet conformance runner (`fc-spec`) |
+| `pliego_spec` | the sheet-commons (Pliego) runner (`pliego-spec`) — the `sheet-manifest` rules, the cartridge triple and on-disk rules, and the structural checks of the **vendored** Pliego `sheet-document` schema (`pliego_spec/schemas/VENDORED.md`) |
 | `y4d_spec` | the Yantra4D cartridge runner (`y4d-spec`) — manifest, files, geometry on **both engines** (CadQuery *and* OpenSCAD) at defaults *and* at every declared preset, printability notes, and the render-environment contract (`render-env`) |
 | `bridge_check` | the FC↔Yantra4D hardware-link handshake (`ho-bridge`) |
 | `commons_sandbox` | the restricted-execution core both platforms run cartridges through |
@@ -1646,7 +1752,7 @@ hs.list_schemas()               # ['article-frontmatter', 'assembly', 'body-meas
                                 #  'commons-vocabulary', 'cross-commons-identity',
                                 #  'fabric-manifest', 'fabrication-vocabulary',
                                 #  'garment-manifest', 'generator-output', 'lexicon-term',
-                                #  'project-manifest', 'standard-part']
+                                #  'project-manifest', 'sheet-manifest', 'standard-part']
 hs.load("project-manifest")
 ```
 
@@ -1659,7 +1765,7 @@ permission to execute untrusted cartridges unsandboxed.
 
 ## Scope
 
-`fc-spec` and `y4d-spec` check properties of **one cartridge**, checkable by anyone,
+`fc-spec`, `y4d-spec` and `pliego-spec` check properties of **one cartridge**, checkable by anyone,
 anywhere. `ho-bridge` is the one deliberate exception: a link is a property of a
 *pair*, so it takes two checkouts and can only run where both are present. It is a
 separate command for exactly that reason — nothing about the single-cartridge lanes

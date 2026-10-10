@@ -1,0 +1,32 @@
+{
+  "spec_version": 4,
+  "id": "flat-foldability",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "flat-foldability",
+    "es": "plegabilidad plana",
+    "fr": "pliabilité à plat",
+    "pt": "dobrabilidade plana"
+  },
+  "definition": {
+    "en": "Whether a crease pattern can be folded all the way flat, every crease at ±180°, without the paper stretching, tearing or passing through itself. At one vertex it is decided by Maekawa's and Kawasaki's conditions; for a whole pattern it also depends on the stacking order of the layers.",
+    "es": "Si un patrón de pliegues puede doblarse hasta quedar completamente plano, con cada pliegue a ±180°, sin que el papel se estire, se rasgue ni se atraviese a sí mismo. En un vértice lo deciden las condiciones de Maekawa y de Kawasaki; en un patrón completo depende además del orden en que se apilan las capas.",
+    "fr": "Le fait qu'un canevas de plis puisse être plié complètement à plat, chaque pli à ±180°, sans que le papier s'étire, se déchire ou se traverse lui-même. En un sommet, les conditions de Maekawa et de Kawasaki en décident ; pour un canevas entier, l'ordre d'empilement des couches compte aussi.",
+    "pt": "Se um padrão de vincos pode ser dobrado até ficar completamente plano, com cada vinco a ±180°, sem que o papel estique, rasgue ou se atravesse a si mesmo. Num vértice decidem-no as condições de Maekawa e de Kawasaki; num padrão inteiro depende também da ordem em que as camadas se empilham."
+  },
+  "see_also": [
+    "maekawa-theorem",
+    "kawasaki-theorem",
+    "crease-pattern"
+  ],
+  "constraints": "Local conditions are necessary, not sufficient: a pattern whose every vertex passes Maekawa and Kawasaki can still be impossible to fold flat because of layer order, and deciding global flat-foldability is NP-hard. Never report a pattern flat-foldable from vertex checks alone.",
+  "sources": [
+    "Thomas C. Hull, Origametry: Mathematical Methods in Paper Folding, Cambridge University Press, 2020",
+    "Erik D. Demaine and Joseph O'Rourke, Geometric Folding Algorithms: Linkages, Origami, Polyhedra, Cambridge University Press, 2007",
+    "Marshall Bern and Barry Hayes, \"The complexity of flat origami\", Proceedings of the 7th ACM-SIAM Symposium on Discrete Algorithms (SODA), 1996"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

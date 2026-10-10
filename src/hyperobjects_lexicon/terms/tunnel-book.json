@@ -1,0 +1,31 @@
+{
+  "spec_version": 4,
+  "id": "tunnel-book",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "tunnel book",
+    "es": "libro túnel",
+    "fr": "livre tunnel",
+    "pt": "livro túnel"
+  },
+  "definition": {
+    "en": "A book of layered cut frames held apart by two folded side walls, viewed through a hole in the front so the layers read as one scene in depth. The name is usually traced to souvenir peepshows sold for the opening of the Thames Tunnel in 1843.",
+    "es": "Un libro de marcos calados en capas, separados por dos paredes laterales plegadas en acordeón, que se mira por una abertura en el frente para que las capas se lean como una sola escena con profundidad. El nombre suele atribuirse a los teatrillos de recuerdo que se vendieron con la apertura del túnel del Támesis en 1843.",
+    "fr": "Un livre de cadres ajourés superposés, tenus écartés par deux parois latérales pliées en accordéon, que l'on regarde par une ouverture en façade pour que les couches se lisent comme une seule scène en profondeur. On rattache généralement le nom aux vues d'optique souvenirs vendues pour l'ouverture du tunnel sous la Tamise en 1843.",
+    "pt": "Um livro de molduras recortadas em camadas, mantidas afastadas por duas paredes laterais dobradas em sanfona, que se observa por uma abertura na frente para que as camadas se leiam como uma só cena em profundidade. O nome costuma ser associado aos teatrinhos de lembrança vendidos na inauguração do túnel do Tamisa, em 1843."
+  },
+  "see_also": [
+    "leporello",
+    "pop-up",
+    "kirigami"
+  ],
+  "constraints": "Each frame's opening must stay inside the one in front of it as seen from the viewing hole, or a back layer's edge shows through; the side walls' panel widths set the spacing, so they are derived from the layer depths, not chosen separately.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (en), \"Tunnel book\" — structure and the Thames Tunnel (1843) souvenirs"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "spec_version": 4,
+  "id": "pop-up",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "pop-up",
+    "es": "pop-up (desplegable)",
+    "fr": "pop-up (livre animé)",
+    "pt": "pop-up (livro animado)"
+  },
+  "definition": {
+    "en": "A paper structure mounted across the fold of a spread that stands up as the spread opens and folds flat as it closes, driven only by the opening of the pages. Its building blocks are the V-fold and the parallel fold; everything else is combinations of them.",
+    "es": "Una estructura de papel montada sobre el doblez de un pliego abierto que se levanta al abrirlo y se pliega en plano al cerrarlo, movida solo por la apertura de las páginas. Sus piezas básicas son el pliegue en V y el pliegue paralelo; todo lo demás son combinaciones de ambos.",
+    "fr": "Une structure de papier montée sur la pliure d'une double page, qui se dresse à l'ouverture et se replie à plat à la fermeture, actionnée par le seul mouvement des pages. Ses éléments de base sont le pli en V et le pli parallèle ; tout le reste en est une combinaison.",
+    "pt": "Uma estrutura de papel montada sobre a dobra de uma página dupla, que se levanta ao abrir e se dobra em plano ao fechar, movida apenas pela abertura das páginas. As suas peças básicas são a dobra em V e a dobra paralela; tudo o resto são combinações delas."
+  },
+  "aliases": [
+    {
+      "name": "popup",
+      "repo": "pliego",
+      "note": "hyperobject.domain value in the sheet manifest."
+    }
+  ],
+  "see_also": [
+    "v-fold",
+    "parallel-fold",
+    "gutter"
+  ],
+  "constraints": "A pop-up must lie flat at both 0° and 180° of the spread and must not protrude past the closed page edges; checking only the open pose misses the piece that jams or sticks out when the book closes.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

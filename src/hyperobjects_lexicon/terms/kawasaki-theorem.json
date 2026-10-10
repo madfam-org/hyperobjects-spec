@@ -1,0 +1,32 @@
+{
+  "spec_version": 4,
+  "id": "kawasaki-theorem",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "Kawasaki's theorem",
+    "es": "teorema de Kawasaki",
+    "fr": "théorème de Kawasaki",
+    "pt": "teorema de Kawasaki"
+  },
+  "definition": {
+    "en": "A single vertex of creases in a flat sheet folds flat exactly when the alternating sum of the angles between consecutive creases is zero — equivalently, when every other angle adds up to 180°. Named after Toshikazu Kawasaki (also credited to Jacques Justin), it is the angle condition that complements Maekawa's count.",
+    "es": "Un vértice aislado de pliegues en un pliego plano se dobla en plano exactamente cuando la suma alternada de los ángulos entre pliegues consecutivos es cero; dicho de otro modo, cuando los ángulos tomados uno sí y uno no suman 180°. Lleva el nombre de Toshikazu Kawasaki (también se atribuye a Jacques Justin) y es la condición de ángulos que completa el conteo de Maekawa.",
+    "fr": "Un sommet isolé de plis dans une feuille plane se plie à plat exactement quand la somme alternée des angles entre plis consécutifs est nulle — autrement dit, quand un angle sur deux totalise 180°. Il porte le nom de Toshikazu Kawasaki (on l'attribue aussi à Jacques Justin) ; c'est la condition d'angles qui complète le décompte de Maekawa.",
+    "pt": "Um vértice isolado de vincos numa folha plana dobra-se em plano exatamente quando a soma alternada dos ângulos entre vincos consecutivos é zero — ou seja, quando os ângulos tomados alternadamente somam 180°. Tem o nome de Toshikazu Kawasaki (também é atribuído a Jacques Justin) e é a condição de ângulos que completa a contagem de Maekawa."
+  },
+  "see_also": [
+    "maekawa-theorem",
+    "flat-foldability",
+    "crease-pattern"
+  ],
+  "constraints": "Test it exactly when the crease directions allow (rational slopes, exact arithmetic); a floating-point test needs a stated tolerance, or the verdict on a near-miss vertex depends on rounding rather than on the pattern.",
+  "heritage": true,
+  "sources": [
+    "Thomas C. Hull, Origametry: Mathematical Methods in Paper Folding, Cambridge University Press, 2020",
+    "Erik D. Demaine and Joseph O'Rourke, Geometric Folding Algorithms: Linkages, Origami, Polyhedra, Cambridge University Press, 2007"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

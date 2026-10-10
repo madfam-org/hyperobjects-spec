@@ -63,7 +63,9 @@ cartridge, as an installable package, with no platform checkout. Two commons
 consume it — [yantra4d](https://github.com/madfam-org/yantra4d) (solid) and
 [fashion-cabinet](https://github.com/madfam-org/fashion-cabinet) (soft) — and
 both pin it **by SHA**. A change here reaches their CI on the next repin, so
-treat every rule as a fleet-wide change.
+treat every rule as a fleet-wide change. A third commons, the sheet one
+(`sheet-hyperobjects`, the Pliego platform), is checked by `pliego-spec`; it held no
+cartridge when its kernel landed (2026-10-10) and will pin this package the same way.
 
 `README.md` is the human document and stays authoritative on *why* each gate
 exists. This file is the operating summary an agent needs before it edits a
@@ -299,6 +301,21 @@ The `reason` is **required and non-empty**, in the rule and in the schema. A
 `reason` that is blank or absent is itself a failure. Do not reach for this to
 quiet a finding you have not read: the three honest answers to a dead parameter
 are **wire it, remove it, or allow-list it with a reason someone can review**.
+
+## The sheet commons (`pliego_spec`) — read before touching `src/pliego_spec/`
+
+- **`src/pliego_spec/schemas/sheet-document.schema.json` and `stock-card.schema.json` are
+  VENDORED** from Pliego (github.com/madfam-org/pliego) and locked by sha-256, size and
+  git blob id in `pliego.lock.json` (test `test_vendored_pliego_contracts_match_their_lock`).
+  Never hand-edit them: change Pliego and re-vendor (`VENDORED.md`). A re-vendor is its own
+  commit, and it does not move any commons `SPEC_PIN`.
+- `sheet-manifest` is authored here (`hyperobjects_schemas`); keep no copy in `pliego_spec`.
+- The licence is the single constant `pliego_spec.rules.SHEET_COMMONS_LICENSE`
+  (CERN-OHL-W-2.0, owner ruling 2026-10-10). Do not type it anywhere else in code.
+- Every sheet rule is a failure from birth: the commons was empty when they landed, and
+  the false-positive analysis that licenses that is written in `pliego_spec/rules.py`.
+  When real cartridges arrive they replace `tests/fixtures/sheet/`; a rule that fires on
+  one of them is re-examined before that re-pin merges.
 
 ## `default-drift` and the generator-output contract (GOC-1)
 

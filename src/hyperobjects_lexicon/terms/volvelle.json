@@ -1,0 +1,37 @@
+{
+  "spec_version": 4,
+  "id": "volvelle",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "volvelle",
+    "es": "volvela (rueda giratoria)",
+    "fr": "volvelle",
+    "pt": "volvela (roda giratória)"
+  },
+  "definition": {
+    "en": "A paper wheel turning on a pivot over a base disc, with windows or pointers that line up information as it turns: a calculator, a calendar, a reveal. Ramon Llull used rotating discs in the thirteenth century, and Peter Apian's Astronomicum Caesareum (1540) is its most famous printed use.",
+    "es": "Una rueda de papel que gira sobre un eje encima de un disco base, con ventanas o índices que alinean información al girar: una calculadora, un calendario, una revelación. Ramon Llull usó discos giratorios en el siglo XIII, y el Astronomicum Caesareum de Peter Apian (1540) es su uso impreso más célebre.",
+    "fr": "Une roue de papier qui tourne sur un pivot au-dessus d'un disque de base, avec des fenêtres ou des index qui alignent des informations en tournant : un calculateur, un calendrier, une révélation. Raymond Lulle employait des disques tournants au XIIIe siècle, et l'Astronomicum Caesareum de Peter Apian (1540) en est l'usage imprimé le plus célèbre.",
+    "pt": "Uma roda de papel que gira sobre um eixo por cima de um disco de base, com janelas ou ponteiros que alinham informação ao girar: uma calculadora, um calendário, uma revelação. Ramon Llull usou discos giratórios no século XIII, e o Astronomicum Caesareum de Peter Apian (1540) é o seu uso impresso mais célebre."
+  },
+  "aliases": [
+    {
+      "name": "rotate",
+      "repo": "pliego",
+      "note": "pliego:mechanisms type that drives a volvelle's wheel about its pivot; the pivot itself is a pivot join, optionally bridged to a yantra4d brad through hardware_ref."
+    }
+  ],
+  "see_also": [
+    "pop-up",
+    "flexagon"
+  ],
+  "constraints": "The pivot hole must match the fastener (a brad's shank) within the stock's tolerance: too tight and the wheel binds, too loose and the windows wander off their marks. Size it from the bridged hardware's parameters, not by eye.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (en), \"Volvelle\" — Llull's rotating discs and Apian's Astronomicum Caesareum (1540)"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

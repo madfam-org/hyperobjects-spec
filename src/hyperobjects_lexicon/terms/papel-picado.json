@@ -1,0 +1,39 @@
+{
+  "spec_version": 4,
+  "id": "papel-picado",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "papel picado",
+    "es": "papel picado",
+    "fr": "papel picado",
+    "pt": "papel picado"
+  },
+  "definition": {
+    "en": "The Mexican papercut tradition: stacks of tissue paper (papel de china) cut into lace-like flags with chisels and templates, strung into banners over streets, altars and Día de Muertos ofrendas. San Salvador Huixcolotla, Puebla, is the town most associated with the craft, and its makers are credited wherever the commons uses it.",
+    "es": "La tradición mexicana del papel recortado: pilas de papel de china caladas como encaje con cinceles y plantillas, y ensartadas en tiras de banderitas sobre calles, altares y ofrendas de Día de Muertos. San Salvador Huixcolotla, Puebla, es el pueblo más asociado con el oficio, y sus artesanos reciben el crédito dondequiera que el procomún lo usa.",
+    "fr": "La tradition mexicaine du papier découpé : des piles de papier de soie (papel de china) ajourées comme de la dentelle au ciseau à bois et au gabarit, puis enfilées en guirlandes de fanions au-dessus des rues, des autels et des ofrendas du Día de Muertos. San Salvador Huixcolotla, dans l'État de Puebla, est la ville la plus associée à cet artisanat, et ses artisans sont crédités partout où les communs l'utilisent.",
+    "pt": "A tradição mexicana do papel recortado: pilhas de papel de seda (papel de china) recortadas como renda com formões e moldes, e enfiadas em cordões de bandeirinhas sobre ruas, altares e oferendas do Día de Muertos. San Salvador Huixcolotla, em Puebla, é a cidade mais associada ao ofício, e os seus artesãos são creditados onde quer que o comum o use."
+  },
+  "aliases": [
+    {
+      "name": "papercut",
+      "repo": "pliego",
+      "note": "hyperobject.domain value under which papel picado cartridges are filed; the tradition itself is declared in hyperobject.heritage."
+    }
+  ],
+  "see_also": [
+    "kirigami",
+    "perforation",
+    "grain-direction"
+  ],
+  "constraints": "A papel picado cartridge declares hyperobject.heritage with the tradition, region and community, and cites its sources; its motifs are generated, never copied from a named maker's design.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (es), «Papel picado» — San Salvador Huixcolotla, Puebla, as the craft's best-known centre",
+    "Wikipedia (en), \"Papel picado\" — materials, tools and use in Día de Muertos ofrendas"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

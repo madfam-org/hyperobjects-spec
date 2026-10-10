@@ -1,0 +1,33 @@
+{
+  "spec_version": 4,
+  "id": "maekawa-theorem",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "Maekawa's theorem",
+    "es": "teorema de Maekawa",
+    "fr": "théorème de Maekawa",
+    "pt": "teorema de Maekawa"
+  },
+  "definition": {
+    "en": "At any interior vertex of a flat-folded crease pattern, the number of mountain creases and the number of valley creases differ by exactly two. It is named after the origami designer Jun Maekawa and is the quickest test that a vertex cannot fold flat.",
+    "es": "En todo vértice interior de un patrón de pliegues doblado en plano, el número de pliegues en monte y el de pliegues en valle difieren exactamente en dos. Lleva el nombre del diseñador de origami Jun Maekawa y es la prueba más rápida de que un vértice no puede quedar plano.",
+    "fr": "En tout sommet intérieur d'un canevas plié à plat, le nombre de plis montagne et le nombre de plis vallée diffèrent d'exactement deux. Il porte le nom du créateur d'origami Jun Maekawa et c'est le test le plus rapide pour montrer qu'un sommet ne peut pas se plier à plat.",
+    "pt": "Em todo vértice interior de um padrão de vincos dobrado em plano, o número de vincos em montanha e o de vincos em vale diferem exatamente em dois. Tem o nome do criador de origami Jun Maekawa e é o teste mais rápido de que um vértice não pode ficar plano."
+  },
+  "see_also": [
+    "kawasaki-theorem",
+    "flat-foldability",
+    "mountain-fold",
+    "valley-fold"
+  ],
+  "constraints": "|M - V| = 2 counts only creases that fold (M and V); flat lines (F), cuts (C), joins (J) and boundary edges are excluded, and a vertex with even one unassigned (U) crease cannot be judged.",
+  "heritage": true,
+  "sources": [
+    "Thomas C. Hull, Origametry: Mathematical Methods in Paper Folding, Cambridge University Press, 2020",
+    "Erik D. Demaine and Joseph O'Rourke, Geometric Folding Algorithms: Linkages, Origami, Polyhedra, Cambridge University Press, 2007"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}
