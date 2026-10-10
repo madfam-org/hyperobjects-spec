@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/sheet-manifest.schema.json",
+  "title": "Sheet Hyperobject Manifest (Pliego)",
+  "description": "The project.json of one cartridge in the sheet commons (sheet-hyperobjects: origami, kirigami, papercut, pop-up and paper engineering, book structures, paper dioramas), rendered by the Pliego platform. Authored HERE, in the keystone, from day one — not copied from a platform — and designed from the two sibling manifests' lessons: the hyperobject block lives at the top level only (never project.hyperobject); attribution with a licence and a lineage is required; every user-visible text object is born quadrilingual (en, es, fr AND pt); slugs are strict kebab case so they are valid in every cross-reference surface; and closed objects refuse unknown keys so a typo is an error rather than a silently ignored field. Structure only: the cross-field rules (licence value and agreement, references, dead parameters, the safeFormula dialect, blank translations) live in pliego_spec.rules.",
+  "type": "object",
+  "required": ["project", "modes", "sheets", "parameters", "export_formats", "hyperobject"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "project": {
+      "type": "object",
+      "required": ["name", "slug", "version", "engine", "description", "attribution"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The display name: a proper name that is the same in every language (a string), or a quadrilingual object.",
+          "oneOf": [{ "type": "string", "minLength": 1 }, { "$ref": "#/$defs/i18n" }]
+        },
+        "slug": {
+          "description": "Strict kebab case, 2–80 characters: the grammar of identity, lexicon and article references, so the slug is valid wherever the object is named. Equals the cartridge directory name.",
+          "$ref": "#/$defs/slug"
+        },
+        "version": { "$ref": "#/$defs/semver" },
+        "engine": { "const": "pliego" },
+        "description": { "$ref": "#/$defs/i18n" },
+        "thumbnail": { "type": "string", "minLength": 1 },
+        "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+        "tags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "unlisted": { "type": "boolean" },
+        "attribution": {
+          "type": "object",
+          "required": ["author", "license", "lineage"],
+          "additionalProperties": false,
+          "properties": {
+            "author": { "type": "string", "minLength": 1 },
+            "license": {
+              "type": "string",
+              "minLength": 1,
+              "description": "SPDX id. Must equal the sheet commons licence and hyperobject.commons_license (pliego_spec.rules.license_rules)."
+            },
+            "url": { "type": "string", "minLength": 1 },
+            "lineage": {
+              "description": "Where the object comes from, at least one entry. An original design says so ({\"source\": \"Original design\", \"license\": \"original\"}); a traditional model names the tradition and its sources; a model adapted from a published design names it and its licence. A modern designer's crease pattern is never copied.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["source", "license"],
+                "additionalProperties": false,
+                "properties": {
+                  "source": { "type": "string", "minLength": 1 },
+                  "url": { "type": "string", "minLength": 1 },
+                  "license": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          }
+        },
+        "hyperobject": false
+      }
+    },
+    "modes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "sheets"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/localId" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "script_file": {
+            "description": "The cartridge script this mode runs, a bare file name in the cartridge directory (no path separator, so it cannot escape the cartridge). Defaults to main.py.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.-]*\\.py$",
+            "default": "main.py"
+          },
+          "sheets": {
+            "description": "The sheet ids (from `sheets`) this mode produces.",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "$ref": "#/$defs/slug" }
+          },
+          "estimate": { "type": "object" }
+        }
+      }
+    },
+    "sheets": {
+      "description": "The sheets the cartridge can produce. A sheet id here is the `pliego:sheets[].id` of the sheet document the kernel writes.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/slug" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "stock": { "description": "The stock card slug this sheet defaults to, overriding stock.default.", "$ref": "#/$defs/slug" }
+        }
+      }
+    },
+    "parameter_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/localId" },
+          "label": { "$ref": "#/$defs/i18n" }
+        }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
+          "type": { "type": "string", "enum": ["slider", "select", "checkbox", "text"] },
+          "label": { "$ref": "#/$defs/i18n" },
+          "tooltip": { "$ref": "#/$defs/i18n" },
+          "default": {},
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "step": { "type": "number", "exclusiveMinimum": 0 },
+          "unit": { "type": "string", "enum": ["mm", "deg", "count", "ratio", "percent"] },
+          "options": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["value", "label"],
+              "additionalProperties": false,
+              "properties": {
+                "value": { "type": ["string", "number", "boolean"] },
+                "label": { "$ref": "#/$defs/i18n" }
+              }
+            }
+          },
+          "group": { "$ref": "#/$defs/localId" },
+          "modes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/localId" } },
+          "advanced": { "type": "boolean" },
+          "intentionally_unused": {
+            "description": "G-DEADPARAM allow-list: a declared parameter no source reads, kept deliberately. The reason is required and reviewable.",
+            "type": "object",
+            "required": ["reason"],
+            "additionalProperties": false,
+            "properties": { "reason": { "type": "string", "minLength": 1 } }
+          }
+        }
+      }
+    },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/localId" },
+          "label": { "$ref": "#/$defs/i18n" },
+          "mode": { "$ref": "#/$defs/localId" },
+          "values": { "type": "object", "minProperties": 1 }
+        }
+      }
+    },
+    "constraints": {
+      "description": "Parameter constraints, evaluated client-side in the dialect of the Studio's `safeFormula` parser (NOT expr-eval): numeric literals, bare parameter ids, + - * / %, comparisons, && || !, the ternary and parentheses — NO function calls and no string literals, at most 256 characters and 128 tokens. The expression is the SATISFIED condition. An expression the evaluator cannot evaluate is swallowed and never fires, so pliego_spec.rules refuses one that uses a function call, a string literal or an undeclared identifier.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["expression", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "expression": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "severity": { "type": "string", "enum": ["error", "warning"], "default": "warning" },
+          "message": { "$ref": "#/$defs/i18n" }
+        }
+      }
+    },
+    "controls": {
+      "description": "An INFORMATIONAL mirror of the `pliego:controls` the cartridge's sheet documents declare (sheet-document v1 §5.5): what the viewer exposes (open the spread, scrub the fold program, turn a page). The document is authoritative; this mirror lets a catalog describe an object without running it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/slug" },
+          "kind": { "type": "string", "enum": ["angle", "distance", "sequence", "wind", "toggle"] },
+          "label": { "$ref": "#/$defs/i18n" },
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "default": { "type": ["number", "boolean"] },
+          "unit": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "export_formats": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["svg", "dxf", "pdf", "hpgl", "glb", "fold", "json"] }
+    },
+    "stock": {
+      "description": "The paper stock the object is designed for: stock card slugs (materials/<slug>/stock.json in the sheet commons).",
+      "type": "object",
+      "required": ["default"],
+      "additionalProperties": false,
+      "properties": {
+        "default": { "$ref": "#/$defs/slug" },
+        "alternatives": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/slug" } }
+      }
+    },
+    "hardware_ref": {
+      "description": "Bridge to a solid (yantra4d) cartridge — a brad, a magnet, a binder post — in the same shape as Fashion Cabinet's notion.hardware_ref. `params_map` maps a yantra4d parameter id to an expression over THIS cartridge's parameter ids (parsed, never evaluated).",
+      "type": "object",
+      "required": ["platform", "linked"],
+      "additionalProperties": false,
+      "properties": {
+        "platform": { "type": "string", "enum": ["yantra4d"] },
+        "project_slug": { "type": "string", "minLength": 1 },
+        "linked": { "type": "boolean" },
+        "params_map": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "material_ref": {
+      "description": "Bridges to Fashion Cabinet fabric cards (materials/<slug>/material.json) for the non-paper materials a sheet object uses: book cloth on a spine, a ribbon, a hinge tape. No precedent existed before the sheet commons; the shape is deliberately the smallest honest one.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["platform", "material_slug", "role"],
+        "additionalProperties": false,
+        "properties": {
+          "platform": { "type": "string", "enum": ["fashion-cabinet"] },
+          "material_slug": { "$ref": "#/$defs/slug" },
+          "role": { "type": "string", "enum": ["cover", "spine", "hinge", "ribbon", "lining", "custom"] },
+          "linked": { "type": "boolean" }
+        }
+      }
+    },
+    "hyperobject": {
+      "type": "object",
+      "required": ["is_hyperobject", "domain", "kernel", "commons_license"],
+      "additionalProperties": false,
+      "properties": {
+        "is_hyperobject": { "type": "boolean" },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "technique", "base", "model", "tessellation", "kirigami", "papercut",
+            "popup", "mechanism", "book", "toy", "diorama"
+          ]
+        },
+        "kernel": { "const": "sheet" },
+        "interfaces": {
+          "description": "How the object composes with others: a pop-up piece's glue flap onto a spread's glue zone, a tab into a slot, a leaf onto a spine. Named `interfaces` (as on the soft side) so the shared lexicon rules read it.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/interface" }
+        },
+        "capabilities": {
+          "description": "Boolean capability flags only — never material or feature names.",
+          "type": "object",
+          "additionalProperties": { "type": "boolean" }
+        },
+        "societal_benefit": { "$ref": "#/$defs/i18n" },
+        "heritage": {
+          "description": "Set when the object carries a tradition (papel picado, jianzhi, wycinanki, an amate screenfold). Engages the RFC 0039 citation bar: no uncited cultural claim, and the community is credited.",
+          "type": "object",
+          "required": ["tradition", "sources"],
+          "additionalProperties": false,
+          "properties": {
+            "tradition": { "type": "string", "minLength": 1 },
+            "region": { "type": "string", "minLength": 1 },
+            "community": { "type": "string", "minLength": 1 },
+            "sources": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 4 } }
+          }
+        },
+        "commons_license": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SPDX id of the commons licence. Must equal the sheet commons licence and project.attribution.license (pliego_spec.rules.license_rules)."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "i18n": {
+      "description": "A user-visible text, born quadrilingual: en, es, fr AND pt are all required (Spanish is the house register and the quality bar).",
+      "type": "object",
+      "required": ["en", "es", "fr", "pt"],
+      "additionalProperties": false,
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "pt": { "type": "string", "minLength": 1 }
+      }
+    },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "minLength": 2, "maxLength": 80 },
+    "localId": { "type": "string", "pattern": "^[a-z0-9]+([-_][a-z0-9]+)*$", "maxLength": 64 },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "frameComponent": {
+      "description": "A number, or an expression over parameter ids (at most 256 characters).",
+      "oneOf": [{ "type": "number" }, { "type": "string", "minLength": 1, "maxLength": 256 }]
+    },
+    "frameVector": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/frameComponent" } },
+    "edgeRef": {
+      "description": "A named edge of one sheet (the kernel's edge label), the sheet commons' counterpart of Fashion Cabinet's piece edge.",
+      "type": "object",
+      "required": ["sheet", "edge"],
+      "additionalProperties": false,
+      "properties": {
+        "sheet": { "$ref": "#/$defs/slug" },
+        "edge": { "type": "string", "minLength": 1 }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "required": ["id", "type", "label", "edges"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "tab", "slot", "glue_flap", "glue_zone", "hinge", "spine", "gutter",
+            "page_edge", "pivot", "track", "custom"
+          ]
+        },
+        "label": { "$ref": "#/$defs/i18n" },
+        "edges": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/edgeRef" } },
+        "parameters": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "polarity": {
+          "description": "tab, glue_flap: male; slot, glue_zone: female; hinge, spine, gutter, page_edge, pivot, track: neutral or a declared pair. Two interfaces mate only with complementary polarity.",
+          "type": "string",
+          "enum": ["male", "female", "neutral"]
+        },
+        "symmetry": {
+          "description": "Rotational symmetry order about the frame normal: 0 continuous (a round pivot), 1 none, else the number of equivalent orientations.",
+          "type": "integer",
+          "enum": [0, 1, 2, 3, 4, 6, 8]
+        },
+        "size_key": {
+          "description": "The interface-sizes vocabulary key this interface realises, or {param, map}. Vocabulary membership is the shared lexicon rule; no sheet keys are in the vocabulary yet, so a sheet size_key fails until cited keys are added.",
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            {
+              "type": "object",
+              "required": ["param", "map"],
+              "additionalProperties": false,
+              "properties": {
+                "param": { "type": "string", "minLength": 1 },
+                "map": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "minLength": 1 } }
+              }
+            }
+          ]
+        },
+        "frame": {
+          "description": "Where the interface sits in 3-D, in the world frame of sheet-document v1 §1 (mm, Y up), in a DECLARED folded state: `fold_state` is the value of the cartridge's primary control (e.g. the spread angle) the frame is evaluated at. Statically checked for structure and sheet reference only: no render-time sheet frame gate exists yet.",
+          "type": "object",
+          "required": ["sheet", "origin", "normal"],
+          "additionalProperties": false,
+          "properties": {
+            "sheet": { "$ref": "#/$defs/slug" },
+            "origin": { "$ref": "#/$defs/frameVector" },
+            "normal": { "$ref": "#/$defs/frameVector" },
+            "x_axis": { "$ref": "#/$defs/frameVector" },
+            "fold_state": { "type": "number" }
+          }
+        }
+      },
+      "if": { "required": ["symmetry", "frame"], "properties": { "symmetry": { "not": { "const": 0 } } } },
+      "then": { "properties": { "frame": { "required": ["x_axis"] } } }
+    }
+  }
+}

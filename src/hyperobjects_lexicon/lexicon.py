@@ -88,8 +88,10 @@ REVIEW_STATES: tuple[str, ...] = ("generated", "reviewed")
 SCHEMA_NAME = "lexicon-term"
 
 #: The newest term contract this package reads (``spec_version``). Contract 3 adds the
-#: optional ``exact_match`` / ``close_match`` external identifiers (SEM-1 §4).
-CONTRACT_VERSION = 3
+#: optional ``exact_match`` / ``close_match`` external identifiers (SEM-1 §4). Contract 4
+#: adds the third commons (the sheet commons, Pliego): the ``sheet-folding`` domain and
+#: the ``pliego`` repo in ``aliases`` and ``embodied_by``.
+CONTRACT_VERSION = 4
 
 #: Where MADFAM concept identifiers are minted (SEM-1 §1). A term's IRI is this plus its
 #: id; it is DERIVED, never stored, so there is no second copy of the id to disagree.
@@ -97,6 +99,14 @@ CONCEPT_NAMESPACE = "https://id.madfam.io/concept/"
 
 #: The fields a term may only use when it declares contract 3.
 CONTRACT_3_FIELDS: tuple[str, ...] = ("exact_match", "close_match")
+
+#: The commons repos a term may name, in reading order (solid, soft, sheet). ``pliego``
+#: is contract 4.
+COMMONS_REPOS: tuple[str, ...] = ("yantra4d", "fashion-cabinet", "pliego")
+
+#: What a term may only use when it declares contract 4.
+CONTRACT_4_DOMAIN = "sheet-folding"
+CONTRACT_4_REPO = "pliego"
 
 _TERM_ID = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
@@ -155,6 +165,28 @@ def concept_iri(term_id: str) -> str:
     ):
         raise ValueError(f"{term_id!r} is not a lexicon term id (kebab-case, 2-80 chars)")
     return f"{CONCEPT_NAMESPACE}{term_id}"
+
+
+def _contract_4_problems(doc: dict) -> list[str]:
+    """The sheet commons' surface needs a contract-4 declaration (as contract 3's
+    fields need 3): a reader pinned to contract 3 then knows why it refuses the entry."""
+    used = []
+    if doc.get("domain") == CONTRACT_4_DOMAIN:
+        used.append(f"domain {CONTRACT_4_DOMAIN!r}")
+    if any(isinstance(a, dict) and a.get("repo") == CONTRACT_4_REPO
+           for a in doc.get("aliases") or []):
+        used.append(f"an alias in repo {CONTRACT_4_REPO!r}")
+    if any(isinstance(e, str) and e.startswith(f"{CONTRACT_4_REPO}/")
+           for e in doc.get("embodied_by") or []):
+        used.append(f"embodied_by in {CONTRACT_4_REPO!r}")
+    declared = doc.get("spec_version", 1)
+    if used and (not isinstance(declared, int) or declared < 4):
+        return [
+            f"uses {', '.join(used)} but declares spec_version {declared!r} — the sheet "
+            f"commons is contract 4, so a reader on an older contract knows it is looking "
+            f"at a commons it does not know"
+        ]
+    return []
 
 
 def _contract_3_problems(doc: dict) -> list[str]:
@@ -257,7 +289,7 @@ def load_catalog_slugs(path: str | Path) -> set[str]:
     repo_lists = {
         k: v
         for k, v in data.items()
-        if k in {"yantra4d", "fashion-cabinet"} and isinstance(v, list)
+        if k in set(COMMONS_REPOS) and isinstance(v, list)
     }
     if repo_lists:
         for repo, slugs in repo_lists.items():
@@ -295,7 +327,7 @@ def bundled_catalog_slugs() -> set[str]:
     with resources.files(CATALOG_DIR).joinpath(SNAPSHOT_NAME).open(encoding="utf-8") as f:
         data = json.load(f)
     out: set[str] = set()
-    for repo in ("yantra4d", "fashion-cabinet"):
+    for repo in COMMONS_REPOS:  # a repo the snapshot has not captured contributes nothing
         for slug in data.get(repo, []):
             out.add(f"{repo}/{slug}")
     return out
@@ -395,6 +427,7 @@ def check_term(
 
     problems.extend(_review_problems(doc))
     problems.extend(_contract_3_problems(doc))
+    problems.extend(_contract_4_problems(doc))
 
     if known_ids is not None:
         for ref in doc.get("see_also") or []:

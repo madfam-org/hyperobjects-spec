@@ -1,0 +1,18 @@
+{
+  "_comment": "sha256 of the vendored Pliego sheet-document contract. Canonical source: the Pliego platform repo (packages/schemas/sheet-document.schema.json), NOT YET PUBLISHED on GitHub, so `commit` is a local commit of that repo and cannot be fetched by a third party yet. Re-pin from the published repo's commit when Pliego is published; see VENDORED.md. Never hand-edit the vendored file.",
+  "canonical_repo": "pliego",
+  "published": false,
+  "commit": "e99db11ea29255d3d785f40313528e3275a67e6e",
+  "canonical_paths": {
+    "sheet-document.schema.json": "packages/schemas/sheet-document.schema.json"
+  },
+  "git_blob_sha1": {
+    "sheet-document.schema.json": "00083dcb6b05927093b5c3a632be890172f14add"
+  },
+  "hashes": {
+    "sheet-document.schema.json": "d003e067115b097e40aadb6b301e35702b861a7f353ea5a4567b0c1002e85a7d"
+  },
+  "bytes": {
+    "sheet-document.schema.json": 28516
+  }
+}

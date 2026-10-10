@@ -130,7 +130,7 @@
   "$defs": {
     "objectSlug": {
       "type": "string",
-      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^(yantra4d|fashion-cabinet|pliego)/[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "termId": {
       "type": "string",

@@ -221,9 +221,9 @@
       "unevaluatedProperties": false
     },
     "cardRef": {
-      "description": "A material card in one of the two commons, as '<repo>/<slug>' — resolved against the bundled catalog snapshot.",
+      "description": "A material card in one of the commons, as '<repo>/<slug>' — resolved against the bundled catalog snapshot. `pliego` (the sheet commons' paper stock cards) is admitted additively; no pliego card is in the snapshot yet, so one fails to resolve until it is captured.",
       "type": "string",
-      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^(yantra4d|fashion-cabinet|pliego)/[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "materialClassEntry": {
       "type": "object",

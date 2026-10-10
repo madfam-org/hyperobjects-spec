@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperobjects-spec"
-version = "0.10.0"
-description = "The MADFAM hyperobject commons spec: validate a Fashion Cabinet or Yantra4D cartridge with zero platform code."
+version = "0.12.0"
+description = "The MADFAM hyperobject commons spec: validate a Yantra4D, Fashion Cabinet or Pliego cartridge with zero platform code."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 authors = [{ name = "Innovaciones MADFAM SAS de CV" }]
-keywords = ["hyperobject", "commons", "cartridge", "cadquery", "conformance", "spec"]
+keywords = ["hyperobject", "commons", "cartridge", "cadquery", "origami", "conformance", "spec"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -67,6 +67,7 @@ Source = "https://github.com/madfam-org/hyperobjects-spec"
 [project.scripts]
 fc-spec = "fc_spec.cli:main"
 y4d-spec = "y4d_spec.cli:main"
+pliego-spec = "pliego_spec.cli:main"
 ho-bridge = "bridge_check.cli:main"
 
 [tool.setuptools.packages.find]
@@ -74,6 +75,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 fc_spec = ["schemas/*.json"]
+# The vendored Pliego sheet-document schema, its sha-256 lock and VENDORED.md.
+pliego_spec = ["schemas/*.json", "schemas/*.md"]
 hyperobjects_schemas = ["schemas/*.json"]
 # The vendored AAS v3.1.2 JSON Schema (CC-BY-4.0, see schemas/VENDORED.md) and its lock.
 hyperobjects_aas = ["schemas/*.json", "schemas/*.md", "schemas/*.txt"]

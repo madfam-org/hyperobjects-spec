@@ -9,13 +9,13 @@
   "properties": {
     "format": { "const": "hyperobjects.generator-output" },
     "format_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
-    "kind": { "enum": ["solid", "soft"] },
+    "kind": { "enum": ["solid", "soft", "sheet"] },
     "generator": {
       "type": "object",
       "additionalProperties": false,
       "required": ["platform", "cartridge", "mode", "engine", "source"],
       "properties": {
-        "platform": { "enum": ["yantra4d", "fashion-cabinet", "hyperobjects-spec"] },
+        "platform": { "enum": ["yantra4d", "fashion-cabinet", "pliego", "hyperobjects-spec"] },
         "platform_build": { "type": "string", "minLength": 1, "maxLength": 128 },
         "cartridge": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
         "cartridge_version": { "type": "string", "maxLength": 64 },
@@ -24,13 +24,13 @@
           "additionalProperties": false,
           "required": ["repo"],
           "properties": {
-            "repo": { "enum": ["solid-hyperobjects", "soft-hyperobjects"] },
+            "repo": { "enum": ["solid-hyperobjects", "soft-hyperobjects", "sheet-hyperobjects"] },
             "sha": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" }
           }
         },
         "mode": { "type": "string", "minLength": 1 },
         "part": { "type": ["string", "null"] },
-        "engine": { "enum": ["openscad", "cadquery", "graph", "implicit", "fc"] },
+        "engine": { "enum": ["openscad", "cadquery", "graph", "implicit", "fc", "pliego"] },
         "kernel": { "type": "string", "maxLength": 200 },
         "source": {
           "type": "object",

@@ -1,0 +1,1284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/madfam-org/pliego/blob/main/packages/schemas/sheet-document.schema.json",
+  "title": "Pliego sheet document v1",
+  "description": "FOLD 1.2 file with pliego: extensions. Structure only; semantic rules live in docs/spec/v1/sheet-document.md §8 and are enforced by pliego.document.verify() and the engine's loadDocument().",
+  "type": "object",
+  "required": [
+    "file_spec",
+    "file_creator",
+    "file_classes",
+    "frame_classes",
+    "frame_attributes",
+    "frame_unit",
+    "vertices_coords",
+    "edges_vertices",
+    "edges_assignment",
+    "edges_foldAngle",
+    "faces_vertices",
+    "pliego:version",
+    "pliego:vertices_sheet",
+    "pliego:edges_sheet",
+    "pliego:faces_sheet",
+    "pliego:edges_treatment",
+    "pliego:sheets",
+    "pliego:stocks",
+    "pliego:meta"
+  ],
+  "properties": {
+    "file_spec": {
+      "const": 1.2
+    },
+    "file_creator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "file_author": {
+      "type": "string"
+    },
+    "file_title": {
+      "type": "string"
+    },
+    "file_description": {
+      "type": "string"
+    },
+    "file_classes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "singleModel",
+          "multiModel",
+          "animation",
+          "diagrams"
+        ]
+      },
+      "minItems": 1
+    },
+    "frame_title": {
+      "type": "string"
+    },
+    "frame_classes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "creasePattern"
+      }
+    },
+    "frame_attributes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "2D",
+          "3D",
+          "abstract",
+          "manifold",
+          "nonManifold",
+          "orientable",
+          "nonOrientable",
+          "selfTouching",
+          "nonSelfTouching",
+          "selfIntersecting",
+          "nonSelfIntersecting",
+          "cuts",
+          "noCuts",
+          "joins",
+          "noJoins",
+          "convexFaces",
+          "nonConvexFaces"
+        ]
+      },
+      "contains": {
+        "const": "2D"
+      }
+    },
+    "frame_unit": {
+      "const": "mm"
+    },
+    "vertices_coords": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/vec2"
+      }
+    },
+    "edges_vertices": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/indexPair"
+      }
+    },
+    "edges_assignment": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "B",
+          "M",
+          "V",
+          "F",
+          "U",
+          "C",
+          "J"
+        ]
+      }
+    },
+    "edges_foldAngle": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": -180,
+        "maximum": 180
+      }
+    },
+    "edges_length": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "faces_vertices": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "$ref": "#/$defs/index"
+        }
+      }
+    },
+    "faces_edges": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "$ref": "#/$defs/index"
+        }
+      }
+    },
+    "edges_faces": {
+      "type": "array"
+    },
+    "vertices_vertices": {
+      "type": "array"
+    },
+    "vertices_faces": {
+      "type": "array"
+    },
+    "faceOrders": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/$defs/index"
+          },
+          {
+            "$ref": "#/$defs/index"
+          },
+          {
+            "enum": [
+              -1,
+              0,
+              1
+            ]
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3
+      }
+    },
+    "file_frames": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/frame"
+      }
+    },
+    "pliego:version": {
+      "const": 1
+    },
+    "pliego:vertices_sheet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/index"
+      }
+    },
+    "pliego:edges_sheet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/index"
+      }
+    },
+    "pliego:faces_sheet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/index"
+      }
+    },
+    "pliego:edges_treatment": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "none",
+          "crease",
+          "score",
+          "perforation",
+          "cut",
+          "halfcut"
+        ]
+      }
+    },
+    "pliego:edges_restAngle": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": -180,
+        "maximum": 180
+      }
+    },
+    "pliego:sheets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sheet"
+      }
+    },
+    "pliego:stocks": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/slug"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/stockSnapshot"
+      }
+    },
+    "pliego:joins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/join"
+      }
+    },
+    "pliego:mechanisms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mechanism"
+      }
+    },
+    "pliego:controls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/control"
+      }
+    },
+    "pliego:sequence": {
+      "$ref": "#/$defs/sequence"
+    },
+    "pliego:meta": {
+      "$ref": "#/$defs/meta"
+    }
+  },
+  "patternProperties": {
+    "^[a-z][a-zA-Z0-9]*:": true
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "indexPair": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/index"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "vec2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "vec3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "quat": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "i18n": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "es": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pt": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "face": {
+      "type": "object",
+      "required": [
+        "color"
+      ],
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "art": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "placement": {
+      "type": "object",
+      "required": [
+        "origin",
+        "rotation"
+      ],
+      "properties": {
+        "origin": {
+          "$ref": "#/$defs/vec3"
+        },
+        "rotation": {
+          "$ref": "#/$defs/quat"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sheet": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "stock",
+        "grain_deg",
+        "offset",
+        "placement",
+        "front",
+        "back"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "label": {
+          "$ref": "#/$defs/i18n"
+        },
+        "stock": {
+          "$ref": "#/$defs/slug"
+        },
+        "grain_deg": {
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360
+        },
+        "offset": {
+          "$ref": "#/$defs/vec2"
+        },
+        "placement": {
+          "$ref": "#/$defs/placement"
+        },
+        "front": {
+          "$ref": "#/$defs/face"
+        },
+        "back": {
+          "$ref": "#/$defs/face"
+        },
+        "kinematic": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "mechanism"
+              ],
+              "properties": {
+                "mechanism": {
+                  "$ref": "#/$defs/slug"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "stockSnapshot": {
+      "type": "object",
+      "required": [
+        "name",
+        "gsm",
+        "caliper_mm",
+        "derived",
+        "derived_basis"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/i18n"
+        },
+        "gsm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "caliper_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "derived": {
+          "type": "object",
+          "required": [
+            "areal_density",
+            "thickness",
+            "E_md",
+            "E_cd",
+            "nu",
+            "D_md",
+            "D_cd",
+            "crease_k",
+            "crease_yield_deg",
+            "crease_set_rate",
+            "score_factor",
+            "perf_factor",
+            "tear_strain",
+            "friction",
+            "collision_thickness"
+          ],
+          "properties": {
+            "areal_density": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "thickness": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "E_md": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "E_cd": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "nu": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.5
+            },
+            "D_md": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "D_cd": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "crease_k": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "crease_yield_deg": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 180
+            },
+            "crease_set_rate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "score_factor": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "perf_factor": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "tear_strain": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "friction": {
+              "type": "number",
+              "minimum": 0
+            },
+            "collision_thickness": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "derived_basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "sheetPoint": {
+      "type": "object",
+      "required": [
+        "sheet",
+        "at"
+      ],
+      "properties": {
+        "sheet": {
+          "$ref": "#/$defs/slug"
+        },
+        "at": {
+          "$ref": "#/$defs/vec2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "join": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "type": {
+          "enum": [
+            "glue",
+            "pivot",
+            "string",
+            "pin",
+            "slider"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "glue"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "a",
+              "b",
+              "map",
+              "side"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "a": {
+                "type": "object",
+                "required": [
+                  "sheet",
+                  "region"
+                ],
+                "properties": {
+                  "sheet": {
+                    "$ref": "#/$defs/slug"
+                  },
+                  "region": {
+                    "type": "array",
+                    "minItems": 3,
+                    "items": {
+                      "$ref": "#/$defs/vec2"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "b": {
+                "type": "object",
+                "required": [
+                  "sheet"
+                ],
+                "properties": {
+                  "sheet": {
+                    "$ref": "#/$defs/slug"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "map": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 6,
+                "maxItems": 6
+              },
+              "side": {
+                "enum": [
+                  "front",
+                  "back"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "pivot"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "a",
+              "b"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "a": {
+                "$ref": "#/$defs/sheetPoint"
+              },
+              "b": {
+                "$ref": "#/$defs/sheetPoint"
+              },
+              "hardware_ref": {
+                "$ref": "#/$defs/hardwareRef"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "string"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "a",
+              "b",
+              "length"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "a": {
+                "$ref": "#/$defs/sheetPoint"
+              },
+              "b": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/sheetPoint"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "world"
+                    ],
+                    "properties": {
+                      "world": {
+                        "$ref": "#/$defs/vec3"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "length": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "pin"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "a",
+              "world"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "a": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/sheetPoint"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "sheet",
+                      "along"
+                    ],
+                    "properties": {
+                      "sheet": {
+                        "$ref": "#/$defs/slug"
+                      },
+                      "along": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": {
+                          "$ref": "#/$defs/vec2"
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "world": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/vec3"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "mechanism": {
+                "$ref": "#/$defs/slug"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "slider"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "a",
+              "track"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "a": {
+                "$ref": "#/$defs/sheetPoint"
+              },
+              "track": {
+                "type": "object",
+                "required": [
+                  "sheet",
+                  "from",
+                  "to"
+                ],
+                "properties": {
+                  "sheet": {
+                    "$ref": "#/$defs/slug"
+                  },
+                  "from": {
+                    "$ref": "#/$defs/vec2"
+                  },
+                  "to": {
+                    "$ref": "#/$defs/vec2"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "mechanism": {
+                "$ref": "#/$defs/slug"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "hardwareRef": {
+      "type": "object",
+      "required": [
+        "platform",
+        "project_slug"
+      ],
+      "properties": {
+        "platform": {
+          "const": "yantra4d"
+        },
+        "project_slug": {
+          "$ref": "#/$defs/slug"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "linked": {
+          "type": "boolean"
+        },
+        "params_map": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "mechanism": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "type": {
+          "enum": [
+            "hinge",
+            "slide",
+            "rotate",
+            "leaf",
+            "translate"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "hinge"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "axis",
+              "angle_control",
+              "rest",
+              "sheets_moving"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "axis": {
+                "type": "object",
+                "required": [
+                  "origin",
+                  "direction"
+                ],
+                "properties": {
+                  "origin": {
+                    "$ref": "#/$defs/vec3"
+                  },
+                  "direction": {
+                    "$ref": "#/$defs/vec3"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "angle_control": {
+                "$ref": "#/$defs/slug"
+              },
+              "rest": {
+                "type": "number"
+              },
+              "sheets_moving": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/slug"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "slide"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "control",
+              "travel"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "control": {
+                "$ref": "#/$defs/slug"
+              },
+              "travel": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "rotate"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "center",
+              "control",
+              "sheets_moving"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "center": {
+                "$ref": "#/$defs/sheetPoint"
+              },
+              "control": {
+                "$ref": "#/$defs/slug"
+              },
+              "sheets_moving": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/slug"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "leaf"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sheet",
+              "spine",
+              "control"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "sheet": {
+                "$ref": "#/$defs/slug"
+              },
+              "spine": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "$ref": "#/$defs/vec2"
+                }
+              },
+              "control": {
+                "$ref": "#/$defs/slug"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "translate"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "control",
+              "direction",
+              "travel"
+            ],
+            "properties": {
+              "id": true,
+              "type": true,
+              "control": {
+                "$ref": "#/$defs/slug"
+              },
+              "direction": {
+                "$ref": "#/$defs/vec3"
+              },
+              "travel": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "sheets_moving": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/slug"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "default"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "kind": {
+          "enum": [
+            "angle",
+            "distance",
+            "sequence",
+            "wind",
+            "toggle"
+          ]
+        },
+        "label": {
+          "$ref": "#/$defs/i18n"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "default": {
+          "type": [
+            "number",
+            "boolean"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sequence": {
+      "type": "object",
+      "required": [
+        "mode",
+        "steps"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "physical",
+            "kinematic"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "duration_ms",
+              "targets"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "label": {
+                "$ref": "#/$defs/i18n"
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 60000
+              },
+              "targets": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/$defs/index"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": -180,
+                      "maximum": 180
+                    }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "release": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/index"
+                }
+              },
+              "note": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/i18n"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "kernel"
+      ],
+      "properties": {
+        "cartridge": {
+          "$ref": "#/$defs/slug"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        },
+        "kernel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "frame": {
+      "type": "object",
+      "required": [
+        "frame_title",
+        "vertices_coords"
+      ],
+      "properties": {
+        "frame_title": {
+          "type": "string",
+          "pattern": "^(initial|target:[a-z0-9-]+)$"
+        },
+        "frame_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frame_attributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frame_parent": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "frame_inherit": {
+          "type": "boolean"
+        },
+        "vertices_coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vec3"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
