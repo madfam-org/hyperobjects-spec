@@ -1,0 +1,30 @@
+{
+  "spec_version": 4,
+  "id": "crease-pattern",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "crease pattern",
+    "es": "patrón de pliegues",
+    "fr": "canevas de plis",
+    "pt": "padrão de vincos"
+  },
+  "definition": {
+    "en": "The drawing of every crease of a model on the unfolded sheet, each marked mountain or valley. It is the whole design in one flat picture: a folder reads the model from it, and a cutter or plotter makes the sheet from it. In a sheet document it is the FOLD frame of class creasePattern.",
+    "es": "El dibujo de todos los pliegues de un modelo sobre el pliego desdoblado, cada uno marcado como monte o valle. Es todo el diseño en una sola imagen plana: quien dobla lee el modelo en él, y una cortadora o un plóter fabrican el pliego a partir de él. En un documento de pliego es el cuadro FOLD de clase creasePattern.",
+    "fr": "Le dessin de tous les plis d'un modèle sur la feuille dépliée, chacun marqué montagne ou vallée. C'est tout le modèle en une seule image plane : le plieur y lit le modèle, la découpeuse ou le traceur en tire la feuille. Dans un document de feuille, c'est la trame FOLD de classe creasePattern.",
+    "pt": "O desenho de todos os vincos de um modelo sobre a folha desdobrada, cada um marcado como montanha ou vale. É todo o desenho numa só imagem plana: quem dobra lê o modelo nele, e uma máquina de corte ou um plotter fabricam a folha a partir dele. Num documento de folha é a moldura FOLD de classe creasePattern."
+  },
+  "see_also": [
+    "mountain-fold",
+    "valley-fold",
+    "flat-foldability"
+  ],
+  "constraints": "A crease pattern is the design intent only: the same mountain line can be a hand crease, a score or a perforation, and they fold differently. The treatment is recorded separately (pliego:edges_treatment) and must be one the assignment admits.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §2, §4 — FOLD fields and edge treatment"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

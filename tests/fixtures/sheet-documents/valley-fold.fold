@@ -1,0 +1,225 @@
+{
+ "file_spec": 1.2,
+ "file_creator": "hyperobjects-spec test fixture (hand-written, not kernel output)",
+ "file_title": "Valley fold",
+ "file_classes": [
+  "singleModel"
+ ],
+ "frame_classes": [
+  "creasePattern"
+ ],
+ "frame_attributes": [
+  "2D",
+  "noCuts",
+  "noJoins"
+ ],
+ "frame_unit": "mm",
+ "vertices_coords": [
+  [
+   0,
+   0
+  ],
+  [
+   150,
+   0
+  ],
+  [
+   150,
+   150
+  ],
+  [
+   0,
+   150
+  ]
+ ],
+ "edges_vertices": [
+  [
+   0,
+   1
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   3,
+   0
+  ],
+  [
+   0,
+   2
+  ]
+ ],
+ "edges_assignment": [
+  "B",
+  "B",
+  "B",
+  "B",
+  "V"
+ ],
+ "edges_foldAngle": [
+  0,
+  0,
+  0,
+  0,
+  180
+ ],
+ "faces_vertices": [
+  [
+   0,
+   1,
+   2
+  ],
+  [
+   0,
+   2,
+   3
+  ]
+ ],
+ "pliego:version": 1,
+ "pliego:vertices_sheet": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:edges_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:faces_sheet": [
+  0,
+  0
+ ],
+ "pliego:edges_treatment": [
+  "none",
+  "none",
+  "none",
+  "none",
+  "crease"
+ ],
+ "pliego:sheets": [
+  {
+   "id": "square",
+   "label": {
+    "en": "Square",
+    "es": "Cuadrado",
+    "fr": "Carré",
+    "pt": "Quadrado"
+   },
+   "stock": "kami",
+   "grain_deg": 90,
+   "offset": [
+    0,
+    0
+   ],
+   "placement": {
+    "origin": [
+     0,
+     0,
+     0
+    ],
+    "rotation": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "front": {
+    "color": "#c8362f",
+    "art": null
+   },
+   "back": {
+    "color": "#f4efe6",
+    "art": null
+   },
+   "kinematic": null
+  }
+ ],
+ "pliego:stocks": {
+  "kami": {
+   "name": {
+    "en": "Kami (origami paper)",
+    "es": "Kami (papel de origami)",
+    "fr": "Kami (papier origami)",
+    "pt": "Kami (papel de origami)"
+   },
+   "gsm": 63,
+   "caliper_mm": 0.07,
+   "derived": {
+    "areal_density": 6.3e-05,
+    "thickness": 0.07,
+    "E_md": 5000000000.0,
+    "E_cd": 2300000000.0,
+    "nu": 0.293,
+    "D_md": 156338.1,
+    "D_cd": 71915.5,
+    "crease_k": 100000.0,
+    "crease_yield_deg": 35,
+    "crease_set_rate": 0.6,
+    "score_factor": 0.35,
+    "perf_factor": 0.2,
+    "tear_strain": 0.02,
+    "friction": 0.4,
+    "collision_thickness": 0.07
+   },
+   "derived_basis": "keystone test fixture: hand-computed, not pliego.stock.derive output"
+  }
+ },
+ "pliego:controls": [
+  {
+   "id": "sequence",
+   "kind": "sequence",
+   "label": {
+    "en": "Fold program",
+    "es": "Secuencia de pliegues",
+    "fr": "Séquence de pliage",
+    "pt": "Sequência de dobras"
+   },
+   "min": 0,
+   "max": 1,
+   "default": 0
+  }
+ ],
+ "pliego:sequence": {
+  "mode": "physical",
+  "steps": [
+   {
+    "id": "valley-diagonal",
+    "label": {
+     "en": "Valley-fold the diagonal",
+     "es": "Dobla en valle la diagonal",
+     "fr": "Plier la diagonale en vallée",
+     "pt": "Dobre a diagonal em vale"
+    },
+    "duration_ms": 1500,
+    "targets": [
+     [
+      4,
+      180
+     ]
+    ],
+    "release": [],
+    "note": null
+   }
+  ]
+ },
+ "pliego:meta": {
+  "cartridge": "valley-fold",
+  "mode": "default",
+  "params": {
+   "size": 150,
+   "stock": "kami"
+  },
+  "kernel": "hyperobjects-spec test fixture",
+  "digest": "sha256:2f231413ad1f253c9fd38437873f5413806d6404d898ef2780ae3e7bc7ceabfc"
+ }
+}

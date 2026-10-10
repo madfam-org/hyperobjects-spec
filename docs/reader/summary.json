@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "terms": {
-    "total": 157,
-    "domains": 9,
+    "total": 178,
+    "domains": 10,
     "review": {
       "reviewed": 0,
-      "generated": 127,
+      "generated": 148,
       "unmarked": 30
     },
     "languages": {
-      "es": 157,
-      "en": 157,
-      "fr": 157,
-      "pt": 157
+      "es": 178,
+      "en": 178,
+      "fr": 178,
+      "pt": 178
     }
   },
   "catalog": {
@@ -57,5 +57,5 @@
     "resolved_against": "335443c901dc4a736a309f98dd67447c68569091"
   },
   "embodied_by_without_page": 0,
-  "pages": 1199
+  "pages": 1220
 }

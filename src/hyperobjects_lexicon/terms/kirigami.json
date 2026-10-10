@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "kirigami",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "kirigami",
+    "es": "kirigami",
+    "fr": "kirigami",
+    "pt": "kirigami"
+  },
+  "definition": {
+    "en": "Paper folded AND cut: slits and cut-outs made in a sheet so that it opens, stretches or stands up in ways folding alone cannot reach. The word joins the Japanese kiru (to cut) and kami (paper). In engineering it names cut patterns that make a flat sheet auxetic or spring-like.",
+    "es": "Papel doblado Y cortado: ranuras y calados hechos en un pliego para que se abra, se estire o se levante de maneras a las que el doblado solo no llega. La palabra une los términos japoneses kiru (cortar) y kami (papel). En ingeniería nombra los patrones de corte que vuelven auxético o elástico un pliego plano.",
+    "fr": "Du papier plié ET découpé : des fentes et des évidements pratiqués dans une feuille pour qu'elle s'ouvre, s'étire ou se dresse comme le pliage seul ne le permet pas. Le mot joint les termes japonais kiru (couper) et kami (papier). En ingénierie, il désigne les motifs de découpe qui rendent une feuille plane auxétique ou élastique.",
+    "pt": "Papel dobrado E cortado: fendas e recortes feitos numa folha para que se abra, estique ou se levante de maneiras que a dobragem sozinha não alcança. A palavra junta os termos japoneses kiru (cortar) e kami (papel). Em engenharia designa os padrões de corte que tornam uma folha plana auxética ou elástica."
+  },
+  "aliases": [
+    {
+      "name": "kirigami",
+      "repo": "pliego",
+      "note": "hyperobject.domain value in the sheet manifest."
+    }
+  ],
+  "see_also": [
+    "papel-picado",
+    "perforation",
+    "pop-up"
+  ],
+  "constraints": "Every cut ends in a stress concentration: a slit that ends on a fold line, or two slits closer than the stock's min_feature_mm, tears when the sheet is opened. Keep bridges at or above the stock's minimum feature.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (en), \"Kirigami\" — etymology (kiru + kami) and engineering kirigami"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

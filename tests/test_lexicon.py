@@ -157,10 +157,11 @@ def test_the_false_friend_pair_is_kept_apart(lexicon):
 
 def test_the_wave_declares_the_contract_it_was_written_against(lexicon):
     """Contract 2 is additive over 1, so the G1 entries stay at 1. What must hold is the
-    other direction: an entry using a contract-2 field declares 2."""
+    other direction: an entry using a contract-2 field declares 2 — or a later contract,
+    which is additive over 2 (the sheet commons' entries are contract 4)."""
     for term_id, doc in lexicon.items():
         if "review_status" in doc:
-            assert doc.get("spec_version") == 2, term_id
+            assert doc.get("spec_version", 1) >= 2, term_id
         if doc.get("domain") == "capability":
             assert doc.get("spec_version") == 2, term_id
 

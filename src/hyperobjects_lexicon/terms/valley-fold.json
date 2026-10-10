@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "valley-fold",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "valley fold",
+    "es": "pliegue en valle",
+    "fr": "pli vallée",
+    "pt": "dobra em vale"
+  },
+  "definition": {
+    "en": "A fold that bends the paper toward you, so the crease sinks away from you like a valley and the two faces close on the front. It is the first fold of most origami diagrams, drawn as a dashed line.",
+    "es": "Un pliegue que dobla el papel hacia ti, de modo que la arista se hunde lejos de ti como un valle y las dos caras se cierran sobre el frente. Es el primer pliegue de casi todos los diagramas de origami y se dibuja con una línea discontinua.",
+    "fr": "Un pli qui replie le papier vers soi, si bien que l'arête s'enfonce loin de soi comme une vallée et que les deux faces se referment sur l'avant. C'est le premier pli de la plupart des diagrammes d'origami ; on le dessine en tirets.",
+    "pt": "Uma dobra que dobra o papel na tua direção, de modo que o vinco se afunda para longe de ti como um vale e as duas faces se fecham sobre a frente. É a primeira dobra da maioria dos diagramas de origami e desenha-se com uma linha tracejada."
+  },
+  "aliases": [
+    {
+      "name": "V",
+      "repo": "pliego",
+      "note": "FOLD edges_assignment value; a valley's edges_foldAngle is POSITIVE, 180 when folded flat."
+    }
+  ],
+  "see_also": [
+    "mountain-fold",
+    "crease-pattern",
+    "score"
+  ],
+  "constraints": "A crease folded and unfolded keeps a plastic rest angle (pliego:edges_restAngle): treating a creased-and-unfolded sheet as flat paper makes every later fold of it simulate stiffer than the paper is.",
+  "sources": [
+    "Wikipedia (en), \"Yoshizawa–Randlett system\" — the dashed valley line of origami diagrams",
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §1, §5.6 — fold angle sign and crease memory"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

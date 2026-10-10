@@ -35,7 +35,8 @@
           "additionalProperties": false,
           "properties": {
             "yantra4d": { "$ref": "#/$defs/captureSource" },
-            "fashion-cabinet": { "$ref": "#/$defs/captureSource" }
+            "fashion-cabinet": { "$ref": "#/$defs/captureSource" },
+            "pliego": { "$ref": "#/$defs/captureSource" }
           }
         }
       }
@@ -76,7 +77,7 @@
     },
     "repo": {
       "type": "string",
-      "enum": ["yantra4d", "fashion-cabinet"]
+      "enum": ["yantra4d", "fashion-cabinet", "pliego"]
     },
     "termId": {
       "type": "string",

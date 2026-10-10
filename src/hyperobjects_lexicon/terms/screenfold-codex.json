@@ -1,0 +1,39 @@
+{
+  "spec_version": 4,
+  "id": "screenfold-codex",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "screenfold codex",
+    "es": "códice en biombo",
+    "fr": "codex en paravent",
+    "pt": "códice em biombo"
+  },
+  "definition": {
+    "en": "A Mesoamerican book: a long strip, often of amate bark paper coated with a fine lime layer, folded back and forth like a screen and painted on both faces. The Maya Dresden Codex is made this way; amate is still made today by Otomí papermakers of San Pablito, Puebla.",
+    "es": "Un libro mesoamericano: una tira larga, a menudo de papel amate cubierto con una fina capa de cal, doblada en zigzag como un biombo y pintada por ambas caras. El Códice de Dresde, maya, está hecho así; el amate lo siguen fabricando hoy los papeleros otomíes de San Pablito, Puebla.",
+    "fr": "Un livre mésoaméricain : une longue bande, souvent de papier d'écorce amate enduit d'une fine couche de chaux, pliée en accordéon comme un paravent et peinte sur ses deux faces. Le Codex de Dresde, maya, est fait ainsi ; l'amate est encore fabriqué aujourd'hui par les papetiers otomis de San Pablito, dans l'État de Puebla.",
+    "pt": "Um livro mesoamericano: uma tira comprida, muitas vezes de papel amate coberto com uma fina camada de cal, dobrada em ziguezague como um biombo e pintada nas duas faces. O Códice de Dresden, maia, é feito assim; o amate continua a ser fabricado hoje pelos papeleiros otomis de San Pablito, em Puebla."
+  },
+  "aliases": [
+    {
+      "name": "book",
+      "repo": "pliego",
+      "note": "hyperobject.domain value under which screenfold codices are filed in the sheet manifest."
+    }
+  ],
+  "see_also": [
+    "leporello",
+    "signature",
+    "grain-direction"
+  ],
+  "constraints": "Bark-paper sheets are small, so a long screenfold is several strips glued end to end: each join must fall on a fold, never mid-panel, or the painted surface cracks across the join every time the book opens.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (en), \"Dresden Codex\" — amate bark paper, lime coating, screenfold format",
+    "Wikipedia (en), \"Amate\" — amate making by Otomí papermakers of San Pablito, Pahuatlán, Puebla"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

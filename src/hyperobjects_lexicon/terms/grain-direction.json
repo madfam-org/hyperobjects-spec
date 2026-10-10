@@ -1,0 +1,39 @@
+{
+  "spec_version": 4,
+  "id": "grain-direction",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "grain direction",
+    "es": "dirección de la fibra",
+    "fr": "sens des fibres",
+    "pt": "direção da fibra"
+  },
+  "definition": {
+    "en": "The direction in which most fibres of a machine-made paper lie (the machine direction). Paper folds more cleanly, curls and expands less, and is stiffer in bending along it; a sheet document records it per sheet as grain_deg.",
+    "es": "La dirección en que se alinea la mayoría de las fibras de un papel hecho a máquina (la dirección de máquina). A lo largo de ella el papel dobla más limpio, se ondula y se dilata menos, y es más rígido a la flexión; un documento de pliego la registra por pliego como grain_deg.",
+    "fr": "La direction dans laquelle s'alignent la plupart des fibres d'un papier fabriqué à la machine (le sens machine). Le long de cette direction, le papier se plie plus net, gondole et se dilate moins, et résiste mieux à la flexion ; un document de feuille l'enregistre par feuille sous grain_deg.",
+    "pt": "A direção em que se alinha a maioria das fibras de um papel feito à máquina (a direção de máquina). Ao longo dela o papel dobra de forma mais limpa, ondula e dilata menos, e é mais rígido à flexão; um documento de folha regista-a por folha como grain_deg."
+  },
+  "aliases": [
+    {
+      "name": "grain_deg",
+      "repo": "pliego",
+      "note": "pliego:sheets[].grain_deg: the machine direction in sheet-local coordinates, degrees counter-clockwise from +u, default 90."
+    }
+  ],
+  "see_also": [
+    "score",
+    "signature",
+    "grainline"
+  ],
+  "constraints": "Bending stiffness differs by roughly a factor of two between machine and cross direction (D_md vs D_cd); a pop-up or book whose folds run across the grain needs scoring, and a book's grain should run parallel to its spine.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md §5.1-§5.2 — grain_deg and the MD/CD stiffness pair",
+    "Pliego docs/spec/v1/stock-card.md — MD/CD ratio basis (Baum et al. 1981)"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  },
+  "notes": "Not the textile grainline: the cloth's grainline (fashion-cabinet) and the paper's grain are both fibre directions, but paper has no bias stretch to exploit and its grain is fixed at the mill, not chosen on the marker."
+}

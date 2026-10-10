@@ -1,0 +1,39 @@
+{
+  "spec_version": 4,
+  "id": "flexagon",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "flexagon",
+    "es": "flexágono",
+    "fr": "flexagone",
+    "pt": "flexágono"
+  },
+  "definition": {
+    "en": "A flat polygon folded from a strip of paper that can be 'flexed' to bring hidden faces to the front, cycling through more faces than a flat sheet has sides. Arthur H. Stone found the first in 1939, and Martin Gardner's first Mathematical Games column (Scientific American, December 1956) made them famous.",
+    "es": "Un polígono plano doblado a partir de una tira de papel que puede «flexionarse» para traer al frente caras ocultas, recorriendo más caras de las que tiene una hoja plana. Arthur H. Stone dio con el primero en 1939, y la primera columna de Juegos Matemáticos de Martin Gardner (Scientific American, diciembre de 1956) los hizo famosos.",
+    "fr": "Un polygone plat plié dans une bande de papier que l'on peut « fléchir » pour amener à l'avant des faces cachées, parcourant plus de faces qu'une feuille n'en a. Arthur H. Stone découvrit le premier en 1939, et la première chronique Mathematical Games de Martin Gardner (Scientific American, décembre 1956) les rendit célèbres.",
+    "pt": "Um polígono plano dobrado a partir de uma tira de papel que pode ser «flexionado» para trazer à frente faces escondidas, percorrendo mais faces do que uma folha plana tem. Arthur H. Stone descobriu o primeiro em 1939, e a primeira coluna de Jogos Matemáticos de Martin Gardner (Scientific American, dezembro de 1956) tornou-os famosos."
+  },
+  "aliases": [
+    {
+      "name": "toy",
+      "repo": "pliego",
+      "note": "hyperobject.domain value under which flexagons are filed in the sheet manifest."
+    }
+  ],
+  "see_also": [
+    "volvelle",
+    "leporello",
+    "mountain-fold"
+  ],
+  "constraints": "The strip's triangles must be equilateral to fold flat (trihexaflexagon: 10 triangles, the end pair glued); any error accumulates around the hexagon and the last flex will not close.",
+  "heritage": true,
+  "sources": [
+    "Martin Gardner, \"Flexagons\", Scientific American, December 1956 (the first Mathematical Games column)",
+    "Wikipedia (en), \"Flexagon\" — Arthur H. Stone, Princeton, 1939"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

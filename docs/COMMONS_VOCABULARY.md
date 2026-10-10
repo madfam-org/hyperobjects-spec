@@ -46,7 +46,7 @@ about a specific pair of commits and not about "the commons today". They are emi
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 157 | 157 / 157 / 157 / 157 |
+| terms | 178 | 178 / 178 / 178 / 178 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -63,8 +63,8 @@ about a specific pair of commits and not about "the commons today". They are emi
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1199 differences=0
-reader_status: pages=1199 terms=157 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1220 differences=0
+reader_status: pages=1220 terms=178 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
@@ -228,9 +228,10 @@ The frontmatter contract is here; the surface is yours.
 Everything in the G3 wave is marked `generated`, and that is a claim about who has read
 it, not about who wrote it:
 
-* **157 terms, 127 of them drafted in waves** (110 from G3 wave 1, 7 from the
+* **178 terms, 148 of them drafted in waves** (110 from G3 wave 1, 7 from the
   drawing-vocabulary wave, 10 interface and assembly field concepts for the
-  standard-parts catalog), each quadrilingual and each
+  standard-parts catalog, 21 `sheet-folding` terms seeded with the sheet commons), each
+  quadrilingual and each
   `review_status: {state: generated}`. RFC 0039 §5 is explicit that machine or agent
   drafting is acceptable as a draft and never as shipped copy without a review pass, and
   §7 asks that fr/pt be *reviewed, not merely generated* — with es as the house register

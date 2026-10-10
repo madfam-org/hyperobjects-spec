@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "score",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "score",
+    "es": "hendido",
+    "fr": "rainage",
+    "pt": "vinco (rainagem)"
+  },
+  "definition": {
+    "en": "A line pressed or half-cut into card so it folds cleanly and exactly where intended. Heavy stock cracks when folded unscored; a scored fold is also weaker, which the engine models as a lower hinge stiffness.",
+    "es": "Una línea presionada o semicortada en la cartulina para que doble limpia y exactamente donde se quiere. El papel grueso se agrieta si se dobla sin hendir; un pliegue hendido además es más débil, y el motor lo modela con una rigidez de bisagra menor.",
+    "fr": "Une ligne pressée ou entaillée à mi-épaisseur dans le carton pour qu'il se plie net, exactement où l'on veut. Un papier épais se fissure s'il est plié sans rainage ; un pli rainé est aussi plus souple, ce que le moteur modélise par une raideur de charnière plus faible.",
+    "pt": "Uma linha prensada ou meio cortada na cartolina para que dobre de forma limpa e exatamente onde se pretende. O papel grosso estala se for dobrado sem vinco; uma dobra vincada é também mais fraca, o que o motor modela com uma rigidez de dobradiça menor."
+  },
+  "aliases": [
+    {
+      "name": "score",
+      "repo": "pliego",
+      "note": "pliego:edges_treatment value; the exporters emit it as a separate pass (blade or laser at reduced power) before the cut."
+    }
+  ],
+  "see_also": [
+    "perforation",
+    "grain-direction",
+    "valley-fold"
+  ],
+  "constraints": "A score admits only M, V or F assignments, and the score pass is exported BEFORE the cut pass: cutting first frees the piece and the score lands in the wrong place.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §4 — edge treatment",
+    "Pliego docs/spec/v1/stock-card.md — scoring recommended above 160 g/m²"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}
