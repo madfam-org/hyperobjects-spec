@@ -1,0 +1,112 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg"
+  },
+  "axis_1": "isotropic",
+  "caliper_mm": 0.06,
+  "areal_density_kg_m2": 0.065,
+  "source": {
+    "platform": "pliego",
+    "material_slug": "foil-paper",
+    "rule": "pliego-stock/1",
+    "card_basis": "pliego.stock.derive v1"
+  },
+  "membrane": {
+    "E1t": 300000,
+    "E2t": 300000,
+    "G12t": 116100,
+    "nu12": 0.3
+  },
+  "bending": {
+    "D11": 9.89011e-05,
+    "D22": 9.89011e-05,
+    "D12": 2.96703e-05,
+    "D66": 3.483e-05
+  },
+  "crease": {
+    "crease_length_scale_t": 200,
+    "crease_yield_deg": 2,
+    "crease_set_rate": 1,
+    "score_factor": 0.35
+  },
+  "regime": {
+    "inextensible": true,
+    "stretchy": false,
+    "compressible": false,
+    "layered": false,
+    "self_folding": false
+  },
+  "contact": {
+    "friction_static": 0.4
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "derived.thickness; physical.caliper_um estimated: rsE §b"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "derived.areal_density (g/mm²) × 1000; physical.gsm estimated: ≈ 60–70 g/m²: aluminium 7–9 µm on tissue (rsE §b)"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "derived.E_md × t; physical.E_md_gpa estimated: effective 3–8 GPa laminate (rsE §b) [E]; physical.caliper_um estimated: rsE §b"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "derived.E_cd × t; physical.E_cd_gpa estimated: aluminium is near-isotropic in-plane (rsE §b) [E]; physical.caliper_um estimated: rsE §b"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "derived.G12 × t, G12 = 0.387·√(E_md·E_cd) (Baum, Brennan & Habeger 1981, via pliego.stock.derive v1)"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "ν12 = ν·√(E_md/E_cd): the card's ν is the geometric mean √(ν12·ν21), split by reciprocity ν12/E1 = ν21/E2; physical.nu estimated: laminate dominated by aluminium [E]"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "derived.D_md × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_md_gpa estimated: effective 3–8 GPa laminate (rsE §b) [E]; physical.nu estimated: laminate dominated by aluminium [E]; physical.caliper_um estimated: rsE §b"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "derived.D_cd × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_cd_gpa estimated: aluminium is near-isotropic in-plane (rsE §b) [E]; physical.nu estimated: laminate dominated by aluminium [E]; physical.caliper_um estimated: rsE §b"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "G12·t³/12 with the estimated G12 above"
+    },
+    "crease_length_scale_t": {
+      "status": "estimated",
+      "basis": "physical.crease_length_scale_t estimated: hand crease scale as for paper; the foil sets almost fully [E]"
+    },
+    "crease_yield_deg": {
+      "status": "estimated",
+      "basis": "physical.crease_yield_deg estimated: aluminium yields almost immediately: θ_y → 0 (rsE §b)"
+    },
+    "crease_set_rate": {
+      "status": "estimated",
+      "basis": "physical.crease_set_rate estimated: near-zero springback: the rest angle follows the pressed angle (rsE §b)"
+    },
+    "score_factor": {
+      "status": "estimated",
+      "basis": "pliego.stock.derive v1 default (card has no physical.score_factor)"
+    },
+    "friction_static": {
+      "status": "estimated",
+      "basis": "physical.friction estimated: paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "notes": [
+    "friction: the card states one paper-on-paper coefficient; it is written as friction_static, and friction_kinetic and damping are left out rather than invented"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "fabric": {
+    "slug": "poliester-elastano-compresion",
+    "name": {
+      "en": "Athletic power-stretch (poly/elastane)",
+      "es": "Punto de compresión poliéster/elastano",
+      "fr": "Maille de compression athlétique (polyester/élasthanne)"
+    },
+    "class": "technical",
+    "weave": "circular-knit-interlock",
+    "composition": [
+      {
+        "fiber": "polyester",
+        "pct": 82
+      },
+      {
+        "fiber": "elastane",
+        "pct": 18
+      }
+    ],
+    "color": "#2b2f33"
+  },
+  "physical": {
+    "gsm": 250,
+    "width_mm": 1550,
+    "thickness_mm": 0.72,
+    "stretch_pct": {
+      "warp": 55.0,
+      "weft": 70.0
+    },
+    "shrinkage_pct": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "drape_class": "medium"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 0.92,
+      "weft": 0.88
+    },
+    "notes": {
+      "en": "High-recovery compression interlock: cut UNDER the body measurement (negative ease ~8-12%) so the garment supports and stays put during movement. cut_scale below 1.0 encodes that reduction; the greatest stretch runs weft (around the body). Denser and drier-handed than the swim tricot, with better recovery and moisture-wicking; it does not need chlorine care but is heat-sensitive — press cool or not at all. Use flatlock/coverstitch seams to avoid chafe; power mesh or a lighter liner pairs for ventilation panels.",
+      "es": "Interlock de compresión con alta recuperación: se corta POR DEBAJO de la medida corporal (holgura negativa ~8-12%) para que la prenda sujete y no se mueva al ejercitarse. El cut_scale menor a 1.0 codifica esa reducción; el mayor estiramiento corre en la trama (alrededor del cuerpo). Más densa y de tacto más seco que el tricot de baño, con mejor recuperación y manejo de humedad; no requiere cuidado por cloro pero es sensible al calor — planchar frío o nada. Use costuras flatlock/recubridora para evitar rozaduras; combine con power mesh o un forro ligero para paneles de ventilación.",
+      "fr": "Interlock de compression à forte reprise : à couper EN DEÇÀ de la mesure du corps (aisance négative ~8-12 %) pour que le vêtement soutienne et reste en place pendant le mouvement. Un cut_scale inférieur à 1.0 encode cette réduction ; l'extensibilité maximale court dans la trame (autour du corps). Plus dense et au toucher plus sec que le tricot de bain, avec une meilleure reprise et une meilleure évacuation de l'humidité ; il ne nécessite pas d'entretien anti-chlore mais craint la chaleur — repassez à froid ou pas du tout. Utilisez des coutures flatlock/recouvrement pour éviter les frottements ; le power mesh ou une doublure plus légère s'associe pour les panneaux d'aération."
+    }
+  },
+  "care": [
+    "machine_wash_cold",
+    "no_fabric_softener",
+    "line_dry",
+    "do_not_iron",
+    "do_not_dry_clean"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 250,
+      "bend_stiffness_class": "soft",
+      "stretch_warp_pct": 55.0,
+      "stretch_weft_pct": 70.0
+    },
+    "pbr": {
+      "base_color": "#2b2f33",
+      "roughness": 0.58,
+      "sheen": 0.22,
+      "metallic": 0.0
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 110
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The FC-100's activewear engine: sports bras, track pants, running and cycling shorts, and compression tops. Its higher modulus and recovery make it the choice wherever the garment must hold shape under load; the swim tricot handles wet, chlorinated wear instead.",
+      "es": "El motor deportivo del FC-100: tops deportivos, pantalones de pista, shorts de correr y de ciclismo, y prendas de compresión. Su mayor módulo y recuperación la hacen la opción donde la prenda debe mantener forma bajo esfuerzo; el tricot de baño cubre el uso mojado y con cloro.",
+      "fr": "Le moteur sportswear du FC-100 : brassières de sport, pantalons de survêtement, shorts de course et de cyclisme, et hauts de compression. Son module et sa reprise plus élevés en font le choix partout où le vêtement doit tenir sa forme sous charge ; le tricot de bain assure en revanche l'usage mouillé et chloré."
+    }
+  }
+}

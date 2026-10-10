@@ -1,0 +1,112 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg"
+  },
+  "axis_1": "isotropic",
+  "caliper_mm": 0.3,
+  "areal_density_kg_m2": 0.27,
+  "source": {
+    "platform": "pliego",
+    "material_slug": "pp-300",
+    "rule": "pliego-stock/1",
+    "card_basis": "pliego.stock.derive v1"
+  },
+  "membrane": {
+    "E1t": 450000,
+    "E2t": 450000,
+    "G12t": 174150,
+    "nu12": 0.42
+  },
+  "bending": {
+    "D11": 0.00409786,
+    "D22": 0.00409786,
+    "D12": 0.0017211,
+    "D66": 0.00130612
+  },
+  "crease": {
+    "crease_length_scale_t": 200,
+    "crease_yield_deg": 20,
+    "crease_set_rate": 0.2,
+    "score_factor": 0.25
+  },
+  "regime": {
+    "inextensible": true,
+    "stretchy": false,
+    "compressible": false,
+    "layered": false,
+    "self_folding": false
+  },
+  "contact": {
+    "friction_static": 0.3
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "measured",
+      "basis": "derived.thickness; physical.caliper_um nominal: sheet grade designation"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "derived.areal_density (g/mm²) × 1000; physical.gsm estimated: density ≈ 0.90 g/cm³ × 300 µm (rsE §b)"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "derived.E_md × t; physical.E_md_gpa estimated: 1.3–2.5 GPa (rsE §b) [E]; physical.caliper_um nominal: sheet grade designation"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "derived.E_cd × t; physical.E_cd_gpa estimated: cast sheet, near-isotropic (rsE §b) [E]; physical.caliper_um nominal: sheet grade designation"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "derived.G12 × t, G12 = 0.387·√(E_md·E_cd) (Baum, Brennan & Habeger 1981, via pliego.stock.derive v1)"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "ν12 = ν·√(E_md/E_cd): the card's ν is the geometric mean √(ν12·ν21), split by reciprocity ν12/E1 = ν21/E2; physical.nu estimated: typical PP value (rsE §b table script) [E]"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "derived.D_md × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_md_gpa estimated: 1.3–2.5 GPa (rsE §b) [E]; physical.nu estimated: typical PP value (rsE §b table script) [E]; physical.caliper_um nominal: sheet grade designation"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "derived.D_cd × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_cd_gpa estimated: cast sheet, near-isotropic (rsE §b) [E]; physical.nu estimated: typical PP value (rsE §b table script) [E]; physical.caliper_um nominal: sheet grade designation"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "G12·t³/12 with the estimated G12 above"
+    },
+    "crease_length_scale_t": {
+      "status": "estimated",
+      "basis": "physical.crease_length_scale_t estimated: L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "status": "estimated",
+      "basis": "physical.crease_yield_deg estimated: living-hinge capable; fatigue differs from paper (rsE §b) [E]"
+    },
+    "crease_set_rate": {
+      "status": "estimated",
+      "basis": "physical.crease_set_rate estimated: polymer hinge relaxes back toward flat [E]"
+    },
+    "score_factor": {
+      "status": "estimated",
+      "basis": "physical.score_factor estimated: scored living hinge [E]"
+    },
+    "friction_static": {
+      "status": "estimated",
+      "basis": "physical.friction estimated: polyolefin on polyolefin [E]"
+    }
+  },
+  "notes": [
+    "friction: the card states one paper-on-paper coefficient; it is written as friction_static, and friction_kinetic and damping are left out rather than invented"
+  ]
+}

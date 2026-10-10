@@ -1,0 +1,157 @@
+{
+  "stock": {
+    "slug": "papel-de-china",
+    "name": {
+      "en": "Tissue paper (papel de china) 17 g/m²",
+      "es": "Papel de china 17 g/m²",
+      "fr": "Papier de soie 17 g/m²",
+      "pt": "Papel de seda 17 g/m²"
+    },
+    "class": "tissue",
+    "fiber": [
+      "wood-pulp"
+    ],
+    "finish": "machine-glazed",
+    "color": "#e8336d",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 17,
+      "status": "estimated",
+      "basis": "MG tissue as used for papel picado; tissue tariff class 15–30 g/m² (HTS 4805.91), rsE §b"
+    },
+    "caliper_um": {
+      "value": 40,
+      "status": "estimated",
+      "basis": "typical machine-glazed tissue, rsE §b"
+    },
+    "E_md_gpa": {
+      "value": 2.0,
+      "status": "estimated",
+      "basis": "rsE §b: specific tensile stiffness × density for MG tissue [E]"
+    },
+    "E_cd_gpa": {
+      "value": 0.9,
+      "status": "estimated",
+      "basis": "MD/CD ≈ 2.2 for machine-made tissue (Baum et al. 1981, rsE §b)"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981)"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.01,
+      "status": "estimated",
+      "basis": "low-strength tissue, below office grades [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.5,
+    "score": null,
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "glue-stick",
+      "starch-paste"
+    ],
+    "perforation": {
+      "cut_mm": 2.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#e8336d",
+    "back": "#e8336d",
+    "translucency": 0.6,
+    "roughness": 0.85
+  },
+  "derived": {
+    "areal_density": 1.7e-05,
+    "thickness": 0.04,
+    "E_md": 2000000000.0,
+    "E_cd": 900000000.0,
+    "nu": 0.293,
+    "D_md": 11668.4,
+    "D_cd": 5250.77,
+    "crease_k": 978.424,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.333333,
+    "tear_strain": 0.01,
+    "friction": 0.4,
+    "collision_thickness": 0.05,
+    "G12": 519215000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 2.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ],
+    "heritage": {
+      "tradition": {
+        "en": "Papel picado",
+        "es": "Papel picado",
+        "fr": "Papel picado",
+        "pt": "Papel picado"
+      },
+      "place": "San Salvador Huixcolotla, Puebla, México",
+      "makers": "Papel picado artisans of San Salvador Huixcolotla",
+      "claims": [
+        {
+          "en": "Papel picado is considered to originate in San Salvador Huixcolotla, Puebla.",
+          "es": "Se considera que el papel picado tiene su origen en San Salvador Huixcolotla, Puebla.",
+          "source": "https://en.wikipedia.org/wiki/Papel_picado"
+        },
+        {
+          "en": "It is cut from tissue paper (papel de china) with chisels (fierritos) and a mallet through stacks of about 40–50 sheets.",
+          "es": "Se corta en papel de china con cinceles (fierritos) y mazo, en pilas de unas 40 a 50 hojas.",
+          "source": "https://en.wikipedia.org/wiki/Papel_picado"
+        },
+        {
+          "en": "Huixcolotla's papel picado was declared cultural heritage of the State of Puebla in 1998.",
+          "es": "El papel picado de Huixcolotla fue declarado patrimonio cultural del estado de Puebla en 1998.",
+          "source": "https://www.mexicodesconocido.com.mx/papel-picado-huixcolotla.html"
+        },
+        {
+          "en": "It adorns Día de Muertos ofrendas, fiestas and weddings.",
+          "es": "Adorna las ofrendas de Día de Muertos, las fiestas y las bodas.",
+          "source": "https://en.wikipedia.org/wiki/Papel_picado"
+        }
+      ],
+      "note": {
+        "en": "The stock is commercial tissue; the heritage credit belongs to the papel picado tradition and its community.",
+        "es": "El material es papel de china comercial; el crédito patrimonial corresponde a la tradición del papel picado y a su comunidad."
+      }
+    }
+  }
+}

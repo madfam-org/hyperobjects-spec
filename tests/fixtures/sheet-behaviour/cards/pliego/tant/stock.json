@@ -1,0 +1,122 @@
+{
+  "stock": {
+    "slug": "tant",
+    "name": {
+      "en": "Tant origami paper",
+      "es": "Papel tant para origami",
+      "fr": "Papier tant pour origami",
+      "pt": "Papel tant para origami"
+    },
+    "class": "origami",
+    "fiber": [
+      "wood-pulp"
+    ],
+    "finish": "textured",
+    "color": "#2f6fb0",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 81.2,
+      "status": "measured",
+      "source": "origami.me/paper — reported 80.7–81.7 g/m² (rsE §b); midpoint"
+    },
+    "caliper_um": {
+      "value": 105,
+      "status": "estimated",
+      "basis": "rsE §b [E]"
+    },
+    "E_md_gpa": {
+      "value": 5.0,
+      "status": "estimated",
+      "basis": "rsE §b: specific tensile stiffness × density [E]"
+    },
+    "E_cd_gpa": {
+      "value": 2.3,
+      "status": "estimated",
+      "basis": "MD/CD ≈ 2 for machine-made paper (Baum et al. 1981)"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981)"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.018,
+      "status": "estimated",
+      "basis": "printing grade [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.0,
+    "score": null,
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "glue-stick",
+      "pva"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#2f6fb0",
+    "back": "#2f6fb0",
+    "translucency": 0.12,
+    "roughness": 0.85
+  },
+  "derived": {
+    "areal_density": 8.12e-05,
+    "thickness": 0.105,
+    "E_md": 5000000000.0,
+    "E_cd": 2300000000.0,
+    "nu": 0.293,
+    "D_md": 527641.0,
+    "D_cd": 242715.0,
+    "crease_k": 17041.1,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.018,
+    "friction": 0.4,
+    "collision_thickness": 0.105,
+    "G12": 1312380000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "origami.me — https://origami.me/paper/",
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ]
+  }
+}

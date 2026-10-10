@@ -1,0 +1,126 @@
+{
+  "stock": {
+    "slug": "foil-paper",
+    "name": {
+      "en": "Foil paper (aluminium on tissue)",
+      "es": "Papel foil (aluminio sobre papel de seda)",
+      "fr": "Papier aluminium contrecollé (sur papier de soie)",
+      "pt": "Papel laminado (alumínio sobre papel de seda)"
+    },
+    "class": "foil",
+    "fiber": [
+      "aluminium",
+      "wood-pulp"
+    ],
+    "finish": "foil",
+    "color": "#c0c4c8",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 65,
+      "status": "estimated",
+      "basis": "≈ 60–70 g/m²: aluminium 7–9 µm on tissue (rsE §b)"
+    },
+    "caliper_um": {
+      "value": 60,
+      "status": "estimated",
+      "basis": "rsE §b"
+    },
+    "E_md_gpa": {
+      "value": 5.0,
+      "status": "estimated",
+      "basis": "effective 3–8 GPa laminate (rsE §b) [E]"
+    },
+    "E_cd_gpa": {
+      "value": 5.0,
+      "status": "estimated",
+      "basis": "aluminium is near-isotropic in-plane (rsE §b) [E]"
+    },
+    "nu": {
+      "value": 0.3,
+      "status": "estimated",
+      "basis": "laminate dominated by aluminium [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "hand crease scale as for paper; the foil sets almost fully [E]"
+    },
+    "crease_yield_deg": {
+      "value": 2,
+      "status": "estimated",
+      "basis": "aluminium yields almost immediately: θ_y → 0 (rsE §b)"
+    },
+    "tear_strain": {
+      "value": 0.01,
+      "status": "estimated",
+      "basis": "aluminium layer cracks early [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    },
+    "crease_set_rate": {
+      "value": 1.0,
+      "status": "estimated",
+      "basis": "near-zero springback: the rest angle follows the pressed angle (rsE §b)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.5,
+    "score": null,
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "double-sided-tape",
+      "glue-stick"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#c0c4c8",
+    "back": "#f4f1ea",
+    "translucency": 0.0,
+    "roughness": 0.3
+  },
+  "derived": {
+    "areal_density": 6.5e-05,
+    "thickness": 0.06,
+    "E_md": 5000000000.0,
+    "E_cd": 5000000000.0,
+    "nu": 0.3,
+    "D_md": 98901.1,
+    "D_cd": 98901.1,
+    "crease_k": 8241.76,
+    "crease_yield_deg": 2.0,
+    "crease_set_rate": 1.0,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.01,
+    "friction": 0.4,
+    "collision_thickness": 0.06,
+    "G12": 1935000000.0,
+    "score_yield_deg": 0.7,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ]
+  }
+}

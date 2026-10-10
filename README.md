@@ -970,6 +970,27 @@ found, which candidate rules were killed and why.
 
 ---
 
+## Sheet behaviour — one sheet, three platforms
+
+Paper and board (Pliego), fabric and felt (Fashion Cabinet) and thin prints (Yantra4D) are
+all thin sheets. The keystone gives them one neutral description, `sheet_behaviour` v1:
+caliper, areal density, membrane and bending stiffness, crease, regime flags, contact,
+and provenance per number. Mapping rules read each platform's own cards; `material_ref`
+uses another platform's material by reference; a laminate calculator reduces stacks
+(bookcloth on board, a print on fabric) to one description and flags a coupled stack
+that curls.
+
+```bash
+fc-spec sheet map pliego materials/cardstock-250/stock.json        # a card → sheet_behaviour
+fc-spec sheet check doc.json                                        # validate documents
+y4d-spec sheet resolve '{"platform":"fashion-cabinet","material_slug":"popelina-algodon","behaviour":"sheet"}' \
+    --materials fashion-cabinet=../fashion-cabinet
+y4d-spec sheet laminate stack.json --materials pliego=../pliego --materials fashion-cabinet=../fashion-cabinet
+```
+
+Data first: no commons check calls it yet. The fields, units, mappings, provenance rules
+and limits are in [docs/SHEET_BEHAVIOUR.md](docs/SHEET_BEHAVIOUR.md).
+
 ## The identity key
 
 **One physical thing can be two cartridges.** A printed chainmail panel is a *solid* in

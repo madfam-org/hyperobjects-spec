@@ -1,0 +1,11 @@
+{
+  "thin_print": "1.0",
+  "name": "tpu95a-4l-0-90-sym",
+  "description": "The same four layers with the rasters 0/90/90/0: a symmetric cross-ply, so B = 0 and the sheet does not curl.",
+  "material_ref": {"platform": "yantra4d", "material_slug": "bambu-tpu-95a", "behaviour": "sheet"},
+  "layers": 4,
+  "layer_height_mm": 0.2,
+  "pattern": "rectilinear",
+  "raster_angles_deg": [0, 90, 90, 0],
+  "infill": 1.0
+}

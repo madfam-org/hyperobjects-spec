@@ -12,6 +12,7 @@
     fc-spec reader [--out DIR] [--check] [--status]
     fc-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
     fc-spec license-body <file|dir> [...] [--declared SPDX_ID]
+    fc-spec sheet check|map|resolve|laminate ...   (the sheet-behaviour contract)
 
 Exit code 0 iff every file conforms; 1 on any conformance problem; 2 on usage /
 read errors. Output is read-proof: it prints how many files it checked, and
@@ -51,6 +52,7 @@ from hyperobjects_lexicon.cli import (
     run_lexicon,
 )
 from hyperobjects_licenses import add_license_body_parser
+from hyperobjects_sheet import add_sheet_parser
 
 from .conformance import CONTRACTS, check, list_contracts
 
@@ -114,6 +116,7 @@ def main(argv: list[str] | None = None) -> int:
     add_reader_parser(sub, "fc-spec")
     add_aas_parser(sub, "fc-spec", "soft")
     add_license_body_parser(sub, "fc-spec")
+    add_sheet_parser(sub, "fc-spec")
 
     args = parser.parse_args(argv)
 
@@ -122,6 +125,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd in (
         "vocab", "article", "reader", "define", "lookup", "related", "aas", "license-body",
+        "sheet",
     ):
         return args.func(args)
 
