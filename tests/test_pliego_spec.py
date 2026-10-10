@@ -51,23 +51,58 @@ def _write(cart: Path, doc: dict) -> None:
 
 
 # ── the vendored contract ────────────────────────────────────────────────────
-def test_vendored_sheet_document_matches_its_lock():
+VENDORED_FILES = ("sheet-document.schema.json", "stock-card.schema.json")
+
+
+@pytest.mark.parametrize("name", VENDORED_FILES)
+def test_vendored_pliego_contracts_match_their_lock(name):
     """Byte identity is the mechanism: a verdict here is a verdict about the schema
     Pliego publishes only while the copy is the copy. Re-vendor, then re-pin."""
-    lock = json.loads((VENDORED / "sheet-document.lock.json").read_text(encoding="utf-8"))
-    data = (VENDORED / "sheet-document.schema.json").read_bytes()
-    assert hashlib.sha256(data).hexdigest() == lock["hashes"]["sheet-document.schema.json"]
-    assert len(data) == lock["bytes"]["sheet-document.schema.json"]
-    # Not yet published: the lock must say so rather than pretend to a fetchable source.
-    assert lock["published"] is False and len(lock["commit"]) == 40
+    lock = json.loads((VENDORED / "pliego.lock.json").read_text(encoding="utf-8"))
+    data = (VENDORED / name).read_bytes()
+    assert hashlib.sha256(data).hexdigest() == lock["hashes"][name]
+    assert len(data) == lock["bytes"][name]
+    blob = hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+    assert blob == lock["git_blob_sha1"][name]
+    # Pliego is published: the lock names a fetchable commit of the public repo.
+    assert lock["published"] is True and len(lock["commit"]) == 40
+    assert lock["canonical_repo"] == "https://github.com/madfam-org/pliego"
+    assert len(lock["last_changed"][name]) == 40
 
 
-def test_the_vendored_schema_is_a_valid_2020_12_schema():
+def test_no_stale_lock_is_left_behind():
+    assert sorted(p.name for p in VENDORED.glob("*.json")) == sorted(
+        [*VENDORED_FILES, "pliego.lock.json"])
+
+
+@pytest.mark.parametrize("name", VENDORED_FILES)
+def test_the_vendored_schemas_are_valid_2020_12_schemas(name):
     from jsonschema import Draft202012Validator
 
     Draft202012Validator.check_schema(
-        json.loads((VENDORED / "sheet-document.schema.json").read_text(encoding="utf-8"))
+        json.loads((VENDORED / name).read_text(encoding="utf-8"))
     )
+
+
+def test_kernel_0_2_stock_snapshot_keys_are_accepted():
+    """The copy this replaced refused every kernel-0.2.0 document: the stock snapshot's
+    `appearance`, `G12` and `perf_*` keys were unknown to it."""
+    doc = _document()
+    stock = next(iter(doc["pliego:stocks"].values()))
+    stock["appearance"] = {"front": "#f4efe6", "back": "#f4efe6"}
+    stock["derived"].update(G12=1161000000.0, score_yield_deg=12.25, perf_cut_mm=3.0,
+                            perf_bridge_mm=1.0)
+    doc["pliego:meta"]["digest"] = document_digest(doc)
+    assert check("sheet-document", doc).ok, check("sheet-document", doc).problems
+
+
+@pytest.mark.parametrize("slug", ["cardstock-250", "washi-kozo-30"])
+def test_real_stock_cards_pass_the_stock_card_contract(slug):
+    card = json.loads((ROOT / "tests" / "fixtures" / "sheet-stock" / f"{slug}.stock.json")
+                      .read_text(encoding="utf-8"))
+    assert check("stock-card", card).ok, check("stock-card", card).problems
+    del card["physical"]
+    assert not check("stock-card", card).ok
 
 
 def test_sheet_manifest_has_one_home_and_one_copy():
@@ -77,7 +112,7 @@ def test_sheet_manifest_has_one_home_and_one_copy():
 
 
 def test_contract_surface():
-    assert pliego_spec.list_contracts() == ["sheet-manifest", "sheet-document"]
+    assert pliego_spec.list_contracts() == ["sheet-manifest", "sheet-document", "stock-card"]
     with pytest.raises(ValueError):
         check("garment-manifest", {})
 
@@ -491,3 +526,38 @@ def test_readme_documents_the_third_kernel():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "pliego-spec check cartridge" in readme
     assert f"`{rules.SHEET_COMMONS_LICENSE}`" in readme
+
+
+# ── project.name and the packaging domains ───────────────────────────────────
+def test_project_name_must_be_quadrilingual():
+    """The Pliego API refuses a bare-string name, so the manifest schema does too."""
+    doc = _manifest()
+    doc["project"]["name"] = "V-fold pop-up"
+    assert any("project/name" in p for p in check_manifest(doc))
+
+
+@pytest.mark.parametrize("domain", ["packaging", "stationery"])
+def test_packaging_and_stationery_are_domains(domain):
+    doc = _manifest()
+    doc["hyperobject"]["domain"] = domain
+    assert not any("domain" in p for p in check_manifest(doc))
+    doc["hyperobject"]["domain"] = "boxes"
+    assert any("domain" in p for p in check_manifest(doc))
+
+
+# ── real kernel-0.2 documents ────────────────────────────────────────────────
+KERNEL_02 = DOCUMENTS / "kernel-0.2"
+
+
+@pytest.mark.parametrize("name", ["valley-fold.default.fold", "reveal-block.default.preview.fold"])
+def test_real_kernel_0_2_documents_pass(name):
+    """What the kernel writes today (NOTICE.md in that directory). The copy this lock
+    replaced refused both, on the stock snapshot keys and on `remove`."""
+    doc = json.loads((KERNEL_02 / name).read_text(encoding="utf-8"))
+    result = check("sheet-document", doc)
+    assert result.ok, result.problems[:5]
+
+
+def test_the_reveal_block_document_exercises_pieces_and_remove():
+    text = (KERNEL_02 / "reveal-block.default.preview.fold").read_text(encoding="utf-8")
+    assert '"pliego:pieces"' in text and '"remove"' in text

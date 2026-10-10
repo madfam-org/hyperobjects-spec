@@ -915,6 +915,7 @@ pliego-spec list
 pliego-spec check cartridge ./valley-fold ./v-fold-popup     # the triple, manifest, files
 pliego-spec check sheet-manifest ./valley-fold/project.json
 pliego-spec check sheet-document ./valley-fold.fold          # what the Pliego kernel writes
+pliego-spec check stock-card ./materials/kami/stock.json     # a Pliego stock card
 pliego-spec rules                                            # every check, in order
 ```
 
@@ -922,12 +923,16 @@ pliego-spec rules                                            # every check, in o
 |---|---|---|
 | `sheet-manifest` | a cartridge's `project.json` | **here** (`hyperobjects_schemas`), authored from day one |
 | `sheet-document` | a sheet document (FOLD 1.2 + `pliego:` fields) | Pliego, **vendored** byte-identical and sha-256-locked in `pliego_spec/schemas/` |
+| `stock-card` | a paper stock card (`materials/<slug>/stock.json`) | Pliego, **vendored** the same way |
 
 **The manifest** is designed from both sibling manifests' lessons: the `hyperobject`
 block lives at the top level only (`project.hyperobject` is refused); `attribution`
-requires an author, a licence and a lineage; every user-visible text object requires
-**en, es, fr and pt** (born quadrilingual, and a blank value fails too); slugs are strict
-kebab case; closed objects refuse unknown keys, so a typo is an error. Interfaces
+requires an author, a licence and a lineage; every user-visible text object, `project.name` included,
+requires **en, es, fr and pt** (born quadrilingual, and a blank value fails too); slugs are strict
+kebab case; closed objects refuse unknown keys, so a typo is an error.
+`hyperobject.domain` is one of `technique`, `base`, `model`, `tessellation`, `kirigami`,
+`papercut`, `popup`, `mechanism`, `book`, `toy`, `diorama`, `packaging` and `stationery`.
+Interfaces
 (`tab`, `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`,
 `pivot`, `track`, `custom`) bind sheet edges and carry polarity, symmetry, a size key and
 an optional frame in a declared folded state. `hardware_ref` bridges to a yantra4d
@@ -952,9 +957,10 @@ pliego-spec check: cartridges=3 failures=0 notes=3 documents=NOT built geometry=
 pliego-spec check: contract=sheet-document files=1 failures=0 sheets=1 vertices=4 edges=5 faces=2 joins=0 geometry=NOT verified
 ```
 
-`documents=NOT built` — a cartridge check does not run the scripts (no published Pliego
-kernel). `geometry=NOT verified` — the document check is the **structural** subset of the
-spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
+`documents=NOT built` — a cartridge check does not run the scripts (the keystone does not
+depend on the Pliego kernel; build documents with `python -m pliego.cartridge` and check
+them with `check sheet-document`). `geometry=NOT verified` — the document check is the
+**structural** subset of the spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
 stock, join, mechanism and control references, sequence targets, one 3-D coordinate per
 vertex, the GOC-1 canonical digest). Face simplicity and tiling (§8.3), sheet overlap
 (§8.5), point containment and developability (§8.9) need a polygon kernel and are not
@@ -966,9 +972,13 @@ false-positive analysis is over an empty set, and it is written down in
 `pliego_spec/rules.py`. The fixtures in `tests/fixtures/sheet/` are faithful minimal
 cartridges standing in for real ones until the commons' first re-pin.
 
-**Pending, deliberately:** the vendored document schema records a local Pliego commit
-(`"published": false` in its lock) and is re-pinned when Pliego is published; no
-`stock-card` contract until Pliego publishes its schema; no sheet size keys in the
+**The vendored contracts.** `sheet-document` and `stock-card` are byte-identical copies of
+Pliego's `packages/schemas/` at a published main commit, pinned in `pliego.lock.json`
+(`check stock-card` is schema-only: derive drift is Pliego's own gate). The copy is taken
+from Pliego main before madfam-org/pliego#8 (packaging) merged, so one more re-vendor is
+due.
+
+**Pending, deliberately:** no sheet size keys in the
 interface-sizes vocabulary yet (so a sheet `size_key` fails membership until cited keys
 land); the AAS projection, the identity key, ASM-1 assemblies, `ho-bridge` and the reader
 do not yet know the sheet commons.

@@ -41,11 +41,14 @@ __all__ = [
     "UNCHECKED_RULES",
     "DocumentResult",
     "load_document_schema",
+    "load_stock_card_schema",
+    "check_stock_card",
     "document_digest",
     "check_document",
 ]
 
 DOCUMENT_SCHEMA = "sheet-document.schema.json"
+STOCK_CARD_SCHEMA = "stock-card.schema.json"
 
 #: Spec §4: the assignments each treatment admits.
 ALLOWED_TREATMENT: dict[str, frozenset[str]] = {
@@ -84,6 +87,30 @@ def load_document_schema() -> dict:
         encoding="utf-8"
     ) as f:
         return json.load(f)
+
+
+def load_stock_card_schema() -> dict:
+    with resources.files("pliego_spec.schemas").joinpath(STOCK_CARD_SCHEMA).open(
+        encoding="utf-8"
+    ) as f:
+        return json.load(f)
+
+
+def check_stock_card(doc: object) -> list[str]:
+    """Schema problems of a Pliego stock card (``materials/<slug>/stock.json``).
+
+    Schema only: the card's derived block is Pliego's ``pliego.stock.derive`` output, and
+    whether it has drifted from the measurements is Pliego's own gate
+    (``python -m pliego.stock --check``), not reproduced here.
+    """
+    from jsonschema import Draft202012Validator
+
+    validator = Draft202012Validator(load_stock_card_schema())
+    out = []
+    for err in sorted(validator.iter_errors(doc), key=lambda e: list(e.absolute_path)):
+        where = "/".join(str(p) for p in err.absolute_path) or "<root>"
+        out.append(f"schema {where}: {err.message}")
+    return out
 
 
 def document_digest(doc: dict) -> str:

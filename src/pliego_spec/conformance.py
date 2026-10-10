@@ -19,7 +19,7 @@ from hyperobjects_lexicon.membership import manifest_vocabulary_problems
 from hyperobjects_schemas import load as load_schema
 
 from . import rules, structure
-from .document import UNCHECKED_RULES, check_document
+from .document import UNCHECKED_RULES, check_document, check_stock_card
 
 __all__ = [
     "CONTRACTS",
@@ -28,16 +28,18 @@ __all__ = [
     "list_contracts",
     "check",
     "check_manifest",
+    "check_stock_card",
     "check_cartridge",
 ]
 
 #: The contracts a third party can check a file against, and where each schema lives.
 #: `sheet-manifest` is authored in the keystone (hyperobjects_schemas); `sheet-document`
-#: is Pliego's, vendored and hash-locked in pliego_spec/schemas (VENDORED.md). The
-#: stock-card contract joins when Pliego publishes its schema.
+#: and `stock-card` are Pliego's, vendored and hash-locked in pliego_spec/schemas
+#: (VENDORED.md).
 CONTRACTS: dict[str, dict] = {
     "sheet-manifest": {"schema": "sheet-manifest", "home": "hyperobjects-spec"},
     "sheet-document": {"schema": "sheet-document.schema.json", "home": "pliego (vendored)"},
+    "stock-card": {"schema": "stock-card.schema.json", "home": "pliego (vendored)"},
 }
 
 
@@ -98,6 +100,9 @@ def check(contract: str, doc: object) -> ConformanceResult:
     if contract == "sheet-manifest":
         problems = check_manifest(doc)
         return ConformanceResult(contract=contract, ok=not problems, problems=problems)
+    if contract == "stock-card":
+        problems = check_stock_card(doc)
+        return ConformanceResult(contract=contract, ok=not problems, problems=problems)
     res = check_document(doc)
     return ConformanceResult(
         contract=contract,
@@ -116,7 +121,7 @@ def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
     so rather than report a green it never earned.
 
     This does not run the cartridge: no sheet document is built here (that needs the
-    Pliego kernel, which is not published yet). The note says so on every run.
+    Pliego kernel, which the keystone does not depend on). The note says so on every run.
     """
     path = Path(cartridge_dir)
     if not path.is_dir():
@@ -140,8 +145,9 @@ def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
         problems += structure.all_structure_rules(path, doc)
 
     notes = [
-        "documents: NOT built — the cartridge's scripts were not run (no published Pliego "
-        "kernel); check emitted sheet documents with `pliego-spec check sheet-document`"
+        "documents: NOT built — the cartridge's scripts were not run (the keystone does not "
+        "run the Pliego kernel); check emitted sheet documents with "
+        "`pliego-spec check sheet-document`"
     ]
     hw = doc.get("hardware_ref") if isinstance(doc, dict) else None
     if isinstance(hw, dict) and hw.get("linked"):

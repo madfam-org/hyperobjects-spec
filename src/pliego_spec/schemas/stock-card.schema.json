@@ -1,0 +1,713 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/madfam-org/pliego/blob/main/packages/schemas/stock-card.schema.json",
+  "title": "Pliego stock card v1",
+  "description": "A sheet material (materials/<slug>/stock.json), spec docs/spec/v1/stock-card.md. Structure only; pliego.stock.validate() adds the cross-field rules and `python -m pliego.stock --check materials` fails if a committed derived block differs from pliego.stock.derive(). The derived block mirrors sheet-document.schema.json #/$defs/stockSnapshot/properties/derived (a kernel test keeps them identical).",
+  "type": "object",
+  "required": [
+    "stock",
+    "physical",
+    "fabrication",
+    "appearance",
+    "derived",
+    "derived_basis",
+    "provenance"
+  ],
+  "properties": {
+    "stock": {
+      "type": "object",
+      "required": [
+        "slug",
+        "name",
+        "class",
+        "fiber",
+        "finish",
+        "color",
+        "grain"
+      ],
+      "properties": {
+        "slug": {
+          "$ref": "#/$defs/slug"
+        },
+        "name": {
+          "$ref": "#/$defs/i18n4"
+        },
+        "class": {
+          "enum": [
+            "text",
+            "origami",
+            "cover",
+            "cardstock",
+            "kraft",
+            "tissue",
+            "washi",
+            "bark",
+            "foil",
+            "vellum",
+            "corrugated",
+            "chipboard",
+            "synthetic"
+          ]
+        },
+        "fiber": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/slug"
+          }
+        },
+        "finish": {
+          "type": "string",
+          "minLength": 1
+        },
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "grain": {
+          "enum": [
+            "long",
+            "short",
+            "none"
+          ]
+        },
+        "coating": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "physical": {
+      "type": "object",
+      "required": [
+        "gsm",
+        "caliper_um",
+        "E_md_gpa",
+        "E_cd_gpa",
+        "nu",
+        "crease_length_scale_t",
+        "crease_yield_deg",
+        "tear_strain",
+        "friction"
+      ],
+      "properties": {
+        "gsm": {
+          "$ref": "#/$defs/positiveValue"
+        },
+        "caliper_um": {
+          "$ref": "#/$defs/positiveValue"
+        },
+        "E_md_gpa": {
+          "$ref": "#/$defs/mechanicalValue"
+        },
+        "E_cd_gpa": {
+          "$ref": "#/$defs/mechanicalValue"
+        },
+        "nu": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "maximum": 0.4999
+                }
+              }
+            }
+          ]
+        },
+        "bending_stiffness_mNm": {
+          "type": "object",
+          "required": [
+            "md",
+            "cd",
+            "method"
+          ],
+          "properties": {
+            "md": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            },
+            "cd": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            },
+            "method": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "if": {
+            "properties": {
+              "md": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "md"
+            ]
+          },
+          "then": {
+            "required": [
+              "source"
+            ],
+            "properties": {
+              "cd": {
+                "type": "number"
+              },
+              "method": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "crease_length_scale_t": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "exclusiveMinimum": 0
+                }
+              }
+            }
+          ]
+        },
+        "crease_yield_deg": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "maximum": 180
+                }
+              }
+            }
+          ]
+        },
+        "crease_set_rate": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "maximum": 1
+                }
+              }
+            }
+          ]
+        },
+        "score_factor": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          ]
+        },
+        "tear_strain": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mechanicalValue"
+            },
+            {
+              "properties": {
+                "value": {
+                  "exclusiveMinimum": 0
+                }
+              }
+            }
+          ]
+        },
+        "friction": {
+          "$ref": "#/$defs/mechanicalValue"
+        }
+      },
+      "additionalProperties": false
+    },
+    "fabrication": {
+      "type": "object",
+      "required": [
+        "min_feature_mm"
+      ],
+      "properties": {
+        "min_feature_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "score": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "laser": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "plotter": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "glue": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slug"
+          }
+        },
+        "perforation": {
+          "type": "object",
+          "required": [
+            "cut_mm",
+            "bridge_mm"
+          ],
+          "properties": {
+            "cut_mm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "bridge_mm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "appearance": {
+      "type": "object",
+      "required": [
+        "front",
+        "back"
+      ],
+      "properties": {
+        "front": {
+          "$ref": "#/$defs/color"
+        },
+        "back": {
+          "$ref": "#/$defs/color"
+        },
+        "translucency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "roughness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "derived": {
+      "type": "object",
+      "required": [
+        "areal_density",
+        "thickness",
+        "E_md",
+        "E_cd",
+        "nu",
+        "D_md",
+        "D_cd",
+        "crease_k",
+        "crease_yield_deg",
+        "crease_set_rate",
+        "score_factor",
+        "perf_factor",
+        "tear_strain",
+        "friction",
+        "collision_thickness"
+      ],
+      "properties": {
+        "areal_density": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "thickness": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "E_md": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "E_cd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "nu": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.5
+        },
+        "D_md": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "D_cd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "crease_k": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "crease_yield_deg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 180
+        },
+        "crease_set_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "score_factor": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "perf_factor": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "tear_strain": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "friction": {
+          "type": "number",
+          "minimum": 0
+        },
+        "collision_thickness": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "G12": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "score_yield_deg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 180
+        },
+        "perf_cut_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "perf_bridge_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "derived_basis": {
+      "const": "pliego.stock.derive v1"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "author",
+        "license",
+        "sources"
+      ],
+      "properties": {
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "heritage": {
+          "type": "object",
+          "required": [
+            "tradition",
+            "place",
+            "makers",
+            "claims"
+          ],
+          "properties": {
+            "tradition": {
+              "$ref": "#/$defs/i18n4"
+            },
+            "place": {
+              "type": "string",
+              "minLength": 1
+            },
+            "makers": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claims": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "en",
+                  "es",
+                  "source"
+                ],
+                "properties": {
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "es": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fr": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "pt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "string",
+                    "pattern": "^https?://"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "note": {
+              "type": "object",
+              "required": [
+                "en",
+                "es"
+              ],
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "es": {
+                  "type": "string"
+                },
+                "fr": {
+                  "type": "string"
+                },
+                "pt": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "i18n4": {
+      "type": "object",
+      "required": [
+        "en",
+        "es",
+        "fr",
+        "pt"
+      ],
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "es": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pt": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "value": {
+      "type": "object",
+      "required": [
+        "value",
+        "status"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "measured",
+            "nominal",
+            "estimated"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "measured"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "source"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "nominal"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "source"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "estimated"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "basis"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "positiveValue": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/value"
+        },
+        {
+          "properties": {
+            "value": {
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      ]
+    },
+    "mechanicalValue": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/value"
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "measured"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "method"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -304,11 +304,11 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
 
 ## The sheet commons (`pliego_spec`) — read before touching `src/pliego_spec/`
 
-- **`src/pliego_spec/schemas/sheet-document.schema.json` is VENDORED** from Pliego and
-  sha-256-locked in `sheet-document.lock.json` (test
-  `test_vendored_sheet_document_matches_its_lock`). Never hand-edit it; change Pliego and
-  re-vendor (`VENDORED.md`). The lock records a local commit with `"published": false`
-  until Pliego is published; re-pinning then is its own commit.
+- **`src/pliego_spec/schemas/sheet-document.schema.json` and `stock-card.schema.json` are
+  VENDORED** from Pliego (github.com/madfam-org/pliego) and locked by sha-256, size and
+  git blob id in `pliego.lock.json` (test `test_vendored_pliego_contracts_match_their_lock`).
+  Never hand-edit them: change Pliego and re-vendor (`VENDORED.md`). A re-vendor is its own
+  commit, and it does not move any commons `SPEC_PIN`.
 - `sheet-manifest` is authored here (`hyperobjects_schemas`); keep no copy in `pliego_spec`.
 - The licence is the single constant `pliego_spec.rules.SHEET_COMMONS_LICENSE`
   (CERN-OHL-W-2.0, owner ruling 2026-10-10). Do not type it anywhere else in code.

@@ -129,7 +129,7 @@ def i18n_rules(doc: dict) -> list[str]:
 
     The schema requires the four keys; this catches the failure it cannot see — a key
     present with a blank or whitespace-only value, which is what a half-finished
-    translation looks like. Surfaces: project name (when an object) and description,
+    translation looks like. Surfaces: project name and description,
     and the labels of modes, sheets, parameter groups, parameters (with tooltips and
     option labels), presets, controls and interfaces, constraint messages, and the
     societal benefit.

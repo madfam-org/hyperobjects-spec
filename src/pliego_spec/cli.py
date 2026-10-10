@@ -50,7 +50,8 @@ RULES_TEXT = f"""\
 pliego-spec {__version__} — what `check` verifies, in order
 
 sheet-manifest (schema: hyperobjects_schemas sheet-manifest)
-  1. schema — JSON Schema 2020-12; closed objects; every text object born quadrilingual
+  1. schema — JSON Schema 2020-12; closed objects; every text object (project.name
+     included) born quadrilingual
   2. slugs — project.slug, sheet ids and stock slugs are strict kebab case
   3. licence — project.attribution.license and hyperobject.commons_license both equal
      {SHEET_COMMONS_LICENSE} (owner ruling 2026-10-10) and agree
@@ -75,7 +76,7 @@ cartridge <dir> (all of sheet-manifest, plus)
  16. scripts import only pliego and math (the runner's two modules)
  17. G-DEADPARAM — every parameter is read by a script of a mode that lists it
      (y4d_spec's rule, unchanged), or carries intentionally_unused with a reason
-  note: documents=NOT built — scripts are not run (no published Pliego kernel)
+  note: documents=NOT built — scripts are not run (the keystone does not run the kernel)
 
 sheet-document (schema: Pliego's, vendored and sha-256-locked)
  18. schema — FOLD 1.2 + pliego: extensions
@@ -83,6 +84,9 @@ sheet-document (schema: Pliego's, vendored and sha-256-locked)
      fold-angle pairs; §8.6 stock keys; §8.7 references and unique ids; §8.8 sequence
      targets; §8.9 one 3-D coordinate per vertex; §8.10 the GOC-1 canonical digest
   NOT verified (geometry=NOT verified): §{', §'.join(UNVERIFIED_DOCUMENT_RULES)}
+
+stock-card (schema: Pliego's, vendored and sha-256-locked)
+ 20. schema — the stock-card schema; derive drift is Pliego's own gate (pliego.stock --check)
 """
 
 

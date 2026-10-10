@@ -14,8 +14,8 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "description": "The display name: a proper name that is the same in every language (a string), or a quadrilingual object.",
-          "oneOf": [{ "type": "string", "minLength": 1 }, { "$ref": "#/$defs/i18n" }]
+          "description": "The display name, a quadrilingual object (en, es, fr, pt). A proper name that is the same in every language is written four times: the Pliego API refuses a bare string.",
+          "$ref": "#/$defs/i18n"
         },
         "slug": {
           "description": "Strict kebab case, 2–80 characters: the grammar of identity, lexicon and article references, so the slug is valid wherever the object is named. Equals the cartridge directory name.",
@@ -256,7 +256,7 @@
           "type": "string",
           "enum": [
             "technique", "base", "model", "tessellation", "kirigami", "papercut",
-            "popup", "mechanism", "book", "toy", "diorama"
+            "popup", "mechanism", "book", "toy", "diorama", "packaging", "stationery"
           ]
         },
         "kernel": { "const": "sheet" },

@@ -224,6 +224,12 @@ jobs:
           .venv/bin/pliego-spec check sheet-manifest tests/fixtures/sheet/*/project.json
           .venv/bin/pliego-spec check sheet-document tests/fixtures/sheet-documents/valley-fold.fold > sheet.out
           grep -q "sheets=1 vertices=4 edges=5 faces=2 joins=0 geometry=NOT verified" sheet.out
+          # Real kernel-0.2 output (pliego main) against the vendored contract, and real
+          # stock cards against the vendored stock-card schema.
+          .venv/bin/pliego-spec check sheet-document tests/fixtures/sheet-documents/kernel-0.2/*.fold > sheet.out
+          grep -q "contract=sheet-document files=2 failures=0" sheet.out
+          .venv/bin/pliego-spec check stock-card tests/fixtures/sheet-stock/*.stock.json > sheet.out
+          grep -q "contract=stock-card files=2 failures=0" sheet.out
           rm -f sheet.out
           .venv/bin/pliego-spec rules
 

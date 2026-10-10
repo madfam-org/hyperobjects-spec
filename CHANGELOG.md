@@ -17,14 +17,15 @@ solid or soft verdict, digest, golden or identifier moves.
 
 - **`sheet-manifest` schema** (`hyperobjects_schemas`, home `hyperobjects-spec`, no second
   copy): authored here from the sibling manifests' lessons. Top-level-only `hyperobject`
-  block (`kernel: "sheet"`, eleven domains, interfaces binding sheet edges with polarity,
+  block (`kernel: "sheet"`, thirteen domains including `packaging` and `stationery`, interfaces binding sheet edges with polarity,
   symmetry, size key and a folded-state frame, `heritage` requiring sources); required
   attribution with licence and lineage; every text object born quadrilingual
-  (en/es/fr/pt); strict kebab slugs; closed objects; `controls` (an informational mirror
+  (en/es/fr/pt), `project.name` included (an i18n object, never a bare string, as the
+  Pliego API enforces); strict kebab slugs; closed objects; `controls` (an informational mirror
   of `pliego:controls`), `stock`, `hardware_ref` (to yantra4d, FC's shape) and
   `material_ref` (to FC fabric cards).
 - **`pliego_spec`** and the **`pliego-spec`** console script: `list`, `check
-  sheet-manifest|sheet-document|cartridge`, `rules`, and the shared `lexicon`, `vocab`,
+  sheet-manifest|sheet-document|stock-card|cartridge`, `rules`, and the shared `lexicon`, `vocab`,
   `article`, `define`, `lookup`, `related`. House rules: licence (both fields equal
   `SHEET_COMMONS_LICENSE = "CERN-OHL-W-2.0"`, owner ruling 2026-10-10, and agree), blank
   translations, slugs, references and duplicate ids, heritage sources, the local half of
@@ -32,19 +33,28 @@ solid or soft verdict, digest, golden or identifier moves.
   vocabulary membership. On disk: the triple, directory = slug, no licence file at any
   depth, no `vendor/`, scripts import only `pliego` and `math`, G-DEADPARAM (y4d's rule,
   reused). Summary lines say `documents=NOT built` and `geometry=NOT verified`.
-- **The vendored `sheet-document` contract** (`pliego_spec/schemas/`): Pliego's schema,
-  byte-identical, sha-256-locked, source `pliego@e99db11` (local; Pliego is not published
-  yet, recorded as `"published": false`; re-pin on publication). Checked with the
+- **The vendored Pliego contracts** (`pliego_spec/schemas/`, `pliego.lock.json`): the
+  `sheet-document` and `stock-card` schemas, byte-identical copies of
+  `packages/schemas/` at `pliego@4b3fbfe` (published main: kernel 0.2.0 with the stock
+  snapshot's `appearance`, `G12`, `score_yield_deg` and `perf_*` keys, plus
+  `pliego:pieces`, `pliego:stacks` and the step `remove` from pliego#6). Each is pinned by
+  sha-256, size and git blob id. A sheet document is checked against the schema plus the
   structural subset of the spec's §8 (lengths and ranges, sheet membership, treatment
-  pairs, references, sequence targets, frame sizes, the GOC-1 canonical digest).
+  pairs, references, sequence targets, frame sizes, the GOC-1 canonical digest). A stock
+  card is checked against the schema only; derive drift is Pliego's own gate. A second
+  re-vendor follows pliego#8 (packaging: dielines, finishes, artwork, the stock-card
+  `construction` block).
 - **Lexicon term contract 4** (additive over 3): the `sheet-folding` domain and the
   `pliego` repo in `aliases` and `embodied_by`, with the lane refusing either under a
   lower `spec_version`. 21 seed terms, born quadrilingual, `generated`, cited where they
   make a historical or cultural claim (papel picado credits San Salvador Huixcolotla,
   Puebla); no `embodied_by` (the commons is empty).
-- Fixtures: three faithful minimal sheet cartridges (`tests/fixtures/sheet/`) and one sheet
-  document (`tests/fixtures/sheet-documents/`), to be replaced by real commons cartridges
-  in the first re-pin. CI self-check runs `pliego-spec` with read-proof greps.
+- Fixtures: three faithful minimal sheet cartridges (`tests/fixtures/sheet/`) and one
+  hand-written sheet document, to be replaced by real commons cartridges in the first
+  re-pin. Two real kernel-0.2 documents (`sheet-documents/kernel-0.2/`: `valley-fold` and
+  `reveal-block`'s preview, which uses `pliego:pieces` and `remove`) and two real stock
+  cards (`sheet-stock/`) are added, each with a NOTICE. The CI self-check runs `pliego-spec`
+  with read-proof greps.
 
 #### Changed (additive widening of two-commons hard-codes)
 
@@ -59,8 +69,7 @@ solid or soft verdict, digest, golden or identifier moves.
 #### Not changed (deferred, listed in the PR)
 
 - AAS kinds and ids, the cross-commons identity key, ASM-1 `commons`, `bridge_check`,
-  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS`, a `stock-card` contract, sheet
-  interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
+  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS`, sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
 
 ### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
 
