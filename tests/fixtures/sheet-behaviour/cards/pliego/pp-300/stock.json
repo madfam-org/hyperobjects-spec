@@ -1,0 +1,130 @@
+{
+  "stock": {
+    "slug": "pp-300",
+    "name": {
+      "en": "Polypropylene sheet 300 µm",
+      "es": "Lámina de polipropileno 300 µm",
+      "fr": "Feuille de polypropylène 300 µm",
+      "pt": "Folha de polipropileno 300 µm"
+    },
+    "class": "synthetic",
+    "fiber": [
+      "polypropylene"
+    ],
+    "finish": "film",
+    "color": "#f1f1ee",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 270,
+      "status": "estimated",
+      "basis": "density ≈ 0.90 g/cm³ × 300 µm (rsE §b)"
+    },
+    "caliper_um": {
+      "value": 300,
+      "status": "nominal",
+      "source": "sheet grade designation"
+    },
+    "E_md_gpa": {
+      "value": 1.5,
+      "status": "estimated",
+      "basis": "1.3–2.5 GPa (rsE §b) [E]"
+    },
+    "E_cd_gpa": {
+      "value": 1.5,
+      "status": "estimated",
+      "basis": "cast sheet, near-isotropic (rsE §b) [E]"
+    },
+    "nu": {
+      "value": 0.42,
+      "status": "estimated",
+      "basis": "typical PP value (rsE §b table script) [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 20,
+      "status": "estimated",
+      "basis": "living-hinge capable; fatigue differs from paper (rsE §b) [E]"
+    },
+    "tear_strain": {
+      "value": 0.1,
+      "status": "estimated",
+      "basis": "polypropylene yields and elongates far beyond paper [E]"
+    },
+    "friction": {
+      "value": 0.3,
+      "status": "estimated",
+      "basis": "polyolefin on polyolefin [E]"
+    },
+    "crease_set_rate": {
+      "value": 0.2,
+      "status": "estimated",
+      "basis": "polymer hinge relaxes back toward flat [E]"
+    },
+    "score_factor": {
+      "value": 0.25,
+      "status": "estimated",
+      "basis": "scored living hinge [E]"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.5,
+    "score": "recommended: score living hinges",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "double-sided-tape",
+      "rivets"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#f1f1ee",
+    "back": "#f1f1ee",
+    "translucency": 0.5,
+    "roughness": 0.4
+  },
+  "derived": {
+    "areal_density": 0.00027,
+    "thickness": 0.3,
+    "E_md": 1500000000.0,
+    "E_cd": 1500000000.0,
+    "nu": 0.42,
+    "D_md": 4097860.0,
+    "D_cd": 4097860.0,
+    "crease_k": 68297.7,
+    "crease_yield_deg": 20.0,
+    "crease_set_rate": 0.2,
+    "score_factor": 0.25,
+    "perf_factor": 0.25,
+    "tear_strain": 0.1,
+    "friction": 0.3,
+    "collision_thickness": 0.3,
+    "G12": 580500000.0,
+    "score_yield_deg": 5.0,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ]
+  }
+}

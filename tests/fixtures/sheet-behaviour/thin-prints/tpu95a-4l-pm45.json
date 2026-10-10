@@ -1,0 +1,11 @@
+{
+  "thin_print": "1.0",
+  "name": "tpu95a-4l-pm45",
+  "description": "A flat four-layer TPU 95A sheet, 0.2 mm layers, 100 % rectilinear infill with the rasters alternating +45/-45 degrees. An antisymmetric angle-ply: stretching couples to twisting (B16, B26).",
+  "material_ref": {"platform": "yantra4d", "material_slug": "bambu-tpu-95a", "behaviour": "sheet"},
+  "layers": 4,
+  "layer_height_mm": 0.2,
+  "pattern": "rectilinear",
+  "raster_angles_deg": [45, -45],
+  "infill": 1.0
+}

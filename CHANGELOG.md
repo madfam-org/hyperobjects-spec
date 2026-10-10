@@ -6,6 +6,67 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The sheet-behaviour contract, cross-commons (package 0.13.0)
+
+Pliego (paper, board, foam), Fashion Cabinet (fabric, felt) and Yantra4D (thin prints) keep
+their own kernels, engines and cards. The keystone gains the link between them: a shared
+thin-sheet description any card may carry, `material_ref`, and laminates. There is no
+shared solver. Additive throughout: no existing verdict, digest, golden or identifier
+moves, and **no commons check calls any of it yet** (data first; see
+`docs/SHEET_BEHAVIOUR.md`).
+
+#### Added
+
+- **`sheet-behaviour` schema** (`hyperobjects_schemas`, authored here). It covers caliper
+  and areal density; membrane `E1t`/`E2t`/`G12t` (N/m) and `nu12` in the principal axes;
+  bending `D11`/`D22`/`D12`/`D66` (N·m, optional `D16`/`D26`); optional crease
+  (`crease_length_scale_t`, `crease_yield_deg`, `crease_set_rate`, `score_factor`),
+  compression (`Ez`, Pa), self-folding (trigger and target curvature), contact (friction,
+  damping) and laminate (A, B, D, `coupled`, pre-strain response) blocks; regime flags
+  `inextensible`, `stretchy`, `compressible`, `layered` and `self_folding`; a fixed `units`
+  block; and **provenance per number** (`measured` / `derived` / `estimated`, each with a
+  `basis`). `$defs/material_ref` is `{platform, material_slug, behaviour: "sheet"}` (with
+  `role` and `linked` accepted).
+- **`hyperobjects_sheet`**:
+  - `validate` reports errors for schema violations, a membrane or bending stiffness that
+    is not positive definite, contradictory regimes, missing blocks or units, and
+    provenance that does not match the numbers one to one. Implausible density, non-plate
+    bending and all-estimated documents are notes.
+  - Mapping rules `pliego-stock/1` (the stock card's derived block, engine units → SI,
+    statuses carried through), `fc-fabric/1` (bend class → D on a stated KES-FB2 ladder,
+    stretch % → secant membrane stiffness at an assumed 500 gf/cm, all `estimated`) and
+    `y4d-thin-print/1` (filament card plus layer count, layer height, rectilinear rasters
+    and infill, through a classical laminate of the layers, all `estimated`; the TPU 95A
+    moduli cite Bambu Lab's public datasheet because the card carries none).
+  - `resolve_material_ref`, name-level, reports `carries`, `maps`, `needs-descriptor` or
+    `unresolved` against supplied materials directories.
+  - The laminate calculator (`hyperobjects_sheet.laminate`) gives A, B and D, card
+    own-bending for fabric layers, layer pre-strain and the free-stack curvature, and flags
+    a non-zero B as `coupled`. It is tested against Kaw's Examples 2.6, 2.7 and 4.2 and the
+    closed forms.
+- **`fc-spec sheet` / `y4d-spec sheet`** `check | map | resolve | laminate`.
+- **Golden tests on real cards:** byte-identical copies of all 14 Pliego stock cards, all
+  11 Fashion Cabinet fabric cards and the Yantra4D TPU 95A card
+  (`tests/fixtures/sheet-behaviour/`, provenance in its `NOTICE.md`), plus two thin
+  prints and two laminates. All 29 goldens are regenerated and `--check`ed by
+  `scripts/refresh_sheet_behaviour_golden.py`, and a CI lane runs it.
+
+#### Notes, not failures
+
+Every real card maps to a valid document. The validator's notes over the goldens:
+- non-plate bending on 10 of 11 fabric cards (expected: yarns slide);
+- all-estimated provenance on 4 Pliego cards (amate, foil-paper, papel-de-china,
+  washi-kozo-30), whose every input is an estimate, and on the 2 thin prints and 2
+  laminates, which are estimates by construction.
+
+Nothing fails, and nothing is wired into a commons yet.
+
+#### Found in passing
+
+- The vendored `fabric-manifest` schema lists five `bend_stiffness_class` values;
+  fashion-cabinet main lists seven (`medium-soft` and `very-stiff` added). `fc-fabric/1`
+  maps all seven. The vendored copy wants a refresh in its own change.
+
 ### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
 
 The declared-vs-shipped rule (`structure.shipped_license_rules`) reads only a LICENSE's

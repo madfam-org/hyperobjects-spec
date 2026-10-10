@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/sheet-behaviour.schema.json",
+  "title": "Sheet behaviour v1 (cross-commons thin-sheet description)",
+  "description": "A neutral, unit-explicit, derived description of how a thin sheet behaves: paper and board, fabric and felt, foam, thin prints and laminates of them. The platform that owns a material writes it (from its own card, through a keystone mapping rule); any platform's engine may read it. Axis 1 is the material's principal direction: the machine direction of paper, the warp of a woven, the wale of a knit, the print direction of a thin print, the laminate x axis of a stack. Every number carries its provenance (measured / derived / estimated, with a basis), so an engine can say how far to trust it. This schema checks shape and units; physical admissibility (positive-definite stiffness, regime consistency) is hyperobjects_sheet.validate's job. See docs/SHEET_BEHAVIOUR.md.",
+  "type": "object",
+  "required": [
+    "sheet_behaviour",
+    "units",
+    "axis_1",
+    "caliper_mm",
+    "areal_density_kg_m2",
+    "membrane",
+    "bending",
+    "regime",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "sheet_behaviour": {
+      "description": "The contract version. Additive changes keep major 1.",
+      "type": "string",
+      "pattern": "^1\\.[0-9]+$"
+    },
+    "units": {
+      "description": "Restated in every document so the numbers never travel without their units. Each value is fixed by this version.",
+      "type": "object",
+      "required": ["caliper", "areal_density", "membrane", "bending", "angle"],
+      "additionalProperties": false,
+      "properties": {
+        "caliper": {"const": "mm"},
+        "areal_density": {"const": "kg/m^2"},
+        "membrane": {"const": "N/m"},
+        "bending": {"const": "N*m"},
+        "angle": {"const": "deg"},
+        "compression": {"const": "Pa"},
+        "curvature": {"const": "1/m"},
+        "laminate": {"const": "A N/m, B N, D N*m"}
+      }
+    },
+    "axis_1": {
+      "description": "What axis 1 is for this material.",
+      "type": "string",
+      "enum": ["machine", "warp", "wale", "print", "laminate", "isotropic"]
+    },
+    "source": {
+      "description": "Where the document came from: the owning platform, the card, and the rule that mapped it.",
+      "type": "object",
+      "required": ["platform", "material_slug", "rule"],
+      "additionalProperties": false,
+      "properties": {
+        "platform": {"$ref": "#/$defs/platform"},
+        "material_slug": {"$ref": "#/$defs/slug"},
+        "rule": {"type": "string", "minLength": 1},
+        "card_basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "caliper_mm": {"$ref": "#/$defs/positive"},
+    "areal_density_kg_m2": {"$ref": "#/$defs/positive"},
+    "membrane": {
+      "description": "In-plane stiffness per unit width in the principal axes (modulus × thickness, N/m), and the major Poisson ratio nu12 (strain in axis 2 per strain in axis 1 under a load along axis 1).",
+      "type": "object",
+      "required": ["E1t", "E2t", "G12t", "nu12"],
+      "additionalProperties": false,
+      "properties": {
+        "E1t": {"$ref": "#/$defs/positive"},
+        "E2t": {"$ref": "#/$defs/positive"},
+        "G12t": {"$ref": "#/$defs/positive"},
+        "nu12": {"type": "number", "minimum": -1, "maximum": 1}
+      }
+    },
+    "bending": {
+      "description": "Plate bending stiffness in N·m (moment per unit width per unit curvature). D16 and D26 are optional and default to 0 (an orthotropic sheet in its principal axes); an angle-ply laminate writes them.",
+      "type": "object",
+      "required": ["D11", "D22", "D12", "D66"],
+      "additionalProperties": false,
+      "properties": {
+        "D11": {"$ref": "#/$defs/positive"},
+        "D22": {"$ref": "#/$defs/positive"},
+        "D12": {"type": "number"},
+        "D66": {"$ref": "#/$defs/positive"},
+        "D16": {"type": "number"},
+        "D26": {"type": "number"}
+      }
+    },
+    "crease": {
+      "description": "Crease and plasticity, where they apply (paper, board, foam). crease_length_scale_t is L*/t (the crease hinge length in calipers); crease_yield_deg the spring-back opening after a crease is released; crease_set_rate how fast a held fold sets (0..1); score_factor the yield of a scored line relative to an unscored one (0..1].",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "crease_length_scale_t": {"$ref": "#/$defs/positive"},
+        "crease_yield_deg": {"type": "number", "minimum": 0, "maximum": 180},
+        "crease_set_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "score_factor": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+      }
+    },
+    "regime": {
+      "description": "Which modelling regime an engine should start from. inextensible and stretchy exclude each other; neither means an ordinary extensible sheet. compressible requires the compression block, layered the laminate block, self_folding the self_folding block.",
+      "type": "object",
+      "required": ["inextensible", "stretchy", "compressible", "layered", "self_folding"],
+      "additionalProperties": false,
+      "properties": {
+        "inextensible": {"type": "boolean"},
+        "stretchy": {"type": "boolean"},
+        "compressible": {"type": "boolean"},
+        "layered": {"type": "boolean"},
+        "self_folding": {"type": "boolean"}
+      }
+    },
+    "compression": {
+      "description": "Through-thickness behaviour of a compressible sheet (felt, foam): Ez is the thickness-compression modulus in Pa (compressive stress per unit thickness strain, small strain).",
+      "type": "object",
+      "required": ["Ez"],
+      "additionalProperties": false,
+      "properties": {
+        "Ez": {"$ref": "#/$defs/positive"}
+      }
+    },
+    "self_folding": {
+      "description": "A 4-D sheet that folds itself when triggered: the trigger and the target curvature [k1, k2, k12] in 1/m it relaxes towards.",
+      "type": "object",
+      "required": ["trigger", "target_curvature_1_m"],
+      "additionalProperties": false,
+      "properties": {
+        "trigger": {"type": "string", "enum": ["heat", "moisture", "solvent", "light", "release"]},
+        "target_curvature_1_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "number"}
+        }
+      }
+    },
+    "contact": {
+      "description": "Contact and damping. friction_static and friction_kinetic are Coulomb coefficients against the same material; damping is a dimensionless fraction of critical damping.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "friction_static": {"type": "number", "minimum": 0},
+        "friction_kinetic": {"type": "number", "minimum": 0},
+        "damping": {"type": "number", "minimum": 0}
+      }
+    },
+    "laminate": {
+      "description": "Present when regime.layered: the stack and its classical-laminate matrices (hyperobjects_sheet.laminate). coupled is true when B is non-zero, i.e. the stack curls under in-plane load or layer pre-strain.",
+      "type": "object",
+      "required": ["layers", "A", "B", "D", "coupled"],
+      "additionalProperties": false,
+      "properties": {
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["material", "angle_deg", "thickness_mm"],
+            "additionalProperties": false,
+            "properties": {
+              "material": {"type": "string", "minLength": 1},
+              "angle_deg": {"type": "number"},
+              "thickness_mm": {"$ref": "#/$defs/positive"},
+              "own_bending": {"type": "string", "enum": ["plate", "card"]},
+              "prestrain": {"$ref": "#/$defs/vector3"}
+            }
+          }
+        },
+        "A": {"$ref": "#/$defs/matrix3"},
+        "B": {"$ref": "#/$defs/matrix3"},
+        "D": {"$ref": "#/$defs/matrix3"},
+        "coupled": {"type": "boolean"},
+        "coupling_ratio": {"type": "number", "minimum": 0},
+        "prestrain_response": {
+          "type": "object",
+          "required": ["midplane_strain", "curvature_1_m"],
+          "additionalProperties": false,
+          "properties": {
+            "midplane_strain": {"$ref": "#/$defs/vector3"},
+            "curvature_1_m": {"$ref": "#/$defs/vector3"}
+          }
+        }
+      }
+    },
+    "provenance": {
+      "description": "One entry per number in the document, keyed by its field name (caliper_mm, E1t, D11, crease_yield_deg, Ez, friction_static, target_curvature_1_m, …). measured: the quantity itself was measured or stated by its maker (a unit conversion keeps the status). derived: computed by a stated formula from measured inputs only. estimated: a literature or engineering estimate, or computed from any estimated input.",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status", "basis"],
+        "additionalProperties": false,
+        "properties": {
+          "status": {"type": "string", "enum": ["measured", "derived", "estimated"]},
+          "basis": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "notes": {
+      "description": "Mapping caveats a reader must see with the numbers (what was assumed, what the card does not record).",
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "positive": {"type": "number", "exclusiveMinimum": 0},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "platform": {"type": "string", "enum": ["pliego", "fashion-cabinet", "yantra4d", "hyperobjects-spec"]},
+    "vector3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"type": "number"}
+    },
+    "matrix3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/vector3"}
+    },
+    "material_ref": {
+      "description": "A material owned by another platform, used by reference (RFC: the sheet-behaviour contract, cross-commons). behaviour \"sheet\" asks the owning card to carry, or map to, a sheet_behaviour document. role and linked are accepted so the sheet commons' manifest shape (an array of {platform, material_slug, role[, linked]}) can adopt behaviour without a second shape.",
+      "type": "object",
+      "required": ["platform", "material_slug", "behaviour"],
+      "additionalProperties": false,
+      "properties": {
+        "platform": {"type": "string", "enum": ["pliego", "fashion-cabinet", "yantra4d"]},
+        "material_slug": {"$ref": "#/$defs/slug"},
+        "behaviour": {"type": "string", "enum": ["sheet"]},
+        "role": {"type": "string", "minLength": 1},
+        "linked": {"type": "boolean"}
+      }
+    }
+  }
+}

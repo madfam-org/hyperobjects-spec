@@ -1,0 +1,171 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg",
+    "laminate": "A N/m, B N, D N*m",
+    "curvature": "1/m"
+  },
+  "axis_1": "laminate",
+  "caliper_mm": 0.95,
+  "areal_density_kg_m2": 0.688,
+  "source": {
+    "platform": "hyperobjects-spec",
+    "material_slug": "print-on-stretched-tricot",
+    "rule": "laminate/1"
+  },
+  "membrane": {
+    "E1t": 2561.96,
+    "E2t": 2015.29,
+    "G12t": 325.949,
+    "nu12": 0.345448
+  },
+  "bending": {
+    "D11": 0.000230249,
+    "D22": 0.000180468,
+    "D12": 6.45425e-05,
+    "D66": 2.84492e-05
+  },
+  "regime": {
+    "inextensible": false,
+    "stretchy": false,
+    "compressible": false,
+    "layered": true,
+    "self_folding": false
+  },
+  "laminate": {
+    "layers": [
+      {
+        "material": "fashion-cabinet/tricot-nylon-elastano",
+        "angle_deg": 0,
+        "thickness_mm": 0.55,
+        "own_bending": "card",
+        "prestrain": [
+          -0.15,
+          -0.15,
+          0
+        ]
+      },
+      {
+        "material": "lamina:tpu-95a-print",
+        "angle_deg": 0,
+        "thickness_mm": 0.4,
+        "own_bending": "plate"
+      }
+    ],
+    "A": [
+      [
+        5508.22,
+        1783.79,
+        0
+      ],
+      [
+        1783.79,
+        4198.81,
+        0
+      ],
+      [
+        0,
+        0,
+        1230.99
+      ]
+    ],
+    "B": [
+      [
+        1.09646,
+        0.390151,
+        0
+      ],
+      [
+        0.390151,
+        0.820035,
+        0
+      ],
+      [
+        0,
+        0,
+        0.311832
+      ]
+    ],
+    "D": [
+      [
+        0.00044885,
+        0.000148924,
+        0
+      ],
+      [
+        0.000148924,
+        0.000340989,
+        0
+      ],
+      [
+        0,
+        0,
+        0.000107442
+      ]
+    ],
+    "coupled": true,
+    "coupling_ratio": 0.69733,
+    "prestrain_response": {
+      "midplane_strain": [
+        -0.0680895,
+        -0.068735,
+        0
+      ],
+      "curvature_1_m": [
+        224.11,
+        225.903,
+        0
+      ]
+    }
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "sum over the layers; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "sum over the layers; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'print-on-stretched-tricot', 2 layers"
+    }
+  },
+  "notes": [
+    "B is non-zero (|B|/√(|A|·|D|) = 0.697): stretching and bending are coupled, so the stack curls under in-plane load or layer pre-strain",
+    "crease and contact are not computed for a stack: a laminate's crease is not its layers' creases"
+  ]
+}

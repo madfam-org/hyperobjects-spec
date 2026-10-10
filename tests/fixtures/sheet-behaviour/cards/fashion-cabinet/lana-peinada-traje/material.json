@@ -1,0 +1,76 @@
+{
+  "fabric": {
+    "slug": "lana-peinada-traje",
+    "name": {
+      "en": "Worsted wool suiting",
+      "es": "Lana peinada para traje",
+      "fr": "Tissu de costume en laine peignée"
+    },
+    "class": "woven",
+    "weave": "plain-worsted",
+    "composition": [
+      {
+        "fiber": "wool",
+        "pct": 100
+      }
+    ],
+    "color": "#3a3f4a"
+  },
+  "physical": {
+    "gsm": 260,
+    "width_mm": 1500,
+    "thickness_mm": 0.55,
+    "stretch_pct": {
+      "warp": 2.0,
+      "weft": 3.0
+    },
+    "shrinkage_pct": {
+      "warp": 3.0,
+      "weft": 2.0
+    },
+    "drape_class": "medium"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "notes": {
+      "en": "Worsted suiting tailors true to pattern — no stretch compensation. It steams and moulds under the iron, which is how tailored shape (roll line, sleeve cap ease, chest drape) is set; leave generous inlays at the CB, side, and sleeve seams for fitting. Pre-shrink (London-shrink or a steam press) before cutting, and interface fronts/lapels/undercollar. Underline or fully line tailored garments cut from it.",
+      "es": "La lana peinada se entalla fiel al patrón — sin compensación por estiramiento. Se vaporiza y moldea con la plancha, que es como se fija la forma sastreada (línea de quiebre, embebido de copa, caída del pecho); deje entretelas amplias en costura central, costados y mangas para ajuste. Preencoja (a vapor) antes de cortar y entretele delanteros, solapas y cuello inferior. Forre o subforre las prendas cortadas de ella.",
+      "fr": "Le tissu de costume en laine peignée se façonne fidèlement au patron — aucune compensation d'élasticité. Il se vaporise et se moule sous le fer, ce qui fixe la forme de tailleur (ligne de cassure, embu de tête de manche, tombé de poitrine) ; laissez des ressources généreuses aux coutures de milieu dos, de côté et de manche pour les essayages. Décatissez (London-shrink ou pressage vapeur) avant la coupe, et thermocollez les devants, revers et dessous-de-col. Sous-piquez ou doublez entièrement les vêtements de tailleur qui en sont coupés."
+    }
+  },
+  "care": [
+    "dry_clean",
+    "steam_press",
+    "no_tumble_dry",
+    "air_between_wears"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 260,
+      "bend_stiffness_class": "medium",
+      "stretch_warp_pct": 2.0,
+      "stretch_weft_pct": 3.0
+    },
+    "pbr": {
+      "base_color": "#3a3f4a",
+      "roughness": 0.74,
+      "sheen": 0.14,
+      "metallic": 0.0
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 160
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The FC-100's tailoring cloth: suit jackets, suit trousers, and waistcoats. Its heavier sibling lana-melton-abrigo carries the coats. Replaces the teaching-grade poplin stand-in the first blazer draft used, so the fabric hint now matches the craft.",
+      "es": "La tela de sastrería del FC-100: sacos de traje, pantalones de vestir y chalecos. Su prima más pesada lana-melton-abrigo cubre los abrigos. Reemplaza la popelina didáctica que usó el primer trazo de saco, para que la sugerencia de tela ya corresponda al oficio.",
+      "fr": "Le tissu de tailleur du FC-100 : vestes de costume, pantalons de costume et gilets. Sa cousine plus lourde lana-melton-abrigo assure les manteaux. Il remplace la popeline pédagogique du premier tracé de blazer, de sorte que l'indication de tissu correspond désormais au métier."
+    }
+  }
+}

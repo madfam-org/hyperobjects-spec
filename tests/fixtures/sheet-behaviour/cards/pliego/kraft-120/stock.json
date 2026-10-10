@@ -1,0 +1,123 @@
+{
+  "stock": {
+    "slug": "kraft-120",
+    "name": {
+      "en": "Kraft paper 120 g/m²",
+      "es": "Papel kraft 120 g/m²",
+      "fr": "Papier kraft 120 g/m²",
+      "pt": "Papel kraft 120 g/m²"
+    },
+    "class": "kraft",
+    "fiber": [
+      "wood-pulp"
+    ],
+    "finish": "uncoated",
+    "color": "#b98a5a",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 120,
+      "status": "nominal",
+      "source": "grade designation"
+    },
+    "caliper_um": {
+      "value": 160,
+      "status": "estimated",
+      "basis": "rsE §b [E]"
+    },
+    "E_md_gpa": {
+      "value": 6.5,
+      "status": "estimated",
+      "basis": "rsE §b; tensile index ≈ 90–110 MD / 55–60 CD N·m/g on sack-kraft datasheets (Mondi TDS)"
+    },
+    "E_cd_gpa": {
+      "value": 2.8,
+      "status": "estimated",
+      "basis": "MD/CD ≈ 2.3 from the sack-kraft tensile-index ratio (rsE §b) [E]"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981)"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.03,
+      "status": "estimated",
+      "basis": "sack-kraft grades stretch more than office paper [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.0,
+    "score": "recommended for crisp folds",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "pva",
+      "glue-stick",
+      "double-sided-tape"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#b98a5a",
+    "back": "#b98a5a",
+    "translucency": 0.05,
+    "roughness": 0.9
+  },
+  "derived": {
+    "areal_density": 0.00012,
+    "thickness": 0.16,
+    "E_md": 6500000000.0,
+    "E_cd": 2800000000.0,
+    "nu": 0.293,
+    "D_md": 2427020.0,
+    "D_cd": 1045490.0,
+    "crease_k": 49779.0,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.03,
+    "friction": 0.4,
+    "collision_thickness": 0.16,
+    "G12": 1651000000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Mondi sack-kraft TDS — https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/sack-kraft-paper/tds-update-2025/flat/mondi-skp-tds-advantage-kraft.pdf",
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ]
+  }
+}

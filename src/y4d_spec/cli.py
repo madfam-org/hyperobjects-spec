@@ -13,6 +13,7 @@
     y4d-spec reader [--out DIR] [--check] [--status]
     y4d-spec define <word> [--lang es|en|fr|pt] · lookup <repo/slug> · related <term-id>
     y4d-spec license-body <file|dir> [...] [--declared SPDX_ID]
+    y4d-spec sheet check|map|resolve|laminate ...   (the sheet-behaviour contract)
     y4d-spec render-env [--apt] [--openscad-version] [--openscad-sha256] [--json]
     y4d-spec rules
 
@@ -39,6 +40,7 @@ from hyperobjects_lexicon.cli import (
 )
 from hyperobjects_licenses import add_license_body_parser
 from hyperobjects_schemas.identity import check_identity_file
+from hyperobjects_sheet import add_sheet_parser
 
 from .assembly.cli import add_assembly_parser
 from .conformance import check_cartridge
@@ -554,6 +556,7 @@ def main(argv: list[str] | None = None) -> int:
     add_reader_parser(sub, "y4d-spec")
     add_aas_parser(sub, "y4d-spec", "solid")
     add_license_body_parser(sub, "y4d-spec")
+    add_sheet_parser(sub, "y4d-spec")
 
     p_env = sub.add_parser(
         "render-env",

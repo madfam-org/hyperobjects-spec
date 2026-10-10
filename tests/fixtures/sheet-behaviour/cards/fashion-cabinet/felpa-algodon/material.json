@@ -1,0 +1,77 @@
+{
+  "fabric": {
+    "slug": "felpa-algodon",
+    "name": {
+      "en": "Cotton fleece (brushed felpa)",
+      "es": "Felpa de algodón",
+      "fr": "Molleton de coton (felpa grattée)"
+    },
+    "class": "knit",
+    "weave": "fleece-3-end",
+    "composition": [
+      {
+        "fiber": "cotton",
+        "pct": 80
+      },
+      {
+        "fiber": "polyester",
+        "pct": 20
+      }
+    ],
+    "color": "#b8b4ad"
+  },
+  "physical": {
+    "gsm": 320,
+    "width_mm": 1700,
+    "thickness_mm": 1.4,
+    "stretch_pct": {
+      "warp": 8.0,
+      "weft": 20.0
+    },
+    "shrinkage_pct": {
+      "warp": 5.0,
+      "weft": 3.0
+    },
+    "drape_class": "medium"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.05,
+      "weft": 1.03
+    },
+    "notes": {
+      "en": "Sweatshirt body cloth; pair with matching 1x1 rib for neckbands, cuffs, and hem bands (rib ratios ~0.80–0.90 of the opening).",
+      "es": "Tela de cuerpo para sudaderas; combinar con rib 1x1 para cuellos, puños y pretinas (proporciones de rib ~0.80–0.90 de la abertura).",
+      "fr": "Tissu de corps pour sweat-shirts ; à associer à un bord-côte 1x1 assorti pour les encolures, les poignets et les bandes de bas (proportions de côtes ~0,80–0,90 de l'ouverture)."
+    }
+  },
+  "care": [
+    "machine_wash_30c",
+    "tumble_dry_low"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 320,
+      "bend_stiffness_class": "medium",
+      "stretch_warp_pct": 8.0,
+      "stretch_weft_pct": 20.0
+    },
+    "pbr": {
+      "base_color": "#b8b4ad",
+      "roughness": 0.95,
+      "sheen": 0.03
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 150
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "Hoodies and crewneck sweatshirts — ranks 5, 6, and 14 of the FC-100 run on this cloth.",
+      "es": "Sudaderas con y sin capucha — los rangos 5, 6 y 14 del FC-100 corren sobre esta tela.",
+      "fr": "Sweats à capuche et sweat-shirts col rond — les rangs 5, 6 et 14 du FC-100 reposent sur ce tissu."
+    }
+  }
+}

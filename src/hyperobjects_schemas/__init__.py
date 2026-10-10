@@ -8,6 +8,7 @@ One place to read the contracts from, whichever side of the commons you author o
     load("garment-manifest")        # the Fashion Cabinet cartridge manifest (soft side)
     load("cross-commons-identity")  # the identity key that pairs the two
     load("generator-output")        # GOC-1: one generator instance (variables.json)
+    load("sheet-behaviour")         # how a thin sheet behaves, across the commons
     load("assembly")                # ASM-1: a type-level assembly (assembly.json)
 
 Names are given without the ``.schema.json`` suffix; the suffixed filename works too.
@@ -34,6 +35,9 @@ These files are copies of the schemas each platform repo publishes:
     sizes), which ship in ``hyperobjects_lexicon.vocabularies.fabrication``.
     The standard-part schema validates one entry of the ASM-1 §4 standard-parts catalog
     (COTS parts an assembly references), which ships in ``hyperobjects_standard_parts``.
+    The ``sheet-behaviour`` schema is authored here too: the cross-commons thin-sheet
+    description (paper, fabric, felt, foam, thin prints, laminates). Its validator, mapping
+    rules, ``material_ref`` resolver and laminate calculator live in ``hyperobjects_sheet``.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -64,6 +68,7 @@ SCHEMAS: dict[str, str] = {
     "commons-vocabulary": "hyperobjects-spec",
     "article-frontmatter": "hyperobjects-spec",
     "generator-output": "hyperobjects-spec",
+    "sheet-behaviour": "hyperobjects-spec",
     "fabrication-vocabulary": "hyperobjects-spec",
     "assembly": "hyperobjects-spec",
     "standard-part": "hyperobjects-spec",

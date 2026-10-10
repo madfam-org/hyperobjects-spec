@@ -1,0 +1,77 @@
+{
+  "fabric": {
+    "slug": "mezclilla-denim",
+    "name": {
+      "en": "Denim (12 oz mezclilla)",
+      "es": "Mezclilla (12 oz)",
+      "fr": "Denim (mezclilla 12 oz)"
+    },
+    "class": "woven",
+    "weave": "3x1-twill",
+    "composition": [
+      {
+        "fiber": "cotton",
+        "pct": 99
+      },
+      {
+        "fiber": "elastane",
+        "pct": 1
+      }
+    ],
+    "color": "#3f5573"
+  },
+  "physical": {
+    "gsm": 407,
+    "width_mm": 1500,
+    "thickness_mm": 0.85,
+    "stretch_pct": {
+      "warp": 1.0,
+      "weft": 4.0
+    },
+    "shrinkage_pct": {
+      "warp": 3.0,
+      "weft": 2.0
+    },
+    "drape_class": "stiff"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.03,
+      "weft": 1.02
+    },
+    "notes": {
+      "en": "Sanforized assumption; raw denim needs far larger allowances. Topstitch with heavy thread; fell the load-bearing seams.",
+      "es": "Se asume sanforizada; la mezclilla cruda requiere márgenes mucho mayores. Pespuntear con hilo grueso; costuras de carga a doble pespunte.",
+      "fr": "On suppose un denim sanforisé ; le denim brut exige des marges bien plus larges. Surpiquez avec un fil épais ; réalisez les coutures porteuses en couture rabattue."
+    }
+  },
+  "care": [
+    "machine_wash_cold_inside_out",
+    "line_dry"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 407,
+      "bend_stiffness_class": "stiff",
+      "stretch_warp_pct": 1.0,
+      "stretch_weft_pct": 4.0
+    },
+    "pbr": {
+      "base_color": "#3f5573",
+      "roughness": 0.9,
+      "sheen": 0.05
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 200
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "Ranks 2, 19, 28, and 49 of the FC-100 run on this cloth.",
+      "es": "Los rangos 2, 19, 28 y 49 del FC-100 corren sobre esta tela.",
+      "fr": "Les rangs 2, 19, 28 et 49 du FC-100 reposent sur ce tissu."
+    }
+  }
+}
