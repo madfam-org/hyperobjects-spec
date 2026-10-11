@@ -1,0 +1,189 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg",
+    "laminate": "A N/m, B N, D N*m"
+  },
+  "axis_1": "machine",
+  "caliper_mm": 1.66,
+  "areal_density_kg_m2": 0.398239,
+  "source": {
+    "platform": "pliego",
+    "material_slug": "corrugated-e-flute",
+    "rule": "pliego-stock/1",
+    "card_basis": "pliego.stock.derive v1"
+  },
+  "membrane": {
+    "E1t": 2340000,
+    "E2t": 1469620,
+    "G12t": 717664,
+    "nu12": 0.36972
+  },
+  "bending": {
+    "D11": 1.40863,
+    "D22": 0.688611,
+    "D12": 0.270887,
+    "D66": 0.327076
+  },
+  "crease": {
+    "crease_length_scale_t": 75,
+    "crease_yield_deg": 35,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35
+  },
+  "regime": {
+    "inextensible": true,
+    "stretchy": false,
+    "compressible": false,
+    "layered": true,
+    "self_folding": false
+  },
+  "laminate": {
+    "layers": [
+      {
+        "material": "pliego/corrugated-e-flute construction.layers[2] liner",
+        "angle_deg": 0,
+        "thickness_mm": 0.18,
+        "own_bending": "plate"
+      },
+      {
+        "material": "pliego/corrugated-e-flute construction.layers[1] medium E flute",
+        "angle_deg": 0,
+        "thickness_mm": 1.3
+      },
+      {
+        "material": "pliego/corrugated-e-flute construction.layers[0] liner",
+        "angle_deg": 0,
+        "thickness_mm": 0.18,
+        "own_bending": "plate"
+      }
+    ],
+    "A": [
+      [
+        2559750,
+        492252,
+        0
+      ],
+      [
+        492252,
+        1607630,
+        0
+      ],
+      [
+        0,
+        0,
+        594359
+      ]
+    ],
+    "B": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "D": [
+      [
+        1.40863,
+        0.270887,
+        0
+      ],
+      [
+        0.270887,
+        0.688611,
+        0
+      ],
+      [
+        0,
+        0,
+        0.327076
+      ]
+    ],
+    "coupled": false,
+    "coupling_ratio": 0
+  },
+  "contact": {
+    "friction_static": 0.45
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "derived.thickness; physical.caliper_um estimated: implied by the construction block (pliego.board v1)"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "derived.areal_density (g/mm²) × 1000; physical.gsm estimated: implied by the construction block (pliego.board v1)"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "derived.E_md × t; physical.E_md_gpa estimated: implied by the construction block (pliego.board v1); physical.caliper_um estimated: implied by the construction block (pliego.board v1)"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "derived.E_cd × t; physical.E_cd_gpa estimated: implied by the construction block (pliego.board v1); physical.caliper_um estimated: implied by the construction block (pliego.board v1)"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "derived.G12 × t, G12 = 0.387·√(E_md·E_cd) (Baum, Brennan & Habeger 1981, via pliego.stock.derive v1)"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "ν12 = ν·√(E_md/E_cd): the card's ν is the geometric mean √(ν12·ν21), split by reciprocity ν12/E1 = ν21/E2; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); the board value is unmeasured [E]"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "derived.D_md × 1e-9 (N·m): sandwich bending about the MD neutral axis, Σ E·(t³/12 + t·(z − z̄)²)/(1 − ν²) over the card's construction block (pliego.board v1, Allen 1969) via pliego.stock.derive v1, transverse shear of the core not included; construction.layers ['estimated']; flute heights per pliego.board v1; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); the board value is unmeasured [E]"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "derived.D_cd × 1e-9 (N·m): sandwich bending about the CD neutral axis, Σ E·(t³/12 + t·(z − z̄)²)/(1 − ν²) over the card's construction block (pliego.board v1, Allen 1969) via pliego.stock.derive v1, transverse shear of the core not included; construction.layers ['estimated']; flute heights per pliego.board v1; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); the board value is unmeasured [E]"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "D*12, the free-stack D* = D − B·A⁻¹·B of the laminate block, which rebuilds the construction layer by layer (hyperobjects_sheet.board): liners and plies with ν12 = ν·√(E_md/E_cd); the medium carries no Poisson term"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "D*66, the free-stack D* = D − B·A⁻¹·B of the laminate block, which rebuilds the construction layer by layer (hyperobjects_sheet.board): liners and plies with ν12 = ν·√(E_md/E_cd) and the Baum estimate G12 = 0.387·√(E_md·E_cd) per layer; the medium's in-plane shear is neglected, as pliego.board v1 neglects its MD load, so this is a lower bound"
+    },
+    "crease_length_scale_t": {
+      "status": "estimated",
+      "basis": "physical.crease_length_scale_t estimated: scored board: L* = 50–100 t (memo §a3, Beex & Peerlings 2009 qualitative); mid value [E]"
+    },
+    "crease_yield_deg": {
+      "status": "estimated",
+      "basis": "physical.crease_yield_deg estimated: rest opening 27–43° after creasing (Lechenault 2014, Mylar); board unmeasured [E]"
+    },
+    "crease_set_rate": {
+      "status": "estimated",
+      "basis": "pliego.stock.derive v1 default (card has no physical.crease_set_rate)"
+    },
+    "score_factor": {
+      "status": "estimated",
+      "basis": "pliego.stock.derive v1 default (card has no physical.score_factor)"
+    },
+    "friction_static": {
+      "status": "estimated",
+      "basis": "physical.friction estimated: kraft on kraft 0.3–0.6 (rsE §a3) [E]"
+    }
+  },
+  "notes": [
+    "friction: the card states one paper-on-paper coefficient; it is written as friction_static, and friction_kinetic and damping are left out rather than invented",
+    "board: the laminate block rebuilds the card's construction (pliego.board v1) as a classical laminate about the mid-plane; its free-stack D* gives D11 +0.00 % and D22 +0.00 % against the card's D_md and D_cd, which are kept (D* also carries the Poisson cross terms the card's per-direction sums omit)",
+    "board: a medium layer is a slab as thick as its flute height that carries CD load only; its own bending is the sinusoid's spread α·E·t_m·(t_m²/12 + a²/2)/(1 − ν²), neither the plate nor a card value, so its record states no own_bending"
+  ]
+}

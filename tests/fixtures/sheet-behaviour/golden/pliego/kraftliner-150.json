@@ -1,0 +1,112 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg"
+  },
+  "axis_1": "machine",
+  "caliper_mm": 0.21,
+  "areal_density_kg_m2": 0.15,
+  "source": {
+    "platform": "pliego",
+    "material_slug": "kraftliner-150",
+    "rule": "pliego-stock/1",
+    "card_basis": "pliego.stock.derive v1"
+  },
+  "membrane": {
+    "E1t": 1470000,
+    "E2t": 630000,
+    "G12t": 372427,
+    "nu12": 0.447565
+  },
+  "bending": {
+    "D11": 0.00590958,
+    "D22": 0.00253268,
+    "D12": 0.00113354,
+    "D66": 0.00136867
+  },
+  "crease": {
+    "crease_length_scale_t": 200,
+    "crease_yield_deg": 35,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35
+  },
+  "regime": {
+    "inextensible": true,
+    "stretchy": false,
+    "compressible": false,
+    "layered": false,
+    "self_folding": false
+  },
+  "contact": {
+    "friction_static": 0.45
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "derived.thickness; physical.caliper_um estimated: ≈ 0.71 g/cm³ unbleached kraftliner [E]"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "derived.areal_density (g/mm²) × 1000; physical.gsm estimated: liner grade band 125–200 g/m² [E]"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "derived.E_md × t; physical.E_md_gpa estimated: virgin-fibre kraft, rsE §b (kraft-120 at 6.5 GPa) [E]; physical.caliper_um estimated: ≈ 0.71 g/cm³ unbleached kraftliner [E]"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "derived.E_cd × t; physical.E_cd_gpa estimated: MD/CD ≈ 2.3 from sack-kraft tensile-index ratio (Mondi TDS) [E]; physical.caliper_um estimated: ≈ 0.71 g/cm³ unbleached kraftliner [E]"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "derived.G12 × t, G12 = 0.387·√(E_md·E_cd) (Baum, Brennan & Habeger 1981, via pliego.stock.derive v1)"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "ν12 = ν·√(E_md/E_cd): the card's ν is the geometric mean √(ν12·ν21), split by reciprocity ν12/E1 = ν21/E2; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981)"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "derived.D_md × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_md_gpa estimated: virgin-fibre kraft, rsE §b (kraft-120 at 6.5 GPa) [E]; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); physical.caliper_um estimated: ≈ 0.71 g/cm³ unbleached kraftliner [E]"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "derived.D_cd × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_cd_gpa estimated: MD/CD ≈ 2.3 from sack-kraft tensile-index ratio (Mondi TDS) [E]; physical.nu estimated: √(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); physical.caliper_um estimated: ≈ 0.71 g/cm³ unbleached kraftliner [E]"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "G12·t³/12 with the estimated G12 above"
+    },
+    "crease_length_scale_t": {
+      "status": "estimated",
+      "basis": "physical.crease_length_scale_t estimated: scored board: L* = 50–100 t (memo §a3, Beex & Peerlings 2009 qualitative); mid value [E]"
+    },
+    "crease_yield_deg": {
+      "status": "estimated",
+      "basis": "physical.crease_yield_deg estimated: rest opening 27–43° after creasing (Lechenault 2014, Mylar); board unmeasured [E]"
+    },
+    "crease_set_rate": {
+      "status": "estimated",
+      "basis": "pliego.stock.derive v1 default (card has no physical.crease_set_rate)"
+    },
+    "score_factor": {
+      "status": "estimated",
+      "basis": "pliego.stock.derive v1 default (card has no physical.score_factor)"
+    },
+    "friction_static": {
+      "status": "estimated",
+      "basis": "physical.friction estimated: kraft on kraft 0.3–0.6 (rsE §a3) [E]"
+    }
+  },
+  "notes": [
+    "friction: the card states one paper-on-paper coefficient; it is written as friction_static, and friction_kinetic and damping are left out rather than invented"
+  ]
+}

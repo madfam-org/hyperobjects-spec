@@ -1,13 +1,15 @@
 # Sheet-behaviour fixtures: provenance and licences
 
 `cards/` holds byte-identical copies of the platforms' own material cards. They were
-verified on 2026-10-10 against each file's git blob id at the commit named here. They are
+verified on 2026-10-10 against each file's git blob id at the commit named here (the
+Pliego cards twice: the first 14 at `8928b4e`, then all 28 at `870e098`, where those 14
+are unchanged). They are
 test inputs only, copied unmodified, so that the mapping rules are tested on the cards
 that really exist.
 
 | Directory | Source | Commit | Files |
 |---|---|---|---|
-| `cards/pliego/<slug>/stock.json` | [madfam-org/pliego](https://github.com/madfam-org/pliego) `materials/<slug>/stock.json` | `8928b4eef93a65b7040e083fce773ceb90adae2f` (main, kernel 0.2.0) | all 14 stock cards |
+| `cards/pliego/<slug>/stock.json` | [madfam-org/pliego](https://github.com/madfam-org/pliego) `materials/<slug>/stock.json` | `870e0985c0cc1358d3318b3b3d7a861c367446e5` (main) | all 28 stock cards: 14 paper and film cards first copied at `8928b4eef93a65b7040e083fce773ceb90adae2f` (kernel 0.2.0), plus 7 corrugated boards, folding boxboard, greyboard, kraftliner, SBS board and 3 EVA foams |
 | `cards/fashion-cabinet/<slug>/material.json` | madfam-org/fashion-cabinet `materials/<slug>/material.json` | `38115465892b2eb32b9b62ec2dd49f9a570df387` (main) | all 11 fabric cards |
 | `cards/yantra4d/bambu-tpu-95a/material.json` | [madfam-org/yantra4d](https://github.com/madfam-org/yantra4d) `materials/bambu-tpu-95a/material.json` | `85476bc6717d8381274806817a32bc9b403e052f` (main) | 1 filament card (identical to `tests/fixtures/aas/bambu-tpu-95a.material.json`) |
 

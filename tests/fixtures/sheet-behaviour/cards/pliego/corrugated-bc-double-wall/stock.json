@@ -1,0 +1,175 @@
+{
+  "stock": {
+    "slug": "corrugated-bc-double-wall",
+    "name": {
+      "en": "Corrugated board, double wall, BC flute",
+      "es": "Cartón corrugado de doble pared, flauta BC",
+      "fr": "Carton ondulé double-double, cannelures BC",
+      "pt": "Papelão ondulado de parede dupla, ondas BC"
+    },
+    "class": "corrugated",
+    "fiber": [
+      "wood-pulp",
+      "recycled-fibre"
+    ],
+    "finish": "kraft liner, uncoated",
+    "color": "#b5865a",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 695.3,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "caliper_um": {
+      "value": 6840.0,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "E_md_gpa": {
+      "value": 0.5132,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "E_cd_gpa": {
+      "value": 0.3677,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); the board value is unmeasured [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 75,
+      "status": "estimated",
+      "basis": "scored board: L* = 50–100 t (memo §a3, Beex & Peerlings 2009 qualitative); mid value [E]"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014, Mylar); board unmeasured [E]"
+    },
+    "tear_strain": {
+      "value": 0.02,
+      "status": "estimated",
+      "basis": "board grades, low elongation [E]"
+    },
+    "friction": {
+      "value": 0.45,
+      "status": "estimated",
+      "basis": "kraft on kraft 0.3–0.6 (rsE §a3) [E]"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 10.0,
+    "score": "required: crease-rule every fold (the flutes crush along the score)",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "pva",
+      "hot-melt",
+      "starch"
+    ]
+  },
+  "appearance": {
+    "front": "#b5865a",
+    "back": "#b5865a",
+    "translucency": 0.0,
+    "roughness": 0.9
+  },
+  "construction": {
+    "kind": "corrugated",
+    "model": "pliego.board v1",
+    "layers": [
+      {
+        "role": "liner",
+        "gsm": 125,
+        "caliper_um": 180,
+        "E_md_gpa": 6.5,
+        "E_cd_gpa": 2.8,
+        "status": "estimated",
+        "basis": "kraft liner 125 g/m²: caliper ≈ 694.44 g/cm³ [E]; moduli as kraft-120 (Mondi TDS MD/CD ratio) [E]"
+      },
+      {
+        "role": "medium",
+        "flute": "B",
+        "gsm": 112,
+        "caliper_um": 170,
+        "E_md_gpa": 5.0,
+        "E_cd_gpa": 2.2,
+        "status": "estimated",
+        "basis": "fluting medium 112 g/m² [E]; recycled/semi-chemical fluting stiffer in MD than CD (MD/CD ≈ 2.3) [E]"
+      },
+      {
+        "role": "liner",
+        "gsm": 125,
+        "caliper_um": 180,
+        "E_md_gpa": 6.5,
+        "E_cd_gpa": 2.8,
+        "status": "estimated",
+        "basis": "kraft liner 125 g/m²: caliper ≈ 694.44 g/cm³ [E]; moduli as kraft-120 (Mondi TDS MD/CD ratio) [E]"
+      },
+      {
+        "role": "medium",
+        "flute": "C",
+        "gsm": 112,
+        "caliper_um": 170,
+        "E_md_gpa": 5.0,
+        "E_cd_gpa": 2.2,
+        "status": "estimated",
+        "basis": "fluting medium 112 g/m² [E]; recycled/semi-chemical fluting stiffer in MD than CD (MD/CD ≈ 2.3) [E]"
+      },
+      {
+        "role": "liner",
+        "gsm": 125,
+        "caliper_um": 180,
+        "E_md_gpa": 6.5,
+        "E_cd_gpa": 2.8,
+        "status": "estimated",
+        "basis": "kraft liner 125 g/m²: caliper ≈ 694.44 g/cm³ [E]; moduli as kraft-120 (Mondi TDS MD/CD ratio) [E]"
+      }
+    ],
+    "adhesive_gsm_per_glueline": 5,
+    "note": "Top layer first (the board's front). Flutes run across the machine direction (axes along CD). Adhesive: starch, 5 g/m² per glue line [E]."
+  },
+  "derived": {
+    "areal_density": 0.000695327,
+    "thickness": 6.84,
+    "E_md": 513158000.0,
+    "E_cd": 367672000.0,
+    "nu": 0.293,
+    "D_md": 28568000000.0,
+    "D_cd": 16603800000.0,
+    "crease_k": 42454700.0,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.02,
+    "friction": 0.45,
+    "collision_thickness": 6.84,
+    "G12": 168100000.0,
+    "score_yield_deg": 12.25
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Foster 1997, Wiley Encyclopedia of Packaging Technology — flute designations as tabled in https://en.wikipedia.org/wiki/Corrugated_fiberboard",
+      "Rogalka, Grabski & Garbowski 2023, Identification of Geometric Features of the Corrugated Board Using Images and Genetic Algorithm, Sensors 23(13):6242, Table 1 — https://doi.org/10.3390/s23136242",
+      "Classical sandwich-beam theory (Allen 1969, Analysis and Design of Structural Sandwich Panels) and corrugated-board homogenisation without transverse shear (Nordstrand 2003, Lund University doctoral thesis) [L]",
+      "Mondi sack-kraft TDS (tensile index MD/CD ≈ 2.3) — https://www.mondigroup.com/globalassets/mondigroup.com/products--solutions/sack-kraft-paper/tds-update-2025/flat/mondi-skp-tds-advantage-kraft.pdf",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Pliego research memo rsE (2026-10-10) §a3/§b — engineering estimates [E]; scored board L* = 50–100 t (Beex & Peerlings 2009, qualitative) — https://orbilu.uni.lu/handle/10993/17431"
+    ]
+  }
+}
