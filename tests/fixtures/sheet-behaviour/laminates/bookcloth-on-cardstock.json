@@ -1,0 +1,9 @@
+{
+  "laminate": "1.0",
+  "name": "bookcloth-on-cardstock",
+  "description": "Cotton poplin glued over 300 g/m2 cardstock, both with axis 1 along the spine: the covering of a case binding. Two different layers, so B is non-zero (a covered board warps when the glue shrinks the cloth). The glue line is not modelled.",
+  "layers": [
+    {"material_ref": {"platform": "pliego", "material_slug": "cardstock-300", "behaviour": "sheet"}, "angle_deg": 0},
+    {"material_ref": {"platform": "fashion-cabinet", "material_slug": "popelina-algodon", "behaviour": "sheet"}, "angle_deg": 0}
+  ]
+}

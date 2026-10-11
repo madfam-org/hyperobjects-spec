@@ -1,0 +1,153 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg",
+    "laminate": "A N/m, B N, D N*m"
+  },
+  "axis_1": "laminate",
+  "caliper_mm": 0.61,
+  "areal_density_kg_m2": 0.415,
+  "source": {
+    "platform": "hyperobjects-spec",
+    "material_slug": "bookcloth-on-cardstock",
+    "rule": "laminate/1"
+  },
+  "membrane": {
+    "E1t": 977152,
+    "E2t": 450072,
+    "G12t": 171168,
+    "nu12": 0.395831
+  },
+  "bending": {
+    "D11": 0.0281857,
+    "D22": 0.0130074,
+    "D12": 0.00512452,
+    "D66": 0.00452606
+  },
+  "regime": {
+    "inextensible": true,
+    "stretchy": false,
+    "compressible": false,
+    "layered": true,
+    "self_folding": false
+  },
+  "laminate": {
+    "layers": [
+      {
+        "material": "pliego/cardstock-300",
+        "angle_deg": 0,
+        "thickness_mm": 0.36,
+        "own_bending": "card"
+      },
+      {
+        "material": "fashion-cabinet/popelina-algodon",
+        "angle_deg": 0,
+        "thickness_mm": 0.25,
+        "own_bending": "card"
+      }
+    ],
+    "A": [
+      [
+        1874820,
+        361560,
+        0
+      ],
+      [
+        361560,
+        838960,
+        0
+      ],
+      [
+        0,
+        0,
+        418016
+      ]
+    ],
+    "B": [
+      [
+        -203.033,
+        -40.4971,
+        0
+      ],
+      [
+        -40.4971,
+        -89.2101,
+        0
+      ],
+      [
+        0,
+        0,
+        -52.2349
+      ]
+    ],
+    "D": [
+      [
+        0.0501754,
+        0.00965215,
+        0
+      ],
+      [
+        0.00965215,
+        0.0224959,
+        0
+      ],
+      [
+        0,
+        0,
+        0.0110533
+      ]
+    ],
+    "coupled": true,
+    "coupling_ratio": 0.661975
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "sum over the layers; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "sum over the layers; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; laminate document 'bookcloth-on-cardstock', 2 layers"
+    }
+  },
+  "notes": [
+    "B is non-zero (|B|/√(|A|·|D|) = 0.662): stretching and bending are coupled, so the stack curls under in-plane load or layer pre-strain",
+    "crease and contact are not computed for a stack: a laminate's crease is not its layers' creases"
+  ]
+}

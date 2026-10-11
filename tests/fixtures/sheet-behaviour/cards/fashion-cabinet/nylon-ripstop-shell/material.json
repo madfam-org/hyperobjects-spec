@@ -1,0 +1,77 @@
+{
+  "fabric": {
+    "slug": "nylon-ripstop-shell",
+    "name": {
+      "en": "Ripstop nylon shell",
+      "es": "Nylon ripstop (shell)",
+      "fr": "Coque en nylon ripstop"
+    },
+    "class": "technical",
+    "weave": "ripstop-plain",
+    "composition": [
+      {
+        "fiber": "nylon",
+        "pct": 100
+      }
+    ],
+    "color": "#26303a"
+  },
+  "physical": {
+    "gsm": 95,
+    "width_mm": 1450,
+    "thickness_mm": 0.22,
+    "stretch_pct": {
+      "warp": 3.0,
+      "weft": 3.0
+    },
+    "shrinkage_pct": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "drape_class": "crisp"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "notes": {
+      "en": "Lightweight wind/water-resistant outer shell: cuts true, no stretch compensation. The reinforcing ripstop grid resists tearing; a DWR finish or a PU/PTFE laminate makes it water-resistant to waterproof. Down/synthetic-fill garments quilt this face to a lining with the insulation between (channel spacing = the quilt param); seam-sealed tape over the needle holes is what makes a raincoat actually waterproof — call that out in the BOM. Slippery hand: pin inside the allowance and use a fine microtex needle so holes stay small.",
+      "es": "Shell exterior ligero resistente al viento y al agua: corta fiel, sin compensación por estiramiento. La retícula ripstop resiste desgarros; un acabado DWR o un laminado PU/PTFE lo hace de resistente a impermeable. Las prendas con relleno (pluma/sintético) acolchan esta cara a un forro con el aislante en medio (la separación de canales = el parámetro de acolchado); la cinta selladora sobre los orificios de aguja es lo que de verdad impermeabiliza una gabardina — indíquelo en el BOM. Tacto resbaloso: prenda dentro del margen y use aguja microtex fina para que los orificios queden pequeños.",
+      "fr": "Coque extérieure légère coupe-vent et déperlante : elle se coupe fidèlement, sans compensation d'élasticité. La grille de renfort ripstop résiste à la déchirure ; une finition déperlante (DWR) ou un laminage PU/PTFE la rend de déperlante à imperméable. Les vêtements à garnissage (duvet/synthétique) matelassent cette face à une doublure avec l'isolant entre les deux (l'espacement des canaux = le paramètre de matelassage) ; c'est la bande thermosoudée sur les trous d'aiguille qui rend un imperméable réellement étanche — signalez-le dans le BOM. Toucher glissant : épinglez dans la marge et utilisez une aiguille microtex fine pour que les trous restent petits."
+    }
+  },
+  "care": [
+    "machine_wash_cold_gentle",
+    "no_fabric_softener",
+    "tumble_dry_low_or_line",
+    "iron_low_if_needed",
+    "reproof_dwr_as_needed"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 95,
+      "bend_stiffness_class": "medium",
+      "stretch_warp_pct": 3.0,
+      "stretch_weft_pct": 3.0
+    },
+    "pbr": {
+      "base_color": "#26303a",
+      "roughness": 0.38,
+      "sheen": 0.42,
+      "metallic": 0.0
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": false,
+    "max_iron_temp_c": 110
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The FC-100's technical outer shell: puffer jackets and vests, parkas, raincoats, and windbreakers. Quilted over insulation for puffers, seam-sealed for rain, hemmed with elastic/drawcords for wind. The wool melton card carries the tailored coats instead.",
+      "es": "El shell técnico exterior del FC-100: chamarras y chalecos acolchados, parkas, impermeables y rompevientos. Acolchado sobre aislante para puffers, con costuras selladas para lluvia, con jaretas/elásticos para viento. La lana melton cubre en cambio los abrigos sastreados.",
+      "fr": "La coque technique extérieure du FC-100 : doudounes et gilets matelassés, parkas, imperméables et coupe-vent. Matelassée sur l'isolant pour les doudounes, à coutures thermosoudées pour la pluie, ourlée avec élastiques/cordons de serrage pour le vent. La carte de melton de laine assure en revanche les manteaux de tailleur."
+    }
+  }
+}

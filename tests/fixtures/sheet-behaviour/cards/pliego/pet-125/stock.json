@@ -1,0 +1,127 @@
+{
+  "stock": {
+    "slug": "pet-125",
+    "name": {
+      "en": "PET film 125 µm",
+      "es": "Lámina de PET 125 µm",
+      "fr": "Film PET 125 µm",
+      "pt": "Filme PET 125 µm"
+    },
+    "class": "synthetic",
+    "fiber": [
+      "pet"
+    ],
+    "finish": "film",
+    "color": "#eef3f5",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 174,
+      "status": "estimated",
+      "basis": "density ≈ 1.39–1.40 g/cm³ × 125 µm (Mylar A datasheet)"
+    },
+    "caliper_um": {
+      "value": 125,
+      "status": "nominal",
+      "source": "film grade designation"
+    },
+    "E_md_gpa": {
+      "value": 3.7,
+      "status": "estimated",
+      "basis": "Mylar A datasheet 3.6–3.8 GPa MD; midpoint"
+    },
+    "E_cd_gpa": {
+      "value": 3.95,
+      "status": "estimated",
+      "basis": "Mylar A datasheet 3.8–4.1 GPa TD; midpoint"
+    },
+    "nu": {
+      "value": 0.38,
+      "status": "estimated",
+      "basis": "typical PET film value (rsE §b table script) [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "measured",
+      "source": "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243",
+      "method": "single-crease opening moment M = κW(φ−φ0) on Mylar strips"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° measured on Mylar (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.5,
+      "status": "estimated",
+      "basis": "biaxially oriented PET elongates far beyond paper [E]"
+    },
+    "friction": {
+      "value": 0.35,
+      "status": "estimated",
+      "basis": "film on film [E]"
+    },
+    "crease_set_rate": {
+      "value": 0.3,
+      "status": "estimated",
+      "basis": "polymer film springs back more than paper [E]"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.0,
+    "score": "recommended; scoring gives a cleaner hinge",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "double-sided-tape",
+      "contact-cement"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#eef3f5",
+    "back": "#eef3f5",
+    "translucency": 0.85,
+    "roughness": 0.15
+  },
+  "derived": {
+    "areal_density": 0.000174,
+    "thickness": 0.125,
+    "E_md": 3700000000.0,
+    "E_cd": 3950000000.0,
+    "nu": 0.38,
+    "D_md": 703849.0,
+    "D_cd": 751407.0,
+    "crease_k": 29089.6,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.3,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.5,
+    "friction": 0.35,
+    "collision_thickness": 0.125,
+    "G12": 1479480000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Mylar A datasheet — https://media.easycomposites.co.uk/datasheets/Mylar_A_50_to_125mic.pdf",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243",
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited"
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "fabric": {
+    "slug": "lana-melton-abrigo",
+    "name": {
+      "en": "Wool melton coating",
+      "es": "Melton de lana para abrigo",
+      "fr": "Melton de laine pour manteau"
+    },
+    "class": "woven",
+    "weave": "melton-twill-fulled",
+    "composition": [
+      {
+        "fiber": "wool",
+        "pct": 90
+      },
+      {
+        "fiber": "nylon",
+        "pct": 10
+      }
+    ],
+    "color": "#2f3033"
+  },
+  "physical": {
+    "gsm": 420,
+    "width_mm": 1500,
+    "thickness_mm": 1.6,
+    "stretch_pct": {
+      "warp": 1.0,
+      "weft": 2.0
+    },
+    "shrinkage_pct": {
+      "warp": 2.5,
+      "weft": 2.0
+    },
+    "drape_class": "stiff"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "notes": {
+      "en": "Heavy fulled coating: cuts true, but its thickness eats seam room — grade seam allowances and use a wider allowance (12-15 mm) plus generous hems on coats. The fulled (felted) face means raw edges barely fray, so facings can be minimal and some edges bound rather than turned; it presses with heavy steam and a clapper. Add ease for layering over a jacket. Melton bulk at collars/lapels benefits from trimming the undercollar layer.",
+      "es": "Tela de abrigo enfurtida y pesada: corta fiel, pero su grosor consume espacio de costura — escalone los márgenes y use un margen más ancho (12-15 mm) con bajos amplios en abrigos. La cara enfurtida (afieltrada) casi no deshilacha, así que las vistas pueden ser mínimas y algunos cantos ribeteados en vez de volteados; se plancha con vapor fuerte y pisón. Agregue holgura para usarse sobre un saco. El volumen del melton en cuellos/solapas mejora recortando la capa del cuello inferior.",
+      "fr": "Tissu de manteau foulé et lourd : il se coupe fidèlement, mais son épaisseur mange l'espace de couture — dégradez les marges de couture et utilisez une marge plus large (12-15 mm) ainsi que des ourlets généreux sur les manteaux. La face foulée (feutrée) fait que les bords vifs s'effilochent à peine, si bien que les parementures peuvent être minimales et certains bords bordés plutôt que rentrés ; il se repasse à la vapeur forte avec un tapette. Ajoutez de l'aisance pour la superposition par-dessus une veste. Le volume du melton aux cols et revers gagne à dégarnir la couche du dessous-de-col."
+    }
+  },
+  "care": [
+    "dry_clean",
+    "steam_press",
+    "brush_after_wear",
+    "no_tumble_dry"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 420,
+      "bend_stiffness_class": "stiff",
+      "stretch_warp_pct": 1.0,
+      "stretch_weft_pct": 2.0
+    },
+    "pbr": {
+      "base_color": "#2f3033",
+      "roughness": 0.86,
+      "sheen": 0.06,
+      "metallic": 0.0
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 160
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The FC-100's coat cloth: trench coats, overcoats, parkas, and chore/varsity outer layers where body and warmth matter. Its lighter sibling lana-peinada-traje tailors the suits underneath.",
+      "es": "La tela de abrigo del FC-100: gabardinas, abrigos, parkas y capas exteriores tipo chore/varsity donde importan el cuerpo y el abrigo. Su prima más ligera lana-peinada-traje entalla los trajes que van debajo.",
+      "fr": "Le tissu de manteau du FC-100 : trench-coats, pardessus, parkas et couches extérieures de type chore/varsity où le corps et la chaleur comptent. Sa cousine plus légère lana-peinada-traje façonne les costumes portés en dessous."
+    }
+  }
+}

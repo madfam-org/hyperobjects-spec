@@ -1,0 +1,73 @@
+{
+  "fabric": {
+    "slug": "popelina-algodon",
+    "name": {
+      "en": "Cotton poplin",
+      "es": "Popelina de algodón",
+      "fr": "Popeline de coton"
+    },
+    "class": "woven",
+    "weave": "plain",
+    "composition": [
+      {
+        "fiber": "cotton",
+        "pct": 100
+      }
+    ],
+    "color": "#e9edf2"
+  },
+  "physical": {
+    "gsm": 115,
+    "width_mm": 1450,
+    "thickness_mm": 0.25,
+    "stretch_pct": {
+      "warp": 0.5,
+      "weft": 1.0
+    },
+    "shrinkage_pct": {
+      "warp": 2.5,
+      "weft": 1.5
+    },
+    "drape_class": "crisp"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.025,
+      "weft": 1.015
+    },
+    "notes": {
+      "en": "Shirting default: collars and cuffs want fusible interfacing; press as you sew.",
+      "es": "La tela camisera por defecto: cuellos y puños piden entretela fusionable; planchar al coser.",
+      "fr": "Le tissu de chemiserie par défaut : les cols et les poignets demandent un thermocollant ; repassez au fur et à mesure de la couture."
+    }
+  },
+  "care": [
+    "machine_wash_40c",
+    "iron_high"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 115,
+      "bend_stiffness_class": "medium-stiff",
+      "stretch_warp_pct": 0.5,
+      "stretch_weft_pct": 1.0
+    },
+    "pbr": {
+      "base_color": "#e9edf2",
+      "roughness": 0.75,
+      "sheen": 0.18
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 200
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "Dress shirts, blouses, guayaberas — the woven-tops family of the FC-100.",
+      "es": "Camisas de vestir, blusas, guayaberas — la familia de tops de tela del FC-100.",
+      "fr": "Chemises habillées, chemisiers, guayaberas — la famille des hauts en tissé du FC-100."
+    }
+  }
+}

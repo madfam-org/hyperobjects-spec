@@ -1,0 +1,81 @@
+{
+  "fabric": {
+    "slug": "tricot-nylon-elastano",
+    "name": {
+      "en": "Swimwear tricot (nylon/elastane)",
+      "es": "Tricot de nylon/elastano para baño",
+      "fr": "Tricot pour maillot de bain (nylon/élasthanne)"
+    },
+    "class": "technical",
+    "weave": "warp-knit-tricot",
+    "composition": [
+      {
+        "fiber": "nylon",
+        "pct": 80
+      },
+      {
+        "fiber": "elastane",
+        "pct": 20
+      }
+    ],
+    "color": "#1f5f78"
+  },
+  "physical": {
+    "gsm": 200,
+    "width_mm": 1500,
+    "thickness_mm": 0.55,
+    "stretch_pct": {
+      "warp": 60.0,
+      "weft": 75.0
+    },
+    "shrinkage_pct": {
+      "warp": 0.0,
+      "weft": 0.0
+    },
+    "drape_class": "soft"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 0.9,
+      "weft": 0.85
+    },
+    "notes": {
+      "en": "Four-way stretch warp-knit: cut UNDER the body measurement — a negative-ease reduction of ~10-15% is standard for swimwear so the fabric holds to the body when wet. cut_scale below 1.0 encodes that reduction; the greatest stretch runs weft (across the body). Pair the body shell with a knit lining/mesh liner in the crotch and front panels. Chlorine and salt degrade elastane over time — the digital twin ages faster than a woven; prefer this blend's chlorine-resistant grade for pool use.",
+      "es": "Punto por urdimbre de estiramiento en cuatro direcciones: se corta POR DEBAJO de la medida corporal — una holgura negativa de ~10-15% es lo normal en trajes de baño para que la tela se ajuste al cuerpo mojada. El cut_scale menor a 1.0 codifica esa reducción; el mayor estiramiento corre en la trama (alrededor del cuerpo). Combine la capa exterior con un forro/malla de punto en la entrepierna y los paneles delanteros. El cloro y la sal degradan el elastano con el tiempo — prefiera un grado resistente al cloro para alberca.",
+      "fr": "Tricot chaîne à extensibilité quatre directions : à couper EN DEÇÀ de la mesure du corps — une réduction en aisance négative de ~10-15 % est la norme pour les maillots de bain afin que le tissu épouse le corps une fois mouillé. Un cut_scale inférieur à 1.0 encode cette réduction ; l'extensibilité maximale court dans la trame (autour du corps). Associez la coque extérieure à une doublure en maille/filet à l'entrejambe et aux panneaux avant. Le chlore et le sel dégradent l'élasthanne avec le temps — le jumeau numérique vieillit plus vite qu'un tissé ; préférez la qualité résistante au chlore de ce mélange pour la piscine."
+    }
+  },
+  "care": [
+    "hand_wash_cold",
+    "rinse_after_chlorine",
+    "line_dry_shade",
+    "do_not_iron",
+    "do_not_wring"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 200,
+      "bend_stiffness_class": "very-soft",
+      "stretch_warp_pct": 60.0,
+      "stretch_weft_pct": 75.0
+    },
+    "pbr": {
+      "base_color": "#1f5f78",
+      "roughness": 0.42,
+      "sheen": 0.35,
+      "metallic": 0.0
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": false,
+    "max_iron_temp_c": 0
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The FC-100's swim shell: one-piece suits, bikinis, trunks, and rash guards. Sewn on a stretch/overlock with a ballpoint needle; edges finished with clear elastic or a coverstitch. Its chlorine-resistant grade is the swimwear default; the athletic power-stretch card is its drier, higher-compression cousin.",
+      "es": "La capa de baño del FC-100: enterizos, bikinis, trusas y licras. Se cose con máquina elástica/overlock y aguja de punta redonda; los cantos se rematan con elástico transparente o recubridora. Su grado resistente al cloro es el estándar de baño; la tela atlética de compresión es su prima más seca y firme.",
+      "fr": "La coque de bain du FC-100 : maillots une pièce, bikinis, boxers de bain et rash guards. Cousus sur une machine à points extensibles/surjeteuse avec une aiguille à bout rond ; les bords finis à l'élastique transparent ou au recouvrement. Sa qualité résistante au chlore est la référence pour le bain ; la carte de maille de compression athlétique est sa cousine plus sèche et plus compressive."
+    }
+  }
+}

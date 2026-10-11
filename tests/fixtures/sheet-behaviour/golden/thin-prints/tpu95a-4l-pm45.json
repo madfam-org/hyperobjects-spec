@@ -1,0 +1,168 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg",
+    "laminate": "A N/m, B N, D N*m"
+  },
+  "axis_1": "print",
+  "caliper_mm": 0.8,
+  "areal_density_kg_m2": 0.976,
+  "source": {
+    "platform": "yantra4d",
+    "material_slug": "bambu-tpu-95a",
+    "rule": "y4d-thin-print/1",
+    "card_basis": "yantra4d material card"
+  },
+  "membrane": {
+    "E1t": 6623.02,
+    "E2t": 6623.02,
+    "G12t": 2477.83,
+    "nu12": 0.409629
+  },
+  "bending": {
+    "D11": 0.000424448,
+    "D22": 0.000424448,
+    "D12": 0.000173866,
+    "D66": 0.000132151
+  },
+  "regime": {
+    "inextensible": false,
+    "stretchy": true,
+    "compressible": false,
+    "layered": true,
+    "self_folding": false
+  },
+  "laminate": {
+    "layers": [
+      {
+        "material": "yantra4d/bambu-tpu-95a",
+        "angle_deg": 45,
+        "thickness_mm": 0.2,
+        "own_bending": "plate"
+      },
+      {
+        "material": "yantra4d/bambu-tpu-95a",
+        "angle_deg": -45,
+        "thickness_mm": 0.2,
+        "own_bending": "plate"
+      },
+      {
+        "material": "yantra4d/bambu-tpu-95a",
+        "angle_deg": 45,
+        "thickness_mm": 0.2,
+        "own_bending": "plate"
+      },
+      {
+        "material": "yantra4d/bambu-tpu-95a",
+        "angle_deg": -45,
+        "thickness_mm": 0.2,
+        "own_bending": "plate"
+      }
+    ],
+    "A": [
+      [
+        7982.6,
+        3284.19,
+        0
+      ],
+      [
+        3284.19,
+        7982.6,
+        0
+      ],
+      [
+        0,
+        0,
+        2488.51
+      ]
+    ],
+    "B": [
+      [
+        0,
+        0,
+        -0.0566645
+      ],
+      [
+        0,
+        0,
+        -0.0566645
+      ],
+      [
+        -0.0566645,
+        -0.0566645,
+        0
+      ]
+    ],
+    "D": [
+      [
+        0.000425738,
+        0.000175157,
+        0
+      ],
+      [
+        0.000175157,
+        0.000425738,
+        0
+      ],
+      [
+        0,
+        0,
+        0.000132721
+      ]
+    ],
+    "coupled": true,
+    "coupling_ratio": 0.0307374
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "sum over the layers; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "sum over the layers; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "classical laminate theory (hyperobjects_sheet.laminate), free stack; 4 layers × 0.2 mm, rectilinear rasters [45, -45] (cycled), infill 1; lamina: bead direction E = infill × E_xy, cross-bead E = infill × E_z (the inter-layer bond standing in for the inter-bead bond), G = √(E_L·E_T)/(2(1+ν)), linear in infill (an upper bound for sparse fill); Bambu Lab, TPU 95A HF Technical Data Sheet V1.0: Young's modulus X-Y 9.8 ± 0.7 MPa and Z 7.4 ± 0.6 MPa (ISO 527), density 1.22 g/cm³ (ISO 1183) — https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf; that sheet is the HF grade, the card names TPU 95A; assumed ν = 0.45: a 95A elastomer is nearly incompressible (ν → 0.5) and printed voids lower it; no datasheet states it"
+    }
+  },
+  "notes": [
+    "perimeters and walls are ignored: the print is treated as its raster infill",
+    "crease: an elastomer print recovers rather than creases; no crease block",
+    "B is non-zero (|B|/√(|A|·|D|) = 0.0307): stretching and bending are coupled, so the stack curls under in-plane load or layer pre-strain",
+    "crease and contact are not computed for a stack: a laminate's crease is not its layers' creases"
+  ]
+}

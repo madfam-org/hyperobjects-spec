@@ -1,0 +1,78 @@
+{
+  "fabric": {
+    "slug": "jersey-algodon",
+    "name": {
+      "en": "Cotton jersey (single knit)",
+      "es": "Jersey de algodón",
+      "fr": "Jersey de coton (jersey simple)"
+    },
+    "class": "knit",
+    "weave": "single-jersey",
+    "composition": [
+      {
+        "fiber": "cotton",
+        "pct": 95
+      },
+      {
+        "fiber": "elastane",
+        "pct": 5
+      }
+    ],
+    "color": "#d8d3cc"
+  },
+  "physical": {
+    "gsm": 180,
+    "width_mm": 1600,
+    "thickness_mm": 0.55,
+    "stretch_pct": {
+      "warp": 15.0,
+      "weft": 40.0
+    },
+    "shrinkage_pct": {
+      "warp": 4.0,
+      "weft": 2.0
+    },
+    "drape_class": "soft"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.04,
+      "weft": 1.02
+    },
+    "notes": {
+      "en": "Weft (course) direction carries the stretch — garments are cut with the stretch running around the body. Negative ease up to ~10% is comfortable for this blend; tubular shrinkage favors pre-washing production yardage.",
+      "es": "La elasticidad corre en la trama — las prendas se cortan con el estiramiento alrededor del cuerpo. Una holgura negativa de hasta ~10% es cómoda con esta mezcla; conviene prelavar la tela de producción.",
+      "fr": "L'élasticité court dans le sens de la trame (rangées) — les vêtements sont coupés avec l'extensibilité tout autour du corps. Une aisance négative allant jusqu'à ~10 % reste confortable pour ce mélange ; le retrait tubulaire incite à prélaver le métrage de production."
+    }
+  },
+  "care": [
+    "machine_wash_30c",
+    "tumble_dry_low",
+    "iron_low"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 180,
+      "bend_stiffness_class": "very-soft",
+      "stretch_warp_pct": 15.0,
+      "stretch_weft_pct": 40.0
+    },
+    "pbr": {
+      "base_color": "#d8d3cc",
+      "roughness": 0.88,
+      "sheen": 0.12
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": true,
+    "max_iron_temp_c": 150
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The default cloth of the FC-100's knit tops: tees, tanks, and every casual staple.",
+      "es": "La tela por defecto de los tops de punto del FC-100: playeras, camisetas y básicos casuales.",
+      "fr": "Le tissu par défaut des hauts en maille du FC-100 : t-shirts, débardeurs et tous les basiques décontractés."
+    }
+  }
+}

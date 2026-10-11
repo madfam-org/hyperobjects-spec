@@ -1,0 +1,9 @@
+{
+  "laminate": "1.0",
+  "name": "print-on-stretched-tricot",
+  "description": "Nylon-elastane tricot stretched 15 % both ways, then printed with 0.4 mm of TPU 95A and released. The fabric's stress-free state is 15 % shorter than the bonded one (prestrain -0.15), so the free sample curls with the fabric on the concave side: print-on-fabric shaping. Linear laminate theory at 15 % strain is itself an estimate.",
+  "layers": [
+    {"material_ref": {"platform": "fashion-cabinet", "material_slug": "tricot-nylon-elastano", "behaviour": "sheet"}, "angle_deg": 0, "prestrain": [-0.15, -0.15, 0]},
+    {"lamina": {"name": "tpu-95a-print", "E1_pa": 9.8e6, "E2_pa": 7.4e6, "G12_pa": 2.937e6, "nu12": 0.45, "density_kg_m3": 1220}, "thickness_mm": 0.4, "angle_deg": 0}
+  ]
+}

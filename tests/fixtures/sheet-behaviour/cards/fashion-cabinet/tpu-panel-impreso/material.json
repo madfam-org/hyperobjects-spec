@@ -1,0 +1,75 @@
+{
+  "fabric": {
+    "slug": "tpu-panel-impreso",
+    "name": {
+      "en": "3D-printed TPU chainmail panel",
+      "es": "Panel de cota TPU impreso en 3D",
+      "fr": "Panneau de cotte de mailles en TPU imprimé en 3D"
+    },
+    "class": "printed_textile",
+    "weave": "interlocked-chainmail",
+    "composition": [
+      {
+        "fiber": "tpu-95a",
+        "pct": 100
+      }
+    ],
+    "color": "#8a8f94"
+  },
+  "physical": {
+    "gsm": 650,
+    "width_mm": 250,
+    "thickness_mm": 2.8,
+    "stretch_pct": {
+      "warp": 12.0,
+      "weft": 12.0
+    },
+    "shrinkage_pct": {
+      "warp": 0.0,
+      "weft": 0.0
+    },
+    "drape_class": "medium"
+  },
+  "compensations": {
+    "cut_scale": {
+      "warp": 1.0,
+      "weft": 1.0
+    },
+    "notes": {
+      "en": "AM-fashion bridge material: the panel SOLID is a Yantra4D cartridge (printed on-bed, bambu-tpu-95a class); this card describes its behavior AS CLOTH — drape by link geometry, no cutting, joins by printed clasps or sewn tape edges. Width = print-bed bound.",
+      "es": "Material puente de moda aditiva: el SÓLIDO del panel es un cartucho de Yantra4D (impreso en cama, clase bambu-tpu-95a); esta ficha describe su comportamiento COMO TELA — caída por geometría de eslabones, sin corte, uniones por broches impresos o cinta cosida. Ancho = límite de cama de impresión.",
+      "fr": "Matériau passerelle fabrication additive-mode : le SOLIDE du panneau est un cartouche Yantra4D (imprimé sur plateau, classe bambu-tpu-95a) ; cette carte décrit son comportement EN TANT QUE TISSU — tombé par géométrie des maillons, sans coupe, assemblage par fermoirs imprimés ou bords à ruban cousu. Largeur = limite du plateau d'impression."
+    }
+  },
+  "care": [
+    "hand_wash_cold",
+    "air_dry",
+    "no_iron"
+  ],
+  "digital_twin": {
+    "physics": {
+      "weight_gsm": 650,
+      "bend_stiffness_class": "medium",
+      "stretch_warp_pct": 12.0,
+      "stretch_weft_pct": 12.0
+    },
+    "pbr": {
+      "base_color": "#8a8f94",
+      "roughness": 0.55,
+      "sheen": 0.3,
+      "metallic": 0.15
+    }
+  },
+  "e_textile": {
+    "conductive_thread_compatible": false,
+    "max_iron_temp_c": 80
+  },
+  "provenance": {
+    "origin": "MX",
+    "notes": {
+      "en": "The additive-manufacturing frontier of the fabric library; hardware geometry federates to Yantra4D.",
+      "es": "La frontera de manufactura aditiva de la biblioteca de telas; la geometría del sólido se federa a Yantra4D.",
+      "fr": "La frontière de la fabrication additive de la bibliothèque de tissus ; la géométrie matérielle se fédère à Yantra4D."
+    }
+  }
+}

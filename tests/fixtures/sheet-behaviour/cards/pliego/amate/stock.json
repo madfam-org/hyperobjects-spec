@@ -1,0 +1,148 @@
+{
+  "stock": {
+    "slug": "amate",
+    "name": {
+      "en": "Amate bark paper (thin)",
+      "es": "Papel amate (delgado)",
+      "fr": "Papier amate (fin)",
+      "pt": "Papel amate (fino)"
+    },
+    "class": "bark",
+    "fiber": [
+      "ficus-bark"
+    ],
+    "finish": "handmade",
+    "color": "#8a6a48",
+    "grain": "none"
+  },
+  "physical": {
+    "gsm": {
+      "value": 120,
+      "status": "estimated",
+      "basis": "thin amate; no mechanical data found, needs measurement (rsE §b)"
+    },
+    "caliper_um": {
+      "value": 250,
+      "status": "estimated",
+      "basis": "reported range 150–400 µm; mid value (rsE §b)"
+    },
+    "E_md_gpa": {
+      "value": 1.5,
+      "status": "estimated",
+      "basis": "1–3 GPa isotropic, heterogeneous; no mechanical data found (rsE §b) [E]"
+    },
+    "E_cd_gpa": {
+      "value": 1.5,
+      "status": "estimated",
+      "basis": "laid in a grid and beaten, near-isotropic (rsE §b) [E]"
+    },
+    "nu": {
+      "value": 0.3,
+      "status": "estimated",
+      "basis": "near-isotropic beaten bark; no data, generic value [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.02,
+      "status": "estimated",
+      "basis": "beaten bark mat, heterogeneous; needs measurement [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 2.0,
+    "score": "recommended; the sheet is thick and uneven",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "wheat-starch-paste",
+      "pva"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#8a6a48",
+    "back": "#7d5f40",
+    "translucency": 0.05,
+    "roughness": 0.95
+  },
+  "derived": {
+    "areal_density": 0.00012,
+    "thickness": 0.25,
+    "E_md": 1500000000.0,
+    "E_cd": 1500000000.0,
+    "nu": 0.3,
+    "D_md": 2146290.0,
+    "D_cd": 2146290.0,
+    "crease_k": 42925.8,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.02,
+    "friction": 0.4,
+    "collision_thickness": 0.25,
+    "G12": 580500000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Wake Forest LAM Museum, Otomí bark paper — https://lammuseum.wfu.edu/2022/10/otomi-bark-paper/",
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ],
+    "heritage": {
+      "tradition": {
+        "en": "Amate (Otomí bark paper)",
+        "es": "Amate (papel de corteza otomí)",
+        "fr": "Amate (papier d'écorce otomi)",
+        "pt": "Amate (papel de casca otomi)"
+      },
+      "place": "San Pablito, Pahuatlán, Puebla, México",
+      "makers": "Otomí (ñuhu) papermakers of San Pablito",
+      "claims": [
+        {
+          "en": "Otomí papermakers of San Pablito, Pahuatlán, Puebla boil jonote / ficus bark with ash and lime, lay the strips in a grid and beat them with stones.",
+          "es": "Las y los artesanos otomíes de San Pablito, Pahuatlán, Puebla, hierven la corteza de jonote (ficus) con ceniza y cal, la disponen en retícula y la golpean con piedras.",
+          "source": "https://lammuseum.wfu.edu/2022/10/otomi-bark-paper/"
+        },
+        {
+          "en": "Otomí ritual cut-paper figures are made from it.",
+          "es": "Con él se recortan las figuras rituales otomíes.",
+          "source": "https://lammuseum.wfu.edu/2022/10/otomi-bark-paper/"
+        },
+        {
+          "en": "The Dresden Codex screenfold is made of amate: about 20 cm high, 39 leaves and about 3.6–3.7 m unfolded.",
+          "es": "El Códice de Dresde, un biombo, es de amate: mide unos 20 cm de alto, tiene 39 hojas y unos 3.6–3.7 m desplegado.",
+          "source": "https://en.wikipedia.org/wiki/Dresden_Codex"
+        }
+      ]
+    }
+  }
+}
