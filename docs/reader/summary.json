@@ -41,6 +41,19 @@
         "fr": 248,
         "pt": 200
       }
+    },
+    "pliego": {
+      "entries": 139,
+      "cartridges": 139,
+      "materials": 0,
+      "commit": "ddc3ed3eca4554df9836d2ed935e7218e00a398d",
+      "captured_at": "2026-10-10",
+      "languages": {
+        "es": 139,
+        "en": 139,
+        "fr": 139,
+        "pt": 139
+      }
     }
   },
   "bridges": {
@@ -57,5 +70,5 @@
     "resolved_against": "335443c901dc4a736a309f98dd67447c68569091"
   },
   "embodied_by_without_page": 0,
-  "pages": 1228
+  "pages": 1368
 }

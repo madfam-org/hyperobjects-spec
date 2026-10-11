@@ -9,6 +9,11 @@ pins the slug sets for the lexicon lane.
 
     python3 scripts/refresh_reader_snapshots.py \\
         --yantra4d ../yantra4d --fashion-cabinet ../fashion-cabinet
+    python3 scripts/refresh_reader_snapshots.py --sheet-hyperobjects ../sheet-hyperobjects
+
+The two invocations are independent: the solid and soft pair (and the bridge graph
+between them) is refreshed together, and the sheet commons alone, so refreshing one
+never re-dates the other's snapshot.
 
 **What is vendored, and what is deliberately not.** Each entry carries the *catalog
 metadata* the commons already publishes about it — names, taxonomy, licence, interface
@@ -30,6 +35,10 @@ Sources, per commons:
 
 * yantra4d — ``docs/commons-catalog.json`` (500 cartridges) plus
   ``materials/*/material.json`` (the cards no catalog publishes).
+* pliego (the sheet commons, ``sheet-hyperobjects``) — every root ``<slug>/project.json``
+  and its ``<slug>/docs/<slug>.article.json``. The article frontmatter's quadrilingual
+  ``title`` and ``summary`` are what the published catalog of the other two calls the
+  name and the blurb; the article body (``docs/README.md``) is linked, never copied.
 * fashion-cabinet — ``docs/commons-catalog.json`` (516 objects) plus its
   ``materials/*/material.json``, and the bridge graph:
   ``docs/interfaces/yantra4d-consumers.json`` (the published back-edge) and
@@ -57,6 +66,7 @@ CATALOG_DIR = (
 REPO_URL = {
     "yantra4d": "https://github.com/madfam-org/yantra4d",
     "fashion-cabinet": "https://github.com/madfam-org/fashion-cabinet",
+    "pliego": "https://github.com/madfam-org/sheet-hyperobjects",
 }
 
 CATALOG_COMMENT = (
@@ -275,6 +285,70 @@ def _fc_entries(repo: Path, ref: str) -> list[dict]:
     return sorted(entries, key=lambda e: e["slug"])
 
 
+def _sheet_paths(repo: Path, ref: str) -> list[str]:
+    """Root ``<slug>/project.json`` manifests of sheet-hyperobjects in that commit."""
+    listing = _run(repo, "ls-tree", "-r", "--name-only", ref)
+    return sorted(
+        line for line in listing.splitlines()
+        if line.endswith("/project.json") and line.count("/") == 1
+    )
+
+
+def _sheet_entries(repo: Path, ref: str) -> list[dict]:
+    """One entry per sheet cartridge: the manifest's metadata, the article's title and
+    summary (frontmatter, quadrilingual), and the path of the article it links to."""
+    entries = []
+    for path in _sheet_paths(repo, ref):
+        slug = path.split("/")[0]
+        manifest = _show_json(repo, ref, path)
+        project = manifest.get("project") or {}
+        block = manifest.get("hyperobject") or {}
+        try:
+            article = _show_json(repo, ref, f"{slug}/docs/{slug}.article.json")
+        except (subprocess.CalledProcessError, ValueError):
+            article = {}
+        modes = manifest.get("modes") or []
+        presets = manifest.get("presets") or []
+        names = _texts(article.get("title")) or _texts(project.get("name"))
+        entries.append(
+            {
+                "slug": slug,
+                "kind": "cartridge",
+                "names": names,
+                "summary": _texts(article.get("summary")),
+                "summary_label": "summary",
+                "group": block.get("domain") or "uncategorized",
+                "license": block.get("commons_license")
+                or (project.get("attribution") or {}).get("license"),
+                "facts": _facts(
+                    [
+                        ("domain", block.get("domain")),
+                        ("difficulty", project.get("difficulty")),
+                        ("modes", len(modes) if modes else None),
+                        ("presets", len(presets) if presets else None),
+                        ("parameters", len(manifest.get("parameters") or []) or None),
+                        ("stock", (manifest.get("stock") or {}).get("default")),
+                        ("heritage", article.get("heritage") if article else None),
+                        ("export formats", manifest.get("export_formats")),
+                    ]
+                ),
+                "interfaces": [
+                    {
+                        "id": iface.get("id"),
+                        "type": iface.get("type"),
+                        "label": (iface.get("label") or {}).get("en"),
+                        "standard": None,
+                    }
+                    for iface in block.get("interfaces") or []
+                ],
+                "standards": [],
+                "manifest": path,
+                "article_path": (article.get("article") or {}).get("path"),
+            }
+        )
+    return sorted(entries, key=lambda e: e["slug"])
+
+
 def _bridges(fc_repo: Path, fc_ref: str, fc_catalog: object) -> dict:
     consumers = _show_json(fc_repo, fc_ref, "docs/interfaces/yantra4d-consumers.json")
     index = _show_json(fc_repo, fc_ref, "docs/interfaces/bridge-index.json")
@@ -340,9 +414,16 @@ def _write(path: Path, doc: dict) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--yantra4d", required=True, type=Path, help="path to a yantra4d clone")
+    ap.add_argument("--yantra4d", type=Path, help="path to a yantra4d clone")
+    ap.add_argument("--fashion-cabinet", type=Path, help="path to a fashion-cabinet clone")
     ap.add_argument(
-        "--fashion-cabinet", required=True, type=Path, help="path to a fashion-cabinet clone"
+        "--sheet-hyperobjects",
+        type=Path,
+        help="path to a sheet-hyperobjects clone (the Pliego commons); refreshes the pliego "
+        "snapshot only",
+    )
+    ap.add_argument(
+        "--sheet-hyperobjects-ref", help="read sheet-hyperobjects at this ref instead of --ref"
     )
     ap.add_argument(
         "--ref",
@@ -359,10 +440,59 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument("--fashion-cabinet-ref", help="read fashion-cabinet at this ref instead")
     args = ap.parse_args(argv)
+    pair = (args.yantra4d is not None, args.fashion_cabinet is not None)
+    if pair[0] != pair[1] or not (any(pair) or args.sheet_hyperobjects):
+        ap.error("give --yantra4d with --fashion-cabinet, and/or --sheet-hyperobjects")
+    today = datetime.date.today().isoformat()
+    code = 0
+    if all(pair):
+        code = _refresh_solid_soft(args, today)
+    if code == 0 and args.sheet_hyperobjects is not None:
+        code = _refresh_sheet(args, today)
+    return code
+
+
+def _refresh_sheet(args: argparse.Namespace, today: str) -> int:
+    ref = args.sheet_hyperobjects_ref or args.ref
+    try:
+        commit = _commit(args.sheet_hyperobjects, ref)
+        entries = _sheet_entries(args.sheet_hyperobjects, ref)
+    except (OSError, subprocess.CalledProcessError, ValueError, KeyError) as exc:
+        print(f"ERROR: cannot read sheet-hyperobjects@{ref} — {exc}", file=sys.stderr)
+        return 2
+    if not entries:
+        print("ERROR: empty capture (pliego=0)", file=sys.stderr)
+        return 2
+    articles = sum(1 for e in entries if e.get("article_path"))
+    doc = {
+        "schema_version": 1,
+        "_comment": CATALOG_COMMENT.format(repo="pliego (sheet-hyperobjects)").replace(
+            "the short blurb the published catalog or material card carries",
+            "the article frontmatter's quadrilingual title and summary",
+        ),
+        "captured_at": today,
+        "source": {
+            "repo": "pliego",
+            "url": REPO_URL["pliego"],
+            "ref": ref,
+            "commit": commit,
+            "paths": ["*/project.json", "*/docs/*.article.json"],
+            "entries": len(entries),
+            "cartridges": len(entries),
+            "materials": 0,
+            "articles": articles,
+        },
+        "entries": entries,
+    }
+    size = _write(CATALOG_DIR / "pliego-catalog.snapshot.json", doc)
+    print(f"refreshed: pliego (sheet-hyperobjects) {ref} {commit[:9]}")
+    print(f"  pliego: {len(entries)} entries, {articles} with an article ({size // 1024} KiB)")
+    return 0
+
+
+def _refresh_solid_soft(args: argparse.Namespace, today: str) -> int:
     y4d_ref = args.yantra4d_ref or args.ref
     fc_ref = args.fashion_cabinet_ref or args.ref
-
-    today = datetime.date.today().isoformat()
     try:
         y4d_commit = _commit(args.yantra4d, y4d_ref)
         fc_commit = _commit(args.fashion_cabinet, fc_ref)

@@ -119,6 +119,21 @@ it"). No manifest check, membership rule or verdict changes. Every entry is a
   cartridge uses it yet: `paper-circuit-card` is `stationery`, and moving it is the
   commons' call.
 
+#### Added: the sheet commons in the reader
+
+- `pliego` joins the reader's `REPOS` (third, after the solid and soft commons). Nav,
+  home page, language table and `reader_status` iterate the commons instead of naming two.
+- `catalogs/pliego-catalog.snapshot.json` (new): the 139 sheet-hyperobjects manifests at
+  `ddc3ed3` with their article frontmatter. Every entry has a quadrilingual name (the
+  article title) and summary, the domain as its group, facts read from the manifest, the
+  interfaces, and the paths of the manifest and of the article (`article_path`). The
+  article body is linked, never copied (RFC 0039 §2).
+- `scripts/refresh_reader_snapshots.py --sheet-hyperobjects PATH` refreshes that
+  snapshot alone; the solid and soft pair still refreshes together.
+- The reader grows from 1228 to 1368 pages (139 pliego entries plus their index), all
+  four languages on every pliego page. Every existing page's footer now names the third
+  snapshot, so the whole `docs/reader` tree is rebuilt.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:
@@ -191,7 +206,7 @@ solid or soft verdict, digest, golden or identifier moves.
 #### Not changed (deferred, listed in the PR)
 
 - AAS kinds and ids, the cross-commons identity key, ASM-1 `commons`, `bridge_check`,
-  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS`, sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
+  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS` (added in 0.14.0), sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
 
 ### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
 

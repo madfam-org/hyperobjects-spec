@@ -49,7 +49,8 @@ about a specific pair of commits and not about "the commons today". They are emi
 | terms | 186 | 186 / 186 / 186 / 186 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
-| index, bridge and catalog index pages | 5 | — |
+| pliego | 139 | 139 / 139 / 139 / 139 |
+| index, bridge and catalog index pages | 6 | — |
 
 | Bridge | Count |
 |---|--:|
@@ -63,8 +64,8 @@ about a specific pair of commits and not about "the commons today". They are emi
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1228 differences=0
-reader_status: pages=1228 terms=186 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1368 differences=0
+reader_status: pages=1368 terms=186 yantra4d=510 fashion-cabinet=527 pliego=139 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
