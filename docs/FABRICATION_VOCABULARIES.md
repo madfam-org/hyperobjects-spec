@@ -12,7 +12,14 @@ of the same vocabulary whose entries the loader appends (a supplement declaring 
 vocabulary is an error). `interface-sizes.standard-parts.json` holds the twenty-one size keys the
 standard-parts catalog needs ([STANDARD_PARTS.md](STANDARD_PARTS.md)); `interface-sizes.fpv.json`
 holds the FPV keys the commons cartridges' size-key maps need (`fpv-camera-mini-21mm`,
-`u-fl-cable-exit`, `fpv-camera-side-plate-screw`, `vtx-mount-20x20`).
+`u-fl-cable-exit`, `fpv-camera-side-plate-screw`, `vtx-mount-20x20`);
+`interface-sizes.sheet-parts.json` holds the eleven keys of the paper-electronics and
+paper-fastening parts (LEDs, the CR2032 cell, a brad, an eyelet, elastic cord, a disc
+magnet). The sheet commons' processes and material classes ship the same way, as data
+nothing enforces yet: `processes.sheet.json` (`drag_knife`, `die_cut`, `crease`,
+`score`, `perforate`, `emboss_deboss`, `foil_stamp`, `print`; laser-cut paper is the
+existing `laser_2d`) and `material-classes.sheet.json` (`paper`, `board`, `eva-foam`,
+`tissue-paper`). They widen the process `family` with `forming` and `finishing`.
 
 | Vocabulary | What a key names | Where a manifest writes it |
 |---|---|---|
@@ -55,9 +62,11 @@ Common fields: `key`, `label`, `definition`, `review_status` (required); `status
 (`canonical` | `provisional`), `term` (a lexicon term id), `exact_match` / `close_match`
 (external IRIs or ECLASS IRDIs), `sources`, `notes`. Per vocabulary:
 
-- **processes** — `family` (`additive` | `subtractive` | `cutting`), `iso_52900_category`,
+- **processes** — `family` (`additive` | `subtractive` | `cutting` | `forming` | `finishing`),
+  `iso_52900_category`,
   `cotiza_code` (`3d_fff`, `3d_sla`, `cnc_3axis`, `laser_2d`; absent where Cotiza cannot
-  quote the process yet — `sls`, `mjf`, `cnc_router` — rather than borrowing the nearest).
+  quote the process yet — `sls`, `mjf`, `cnc_router` and every sheet process — rather than
+  borrowing the nearest).
 - **material-classes** — `kind` (`filament` | `resin` | `powder` | `sheet` | `fabric`),
   `processes`, `cards` (`'<repo>/<slug>'`, resolved against the bundled catalog snapshot;
   one card, one class), `emmo_class` (copied from the cards, never asserted on its own).

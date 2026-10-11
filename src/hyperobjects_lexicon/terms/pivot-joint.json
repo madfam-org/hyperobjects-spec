@@ -1,0 +1,37 @@
+{
+  "spec_version": 4,
+  "id": "pivot-joint",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "pivot (sheet pivot)",
+    "es": "pivote",
+    "fr": "pivot",
+    "pt": "pivô"
+  },
+  "definition": {
+    "en": "A point where two or more stacked layers are held by a fastener through a hole (a brad, an eyelet, a rivet, a pin or a skewer) so that each layer can turn about it. Volvelles, pull-tab levers, linkages and pinwheels are built on pivots.",
+    "es": "Un punto donde dos o más capas apiladas quedan sujetas por un pasador que atraviesa un orificio (un encuadernador de patas, un ojillo, un remache, un alfiler o una brocheta) de modo que cada capa puede girar alrededor de él. Las volvelas, las palancas de lengüeta, los mecanismos articulados y los rehiletes se construyen sobre pivotes.",
+    "fr": "Un point où deux couches empilées ou plus sont tenues par une attache traversant un trou (une attache parisienne, un œillet, un rivet, une épingle ou une brochette) de sorte que chaque couche peut tourner autour. Les volvelles, les leviers à tirette, les mécanismes articulés et les moulinets reposent sur des pivots.",
+    "pt": "Um ponto onde duas ou mais camadas empilhadas ficam presas por um fixador que atravessa um furo (um prendedor bailarina, um ilhós, um rebite, um alfinete ou um espeto) de modo que cada camada pode rodar em torno dele. As volvelas, as alavancas de puxar, os mecanismos articulados e os cata-ventos constroem-se sobre pivôs."
+  },
+  "aliases": [
+    {
+      "name": "pivot",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (neutral polarity), and the `pivot` join type of the sheet document (two layers riveted)."
+    }
+  ],
+  "see_also": [
+    "volvelle",
+    "paper-hinge"
+  ],
+  "constraints": "A pivot keeps its layers apart by the thickness of the fastener's head and legs; glue near the hole, or a hole smaller than the shank, locks the joint and it no longer turns.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §5.3 — a pivot join makes two points coincide with free rotation (a brad or split pin) and may carry a hardware_ref to yantra4d",
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §5.19 — glue closes the gap across the second sheet, a pivot keeps it (two layers riveted)"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

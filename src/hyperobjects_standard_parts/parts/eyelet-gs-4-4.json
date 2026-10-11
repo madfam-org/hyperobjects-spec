@@ -1,0 +1,152 @@
+{
+  "spec_version": 1,
+  "key": "eyelet-gs-4-4",
+  "category": "fastener",
+  "name": {
+    "en": "Brass eyelet GS 4-4 (1/8 in)",
+    "es": "Ojillo de latón GS 4-4 (1/8 in)",
+    "fr": "Œillet en laiton GS 4-4 (1/8 in)",
+    "pt": "Ilhós de latão GS 4-4 (1/8 in)"
+  },
+  "description": {
+    "en": "A small drawn-brass eyelet: a flange on a 0.121 in barrel 0.125 in long, set in a 1/8 in (4/32 in) hole by rolling the barrel's end over behind the material. It lines a hole through card or stacked sheets, or rivets two layers into a pivot.",
+    "es": "Un ojillo pequeño de latón embutido: una pestaña sobre un cañón de 0.121 in y 0.125 in de largo, que se fija en un barreno de 1/8 in (4/32 in) remachando el extremo del cañón por detrás del material. Refuerza un barreno en cartulina o en hojas apiladas, o remacha dos capas en un pivote.",
+    "fr": "Un petit œillet en laiton embouti : une collerette sur un fût de 0,121 in et 0,125 in de long, posé dans un trou de 1/8 in (4/32 in) en rabattant l'extrémité du fût derrière le matériau. Il renforce un trou dans le carton ou des feuilles empilées, ou rive deux couches en pivot.",
+    "pt": "Um ilhós pequeno de latão estampado: uma aba sobre um corpo de 0,121 in e 0,125 in de comprimento, fixado num furo de 1/8 in (4/32 in) rebatendo a ponta do corpo por trás do material. Reforça um furo em cartão ou em folhas empilhadas, ou rebita duas camadas num pivô."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Stimpson GS 4-4 brass eyelet (X-GS44B)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Stimpson GS 4-4 brass eyelets (SKU X-GS44B), maker's web store",
+      "url": "https://webstore.stimpson.com/gs-4-4-brass-eyelets",
+      "publisher": "Stimpson",
+      "accessed": "2026-10-10",
+      "supports": "brass; flange diameter 0.2 in; outside (barrel) diameter 0.121 in; length under flange 0.125 in; length overall 0.152 in; hole size 0.097 in; metal thickness 0.009 in; fits a 4/32 in hole"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the flange's underside (the face that bears on the material), on the axis. +z runs along the barrel to its end at z = 3.175 (0.125 in, derived); the flange lies on the −z side, its top at z = −0.686 (overall 0.152 in less 0.125 in, derived). +x is an arbitrary radial reference: the eyelet is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "flange_diameter": {
+      "value": 5.08,
+      "unit": "mm",
+      "source": 0,
+      "note": "0.2 in as listed, × 25.4 (derived)"
+    },
+    "barrel_outside_diameter": {
+      "value": 3.073,
+      "unit": "mm",
+      "source": 0,
+      "note": "0.121 in as listed, × 25.4 (derived)"
+    },
+    "length_under_flange": {
+      "value": 3.175,
+      "unit": "mm",
+      "source": 0,
+      "note": "0.125 in as listed, × 25.4 (derived)"
+    },
+    "length_overall": {
+      "value": 3.861,
+      "unit": "mm",
+      "source": 0,
+      "note": "0.152 in as listed, × 25.4 (derived)"
+    },
+    "hole_size": {
+      "value": 2.464,
+      "unit": "mm",
+      "source": 0,
+      "note": "the barrel's bore, 0.097 in as listed, × 25.4 (derived)"
+    },
+    "metal_thickness": {
+      "value": 0.229,
+      "unit": "mm",
+      "source": 0,
+      "note": "0.009 in as listed, × 25.4 (derived)"
+    },
+    "recommended_hole": {
+      "value": 3.175,
+      "unit": "mm",
+      "source": 0,
+      "note": "fits a 4/32 in hole in the material, × 25.4 (derived)"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "barrel",
+      "label": {
+        "en": "Barrel through the hole",
+        "es": "Cañón a través del barreno",
+        "fr": "Fût à travers le trou",
+        "pt": "Corpo através do furo"
+      },
+      "geometry_type": "socket",
+      "size_key": "eyelet-4-32in-barrel",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the barrel enters the material's 4/32 in hole and the flange bears on its face. The normal points along the barrel toward the material. Symmetry 0: round, and a set eyelet lets two riveted layers turn (Pliego join 'pivot')."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (K3 lane, 2026-10-10); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Dimensions are before setting: setting rolls the barrel's end over behind the material, and the listing gives no rolled diameter or the thickest stack the barrel can clinch, so neither is written. The bore (0.097 in) can pass a cord; no catalog cord mates it yet. 'Ojillo' is the stationery word in Mexico; Spain also says 'ollao'.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          -0.686
+        ],
+        "axis": "z",
+        "radius": 2.54,
+        "length": 0.686,
+        "from": [
+          "flange_diameter",
+          "length_overall",
+          "length_under_flange"
+        ],
+        "note": "the flange"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 1.5365,
+        "length": 3.175,
+        "from": [
+          "barrel_outside_diameter",
+          "length_under_flange"
+        ],
+        "note": "the barrel, unset"
+      }
+    ],
+    "note": "Flange and barrel as listed, unset; the bore is not hollowed and the rolled end after setting is not modelled (no cited number)."
+  }
+}

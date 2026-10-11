@@ -537,7 +537,7 @@ def test_project_name_must_be_quadrilingual():
     assert any("project/name" in p for p in check_manifest(doc))
 
 
-@pytest.mark.parametrize("domain", ["packaging", "stationery"])
+@pytest.mark.parametrize("domain", ["packaging", "stationery", "paper-electronics"])
 def test_packaging_and_stationery_are_domains(domain):
     doc = _manifest()
     doc["hyperobject"]["domain"] = domain
@@ -976,3 +976,68 @@ def test_the_new_unverified_rules_are_named():
 
     assert {"8.15", "8.18", "8.30"} <= set(UNCHECKED_RULES)
     assert any("trace outline" in r for r in UNCHECKED_RULES)
+
+
+# ── the sheet vocabulary, landed as data (nothing enforces it yet) ────────────
+SHEET_PROCESSES = {"drag_knife", "die_cut", "crease", "score", "perforate", "emboss_deboss",
+                   "foil_stamp", "print"}
+SHEET_MATERIAL_CLASSES = {"paper", "board", "eva-foam", "tissue-paper"}
+
+
+def test_sheet_processes_and_material_classes_are_vocabulary():
+    from hyperobjects_lexicon.fabrication import load_fabrication_vocabulary, vocabulary_keys
+
+    processes = vocabulary_keys("processes")
+    assert SHEET_PROCESSES <= processes
+    assert "laser_2d" in processes  # laser-cut paper is the existing key, not a new one
+    classes = {e["key"]: e for e in load_fabrication_vocabulary("material-classes")["entries"]}
+    assert SHEET_MATERIAL_CLASSES <= set(classes)
+    for key in SHEET_MATERIAL_CLASSES:
+        assert classes[key]["kind"] == "sheet"
+        assert set(classes[key]["processes"]) <= processes
+        assert classes[key]["sources"]
+    assert "laser_2d" in classes["paper"]["processes"]
+
+
+def test_every_sheet_interface_type_is_vocabulary_with_a_term():
+    from hyperobjects_lexicon import load_vocabulary
+
+    schema = hyperobjects_schemas.load("sheet-manifest")
+    types = set(schema["$defs"]["interface"]["properties"]["type"]["enum"])
+    entries = {e["key"]: e for e in load_vocabulary("interfaces")["entries"]
+               if e["repo"] == "pliego"}
+    assert types == set(entries)
+    lexicon = load_lexicon()
+    for key, entry in entries.items():
+        assert entry["role"] == "interface_type" and entry["manifest_enum"] is True
+        assert entry["term"] in lexicon, key
+
+
+def test_the_sheet_pivot_is_the_solid_rivet_both_ways():
+    from hyperobjects_lexicon import equivalences
+
+    pairs = set(equivalences())
+    assert ("pliego/pivot", "yantra4d/rivet_bore") in pairs
+    assert ("fashion-cabinet/custom", "pliego/custom") in pairs
+    assert ("pliego/custom", "yantra4d/custom") in pairs
+
+
+SHEET_PARTS = ("led-3mm", "led-5mm", "coin-cell-cr2032", "brad-round-head-brass",
+               "eyelet-gs-4-4", "elastic-cord-round", "magnet-disc-6x2")
+
+
+def test_paper_electronics_and_fastening_parts_are_in_the_catalog():
+    """§5.30 names cell and LED pads, and the pivot join names a brad or an eyelet; these
+    entries give the names cited facts (data first: no sheet rule reads them yet)."""
+    from hyperobjects_lexicon.fabrication import load_fabrication_vocabulary
+    from hyperobjects_standard_parts import load_part
+
+    sizes = {e["key"]: e for e in load_fabrication_vocabulary("interface-sizes")["entries"]}
+    for key in SHEET_PARTS:
+        part = load_part(key)
+        assert part["sources"] and part["review_status"]["state"] == "generated"
+        for iface in part["interfaces"]:
+            assert sizes[iface["size_key"]]["geometry_type"] == iface["geometry_type"]
+    assert load_part("led-5mm")["interfaces"][0]["symmetry"] == 1  # anode ≠ cathode
+    cell = {i["id"]: i["size_key"] for i in load_part("coin-cell-cr2032")["interfaces"]}
+    assert cell["plus_face"] != cell["minus_face"]  # a reversed cell cannot mate

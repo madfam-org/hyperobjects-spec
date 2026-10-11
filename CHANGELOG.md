@@ -82,6 +82,43 @@ fix belongs in the commons. The kernel also warns on rule 15
 (`mechanism_moves_physical`) for the 3 `tulip` documents. The keystone does not check
 rule 15 and says so.
 
+#### Added: the sheet commons' vocabulary, as data (nothing enforces it yet)
+
+Landed before any rule reads it (COMMONS_VOCABULARY.md, "land the data before enforcing
+it"). No manifest check, membership rule or verdict changes. Every entry is a
+`generated` draft with cited sources; Spanish is the bar a reviewer should read first.
+
+- **Processes** (supplement `processes.sheet.json`): `drag_knife`, `die_cut`, `crease`,
+  `score` (the partial-depth pass, kept apart from `crease` as the Pliego document keeps
+  the two treatments apart), `perforate`, `emboss_deboss`, `foil_stamp`, `print`.
+  Laser-cut paper is the existing `laser_2d`, not a new key. No Cotiza code is written,
+  because Cotiza quotes none of these yet. The schema's process `family` gains `forming`
+  and `finishing`.
+- **Material classes** (supplement `material-classes.sheet.json`, kind `sheet`): `paper`,
+  `board` (solid and corrugated), `eva-foam`, `tissue-paper`. Each lists only the
+  processes its sources back. `cards` is left out: no Pliego stock card is in the
+  bundled slug snapshot yet.
+- **Interfaces** (`interfaces.json`): the sheet manifest's 11 interface types (`tab`,
+  `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`, `pivot`,
+  `track`, `custom`) as `pliego` entries, counted at sheet-hyperobjects `ddc3ed3`.
+  `pliego/pivot` is `equivalent_to` the solid `yantra4d/rivet_bore` (a new, provisional
+  `interface_id` entry, kept for that equivalence), and `pliego/custom` joins the
+  `custom` equivalence on both other sides. No soft or solid entry is an eyelet, so the
+  eyelet half of "rivet/eyelet" has no edge. `scripts/refresh_vocabulary_counts.py`
+  gains an optional `--sheet-hyperobjects`; re-run at the captured revs it reports
+  `changed=0`.
+- **Lexicon** (8 new `sheet-folding` terms, contract 4): `paper-hinge`, `pivot-joint`,
+  `tab-and-slot`, `glue-flap`, `glue-zone`, `slide-track`, `book-spine`, `page-edge`.
+  Every interface key two or more cartridges write must have a term, and these do.
+- **Standard parts** (7 entries, 11 size keys in `interface-sizes.sheet-parts.json`):
+  `led-3mm`, `led-5mm`, `coin-cell-cr2032`, `brad-round-head-brass`, `eyelet-gs-4-4`,
+  `elastic-cord-round` and `magnet-disc-6x2`. The `category` enum gains `led`,
+  `battery`, `magnet` and `cord`. The catalog grows from 37 parts and 109 interfaces to
+  44 and 123.
+- **Domain**: the sheet manifest's `hyperobject.domain` gains `paper-electronics`. No
+  cartridge uses it yet: `paper-circuit-card` is `stationery`, and moving it is the
+  commons' call.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:

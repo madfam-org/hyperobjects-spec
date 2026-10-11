@@ -1,0 +1,35 @@
+{
+  "spec_version": 4,
+  "id": "slide-track",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "track",
+    "es": "guía",
+    "fr": "glissière",
+    "pt": "guia"
+  },
+  "definition": {
+    "en": "A line or channel that something runs along or hangs from: a slot or sleeve that a slider, pull tab or tray moves in, or the string along which a banner's flags hang. It confines the moving part to one path.",
+    "es": "Una línea o un canal por el que algo corre o del que algo cuelga: una ranura o funda por la que se mueve una corredera, una lengüeta o una bandeja, o el cordel del que cuelgan las banderitas de una tira. Obliga a la pieza móvil a seguir un solo camino.",
+    "fr": "Une ligne ou un canal le long duquel quelque chose court ou pend : une fente ou un fourreau où se déplace un curseur, une tirette ou un tiroir, ou la ficelle à laquelle pendent les fanions d'une guirlande. Elle contraint la pièce mobile à un seul chemin.",
+    "pt": "Uma linha ou um canal ao longo do qual algo corre ou do qual algo pende: uma ranhura ou bainha onde se move um cursor, uma lingueta ou uma gaveta, ou o cordel do qual pendem as bandeirinhas de uma fita. Obriga a peça móvel a seguir um só caminho."
+  },
+  "aliases": [
+    {
+      "name": "track",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (female when it receives the moving part); the sheet document's slider joins run along a track."
+    }
+  ],
+  "see_also": [
+    "papel-picado",
+    "tab-and-slot"
+  ],
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §5.3 — a slider join runs along a track on another sheet"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

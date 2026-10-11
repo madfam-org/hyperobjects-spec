@@ -6,7 +6,12 @@ wave lands, and — more importantly — a new key can appear that the vocabular
 heard of, which is exactly the drift the vocabulary exists to stop.
 
     python3 scripts/refresh_vocabulary_counts.py \\
-        --yantra4d ../yantra4d --fashion-cabinet ../fashion-cabinet
+        --yantra4d ../yantra4d --fashion-cabinet ../fashion-cabinet \\
+        [--sheet-hyperobjects ../sheet-hyperobjects]
+
+The sheet commons is optional: without ``--sheet-hyperobjects`` the ``pliego`` entries and
+their capture are left exactly as they are; with it they are recounted from the root
+``<slug>/project.json`` manifests at ``--sheet-hyperobjects-ref``.
 
 **Why it reads through ``git show`` rather than the working tree**, and why the recorded
 rev is the FULL sha. Both are the posture ``refresh_reader_snapshots.py`` already takes
@@ -128,6 +133,28 @@ def _fc_counts(repo: Path, ref: str):
     return len(projects), types, ids, cap_carts, cap_true
 
 
+def _sheet_manifest_paths(repo: Path, ref: str) -> list[str]:
+    """``<slug>/project.json`` at the root of sheet-hyperobjects in that commit."""
+    listing = _run(repo, "ls-tree", "-r", "--name-only", ref)
+    return sorted(
+        line for line in listing.splitlines()
+        if line.endswith("/project.json") and line.count("/") == 1
+    )
+
+
+def _sheet_counts(repo: Path, ref: str):
+    """Interface counts from the sheet manifests (the Pliego commons)."""
+    types, ids = _Tally(), _Tally()
+    projects = _sheet_manifest_paths(repo, ref)
+    for path in projects:
+        slug = path.split("/")[0]
+        block = (_show_json(repo, ref, path) or {}).get("hyperobject") or {}
+        for iface in block.get("interfaces") or []:
+            types.add(iface.get("type"), slug)
+            ids.add(iface.get("id"), slug)
+    return len(projects), types, ids
+
+
 def _observed_for(entry: dict, key: str, repo: str, tallies: dict) -> dict:
     """The counts that belong to this entry, chosen by its role."""
     if entry["role"] == "capability_flag":
@@ -152,6 +179,17 @@ def main(argv: list[str] | None = None) -> int:
         help="the commit-ish to read fashion-cabinet at (default: origin/main)",
     )
     ap.add_argument(
+        "--sheet-hyperobjects",
+        type=Path,
+        help="a clone of sheet-hyperobjects (the Pliego commons); without it the pliego "
+        "entries and their capture are left exactly as they are",
+    )
+    ap.add_argument(
+        "--sheet-hyperobjects-ref",
+        default="origin/main",
+        help="the commit-ish to read sheet-hyperobjects at (default: origin/main)",
+    )
+    ap.add_argument(
         "--check",
         action="store_true",
         help="report drift and change nothing (what a CI lane would run)",
@@ -171,6 +209,12 @@ def main(argv: list[str] | None = None) -> int:
         "fashion-cabinet": {"types": fc_types, "ids": fc_ids},
         "capabilities": (cap_carts, cap_true),
     }
+    sheet_sha = sheet_total = None
+    sheet_types = None
+    if args.sheet_hyperobjects is not None:
+        sheet_sha = _commit(args.sheet_hyperobjects, args.sheet_hyperobjects_ref)
+        sheet_total, sheet_types, sheet_ids = _sheet_counts(args.sheet_hyperobjects, sheet_sha)
+        tallies["pliego"] = {"types": sheet_types, "ids": sheet_ids}
 
     captured = {
         "date": datetime.date.today().isoformat(),
@@ -188,7 +232,14 @@ def main(argv: list[str] | None = None) -> int:
         },
     }
 
-    covered: dict[str, set[str]] = {"yantra4d": set(), "fashion-cabinet": set()}
+    if sheet_sha is not None:
+        captured["sources"]["pliego"] = {
+            "path": "*/project.json (sheet-hyperobjects)",
+            "rev": sheet_sha,
+            "cartridges": sheet_total,
+        }
+
+    covered: dict[str, set[str]] = {"yantra4d": set(), "fashion-cabinet": set(), "pliego": set()}
     changed = []
 
     for name in ("interfaces", "capabilities"):
@@ -199,6 +250,8 @@ def main(argv: list[str] | None = None) -> int:
             covered[repo].add(key)
             for alias in entry.get("aliases") or []:
                 covered[alias["repo"]].add(alias["name"])
+            if repo not in tallies:
+                continue  # pliego without --sheet-hyperobjects: left as it is
 
             observed = _observed_for(entry, key, repo, tallies)
             if entry.get("observed") != observed:
@@ -211,7 +264,11 @@ def main(argv: list[str] | None = None) -> int:
                         entry, alias["name"], alias["repo"], tallies
                     )
 
-        doc["captured"] = captured
+        kept = dict(captured, sources=dict(captured["sources"]))
+        old_pliego = (doc.get("captured") or {}).get("sources", {}).get("pliego")
+        if sheet_sha is None and old_pliego:
+            kept["sources"]["pliego"] = old_pliego
+        doc["captured"] = kept
         if not args.check:
             path.write_text(
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -227,16 +284,21 @@ def main(argv: list[str] | None = None) -> int:
         for i in cart.get("cdg_interfaces") or []
     }
     unknown_types = sorted(t for t in y4d_types if t and t not in covered["yantra4d"])
+    unknown_sheet = sorted(
+        t for t in (sheet_types.carts if sheet_types else {}) if t not in covered["pliego"]
+    )
 
     for line in changed:
         print(f"  count {line}")
     print(
         f"vocabulary counts: yantra4d={y4d_total} cartridges ({y4d_sha[:8]}) "
-        f"fashion-cabinet={fc_total} cartridges ({fc_sha[:8]}) changed={len(changed)} "
+        f"fashion-cabinet={fc_total} cartridges ({fc_sha[:8]}) "
+        + (f"pliego={sheet_total} cartridges ({sheet_sha[:8]}) " if sheet_sha else "")
+        + f"changed={len(changed)} "
         f"{'(checked, not written)' if args.check else '(written)'}"
     )
 
-    if unknown or unknown_types:
+    if unknown or unknown_types or unknown_sheet:
         for key in unknown:
             print(
                 f"  UNPLACED fashion-cabinet capability key {key!r} "
@@ -244,6 +306,8 @@ def main(argv: list[str] | None = None) -> int:
             )
         for key in unknown_types:
             print(f"  UNPLACED yantra4d geometry_type {key!r}")
+        for key in unknown_sheet:
+            print(f"  UNPLACED pliego interface type {key!r}")
         print(
             "A key nobody has placed is the drift this vocabulary exists to stop. Add an "
             "entry — with a gloss, and with a term if two or more cartridges write it."

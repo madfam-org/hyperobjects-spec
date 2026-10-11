@@ -1,0 +1,157 @@
+{
+  "spec_version": 1,
+  "key": "elastic-cord-round",
+  "category": "cord",
+  "name": {
+    "en": "Round elastic cord",
+    "es": "Cordón elástico redondo",
+    "fr": "Cordon élastique rond",
+    "pt": "Cordão elástico roliço"
+  },
+  "description": {
+    "en": "The round elastic cord class, a stretching rubber core (bare or covered with yarn) about 1 to 1.5 mm across, sold by length. Its ends thread through holes in a sheet and are knotted or glued behind: a band that closes a box or a booklet, or a loop that holds a part.",
+    "es": "La clase de cordón elástico redondo, un núcleo de caucho que estira (desnudo o forrado de hilo) de entre 1 y 1.5 mm de grosor, vendido por metro. Sus extremos pasan por barrenos de una hoja y se anudan o se pegan por detrás: una banda que cierra una caja o un cuadernillo, o una presilla que sujeta una pieza.",
+    "fr": "La classe de cordon élastique rond, une âme en caoutchouc extensible (nue ou guipée de fil) d'environ 1 à 1,5 mm de diamètre, vendue au mètre. Ses extrémités passent par des trous d'une feuille et sont nouées ou collées derrière : une bande qui ferme une boîte ou un carnet, ou une boucle qui tient une pièce.",
+    "pt": "A classe de cordão elástico roliço, um núcleo de borracha que estica (nu ou revestido de fio) com cerca de 1 a 1,5 mm de diâmetro, vendido a metro. As pontas passam por furos de uma folha e são atadas ou coladas por trás: uma faixa que fecha uma caixa ou um caderno, ou uma alça que segura uma peça."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "Round elastic cord, 1–1.5 mm (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Prym elastic cord, 1.5 mm, gold-coloured, 3 m (article 971069)",
+      "url": "https://www.prym.com/en/elastic-cord-in-various-colours-6d72167e62fafe027d187a9e1e7334d4",
+      "publisher": "Prym",
+      "accessed": "2026-10-10",
+      "supports": "Ø 1.5 mm × 3 m; 80 % elastodiene, 20 % metallized thread"
+    },
+    {
+      "title": "Beadalon Elasticity 1.0 mm clear elastic cord, 25 m (SKU STR-CLR-128) — retailer listing",
+      "url": "https://www.thebeadchest.com/products/elasticity-1-0mm-clear-elastic-cord-25-meters",
+      "publisher": "The Bead Chest (listing Beadalon)",
+      "accessed": "2026-10-10",
+      "supports": "string size 0.039 in (1.0 mm); spool 82 ft (25 m); elastic; clear"
+    }
+  ],
+  "frame_convention": "The cord laid straight. Origin at end A, on the cord's axis; +x runs along the cord to end B at x = length_mm; +y and +z are radial references (the cord is round, so both ends have continuous symmetry). A real cord follows a path, not this line.",
+  "dimensions": {
+    "diameter_min": {
+      "value": 1.0,
+      "unit": "mm",
+      "source": 1,
+      "note": "Beadalon Elasticity, 0.039 in (1.0 mm) as listed"
+    },
+    "diameter_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "Prym elastic cord, Ø 1.5 mm"
+    }
+  },
+  "parameters": [
+    {
+      "id": "diameter_mm",
+      "type": "number",
+      "label": {
+        "en": "Diameter",
+        "es": "Diámetro",
+        "fr": "Diamètre",
+        "pt": "Diâmetro"
+      },
+      "default": 1,
+      "min": 1,
+      "max": 1.5,
+      "unit": "mm",
+      "note": "A convention bounded by the two cited members (1.0 and 1.5 mm); cords of other diameters exist but are not cited here. No frame reads it: the hole a cord passes through is the host's design."
+    },
+    {
+      "id": "length_mm",
+      "type": "number",
+      "label": {
+        "en": "Cut length",
+        "es": "Longitud de corte",
+        "fr": "Longueur de coupe",
+        "pt": "Comprimento de corte"
+      },
+      "default": 200,
+      "min": 10,
+      "max": 3000,
+      "unit": "mm",
+      "note": "A convention, not a sourced fact: the cord is cut to suit. The maximum is the cited Prym card's 3 m."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "end_a",
+      "label": {
+        "en": "End A",
+        "es": "Extremo A",
+        "fr": "Extrémité A",
+        "pt": "Ponta A"
+      },
+      "geometry_type": "custom",
+      "size_key": "elastic-cord-end",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "note": "Male: end A threads through a hole in a sheet and is knotted or glued behind it. The normal points out of the end, toward the hole."
+    },
+    {
+      "id": "end_b",
+      "label": {
+        "en": "End B",
+        "es": "Extremo B",
+        "fr": "Extrémité B",
+        "pt": "Ponta B"
+      },
+      "geometry_type": "custom",
+      "size_key": "elastic-cord-end",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          "length_mm",
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "parameters": [
+        "length_mm"
+      ],
+      "note": "Male: end B, length_mm along the cord, as end A."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (K3 lane, 2026-10-10); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: only the round section and the cited diameters are facts. Stretch, breaking load and core material vary by maker and are not stated by the cited listings. No envelope: like a belt, a cord is a path, not a rigid body."
+}

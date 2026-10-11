@@ -150,6 +150,10 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
         "shaft-5mm.journal_c": +1,
         "shaft-5mm.hub_a": +1,             # the pulley's seat runs −z, toward end A
         "shaft-5mm.hub_b": +1,             # …or +z, toward end B
+        "led-3mm.body": +1,                # the body runs +z from the flange top, normal +z
+        "led-5mm.body": +1,
+        "brad-round-head-brass.shank": +1,  # the shank runs +z from the head's underside
+        "eyelet-gs-4-4.barrel": +1,        # the barrel runs +z from the flange's underside
     }
     seen = set()
     for key in hyperobjects_standard_parts.list_part_keys():

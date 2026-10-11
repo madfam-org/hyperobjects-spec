@@ -1,0 +1,202 @@
+{
+  "spec_version": 1,
+  "key": "coin-cell-cr2032",
+  "category": "battery",
+  "name": {
+    "en": "Lithium coin cell CR2032",
+    "es": "Pila de botón de litio CR2032",
+    "fr": "Pile bouton au lithium CR2032",
+    "pt": "Pilha-botão de lítio CR2032"
+  },
+  "description": {
+    "en": "A 3 V lithium–manganese dioxide coin cell, 20 mm across and 3.2 mm thick at most, to the IEC CR2032 designation. The can is the positive terminal and the smaller cap face the negative; in a paper circuit each face presses on its own copper-tape pad, or the cell sits in a holder or a pocket.",
+    "es": "Una pila de botón de litio–dióxido de manganeso de 3 V, de 20 mm de diámetro y 3.2 mm de espesor como máximo, según la designación IEC CR2032. La carcasa es el borne positivo y la cara de la tapa, más pequeña, el negativo; en un circuito de papel cada cara apoya en su propia pista de cinta de cobre, o la pila va en un portapilas o en un hueco.",
+    "fr": "Une pile bouton lithium–dioxyde de manganèse de 3 V, de 20 mm de diamètre et 3,2 mm d'épaisseur au plus, selon la désignation CEI CR2032. Le boîtier est la borne positive et la face du couvercle, plus petite, la négative ; dans un circuit papier chaque face appuie sur sa propre plage de ruban de cuivre, ou la pile se loge dans un support ou une poche.",
+    "pt": "Uma pilha-botão de lítio–dióxido de manganês de 3 V, com 20 mm de diâmetro e 3,2 mm de espessura no máximo, segundo a designação IEC CR2032. O invólucro é o polo positivo e a face da tampa, menor, o negativo; num circuito de papel cada face apoia na sua própria trilha de fita de cobre, ou a pilha vai num suporte ou num rebaixo."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "IEC 60086 CR2032 (ANSI/NEDA 5004LC)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Energizer CR2032 lithium coin product datasheet (form 2032NA0618)",
+      "url": "https://data.energizer.com/pdfs/cr2032.pdf",
+      "publisher": "Energizer",
+      "accessed": "2026-10-10",
+      "supports": "Li/MnO2; designation ANSI/NEDA-5004LC, IEC-CR2032; nominal 3.0 V; typical 235 mAh to 2.0 V on 15 kΩ at 21 °C; typical 3.0 g; diameter 20.00 max / 19.70 min; height 3.20 max / 2.90 min; negative face Ø17.70 max; (+) on the can, (−) on the cap face; operating −30 to 60 °C"
+    },
+    {
+      "title": "Panasonic CR2032 CR coin-type lithium primary battery, product information (as of April 2022)",
+      "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/250011",
+      "publisher": "Panasonic Energy",
+      "accessed": "2026-10-10",
+      "supports": "CR2032: nominal 3 V; nominal 225 mAh; diameter 20.0 max; height 3.2 max; approx. 2.8 g without tabs; operating −30 to +85 °C"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the positive face (the can's flat bottom), on the cell's axis. +z runs through the cell to the negative (cap) face at z = 3.2, the cited maximum height. +x is an arbitrary radial reference: the cell is round, so every interface has continuous symmetry.",
+  "dimensions": {
+    "diameter_max": {
+      "value": 20.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 20.00 max; Panasonic 20.0 max (source 1)"
+    },
+    "diameter_min": {
+      "value": 19.7,
+      "unit": "mm",
+      "source": 0
+    },
+    "height_max": {
+      "value": 3.2,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 3.20 max; Panasonic 3.2 max (source 1)"
+    },
+    "height_min": {
+      "value": 2.9,
+      "unit": "mm",
+      "source": 0
+    },
+    "negative_face_diameter_max": {
+      "value": 17.7,
+      "unit": "mm",
+      "source": 0,
+      "note": "the raised cap face that carries the negative terminal"
+    },
+    "nominal_voltage": {
+      "value": 3,
+      "unit": "V",
+      "source": 0,
+      "note": "Energizer 3.0 V; Panasonic 3 V (source 1)"
+    },
+    "mass": {
+      "value": 3.0,
+      "unit": "g",
+      "source": 0,
+      "note": "typical, Energizer; Panasonic approx. 2.8 g without tabs (source 1)"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "plus_face",
+      "label": {
+        "en": "Positive face (can)",
+        "es": "Cara positiva (carcasa)",
+        "fr": "Face positive (boîtier)",
+        "pt": "Face positiva (invólucro)"
+      },
+      "geometry_type": "surface",
+      "size_key": "cr2032-plus-contact",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the can's flat face presses on a contact or a pad (Pliego pin 'plus'). Its own size key, so a negative contact cannot mate it."
+    },
+    {
+      "id": "minus_face",
+      "label": {
+        "en": "Negative face (cap)",
+        "es": "Cara negativa (tapa)",
+        "fr": "Face négative (couvercle)",
+        "pt": "Face negativa (tampa)"
+      },
+      "geometry_type": "surface",
+      "size_key": "cr2032-minus-contact",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          3.2
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the cap face (Ø17.7 max) presses on a contact or a pad (Pliego pin 'minus'). Framed at the cited maximum height; a cell measures 2.9–3.2."
+    },
+    {
+      "id": "rim",
+      "label": {
+        "en": "Cell body",
+        "es": "Cuerpo de la pila",
+        "fr": "Corps de la pile",
+        "pt": "Corpo da pilha"
+      },
+      "geometry_type": "pocket",
+      "size_key": "cr2032-cell",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the whole cell goes into a holder or a pocket cut through stacked card, positive face first, onto the pocket's floor. Which terminal meets which pad is the face interfaces' job."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (K3 lane, 2026-10-10); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60086-2, which fixes the CR2032 size, is not freely published; the numbers cite manufacturer drawings that apply it (Energizer gives min and max, Panasonic the maxima). Capacity (225–235 mAh by maker) is stated in the sources only: it depends on load and cut-off. Pliego §5.30 names this part's pads with pin 'plus' and 'minus'.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 10,
+        "length": 3.2,
+        "from": [
+          "diameter_max",
+          "height_max"
+        ],
+        "note": "the cell at its maximum size"
+      }
+    ],
+    "note": "A cylinder at the cited maximum diameter and height; the step to the smaller cap face is not modelled."
+  }
+}

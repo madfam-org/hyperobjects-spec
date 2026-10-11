@@ -931,7 +931,8 @@ requires an author, a licence and a lineage; every user-visible text object, `pr
 requires **en, es, fr and pt** (born quadrilingual, and a blank value fails too); slugs are strict
 kebab case; closed objects refuse unknown keys, so a typo is an error.
 `hyperobject.domain` is one of `technique`, `base`, `model`, `tessellation`, `kirigami`,
-`papercut`, `popup`, `mechanism`, `book`, `toy`, `diorama`, `packaging` and `stationery`.
+`papercut`, `popup`, `mechanism`, `book`, `toy`, `diorama`, `packaging`, `stationery` and
+`paper-electronics` (paper circuits: conductive traces, LEDs, coin cells, fold switches).
 Interfaces
 (`tab`, `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`,
 `pivot`, `track`, `custom`) bind sheet edges and carry polarity, symmetry, a size key and
@@ -1324,8 +1325,8 @@ fc-spec related tape-edge
 <!-- counts:lexicon-status:start -->
 ```
 $ y4d-spec lexicon --catalog bundled
-y4d-spec lexicon: terms=178 failures=0 embodied_by=resolved
-lexicon_status: 178/178 terms quadrilingual (es/en/fr/pt) domains=10 review: reviewed=0 generated=148 unmarked=30
+y4d-spec lexicon: terms=186 failures=0 embodied_by=resolved
+lexicon_status: 186/186 terms quadrilingual (es/en/fr/pt) domains=10 review: reviewed=0 generated=156 unmarked=30
 ```
 <!-- counts:lexicon-status:end -->
 
@@ -1509,9 +1510,9 @@ manifest writes. Two documents ship, and each fixes a different failure:
 <!-- counts:vocabulary-status:start -->
 ```
 $ fc-spec vocab
-fc-spec vocab: vocabularies=2 entries=170 failures=0
+fc-spec vocab: vocabularies=2 entries=182 failures=0
 vocabulary_status[capabilities]: entries=126 term=44 gloss=77 undefined=5 aliases=8 equivalences=0 distinct_pairs=1 provisional=1 review=generated
-vocabulary_status[interfaces]: entries=44 term=44 gloss=0 undefined=0 aliases=2 equivalences=5 distinct_pairs=1 provisional=10 review=generated
+vocabulary_status[interfaces]: entries=56 term=55 gloss=1 undefined=0 aliases=2 equivalences=8 distinct_pairs=1 provisional=11 review=generated
 ```
 <!-- counts:vocabulary-status:end -->
 
@@ -1580,12 +1581,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=109 failures=0
-fabrication_status[processes]: entries=7 cited=6 dimensions=0 provisional=0 review: signed=0 draft=7
-fabrication_status[material-classes]: entries=22 cited=22 dimensions=0 provisional=0 review: signed=0 draft=22
+y4d-spec vocab fabrication: vocabularies=5 entries=132 failures=0
+fabrication_status[processes]: entries=15 cited=14 dimensions=0 provisional=0 review: signed=0 draft=15
+fabrication_status[material-classes]: entries=26 cited=26 dimensions=0 provisional=0 review: signed=0 draft=26
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=50 cited=50 dimensions=174 provisional=2 review: signed=0 draft=50
+fabrication_status[interface-sizes]: entries=61 cited=61 dimensions=200 provisional=4 review: signed=0 draft=61
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1630,7 +1631,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=37 interfaces=109 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=44 interfaces=123 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 
@@ -1676,7 +1677,7 @@ fc-spec reader --status        # just the reader_status line
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 178 | 178 / 178 / 178 / 178 |
+| terms | 186 | 186 / 186 / 186 / 186 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -1693,8 +1694,8 @@ fc-spec reader --status        # just the reader_status line
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1220 differences=0
-reader_status: pages=1220 terms=178 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1228 differences=0
+reader_status: pages=1228 terms=186 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 

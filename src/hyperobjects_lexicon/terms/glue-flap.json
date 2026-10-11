@@ -1,0 +1,37 @@
+{
+  "spec_version": 4,
+  "id": "glue-flap",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "glue flap",
+    "es": "pestaña de pegado",
+    "fr": "patte de collage",
+    "pt": "aba de colagem"
+  },
+  "definition": {
+    "en": "A narrow flap left along a piece's edge to carry the glue that joins it to another piece or to itself. It folds behind the visible surface and disappears in the finished model; a carton's manufacturer's joint is one.",
+    "es": "Una aleta estrecha que se deja en el borde de una pieza para llevar el pegamento que la une a otra pieza o a sí misma. Se dobla por detrás de la superficie visible y desaparece en el modelo terminado; la pestaña de cierre de una caja plegadiza es una de ellas.",
+    "fr": "Une patte étroite laissée le long du bord d'une pièce pour porter la colle qui la joint à une autre pièce ou à elle-même. Elle se replie derrière la surface visible et disparaît dans le modèle fini ; la patte de collage latérale d'un étui en est une.",
+    "pt": "Uma aba estreita deixada ao longo da borda de uma peça para levar a cola que a une a outra peça ou a si mesma. Dobra-se por trás da superfície visível e desaparece no modelo acabado; a aba de colagem lateral de um cartucho é uma delas."
+  },
+  "aliases": [
+    {
+      "name": "glue_flap",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (male); it mates a glue_zone."
+    }
+  ],
+  "see_also": [
+    "glue-zone",
+    "tab-and-slot",
+    "pop-up"
+  ],
+  "constraints": "Glue only the flap, never the fold line it hangs from: glue that runs into the crease stiffens it, and a pop-up piece whose flap is glued across the gutter locks the spread.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §5.9 — dieline panels of kind glue-flap and glue zones (the manufacturer's joint)"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

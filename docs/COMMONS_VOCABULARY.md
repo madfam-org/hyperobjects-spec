@@ -19,7 +19,7 @@ introduces the vocabulary has no way back if the vocabulary is wrong.
 
 | Artifact | What it is |
 |---|---|
-| `hyperobjects_lexicon/vocabularies/interfaces.json` | 44 entries: both commons' interface types and the recurring ids, with 5 cross-commons `equivalent_to` pairs and 1 `distinct_from` pair |
+| `hyperobjects_lexicon/vocabularies/interfaces.json` | 56 entries: the three commons' interface types and the recurring ids, with 8 cross-commons `equivalent_to` pairs and 1 `distinct_from` pair (the sheet commons' 11 types and the solid `rivet_bore` added 2026-10-10) |
 | `hyperobjects_lexicon/vocabularies/capabilities.json` | 126 entries + 8 aliases = every one of the 134 capability keys the 516 FC cartridges write |
 | `commons-vocabulary.schema.json` | the contract both documents validate against |
 | `article-frontmatter.schema.json` | G2's frontmatter contract, plus `examples/chaleco-charro.article.json` as the exemplar |
@@ -46,7 +46,7 @@ about a specific pair of commits and not about "the commons today". They are emi
 <!-- counts:reader:start -->
 | Layer | Pages | Languages present (es/en/fr/pt) |
 |---|--:|---|
-| terms | 178 | 178 / 178 / 178 / 178 |
+| terms | 186 | 186 / 186 / 186 / 186 |
 | yantra4d | 510 | 485 / 510 / 1 / 1 |
 | fashion-cabinet | 527 | 511 / 527 / 248 / 200 |
 | index, bridge and catalog index pages | 5 | — |
@@ -63,8 +63,8 @@ about a specific pair of commits and not about "the commons today". They are emi
 
 ```
 $ fc-spec reader --check
-fc-spec reader --check: out=docs/reader pages=1220 differences=0
-reader_status: pages=1220 terms=178 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
+fc-spec reader --check: out=docs/reader pages=1228 differences=0
+reader_status: pages=1228 terms=186 yantra4d=510 fashion-cabinet=527 bridges: edges=303 resolved=302 unresolved=1 unlinked=1 back=302 mirrored=302
 ```
 <!-- counts:reader:end -->
 
@@ -228,9 +228,10 @@ The frontmatter contract is here; the surface is yours.
 Everything in the G3 wave is marked `generated`, and that is a claim about who has read
 it, not about who wrote it:
 
-* **178 terms, 148 of them drafted in waves** (110 from G3 wave 1, 7 from the
+* **186 terms, 156 of them drafted in waves** (110 from G3 wave 1, 7 from the
   drawing-vocabulary wave, 10 interface and assembly field concepts for the
-  standard-parts catalog, 21 `sheet-folding` terms seeded with the sheet commons), each
+  standard-parts catalog, 21 `sheet-folding` terms seeded with the sheet commons, 8
+  more for the sheet commons' interface types), each
   quadrilingual and each
   `review_status: {state: generated}`. RFC 0039 §5 is explicit that machine or agent
   drafting is acceptable as a draft and never as shipped copy without a review pass, and

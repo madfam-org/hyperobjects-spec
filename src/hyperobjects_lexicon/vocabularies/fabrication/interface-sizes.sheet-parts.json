@@ -1,0 +1,567 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the paper-electronics and paper-fastening standard parts need (LEDs, the CR2032 coin cell, a brad, an eyelet, round elastic cord, a 6 × 2 mm disc magnet) and the base file did not define, for the sheet commons (Pliego §5.30 paper circuits and the 'pivot' join). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (K3 lane, 2026-10-10). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
+  },
+  "entries": [
+    {
+      "key": "led-3mm-body",
+      "label": {
+        "en": "3 mm (T-1) LED body in a round hole",
+        "es": "Cuerpo de LED de 3 mm (T-1) en un barreno redondo",
+        "fr": "Corps de LED 3 mm (T-1) dans un trou rond",
+        "pt": "Corpo de LED de 3 mm (T-1) num furo redondo"
+      },
+      "definition": {
+        "en": "The round body of a T-1 (3 mm) LED passing up through a round hole in a sheet or panel, its flange bearing on the hole's back face; and that hole. The hole's clearance is the host's design.",
+        "es": "El cuerpo redondo de un LED T-1 (3 mm) que atraviesa un barreno redondo de una hoja o un panel, con la pestaña apoyada en la cara posterior del barreno; y ese barreno. La holgura del barreno la decide el anfitrión.",
+        "fr": "Le corps rond d'une LED T-1 (3 mm) traversant un trou rond d'une feuille ou d'un panneau, sa collerette en appui sur la face arrière du trou ; et ce trou. Le jeu du trou relève de l'hôte.",
+        "pt": "O corpo redondo de um LED T-1 (3 mm) que atravessa um furo redondo de uma folha ou painel, com a flange apoiada na face de trás do furo; e esse furo. A folga do furo é decisão do hospedeiro."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "body_diameter": {
+          "value": 2.9,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "±0.1",
+          "note": "Kingbright draws the same Ø2.9 (source 0)"
+        },
+        "flange_diameter": {
+          "value": 3.2,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "±0.15",
+          "note": "Kingbright draws the same Ø3.2 (source 0)"
+        },
+        "flange_thickness": {
+          "value": 1,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Kingbright WP710A10ID, T-1 (3mm) solid state lamp, datasheet (Spec No DSAL0505, Rev V.12A, 08/11/2023)",
+          "url": "https://www.kingbrightusa.com/images/catalog/SPEC/WP710A10ID.pdf",
+          "publisher": "Kingbright",
+          "accessed": "2026-10-10",
+          "supports": "T-1 (3 mm) package: lens Ø2.9; flange Ø3.2; 4.6 ±0.3 from the dome tip to the flange's underside; flange 1 thick; resin up to 1.0 max below the flange; leads 27 min, 0.5 square (+0.25/−0.1), 2.54 apart where they leave the package; the lead marked cathode is 1.5 ±1 shorter; recommended PCB layout two Ø0.9 holes 2.54 apart; general tolerance ±0.25"
+        },
+        {
+          "title": "Vishay TLDR4400, high intensity LED in Ø 3 mm tinted diffused package, datasheet (document 83001, Rev. 2.0, 14-Oct-14)",
+          "url": "https://www.vishay.com/docs/83001/tldr4400.pdf",
+          "publisher": "Vishay Semiconductors",
+          "accessed": "2026-10-10",
+          "supports": "3 mm (T-1) package: body Ø2.9 ±0.1; flange Ø3.2 ±0.15; 4.4 ±0.3 from the dome tip to the flange's underside and 3.4 ±0.15 to its top; resin < 0.6 below the flange; leads 0.5 (+0.2/−0.1) × 0.4 (+0.15/−0.05), 2.54 nom. apart; the two leads differ in length by 1.5 ±0.5; dome R1.4"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). The LED's male side is led-3mm.body; a 3 mm body does not mate a 5 mm hole: the keys differ on purpose."
+    },
+    {
+      "key": "led-5mm-body",
+      "label": {
+        "en": "5 mm (T-1 3/4) LED body in a round hole",
+        "es": "Cuerpo de LED de 5 mm (T-1 3/4) en un barreno redondo",
+        "fr": "Corps de LED 5 mm (T-1 3/4) dans un trou rond",
+        "pt": "Corpo de LED de 5 mm (T-1 3/4) num furo redondo"
+      },
+      "definition": {
+        "en": "The round body of a T-1 3/4 (5 mm) LED passing up through a round hole in a sheet or panel, its flange bearing on the hole's back face; and that hole. The hole's clearance is the host's design.",
+        "es": "El cuerpo redondo de un LED T-1 3/4 (5 mm) que atraviesa un barreno redondo de una hoja o un panel, con la pestaña apoyada en la cara posterior del barreno; y ese barreno. La holgura del barreno la decide el anfitrión.",
+        "fr": "Le corps rond d'une LED T-1 3/4 (5 mm) traversant un trou rond d'une feuille ou d'un panneau, sa collerette en appui sur la face arrière du trou ; et ce trou. Le jeu du trou relève de l'hôte.",
+        "pt": "O corpo redondo de um LED T-1 3/4 (5 mm) que atravessa um furo redondo de uma folha ou painel, com a flange apoiada na face de trás do furo; e esse furo. A folga do furo é decisão do hospedeiro."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "body_diameter": {
+          "value": 5,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "±0.15",
+          "note": "Kingbright draws the same Ø5 (source 0)"
+        },
+        "flange_diameter_min": {
+          "value": 5.8,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "±0.15",
+          "note": "Vishay TLDR5400"
+        },
+        "flange_diameter_max": {
+          "value": 5.9,
+          "unit": "mm",
+          "source": 0,
+          "note": "Kingbright WP7113ID"
+        },
+        "flange_thickness": {
+          "value": 1,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Kingbright WP7113ID, T-1 3/4 (5mm) solid state lamp, datasheet (Spec No DSAF0012, Rev V.14A, 01/08/2026)",
+          "url": "https://www.kingbrightusa.com/images/catalog/SPEC/WP7113ID.pdf",
+          "publisher": "Kingbright",
+          "accessed": "2026-10-10",
+          "supports": "T-1 3/4 (5 mm) package: body Ø5; flange Ø5.9; 8.6 from the dome tip to the flange's underside; flange 1 thick; resin up to 1.0 max below the flange; leads 27 min, 0.5 square (+0.25/−0.1), 2.54 apart where they leave the package; the lead marked cathode is 1.5 ±1 shorter; recommended PCB layout two Ø0.9 holes 2.54 apart; general tolerance ±0.25"
+        },
+        {
+          "title": "Vishay TLDR5400, high intensity LED in Ø 5 mm tinted diffused package, datasheet (document 83003, Rev. 1.8, 29-Apr-13)",
+          "url": "https://www.vishay.com/docs/83003/tldr5400.pdf",
+          "publisher": "Vishay Semiconductors",
+          "accessed": "2026-10-10",
+          "supports": "5 mm package: body Ø5 ±0.15; flange Ø5.8 ±0.15; 8.7 ±0.3 from the dome tip to the flange's underside and 7.7 ±0.15 to its top; resin < 0.7 below the flange; leads 0.5 (+0.15/−0.05) square, 2.54 nom. apart; the two leads differ in length by 1 min.; the end view puts C (cathode) beside the flange's flat; dome R2.49"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). The LED's male side is led-5mm.body."
+    },
+    {
+      "key": "led-leads-2.54-pitch",
+      "label": {
+        "en": "Two LED leads on a 2.54 mm pitch",
+        "es": "Dos patas de LED a paso de 2.54 mm",
+        "fr": "Deux pattes de LED au pas de 2,54 mm",
+        "pt": "Dois terminais de LED com passo de 2,54 mm"
+      },
+      "definition": {
+        "en": "The two leads of a through-hole LED, 2.54 mm (0.1 in) apart where they leave the package, cathode and anode; and the two holes or pads that take them (a perforated board, two holes pierced in a sheet, two copper-tape pads). Not symmetric: the anode side is fixed.",
+        "es": "Las dos patas de un LED de inserción, a 2.54 mm (0.1 in) entre sí donde salen del encapsulado, cátodo y ánodo; y los dos barrenos o pistas que las reciben (una placa perforada, dos barrenos en una hoja, dos pistas de cinta de cobre). No es simétrico: el lado del ánodo es fijo.",
+        "fr": "Les deux pattes d'une LED traversante, espacées de 2,54 mm (0,1 in) à la sortie du boîtier, cathode et anode ; et les deux trous ou plages qui les reçoivent (une plaque perforée, deux trous percés dans une feuille, deux plages de ruban de cuivre). Non symétrique : le côté de l'anode est fixé.",
+        "pt": "Os dois terminais de um LED de inserção, a 2,54 mm (0,1 in) um do outro onde saem do encapsulamento, cátodo e ânodo; e os dois furos ou trilhas que os recebem (uma placa perfurada, dois furos numa folha, duas trilhas de fita de cobre). Não é simétrico: o lado do ânodo é fixo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "grid",
+      "dimensions": {
+        "lead_pitch": {
+          "value": 2.54,
+          "unit": "mm",
+          "source": 0,
+          "note": "where the leads leave the package; Vishay 2.54 nom. (sources 2 and 3); Kingbright 5 mm the same (source 1)"
+        },
+        "lead_width": {
+          "value": 0.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.25/−0.1",
+          "note": "Kingbright 0.5 square; Vishay 0.5 × 0.4 at 3 mm (source 2) and 0.5 square at 5 mm (source 3)"
+        },
+        "pcb_hole_diameter": {
+          "value": 0.9,
+          "unit": "mm",
+          "source": 0,
+          "note": "Kingbright's recommended PCB layout, two holes"
+        }
+      },
+      "sources": [
+        {
+          "title": "Kingbright WP710A10ID, T-1 (3mm) solid state lamp, datasheet (Spec No DSAL0505, Rev V.12A, 08/11/2023)",
+          "url": "https://www.kingbrightusa.com/images/catalog/SPEC/WP710A10ID.pdf",
+          "publisher": "Kingbright",
+          "accessed": "2026-10-10",
+          "supports": "T-1 (3 mm) package: lens Ø2.9; flange Ø3.2; 4.6 ±0.3 from the dome tip to the flange's underside; flange 1 thick; resin up to 1.0 max below the flange; leads 27 min, 0.5 square (+0.25/−0.1), 2.54 apart where they leave the package; the lead marked cathode is 1.5 ±1 shorter; recommended PCB layout two Ø0.9 holes 2.54 apart; general tolerance ±0.25"
+        },
+        {
+          "title": "Kingbright WP7113ID, T-1 3/4 (5mm) solid state lamp, datasheet (Spec No DSAF0012, Rev V.14A, 01/08/2026)",
+          "url": "https://www.kingbrightusa.com/images/catalog/SPEC/WP7113ID.pdf",
+          "publisher": "Kingbright",
+          "accessed": "2026-10-10",
+          "supports": "T-1 3/4 (5 mm) package: body Ø5; flange Ø5.9; 8.6 from the dome tip to the flange's underside; flange 1 thick; resin up to 1.0 max below the flange; leads 27 min, 0.5 square (+0.25/−0.1), 2.54 apart where they leave the package; the lead marked cathode is 1.5 ±1 shorter; recommended PCB layout two Ø0.9 holes 2.54 apart; general tolerance ±0.25"
+        },
+        {
+          "title": "Vishay TLDR4400, high intensity LED in Ø 3 mm tinted diffused package, datasheet (document 83001, Rev. 2.0, 14-Oct-14)",
+          "url": "https://www.vishay.com/docs/83001/tldr4400.pdf",
+          "publisher": "Vishay Semiconductors",
+          "accessed": "2026-10-10",
+          "supports": "3 mm (T-1) package: body Ø2.9 ±0.1; flange Ø3.2 ±0.15; 4.4 ±0.3 from the dome tip to the flange's underside and 3.4 ±0.15 to its top; resin < 0.6 below the flange; leads 0.5 (+0.2/−0.1) × 0.4 (+0.15/−0.05), 2.54 nom. apart; the two leads differ in length by 1.5 ±0.5; dome R1.4"
+        },
+        {
+          "title": "Vishay TLDR5400, high intensity LED in Ø 5 mm tinted diffused package, datasheet (document 83003, Rev. 1.8, 29-Apr-13)",
+          "url": "https://www.vishay.com/docs/83003/tldr5400.pdf",
+          "publisher": "Vishay Semiconductors",
+          "accessed": "2026-10-10",
+          "supports": "5 mm package: body Ø5 ±0.15; flange Ø5.8 ±0.15; 8.7 ±0.3 from the dome tip to the flange's underside and 7.7 ±0.15 to its top; resin < 0.7 below the flange; leads 0.5 (+0.15/−0.05) square, 2.54 nom. apart; the two leads differ in length by 1 min.; the end view puts C (cathode) beside the flange's flat; dome R2.49"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). Shared by led-3mm and led-5mm: their lead pairs are the same fit. Pliego §5.30 names the two pads 'anode' and 'cathode'; framed with x_axis from cathode to anode."
+    },
+    {
+      "key": "cr2032-cell",
+      "label": {
+        "en": "CR2032 cell in a holder or pocket",
+        "es": "Pila CR2032 en un portapilas o un hueco",
+        "fr": "Pile CR2032 dans un support ou une poche",
+        "pt": "Pilha CR2032 num suporte ou rebaixo"
+      },
+      "definition": {
+        "en": "A CR2032 coin cell seated in a holder or in a pocket cut through stacked card; and that holder or pocket, sized for the cell's maximum diameter and height.",
+        "es": "Una pila de botón CR2032 asentada en un portapilas o en un hueco cortado en cartulinas apiladas; y ese portapilas o hueco, dimensionado para el diámetro y la altura máximos de la pila.",
+        "fr": "Une pile bouton CR2032 logée dans un support ou dans une poche découpée dans des cartons empilés ; et ce support ou cette poche, dimensionnés pour le diamètre et la hauteur maximaux de la pile.",
+        "pt": "Uma pilha-botão CR2032 assente num suporte ou num rebaixo cortado em cartões empilhados; e esse suporte ou rebaixo, dimensionado para o diâmetro e a altura máximos da pilha."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "diameter_max": {
+          "value": 20.0,
+          "unit": "mm",
+          "source": 0,
+          "note": "Panasonic 20.0 max (source 1)"
+        },
+        "diameter_min": {
+          "value": 19.7,
+          "unit": "mm",
+          "source": 0
+        },
+        "height_max": {
+          "value": 3.2,
+          "unit": "mm",
+          "source": 0,
+          "note": "Panasonic 3.2 max (source 1)"
+        },
+        "height_min": {
+          "value": 2.9,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer CR2032 lithium coin product datasheet (form 2032NA0618)",
+          "url": "https://data.energizer.com/pdfs/cr2032.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-10-10",
+          "supports": "Li/MnO2; designation ANSI/NEDA-5004LC, IEC-CR2032; nominal 3.0 V; typical 235 mAh to 2.0 V on 15 kΩ at 21 °C; typical 3.0 g; diameter 20.00 max / 19.70 min; height 3.20 max / 2.90 min; negative face Ø17.70 max; (+) on the can, (−) on the cap face; operating −30 to 60 °C"
+        },
+        {
+          "title": "Panasonic CR2032 CR coin-type lithium primary battery, product information (as of April 2022)",
+          "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/250011",
+          "publisher": "Panasonic Energy",
+          "accessed": "2026-10-10",
+          "supports": "CR2032: nominal 3 V; nominal 225 mAh; diameter 20.0 max; height 3.2 max; approx. 2.8 g without tabs; operating −30 to +85 °C"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). The cell's male side is coin-cell-cr2032.rim."
+    },
+    {
+      "key": "cr2032-plus-contact",
+      "label": {
+        "en": "CR2032 positive contact",
+        "es": "Contacto positivo de CR2032",
+        "fr": "Contact positif de CR2032",
+        "pt": "Contacto positivo de CR2032"
+      },
+      "definition": {
+        "en": "The positive face of a CR2032 cell (the flat of its can) pressing on a contact or a conductive pad. Neutral: face to face. A key of its own, so a positive pad never mates the negative face.",
+        "es": "La cara positiva de una pila CR2032 (el fondo plano de su carcasa) apoyada en un contacto o una pista conductora. Neutra: cara contra cara. Tiene clave propia, para que una pista positiva nunca se una a la cara negativa.",
+        "fr": "La face positive d'une pile CR2032 (le fond plat de son boîtier) appuyée sur un contact ou une plage conductrice. Neutre : face contre face. Une clé à part, pour qu'une plage positive ne s'accouple jamais à la face négative.",
+        "pt": "A face positiva de uma pilha CR2032 (o fundo plano do invólucro) apoiada num contacto ou numa trilha condutora. Neutra: face contra face. Tem chave própria, para que uma trilha positiva nunca acople à face negativa."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "can_diameter_max": {
+          "value": 20.0,
+          "unit": "mm",
+          "source": 0,
+          "note": "the can, which carries the positive terminal"
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer CR2032 lithium coin product datasheet (form 2032NA0618)",
+          "url": "https://data.energizer.com/pdfs/cr2032.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-10-10",
+          "supports": "Li/MnO2; designation ANSI/NEDA-5004LC, IEC-CR2032; nominal 3.0 V; typical 235 mAh to 2.0 V on 15 kΩ at 21 °C; typical 3.0 g; diameter 20.00 max / 19.70 min; height 3.20 max / 2.90 min; negative face Ø17.70 max; (+) on the can, (−) on the cap face; operating −30 to 60 °C"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). Pliego §5.30 pin 'plus'."
+    },
+    {
+      "key": "cr2032-minus-contact",
+      "label": {
+        "en": "CR2032 negative contact",
+        "es": "Contacto negativo de CR2032",
+        "fr": "Contact négatif de CR2032",
+        "pt": "Contacto negativo de CR2032"
+      },
+      "definition": {
+        "en": "The negative face of a CR2032 cell (its smaller cap face) pressing on a contact or a conductive pad. Neutral: face to face. A key of its own, so a negative pad never mates the positive face.",
+        "es": "La cara negativa de una pila CR2032 (la cara de la tapa, más pequeña) apoyada en un contacto o una pista conductora. Neutra: cara contra cara. Tiene clave propia, para que una pista negativa nunca se una a la cara positiva.",
+        "fr": "La face négative d'une pile CR2032 (la face du couvercle, plus petite) appuyée sur un contact ou une plage conductrice. Neutre : face contre face. Une clé à part, pour qu'une plage négative ne s'accouple jamais à la face positive.",
+        "pt": "A face negativa de uma pilha CR2032 (a face da tampa, menor) apoiada num contacto ou numa trilha condutora. Neutra: face contra face. Tem chave própria, para que uma trilha negativa nunca acople à face positiva."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "cap_face_diameter_max": {
+          "value": 17.7,
+          "unit": "mm",
+          "source": 0,
+          "note": "the raised cap face, which carries the negative terminal"
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer CR2032 lithium coin product datasheet (form 2032NA0618)",
+          "url": "https://data.energizer.com/pdfs/cr2032.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-10-10",
+          "supports": "Li/MnO2; designation ANSI/NEDA-5004LC, IEC-CR2032; nominal 3.0 V; typical 235 mAh to 2.0 V on 15 kΩ at 21 °C; typical 3.0 g; diameter 20.00 max / 19.70 min; height 3.20 max / 2.90 min; negative face Ø17.70 max; (+) on the can, (−) on the cap face; operating −30 to 60 °C"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). Pliego §5.30 pin 'minus'. A pad wider than the cap face can touch the can's edge and short the cell: keep a negative pad under 17.7 or insulate the rim."
+    },
+    {
+      "key": "paper-brad-shank",
+      "status": "provisional",
+      "label": {
+        "en": "Paper brad through stacked sheets",
+        "es": "Encuadernador a través de hojas apiladas",
+        "fr": "Attache parisienne à travers des feuilles empilées",
+        "pt": "Colchete através de folhas empilhadas"
+      },
+      "definition": {
+        "en": "The split shank of a two-prong paper fastener (brad) through a pierced or punched hole in stacked sheets, its round head on the top sheet and its prongs opened flat behind the bottom one; and that hole. The pivot of a sheet join. The hole is the host's design: no cited source gives the shank's width.",
+        "es": "El vástago partido de un encuadernador de dos patas a través de un barreno perforado o troquelado en hojas apiladas, con la cabeza redonda sobre la hoja superior y las patas abiertas en plano tras la inferior; y ese barreno. El pivote de una unión entre hojas. El barreno lo decide el anfitrión: ninguna fuente citada da el ancho del vástago.",
+        "fr": "La tige fendue d'une attache parisienne à deux pattes à travers un trou percé ou poinçonné dans des feuilles empilées, sa tête ronde sur la feuille du dessus et ses pattes rabattues à plat derrière celle du dessous ; et ce trou. Le pivot d'une liaison entre feuilles. Le trou relève de l'hôte : aucune source citée ne donne la largeur de la tige.",
+        "pt": "A haste fendida de um colchete de duas pernas através de um furo perfurado ou vazado em folhas empilhadas, com a cabeça redonda sobre a folha de cima e as pernas abertas por trás da de baixo; e esse furo. O pivô de uma união entre folhas. O furo é decisão do hospedeiro: nenhuma fonte citada dá a largura da haste."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "head_diameter": {
+          "value": 11.906,
+          "unit": "mm",
+          "source": 0,
+          "note": "15/32 in as listed (source 1 too), × 25.4 (derived): the head that bears on the top sheet"
+        }
+      },
+      "sources": [
+        {
+          "title": "ACCO solid brass round head fasteners, 1-1/4 in, 100/box (71505) — retailer listing; the maker's page was not reached",
+          "url": "https://www.staples.com/acco-solid-brass-round-head-fasteners-1-1-4-brass-100-box-71505/product_ACC71505",
+          "publisher": "Staples (listing ACCO Brands)",
+          "accessed": "2026-10-10",
+          "supports": "round head fastener; length 1.25 in (1-1/4 in size); 15/32 in head diameter"
+        },
+        {
+          "title": "ACCO solid brass round head fasteners, 2 in, 100/box (71507) — retailer listing; the maker's page was not reached",
+          "url": "https://www.staples.com/acco-solid-brass-round-head-fasteners-2-brass-100-box-71507/product_ACC71507",
+          "publisher": "Staples (listing ACCO Brands)",
+          "accessed": "2026-10-10",
+          "supports": "round head fastener; 2 in shank; length 2.0 in; 15/32 in head diameter; self-piercing points; solid brass"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3); the size key of Pliego's 'pivot' join made with a brad. Provisional: the shank width, and so the hole, is not cited."
+    },
+    {
+      "key": "eyelet-4-32in-barrel",
+      "label": {
+        "en": "Eyelet barrel in a 4/32 in hole",
+        "es": "Cañón de ojillo en un barreno de 4/32 in",
+        "fr": "Fût d'œillet dans un trou de 4/32 in",
+        "pt": "Corpo de ilhós num furo de 4/32 in"
+      },
+      "definition": {
+        "en": "The barrel of a small eyelet (0.121 in outside, 0.125 in under the flange) through a 4/32 in (1/8 in) hole in card or stacked sheets, its flange on the top face and its rolled end behind; and that hole.",
+        "es": "El cañón de un ojillo pequeño (0.121 in de diámetro exterior, 0.125 in bajo la pestaña) a través de un barreno de 4/32 in (1/8 in) en cartulina u hojas apiladas, con la pestaña en la cara superior y el extremo remachado por detrás; y ese barreno.",
+        "fr": "Le fût d'un petit œillet (0,121 in de diamètre extérieur, 0,125 in sous la collerette) à travers un trou de 4/32 in (1/8 in) dans du carton ou des feuilles empilées, sa collerette sur la face du dessus et son extrémité rabattue derrière ; et ce trou.",
+        "pt": "O corpo de um ilhós pequeno (0,121 in de diâmetro exterior, 0,125 in sob a aba) através de um furo de 4/32 in (1/8 in) em cartão ou folhas empilhadas, com a aba na face de cima e a ponta rebatida por trás; e esse furo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "recommended_hole": {
+          "value": 3.175,
+          "unit": "mm",
+          "source": 0,
+          "note": "4/32 in, × 25.4 (derived)"
+        },
+        "barrel_outside_diameter": {
+          "value": 3.073,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.121 in, × 25.4 (derived)"
+        },
+        "length_under_flange": {
+          "value": 3.175,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.125 in, × 25.4 (derived)"
+        },
+        "flange_diameter": {
+          "value": 5.08,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.2 in, × 25.4 (derived)"
+        }
+      },
+      "sources": [
+        {
+          "title": "Stimpson GS 4-4 brass eyelets (SKU X-GS44B), maker's web store",
+          "url": "https://webstore.stimpson.com/gs-4-4-brass-eyelets",
+          "publisher": "Stimpson",
+          "accessed": "2026-10-10",
+          "supports": "brass; flange diameter 0.2 in; outside (barrel) diameter 0.121 in; length under flange 0.125 in; length overall 0.152 in; hole size 0.097 in; metal thickness 0.009 in; fits a 4/32 in hole"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). The eyelet's male side is eyelet-gs-4-4.barrel; also a size key for Pliego's 'pivot' join made with an eyelet."
+    },
+    {
+      "key": "elastic-cord-end",
+      "status": "provisional",
+      "label": {
+        "en": "Elastic cord end through a hole",
+        "es": "Extremo de cordón elástico por un barreno",
+        "fr": "Extrémité de cordon élastique dans un trou",
+        "pt": "Ponta de cordão elástico por um furo"
+      },
+      "definition": {
+        "en": "An end of a round elastic cord (about 1 to 1.5 mm across) threaded through a hole in a sheet and knotted or glued behind it; and that hole. The hole is sized by the host for the chosen cord.",
+        "es": "Un extremo de cordón elástico redondo (de entre 1 y 1.5 mm de grosor) que pasa por un barreno de una hoja y se anuda o se pega por detrás; y ese barreno. El anfitrión dimensiona el barreno para el cordón elegido.",
+        "fr": "Une extrémité de cordon élastique rond (d'environ 1 à 1,5 mm de diamètre) passée dans un trou d'une feuille et nouée ou collée derrière ; et ce trou. L'hôte dimensionne le trou pour le cordon choisi.",
+        "pt": "Uma ponta de cordão elástico roliço (com cerca de 1 a 1,5 mm de diâmetro) passada por um furo de uma folha e atada ou colada por trás; e esse furo. O hospedeiro dimensiona o furo para o cordão escolhido."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "custom",
+      "dimensions": {
+        "diameter_min": {
+          "value": 1.0,
+          "unit": "mm",
+          "source": 1,
+          "note": "Beadalon Elasticity 1.0 mm"
+        },
+        "diameter_max": {
+          "value": 1.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "Prym elastic cord Ø 1.5 mm"
+        }
+      },
+      "sources": [
+        {
+          "title": "Prym elastic cord, 1.5 mm, gold-coloured, 3 m (article 971069)",
+          "url": "https://www.prym.com/en/elastic-cord-in-various-colours-6d72167e62fafe027d187a9e1e7334d4",
+          "publisher": "Prym",
+          "accessed": "2026-10-10",
+          "supports": "Ø 1.5 mm × 3 m; 80 % elastodiene, 20 % metallized thread"
+        },
+        {
+          "title": "Beadalon Elasticity 1.0 mm clear elastic cord, 25 m (SKU STR-CLR-128) — retailer listing",
+          "url": "https://www.thebeadchest.com/products/elasticity-1-0mm-clear-elastic-cord-25-meters",
+          "publisher": "The Bead Chest (listing Beadalon)",
+          "accessed": "2026-10-10",
+          "supports": "string size 0.039 in (1.0 mm); spool 82 ft (25 m); elastic; clear"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). Provisional: the key does not carry the cord's diameter, so a hole sized for 1.5 mm mates a 1.0 mm cord too; a per-diameter key is the alternative if mates must check it."
+    },
+    {
+      "key": "disc-magnet-6x2-pocket",
+      "label": {
+        "en": "6 × 2 mm disc magnet in a pocket",
+        "es": "Imán de disco de 6 × 2 mm en un hueco",
+        "fr": "Aimant disque 6 × 2 mm dans une poche",
+        "pt": "Ímã de disco 6 × 2 mm num rebaixo"
+      },
+      "definition": {
+        "en": "A 6 mm × 2 mm disc magnet seated in a round pocket cut into card or board (or a printed recess); and that pocket. The clearance is the host's design.",
+        "es": "Un imán de disco de 6 mm × 2 mm asentado en un hueco redondo cortado en cartulina o cartón (o en un rebaje impreso); y ese hueco. La holgura la decide el anfitrión.",
+        "fr": "Un aimant disque de 6 mm × 2 mm logé dans une poche ronde découpée dans du carton (ou un logement imprimé) ; et cette poche. Le jeu relève de l'hôte.",
+        "pt": "Um ímã de disco de 6 mm × 2 mm assente num rebaixo redondo cortado em cartão (ou num alojamento impresso); e esse rebaixo. A folga é decisão do hospedeiro."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "diameter": {
+          "value": 6,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        },
+        "height": {
+          "value": 2,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        }
+      },
+      "sources": [
+        {
+          "title": "Disc magnet Ø 6 mm, height 2 mm, neodymium, N45, nickel-plated (S-06-02-N)",
+          "url": "https://www.supermagnete.de/eng/disc-magnets-neodymium/disc-magnet-6mm-2mm_S-06-02-N",
+          "publisher": "supermagnete (Webcraft GmbH)",
+          "accessed": "2026-10-10",
+          "supports": "diameter 6 mm; height 2 mm; tolerance ±0.1 mm; NdFeB, grade N45; Ni-Cu-Ni plating; magnetised axially (parallel to the height); strength approx. 740 g (approx. 7.26 N); displacement force approx. 150 g (1.46 N); max. working temperature 80 °C; weight 0.43 g"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). The magnet's male side is magnet-disc-6x2.body."
+    },
+    {
+      "key": "disc-magnet-6mm-face",
+      "label": {
+        "en": "6 mm disc magnet pole face",
+        "es": "Cara polar de imán de disco de 6 mm",
+        "fr": "Face polaire d'aimant disque de 6 mm",
+        "pt": "Face polar de ímã de disco de 6 mm"
+      },
+      "definition": {
+        "en": "A flat pole face of a 6 mm axially magnetised disc magnet meeting another magnet's face or a steel striker face to face. Neutral. Which pole is which, and so whether two faces attract, is not part of the key.",
+        "es": "Una cara polar plana de un imán de disco de 6 mm magnetizado axialmente que se encuentra cara contra cara con la de otro imán o con una placa de acero. Neutra. Qué polo es cada cara, y por tanto si dos caras se atraen, no forma parte de la clave.",
+        "fr": "Une face polaire plane d'un aimant disque de 6 mm aimanté axialement rencontrant face contre face celle d'un autre aimant ou une contre-pièce en acier. Neutre. Quel pôle est quelle face, et donc si deux faces s'attirent, ne fait pas partie de la clé.",
+        "pt": "Uma face polar plana de um ímã de disco de 6 mm magnetizado axialmente que encontra face contra face a de outro ímã ou uma peça de aço. Neutra. Qual polo é cada face, e portanto se duas faces se atraem, não faz parte da chave."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "face_diameter": {
+          "value": 6,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        }
+      },
+      "sources": [
+        {
+          "title": "Disc magnet Ø 6 mm, height 2 mm, neodymium, N45, nickel-plated (S-06-02-N)",
+          "url": "https://www.supermagnete.de/eng/disc-magnets-neodymium/disc-magnet-6mm-2mm_S-06-02-N",
+          "publisher": "supermagnete (Webcraft GmbH)",
+          "accessed": "2026-10-10",
+          "supports": "diameter 6 mm; height 2 mm; tolerance ±0.1 mm; NdFeB, grade N45; Ni-Cu-Ni plating; magnetised axially (parallel to the height); strength approx. 740 g (approx. 7.26 N); displacement force approx. 150 g (1.46 N); max. working temperature 80 °C; weight 0.43 g"
+        }
+      ],
+      "notes": "Added for the sheet-parts entries (lane K3). Polarity of the poles is not modelled; an assembly that needs attraction must say which faces face which."
+    }
+  ]
+}
