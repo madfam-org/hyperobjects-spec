@@ -1,0 +1,156 @@
+{
+  "stock": {
+    "slug": "folding-boxboard-300",
+    "name": {
+      "en": "Folding boxboard (FBB) 300 g/m²",
+      "es": "Cartulina plegable (FBB) 300 g/m²",
+      "fr": "Carton plat (FBB) 300 g/m²",
+      "pt": "Cartão duplex (FBB) 300 g/m²"
+    },
+    "class": "cardstock",
+    "fiber": [
+      "wood-pulp",
+      "mechanical-pulp"
+    ],
+    "finish": "pigment-coated top",
+    "color": "#f4f2ec",
+    "grain": "long"
+  },
+  "physical": {
+    "gsm": {
+      "value": 300.0,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "caliper_um": {
+      "value": 470.0,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "E_md_gpa": {
+      "value": 2.766,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "E_cd_gpa": {
+      "value": 1.3021,
+      "status": "estimated",
+      "basis": "implied by the construction block (pliego.board v1)"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981); the board value is unmeasured [E]"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 75,
+      "status": "estimated",
+      "basis": "scored board: L* = 50–100 t (memo §a3, Beex & Peerlings 2009 qualitative); mid value [E]"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014, Mylar); board unmeasured [E]"
+    },
+    "tear_strain": {
+      "value": 0.015,
+      "status": "estimated",
+      "basis": "board grades, low elongation [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "kraft on kraft 0.3–0.6 (rsE §a3) [E]"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.5,
+    "score": "required: crease-rule every fold (channel matrix)",
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "pva",
+      "hot-melt"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#f4f2ec",
+    "back": "#e9e4d6",
+    "translucency": 0.02,
+    "roughness": 0.6
+  },
+  "construction": {
+    "kind": "laminate",
+    "model": "pliego.board v1",
+    "layers": [
+      {
+        "role": "ply",
+        "gsm": 45,
+        "caliper_um": 50,
+        "E_md_gpa": 6.0,
+        "E_cd_gpa": 3.0,
+        "status": "estimated",
+        "basis": "coated bleached chemical-pulp top ply (pigment coating included) [E]"
+      },
+      {
+        "role": "ply",
+        "gsm": 225,
+        "caliper_um": 380,
+        "E_md_gpa": 2.0,
+        "E_cd_gpa": 0.9,
+        "status": "estimated",
+        "basis": "bulky mechanical-pulp middle ply, ≈ 0.59 g/cm³ [E]"
+      },
+      {
+        "role": "ply",
+        "gsm": 30,
+        "caliper_um": 40,
+        "E_md_gpa": 6.0,
+        "E_cd_gpa": 3.0,
+        "status": "estimated",
+        "basis": "bleached chemical-pulp back ply [E]"
+      }
+    ],
+    "note": "Three-ply folding boxboard: stiff outer plies on a bulky middle, so bending stiffness exceeds a homogeneous sheet of the same grammage. Ply split and moduli are estimates [E]."
+  },
+  "derived": {
+    "areal_density": 0.0003,
+    "thickness": 0.47,
+    "E_md": 2765960000.0,
+    "E_cd": 1302130000.0,
+    "nu": 0.293,
+    "D_md": 36688000.0,
+    "D_cd": 17838600.0,
+    "crease_k": 725744.0,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.015,
+    "friction": 0.4,
+    "collision_thickness": 0.47,
+    "G12": 734447000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Classical sandwich-beam theory (Allen 1969, Analysis and Design of Structural Sandwich Panels) and corrugated-board homogenisation without transverse shear (Nordstrand 2003, Lund University doctoral thesis) [L]",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Pliego research memo rsE (2026-10-10) §a3/§b — engineering estimates [E]; scored board L* = 50–100 t (Beex & Peerlings 2009, qualitative) — https://orbilu.uni.lu/handle/10993/17431"
+    ]
+  }
+}

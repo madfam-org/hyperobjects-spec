@@ -5,7 +5,9 @@ the cards, so a material owned by one platform can be cut, folded, draped or lam
 by another without copying the card. Every number says how far to trust it.
 
 * ``pliego-stock/1`` — a Pliego stock card's **derived** block (``pliego.stock.derive
-  v1``, engine units mm·g·s) plus the statuses of the measurements it came from.
+  v1``, engine units mm·g·s) plus the statuses of the measurements it came from. A
+  built-up board (a ``construction`` block) is also rebuilt as a classical laminate
+  (:mod:`hyperobjects_sheet.board`); a foam is read as compressible.
 * ``fc-fabric/1`` — a Fashion Cabinet fabric card's ``physical`` and
   ``digital_twin.physics``. The card has no physical stiffness, so bend class → D and
   stretch % → membrane stiffness are **estimated** under stated assumptions.
@@ -19,7 +21,8 @@ from __future__ import annotations
 import math
 from typing import Any
 
-from .behaviour import combine_status, provenance, round_document, skeleton
+from .behaviour import OPTIONAL_UNITS, combine_status, provenance, round_document, skeleton
+from .board import BoardError, board_stack
 
 PLIEGO_DERIVE_BASIS = "pliego.stock.derive v1"
 PLIEGO_RULE = "pliego-stock/1"
@@ -104,6 +107,20 @@ def map_pliego_stock(card: dict) -> dict[str, Any]:
         raise MappingError(f"pliego stock {slug!r}: derived block lacks {', '.join(missing)}")
     physical = card.get("physical") or {}
     d = {k: float(derived[k]) for k in need}
+    construction = card.get("construction")
+    stack = None
+    if construction is not None:
+        if not isinstance(construction, dict):
+            raise MappingError(f"pliego stock {slug!r}: construction must be an object")
+        try:
+            stack = board_stack(construction, d["nu"], str(slug))
+        except BoardError as exc:
+            raise MappingError(f"pliego stock {slug!r}: {exc}") from exc
+    # stock-card v1 has no structured foam flag; its finish names the cell structure.
+    foam = "foam" in str(stock.get("finish") or "").lower()
+    if foam and d["E_md"] != d["E_cd"]:
+        raise MappingError(f"pliego stock {slug!r}: a foam with E_md ≠ E_cd has no "
+                           "compression rule (compression.Ez assumes an isotropic foam)")
     t_mm = d["thickness"]
     t = t_mm * _MM
     e1, e2, nu = d["E_md"], d["E_cd"], d["nu"]
@@ -137,15 +154,41 @@ def map_pliego_stock(card: dict) -> dict[str, Any]:
               f"{bend.get('source')}"
         prov["D11"] = provenance("measured", f"derived.D_md × 1e-9 (N·m); {why}")
         prov["D22"] = provenance("measured", f"derived.D_cd × 1e-9 (N·m); {why}")
+    elif stack is not None:
+        layers = f"construction.layers {sorted(set(stack.statuses))}"
+        if construction.get("kind") == "corrugated":
+            layers += f"; flute heights per {construction.get('model')}"
+        for key, src, axis in (("D11", "D_md", "MD"), ("D22", "D_cd", "CD")):
+            prov[key] = provenance(
+                combine_status(*stack.statuses, s["nu"]),
+                f"derived.{src} × 1e-9 (N·m): sandwich bending about the {axis} neutral "
+                "axis, Σ E·(t³/12 + t·(z − z̄)²)/(1 − ν²) over the card's construction "
+                f"block ({construction.get('model')}, Allen 1969) via pliego.stock.derive "
+                f"v1, transverse shear of the core not included; {layers}; {b['nu']}")
     else:
         for key, src, e_key in (("D11", "D_md", "E_md_gpa"), ("D22", "D_cd", "E_cd_gpa")):
             prov[key] = provenance(
                 combine_status(s[e_key], s["nu"], s["caliper_um"]),
                 f"derived.{src} × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive "
                 f"v1; {b[e_key]}; {b['nu']}; {b['caliper_um']}")
-    prov["D12"] = provenance(combine_status(prov["D11"]["status"], s["nu"]),
-                             "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))")
-    prov["D66"] = provenance("estimated", "G12·t³/12 with the estimated G12 above")
+    if stack is None:
+        prov["D12"] = provenance(combine_status(prov["D11"]["status"], s["nu"]),
+                                 "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))")
+        prov["D66"] = provenance("estimated", "G12·t³/12 with the estimated G12 above")
+    else:
+        free = ("the free-stack D* = D − B·A⁻¹·B of the laminate block, which rebuilds "
+                "the construction layer by layer (hyperobjects_sheet.board): liners and "
+                "plies with ν12 = ν·√(E_md/E_cd)")
+        prov["D12"] = provenance(combine_status(*stack.statuses, s["nu"]),
+                                 f"D*12, {free}; the medium carries no Poisson term")
+        prov["D66"] = provenance(
+            "estimated", f"D*66, {free} and the Baum estimate G12 = 0.387·√(E_md·E_cd) "
+            "per layer; the medium's in-plane shear is neglected, as "
+            f"{construction.get('model')} neglects its MD load, so this is a lower bound")
+    if foam:
+        prov["Ez"] = provenance(
+            s["E_md_gpa"], "isotropic foam: thickness-compression modulus taken as "
+            f"derived.E_md (Pa); {b['E_md_gpa']}")
     for key in ("crease_length_scale_t", "crease_yield_deg", "crease_set_rate",
                 "score_factor"):
         why = b[key]
@@ -158,7 +201,8 @@ def map_pliego_stock(card: dict) -> dict[str, Any]:
     if lt is None:
         raise MappingError(f"pliego stock {slug!r}: physical.crease_length_scale_t missing")
     notes = [
-        "friction: the card states one paper-on-paper coefficient; it is written as "
+        f"friction: the card states one {'foam-on-foam' if foam else 'paper-on-paper'} "
+        "coefficient; it is written as "
         "friction_static, and friction_kinetic and damping are left out rather than "
         "invented",
     ]
@@ -168,6 +212,34 @@ def map_pliego_stock(card: dict) -> dict[str, Any]:
         if not math.isclose(implied, lt, rel_tol=1e-4):
             notes.append(f"crease: derived.crease_k implies L*/t = {implied:.6g}, the card "
                          f"states {lt:g}")
+
+    if stack is not None:
+        dstar = stack.free_bending()
+        drift = tuple(round(100.0 * (dstar[i][i] / (d[k] * _ENGINE_D) - 1.0), 2) + 0.0
+                      for i, k in ((0, "D_md"), (1, "D_cd")))   # + 0.0: no "-0.00"
+        notes.append(
+            "board: the laminate block rebuilds the card's construction "
+            f"({construction.get('model')}) as a classical laminate about the mid-plane; "
+            f"its free-stack D* gives D11 {drift[0]:+.2f} % and D22 "
+            f"{drift[1]:+.2f} % against the card's D_md and D_cd, which are kept "
+            "(D* also carries the Poisson cross terms the card's per-direction sums omit)")
+        if stack.coupled:
+            notes.append(
+                f"board: B is non-zero (|B|/√(|A|·|D|) = {stack.coupling_ratio:.3g}): the "
+                "stack is asymmetric, so stretching and bending are coupled and it curls "
+                "under in-plane load or a layer's pre-strain")
+        if any(r["material"].endswith("flute") for r in stack.records):
+            notes.append(
+                "board: a medium layer is a slab as thick as its flute height that carries "
+                "CD load only; its own bending is the sinusoid's spread "
+                "α·E·t_m·(t_m²/12 + a²/2)/(1 − ν²), neither the plate nor a card value, so "
+                "its record states no own_bending")
+    if foam:
+        notes.append(
+            "foam: read from stock.finish (stock-card v1 has no structured foam flag); the "
+            "sheet is compressible, and not inextensible: its tear_strain "
+            f"{_num(derived.get('tear_strain'))} lets it stretch far beyond paper, so an "
+            "engine must not assume isometry")
 
     doc = skeleton("isotropic" if e1 == e2 else "machine", t_mm, d["areal_density"] * _G_PER_MM2)
     doc["source"] = {"platform": "pliego", "material_slug": slug, "rule": PLIEGO_RULE,
@@ -179,14 +251,25 @@ def map_pliego_stock(card: dict) -> dict[str, Any]:
         "D12": nu21 * d["D_md"] * _ENGINE_D,
         "D66": d["G12"] * t ** 3 / 12.0,
     }
+    if stack is not None:
+        doc["bending"]["D12"] = dstar[0][1]
+        doc["bending"]["D66"] = dstar[2][2]
     doc["crease"] = {
         "crease_length_scale_t": lt,
         "crease_yield_deg": d["crease_yield_deg"],
         "crease_set_rate": d["crease_set_rate"],
         "score_factor": d["score_factor"],
     }
-    doc["regime"] = {"inextensible": True, "stretchy": False, "compressible": False,
-                     "layered": False, "self_folding": False}
+    if foam:
+        doc["units"]["compression"] = OPTIONAL_UNITS["compression"]
+        doc["compression"] = {"Ez": d["E_md"]}
+    doc["regime"] = {"inextensible": not foam, "stretchy": False, "compressible": foam,
+                     "layered": stack is not None, "self_folding": False}
+    if stack is not None:
+        doc["units"]["laminate"] = OPTIONAL_UNITS["laminate"]
+        doc["laminate"] = {"layers": stack.records, "A": stack.A, "B": stack.B,
+                           "D": stack.D, "coupled": stack.coupled,
+                           "coupling_ratio": stack.coupling_ratio}
     doc["contact"] = {"friction_static": d["friction"]}
     doc["provenance"] = prov
     doc["notes"] = notes

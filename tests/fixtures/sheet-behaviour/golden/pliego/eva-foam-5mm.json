@@ -1,0 +1,121 @@
+{
+  "sheet_behaviour": "1.0",
+  "units": {
+    "caliper": "mm",
+    "areal_density": "kg/m^2",
+    "membrane": "N/m",
+    "bending": "N*m",
+    "angle": "deg",
+    "compression": "Pa"
+  },
+  "axis_1": "isotropic",
+  "caliper_mm": 5,
+  "areal_density_kg_m2": 0.425,
+  "source": {
+    "platform": "pliego",
+    "material_slug": "eva-foam-5mm",
+    "rule": "pliego-stock/1",
+    "card_basis": "pliego.stock.derive v1"
+  },
+  "membrane": {
+    "E1t": 16350,
+    "E2t": 16350,
+    "G12t": 6327.45,
+    "nu12": 0.33
+  },
+  "bending": {
+    "D11": 0.0382252,
+    "D22": 0.0382252,
+    "D12": 0.0126143,
+    "D66": 0.0131822
+  },
+  "crease": {
+    "crease_length_scale_t": 50,
+    "crease_yield_deg": 150,
+    "crease_set_rate": 0.02,
+    "score_factor": 0.125
+  },
+  "compression": {
+    "Ez": 3270000
+  },
+  "regime": {
+    "inextensible": false,
+    "stretchy": false,
+    "compressible": true,
+    "layered": false,
+    "self_folding": false
+  },
+  "contact": {
+    "friction_static": 0.8
+  },
+  "provenance": {
+    "caliper_mm": {
+      "status": "estimated",
+      "basis": "derived.thickness; physical.caliper_um estimated: nominal 5.0 mm sheet"
+    },
+    "areal_density_kg_m2": {
+      "status": "estimated",
+      "basis": "derived.areal_density (g/mm²) × 1000; physical.gsm estimated: craft EVA ≈ 85 kg/m³ × 5.0 mm [E]"
+    },
+    "E1t": {
+      "status": "estimated",
+      "basis": "derived.E_md × t; physical.E_md_gpa estimated: compressive initial modulus interpolated at 85 kg/m³ between Chen et al. 2023 (80 kg/m³: 2.77 MPa; 95 kg/m³: 4.27 MPa); used as the bending modulus [E]; physical.caliper_um estimated: nominal 5.0 mm sheet"
+    },
+    "E2t": {
+      "status": "estimated",
+      "basis": "derived.E_cd × t; physical.E_cd_gpa estimated: isotropic foam: same as E_md [E]; physical.caliper_um estimated: nominal 5.0 mm sheet"
+    },
+    "G12t": {
+      "status": "estimated",
+      "basis": "derived.G12 × t, G12 = 0.387·√(E_md·E_cd) (Baum, Brennan & Habeger 1981, via pliego.stock.derive v1)"
+    },
+    "nu12": {
+      "status": "estimated",
+      "basis": "ν12 = ν·√(E_md/E_cd): the card's ν is the geometric mean √(ν12·ν21), split by reciprocity ν12/E1 = ν21/E2; physical.nu estimated: closed-cell foams: ν ≈ 1/3 (Gibson & Ashby 1997) [L]"
+    },
+    "D11": {
+      "status": "estimated",
+      "basis": "derived.D_md × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_md_gpa estimated: compressive initial modulus interpolated at 85 kg/m³ between Chen et al. 2023 (80 kg/m³: 2.77 MPa; 95 kg/m³: 4.27 MPa); used as the bending modulus [E]; physical.nu estimated: closed-cell foams: ν ≈ 1/3 (Gibson & Ashby 1997) [L]; physical.caliper_um estimated: nominal 5.0 mm sheet"
+    },
+    "D22": {
+      "status": "estimated",
+      "basis": "derived.D_cd × 1e-9 (N·m), plate E·t³/(12(1−ν²)) in pliego.stock.derive v1; physical.E_cd_gpa estimated: isotropic foam: same as E_md [E]; physical.nu estimated: closed-cell foams: ν ≈ 1/3 (Gibson & Ashby 1997) [L]; physical.caliper_um estimated: nominal 5.0 mm sheet"
+    },
+    "D12": {
+      "status": "estimated",
+      "basis": "ν21·D11, orthotropic plate (ν21 = ν·√(E_cd/E_md))"
+    },
+    "D66": {
+      "status": "estimated",
+      "basis": "G12·t³/12 with the estimated G12 above"
+    },
+    "Ez": {
+      "status": "estimated",
+      "basis": "isotropic foam: thickness-compression modulus taken as derived.E_md (Pa); physical.E_md_gpa estimated: compressive initial modulus interpolated at 85 kg/m³ between Chen et al. 2023 (80 kg/m³: 2.77 MPa; 95 kg/m³: 4.27 MPa); used as the bending modulus [E]"
+    },
+    "crease_length_scale_t": {
+      "status": "estimated",
+      "basis": "physical.crease_length_scale_t estimated: a scored foam hinge is a half-depth cut; L* ≈ 50 t by analogy with scored board [E]"
+    },
+    "crease_yield_deg": {
+      "status": "estimated",
+      "basis": "physical.crease_yield_deg estimated: foam is elastic: a cold fold springs back almost fully; a large elastic range stands in for that until heat-forming is modelled [E]"
+    },
+    "crease_set_rate": {
+      "status": "estimated",
+      "basis": "physical.crease_set_rate estimated: cold-folded EVA keeps almost no set [E]"
+    },
+    "score_factor": {
+      "status": "estimated",
+      "basis": "physical.score_factor estimated: a half-depth score leaves t/2: bending ∝ t³ → (1/2)³ [E]"
+    },
+    "friction_static": {
+      "status": "estimated",
+      "basis": "physical.friction estimated: rubbery foam on foam [E]"
+    }
+  },
+  "notes": [
+    "friction: the card states one foam-on-foam coefficient; it is written as friction_static, and friction_kinetic and damping are left out rather than invented",
+    "foam: read from stock.finish (stock-card v1 has no structured foam flag); the sheet is compressible, and not inextensible: its tear_strain 1.3 lets it stretch far beyond paper, so an engine must not assume isometry"
+  ]
+}

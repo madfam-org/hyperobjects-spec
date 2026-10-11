@@ -29,6 +29,7 @@ from hyperobjects_sheet import (
     thin_print,
     validate,
 )
+from hyperobjects_sheet.board import board_stack
 from hyperobjects_sheet.mapping import ASSUMED_TEST_LOAD_N_M, BEND_CLASS_GF_CM2_CM
 
 REPO = Path(__file__).resolve().parents[1]
@@ -61,11 +62,27 @@ def test_the_schema_is_bundled():
     assert "sheet-behaviour" in list_schemas()
 
 
+#: Every stock card on Pliego main (870e098, 2026-10-10): paper, board, corrugated, foam.
+PLIEGO_STOCK = (
+    "amate", "cardstock-160", "cardstock-250", "cardstock-300", "copy-80",
+    "corrugated-aac-triple-wall", "corrugated-b-flute", "corrugated-bc-double-wall",
+    "corrugated-c-flute", "corrugated-e-flute", "corrugated-f-flute",
+    "corrugated-single-face-b", "elephant-hide-110", "eva-foam-2mm", "eva-foam-5mm",
+    "eva-foam-hd-6mm", "foil-paper", "folding-boxboard-300", "greyboard-1500", "kami",
+    "kraft-120", "kraftliner-150", "papel-de-china", "pet-125", "pp-300", "sbs-board-350",
+    "tant", "washi-kozo-30",
+)
+BOARDS = tuple(s for s in PLIEGO_STOCK if s.startswith("corrugated-")) + ("folding-boxboard-300",)
+FOAMS = ("eva-foam-2mm", "eva-foam-5mm", "eva-foam-hd-6mm")
+
+
 def test_every_real_card_is_covered_and_the_goldens_are_current():
     pairs = refresh.targets()
-    assert len(list((CARDS / "pliego").glob("*/stock.json"))) == 14
+    assert len(PLIEGO_STOCK) == 28
+    assert sorted(p.parent.name for p in (CARDS / "pliego").glob("*/stock.json")) == list(
+        PLIEGO_STOCK)
     assert len(list((CARDS / "fashion-cabinet").glob("*/material.json"))) == 11
-    assert len(pairs) == 14 + 11 + 2 + 2
+    assert len(pairs) == 28 + 11 + 2 + 2
     for path, doc in pairs:
         assert path.is_file(), f"missing golden {path.name}: run the refresh script"
         assert path.read_text(encoding="utf-8") == refresh.dump(doc), (
@@ -133,6 +150,113 @@ def test_pliego_refuses_a_card_without_its_derived_block():
         map_pliego_stock(card)
 
 
+# ------------------------------------------------------------------- boards and foam
+
+
+def test_only_the_constructed_boards_are_layered_and_only_the_foams_compressible():
+    for slug in PLIEGO_STOCK:
+        doc = map_pliego_stock(_pliego(slug))
+        assert doc["regime"]["layered"] == (slug in BOARDS), slug
+        assert ("laminate" in doc) == (slug in BOARDS), slug
+        assert doc["regime"]["compressible"] == (slug in FOAMS), slug
+        assert doc["regime"]["inextensible"] == (slug not in FOAMS), slug
+        assert not doc["regime"]["stretchy"], slug
+
+
+@pytest.mark.parametrize("slug", BOARDS)
+def test_the_board_laminate_reproduces_pliego_board_bending(slug):
+    """The laminate block rebuilds pliego.board v1 layer by layer: its layers add up to the
+    card's caliper (so the flute table is Pliego's), and its free-stack D* gives back the
+    card's D_md and D_cd. Only the single-face sheet, whose MD and CD neutral axes sit far
+    apart, moves by more than rounding (the Poisson cross terms the card's per-direction
+    sums omit)."""
+    card = _pliego(slug)
+    doc = map_pliego_stock(card)
+    lam = doc["laminate"]
+    assert math.isclose(sum(r["thickness_mm"] for r in lam["layers"]), card["derived"]["thickness"],
+                        rel_tol=1e-6)
+    assert len(lam["layers"]) == len(card["construction"]["layers"])
+    assert math.isclose(doc["bending"]["D11"], card["derived"]["D_md"] * 1e-9, rel_tol=1e-6)
+    stack = board_stack(card["construction"], card["derived"]["nu"], slug)
+    dstar = stack.free_bending()
+    tol_cd = 0.03 if slug == "corrugated-single-face-b" else 1e-5
+    assert math.isclose(dstar[0][0], card["derived"]["D_md"] * 1e-9, rel_tol=1e-5)
+    assert math.isclose(dstar[1][1], card["derived"]["D_cd"] * 1e-9, rel_tol=tol_cd)
+    assert validate(doc).ok
+
+
+def test_symmetric_single_walls_are_uncoupled_and_asymmetric_boards_curl():
+    coupled = {s: map_pliego_stock(_pliego(s))["laminate"]["coupled"] for s in BOARDS}
+    assert coupled == {
+        "corrugated-aac-triple-wall": True,     # A, A, C walls: the liners sit off-centre
+        "corrugated-b-flute": False,
+        "corrugated-bc-double-wall": True,      # B under C: the middle liner is off-centre
+        "corrugated-c-flute": False,
+        "corrugated-e-flute": False,
+        "corrugated-f-flute": False,
+        "corrugated-single-face-b": True,
+        "folding-boxboard-300": True,           # 50 / 380 / 40 µm plies
+    }
+
+
+def test_board_twist_is_the_sandwich_not_a_solid_plate():
+    """The bug this fixes: D66 was G12·t³/12, a solid plate of the board's full caliper,
+    beside a D11 and D22 from sandwich theory. A single-face sheet then twisted 80 times
+    stiffer than it bent in MD. Now D66 is the stack's own: for a symmetric single wall,
+    the closed form 2·G·(t³/12 + t·d²) of its two liners, the medium carrying no shear."""
+    card = _pliego("corrugated-b-flute")
+    liner = card["construction"]["layers"][0]
+    t = liner["caliper_um"] * 1e-6
+    d = (card["derived"]["thickness"] * 1e-3 - t) / 2.0
+    g = 0.387 * math.sqrt(liner["E_md_gpa"] * liner["E_cd_gpa"]) * 1e9
+    doc = map_pliego_stock(card)
+    assert math.isclose(doc["bending"]["D66"], 2 * g * (t ** 3 / 12 + t * d * d), rel_tol=1e-5)
+    assert "lower bound" in doc["provenance"]["D66"]["basis"]
+    single = _pliego("corrugated-single-face-b")
+    old_plate = single["derived"]["G12"] * (single["derived"]["thickness"] * 1e-3) ** 3 / 12
+    doc = map_pliego_stock(single)
+    assert doc["bending"]["D66"] < 0.01 * old_plate
+    assert doc["bending"]["D66"] < doc["bending"]["D22"]
+    assert "sandwich" in doc["provenance"]["D11"]["basis"]
+    assert "plate E·t³" not in doc["provenance"]["D11"]["basis"]
+
+
+def test_plain_cards_keep_the_plate_reading():
+    doc = map_pliego_stock(_pliego("greyboard-1500"))   # board, but homogeneous: no construction
+    d = _pliego("greyboard-1500")["derived"]
+    assert math.isclose(doc["bending"]["D66"], d["G12"] * (d["thickness"] * 1e-3) ** 3 / 12,
+                        rel_tol=1e-5)
+    assert "plate E·t³" in doc["provenance"]["D11"]["basis"]
+
+
+@pytest.mark.parametrize("slug", FOAMS)
+def test_a_foam_is_compressible_at_its_compressive_modulus(slug):
+    card = _pliego(slug)
+    doc = map_pliego_stock(card)
+    assert doc["compression"]["Ez"] == card["derived"]["E_md"]
+    assert doc["units"]["compression"] == "Pa"
+    assert doc["provenance"]["Ez"]["status"] == "estimated"
+    assert "compressive initial modulus" in doc["provenance"]["Ez"]["basis"]
+    assert any(n.startswith("foam:") for n in doc["notes"])
+    assert "foam-on-foam" in doc["notes"][0]
+    assert validate(doc).ok
+
+
+def test_an_anisotropic_foam_and_a_bad_construction_are_refused():
+    card = copy.deepcopy(_pliego("eva-foam-2mm"))
+    card["derived"]["E_cd"] = card["derived"]["E_md"] / 2
+    with pytest.raises(MappingError, match="foam"):
+        map_pliego_stock(card)
+    card = copy.deepcopy(_pliego("corrugated-b-flute"))
+    card["construction"]["layers"][1]["flute"] = "Z"
+    with pytest.raises(MappingError, match="flute"):
+        map_pliego_stock(card)
+    card = copy.deepcopy(_pliego("corrugated-b-flute"))
+    card["construction"]["model"] = "pliego.board v2"
+    with pytest.raises(MappingError, match="pliego.board v1"):
+        map_pliego_stock(card)
+
+
 # ------------------------------------------------------------------- Fashion Cabinet
 
 
@@ -157,17 +281,43 @@ def test_fc_bend_classes_are_ordered_and_a_woven_is_inextensible():
     assert denim["bending"]["D11"] > poplin["bending"]["D11"]   # stiff > medium-stiff
 
 
-def test_fc_bend_classes_cover_the_vendored_fabric_schema():
-    """Fashion Cabinet holds its schema enum, its preview and its sidecar equal; this rule
-    must map at least every class the keystone's vendored fabric schema admits. (That copy
-    still lists five classes; fashion-cabinet main lists the seven mapped here.)"""
+#: fashion-cabinet main's bend_stiffness_class enum (2026-10-10), softest → stiffest.
+FC_BEND_CLASSES = ["very-soft", "soft", "medium-soft", "medium", "medium-stiff", "stiff",
+                   "very-stiff"]
+
+
+def test_fc_bend_classes_are_the_vendored_fabric_schema_exactly():
+    """Fashion Cabinet holds its schema enum, its preview and its sidecar equal. The
+    keystone's two copies of the fabric schema list the same seven classes, in order, and
+    this rule maps exactly those: a class the schema admits and the rule refuses, or the
+    reverse, is a drift."""
     from hyperobjects_schemas import load
 
     physics = load("fabric-manifest")["properties"]["digital_twin"]["properties"]["physics"]
-    vendored = physics["properties"]["bend_stiffness_class"]["enum"]
-    assert set(vendored) <= set(BEND_CLASS_GF_CM2_CM)
-    ladder = list(BEND_CLASS_GF_CM2_CM)
-    assert [c for c in ladder if c in vendored] == vendored   # same order
+    assert physics["properties"]["bend_stiffness_class"]["enum"] == FC_BEND_CLASSES
+    assert list(BEND_CLASS_GF_CM2_CM) == FC_BEND_CLASSES
+
+
+@pytest.mark.parametrize(("bend_class", "kes_b"), [("medium-soft", 0.07), ("very-stiff", 0.6)])
+def test_fc_the_two_newer_bend_classes_map_to_an_estimated_stiffness(bend_class, kes_b):
+    """medium-soft and very-stiff (fashion-cabinet's 5 → 7 class widening) map to their
+    rungs: between soft and medium, and beyond stiff. No card uses either yet, so a copy of
+    a real card stands in."""
+    card = copy.deepcopy(_fc("manta-cruda"))
+    card["digital_twin"]["physics"]["bend_stiffness_class"] = bend_class
+    doc = map_fc_fabric(card)
+    d = kes_b * 9.80665e-5                       # gf·cm²/cm → N·m
+    assert math.isclose(doc["bending"]["D11"], d, rel_tol=1e-5)
+    assert doc["bending"]["D22"] == doc["bending"]["D11"]
+    assert math.isclose(doc["bending"]["D66"], 0.35 * d, rel_tol=1e-5)
+    for key in ("D11", "D22", "D12", "D66"):
+        assert doc["provenance"][key]["status"] == "estimated", key
+    basis = doc["provenance"]["D11"]["basis"]
+    assert f"{bend_class!r}" in basis and f"{kes_b} gf·cm²/cm" in basis
+    assert "geometric ladder" in basis
+    assert validate(doc).ok
+    neighbours = [BEND_CLASS_GF_CM2_CM[c] for c in FC_BEND_CLASSES]
+    assert neighbours == sorted(neighbours)
 
 
 def test_fc_refuses_an_unknown_bend_class_and_zero_stretch():

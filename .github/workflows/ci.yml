@@ -249,15 +249,17 @@ jobs:
 
       - name: Sheet-behaviour lane
         # The cross-commons sheet-behaviour contract (docs/SHEET_BEHAVIOUR.md). The goldens
-        # are every real Pliego stock card and Fashion Cabinet fabric card, two thin prints
-        # and two laminates, rebuilt and compared byte for byte. The greps are the
-        # read-proof: the summary must count what it checked, and the laminate must report
-        # the coupling and the curl it exists to compute.
+        # are every real Pliego stock card (all 28: paper, board, corrugated, foam) and
+        # Fashion Cabinet fabric card, two thin prints and two laminates, rebuilt and
+        # compared byte for byte. The greps are the read-proof: the summary must count what
+        # it checked, per source, and the laminate must report the coupling and the curl it
+        # exists to compute.
         run: |
           .venv/bin/python scripts/refresh_sheet_behaviour_golden.py --check > sheet.out
-          grep -q "sheet golden: documents=29 drifted=0 invalid=0 stray=0" sheet.out
+          grep -q "sheet golden: documents=43 drifted=0 invalid=0 stray=0" sheet.out
+          grep -q "pliego=28 fashion-cabinet=11 thin-prints=2 laminates=2" sheet.out
           .venv/bin/fc-spec sheet check tests/fixtures/sheet-behaviour/golden/*/*.json > sheet.out
-          grep -q "fc-spec sheet check: files=29 failures=0" sheet.out
+          grep -q "fc-spec sheet check: files=43 failures=0" sheet.out
           F=tests/fixtures/sheet-behaviour
           .venv/bin/y4d-spec sheet laminate $F/laminates/print-on-stretched-tricot.json \
             --materials fashion-cabinet=$F/cards/fashion-cabinet 2> sheet.out > /dev/null

@@ -92,8 +92,13 @@ def main(argv: list[str]) -> int:
     stray = sorted(p for p in GOLDEN.rglob("*.json") if p not in expected)
     for p in stray:
         print(f"  stray {p.relative_to(REPO)} (no input produces it)")
+    by_source: dict[str, int] = {}
+    for path, _ in pairs:
+        by_source[path.parent.name] = by_source.get(path.parent.name, 0) + 1
+    counts = " ".join(f"{k}={by_source.get(k, 0)}"
+                      for k in ("pliego", "fashion-cabinet", "thin-prints", "laminates"))
     print(f"sheet golden: documents={len(pairs)} drifted={drifted} invalid={invalid} "
-          f"stray={len(stray)}")
+          f"stray={len(stray)} {counts}")
     if check:
         return 1 if (drifted or invalid or stray) else 0
     return 1 if invalid else 0

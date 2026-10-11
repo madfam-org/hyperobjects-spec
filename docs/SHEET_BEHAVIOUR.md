@@ -149,11 +149,13 @@ without a derived block, or with another derive version, is refused.
 | `G12t` | `derived.G12` × t: the Baum estimate 0.387·√(E_md·E_cd), always `estimated` |
 | `nu12` | ν·√(E_md/E_cd). The card's ν is the geometric mean √(ν12·ν21); reciprocity ν12/E1 = ν21/E2 splits it. |
 | `D11`, `D22` | `derived.D_md`, `D_cd` × 1e-9. That is the plate formula, or a measured bending stiffness when the card has one (then `measured`). |
-| `D12` | ν21·D11 (orthotropic plate) |
-| `D66` | G12·t³/12 |
+| `D12` | ν21·D11 (orthotropic plate); a built-up board: D*12 of its laminate (below) |
+| `D66` | G12·t³/12; a built-up board: D*66 of its laminate (below) |
 | `crease.*` | `physical.crease_length_scale_t`; `derived.crease_yield_deg`, `crease_set_rate`, `score_factor`. A derive default says so in its basis. |
 | `contact.friction_static` | `derived.friction` |
-| regime | inextensible |
+| `compression.Ez` | a foam only: `derived.E_md`, the card's compressive initial modulus (isotropic foam), `estimated` |
+| `laminate` | a built-up board only (a `construction` block): the stack rebuilt layer by layer, below |
+| regime | inextensible; a foam is `compressible` and not inextensible; a built-up board is `layered` |
 
 Status mapping: Pliego `measured` and `nominal` map to `measured`, and `estimated` stays
 `estimated`. A computed field takes `derived` only when every input is measured.
@@ -164,8 +166,36 @@ Caveats:
   friction and damping are left out;
 - `tear_strain`, `perf_factor` and `collision_thickness` have no field in v1 (see open
   items);
-- a stock card that one day describes foam must also map `compression.Ez`; the rule
-  refuses nothing today because no foam card exists yet.
+- a foam is recognised by its `stock.finish` ("closed-cell foam"): stock-card v1 has no
+  structured foam field. A foam card whose `E_md` and `E_cd` differ is refused, because
+  `Ez = E_md` assumes an isotropic foam.
+
+**Built-up boards.** A corrugated board or a laminated board (folding boxboard) carries a
+`construction` block that Pliego's `pliego.board v1` turns into the card's grammage,
+caliper, effective moduli and D about each direction's own neutral axis. It writes no
+coupling matrix and no twisting stiffness, so the rule rebuilds the stack as a classical
+laminate (`hyperobjects_sheet.board`) with the same per-layer contributions:
+
+| Layer | In the stack |
+|---|---|
+| liner, ply | an orthotropic lamina of its caliper: `E_md`, `E_cd`, ν12 = ν·√(E_md/E_cd) (so Q11 = E_md/(1 − ν²), pliego.board's plate factor) and the Baum G12 = 0.387·√(E_md·E_cd) |
+| medium | a slab as thick as its flute height h that carries CD load only: Q22·h = α·E_cd·t_m/(1 − ν²), own bending Q22·h·(t_m²/12 + a²/2), with a = (h − t_m)/2 and α the sinusoid's take-up. Its MD load and in-plane shear are neglected, as pliego.board v1 neglects them. |
+
+The flute heights are pliego.board v1's (B 2.70, C 3.60, E 1.30 mm measured by Rogalka,
+Grabski & Garbowski 2023; A 4.7 and F 0.6 mm estimated; pitch from Foster 1997). Every
+board card's layers add up to its caliper, and the free-stack D* = D − B·A⁻¹·B gives back
+the card's `D_md` and `D_cd` to rounding. The one exception is the single-face sheet's CD,
+at −2.50 %: its MD and CD neutral axes sit far apart, and D* carries the Poisson cross
+terms the card's per-direction sums omit. A note on each document states the agreement.
+
+The document keeps the card's membrane, D11 and D22, which are the numbers Pliego's engine
+reads. D12 and D66 come from D*, a lower bound on twist because the medium carries no
+shear. (Before package 0.15.0, D66 was G12·t³/12, a solid plate of the full caliper, so a
+single-face sheet twisted about 80 times stiffer than it bent in MD.) The `laminate` block
+carries A, B and D about the mid-plane. Single-face, BC double-wall, AAC triple-wall and
+the folding boxboard are asymmetric, so they are `coupled`; the symmetric single walls
+(B, C, E, F) are not. A medium's record states no `own_bending`: its own bending is the
+sinusoid's spread, neither the plate value nor a card's.
 
 ### `fc-fabric/1` — Fashion Cabinet fabric card → sheet_behaviour
 
@@ -299,7 +329,9 @@ fc-spec sheet laminate: layers=2 thickness_mm=0.95 coupled=yes coupling_ratio=0.
 
 `tests/fixtures/sheet-behaviour/` (provenance and licences in its `NOTICE.md`):
 
-- `cards/` — byte-identical copies of every Pliego stock card (14), every Fashion Cabinet
+- `cards/` — byte-identical copies of every Pliego stock card (all 28 on Pliego main
+  `870e098`: 14 paper and film cards, 7 corrugated boards, folding boxboard, greyboard,
+  kraftliner, SBS board and 3 EVA foams), every Fashion Cabinet
   fabric card (11) and the Yantra4D `bambu-tpu-95a` card;
 - `thin-prints/` — two descriptors (an antisymmetric ±45° print, coupled; a symmetric
   0/90/90/0 print, not coupled);
@@ -310,8 +342,10 @@ fc-spec sheet laminate: layers=2 thickness_mm=0.95 coupled=yes coupling_ratio=0.
 
 ## Limits and open items
 
-- **Calibration sources for felt and foam.** No felt fabric card or foam stock card exists
-  yet. Their `compression.Ez`, bending and crease numbers need either measurements
+- **Calibration sources for felt and foam.** No felt fabric card exists yet. The three EVA
+  foam stock cards map to `compressible` documents, but their `Ez` is a compressive
+  modulus interpolated from one study, and their bending and crease numbers are estimates.
+  Both need either measurements
   (thickness-compression curves, cantilever bending, crease recovery) or cited literature
   estimates. Until then the `compressible` path is exercised only by a unit test.
 - **Self-folding** has a v1 shape (trigger and target curvature) and no producer yet.
