@@ -6,11 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### The keystone follows Pliego kernel 0.3.0 (package 0.14.0)
+### The keystone follows Pliego kernel 0.3.0 (package 0.13.0)
 
 Pliego main moved to kernel 0.3.0 (madfam-org/pliego#18, #19, #22, #23). The keystone
 follows it. Nothing in the solid or soft commons moves: no GOC-1 vector, AAS id, assembly
-digest or golden changes. The version is 0.14.0 because the held #62 claims 0.13.0.
+digest or golden changes. The version is 0.13.0, the next on main; the held #62, which also claimed 0.13.0, takes the next version when it lands.
 
 #### Changed: the sheet-document digest is spec §5.15 (RFC 8785), not GOC-1
 
@@ -206,7 +206,7 @@ solid or soft verdict, digest, golden or identifier moves.
 #### Not changed (deferred, listed in the PR)
 
 - AAS kinds and ids, the cross-commons identity key, ASM-1 `commons`, `bridge_check`,
-  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS` (added in 0.14.0), sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
+  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS` (added in 0.13.0), sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
 
 ### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
 
