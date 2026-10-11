@@ -13,19 +13,22 @@ Pliego platform publishes ([madfam-org/pliego](https://github.com/madfam-org/pli
 
 | Vendored here | Canonical source | Vendored at | Last changed in |
 |:--|:--|:--|:--|
-| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@6b6243a` (main) | `863c8fd` (packaging blocks `pliego:dielines`, `pliego:finishes`, `pliego:artwork`, spec §5.9–§5.11, pliego#8; print layout `pliego:annotations` and `pliego:pages`, §5.12, pliego#9) |
-| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@6b6243a` (main) | `944adcb` (the board `construction` block, `pliego.board`; pliego#8) |
+| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@2f85906` (main, kernel 0.3.0) | `f8d6677` (the `trace` finish, §5.30, pliego#23; before it `624b12f`, lane E's `keys`, `period`, `ride`, `active_from` and `release_joins`, §5.18–§5.20, pliego#18; and `ef377a0`, lane H's sheet `presentation`, §5.16, pliego#19) |
+| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@2f85906` (main, kernel 0.3.0) | `944adcb` (the board `construction` block, `pliego.board`; pliego#8) |
 
 <!-- markdownlint-enable MD013 -->
 
 Do **not** hand-edit a vendored file. Change the canonical source in Pliego and
 re-vendor. `pliego.lock.json` and this file are written by the keystone.
 
-This is the second re-vendor. The first (`pliego@4b3fbfe`) predates madfam-org/pliego#8
-(packaging) and #9 (papercraft print layout); both are merged at `6b6243a`, so nothing
-published is missing from this copy. `last_changed` is the last commit that touched each
-file (`git log -1 <commit> -- <path>`), which for the sheet document is the coordinator's
-merge of #8 into #9's branch.
+This is the third re-vendor. The first (`pliego@4b3fbfe`) predates madfam-org/pliego#8
+(packaging) and #9 (papercraft print layout); the second (`pliego@6b6243a`) predates kernel
+0.3.0, that is lane H's hardening (pliego#19: §5.13–§5.17, of which only §5.16
+`presentation` touches the schema; art sources and split cuts are rules on fields that were
+already there), lane E's engine wave (pliego#18: §5.18–§5.20) and lane X's trace finish
+(pliego#23: §5.30). All are merged at `2f85906`, so nothing published is missing from this
+copy. The stock card is unchanged since `6b6243a`; only its lock commit moves.
+`last_changed` is the last commit that touched each file (`git log -1 <commit> -- <path>`).
 
 ## Lock and drift guard
 
