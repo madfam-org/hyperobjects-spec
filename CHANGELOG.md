@@ -62,6 +62,26 @@ digest or golden changes. The version is 0.14.0 because the held #62 claims 0.13
 - **Fixtures.** Three more kernel-0.3 documents: glue joins with a fold program, a rotate
   mechanism and three traces with pads. CI checks all nine.
 
+#### Whole-commons document check (2026-10-10)
+
+`scripts/check_sheet_commons.py` (new) asks a Pliego checkout's kernel to render every
+mode and preset of every sheet cartridge, then runs `check_document` on each document.
+It is run by hand: CI has no Pliego checkout. Against Pliego main `2f85906` (kernel
+0.3.0) and sheet-hyperobjects main `ddc3ed3`:
+
+```
+check_sheet_commons: cartridges=139 modes=196 documents=732 failures=9 kernel_errors=0
+```
+
+Every mode wrote its default document, and every kernel verify line says `errors=0`. The
+9 failures are one real document problem, not a keystone bug: `curved-crease-sculpture`
+(6 documents) and `pleated-hypar` (3) write a `segmentation` key into `pliego:meta`.
+Pliego's own schema refuses it (meta is closed, §5.7), and the kernel reports it as the
+rule 16 warning `meta_unknown_key` ("put cartridge data in params or step notes"). The
+fix belongs in the commons. The kernel also warns on rule 15
+(`mechanism_moves_physical`) for the 3 `tulip` documents. The keystone does not check
+rule 15 and says so.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:

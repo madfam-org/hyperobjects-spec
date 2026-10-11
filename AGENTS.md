@@ -314,6 +314,10 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
   (`pliego_spec.canonical`), and it is **not** GOC-1's `canonical_json`: the two spell
   numbers and sort keys differently. Never route one through the other. Pliego's shared
   vector (`tests/fixtures/sheet-documents/digest_vector.json`) is copied byte for byte.
+- Before a sheet rule changes, run `scripts/check_sheet_commons.py --pliego <pliego>
+  --commons <sheet-hyperobjects>`: it renders every mode and preset with the kernel and
+  checks every document. A failure is a keystone bug (fix it) or a real document problem
+  (report it to the commons); the CHANGELOG records the last run.
 - The licence is the single constant `pliego_spec.rules.SHEET_COMMONS_LICENSE`
   (CERN-OHL-W-2.0, owner ruling 2026-10-10). Do not type it anywhere else in code.
 - Every sheet rule is a failure from birth: the commons was empty when they landed, and
