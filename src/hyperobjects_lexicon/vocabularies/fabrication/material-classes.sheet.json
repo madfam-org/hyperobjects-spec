@@ -1,0 +1,252 @@
+{
+  "spec_version": 1,
+  "vocabulary": "material-classes",
+  "description": "Supplement of the material-classes vocabulary: the sheet classes of the Pliego platform's stock cards. Paper and card, board (solid and corrugated), EVA foam and tissue paper. Each names the processes its sources back, and no more. `cards` is left out until a Pliego material card is captured in the bundled catalog snapshot. Merged into material-classes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (K3 lane, 2026-10-10) for the sheet commons. No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
+  },
+  "entries": [
+    {
+      "key": "paper",
+      "label": {
+        "en": "Paper and card",
+        "es": "Papel y cartulina",
+        "fr": "Papier et carte",
+        "pt": "Papel e cartolina"
+      },
+      "definition": {
+        "en": "Sheets of pressed plant fibre, from thin origami paper and office paper up to heavy cardstock (roughly up to 300 g/m²), folded by hand or by machine. Above about 160 g/m² every fold wants a crease or a score.",
+        "es": "Hojas de fibra vegetal prensada, desde el papel delgado de origami y el de oficina hasta la cartulina gruesa (aproximadamente hasta 300 g/m²), que se doblan a mano o a máquina. Por encima de unos 160 g/m² cada doblez pide hendido o semicorte.",
+        "fr": "Feuilles de fibres végétales pressées, du papier fin d'origami et du papier de bureau jusqu'au bristol épais (environ jusqu'à 300 g/m²), pliées à la main ou à la machine. Au-delà d'environ 160 g/m², chaque pli demande un rainage ou une coupe mi-chair.",
+        "pt": "Folhas de fibra vegetal prensada, desde o papel fino de origami e o de escritório até à cartolina grossa (aproximadamente até 300 g/m²), dobradas à mão ou à máquina. Acima de uns 160 g/m², cada dobra pede vinco ou meio-corte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "kind": "sheet",
+      "processes": [
+        "drag_knife",
+        "laser_2d",
+        "die_cut",
+        "crease",
+        "score",
+        "perforate",
+        "emboss_deboss",
+        "foil_stamp",
+        "print"
+      ],
+      "sources": [
+        {
+          "title": "Pliego stock card `copy-80` (materials/copy-80/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/copy-80/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "office paper, 80 g/m²; scoring recommended above 160 g/m²; perforation cut 3 mm, bridge 1 mm"
+        },
+        {
+          "title": "Pliego stock card `cardstock-250` (materials/cardstock-250/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/cardstock-250/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "cardstock, 250 g/m²; score every fold; perforation cut 3 mm, bridge 1 mm"
+        },
+        {
+          "title": "Vinyl and Paper Cutting, Scoring and Perforating (Digital Union Prototyping Studio)",
+          "url": "https://learningspaces.osu.edu/digital-unions/vinyl-and-paper-cutting-scoring-and-perforating",
+          "publisher": "The Ohio State University",
+          "accessed": "2026-10-10",
+          "supports": "a craft cutting machine cuts paper and cardstock, and scores and perforates with accessories"
+        },
+        {
+          "title": "Tips & Tricks for laser processing paper",
+          "url": "https://www.troteclaser.com/en-us/learn-support/helpcenter/laser-processing-paper",
+          "publisher": "Trotec Laser",
+          "accessed": "2026-10-10",
+          "supports": "paper and cardboard are laser cut and engraved, for greeting cards, book covers and packaging"
+        },
+        {
+          "title": "Die cutting (web)",
+          "url": "https://en.wikipedia.org/wiki/Die_cutting_(web)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "die cutting shears paper and card stock into shaped blanks, with cutting and creasing rules in one pass"
+        },
+        {
+          "title": "Paper embossing",
+          "url": "https://en.wikipedia.org/wiki/Paper_embossing",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "paper is embossed and debossed between a raised and a recessed die"
+        },
+        {
+          "title": "Hot stamping",
+          "url": "https://en.wikipedia.org/wiki/Hot_stamping",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "hot-foil stamping is applied to business cards, greeting cards, labels, envelopes and book covers"
+        }
+      ],
+      "notes": "Pliego's paper stock cards (copy-80, kami, tant, elephant-hide-110, kraft-120, cardstock-160/250/300, foil-paper, amate, washi-kozo-30) are this class; they are not listed in `cards` because no Pliego material card is in the bundled catalog snapshot yet. Their `laser` and `plotter` settings are null: no cutting parameter is claimed here."
+    },
+    {
+      "key": "board",
+      "label": {
+        "en": "Board, including corrugated",
+        "es": "Cartón, incluido el corrugado",
+        "fr": "Carton, y compris l'ondulé",
+        "pt": "Cartão, incluindo o ondulado"
+      },
+      "definition": {
+        "en": "Thick or built-up paper sheet: solid boards such as folding boxboard, solid bleached board and greyboard, and corrugated board, fluted mediums glued between liners. Packaging, rigid boxes and cardboard furniture are made of it; it is die cut and creased, and corrugated flutes crush along every crease.",
+        "es": "Lámina de papel gruesa o compuesta: cartones macizos como la cartulina plegadiza, el cartón blanco sólido y el cartón gris, y el cartón corrugado, con ondas pegadas entre caras lisas. De él se hacen empaques, cajas rígidas y muebles de cartón; se troquela y se hiende, y las ondas del corrugado se aplastan en cada hendido.",
+        "fr": "Feuille de papier épaisse ou composée : cartons compacts comme le carton pour étuis, le carton blanchi massif et le carton gris, et le carton ondulé, des cannelures collées entre des couvertures. On en fait des emballages, des boîtes rigides et des meubles en carton ; il se découpe à la forme et se raine, et les cannelures de l'ondulé s'écrasent à chaque rainage.",
+        "pt": "Folha de papel grossa ou composta: cartões maciços como o cartão para cartuchos, o cartão branco sólido e o cartão cinza, e o papelão ondulado, com ondas coladas entre capas. Dele se fazem embalagens, caixas rígidas e móveis de papelão; corta-se com faca e vinca-se, e as ondas do ondulado esmagam-se em cada vinco."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "kind": "sheet",
+      "processes": [
+        "die_cut",
+        "crease",
+        "perforate",
+        "drag_knife",
+        "laser_2d",
+        "print",
+        "foil_stamp"
+      ],
+      "sources": [
+        {
+          "title": "Pliego stock card `corrugated-b-flute` (materials/corrugated-b-flute/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/corrugated-b-flute/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "corrugated board, B flute; crease-rule every fold, the flutes crush along the score; min feature 5 mm"
+        },
+        {
+          "title": "Pliego stock card `folding-boxboard-300` (materials/folding-boxboard-300/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/folding-boxboard-300/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "folding boxboard, 300 g/m²; crease-rule every fold (channel matrix); perforation cut 3 mm, bridge 1 mm"
+        },
+        {
+          "title": "Pliego stock card `greyboard-1500` (materials/greyboard-1500/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/greyboard-1500/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "greyboard; V-groove or score deeply before folding; book board is usually not folded"
+        },
+        {
+          "title": "Die cutting (web)",
+          "url": "https://en.wikipedia.org/wiki/Die_cutting_(web)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "die cutting shears paperboard and corrugated fibreboard; steel-rule dies combine cutting and creasing rules; rotary dies also make perforations or creases; used for corrugated boxes"
+        },
+        {
+          "title": "Vinyl and Paper Cutting, Scoring and Perforating (Digital Union Prototyping Studio)",
+          "url": "https://learningspaces.osu.edu/digital-unions/vinyl-and-paper-cutting-scoring-and-perforating",
+          "publisher": "The Ohio State University",
+          "accessed": "2026-10-10",
+          "supports": "a craft cutting machine cuts kraft board"
+        },
+        {
+          "title": "Tips & Tricks for laser processing paper",
+          "url": "https://www.troteclaser.com/en-us/learn-support/helpcenter/laser-processing-paper",
+          "publisher": "Trotec Laser",
+          "accessed": "2026-10-10",
+          "supports": "cardboard is laser cut and engraved, including for packaging"
+        },
+        {
+          "title": "Hot stamping",
+          "url": "https://en.wikipedia.org/wiki/Hot_stamping",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "hot-foil stamping is applied to presentation folders, book covers and packaging"
+        }
+      ],
+      "notes": "Pliego's board cards (folding-boxboard-300, sbs-board-350, greyboard-1500, kraftliner-150 and the corrugated-* family) are this class, unlisted in `cards` for the same reason as paper. A corrugated card carries Pliego's `construction` block (pliego.board). Drag-knife cutting is cited for kraft board only: thick greyboard and multi-wall corrugated are beyond a craft cutter's blade, and nothing here claims otherwise."
+    },
+    {
+      "key": "eva-foam",
+      "label": {
+        "en": "EVA foam sheet",
+        "es": "Lámina de goma EVA (foami)",
+        "fr": "Feuille de mousse EVA",
+        "pt": "Placa de EVA"
+      },
+      "definition": {
+        "en": "Closed-cell ethylene-vinyl acetate foam in sheets a few millimetres thick, soft and springy, used for crafts, props and padding. It is cut with a knife or a CO2 laser; a fold is a half-depth knife cut or heat-forming.",
+        "es": "Espuma de etileno-acetato de vinilo de celda cerrada, en láminas de pocos milímetros, blanda y elástica, que se usa en manualidades, utilería y acolchados. Se corta con cúter o con láser de CO2; un doblez se hace con un corte a medio espesor o formándola con calor.",
+        "fr": "Mousse d'éthylène-acétate de vinyle à cellules fermées, en feuilles de quelques millimètres, souple et élastique, employée en loisirs créatifs, en accessoires et en rembourrage. Elle se découpe au cutter ou au laser CO2 ; un pli se fait par une entaille à mi-épaisseur ou par thermoformage.",
+        "pt": "Espuma de etileno-acetato de vinila de célula fechada, em placas de poucos milímetros, macia e elástica, usada em artesanato, adereços e acolchoamento. Corta-se com estilete ou laser de CO2; uma dobra faz-se com um corte a meia espessura ou moldando-a com calor."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "kind": "sheet",
+      "processes": [
+        "laser_2d",
+        "score"
+      ],
+      "sources": [
+        {
+          "title": "Pliego stock card `eva-foam-2mm` (materials/eva-foam-2mm/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/eva-foam-2mm/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "EVA foam, 2 mm; score with a half-depth knife cut, or heat-form; min feature 3 mm; contact cement or hot-melt"
+        },
+        {
+          "title": "Pliego stock card `eva-foam-hd-6mm` (materials/eva-foam-hd-6mm/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/eva-foam-hd-6mm/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "high-density EVA foam, 6 mm; score with a half-depth knife cut, or heat-form"
+        },
+        {
+          "title": "Laser Cut Foam Guide: Types, Settings, Tips, and Machines",
+          "url": "https://www.thunderlaser.com/laser-wiki/material-applications/laser-cut-foam.html",
+          "publisher": "Thunder Laser",
+          "accessed": "2026-10-10",
+          "supports": "EVA foam usually cuts well with a CO2 laser; never laser cut PVC foam or unidentified foam"
+        }
+      ],
+      "notes": "Laser cutting is safe for EVA, not for PVC foam: identify the foam first (cited). Pliego's engine does not model heat-forming yet (the cards say so)."
+    },
+    {
+      "key": "tissue-paper",
+      "label": {
+        "en": "Tissue paper",
+        "es": "Papel de china",
+        "fr": "Papier de soie",
+        "pt": "Papel de seda"
+      },
+      "definition": {
+        "en": "Very thin, light, translucent paper, the stock of papel picado banners, paper flowers and lanterns. It tears easily, so cuts keep wide bridges and it is glued with paste or a glue stick.",
+        "es": "Papel muy delgado, ligero y translúcido, el de las banderas de papel picado, las flores y los farolitos de papel. Se rasga con facilidad, así que los cortes dejan puentes anchos y se pega con engrudo o con lápiz adhesivo.",
+        "fr": "Papier très fin, léger et translucide, celui des bannières de papel picado, des fleurs et des lanternes en papier. Il se déchire facilement : les découpes gardent des ponts larges, et on le colle à la colle d'amidon ou au bâton de colle.",
+        "pt": "Papel muito fino, leve e translúcido, o das bandeirinhas de papel picado, das flores e das lanternas de papel. Rasga-se com facilidade, por isso os cortes deixam pontes largas e cola-se com grude ou cola em bastão."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "kind": "sheet",
+      "processes": [
+        "perforate"
+      ],
+      "sources": [
+        {
+          "title": "Pliego stock card `papel-de-china` (materials/papel-de-china/stock.json)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/materials/papel-de-china/stock.json",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "papel de china (tissue paper); perforation cut 2 mm, bridge 1 mm; min feature 1.5 mm; glue stick or starch paste"
+        }
+      ],
+      "notes": "Only perforation is claimed, from the one card. Papel picado is cut by hand with chisels through a stack, which no process key names; machine cutting of tissue is plausible but no source here states it, so it is not written."
+    }
+  ]
+}

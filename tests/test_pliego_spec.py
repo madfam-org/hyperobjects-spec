@@ -21,6 +21,7 @@ import pytest
 import hyperobjects_schemas
 import pliego_spec
 from hyperobjects_lexicon.lexicon import check_term, load_lexicon
+from hyperobjects_schemas.generator_output import canonical_json as goc1_canonical_json
 from pliego_spec import cli, rules, structure
 from pliego_spec.conformance import check, check_cartridge, check_manifest
 from pliego_spec.document import ALLOWED_TREATMENT, check_document, document_digest
@@ -536,7 +537,7 @@ def test_project_name_must_be_quadrilingual():
     assert any("project/name" in p for p in check_manifest(doc))
 
 
-@pytest.mark.parametrize("domain", ["packaging", "stationery"])
+@pytest.mark.parametrize("domain", ["packaging", "stationery", "paper-electronics"])
 def test_packaging_and_stationery_are_domains(domain):
     doc = _manifest()
     doc["hyperobject"]["domain"] = domain
@@ -545,22 +546,121 @@ def test_packaging_and_stationery_are_domains(domain):
     assert any("domain" in p for p in check_manifest(doc))
 
 
-# ── real kernel-0.2 documents ────────────────────────────────────────────────
+# ── real kernel documents ────────────────────────────────────────────────────
 KERNEL_02 = DOCUMENTS / "kernel-0.2"
+KERNEL_03 = DOCUMENTS / "kernel-0.3"
 
 
 @pytest.mark.parametrize("name", ["valley-fold.default.fold", "reveal-block.default.preview.fold"])
-def test_real_kernel_0_2_documents_pass(name):
-    """What the kernel writes today (NOTICE.md in that directory). The copy this lock
+def test_real_kernel_documents_pass(name):
+    """What the kernel writes today (NOTICE.md in kernel-0.3/). The copy the first lock
     replaced refused both, on the stock snapshot keys and on `remove`."""
-    doc = json.loads((KERNEL_02 / name).read_text(encoding="utf-8"))
+    doc = json.loads((KERNEL_03 / name).read_text(encoding="utf-8"))
+    assert doc["pliego:meta"]["kernel"] == "pliego-kernel 0.3.0"
     result = check("sheet-document", doc)
     assert result.ok, result.problems[:5]
 
 
 def test_the_reveal_block_document_exercises_pieces_and_remove():
-    text = (KERNEL_02 / "reveal-block.default.preview.fold").read_text(encoding="utf-8")
+    text = (KERNEL_03 / "reveal-block.default.preview.fold").read_text(encoding="utf-8")
     assert '"pliego:pieces"' in text and '"remove"' in text
+
+
+# ── the canonical digest: spec §5.15 (RFC 8785), not GOC-1 ───────────────────
+DIGEST_VECTOR = DOCUMENTS / "digest_vector.json"
+
+
+def test_the_shared_digest_vector_byte_for_byte():
+    """Pliego's shared vector (packages/kernel/tests/fixtures/digest_vector.json, copied
+    unmodified): the canonical text byte for byte, then the digest. GOC-1's
+    `canonical_json` gives sha256:cf5240c2… for the same document."""
+    from pliego_spec.canonical import canonical_bytes
+
+    data = DIGEST_VECTOR.read_bytes()
+    assert hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest() == (
+        "c6847785edc8e6ced4bfcd3af2972517f23fef93")  # Pliego's blob (NOTICE.md)
+    vector = json.loads(data)
+    assert canonical_bytes(vector["document"]) == vector["canonical"].encode("utf-8")
+    assert document_digest(vector["document"]) == vector["digest"]
+    assert vector["digest"].startswith("sha256:1c9d6a6a")
+    goc1 = hashlib.sha256(
+        goc1_canonical_json(vector["document"])).hexdigest()
+    assert goc1.startswith("cf5240c2")
+
+
+@pytest.mark.parametrize("value, spelled", [
+    (0.0, "0"), (-0.0, "0"), (90.0, "90"), (12.5, "12.5"), (0.1, "0.1"),
+    (1.5e-05, "0.000015"), (5e-06, "0.000005"), (1e-06, "0.000001"), (1e-07, "1e-7"),
+    (-1e-07, "-1e-7"), (6.3e-05, "0.000063"), (1e16, "10000000000000000"),
+    (1.2345678901234568e20, "123456789012345680000"), (1e21, "1e+21"),
+    (1.5e300, "1.5e+300"), (5e-324, "5e-324"), (2**53, "9007199254740992"),
+])
+def test_numbers_are_spelled_as_ecmascript_does(value, spelled):
+    """Spec §5.15's examples, plus the boundaries of plain notation (1e-7 and 1e21)."""
+    from pliego_spec.canonical import canonical_bytes
+
+    assert canonical_bytes(value) == spelled.encode()
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), 2**53 + 1, "\ud800x",
+                                 {"\udfff": 1}, {1: 2}])
+def test_what_has_no_canonical_form_is_refused(bad):
+    from pliego_spec.canonical import canonical_bytes
+
+    with pytest.raises(ValueError):
+        canonical_bytes(bad)
+
+
+def test_keys_sort_by_utf16_code_units_not_code_points():
+    """U+1F600 is the surrogate pair D83D DE00 in UTF-16, so it sorts BEFORE U+E000, the
+    reverse of code-point order (Python's default sort, and GOC-1's)."""
+    from pliego_spec.canonical import canonical_bytes
+
+    obj = {"\ue000": 1, "\U0001f600": 2, "b": 3}
+    assert canonical_bytes(obj) == '{"b":3,"\U0001f600":2,"\ue000":1}'.encode()
+    assert list(json.loads(goc1_canonical_json(obj))) == [
+        "b", "\ue000", "\U0001f600"]
+
+
+def test_strings_escape_as_json_stringify_does():
+    from pliego_spec.canonical import canonical_bytes
+
+    text = "a\"b\\c\b\f\n\r\t\x01\x1f\x7f/\u2028\u2029é"
+    assert canonical_bytes(text) == (
+        '"a\\"b\\\\c\\b\\f\\n\\r\\t\\u0001\\u001f\x7f/\u2028\u2029é"'.encode())
+
+
+def test_goc1_canonical_json_is_untouched():
+    """The sheet digest is its own function: GOC-1 keeps Python's spelling, which its
+    golden vectors, the AAS content ids and the assembly digest hash."""
+    assert goc1_canonical_json({"x": 1.5e-05, "y": 20.0}) == b'{"x":1.5e-05,"y":20}'
+
+
+KERNEL_02_OUTSIDE_OVERLAP = {
+    "papercraft-unfold.fold.crystal.fold": "1e-06",
+    "reveal-block.default.preview.fold": "8e-05",
+    "valley-fold.default.fold": "6.3e-05",
+}
+
+
+@pytest.mark.parametrize("path", sorted(KERNEL_02.glob("*.fold")), ids=lambda p: p.name)
+def test_kernel_0_2_digests_are_goc1_and_fail_5_15_only_outside_the_overlap(path):
+    """Kernel 0.2 stamped the GOC-1 digest; spec §5.15 (kernel 0.3) hashes RFC 8785. The
+    two agree only while every non-integral number lies in 1e-4 <= |x| < 1e16, so three of
+    these six kernel-0.2 files (each with a number below 1e-4) now fail rule 10 and
+    nothing else, as they do in Pliego's own `verify`. Kept unmodified as the record of
+    that contract change; kernel-0.3/ holds the current output."""
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    nulled = copy.deepcopy(doc)
+    nulled["pliego:meta"]["digest"] = None
+    goc1 = goc1_canonical_json(nulled)
+    assert doc["pliego:meta"]["digest"] == "sha256:" + hashlib.sha256(goc1).hexdigest()
+    problems = check("sheet-document", doc).problems
+    if path.name in KERNEL_02_OUTSIDE_OVERLAP:
+        assert KERNEL_02_OUTSIDE_OVERLAP[path.name].encode() in goc1
+        assert len(problems) == 1 and problems[0].startswith("§8.10 "), problems
+    else:
+        assert problems == []
 
 
 # ── pliego:meta, as the kernel writes it ─────────────────────────────────────
@@ -698,9 +798,9 @@ PACKAGING_DOCUMENTS = {
 
 @pytest.mark.parametrize("name", sorted(PACKAGING_DOCUMENTS))
 def test_real_packaging_and_print_layout_documents_pass(name):
-    """pliego@6b6243a output (NOTICE.md). Each file really carries the blocks it is here
-    for, so a pass is a verdict on them and not on their absence."""
-    doc = json.loads((KERNEL_02 / name).read_text(encoding="utf-8"))
+    """Kernel 0.3 output (kernel-0.3/NOTICE.md). Each file really carries the blocks it is
+    here for, so a pass is a verdict on them and not on their absence."""
+    doc = json.loads((KERNEL_03 / name).read_text(encoding="utf-8"))
     for key in PACKAGING_DOCUMENTS[name]:
         assert doc.get(key), f"{name} lost {key}"
     result = check("sheet-document", doc)
@@ -710,18 +810,18 @@ def test_real_packaging_and_print_layout_documents_pass(name):
 def test_the_vendored_schema_validates_the_packaging_blocks_rather_than_passing_them():
     """The copy this replaced admitted any `pliego:`-prefixed key unvalidated, so a dieline
     with a made-up family passed. Now the block is held to Pliego's definition."""
-    doc = json.loads((KERNEL_02 / "folding-carton.carton.fold").read_text(encoding="utf-8"))
+    doc = json.loads((KERNEL_03 / "folding-carton.carton.fold").read_text(encoding="utf-8"))
     doc["pliego:dielines"][0]["family"] = "crate"
     problems = check("sheet-document", _restamp(doc)).problems
     assert any("pliego:dielines/0/family" in p for p in problems), problems
-    doc = json.loads((KERNEL_02 / "papercraft-unfold.fold.crystal.fold")
+    doc = json.loads((KERNEL_03 / "papercraft-unfold.fold.crystal.fold")
                      .read_text(encoding="utf-8"))
     doc["pliego:annotations"][0]["size"] = 80
     assert not check("sheet-document", _restamp(doc)).ok
 
 
 def test_a_real_min_feature_document_passes():
-    doc = json.loads((KERNEL_02 / "origamic-architecture.default.fold")
+    doc = json.loads((KERNEL_03 / "origamic-architecture.default.fold")
                      .read_text(encoding="utf-8"))
     assert doc["pliego:meta"]["min_feature_mm"] > 0
     assert check("sheet-document", doc).ok, check("sheet-document", doc).problems[:5]
@@ -735,3 +835,209 @@ def test_a_board_card_carries_construction_and_it_is_validated():
     assert card["construction"]["layers"]
     card["construction"]["model"] = "pliego.board v2"
     assert any("construction" in p for p in check("stock-card", card).problems)
+
+
+# ── kernel 0.3.0's rules a structural reader can make (§5.16, §5.18–§5.20, §5.30) ──
+def _k03(name: str) -> dict:
+    return json.loads((KERNEL_03 / name).read_text(encoding="utf-8"))
+
+
+def _rule(doc: dict, label: str) -> list[str]:
+    return [p for p in check("sheet-document", _restamp(doc)).problems if p.startswith(label)]
+
+
+VALLEY_03 = "valley-fold.default.fold"
+GLUED_03 = "papercraft-unfold.glued.crystal.fold"
+CRANK_03 = "card-linkages.crank-rocker.fold"
+CIRCUIT_03 = "paper-circuit-card.card.fold"
+
+
+@pytest.mark.parametrize("name", [GLUED_03, CRANK_03, CIRCUIT_03])
+def test_real_kernel_0_3_joins_mechanisms_and_traces_pass(name):
+    """Kernel 0.3 output that carries glue joins and a fold program (the glued crystal), a
+    rotate mechanism (the crank-rocker) and three trace finishes with pads (the circuit
+    card): the new rules have something real to pass on."""
+    assert check("sheet-document", _k03(name)).ok, check("sheet-document", _k03(name)).problems
+
+
+def test_8_17_presentation_root_face_and_end():
+    doc = _k03(VALLEY_03)
+    doc["pliego:sheets"][0]["presentation"] = {
+        "root_face": 1, "end": {"origin": [0, 0, 10], "rotation": [0, 0, 0, 1]}}
+    assert _rule(doc, "§8.17") == []
+    doc["pliego:sheets"][0]["presentation"]["root_face"] = 2  # the sheet has faces 0 and 1
+    assert any("root_face 2 is not a face of this sheet" in p for p in _rule(doc, "§8.17"))
+    doc["pliego:sheets"][0]["presentation"] = {
+        "end": {"origin": [0, 0, 10], "rotation": [0, 0, 0.5, 1]}}
+    assert any("unit quaternion" in p for p in _rule(doc, "§8.17"))
+
+
+def _keyed(keys=None, **extra) -> dict:
+    doc = _k03(CRANK_03)
+    mech = doc["pliego:mechanisms"][0]
+    if keys is not None:
+        mech["keys"] = keys
+    mech.update(extra)
+    return doc
+
+
+def test_8_19_keyed_mechanisms():
+    good = _keyed([[0, 0], [180, 90], [360, 360]], period=360)
+    assert check("sheet-document", _restamp(good)).ok
+    assert any("increase strictly" in p
+               for p in _rule(_keyed([[0, 0], [0, 90]]), "§8.19"))
+    assert any("more than one period" in p
+               for p in _rule(_keyed([[0, 0], [400, 90]], period=360), "§8.19"))
+    assert any("period needs keys" in p for p in _rule(_keyed(period=360), "§8.19"))
+    doc = _keyed()
+    doc["pliego:mechanisms"][0]["ride"] = "nowhere"
+    assert any("is not a hinge, rotate or translate" in p for p in _rule(doc, "§8.19"))
+
+
+def test_8_19_rides_form_no_cycle():
+    doc = _k03(CRANK_03)
+    a = doc["pliego:mechanisms"][0]
+    b = copy.deepcopy(a)
+    b["id"], b["sheets_moving"] = "turn-rocker", ["rocker"]
+    a["ride"], b["ride"] = "turn-rocker", a["id"]
+    doc["pliego:mechanisms"].append(b)
+    assert any("rides form a cycle" in p for p in _rule(doc, "§8.19"))
+
+
+def _glued_two_steps() -> dict:
+    doc = _k03(GLUED_03)
+    first = doc["pliego:sequence"]["steps"][0]
+    second = copy.deepcopy(first)
+    second.update(id="untie", targets=[], release=[])
+    doc["pliego:sequence"]["steps"].append(second)
+    return doc
+
+
+def test_8_20_active_from_names_a_step_of_the_program():
+    doc = _glued_two_steps()
+    doc["pliego:joins"][0]["active_from"] = "let-go"
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = 1
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = "no-such-step"
+    assert any("is not a step id or index" in p for p in _rule(doc, "§8.20"))
+    doc["pliego:joins"][0]["active_from"] = 2
+    assert any("is not a step id or index" in p for p in _rule(doc, "§8.20"))
+    del doc["pliego:sequence"]
+    doc["pliego:controls"] = [c for c in doc["pliego:controls"] if c["kind"] != "sequence"]
+    assert any("needs a fold program" in p for p in _rule(doc, "§8.20"))
+
+
+def test_8_21_release_joins_once_and_after_activation():
+    doc = _glued_two_steps()
+    doc["pliego:sequence"]["steps"][1]["release_joins"] = ["glue-1"]
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = "untie"  # activated and released at one step
+    assert any("released at or before the step that activates it" in p
+               for p in _rule(doc, "§8.21"))
+    del doc["pliego:joins"][0]["active_from"]
+    doc["pliego:sequence"]["steps"][0]["release_joins"] = ["glue-1"]
+    assert any("already released at step 0" in p for p in _rule(doc, "§8.21"))
+    doc["pliego:sequence"]["steps"][0]["release_joins"] = ["glue-99"]
+    assert any("'glue-99', which is not a join" in p for p in _rule(doc, "§8.21"))
+
+
+def _trace(doc: dict) -> dict:
+    return next(f for f in doc["pliego:finishes"] if f["kind"] == "trace" and f["pads"])
+
+
+def test_8_13_trace_pads_are_unique_and_touch_their_trace():
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    trace["pads"][1]["id"] = trace["pads"][0]["id"]
+    assert any("repeats" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    far = [c + 500 for c in trace["path"][0]]
+    trace["pads"][0]["at"] = far
+    assert any("does not touch its trace" in p for p in _rule(doc, "§8.13"))
+
+
+def test_8_13_trace_relief_zero_length_and_sharp_turns():
+    doc = _k03(CIRCUIT_03)
+    _trace(doc)["depth_mm"] = 0.2
+    assert any("no relief" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    trace["path"] = [trace["path"][0], list(trace["path"][0]), *trace["path"][1:]]
+    assert any("zero length" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    _trace(doc)["path"] = [[10, 10], [60, 10], [12, 12]]  # a hairpin, about 177°
+    assert any("sharper than 120°" in p for p in _rule(doc, "§8.13"))
+
+
+def test_the_new_unverified_rules_are_named():
+    from pliego_spec.document import UNCHECKED_RULES
+
+    assert {"8.15", "8.18", "8.30"} <= set(UNCHECKED_RULES)
+    assert any("trace outline" in r for r in UNCHECKED_RULES)
+
+
+# ── the sheet vocabulary, landed as data (nothing enforces it yet) ────────────
+SHEET_PROCESSES = {"drag_knife", "die_cut", "crease", "score", "perforate", "emboss_deboss",
+                   "foil_stamp", "print"}
+SHEET_MATERIAL_CLASSES = {"paper", "board", "eva-foam", "tissue-paper"}
+
+
+def test_sheet_processes_and_material_classes_are_vocabulary():
+    from hyperobjects_lexicon.fabrication import load_fabrication_vocabulary, vocabulary_keys
+
+    processes = vocabulary_keys("processes")
+    assert SHEET_PROCESSES <= processes
+    assert "laser_2d" in processes  # laser-cut paper is the existing key, not a new one
+    classes = {e["key"]: e for e in load_fabrication_vocabulary("material-classes")["entries"]}
+    assert SHEET_MATERIAL_CLASSES <= set(classes)
+    for key in SHEET_MATERIAL_CLASSES:
+        assert classes[key]["kind"] == "sheet"
+        assert set(classes[key]["processes"]) <= processes
+        assert classes[key]["sources"]
+    assert "laser_2d" in classes["paper"]["processes"]
+
+
+def test_every_sheet_interface_type_is_vocabulary_with_a_term():
+    from hyperobjects_lexicon import load_vocabulary
+
+    schema = hyperobjects_schemas.load("sheet-manifest")
+    types = set(schema["$defs"]["interface"]["properties"]["type"]["enum"])
+    entries = {e["key"]: e for e in load_vocabulary("interfaces")["entries"]
+               if e["repo"] == "pliego"}
+    assert types == set(entries)
+    lexicon = load_lexicon()
+    for key, entry in entries.items():
+        assert entry["role"] == "interface_type" and entry["manifest_enum"] is True
+        assert entry["term"] in lexicon, key
+
+
+def test_the_sheet_pivot_is_the_solid_rivet_both_ways():
+    from hyperobjects_lexicon import equivalences
+
+    pairs = set(equivalences())
+    assert ("pliego/pivot", "yantra4d/rivet_bore") in pairs
+    assert ("fashion-cabinet/custom", "pliego/custom") in pairs
+    assert ("pliego/custom", "yantra4d/custom") in pairs
+
+
+SHEET_PARTS = ("led-3mm", "led-5mm", "coin-cell-cr2032", "brad-round-head-brass",
+               "eyelet-gs-4-4", "elastic-cord-round", "magnet-disc-6x2")
+
+
+def test_paper_electronics_and_fastening_parts_are_in_the_catalog():
+    """§5.30 names cell and LED pads, and the pivot join names a brad or an eyelet; these
+    entries give the names cited facts (data first: no sheet rule reads them yet)."""
+    from hyperobjects_lexicon.fabrication import load_fabrication_vocabulary
+    from hyperobjects_standard_parts import load_part
+
+    sizes = {e["key"]: e for e in load_fabrication_vocabulary("interface-sizes")["entries"]}
+    for key in SHEET_PARTS:
+        part = load_part(key)
+        assert part["sources"] and part["review_status"]["state"] == "generated"
+        for iface in part["interfaces"]:
+            assert sizes[iface["size_key"]]["geometry_type"] == iface["geometry_type"]
+    assert load_part("led-5mm")["interfaces"][0]["symmetry"] == 1  # anode ≠ cathode
+    cell = {i["id"]: i["size_key"] for i in load_part("coin-cell-cr2032")["interfaces"]}
+    assert cell["plus_face"] != cell["minus_face"]  # a reversed cell cannot mate

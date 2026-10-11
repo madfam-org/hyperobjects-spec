@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "paper-hinge",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "paper hinge",
+    "es": "bisagra de papel",
+    "fr": "charnière en papier",
+    "pt": "dobradiça de papel"
+  },
+  "definition": {
+    "en": "A fold or score line about which two panels of a sheet turn, or a strip that links two parts so that one swings on the other. It has no pin: the paper itself bends, and its stiffness and crease memory act as the hinge's spring.",
+    "es": "Una línea de doblez o de hendido alrededor de la cual giran dos paneles de una hoja, o una tira que une dos piezas para que una se mueva sobre la otra. No lleva pasador: el propio papel se dobla, y su rigidez y la memoria del pliegue hacen de resorte.",
+    "fr": "Une ligne de pli ou de rainage autour de laquelle tournent deux panneaux d'une feuille, ou une bande qui relie deux pièces pour que l'une pivote sur l'autre. Elle n'a pas d'axe : c'est le papier lui-même qui plie, et sa raideur et la mémoire du pli font office de ressort.",
+    "pt": "Uma linha de dobra ou de vinco em torno da qual rodam dois painéis de uma folha, ou uma tira que liga duas peças para que uma gire sobre a outra. Não tem pino: é o próprio papel que dobra, e a sua rigidez e a memória do vinco fazem de mola."
+  },
+  "aliases": [
+    {
+      "name": "hinge",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (neutral polarity): flap hinges, cover hinges, score-line hinges of a linkage."
+    }
+  ],
+  "see_also": [
+    "score",
+    "valley-fold",
+    "mountain-fold",
+    "gutter"
+  ],
+  "constraints": "A paper hinge wears at the crease: every cycle opens and closes the same fibres, so a hinge that must work many times wants a long-fibred stock, a scored rather than a cut line, or a cloth reinforcement.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §4 — the crease and score treatments are hinges with crease stiffness and plastic memory"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

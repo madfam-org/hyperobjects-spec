@@ -1,0 +1,303 @@
+{
+  "spec_version": 1,
+  "vocabulary": "processes",
+  "description": "Supplement of the processes vocabulary: the sheet processes the Pliego platform designs for (paper, board, foam and tissue). Cutting a profile with a drag knife or a die, creasing, partial-depth scoring and perforating fold and tear lines, embossing and debossing, hot-foil stamping and printing. Laser-cut paper is the existing `laser_2d`, not a new key: the material class says which processes it takes. No Cotiza code is written, because Cotiza quotes none of these yet. Merged into processes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (K3 lane, 2026-10-10) for the sheet commons. No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date. The crease/score split follows the Pliego document's treatments; trade usage of 'score' varies and is a ruling a reviewer may revisit."
+  },
+  "entries": [
+    {
+      "key": "drag_knife",
+      "label": {
+        "en": "Drag-knife cutting",
+        "es": "Corte con cuchilla de arrastre",
+        "fr": "Découpe à lame traînante",
+        "pt": "Corte com faca de arrasto"
+      },
+      "definition": {
+        "en": "Cutting sheet stock with a small blade that swivels freely and trails behind the point where it is held, so it follows the drawn path. A cutting plotter or craft cutter does this, and with the same machine it can also score, perforate or draw.",
+        "es": "Corte de material en lámina con una cuchilla pequeña que gira libremente y va arrastrada detrás del punto por donde se sujeta, de modo que sigue el trazo. Lo hace un plóter de corte o una cortadora de manualidades, que con la misma máquina también puede marcar pliegues, perforar o dibujar.",
+        "fr": "Découpe d'une feuille avec une petite lame qui pivote librement et traîne derrière son point d'appui, si bien qu'elle suit le tracé. C'est le travail d'un traceur de découpe ou d'une machine de découpe de loisirs, qui peut aussi rainer, perforer ou dessiner.",
+        "pt": "Corte de material em folha com uma pequena lâmina que gira livremente e é arrastada atrás do ponto onde está presa, de modo que segue o traçado. É o que faz um plotter de recorte ou uma cortadora de artesanato, que com a mesma máquina também pode vincar, picotar ou desenhar."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "cutting",
+      "sources": [
+        {
+          "title": "Pliego HPGL export for pen plotters and drag-knife cutters (packages/kernel/src/pliego/export/hpgl.py)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/packages/kernel/src/pliego/export/hpgl.py",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "Pliego writes HPGL for pen plotters and drag-knife cutters, one pen per pass: score, fold lines, perforation, then cut (inner features before outer outlines)"
+        },
+        {
+          "title": "Vinyl and Paper Cutting, Scoring and Perforating (Digital Union Prototyping Studio)",
+          "url": "https://learningspaces.osu.edu/digital-unions/vinyl-and-paper-cutting-scoring-and-perforating",
+          "publisher": "The Ohio State University",
+          "accessed": "2026-10-10",
+          "supports": "a craft cutting machine cuts paper, cardstock and kraft board, and with accessories also scores and perforates"
+        }
+      ]
+    },
+    {
+      "key": "die_cut",
+      "label": {
+        "en": "Die cutting",
+        "es": "Troquelado",
+        "fr": "Découpe à la forme",
+        "pt": "Corte e vinco (faca)"
+      },
+      "definition": {
+        "en": "Cutting a sheet to a shaped blank in one press stroke with a die: steel rules set in a board cut, crease and perforate together. It is how cartons, corrugated boxes and printed cards are converted in quantity.",
+        "es": "Corte de una hoja en una pieza con forma, de un solo golpe de prensa, con un troquel: las cuchillas de acero montadas en una base cortan, hienden y perforan a la vez. Así se transforman en serie las cajas plegadizas, las cajas de cartón corrugado y las tarjetas impresas.",
+        "fr": "Découpe d'une feuille en une pièce profilée d'un seul coup de presse, avec une forme de découpe : les filets d'acier montés sur une planche coupent, rainent et perforent ensemble. C'est ainsi qu'on transforme en série les étuis, les caisses en carton ondulé et les cartes imprimées.",
+        "pt": "Corte de uma folha numa peça com forma, num único golpe de prensa, com uma faca de corte: as lâminas de aço montadas numa base cortam, vincam e picotam ao mesmo tempo. É assim que se convertem em série cartuchos, caixas de papelão ondulado e cartões impressos."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "cutting",
+      "sources": [
+        {
+          "title": "Die cutting (web)",
+          "url": "https://en.wikipedia.org/wiki/Die_cutting_(web)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "a die shears paper, paperboard and corrugated fibreboard; steel-rule dies combine cutting and creasing rules in one pass; rotary dies also perforate and crease; used for boxes and card blanks"
+        },
+        {
+          "title": "Pliego dieline export profile (packages/kernel/src/pliego/export/dieline.py)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/packages/kernel/src/pliego/export/dieline.py",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "Pliego's dieline export profile draws cut, crease, half-cut and perforation layers with spot colours for packaging prepress"
+        }
+      ]
+    },
+    {
+      "key": "crease",
+      "label": {
+        "en": "Creasing",
+        "es": "Hendido",
+        "fr": "Rainage",
+        "pt": "Vincagem"
+      },
+      "definition": {
+        "en": "Pressing a line into the sheet with a blunt rule, without cutting it, so the fibres give way and the sheet folds cleanly along it. Board needs it before every fold; the flutes of corrugated board crush along it.",
+        "es": "Marcar una línea en la hoja presionándola con una regla roma, sin cortarla, para que las fibras cedan y la hoja doble limpiamente por ella. El cartón la necesita antes de cada doblez; en el corrugado, las ondas se aplastan a lo largo de ella.",
+        "fr": "Imprimer une ligne dans la feuille avec un filet émoussé, sans la couper, pour que les fibres cèdent et que la feuille se plie net le long de cette ligne. Le carton en a besoin avant chaque pli ; les cannelures du carton ondulé s'écrasent le long de la ligne.",
+        "pt": "Marcar uma linha na folha pressionando-a com uma régua romba, sem a cortar, para que as fibras cedam e a folha dobre de forma limpa ao longo dela. O cartão precisa dela antes de cada dobra; no ondulado, as ondas esmagam-se ao longo da linha."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "forming",
+      "term": "score",
+      "sources": [
+        {
+          "title": "Die cutting (web)",
+          "url": "https://en.wikipedia.org/wiki/Die_cutting_(web)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "steel-rule dies combine cutting and creasing rules; rotary dies also crease"
+        },
+        {
+          "title": "Pliego sheet document v1, §4 Edge treatment",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#4-edge-treatment",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `crease` treatment is a hinge with crease stiffness that carries plastic memory, exported as a fold line (mountain or valley style)"
+        }
+      ],
+      "notes": "Trade usage differs: 'scoring' often means creasing in North American print shops. In the Pliego document `crease` is a pressed fold line and `score` is the partial-depth pass; this vocabulary follows that split."
+    },
+    {
+      "key": "score",
+      "label": {
+        "en": "Scoring (partial-depth cut)",
+        "es": "Semicorte de pliegue",
+        "fr": "Coupe mi-chair de pliage",
+        "pt": "Meio-corte de dobra"
+      },
+      "definition": {
+        "en": "Cutting part of the way into the sheet along a fold line, with a blade or a laser at reduced power, so a thick or stiff sheet folds exactly there. A scored fold is weaker than a creased one, and the score pass runs before the cut pass.",
+        "es": "Cortar una parte del espesor de la hoja a lo largo de la línea de doblez, con cuchilla o con láser a potencia reducida, para que una hoja gruesa o rígida doble justo ahí. Un pliegue así es más débil que uno hendido, y esta pasada se hace antes que la de corte.",
+        "fr": "Entailler une partie de l'épaisseur de la feuille le long de la ligne de pli, à la lame ou au laser à puissance réduite, pour qu'une feuille épaisse ou raide se plie exactement là. Un tel pli est plus faible qu'un pli rainé, et cette passe précède la passe de découpe.",
+        "pt": "Cortar parte da espessura da folha ao longo da linha de dobra, com lâmina ou laser em potência reduzida, para que uma folha grossa ou rígida dobre exatamente ali. Uma dobra assim é mais fraca do que uma vincada, e esta passagem é feita antes da de corte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "cutting",
+      "term": "score",
+      "sources": [
+        {
+          "title": "Pliego sheet document v1, §4 Edge treatment",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#4-edge-treatment",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `score` treatment is a hinge with stiffness × score_factor and a lower yield, exported as a score pass (blade or laser at reduced power)"
+        },
+        {
+          "title": "Pliego HPGL export for pen plotters and drag-knife cutters (packages/kernel/src/pliego/export/hpgl.py)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/packages/kernel/src/pliego/export/hpgl.py",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the score pass is plotted first (pen 1), before fold lines, perforation and cut"
+        }
+      ],
+      "notes": "Distinct from `crease` (pressed, no cut) on purpose, as the Pliego document distinguishes the `crease` and `score` treatments. A kiss cut through one ply of a sticker sheet is the document's `halfcut`, not this."
+    },
+    {
+      "key": "perforate",
+      "label": {
+        "en": "Perforating",
+        "es": "Perforado (trepado)",
+        "fr": "Perforation (prédécoupe)",
+        "pt": "Picotagem"
+      },
+      "definition": {
+        "en": "Cutting a dashed line of short cuts separated by uncut bridges, so a piece tears away cleanly or a fold gives way along it. The cut and bridge lengths are a property of the stock.",
+        "es": "Cortar una línea discontinua de cortes cortos separados por puentes sin cortar, para que una pieza se desprenda limpiamente o un doblez ceda por ella. Las longitudes de corte y de puente dependen del papel.",
+        "fr": "Découper une ligne pointillée de courtes coupes séparées par des ponts non coupés, pour qu'une pièce se détache net ou qu'un pli cède le long de la ligne. Les longueurs de coupe et de pont dépendent du support.",
+        "pt": "Cortar uma linha tracejada de cortes curtos separados por pontes sem corte, para que uma peça se destaque de forma limpa ou uma dobra ceda ao longo dela. Os comprimentos de corte e de ponte dependem do papel."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "cutting",
+      "term": "perforation",
+      "sources": [
+        {
+          "title": "Pliego sheet document v1, §4 Edge treatment",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#4-edge-treatment",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `perforation` treatment is a hinge with stiffness × perf_factor that may tear under strain, exported as a dashed cut whose cut and bridge lengths come from the stock"
+        },
+        {
+          "title": "Die cutting (web)",
+          "url": "https://en.wikipedia.org/wiki/Die_cutting_(web)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "rotary die cutters make perforations"
+        },
+        {
+          "title": "Vinyl and Paper Cutting, Scoring and Perforating (Digital Union Prototyping Studio)",
+          "url": "https://learningspaces.osu.edu/digital-unions/vinyl-and-paper-cutting-scoring-and-perforating",
+          "publisher": "The Ohio State University",
+          "accessed": "2026-10-10",
+          "supports": "a craft cutting machine perforates with an accessory"
+        }
+      ]
+    },
+    {
+      "key": "emboss_deboss",
+      "label": {
+        "en": "Embossing and debossing",
+        "es": "Gofrado en relieve y en hueco",
+        "fr": "Gaufrage en relief et en creux",
+        "pt": "Relevo seco e baixo-relevo"
+      },
+      "definition": {
+        "en": "Pressing a sheet between a matched pair of dies, one raised and one recessed, so an image stands up from the surface (embossed) or sinks into it (debossed). Without ink or foil it is blind embossing.",
+        "es": "Prensar la hoja entre un par de troqueles que encajan, uno en relieve y otro en hueco, para que una imagen sobresalga de la superficie (relieve) o se hunda en ella (hueco). Sin tinta ni película metálica se llama gofrado en seco.",
+        "fr": "Presser la feuille entre deux matrices assorties, l'une en relief et l'autre en creux, pour qu'une image ressorte de la surface (gaufrage en relief) ou s'y enfonce (en creux). Sans encre ni film, c'est un gaufrage à sec.",
+        "pt": "Prensar a folha entre um par de matrizes que encaixam, uma em relevo e outra rebaixada, para que uma imagem sobressaia da superfície (relevo) ou se afunde nela (baixo-relevo). Sem tinta nem película é o relevo seco."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "forming",
+      "sources": [
+        {
+          "title": "Paper embossing",
+          "url": "https://en.wikipedia.org/wiki/Paper_embossing",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "embossed patterns are raised and debossed ones sunken; two dies, one raised and one recessed, fit together; blind embossing is raised without colour"
+        },
+        {
+          "title": "Pliego sheet document v1, §5.9–§5.11 (dielines, finishes, artwork)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#510-pliegofinishes--pressing-and-burning",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `emboss` and `deboss` finish kinds record a relief height or recess depth in (0, 5] mm and a profile; the dieline export draws the emboss die and its counter as plates"
+        }
+      ]
+    },
+    {
+      "key": "foil_stamp",
+      "label": {
+        "en": "Hot-foil stamping",
+        "es": "Estampado en caliente (hot stamping)",
+        "fr": "Marquage à chaud",
+        "pt": "Hot stamping (estampagem a quente)"
+      },
+      "definition": {
+        "en": "Transferring a metallised or pigmented foil from its carrier onto the sheet with a heated die under pressure, so the foil bonds only where the die touches. Used on cards, labels, book covers and packaging.",
+        "es": "Transferir una película metalizada o pigmentada desde su soporte a la hoja con un troquel caliente y presión, de modo que la película se adhiere solo donde toca el troquel. Se usa en tarjetas, etiquetas, tapas de libros y empaques.",
+        "fr": "Transférer un film métallisé ou pigmenté de son support sur la feuille avec une matrice chauffée et de la pression, de sorte que le film n'adhère que là où la matrice appuie. On l'emploie sur les cartes, les étiquettes, les couvertures de livres et les emballages.",
+        "pt": "Transferir uma película metalizada ou pigmentada do seu suporte para a folha com uma matriz aquecida e pressão, de modo que a película adere apenas onde a matriz toca. Usa-se em cartões, rótulos, capas de livros e embalagens."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "finishing",
+      "sources": [
+        {
+          "title": "Hot stamping",
+          "url": "https://en.wikipedia.org/wiki/Hot_stamping",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "a heated die presses a metallised or painted roll-leaf carrier onto the product; heat and pressure bond the foil; used on business cards, greeting cards, labels, book covers and packaging"
+        },
+        {
+          "title": "Pliego sheet document v1, §5.9–§5.11 (dielines, finishes, artwork)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#510-pliegofinishes--pressing-and-burning",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `foil` finish kind (depth 0) records a colour and a finish (metallic, matte, gloss, holographic); the dieline export draws a foil plate"
+        }
+      ]
+    },
+    {
+      "key": "print",
+      "label": {
+        "en": "Printing",
+        "es": "Impresión",
+        "fr": "Impression",
+        "pt": "Impressão"
+      },
+      "definition": {
+        "en": "Putting ink or toner on the sheet's front or back before it is cut and folded, with artwork that runs past the trim line (bleed) and keeps clear of a safe area inside it.",
+        "es": "Poner tinta o tóner en el frente o el reverso de la hoja antes de cortarla y doblarla, con un arte que rebasa la línea de corte (sangrado) y respeta una zona de seguridad por dentro.",
+        "fr": "Déposer de l'encre ou du toner au recto ou au verso de la feuille avant de la découper et de la plier, avec une illustration qui déborde du trait de coupe (fond perdu) et respecte une zone de sécurité à l'intérieur.",
+        "pt": "Aplicar tinta ou toner na frente ou no verso da folha antes de a cortar e dobrar, com uma arte que ultrapassa a linha de corte (sangria) e respeita uma área de segurança no interior."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "family": "finishing",
+      "sources": [
+        {
+          "title": "Bleed (printing)",
+          "url": "https://en.wikipedia.org/wiki/Bleed_(printing)",
+          "publisher": "Wikipedia",
+          "accessed": "2026-10-10",
+          "supports": "bleed is printing that goes beyond the edge where the sheet will be trimmed"
+        },
+        {
+          "title": "Pliego sheet document v1, §5.9–§5.11 (dielines, finishes, artwork)",
+          "url": "https://github.com/madfam-org/pliego/blob/2f85906f16eeacec95c319165e8466427211d279/docs/spec/v1/sheet-document.md#510-pliegofinishes--pressing-and-burning",
+          "publisher": "madfam-org/pliego",
+          "accessed": "2026-10-10",
+          "supports": "the `pliego:artwork` and `pliego:dielines` blocks record a sheet's printed art, bleed and safe areas for print layout"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "spec_version": 4,
+  "id": "glue-zone",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "glue zone",
+    "es": "zona de pegado",
+    "fr": "zone d'encollage",
+    "pt": "área de colagem"
+  },
+  "definition": {
+    "en": "The area of a piece's surface where a glue flap, or another piece, is glued down: the female side of a glue flap. Its outline tells the maker where the adhesive goes and where the flap must land.",
+    "es": "El área de la superficie de una pieza donde se pega una pestaña de pegado u otra pieza: la parte hembra de la pestaña. Su contorno indica dónde va el adhesivo y dónde debe asentarse la pestaña.",
+    "fr": "La zone de la surface d'une pièce où l'on colle une patte de collage ou une autre pièce : le côté femelle de la patte. Son contour indique où va la colle et où la patte doit se poser.",
+    "pt": "A área da superfície de uma peça onde se cola uma aba de colagem ou outra peça: o lado fêmea da aba. O seu contorno indica onde vai o adesivo e onde a aba deve assentar."
+  },
+  "aliases": [
+    {
+      "name": "glue_zone",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (female); it receives a glue_flap."
+    }
+  ],
+  "see_also": [
+    "glue-flap",
+    "gutter"
+  ],
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §5.3 and §5.9 — glue joins with a region on sheet a and glue zones on dieline panels"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

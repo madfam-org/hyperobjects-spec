@@ -1,0 +1,115 @@
+{
+  "spec_version": 1,
+  "key": "brad-round-head-brass",
+  "category": "fastener",
+  "name": {
+    "en": "Brass paper fastener (brad), round head",
+    "es": "Encuadernador de patas de latón (broche mariposa), cabeza redonda",
+    "fr": "Attache parisienne en laiton, tête ronde",
+    "pt": "Colchete latonado (bailarina), cabeça redonda"
+  },
+  "description": {
+    "en": "A two-prong paper fastener: a round domed head on a split shank whose self-piercing point goes through stacked sheets and opens flat behind them. A single brad is the pivot of a sheet join (volvelles, rotating arms); it mates the stack's hole by its shank.",
+    "es": "Un encuadernador de dos patas: una cabeza redonda abombada sobre un vástago partido cuya punta autoperforante atraviesa las hojas apiladas y se abre en plano por detrás. Un solo encuadernador es el pivote de una unión entre hojas (volvelles, brazos giratorios); se une al barreno de la pila por su vástago.",
+    "fr": "Une attache parisienne à deux pattes : une tête ronde bombée sur une tige fendue dont la pointe autoperforante traverse les feuilles empilées et s'ouvre à plat derrière elles. Une seule attache sert de pivot à une liaison entre feuilles (volvelles, bras tournants) ; elle s'accouple au trou de la pile par sa tige.",
+    "pt": "Um colchete de duas pernas: uma cabeça redonda abaulada sobre uma haste fendida cuja ponta autoperfurante atravessa as folhas empilhadas e se abre por trás. Um só colchete é o pivô de uma união entre folhas (volvelles, braços giratórios); acopla ao furo da pilha pela haste."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "ACCO solid brass round head fastener (71505, 71507)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "ACCO solid brass round head fasteners, 1-1/4 in, 100/box (71505) — retailer listing; the maker's page was not reached",
+      "url": "https://www.staples.com/acco-solid-brass-round-head-fasteners-1-1-4-brass-100-box-71505/product_ACC71505",
+      "publisher": "Staples (listing ACCO Brands)",
+      "accessed": "2026-10-10",
+      "supports": "round head fastener; length 1.25 in (1-1/4 in size); 15/32 in head diameter"
+    },
+    {
+      "title": "ACCO solid brass round head fasteners, 2 in, 100/box (71507) — retailer listing; the maker's page was not reached",
+      "url": "https://www.staples.com/acco-solid-brass-round-head-fasteners-2-brass-100-box-71507/product_ACC71507",
+      "publisher": "Staples (listing ACCO Brands)",
+      "accessed": "2026-10-10",
+      "supports": "round head fastener; 2 in shank; length 2.0 in; 15/32 in head diameter; self-piercing points; solid brass"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the head's underside, on the shank's axis. +z runs along the split shank to its point at z = shank_length_mm; the head lies on the −z side. +x is an arbitrary radial reference: the brad turns freely in a round hole, so the interface has continuous symmetry.",
+  "dimensions": {
+    "head_diameter": {
+      "value": 11.906,
+      "unit": "mm",
+      "source": 0,
+      "note": "15/32 in as listed for both sizes (source 1 too), × 25.4 (derived)"
+    },
+    "shank_length_min": {
+      "value": 31.75,
+      "unit": "mm",
+      "source": 0,
+      "note": "the 1-1/4 in size, × 25.4 (derived)"
+    },
+    "shank_length_max": {
+      "value": 50.8,
+      "unit": "mm",
+      "source": 1,
+      "note": "the 2 in size, × 25.4 (derived)"
+    }
+  },
+  "parameters": [
+    {
+      "id": "shank_length_mm",
+      "type": "number",
+      "label": {
+        "en": "Shank length",
+        "es": "Longitud del vástago",
+        "fr": "Longueur de la tige",
+        "pt": "Comprimento da haste"
+      },
+      "default": 31.75,
+      "min": 31.75,
+      "max": 50.8,
+      "unit": "mm",
+      "source": 0,
+      "note": "The cited sizes are 1-1/4 in (31.75) and 2 in (50.8); use one of those. The default, the shorter, is a catalog convention for a sheet pivot."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "shank",
+      "label": {
+        "en": "Shank through the sheets",
+        "es": "Vástago a través de las hojas",
+        "fr": "Tige à travers les feuilles",
+        "pt": "Haste através das folhas"
+      },
+      "geometry_type": "socket",
+      "size_key": "paper-brad-shank",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shank enters the stack's hole and the head bears on the top sheet. The normal points along the shank toward the stack, as bhcs-m5x10's head seat. Symmetry 0: the brad is a pivot, free to turn (Pliego join 'pivot')."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (K3 lane, 2026-10-10); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "Neither listing gives the shank's width or thickness, the head's height or the hole a brad needs (its point pierces paper); they are not written, so the entry has no envelope. ACCO's brass-plated line lists a 0.38 in head on its 1 in size (a different part). The Spanish name varies by country: 'encuadernador' in Spain, 'broche mariposa' in parts of Latin America."
+}

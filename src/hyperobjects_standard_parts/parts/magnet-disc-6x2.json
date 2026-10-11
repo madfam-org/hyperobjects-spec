@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "key": "magnet-disc-6x2",
+  "category": "magnet",
+  "name": {
+    "en": "Neodymium disc magnet 6 × 2 mm",
+    "es": "Imán de disco de neodimio de 6 × 2 mm",
+    "fr": "Aimant disque en néodyme 6 × 2 mm",
+    "pt": "Ímã de disco de neodímio 6 × 2 mm"
+  },
+  "description": {
+    "en": "A nickel-plated NdFeB (N45) disc magnet, 6 mm across and 2 mm thick, magnetised through its thickness so its two flat faces are its poles. Set in a pocket cut through card, it closes a box lid or a card flap against a second magnet or a steel disc.",
+    "es": "Un imán de disco de NdFeB (N45) niquelado, de 6 mm de diámetro y 2 mm de espesor, magnetizado a través del espesor, de modo que sus dos caras planas son sus polos. Alojado en un hueco cortado en cartulina, cierra la tapa de una caja o la solapa de una tarjeta contra otro imán o un disco de acero.",
+    "fr": "Un aimant disque en NdFeB (N45) nickelé, de 6 mm de diamètre et 2 mm d'épaisseur, aimanté dans l'épaisseur, si bien que ses deux faces planes sont ses pôles. Logé dans une poche découpée dans le carton, il ferme un couvercle de boîte ou un rabat de carte contre un second aimant ou un disque d'acier.",
+    "pt": "Um ímã de disco de NdFeB (N45) niquelado, com 6 mm de diâmetro e 2 mm de espessura, magnetizado através da espessura, de modo que as duas faces planas são os seus polos. Alojado num rebaixo cortado em cartão, fecha a tampa de uma caixa ou a aba de um cartão contra outro ímã ou um disco de aço."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "supermagnete S-06-02-N disc magnet",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Disc magnet Ø 6 mm, height 2 mm, neodymium, N45, nickel-plated (S-06-02-N)",
+      "url": "https://www.supermagnete.de/eng/disc-magnets-neodymium/disc-magnet-6mm-2mm_S-06-02-N",
+      "publisher": "supermagnete (Webcraft GmbH)",
+      "accessed": "2026-10-10",
+      "supports": "diameter 6 mm; height 2 mm; tolerance ±0.1 mm; NdFeB, grade N45; Ni-Cu-Ni plating; magnetised axially (parallel to the height); strength approx. 740 g (approx. 7.26 N); displacement force approx. 150 g (1.46 N); max. working temperature 80 °C; weight 0.43 g"
+    }
+  ],
+  "frame_convention": "Origin at the centre of face A, on the axis. +z runs through the disc (the magnetisation direction) to face B at z = 2. Which face is the north pole is not marked by the source, so the faces are A and B. +x is an arbitrary radial reference: the disc is round, so every interface has continuous symmetry.",
+  "dimensions": {
+    "diameter": {
+      "value": 6,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1"
+    },
+    "height": {
+      "value": 2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "along the magnetisation (axial)"
+    },
+    "holding_force": {
+      "value": 740,
+      "unit": "g",
+      "source": 0,
+      "note": "approx., in the maker's gram-force (approx. 7.26 N); not a mass"
+    },
+    "mass": {
+      "value": 0.43,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "face_a",
+      "label": {
+        "en": "Pole face A",
+        "es": "Cara polar A",
+        "fr": "Face polaire A",
+        "pt": "Face polar A"
+      },
+      "geometry_type": "surface",
+      "size_key": "disc-magnet-6mm-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: a pole face meets another magnet's face or a steel striker face to face. Attraction or repulsion depends on the poles, which this key does not model."
+    },
+    {
+      "id": "face_b",
+      "label": {
+        "en": "Pole face B",
+        "es": "Cara polar B",
+        "fr": "Face polaire B",
+        "pt": "Face polar B"
+      },
+      "geometry_type": "surface",
+      "size_key": "disc-magnet-6mm-face",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          2
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: face B, 2 mm along the axis, as face A."
+    },
+    {
+      "id": "body",
+      "label": {
+        "en": "Disc body",
+        "es": "Cuerpo del disco",
+        "fr": "Corps du disque",
+        "pt": "Corpo do disco"
+      },
+      "geometry_type": "pocket",
+      "size_key": "disc-magnet-6x2-pocket",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the disc goes into a Ø6 pocket, face A first onto the pocket's floor. The pocket's clearance is the host's design."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (K3 lane, 2026-10-10); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A single maker's part read at its product page. The maker's maximum working temperature (80 °C) and displacement force (approx. 150 g) are stated in the source only. Magnets of other sizes are separate entries.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 3,
+        "length": 2,
+        "from": [
+          "diameter",
+          "height"
+        ],
+        "note": "the disc"
+      }
+    ],
+    "note": "The disc at its nominal size; the ±0.1 tolerance is not added."
+  }
+}

@@ -6,6 +6,134 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The keystone follows Pliego kernel 0.3.0 (package 0.13.0)
+
+Pliego main moved to kernel 0.3.0 (madfam-org/pliego#18, #19, #22, #23). The keystone
+follows it. Nothing in the solid or soft commons moves: no GOC-1 vector, AAS id, assembly
+digest or golden changes. The version is 0.13.0, the next on main; the held #62, which also claimed 0.13.0, takes the next version when it lands.
+
+#### Changed: the sheet-document digest is spec §5.15 (RFC 8785), not GOC-1
+
+- **`pliego_spec.canonical`** (new): `canonical_bytes`, `es_number` and
+  `sheet_document_digest`. The serialisation is RFC 8785 (JCS), as Pliego's
+  `pliego.canonical_bytes` writes it: numbers spelled as ECMAScript's
+  `Number.prototype.toString` (`1.5e-05` → `0.000015`, `1e-07` → `1e-7`, `1e+16` →
+  `10000000000000000`, `1e21` → `1e+21`), keys sorted by UTF-16 code units, and lone
+  surrogates, NaN, infinities and integers beyond 2^53 refused.
+  `pliego_spec.document.document_digest` (rule 10, §8.10) now hashes it.
+- **Why it is its own function.** GOC-1's `canonical_json` spells floats with Python's
+  `repr` and sorts by code point. Its golden vectors, the AAS content ids, the assembly
+  digest and the standard-parts entry digests all hash those bytes, so it is unchanged.
+  The two forms agree only when every non-integral number lies in 1e-4 ≤ |x| < 1e16 and
+  every key stays in the BMP.
+- **The shared vector** (Pliego `packages/kernel/tests/fixtures/digest_vector.json`, copied
+  byte for byte and blob-pinned) now passes: `sha256:1c9d6a6a…`. GOC-1 gives `cf5240c2…`
+  for it.
+- **Fixtures.** `sheet-documents/kernel-0.3/` holds the same six documents re-rendered by
+  kernel 0.3.0 (pliego `2f85906`, commons `ddc3ed3`), and CI checks them. `kernel-0.2/`
+  is kept unmodified as the record of the change. Its digests are GOC-1. Three of its six
+  files carry a number below 1e-4, so they now fail rule 10 and nothing else, exactly as
+  in Pliego's own `verify`. The hand-written `valley-fold.fold` is re-stamped.
+
+#### Changed: the vendored contracts follow `pliego@2f85906` (kernel 0.3.0)
+
+- **Re-vendored** (its own commit): `sheet-document.schema.json` gains a sheet's
+  `presentation` (§5.16, pliego#19), mechanism `keys`, `period` and `ride`, join
+  `active_from` and step `release_joins` (§5.18–§5.20, pliego#18), and the `trace` finish
+  with `material`, `width_mm`, `path` and `pads` (§5.30, pliego#23). `stock-card` is
+  unchanged. `pliego.lock.json` and `VENDORED.md` are re-pinned.
+- **New structural checks** (`pliego_spec.document_engine`, following the kernel's own
+  code at `2f85906`). Each is a failure, as every sheet rule is:
+  - checked: rule 17 (`presentation.root_face` is a face of its sheet; `end` has a finite
+    origin and a unit quaternion);
+  - checked: rule 19 (`keys` only on hinge, rotate, leaf, translate and slide, strictly
+    increasing, within the travel; `period` > 0, only with keys, spanning them; `ride`
+    names a hinge, rotate or translate mechanism, and rides form no cycle);
+  - checked: rule 20 (`active_from` only on glue, pivot, string and pin joins of a
+    document with a fold program, naming one of its step ids or indexes);
+  - checked: rule 21 (`release_joins` names an existing glue, pivot, string or pin join,
+    releases it at most once, and only at a step after the one that activates it);
+  - checked: §5.30 trace records, the part of rule 13 that needs no polygon (`depth_mm`
+    0, no zero-length segment, no turn sharper than 120°, unique pad ids, every pad
+    touching its trace);
+  - NOT verified, and printed with every verdict: a trace's `region` being its stroked
+    path and the path not crossing itself, rule 15 (a kernel warning), rule 18 (printed
+    art sources) and rule 30 (circuit nets).
+- **Fixtures.** Three more kernel-0.3 documents: glue joins with a fold program, a rotate
+  mechanism and three traces with pads. CI checks all nine.
+
+#### Whole-commons document check (2026-10-10)
+
+`scripts/check_sheet_commons.py` (new) asks a Pliego checkout's kernel to render every
+mode and preset of every sheet cartridge, then runs `check_document` on each document.
+It is run by hand: CI has no Pliego checkout. Against Pliego main `2f85906` (kernel
+0.3.0) and sheet-hyperobjects main `ddc3ed3`:
+
+```
+check_sheet_commons: cartridges=139 modes=196 documents=732 failures=9 kernel_errors=0
+```
+
+Every mode wrote its default document, and every kernel verify line says `errors=0`. The
+9 failures are one real document problem, not a keystone bug: `curved-crease-sculpture`
+(6 documents) and `pleated-hypar` (3) write a `segmentation` key into `pliego:meta`.
+Pliego's own schema refuses it (meta is closed, §5.7), and the kernel reports it as the
+rule 16 warning `meta_unknown_key` ("put cartridge data in params or step notes"). The
+fix belongs in the commons. The kernel also warns on rule 15
+(`mechanism_moves_physical`) for the 3 `tulip` documents. The keystone does not check
+rule 15 and says so.
+
+#### Added: the sheet commons' vocabulary, as data (nothing enforces it yet)
+
+Landed before any rule reads it (COMMONS_VOCABULARY.md, "land the data before enforcing
+it"). No manifest check, membership rule or verdict changes. Every entry is a
+`generated` draft with cited sources; Spanish is the bar a reviewer should read first.
+
+- **Processes** (supplement `processes.sheet.json`): `drag_knife`, `die_cut`, `crease`,
+  `score` (the partial-depth pass, kept apart from `crease` as the Pliego document keeps
+  the two treatments apart), `perforate`, `emboss_deboss`, `foil_stamp`, `print`.
+  Laser-cut paper is the existing `laser_2d`, not a new key. No Cotiza code is written,
+  because Cotiza quotes none of these yet. The schema's process `family` gains `forming`
+  and `finishing`.
+- **Material classes** (supplement `material-classes.sheet.json`, kind `sheet`): `paper`,
+  `board` (solid and corrugated), `eva-foam`, `tissue-paper`. Each lists only the
+  processes its sources back. `cards` is left out: no Pliego stock card is in the
+  bundled slug snapshot yet.
+- **Interfaces** (`interfaces.json`): the sheet manifest's 11 interface types (`tab`,
+  `slot`, `glue_flap`, `glue_zone`, `hinge`, `spine`, `gutter`, `page_edge`, `pivot`,
+  `track`, `custom`) as `pliego` entries, counted at sheet-hyperobjects `ddc3ed3`.
+  `pliego/pivot` is `equivalent_to` the solid `yantra4d/rivet_bore` (a new, provisional
+  `interface_id` entry, kept for that equivalence), and `pliego/custom` joins the
+  `custom` equivalence on both other sides. No soft or solid entry is an eyelet, so the
+  eyelet half of "rivet/eyelet" has no edge. `scripts/refresh_vocabulary_counts.py`
+  gains an optional `--sheet-hyperobjects`; re-run at the captured revs it reports
+  `changed=0`.
+- **Lexicon** (8 new `sheet-folding` terms, contract 4): `paper-hinge`, `pivot-joint`,
+  `tab-and-slot`, `glue-flap`, `glue-zone`, `slide-track`, `book-spine`, `page-edge`.
+  Every interface key two or more cartridges write must have a term, and these do.
+- **Standard parts** (7 entries, 11 size keys in `interface-sizes.sheet-parts.json`):
+  `led-3mm`, `led-5mm`, `coin-cell-cr2032`, `brad-round-head-brass`, `eyelet-gs-4-4`,
+  `elastic-cord-round` and `magnet-disc-6x2`. The `category` enum gains `led`,
+  `battery`, `magnet` and `cord`. The catalog grows from 37 parts and 109 interfaces to
+  44 and 123.
+- **Domain**: the sheet manifest's `hyperobject.domain` gains `paper-electronics`. No
+  cartridge uses it yet: `paper-circuit-card` is `stationery`, and moving it is the
+  commons' call.
+
+#### Added: the sheet commons in the reader
+
+- `pliego` joins the reader's `REPOS` (third, after the solid and soft commons). Nav,
+  home page, language table and `reader_status` iterate the commons instead of naming two.
+- `catalogs/pliego-catalog.snapshot.json` (new): the 139 sheet-hyperobjects manifests at
+  `ddc3ed3` with their article frontmatter. Every entry has a quadrilingual name (the
+  article title) and summary, the domain as its group, facts read from the manifest, the
+  interfaces, and the paths of the manifest and of the article (`article_path`). The
+  article body is linked, never copied (RFC 0039 §2).
+- `scripts/refresh_reader_snapshots.py --sheet-hyperobjects PATH` refreshes that
+  snapshot alone; the solid and soft pair still refreshes together.
+- The reader grows from 1228 to 1368 pages (139 pliego entries plus their index), all
+  four languages on every pliego page. Every existing page's footer now names the third
+  snapshot, so the whole `docs/reader` tree is rebuilt.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:
@@ -78,7 +206,7 @@ solid or soft verdict, digest, golden or identifier moves.
 #### Not changed (deferred, listed in the PR)
 
 - AAS kinds and ids, the cross-commons identity key, ASM-1 `commons`, `bridge_check`,
-  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS`, sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
+  `fc_spec.rules.hardware_ref_rules`, the reader's `REPOS` (added in 0.13.0), sheet interface-size keys, the sheet geometry rules (§8.3, §8.5, §8.9).
 
 ### Shipped licence bodies are compared with the canonical SPDX texts (note-first)
 

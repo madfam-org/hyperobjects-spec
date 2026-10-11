@@ -15,13 +15,33 @@ engine's ``loadDocument()``. This module checks the subset that needs no geometr
         controls), ids are unique, and a sequence has its `sequence` control;
   §8.8  every sequence target is an M/V/F edge, and every release index is in range;
   §8.9  (structural half) a 3-D frame has one coordinate per vertex;
-  §8.10 `pliego:meta.digest`, when present, equals the SHA-256 of the GOC-1 canonical
-        serialisation of the document with `digest` set to null;
+  §8.10 `pliego:meta.digest`, when present, equals the SHA-256 of the spec §5.15
+        canonical serialisation (RFC 8785; `pliego_spec.canonical`) of the document with
+        `digest` set to null;
   §8.13 (structural half) every `pliego:dielines` / `pliego:finishes` / `pliego:artwork`
         entry names a declared sheet;
   §8.14 (structural half) every `pliego:annotations` entry names a declared sheet and its
         text is printable; `pliego:pages` has a margin under half the page, unique page
-        ids, and no two pages overlap (rectangle arithmetic, no polygon kernel).
+        ids, and no two pages overlap (rectangle arithmetic, no polygon kernel);
+  §8.13 (§5.30 trace records) a `trace` finish has no relief (`depth_mm` 0), no
+        zero-length path segment and no turn sharper than 120°; its pad ids are unique and
+        every pad touches its trace (centre within half the width plus half the pad of the
+        path; point-to-segment arithmetic);
+  §8.17 a sheet's `presentation.root_face` is a face of that sheet, and `end` has a finite
+        origin and a unit quaternion (§5.16);
+  §8.19 keyed mechanisms (§5.18): `keys` only on hinge/rotate/leaf/translate/slide, as ≥ 2
+        pairs with strictly increasing control values and outputs within the travel;
+        `period` > 0, only with `keys`, spanning them; `ride` names a hinge, rotate or
+        translate mechanism, only on those, and rides form no cycle;
+  §8.20 `active_from` (§5.19) only on glue/pivot/string/pin joins of a document with a
+        fold program, naming a step id or index of it;
+  §8.21 `release_joins` (§5.20) names existing glue/pivot/string/pin joins, releases each
+        at most once, and only at a step after the one that activates it.
+
+Rules 17 and 19–21 follow the kernel's own checks (Pliego
+`packages/kernel/src/pliego/document_verify_view.py` `rule17_presentation` and
+`document_verify_engine.py` `rules19_21` at `pliego@2f85906`); the trace checks follow
+`press.py` `_check_trace` (`_stroke`'s 120° test and `_path_dist`).
 
 NOT checked here, and said so on every run (``geometry=NOT verified``): §8.3 (faces
 simple, counter-clockwise, non-degenerate, tiling their sheet), §8.5 (sheets do not
@@ -30,17 +50,27 @@ developability and glue-weld tolerances, §8.11 (pieces) and §8.12 (stacks), an
 containment halves of §8.13 (panel, glue and finish polygons on their sheet) and §8.14
 (an annotation's point on its sheet; the `sheet_off_page` warning). Those need a polygon
 kernel or the face graph; the Pliego kernel's ``pliego.document.verify()`` judges them,
-and a pass here is a STRUCTURAL pass only.
+and a pass here is a STRUCTURAL pass only. Also not checked: a trace's `region` being
+exactly its path stroked by its width and the path not crossing itself (§5.30, the
+kernel's `_stroke`), rule 15 (mechanisms move only rigid sheets; a kernel warning until
+the commons is clean), rule 18 (printed art sources: data-URI decoding and SVG
+sanitising) and rule 30 (circuit nets: `pliego.press.circuit`, not yet wired into the
+kernel's own `verify` either).
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass, field
 from importlib import resources
 
-from hyperobjects_schemas.generator_output import canonical_json
+from .canonical import sheet_document_digest
+from .document_engine import (
+    join_step_problems,
+    keys_problems,
+    presentation_problems,
+    trace_problems,
+)
 
 __all__ = [
     "DOCUMENT_SCHEMA",
@@ -80,7 +110,11 @@ UNCHECKED_RULES = (
     "8.11",
     "8.12",
     "8.13 containment",
+    "8.13 trace outline (§5.30 stroke and self-crossing)",
     "8.14 containment",
+    "8.15",
+    "8.18",
+    "8.30",
 )
 
 
@@ -130,12 +164,9 @@ def check_stock_card(doc: object) -> list[str]:
 
 
 def document_digest(doc: dict) -> str:
-    """`sha256:<hex>` of the GOC-1 canonical serialisation with meta.digest = null."""
-    copy = json.loads(json.dumps(doc))
-    meta = copy.get("pliego:meta")
-    if isinstance(meta, dict):
-        meta["digest"] = None
-    return "sha256:" + hashlib.sha256(canonical_json(copy)).hexdigest()
+    """`sha256:<hex>` of the spec §5.15 canonical serialisation (RFC 8785) with
+    meta.digest = null. Not GOC-1's `canonical_json`: see `pliego_spec.canonical`."""
+    return sheet_document_digest(doc)
 
 
 def _schema_problems(doc: object) -> list[str]:
@@ -377,6 +408,18 @@ def _structural_problems(doc: dict) -> list[str]:
         for k, block in enumerate(_arr(doc, key)):
             if isinstance(block, dict) and block.get("sheet") not in known_sheets:
                 say(f"§8.13 {key}[{k}]: unknown sheet '{block.get('sheet')}'")
+
+    # §8.13 (§5.30): trace records
+    for k, block in enumerate(_arr(doc, "pliego:finishes")):
+        if isinstance(block, dict) and block.get("kind") == "trace":
+            problems.extend(trace_problems(k, block))
+
+    # §8.17, §8.19–§8.21: presentation, keyed mechanisms, step-activated and untied joins
+    problems.extend(presentation_problems(sheets, fs, n_f))
+    problems.extend(keys_problems(mechanisms))
+    steps = [st for st in (sequence.get("steps") or []) if isinstance(st, dict)] \
+        if isinstance(sequence, dict) else []
+    problems.extend(join_step_problems(joins, steps))
 
     # §8.14 structural half: annotations and print pages
     for k, note in enumerate(_arr(doc, "pliego:annotations")):

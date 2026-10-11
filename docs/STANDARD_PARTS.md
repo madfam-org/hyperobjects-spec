@@ -130,6 +130,27 @@ size key's.
 | `tnut-2020-m3` | datasheet | `slot` → `tslot-2020-6mm` male, sym 2<br>`thread` → `m3-screw-joint` female, sym 0 | — | MISUMI, VoronDesign |
 | `tnut-2020-m5` | datasheet | `slot` → `tslot-2020-6mm` male, sym 2<br>`thread` → `m5-screw-joint` female, sym 0 | — | MISUMI, VoronDesign |
 | `vtx-antenna-sma` | class | `connector` → `sma-bulkhead` female, sym 0 | — | Amphenol RF, Drone-FPV-Racer |
+| `led-3mm`, `led-5mm` | class (category `led`) | `leads` → `led-leads-2.54-pitch` male, sym 1 (`x_axis` cathode → anode)<br>`body` → `led-3mm-body` / `led-5mm-body` male, sym 0 (flange top) | — | Kingbright, Vishay |
+| `coin-cell-cr2032` | standard (category `battery`; IEC 60086, cited through maker drawings) | `plus_face` → `cr2032-plus-contact` neutral, sym 0<br>`minus_face` → `cr2032-minus-contact` neutral, sym 0<br>`rim` → `cr2032-cell` male, sym 0 | — | Energizer, Panasonic |
+| `brad-round-head-brass` | datasheet (category `fastener`) | `shank` → `paper-brad-shank` male, sym 0 | `shank_length_mm` | ACCO (retailer listings) |
+| `eyelet-gs-4-4` | datasheet (category `fastener`) | `barrel` → `eyelet-4-32in-barrel` male, sym 0 | — | Stimpson |
+| `elastic-cord-round` | class (category `cord`) | `end_a`, `end_b` → `elastic-cord-end` male, sym 0 | `diameter_mm`, `length_mm` | Prym, Beadalon (retailer listing) |
+| `magnet-disc-6x2` | datasheet (category `magnet`) | `face_a`, `face_b` → `disc-magnet-6mm-face` neutral, sym 0<br>`body` → `disc-magnet-6x2-pocket` male, sym 0 | — | supermagnete |
+
+### Paper electronics and paper fastening (the sheet commons)
+
+Seven parts the sheet commons names but cannot model: Pliego's paper circuits (spec §5.30)
+name a coin cell's `plus`/`minus` pads and an LED's `anode`/`cathode` pads, and its
+`pivot` join is two layers held by a brad, an eyelet or a rivet. These entries give those
+names cited facts. Data first: no sheet rule reads them yet, and a pad does not point at a
+catalog key. The eleven size keys they need ship in their own supplement,
+`interface-sizes.sheet-parts.json` (`led-3mm-body`, `led-5mm-body`,
+`led-leads-2.54-pitch`, `cr2032-cell`, `cr2032-plus-contact`, `cr2032-minus-contact`,
+`paper-brad-shank` (provisional), `eyelet-4-32in-barrel`, `elastic-cord-end`
+(provisional), `disc-magnet-6x2-pocket`, `disc-magnet-6mm-face`). What no cited source
+publishes is not written: a brad's shank width (so no hole size and no envelope), an
+eyelet's set diameter, and the electrical ratings of an LED, which vary with the die.
+The two CR2032 faces have separate keys so a reversed cell cannot mate its pads.
 
 ### The blind joint (2020 frames joined without brackets)
 
@@ -249,8 +270,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=37 interfaces=109 failures=0
-standard_parts_status: parts=37 interfaces=109 dimensions=244 parameters=37 classes=14 review: signed=0 draft=37
+y4d-spec vocab standard-parts: parts=44 interfaces=123 failures=0
+standard_parts_status: parts=44 interfaces=123 dimensions=291 parameters=40 classes=17 review: signed=0 draft=44
 ```
 
 1. Schema-valid; the file is named for its `key`.

@@ -1,0 +1,2159 @@
+{
+ "edges_assignment": [
+  "B",
+  "B",
+  "B",
+  "B",
+  "B",
+  "M",
+  "M",
+  "B",
+  "B",
+  "B",
+  "M",
+  "B",
+  "M",
+  "B",
+  "M",
+  "B",
+  "B",
+  "B",
+  "B",
+  "M",
+  "B",
+  "B",
+  "M",
+  "B",
+  "M",
+  "B",
+  "B",
+  "M",
+  "B",
+  "M",
+  "B",
+  "B",
+  "M",
+  "B",
+  "B",
+  "B",
+  "B",
+  "B",
+  "M",
+  "B",
+  "B",
+  "B",
+  "B"
+ ],
+ "edges_foldAngle": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  -90,
+  -90,
+  0,
+  0,
+  0,
+  -90,
+  0,
+  -90,
+  0,
+  -90,
+  0,
+  0,
+  0,
+  0,
+  -90,
+  0,
+  0,
+  -90,
+  0,
+  -90,
+  0,
+  0,
+  -90,
+  0,
+  -90,
+  0,
+  0,
+  -90,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -90,
+  0,
+  0,
+  0,
+  0
+ ],
+ "edges_vertices": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   3
+  ],
+  [
+   1,
+   8
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   3,
+   7
+  ],
+  [
+   4,
+   5
+  ],
+  [
+   5,
+   6
+  ],
+  [
+   6,
+   7
+  ],
+  [
+   7,
+   8
+  ],
+  [
+   7,
+   9
+  ],
+  [
+   7,
+   13
+  ],
+  [
+   8,
+   10
+  ],
+  [
+   8,
+   14
+  ],
+  [
+   9,
+   11
+  ],
+  [
+   10,
+   12
+  ],
+  [
+   11,
+   13
+  ],
+  [
+   12,
+   14
+  ],
+  [
+   13,
+   14
+  ],
+  [
+   13,
+   18
+  ],
+  [
+   14,
+   15
+  ],
+  [
+   14,
+   19
+  ],
+  [
+   15,
+   16
+  ],
+  [
+   15,
+   20
+  ],
+  [
+   16,
+   17
+  ],
+  [
+   17,
+   20
+  ],
+  [
+   18,
+   19
+  ],
+  [
+   18,
+   21
+  ],
+  [
+   18,
+   25
+  ],
+  [
+   19,
+   20
+  ],
+  [
+   19,
+   22
+  ],
+  [
+   19,
+   28
+  ],
+  [
+   21,
+   23
+  ],
+  [
+   22,
+   24
+  ],
+  [
+   23,
+   25
+  ],
+  [
+   24,
+   28
+  ],
+  [
+   25,
+   26
+  ],
+  [
+   26,
+   27
+  ],
+  [
+   26,
+   29
+  ],
+  [
+   27,
+   28
+  ],
+  [
+   27,
+   30
+  ],
+  [
+   29,
+   30
+  ]
+ ],
+ "faces_vertices": [
+  [
+   0,
+   3,
+   7,
+   8,
+   1
+  ],
+  [
+   2,
+   4,
+   5,
+   6
+  ],
+  [
+   2,
+   6,
+   7,
+   3
+  ],
+  [
+   7,
+   9,
+   11,
+   13
+  ],
+  [
+   7,
+   13,
+   14,
+   8
+  ],
+  [
+   8,
+   14,
+   12,
+   10
+  ],
+  [
+   13,
+   18,
+   19,
+   14
+  ],
+  [
+   14,
+   19,
+   20,
+   15
+  ],
+  [
+   15,
+   20,
+   17,
+   16
+  ],
+  [
+   18,
+   21,
+   23,
+   25
+  ],
+  [
+   18,
+   25,
+   26,
+   27,
+   28,
+   19
+  ],
+  [
+   19,
+   28,
+   24,
+   22
+  ],
+  [
+   26,
+   29,
+   30,
+   27
+  ]
+ ],
+ "file_classes": [
+  "singleModel"
+ ],
+ "file_creator": "pliego-kernel 0.3.0",
+ "file_frames": [
+  {
+   "frame_attributes": [
+    "3D"
+   ],
+   "frame_classes": [
+    "foldedForm"
+   ],
+   "frame_inherit": true,
+   "frame_parent": 0,
+   "frame_title": "initial",
+   "vertices_coords": [
+    [
+     0,
+     0,
+     52.611
+    ],
+    [
+     0,
+     0,
+     173.081
+    ],
+    [
+     0.5,
+     0,
+     12.141
+    ],
+    [
+     0.5,
+     0,
+     52.611
+    ],
+    [
+     7.7846,
+     0,
+     0
+    ],
+    [
+     73.1854,
+     0,
+     0
+    ],
+    [
+     80.47,
+     0,
+     12.141
+    ],
+    [
+     80.47,
+     0,
+     52.611
+    ],
+    [
+     80.47,
+     0,
+     173.081
+    ],
+    [
+     90.5875,
+     0,
+     28.329
+    ],
+    [
+     90.5875,
+     0,
+     197.363
+    ],
+    [
+     116.893,
+     0,
+     28.329
+    ],
+    [
+     116.893,
+     0,
+     197.363
+    ],
+    [
+     120.94,
+     0,
+     52.611
+    ],
+    [
+     120.94,
+     0,
+     173.081
+    ],
+    [
+     120.94,
+     0,
+     213.551
+    ],
+    [
+     128.2246,
+     0,
+     225.692
+    ],
+    [
+     194.1254,
+     0,
+     225.692
+    ],
+    [
+     201.41,
+     0,
+     52.611
+    ],
+    [
+     201.41,
+     0,
+     173.081
+    ],
+    [
+     201.41,
+     0,
+     213.551
+    ],
+    [
+     211.5275,
+     0,
+     28.329
+    ],
+    [
+     211.5275,
+     0,
+     197.363
+    ],
+    [
+     237.833,
+     0,
+     28.329
+    ],
+    [
+     237.833,
+     0,
+     197.363
+    ],
+    [
+     241.88,
+     0,
+     52.611
+    ],
+    [
+     241.88,
+     0,
+     58.611
+    ],
+    [
+     241.88,
+     0,
+     167.081
+    ],
+    [
+     241.88,
+     0,
+     173.081
+    ],
+    [
+     256.88,
+     0,
+     67.611
+    ],
+    [
+     256.88,
+     0,
+     158.081
+    ]
+   ]
+  },
+  {
+   "frame_attributes": [
+    "3D"
+   ],
+   "frame_classes": [
+    "foldedForm"
+   ],
+   "frame_inherit": true,
+   "frame_parent": 0,
+   "frame_title": "target:closed",
+   "vertices_coords": [
+    [
+     0,
+     0,
+     52.611
+    ],
+    [
+     0,
+     0,
+     173.081
+    ],
+    [
+     0.5,
+     40.47,
+     52.611
+    ],
+    [
+     0.5,
+     0,
+     52.611
+    ],
+    [
+     7.7846,
+     40.47,
+     64.752
+    ],
+    [
+     73.1854,
+     40.47,
+     64.752
+    ],
+    [
+     80.47,
+     40.47,
+     52.611
+    ],
+    [
+     80.47,
+     0,
+     52.611
+    ],
+    [
+     80.47,
+     0,
+     173.081
+    ],
+    [
+     56.188,
+     10.1175,
+     52.611
+    ],
+    [
+     56.188,
+     10.1175,
+     173.081
+    ],
+    [
+     56.188,
+     36.423,
+     52.611
+    ],
+    [
+     56.188,
+     36.423,
+     173.081
+    ],
+    [
+     80.47,
+     40.47,
+     52.611
+    ],
+    [
+     80.47,
+     40.47,
+     173.081
+    ],
+    [
+     80.47,
+     0,
+     173.081
+    ],
+    [
+     73.1854,
+     0,
+     160.94
+    ],
+    [
+     7.2846,
+     0,
+     160.94
+    ],
+    [
+     0,
+     40.47,
+     52.611
+    ],
+    [
+     0,
+     40.47,
+     173.081
+    ],
+    [
+     0,
+     0,
+     173.081
+    ],
+    [
+     24.282,
+     30.3525,
+     52.611
+    ],
+    [
+     24.282,
+     30.3525,
+     173.081
+    ],
+    [
+     24.282,
+     4.047,
+     52.611
+    ],
+    [
+     24.282,
+     4.047,
+     173.081
+    ],
+    [
+     0,
+     0,
+     52.611
+    ],
+    [
+     0,
+     0,
+     58.611
+    ],
+    [
+     0,
+     0,
+     167.081
+    ],
+    [
+     0,
+     0,
+     173.081
+    ],
+    [
+     15,
+     0,
+     67.611
+    ],
+    [
+     15,
+     0,
+     158.081
+    ]
+   ]
+  }
+ ],
+ "file_spec": 1.2,
+ "file_title": "Folding carton (reverse-tuck)",
+ "frame_attributes": [
+  "2D",
+  "noCuts",
+  "noJoins"
+ ],
+ "frame_classes": [
+  "creasePattern"
+ ],
+ "frame_unit": "mm",
+ "pliego:artwork": [
+  {
+   "asset": "assets/brand-mark.svg",
+   "at": [
+    20.1175,
+    119.78725
+   ],
+   "clip": "panel",
+   "id": "brand-mark",
+   "panel": "front",
+   "rotation_deg": 0,
+   "sheet": "carton",
+   "side": "front",
+   "size": [
+    40.235,
+    40.235
+   ]
+  }
+ ],
+ "pliego:controls": [
+  {
+   "default": 0,
+   "id": "sequence",
+   "kind": "sequence",
+   "label": {
+    "en": "Fold program",
+    "es": "Secuencia de armado",
+    "fr": "Séquence de montage",
+    "pt": "Sequência de montagem"
+   },
+   "max": 5,
+   "min": 0,
+   "unit": "step"
+  }
+ ],
+ "pliego:dielines": [
+  {
+   "bleed_mm": 3,
+   "caliper_mm": 0.47,
+   "dimensions": [
+    {
+     "from": [
+      0,
+      52.611
+     ],
+     "offset": -6,
+     "text": "L 80 (inside)",
+     "to": [
+      80.47,
+      52.611
+     ]
+    },
+    {
+     "from": [
+      80.47,
+      52.611
+     ],
+     "offset": -6,
+     "text": "W 40 (inside)",
+     "to": [
+      120.94,
+      52.611
+     ]
+    },
+    {
+     "from": [
+      0,
+      52.611
+     ],
+     "offset": 8,
+     "text": "D 120 (inside)",
+     "to": [
+      0,
+      173.081
+     ]
+    }
+   ],
+   "family": "folding-carton",
+   "glue": [
+    {
+     "id": "manufacturers-joint",
+     "kind": "glue",
+     "panel": "glue-flap",
+     "polygon": [
+      [
+       242.88,
+       67.611
+      ],
+      [
+       255.88,
+       68.211
+      ],
+      [
+       255.88,
+       157.481
+      ],
+      [
+       242.88,
+       158.081
+      ]
+     ]
+    }
+   ],
+   "grain": {
+    "angle_deg": 90,
+    "at": [
+     128.44,
+     -30
+    ],
+    "kind": "grain"
+   },
+   "inside": {
+    "depth": 120,
+    "length": 80,
+    "width": 40
+   },
+   "panels": [
+    {
+     "bleed": [
+      [
+       -3,
+       49.611
+      ],
+      [
+       80.47,
+       49.611
+      ],
+      [
+       80.47,
+       176.081
+      ],
+      [
+       -3,
+       176.081
+      ]
+     ],
+     "kind": "panel",
+     "label": {
+      "en": "Front",
+      "es": "Frente",
+      "fr": "Face avant",
+      "pt": "Frente"
+     },
+     "name": "front",
+     "polygon": [
+      [
+       0,
+       52.611
+      ],
+      [
+       80.47,
+       52.611
+      ],
+      [
+       80.47,
+       173.081
+      ],
+      [
+       0,
+       173.081
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       3,
+       55.611
+      ],
+      [
+       77.47,
+       55.611
+      ],
+      [
+       77.47,
+       170.081
+      ],
+      [
+       3,
+       170.081
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       80.47,
+       52.611
+      ],
+      [
+       120.94,
+       52.611
+      ],
+      [
+       120.94,
+       173.081
+      ],
+      [
+       80.47,
+       173.081
+      ]
+     ],
+     "kind": "panel",
+     "label": {
+      "en": "Side 1",
+      "es": "Costado 1",
+      "fr": "Côté 1",
+      "pt": "Lateral 1"
+     },
+     "name": "side-1",
+     "polygon": [
+      [
+       80.47,
+       52.611
+      ],
+      [
+       120.94,
+       52.611
+      ],
+      [
+       120.94,
+       173.081
+      ],
+      [
+       80.47,
+       173.081
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       83.47,
+       55.611
+      ],
+      [
+       117.94,
+       55.611
+      ],
+      [
+       117.94,
+       170.081
+      ],
+      [
+       83.47,
+       170.081
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       120.94,
+       49.611
+      ],
+      [
+       201.41,
+       49.611
+      ],
+      [
+       201.41,
+       173.081
+      ],
+      [
+       120.94,
+       173.081
+      ]
+     ],
+     "kind": "panel",
+     "label": {
+      "en": "Back",
+      "es": "Parte trasera",
+      "fr": "Face arrière",
+      "pt": "Traseira"
+     },
+     "name": "back",
+     "polygon": [
+      [
+       120.94,
+       52.611
+      ],
+      [
+       201.41,
+       52.611
+      ],
+      [
+       201.41,
+       173.081
+      ],
+      [
+       120.94,
+       173.081
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       123.94,
+       55.611
+      ],
+      [
+       198.41,
+       55.611
+      ],
+      [
+       198.41,
+       170.081
+      ],
+      [
+       123.94,
+       170.081
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       201.41,
+       52.611
+      ],
+      [
+       244.88,
+       52.611
+      ],
+      [
+       244.88,
+       173.081
+      ],
+      [
+       201.41,
+       173.081
+      ]
+     ],
+     "kind": "panel",
+     "label": {
+      "en": "Side 2",
+      "es": "Costado 2",
+      "fr": "Côté 2",
+      "pt": "Lateral 2"
+     },
+     "name": "side-2",
+     "polygon": [
+      [
+       201.41,
+       52.611
+      ],
+      [
+       241.88,
+       52.611
+      ],
+      [
+       241.88,
+       173.081
+      ],
+      [
+       201.41,
+       173.081
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       204.41,
+       55.611
+      ],
+      [
+       238.88,
+       55.611
+      ],
+      [
+       238.88,
+       170.081
+      ],
+      [
+       204.41,
+       170.081
+      ]
+     ]
+    },
+    {
+     "kind": "glue-flap",
+     "label": {
+      "en": "Glue flap",
+      "es": "Pestaña de pegado",
+      "fr": "Patte de collage",
+      "pt": "Aba de colagem"
+     },
+     "name": "glue-flap",
+     "polygon": [
+      [
+       241.88,
+       58.611
+      ],
+      [
+       256.88,
+       67.611
+      ],
+      [
+       256.88,
+       158.081
+      ],
+      [
+       241.88,
+       167.081
+      ]
+     ],
+     "print": false
+    },
+    {
+     "bleed": [
+      [
+       88.5875,
+       25.329
+      ],
+      [
+       119.434381,
+       25.329
+      ],
+      [
+       123.981381,
+       52.611
+      ],
+      [
+       77.22,
+       52.611
+      ]
+     ],
+     "kind": "dust-flap",
+     "label": {
+      "en": "Side 1: dust flap (bottom)",
+      "es": "Costado 1: guardapolvo (abajo)",
+      "fr": "Côté 1: rabat anti-poussière (bas)",
+      "pt": "Lateral 1: aba guarda-pó (embaixo)"
+     },
+     "name": "side-1-bottom-dust",
+     "polygon": [
+      [
+       90.5875,
+       28.329
+      ],
+      [
+       116.893,
+       28.329
+      ],
+      [
+       120.94,
+       52.611
+      ],
+      [
+       80.47,
+       52.611
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       92.5875,
+       31.329
+      ],
+      [
+       114.351619,
+       31.329
+      ],
+      [
+       117.398619,
+       49.611
+      ],
+      [
+       84.97,
+       49.611
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       209.5275,
+       25.329
+      ],
+      [
+       240.374381,
+       25.329
+      ],
+      [
+       244.921381,
+       52.611
+      ],
+      [
+       198.16,
+       52.611
+      ]
+     ],
+     "kind": "dust-flap",
+     "label": {
+      "en": "Side 2: dust flap (bottom)",
+      "es": "Costado 2: guardapolvo (abajo)",
+      "fr": "Côté 2: rabat anti-poussière (bas)",
+      "pt": "Lateral 2: aba guarda-pó (embaixo)"
+     },
+     "name": "side-2-bottom-dust",
+     "polygon": [
+      [
+       211.5275,
+       28.329
+      ],
+      [
+       237.833,
+       28.329
+      ],
+      [
+       241.88,
+       52.611
+      ],
+      [
+       201.41,
+       52.611
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       213.5275,
+       31.329
+      ],
+      [
+       235.291619,
+       31.329
+      ],
+      [
+       238.338619,
+       49.611
+      ],
+      [
+       205.91,
+       49.611
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       -2.5,
+       12.141
+      ],
+      [
+       83.47,
+       12.141
+      ],
+      [
+       83.47,
+       52.611
+      ],
+      [
+       -2.5,
+       52.611
+      ]
+     ],
+     "kind": "lid",
+     "label": {
+      "en": "Front: lid (bottom)",
+      "es": "Frente: tapa (abajo)",
+      "fr": "Face avant: couvercle (bas)",
+      "pt": "Frente: tampa (embaixo)"
+     },
+     "name": "front-bottom-lid",
+     "polygon": [
+      [
+       0.5,
+       12.141
+      ],
+      [
+       80.47,
+       12.141
+      ],
+      [
+       80.47,
+       52.611
+      ],
+      [
+       0.5,
+       52.611
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       3.5,
+       15.141
+      ],
+      [
+       77.47,
+       15.141
+      ],
+      [
+       77.47,
+       49.611
+      ],
+      [
+       3.5,
+       49.611
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       6.086029,
+       -3
+      ],
+      [
+       74.883971,
+       -3
+      ],
+      [
+       83.968571,
+       12.141
+      ],
+      [
+       -2.998571,
+       12.141
+      ]
+     ],
+     "kind": "tuck",
+     "label": {
+      "en": "Front: tuck flap (bottom)",
+      "es": "Frente: lengüeta (abajo)",
+      "fr": "Face avant: patte rentrante (bas)",
+      "pt": "Frente: aba de encaixe (embaixo)"
+     },
+     "name": "front-bottom-tuck",
+     "polygon": [
+      [
+       7.7846,
+       0
+      ],
+      [
+       73.1854,
+       0
+      ],
+      [
+       80.47,
+       12.141
+      ],
+      [
+       0.5,
+       12.141
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       9.483171,
+       3
+      ],
+      [
+       71.486829,
+       3
+      ],
+      [
+       75.171429,
+       9.141
+      ],
+      [
+       5.798571,
+       9.141
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       77.22,
+       173.081
+      ],
+      [
+       123.981381,
+       173.081
+      ],
+      [
+       119.434381,
+       200.363
+      ],
+      [
+       88.5875,
+       200.363
+      ]
+     ],
+     "kind": "dust-flap",
+     "label": {
+      "en": "Side 1: dust flap (top)",
+      "es": "Costado 1: guardapolvo (arriba)",
+      "fr": "Côté 1: rabat anti-poussière (haut)",
+      "pt": "Lateral 1: aba guarda-pó (em cima)"
+     },
+     "name": "side-1-top-dust",
+     "polygon": [
+      [
+       80.47,
+       173.081
+      ],
+      [
+       120.94,
+       173.081
+      ],
+      [
+       116.893,
+       197.363
+      ],
+      [
+       90.5875,
+       197.363
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       84.97,
+       176.081
+      ],
+      [
+       117.398619,
+       176.081
+      ],
+      [
+       114.351619,
+       194.363
+      ],
+      [
+       92.5875,
+       194.363
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       198.16,
+       173.081
+      ],
+      [
+       244.921381,
+       173.081
+      ],
+      [
+       240.374381,
+       200.363
+      ],
+      [
+       209.5275,
+       200.363
+      ]
+     ],
+     "kind": "dust-flap",
+     "label": {
+      "en": "Side 2: dust flap (top)",
+      "es": "Costado 2: guardapolvo (arriba)",
+      "fr": "Côté 2: rabat anti-poussière (haut)",
+      "pt": "Lateral 2: aba guarda-pó (em cima)"
+     },
+     "name": "side-2-top-dust",
+     "polygon": [
+      [
+       201.41,
+       173.081
+      ],
+      [
+       241.88,
+       173.081
+      ],
+      [
+       237.833,
+       197.363
+      ],
+      [
+       211.5275,
+       197.363
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       205.91,
+       176.081
+      ],
+      [
+       238.338619,
+       176.081
+      ],
+      [
+       235.291619,
+       194.363
+      ],
+      [
+       213.5275,
+       194.363
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       117.94,
+       173.081
+      ],
+      [
+       204.41,
+       173.081
+      ],
+      [
+       204.41,
+       213.551
+      ],
+      [
+       117.94,
+       213.551
+      ]
+     ],
+     "kind": "lid",
+     "label": {
+      "en": "Back: lid (top)",
+      "es": "Parte trasera: tapa (arriba)",
+      "fr": "Face arrière: couvercle (haut)",
+      "pt": "Traseira: tampa (em cima)"
+     },
+     "name": "back-top-lid",
+     "polygon": [
+      [
+       120.94,
+       173.081
+      ],
+      [
+       201.41,
+       173.081
+      ],
+      [
+       201.41,
+       213.551
+      ],
+      [
+       120.94,
+       213.551
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       123.94,
+       176.081
+      ],
+      [
+       198.41,
+       176.081
+      ],
+      [
+       198.41,
+       210.551
+      ],
+      [
+       123.94,
+       210.551
+      ]
+     ]
+    },
+    {
+     "bleed": [
+      [
+       117.441429,
+       213.551
+      ],
+      [
+       204.908571,
+       213.551
+      ],
+      [
+       195.823971,
+       228.692
+      ],
+      [
+       126.526029,
+       228.692
+      ]
+     ],
+     "kind": "tuck",
+     "label": {
+      "en": "Back: tuck flap (top)",
+      "es": "Parte trasera: lengüeta (arriba)",
+      "fr": "Face arrière: patte rentrante (haut)",
+      "pt": "Traseira: aba de encaixe (em cima)"
+     },
+     "name": "back-top-tuck",
+     "polygon": [
+      [
+       120.94,
+       213.551
+      ],
+      [
+       201.41,
+       213.551
+      ],
+      [
+       194.1254,
+       225.692
+      ],
+      [
+       128.2246,
+       225.692
+      ]
+     ],
+     "print": true,
+     "safe": [
+      [
+       126.238571,
+       216.551
+      ],
+      [
+       196.111429,
+       216.551
+      ],
+      [
+       192.426829,
+       222.692
+      ],
+      [
+       129.923171,
+       222.692
+      ]
+     ]
+    }
+   ],
+   "safe_mm": 3,
+   "sheet": "carton",
+   "style": "reverse-tuck carton"
+  }
+ ],
+ "pliego:edges_name": [
+  "front",
+  "front",
+  "front",
+  "front-bottom-lid",
+  "front-bottom-tuck",
+  "front-bottom-tuck-fold",
+  "front-bottom-lid-fold",
+  "front-bottom-tuck",
+  "front-bottom-tuck",
+  "front-bottom-lid",
+  "front-side-1-fold",
+  "side-1-bottom-dust",
+  "side-1-bottom-dust-fold",
+  "side-1-top-dust",
+  "side-1-top-dust-fold",
+  "side-1-bottom-dust",
+  "side-1-top-dust",
+  "side-1-bottom-dust",
+  "side-1-top-dust",
+  "side-1-back-fold",
+  "back",
+  "back-top-lid",
+  "back-top-lid-fold",
+  "back-top-tuck",
+  "back-top-tuck-fold",
+  "back-top-tuck",
+  "back-top-tuck",
+  "back-side-2-fold",
+  "side-2-bottom-dust",
+  "side-2-bottom-dust-fold",
+  "back-top-lid",
+  "side-2-top-dust",
+  "side-2-top-dust-fold",
+  "side-2-bottom-dust",
+  "side-2-top-dust",
+  "side-2-bottom-dust",
+  "side-2-top-dust",
+  "side-2",
+  "glue-flap-fold",
+  "glue-flap",
+  "side-2",
+  "glue-flap",
+  "glue-flap"
+ ],
+ "pliego:edges_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:edges_treatment": [
+  "none",
+  "none",
+  "none",
+  "none",
+  "none",
+  "score",
+  "score",
+  "none",
+  "none",
+  "none",
+  "score",
+  "none",
+  "score",
+  "none",
+  "score",
+  "none",
+  "none",
+  "none",
+  "none",
+  "score",
+  "none",
+  "none",
+  "score",
+  "none",
+  "score",
+  "none",
+  "none",
+  "score",
+  "none",
+  "score",
+  "none",
+  "none",
+  "score",
+  "none",
+  "none",
+  "none",
+  "none",
+  "none",
+  "score",
+  "none",
+  "none",
+  "none",
+  "none"
+ ],
+ "pliego:faces_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:meta": {
+  "cartridge": "folding-carton",
+  "digest": "sha256:e7bfd52ec63d2c2d4a93825be4066066aa6bfb00259859f045365aae8ea2886e",
+  "kernel": "pliego-kernel 0.3.0",
+  "mode": "carton",
+  "params": {
+   "branding": true,
+   "depth": 120,
+   "length": 80,
+   "stock": "folding-boxboard-300",
+   "style": "reverse-tuck",
+   "width": 40,
+   "window": false
+  }
+ },
+ "pliego:sequence": {
+  "mode": "kinematic",
+  "steps": [
+   {
+    "duration_ms": 1500,
+    "id": "form-tube",
+    "label": {
+     "en": "Fold the body into a tube and glue the joint",
+     "es": "Dobla el cuerpo en un tubo y pega la unión",
+     "fr": "Pliez le corps en tube et collez la patte",
+     "pt": "Dobre o corpo num tubo e cole"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      10,
+      -90
+     ],
+     [
+      19,
+      -90
+     ],
+     [
+      27,
+      -90
+     ],
+     [
+      38,
+      -90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 900,
+    "id": "bottom-dust",
+    "label": {
+     "en": "Fold in the bottom dust flaps",
+     "es": "Dobla hacia dentro los guardapolvos de abajo",
+     "fr": "Rabattez les rabats anti-poussière du bas",
+     "pt": "Dobre para dentro as abas guarda-pó de baixo"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      12,
+      -90
+     ],
+     [
+      29,
+      -90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 1200,
+    "id": "bottom-close",
+    "label": {
+     "en": "Close the bottom",
+     "es": "Cierra el fondo",
+     "fr": "Fermez le bas",
+     "pt": "Feche baixo"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      6,
+      -90
+     ],
+     [
+      5,
+      -90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 900,
+    "id": "top-dust",
+    "label": {
+     "en": "Fold in the top dust flaps",
+     "es": "Dobla hacia dentro los guardapolvos de arriba",
+     "fr": "Rabattez les rabats anti-poussière du haut",
+     "pt": "Dobre para dentro as abas guarda-pó de cima"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      14,
+      -90
+     ],
+     [
+      32,
+      -90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 1200,
+    "id": "top-close",
+    "label": {
+     "en": "Close the top",
+     "es": "Cierra la parte de arriba",
+     "fr": "Fermez le haut",
+     "pt": "Feche cima"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      22,
+      -90
+     ],
+     [
+      24,
+      -90
+     ]
+    ]
+   }
+  ]
+ },
+ "pliego:sheets": [
+  {
+   "back": {
+    "art": null,
+    "color": "#e9e4d6"
+   },
+   "front": {
+    "art": null,
+    "color": "#f4f2ec"
+   },
+   "grain_deg": 90,
+   "id": "carton",
+   "kinematic": null,
+   "label": {
+    "en": "Folding carton",
+    "es": "Estuche plegadizo",
+    "fr": "Étui pliant",
+    "pt": "Cartucho dobrável"
+   },
+   "offset": [
+    0,
+    0
+   ],
+   "placement": {
+    "origin": [
+     0,
+     0,
+     0
+    ],
+    "rotation": [
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   "stock": "folding-boxboard-300"
+  }
+ ],
+ "pliego:stocks": {
+  "folding-boxboard-300": {
+   "appearance": {
+    "back": "#e9e4d6",
+    "front": "#f4f2ec"
+   },
+   "caliper_mm": 0.47,
+   "derived": {
+    "D_cd": 17838600,
+    "D_md": 36688000,
+    "E_cd": 1302130000,
+    "E_md": 2765960000,
+    "G12": 734447000,
+    "areal_density": 0.0003,
+    "collision_thickness": 0.47,
+    "crease_k": 725744,
+    "crease_set_rate": 0.5,
+    "crease_yield_deg": 35,
+    "friction": 0.4,
+    "nu": 0.293,
+    "perf_bridge_mm": 1,
+    "perf_cut_mm": 3,
+    "perf_factor": 0.25,
+    "score_factor": 0.35,
+    "score_yield_deg": 12.25,
+    "tear_strain": 0.015,
+    "thickness": 0.47
+   },
+   "derived_basis": "pliego.stock.derive v1",
+   "gsm": 300,
+   "name": {
+    "en": "Folding boxboard (FBB) 300 g/m²",
+    "es": "Cartulina plegable (FBB) 300 g/m²",
+    "fr": "Carton plat (FBB) 300 g/m²",
+    "pt": "Cartão duplex (FBB) 300 g/m²"
+   }
+  }
+ },
+ "pliego:version": 1,
+ "pliego:vertices_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "vertices_coords": [
+  [
+   0,
+   52.611
+  ],
+  [
+   0,
+   173.081
+  ],
+  [
+   0.5,
+   12.141
+  ],
+  [
+   0.5,
+   52.611
+  ],
+  [
+   7.7846,
+   0
+  ],
+  [
+   73.1854,
+   0
+  ],
+  [
+   80.47,
+   12.141
+  ],
+  [
+   80.47,
+   52.611
+  ],
+  [
+   80.47,
+   173.081
+  ],
+  [
+   90.5875,
+   28.329
+  ],
+  [
+   90.5875,
+   197.363
+  ],
+  [
+   116.893,
+   28.329
+  ],
+  [
+   116.893,
+   197.363
+  ],
+  [
+   120.94,
+   52.611
+  ],
+  [
+   120.94,
+   173.081
+  ],
+  [
+   120.94,
+   213.551
+  ],
+  [
+   128.2246,
+   225.692
+  ],
+  [
+   194.1254,
+   225.692
+  ],
+  [
+   201.41,
+   52.611
+  ],
+  [
+   201.41,
+   173.081
+  ],
+  [
+   201.41,
+   213.551
+  ],
+  [
+   211.5275,
+   28.329
+  ],
+  [
+   211.5275,
+   197.363
+  ],
+  [
+   237.833,
+   28.329
+  ],
+  [
+   237.833,
+   197.363
+  ],
+  [
+   241.88,
+   52.611
+  ],
+  [
+   241.88,
+   58.611
+  ],
+  [
+   241.88,
+   167.081
+  ],
+  [
+   241.88,
+   173.081
+  ],
+  [
+   256.88,
+   67.611
+  ],
+  [
+   256.88,
+   158.081
+  ]
+ ]
+}

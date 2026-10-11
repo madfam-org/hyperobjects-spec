@@ -314,7 +314,7 @@
       }
     },
     "pliego:finishes": {
-      "description": "Pressing and burning regions (spec §5.10).",
+      "description": "Pressing, burning and conductive-trace regions (spec §5.10, §5.30).",
       "type": "array",
       "items": {
         "$ref": "#/$defs/finish"
@@ -504,6 +504,19 @@
               "additionalProperties": false
             }
           ]
+        },
+        "presentation": {
+          "description": "§5.16 (preview only): the face viewers hold still while the program folds the rest about it, and a rigid end transform blended in over the program about that face's t = 0 centroid.",
+          "type": "object",
+          "properties": {
+            "root_face": {
+              "$ref": "#/$defs/index"
+            },
+            "end": {
+              "$ref": "#/$defs/placement"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -753,6 +766,17 @@
                   "front",
                   "back"
                 ]
+              },
+              "active_from": {
+                "description": "Spec §5.19: the step (id or 0-based index) from which the join holds.",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/slug"
+                  },
+                  {
+                    "$ref": "#/$defs/index"
+                  }
+                ]
               }
             },
             "additionalProperties": false
@@ -782,6 +806,17 @@
               },
               "hardware_ref": {
                 "$ref": "#/$defs/hardwareRef"
+              },
+              "active_from": {
+                "description": "Spec §5.19: the step (id or 0-based index) from which the join holds.",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/slug"
+                  },
+                  {
+                    "$ref": "#/$defs/index"
+                  }
+                ]
               }
             },
             "additionalProperties": false
@@ -829,6 +864,17 @@
               "length": {
                 "type": "number",
                 "exclusiveMinimum": 0
+              },
+              "active_from": {
+                "description": "Spec §5.19: the step (id or 0-based index) from which the join holds.",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/slug"
+                  },
+                  {
+                    "$ref": "#/$defs/index"
+                  }
+                ]
               }
             },
             "additionalProperties": false
@@ -890,6 +936,17 @@
               },
               "mechanism": {
                 "$ref": "#/$defs/slug"
+              },
+              "active_from": {
+                "description": "Spec §5.19: the step (id or 0-based index) from which the join holds.",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/slug"
+                  },
+                  {
+                    "$ref": "#/$defs/index"
+                  }
+                ]
               }
             },
             "additionalProperties": false
@@ -1038,6 +1095,16 @@
                 "items": {
                   "$ref": "#/$defs/slug"
                 }
+              },
+              "keys": {
+                "$ref": "#/$defs/keyTable"
+              },
+              "period": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "ride": {
+                "$ref": "#/$defs/slug"
               }
             },
             "additionalProperties": false
@@ -1063,6 +1130,13 @@
                 "$ref": "#/$defs/slug"
               },
               "travel": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "keys": {
+                "$ref": "#/$defs/keyTable"
+              },
+              "period": {
                 "type": "number",
                 "exclusiveMinimum": 0
               }
@@ -1099,6 +1173,16 @@
                 "items": {
                   "$ref": "#/$defs/slug"
                 }
+              },
+              "keys": {
+                "$ref": "#/$defs/keyTable"
+              },
+              "period": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "ride": {
+                "$ref": "#/$defs/slug"
               }
             },
             "additionalProperties": false
@@ -1134,6 +1218,13 @@
               },
               "control": {
                 "$ref": "#/$defs/slug"
+              },
+              "keys": {
+                "$ref": "#/$defs/keyTable"
+              },
+              "period": {
+                "type": "number",
+                "exclusiveMinimum": 0
               }
             },
             "additionalProperties": false
@@ -1171,12 +1262,40 @@
                 "items": {
                   "$ref": "#/$defs/slug"
                 }
+              },
+              "keys": {
+                "$ref": "#/$defs/keyTable"
+              },
+              "period": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "ride": {
+                "$ref": "#/$defs/slug"
               }
             },
             "additionalProperties": false
           }
         }
       ]
+    },
+    "keyTable": {
+      "description": "Spec §5.18: [control value, output] pairs, control values strictly increasing; output is the angle (deg) or travel (mm) the mechanism uses in place of the control value.",
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      }
     },
     "control": {
       "type": "object",
@@ -1291,6 +1410,13 @@
                 ]
               },
               "remove": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/slug"
+                }
+              },
+              "release_joins": {
+                "description": "Spec §5.20: join ids this step unties.",
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/slug"
@@ -1679,7 +1805,8 @@
             "foil",
             "varnish",
             "letterpress",
-            "burn"
+            "burn",
+            "trace"
           ]
         },
         "sheet": {
@@ -1737,6 +1864,68 @@
           "type": "number",
           "minimum": 0,
           "maximum": 1
+        },
+        "material": {
+          "enum": [
+            "copper-tape",
+            "conductive-ink"
+          ]
+        },
+        "width_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 50
+        },
+        "path": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/vec2"
+          }
+        },
+        "pads": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "at",
+              "size_mm"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/slug"
+              },
+              "at": {
+                "$ref": "#/$defs/vec2"
+              },
+              "size_mm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "part": {
+                "$ref": "#/$defs/slug"
+              },
+              "pin": {
+                "enum": [
+                  "plus",
+                  "minus",
+                  "anode",
+                  "cathode",
+                  "contact"
+                ]
+              }
+            },
+            "dependentRequired": {
+              "part": [
+                "pin"
+              ],
+              "pin": [
+                "part"
+              ]
+            },
+            "additionalProperties": false
+          }
         }
       },
       "allOf": [
@@ -1804,6 +1993,23 @@
             "required": [
               "process",
               "char"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "trace"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "material",
+              "width_mm",
+              "path",
+              "pads"
             ]
           }
         }

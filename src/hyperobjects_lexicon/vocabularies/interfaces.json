@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interfaces",
-  "description": "The interface names of both commons: Yantra4D's cdg_interfaces geometry types, Fashion Cabinet's hyperobject.interfaces types, and the per-cartridge interface ids that recur often enough to be vocabulary. Both type sets are closed enums in their own schema, so the drift this document exists for is not inside a repo but ACROSS the two — the B2 problem, `zipper_tape` against `tape_edge` — plus the two within-repo dialect splits the capture turned up (sew_face/sew_plate, strap_slot/webbing_slot). The 805 y4d and 577 FC interface ids are not enumerated here: an id is a cartridge's own name for its own feature, and only the ones that recur across cartridges, or that carry a cross-commons equivalence, are vocabulary.",
+  "description": "The interface names of the commons: Yantra4D's cdg_interfaces geometry types, Fashion Cabinet's hyperobject.interfaces types, and the per-cartridge interface ids that recur often enough to be vocabulary. Both type sets are closed enums in their own schema, so the drift this document exists for is not inside a repo but ACROSS the two — the B2 problem, `zipper_tape` against `tape_edge` — plus the two within-repo dialect splits the capture turned up (sew_face/sew_plate, strap_slot/webbing_slot). The 805 y4d and 577 FC interface ids are not enumerated here: an id is a cartridge's own name for its own feature, and only the ones that recur across cartridges, or that carry a cross-commons equivalence, are vocabulary. The sheet commons (pliego, sheet-hyperobjects) joined on 2026-10-10: its eleven hyperobject.interfaces types are recorded with their counts, and the pivot carries the one cross-commons equivalence the evidence supports (a post through holes in stacked layers, the solid rivet).",
   "captured": {
     "date": "2026-09-02",
     "sources": {
@@ -14,6 +14,11 @@
         "path": "projects/*/project.json",
         "rev": "4feb3ec509cfe6ba6eae0a79b1135680a1bedc7f",
         "cartridges": 516
+      },
+      "pliego": {
+        "path": "*/project.json (sheet-hyperobjects)",
+        "rev": "ddc3ed3eca4554df9836d2ed935e7218e00a398d",
+        "cartridges": 139
       }
     }
   },
@@ -161,6 +166,11 @@
           "key": "custom",
           "repo": "fashion-cabinet",
           "note": "The same escape hatch on both sides: an interface that is real but not one of the named types."
+        },
+        {
+          "key": "custom",
+          "repo": "pliego",
+          "note": "The same escape hatch on every side: an interface that is real but not one of the named types."
         }
       ],
       "observed": {
@@ -316,6 +326,25 @@
       ]
     },
     {
+      "key": "rivet_bore",
+      "repo": "yantra4d",
+      "role": "interface_id",
+      "status": "provisional",
+      "gloss": "The bore of a rivet's burr that the rivet post passes through and is set in, joining stacked layers.",
+      "observed": {
+        "cartridges": 1,
+        "interfaces": 1
+      },
+      "equivalent_to": [
+        {
+          "key": "pivot",
+          "repo": "pliego",
+          "note": "The sheet commons' pivot is the same joint (a post through holes in stacked layers); there the layers stay free to turn. Recorded because of this cross-commons equivalence, not because the id recurs (one cartridge, `rivet`)."
+        }
+      ],
+      "note": "geometry_type 'snap' on the `rivet` cartridge. Provisional: the equivalence is a proposal a maintainer should read."
+    },
+    {
       "key": "custom",
       "repo": "fashion-cabinet",
       "role": "interface_type",
@@ -331,6 +360,11 @@
           "key": "custom",
           "repo": "yantra4d",
           "note": "The same escape hatch on both sides: an interface that is real but not one of the named types."
+        },
+        {
+          "key": "custom",
+          "repo": "pliego",
+          "note": "The same escape hatch on every side: an interface that is real but not one of the named types."
         }
       ]
     },
@@ -656,6 +690,159 @@
       },
       "term": "inseam",
       "gloss": "The inside leg seam of a trouser cartridge, as a declared interface."
+    },
+    {
+      "key": "tab",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "tab-and-slot",
+      "observed": {
+        "cartridges": 5,
+        "interfaces": 5
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "slot",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "tab-and-slot",
+      "observed": {
+        "cartridges": 6,
+        "interfaces": 6
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "glue_flap",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "glue-flap",
+      "observed": {
+        "cartridges": 21,
+        "interfaces": 21
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "glue_zone",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "glue-zone",
+      "observed": {
+        "cartridges": 10,
+        "interfaces": 11
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "hinge",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "paper-hinge",
+      "observed": {
+        "cartridges": 14,
+        "interfaces": 14
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "spine",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "book-spine",
+      "observed": {
+        "cartridges": 12,
+        "interfaces": 13
+      },
+      "manifest_enum": true,
+      "note": "One cartridge declares two spine interfaces."
+    },
+    {
+      "key": "gutter",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "gutter",
+      "observed": {
+        "cartridges": 10,
+        "interfaces": 10
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "page_edge",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "page-edge",
+      "observed": {
+        "cartridges": 14,
+        "interfaces": 15
+      },
+      "manifest_enum": true
+    },
+    {
+      "key": "pivot",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "pivot-joint",
+      "observed": {
+        "cartridges": 7,
+        "interfaces": 7
+      },
+      "manifest_enum": true,
+      "equivalent_to": [
+        {
+          "key": "rivet_bore",
+          "repo": "yantra4d",
+          "note": "One joint: a post through holes in stacked layers, held by a head and a set burr or split legs. The sheet manifest's pivot interfaces name a brad, eyelet or rivet through both cards, and the sheet document's pivot join carries a hardware_ref to yantra4d. A sheet pivot leaves its layers free to turn; the solid rivet is set. A proposal, as every equivalence here is."
+        }
+      ]
+    },
+    {
+      "key": "track",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "slide-track",
+      "observed": {
+        "cartridges": 3,
+        "interfaces": 3
+      },
+      "manifest_enum": true,
+      "note": "Two of the three are strings (a papel picado banner's line, an ofrenda's flag line), one a sleeve opening."
+    },
+    {
+      "key": "custom",
+      "repo": "pliego",
+      "role": "interface_type",
+      "status": "canonical",
+      "term": "custom-interface",
+      "observed": {
+        "cartridges": 7,
+        "interfaces": 7
+      },
+      "manifest_enum": true,
+      "equivalent_to": [
+        {
+          "key": "custom",
+          "repo": "yantra4d",
+          "note": "The same escape hatch on every side: an interface that is real but not one of the named types."
+        },
+        {
+          "key": "custom",
+          "repo": "fashion-cabinet",
+          "note": "The same escape hatch on every side: an interface that is real but not one of the named types."
+        }
+      ]
     }
   ]
 }
