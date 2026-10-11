@@ -394,6 +394,10 @@ are **wire it, remove it, or allow-list it with a reason someone can review**.
 - Fabric stiffness is a **stated convention** (an assumed 500 gf/cm test load, a bend-class
   ladder, one shear value). Never upgrade those numbers to `measured` or `derived` without
   a card field that records the measurement.
+- `hyperobjects_sheet.board` rebuilds a Pliego `construction` block (pliego.board v1) as a
+  laminate with pliego.board's own per-layer terms, and its flute table is Pliego's. The
+  board tests hold it to each card's caliper and `D_md`/`D_cd`. If Pliego changes its board
+  model, re-vendor the cards and let those tests say what moved; do not loosen them.
 - Laminate checks are textbook cases (Kaw Examples 2.6, 2.7, 4.2 and the closed forms).
   Change `laminate.py` only with those tests green.
 - Nothing here gates a commons yet. A new rule lands as a note; see

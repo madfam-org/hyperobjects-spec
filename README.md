@@ -1080,7 +1080,7 @@ found, which candidate rules were killed and why.
 
 ## Sheet behaviour — one sheet, three platforms
 
-Paper and board (Pliego), fabric and felt (Fashion Cabinet) and thin prints (Yantra4D) are
+Paper, board and foam (Pliego), fabric and felt (Fashion Cabinet) and thin prints (Yantra4D) are
 all thin sheets. The keystone gives them one neutral description, `sheet_behaviour` v1:
 caliper, areal density, membrane and bending stiffness, crease, regime flags, contact,
 and provenance per number. Mapping rules read each platform's own cards; `material_ref`

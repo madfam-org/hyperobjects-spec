@@ -6,6 +6,57 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Sheet behaviour: all 28 Pliego stock cards, boards and foam, seven fabric bend classes (package 0.15.0)
+
+Closes the gaps #62 left. Additive for every document that already had a golden: none of
+the 29 moves, and no commons check calls any of this yet.
+
+#### Added
+
+- **Goldens for all 28 Pliego stock cards.** #62's 14 were cut at pliego `8928b4e`, before
+  the board, corrugated and foam cards. The other 14 are now vendored byte for byte from
+  Pliego main `870e098` (7 corrugated boards, folding boxboard, greyboard, kraftliner, SBS
+  board and 3 EVA foams), blob-checked, with provenance in the fixtures' `NOTICE.md`. The
+  first 14 are unchanged at `870e098`. CI checks 43 goldens and greps `pliego=28`; the
+  refresh script now prints its counts per source.
+- **Built-up boards are `layered`** (`hyperobjects_sheet.board`). A card with a
+  `construction` block (pliego.board v1) is rebuilt as a classical laminate with
+  pliego.board's own per-layer contributions. Liners and plies are orthotropic laminae;
+  a medium is a CD-only slab as thick as its flute height, with the sinusoid's spread as
+  its own bending. The document carries the `laminate` block (A, B, D about the
+  mid-plane). Every board card's layers add up to its caliper, and the free-stack D*
+  gives back the card's `D_md` and `D_cd` to rounding. The single-face sheet's CD is the
+  exception at −2.50 %, from the Poisson cross terms; a note states the agreement on
+  every document. Single-face, BC, AAC and folding boxboard are `coupled`. The symmetric
+  single walls are not.
+- **Foams are `compressible`.** The three EVA cards carry `compression.Ez` = the card's
+  compressive initial modulus (`estimated`; Chen et al. 2023, as the card cites). They are
+  not `inextensible`, because their tear strain is 1.3. A foam is recognised by
+  `stock.finish`, since stock-card v1 has no structured foam field. An anisotropic foam is
+  refused.
+- **`bend_stiffness_class` lists fashion-cabinet main's seven values** in both copies of
+  `fabric-manifest.schema.json`: very-soft, soft, medium-soft, medium, medium-stiff, stiff,
+  very-stiff. `fc-fabric/1` already mapped all seven. Its test now requires the schema enum
+  and the ladder to be equal, in order. medium-soft (0.07 gf·cm²/cm) and very-stiff (0.6)
+  are pinned to an `estimated` bending stiffness. No vendored fabric card uses either.
+
+#### Fixed
+
+- **D66 of a built-up board.** It was G12·t³/12, a solid plate of the full caliper, beside a
+  D11 and D22 from sandwich theory. A single-face sheet therefore twisted about 80 times
+  stiffer than it bent in MD. D12 and D66 of a constructed board now come from the
+  stack's D*. D66 is a lower bound, because the medium carries no shear. D11 and D22 keep
+  the card's values, and their basis now says sandwich bending (pliego.board v1) instead
+  of the plate formula. Plain cards keep the plate reading.
+
+#### Notes, not failures
+
+All 43 goldens are valid (`fc-spec sheet check: files=43 failures=0 notes=32`). Every
+number on each of the 14 new cards is an estimate. So the all-estimated note now covers 18
+Pliego cards, plus the 2 thin prints and 2 laminates. Non-plate bending is noted on 10 of
+the 11 fabric cards. Being layered, the single-face sheet no longer draws the non-plate
+note; its D11 is 0.004 × the plate value.
+
 ### The sheet-behaviour contract, cross-commons (package 0.14.0)
 
 Pliego (paper, board, foam), Fashion Cabinet (fabric, felt) and Yantra4D (thin prints) keep
@@ -65,7 +116,7 @@ Nothing fails, and nothing is wired into a commons yet.
 
 - The vendored `fabric-manifest` schema lists five `bend_stiffness_class` values;
   fashion-cabinet main lists seven (`medium-soft` and `very-stiff` added). `fc-fabric/1`
-  maps all seven. The vendored copy wants a refresh in its own change.
+  maps all seven. The vendored copy wants a refresh in its own change (done in 0.15.0).
 
 ### The keystone follows Pliego kernel 0.3.0 (package 0.13.0)
 
