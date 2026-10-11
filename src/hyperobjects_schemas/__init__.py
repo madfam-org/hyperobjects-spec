@@ -10,6 +10,7 @@ One place to read the contracts from, whichever side of the commons you author o
     load("generator-output")        # GOC-1: one generator instance (variables.json)
     load("sheet-behaviour")         # how a thin sheet behaves, across the commons
     load("assembly")                # ASM-1: a type-level assembly (assembly.json)
+    load("sheet-manifest")          # the Pliego cartridge manifest (sheet side)
 
 Names are given without the ``.schema.json`` suffix; the suffixed filename works too.
 
@@ -22,9 +23,9 @@ These files are copies of the schemas each platform repo publishes:
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
     ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``,
-    ``assembly``, ``standard-part`` — authored HERE; this package is their home. The
-    lexicon term schema formalizes RFC 0039 §3, the vocabulary schema its G3 controlled
-    vocabularies, and the article schema its G2
+    ``assembly``, ``standard-part``, ``sheet-manifest`` — authored HERE; this package is
+    their home. The lexicon term schema formalizes RFC 0039 §3, the vocabulary schema its
+    G3 controlled vocabularies, and the article schema its G2
     elevation of the per-cartridge README; the corpus and the vocabularies they validate
     ship in ``hyperobjects_lexicon``.
     The generator-output schema is GOC-1 (the ``variables.json`` a yantra4d or Fashion
@@ -33,6 +34,11 @@ These files are copies of the schemas each platform repo publishes:
     The fabrication-vocabulary schema validates the SEM-1 §4 reference vocabularies
     (processes, material classes, process parameters, machine capabilities, interface
     sizes), which ship in ``hyperobjects_lexicon.vocabularies.fabrication``.
+    The sheet-manifest schema is the third commons' cartridge manifest (Pliego,
+    sheet-hyperobjects), authored here from day one rather than copied from a platform;
+    its checker is ``pliego_spec``. The sheet DOCUMENT contract (the FOLD file the
+    Pliego kernel writes) is not here: it is vendored, hash-locked, in
+    ``pliego_spec/schemas/`` because Pliego is its home.
     The standard-part schema validates one entry of the ASM-1 §4 standard-parts catalog
     (COTS parts an assembly references), which ships in ``hyperobjects_standard_parts``.
     The ``sheet-behaviour`` schema is authored here too: the cross-commons thin-sheet
@@ -72,6 +78,7 @@ SCHEMAS: dict[str, str] = {
     "fabrication-vocabulary": "hyperobjects-spec",
     "assembly": "hyperobjects-spec",
     "standard-part": "hyperobjects-spec",
+    "sheet-manifest": "hyperobjects-spec",
 }
 
 

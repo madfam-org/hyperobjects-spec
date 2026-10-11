@@ -29,7 +29,9 @@ from hyperobjects_lexicon.reader import (
     build,
     check,
     load_model,
+    load_reader_catalog,
     reader_counts,
+    reader_status,
     render,
 )
 
@@ -368,3 +370,31 @@ def test_every_embodied_by_reference_has_a_page_or_is_reported(files, model):
             assert ref in page
     for problem in model.dangling_embodied_by:
         assert problem in files["index.html"]
+
+
+# ── the sheet commons (Pliego) ───────────────────────────────────────────────
+def test_pliego_is_a_reader_commons_with_a_quadrilingual_snapshot():
+    """The pliego snapshot is the 139 sheet manifests plus their article frontmatter:
+    every entry carries a name and a summary in all four languages, and a path to its
+    article (linked, never copied)."""
+    assert REPOS[-1] == "pliego"
+    snapshot = load_reader_catalog("pliego")
+    source = snapshot["source"]
+    assert source["url"] == "https://github.com/madfam-org/sheet-hyperobjects"
+    assert source["cartridges"] == source["entries"] == len(snapshot["entries"]) == 139
+    for entry in snapshot["entries"]:
+        assert set(entry["names"]) == set(entry["summary"]) == {"es", "en", "fr", "pt"}
+        assert entry["summary_label"] == "summary"
+        assert entry["manifest"] == f"{entry['slug']}/project.json"
+        assert entry["article_path"] == f"{entry['slug']}/docs/README.md"
+
+
+def test_a_pliego_page_offers_four_languages_and_links_its_article():
+    files = render()
+    page = files["pliego/volvelle.html"]
+    for lang in ("es", "en", "fr", "pt"):
+        assert f'<section class="lang" id="{lang}" lang="{lang}">' in page
+    assert "Resumen" in page and "Summary" in page and "Résumé" in page and "Resumo" in page
+    assert "/blob/ddc3ed3eca4554df9836d2ed935e7218e00a398d/volvelle/docs/README.md" in page
+    assert '<a href="pliego/index.html">Pliego</a>' in files["index.html"]
+    assert "pliego=139" in reader_status()

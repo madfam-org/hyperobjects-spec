@@ -1,0 +1,144 @@
+{
+  "stock": {
+    "slug": "washi-kozo-30",
+    "name": {
+      "en": "Kozo washi 30 g/m²",
+      "es": "Washi de kozo 30 g/m²",
+      "fr": "Washi kozo 30 g/m²",
+      "pt": "Washi de kozo 30 g/m²"
+    },
+    "class": "washi",
+    "fiber": [
+      "kozo"
+    ],
+    "finish": "handmade",
+    "color": "#f3eee2",
+    "grain": "none"
+  },
+  "physical": {
+    "gsm": {
+      "value": 30,
+      "status": "estimated",
+      "basis": "thin handmade kozo washi, rsE §b"
+    },
+    "caliper_um": {
+      "value": 80,
+      "status": "estimated",
+      "basis": "rsE §b"
+    },
+    "E_md_gpa": {
+      "value": 1.5,
+      "status": "estimated",
+      "basis": "handmade, near-isotropic; rsE §b [E]"
+    },
+    "E_cd_gpa": {
+      "value": 1.0,
+      "status": "estimated",
+      "basis": "handmade sheet, near-isotropic: MD/CD ≈ 1.5 (rsE §b) [E]"
+    },
+    "nu": {
+      "value": 0.293,
+      "status": "estimated",
+      "basis": "√(ν12·ν21) = 0.293 for machine-made paper (Baum et al. 1981)"
+    },
+    "bending_stiffness_mNm": {
+      "md": null,
+      "cd": null,
+      "method": null
+    },
+    "crease_length_scale_t": {
+      "value": 200,
+      "status": "estimated",
+      "basis": "L* ≈ 200·t measured on Mylar (Lechenault 2014); paper unmeasured"
+    },
+    "crease_yield_deg": {
+      "value": 35,
+      "status": "estimated",
+      "basis": "rest opening 27–43° after creasing (Lechenault 2014)"
+    },
+    "tear_strain": {
+      "value": 0.03,
+      "status": "estimated",
+      "basis": "long bast fibres give high tear resistance (rsE §b) [E]"
+    },
+    "friction": {
+      "value": 0.4,
+      "status": "estimated",
+      "basis": "paper on paper 0.3–0.6 (rsE §a3)"
+    }
+  },
+  "fabrication": {
+    "min_feature_mm": 1.0,
+    "score": null,
+    "laser": null,
+    "plotter": null,
+    "glue": [
+      "wheat-starch-paste",
+      "methyl-cellulose",
+      "glue-stick"
+    ],
+    "perforation": {
+      "cut_mm": 3.0,
+      "bridge_mm": 1.0
+    }
+  },
+  "appearance": {
+    "front": "#f3eee2",
+    "back": "#f3eee2",
+    "translucency": 0.45,
+    "roughness": 0.95
+  },
+  "derived": {
+    "areal_density": 3e-05,
+    "thickness": 0.08,
+    "E_md": 1500000000.0,
+    "E_cd": 1000000000.0,
+    "nu": 0.293,
+    "D_md": 70010.3,
+    "D_cd": 46673.5,
+    "crease_k": 3572.7,
+    "crease_yield_deg": 35.0,
+    "crease_set_rate": 0.5,
+    "score_factor": 0.35,
+    "perf_factor": 0.25,
+    "tear_strain": 0.03,
+    "friction": 0.4,
+    "collision_thickness": 0.08,
+    "G12": 473976000.0,
+    "score_yield_deg": 12.25,
+    "perf_cut_mm": 3.0,
+    "perf_bridge_mm": 1.0
+  },
+  "derived_basis": "pliego.stock.derive v1",
+  "provenance": {
+    "author": "Innovaciones MADFAM",
+    "license": "CERN-OHL-W-2.0",
+    "sources": [
+      "Pliego research memo rsE (2026-10-10) §b material default table — engineering estimates [E] unless a source is cited",
+      "Baum, Habeger & Fleischman 1981, Measurement of the orthotropic elastic constants of paper — https://bioresources.cnr.ncsu.edu/resources/measurement-of-the-orthotropic-elastic-constants-of-paper/",
+      "Lechenault, Thiria & Adda-Bedia 2014, Mechanical response of a creased sheet, PRL 112, 244301 — https://arxiv.org/abs/1404.1243"
+    ],
+    "heritage": {
+      "tradition": {
+        "en": "Washi (Japanese handmade paper)",
+        "es": "Washi (papel japonés hecho a mano)",
+        "fr": "Washi (papier japonais fait main)",
+        "pt": "Washi (papel japonês feito à mão)"
+      },
+      "place": "Misumi (Hamada), Mino and Ogawa / Higashi-chichibu, Japan",
+      "makers": "Washi-making communities of Misumi, Mino and Ogawa / Higashi-chichibu",
+      "claims": [
+        {
+          "en": "Washi craftsmanship was inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2014.",
+          "es": "La elaboración artesanal del washi se inscribió en 2014 en la Lista Representativa del Patrimonio Cultural Inmaterial de la Humanidad de la UNESCO.",
+          "source": "https://ich.unesco.org/en/RL/01001"
+        },
+        {
+          "en": "It is practised in Misumi (Hamada), Mino and Ogawa / Higashi-chichibu and made from kozo fibre.",
+          "es": "Se practica en Misumi (Hamada), Mino y Ogawa / Higashi-chichibu, y se hace con fibra de kozo.",
+          "source": "https://ich.unesco.org/en/RL/01001"
+        }
+      ]
+    }
+  }
+}

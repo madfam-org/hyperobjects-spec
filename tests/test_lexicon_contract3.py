@@ -26,9 +26,11 @@ def a_term(lexicon):
     return term
 
 
-def test_the_contract_marker_is_three():
-    assert CONTRACT_VERSION == 3
-    assert load_schema("lexicon-term")["properties"]["spec_version"]["maximum"] == 3
+def test_the_contract_marker_is_at_least_three():
+    """Contract 3 introduced these fields; contract 4 (the sheet commons) is additive over
+    it, so the marker only moves up and the schema's maximum always equals it."""
+    assert CONTRACT_VERSION >= 3
+    assert load_schema("lexicon-term")["properties"]["spec_version"]["maximum"] == CONTRACT_VERSION
 
 
 def test_every_shipped_term_is_still_valid(lexicon):

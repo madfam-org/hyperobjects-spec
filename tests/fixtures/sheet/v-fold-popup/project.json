@@ -1,0 +1,112 @@
+{
+  "project": {
+    "name": {"en": "V-fold pop-up", "es": "Pop-up en V", "fr": "Pop-up en V", "pt": "Pop-up em V"},
+    "slug": "v-fold-popup",
+    "version": "0.1.0",
+    "engine": "pliego",
+    "description": {
+      "en": "The basic pop-up mechanism: a folded piece glued across the gutter of a spread at an angle, so opening the spread stands it up and closing it folds it flat inside.",
+      "es": "El mecanismo básico del pop-up: una pieza doblada que se pega en ángulo sobre el pliegue central de un pliego abierto, de modo que al abrirlo se levanta y al cerrarlo queda plana por dentro.",
+      "fr": "Le mécanisme de base du pop-up : une pièce pliée collée en biais de part et d'autre de la pliure d'une double page, qui se dresse à l'ouverture et se replie à plat à la fermeture.",
+      "pt": "O mecanismo básico do pop-up: uma peça dobrada colada em ângulo sobre a dobra de uma página dupla, que se levanta ao abrir e fica plana por dentro ao fechar."
+    },
+    "thumbnail": "/projects/v-fold-popup.webp",
+    "difficulty": "intermediate",
+    "tags": ["popup", "paper-engineering", "hyperobject", "commons"],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [{"source": "Original design (the V-fold is a generic paper-engineering mechanism)", "license": "original"}]
+    }
+  },
+  "modes": [
+    {
+      "id": "spread",
+      "label": {"en": "Spread", "es": "Pliego abierto", "fr": "Double page", "pt": "Página dupla"},
+      "sheets": ["base", "piece"]
+    }
+  ],
+  "sheets": [
+    {"id": "base", "label": {"en": "Base spread", "es": "Pliego base", "fr": "Double page de base", "pt": "Página dupla de base"}, "stock": "cardstock-250"},
+    {"id": "piece", "label": {"en": "V-fold piece", "es": "Pieza en V", "fr": "Pièce en V", "pt": "Peça em V"}}
+  ],
+  "parameter_groups": [
+    {"id": "geometry", "label": {"en": "Geometry", "es": "Geometría", "fr": "Géométrie", "pt": "Geometria"}}
+  ],
+  "parameters": [
+    {
+      "id": "spread_width",
+      "type": "slider",
+      "group": "geometry",
+      "label": {"en": "Spread width (mm)", "es": "Ancho del pliego (mm)", "fr": "Largeur de la double page (mm)", "pt": "Largura da página dupla (mm)"},
+      "default": 200, "min": 120, "max": 300, "unit": "mm"
+    },
+    {
+      "id": "piece_height",
+      "type": "slider",
+      "group": "geometry",
+      "label": {"en": "Piece height (mm)", "es": "Altura de la pieza (mm)", "fr": "Hauteur de la pièce (mm)", "pt": "Altura da peça (mm)"},
+      "default": 60, "min": 20, "max": 120, "unit": "mm"
+    },
+    {
+      "id": "v_angle",
+      "type": "slider",
+      "group": "geometry",
+      "label": {"en": "V angle (°)", "es": "Ángulo de la V (°)", "fr": "Angle du V (°)", "pt": "Ângulo do V (°)"},
+      "tooltip": {"en": "Angle between the gutter and each glue line.", "es": "Ángulo entre el pliegue central y cada línea de pegado.", "fr": "Angle entre la pliure et chaque ligne de collage.", "pt": "Ângulo entre a dobra e cada linha de colagem."},
+      "default": 60, "min": 30, "max": 80, "unit": "deg"
+    },
+    {
+      "id": "tab_width",
+      "type": "slider",
+      "group": "geometry",
+      "label": {"en": "Glue tab width (mm)", "es": "Ancho de la pestaña de pegado (mm)", "fr": "Largeur de la patte de collage (mm)", "pt": "Largura da aba de colagem (mm)"},
+      "default": 10, "min": 6, "max": 20, "unit": "mm"
+    }
+  ],
+  "presets": [
+    {"id": "tall", "label": {"en": "Tall piece", "es": "Pieza alta", "fr": "Pièce haute", "pt": "Peça alta"}, "values": {"piece_height": 100, "v_angle": 70}}
+  ],
+  "constraints": [
+    {
+      "expression": "piece_height * 2 < spread_width",
+      "severity": "error",
+      "message": {"en": "The piece must fold flat inside the closed spread.", "es": "La pieza debe quedar plana dentro del pliego cerrado.", "fr": "La pièce doit se replier à plat dans la double page fermée.", "pt": "A peça deve ficar plana dentro da página dupla fechada."}
+    }
+  ],
+  "controls": [
+    {"id": "open", "kind": "angle", "label": {"en": "Open", "es": "Abrir", "fr": "Ouvrir", "pt": "Abrir"}, "min": 0, "max": 180, "default": 180, "unit": "deg"}
+  ],
+  "export_formats": ["svg", "dxf", "pdf", "glb", "fold"],
+  "stock": {"default": "cardstock-250"},
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "popup",
+    "kernel": "sheet",
+    "interfaces": [
+      {
+        "id": "gutter",
+        "type": "gutter",
+        "label": {"en": "Spread gutter", "es": "Pliegue central", "fr": "Pliure de la double page", "pt": "Dobra da página dupla"},
+        "edges": [{"sheet": "base", "edge": "gutter"}],
+        "parameters": ["spread_width"],
+        "polarity": "neutral"
+      },
+      {
+        "id": "glue_flaps",
+        "type": "glue_flap",
+        "label": {"en": "Glue flaps", "es": "Pestañas de pegado", "fr": "Pattes de collage", "pt": "Abas de colagem"},
+        "edges": [{"sheet": "piece", "edge": "tab-left"}, {"sheet": "piece", "edge": "tab-right"}],
+        "parameters": ["tab_width", "v_angle"],
+        "polarity": "male"
+      }
+    ],
+    "societal_benefit": {
+      "en": "A mechanism a classroom can cut from one sheet of card and understand by opening it.",
+      "es": "Un mecanismo que un salón de clases puede recortar de una sola cartulina y entender con solo abrirlo.",
+      "fr": "Un mécanisme qu'une classe peut découper dans une seule feuille de bristol et comprendre en l'ouvrant.",
+      "pt": "Um mecanismo que uma turma pode recortar de uma só cartolina e compreender ao abri-lo."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  }
+}

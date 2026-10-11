@@ -1,0 +1,33 @@
+{
+  "spec_version": 4,
+  "id": "leporello",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "leporello (accordion book)",
+    "es": "leporello (libro acordeón)",
+    "fr": "leporello (livre accordéon)",
+    "pt": "leporello (livro sanfona)"
+  },
+  "definition": {
+    "en": "A book made of one long strip folded back and forth in alternate mountain and valley folds, so it opens page by page or pulls out into one continuous panorama. The name recalls Leporello, the servant in Mozart's Don Giovanni whose catalogue of his master's conquests unrolls at length.",
+    "es": "Un libro hecho de una sola tira larga doblada en zigzag, con pliegues alternos en monte y en valle, de modo que se abre página a página o se extiende en un panorama continuo. El nombre recuerda a Leporello, el criado del Don Giovanni de Mozart cuyo catálogo de conquistas de su amo se despliega a lo largo.",
+    "fr": "Un livre fait d'une seule longue bande pliée en zigzag, en plis alternés montagne et vallée, qui s'ouvre page par page ou se déploie en un panorama continu. Le nom évoque Leporello, le valet du Don Giovanni de Mozart dont le catalogue des conquêtes de son maître se déroule longuement.",
+    "pt": "Um livro feito de uma só tira comprida dobrada em ziguezague, com dobras alternadas em montanha e em vale, que se abre página a página ou se estende num panorama contínuo. O nome lembra Leporello, o criado do Don Giovanni de Mozart cujo catálogo das conquistas do amo se desenrola longamente."
+  },
+  "see_also": [
+    "screenfold-codex",
+    "tunnel-book",
+    "signature",
+    "mountain-fold"
+  ],
+  "constraints": "Panels must be equal in width (or deliberately graded) for the strip to stack square when closed; a strip longer than one sheet is joined with a glue flap on a valley fold, where the joint hides inside the closed book.",
+  "heritage": true,
+  "sources": [
+    "Wikipedia (de), «Leporello» — the folded book and the origin of the name",
+    "Wikipedia (en), \"Leporello\" — the character in Don Giovanni (1787) and the catalogue aria"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

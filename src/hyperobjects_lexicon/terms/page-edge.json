@@ -1,0 +1,33 @@
+{
+  "spec_version": 4,
+  "id": "page-edge",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "page edge",
+    "es": "canto de página",
+    "fr": "tranche",
+    "pt": "corte da página"
+  },
+  "definition": {
+    "en": "A free edge of a leaf or a cover (the fore-edge, the head or the tail) where a reader turns, pulls or opens the page, and where ribbons or ties attach. It is the opposite edge to the spine.",
+    "es": "Un borde libre de una hoja o de una tapa (el corte delantero, la cabeza o el pie) por donde el lector pasa, jala o abre la página, y donde se atan cintas o lazos. Es el borde opuesto al lomo.",
+    "fr": "Un bord libre d'un feuillet ou d'une couverture (la gouttière, la tête ou la queue) par où le lecteur tourne, tire ou ouvre la page, et où s'attachent rubans ou liens. C'est le bord opposé au dos.",
+    "pt": "Uma borda livre de uma folha ou de uma capa (o corte dianteiro, a cabeça ou o pé) por onde o leitor vira, puxa ou abre a página, e onde se prendem fitas ou laços. É a borda oposta à lombada."
+  },
+  "aliases": [
+    {
+      "name": "page_edge",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (neutral polarity)."
+    }
+  ],
+  "see_also": [
+    "book-spine",
+    "leporello",
+    "tunnel-book"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

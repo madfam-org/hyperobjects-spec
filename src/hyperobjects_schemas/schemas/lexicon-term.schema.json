@@ -8,10 +8,10 @@
   "required": ["id", "domain", "term", "definition"],
   "properties": {
     "spec_version": {
-      "description": "Version of THIS term contract the entry is written against. Absent means 1. Contract 2 (RFC 0039 G2/G3) is ADDITIVE over 1: it adds the optional `review_status` block and the `capability` domain, so every contract-1 entry is still valid and unchanged. An entry declares 2 when it uses either. Contract 3 (SEM-1 §4) is ADDITIVE over 2: it adds the optional `exact_match` and `close_match` arrays of external identifiers, and the lane refuses an entry that uses either while declaring less than 3.",
+      "description": "Version of THIS term contract the entry is written against. Absent means 1. Contract 2 (RFC 0039 G2/G3) is ADDITIVE over 1: it adds the optional `review_status` block and the `capability` domain, so every contract-1 entry is still valid and unchanged. An entry declares 2 when it uses either. Contract 3 (SEM-1 §4) is ADDITIVE over 2: it adds the optional `exact_match` and `close_match` arrays of external identifiers, and the lane refuses an entry that uses either while declaring less than 3. Contract 4 (the sheet commons, Pliego) is ADDITIVE over 3: it adds the `sheet-folding` domain and the `pliego` repo to `aliases[].repo` and `embodied_by`, and the lane refuses an entry that uses either while declaring less than 4.",
       "type": "integer",
       "minimum": 1,
-      "maximum": 3,
+      "maximum": 4,
       "default": 1
     },
     "id": {
@@ -19,7 +19,7 @@
       "$ref": "#/$defs/termId"
     },
     "domain": {
-      "description": "Which part of the commons the term belongs to. A controlled list spanning both halves — the solid side (yantra4d), the soft side (fashion-cabinet), and the shared seams between them.",
+      "description": "Which part of the commons the term belongs to. A controlled list spanning the three commons — the solid side (yantra4d), the soft side (fashion-cabinet), the sheet side (pliego: `sheet-folding`, contract 4) — and the shared seams between them.",
       "type": "string",
       "enum": [
         "cdg-interface",
@@ -30,7 +30,8 @@
         "cross-commons",
         "manifest",
         "capability",
-        "licensing"
+        "licensing",
+        "sheet-folding"
       ]
     },
     "term": {
@@ -156,9 +157,9 @@
       "maxLength": 80
     },
     "cartridgeSlug": {
-      "description": "'<repo>/<slug>', where repo is one of the two commons.",
+      "description": "'<repo>/<slug>', where repo is one of the commons (`pliego` since contract 4).",
       "type": "string",
-      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^(yantra4d|fashion-cabinet|pliego)/[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "quadrilingualString": {
       "description": "A string in all four languages of the commons (RFC 0039, ruled 2026-08-25). Spanish is the house register and the quality bar; French and Portuguese are reviewed, not merely generated.",
@@ -185,7 +186,7 @@
         "repo": {
           "description": "Where that spelling is real.",
           "type": "string",
-          "enum": ["yantra4d", "fashion-cabinet"]
+          "enum": ["yantra4d", "fashion-cabinet", "pliego"]
         },
         "note": {
           "description": "What the spelling is (a manifest enum value, a parameter id, drafting idiom) and why it differs.",

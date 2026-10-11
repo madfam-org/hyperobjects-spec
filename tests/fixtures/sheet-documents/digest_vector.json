@@ -1,0 +1,45 @@
+{
+ "comment": "Spec \u00a75.15 test vector: `document` hashed with pliego:meta.digest = null; `canonical` is its RFC 8785 serialisation (UTF-8) and `digest` its sha256.",
+ "document": {
+  "file_spec": 1.2,
+  "vertices_coords": [
+   [
+    0,
+    0
+   ],
+   [
+    150.0,
+    5e-06
+   ],
+   [
+    1e-07,
+    1e+21
+   ],
+   [
+    -0.0,
+    12.5
+   ]
+  ],
+  "pliego:sheets": [
+   {
+    "id": "s",
+    "label": {
+     "en": "Caf\u00e9 \u2615",
+     "es": "L\u00ednea\u2028nueva"
+    }
+   }
+  ],
+  "pliego:meta": {
+   "kernel": "pliego-kernel 0.2.0",
+   "params": {
+    "b": 2,
+    "a": 0.1,
+    "\ud83d\ude00": true,
+    "\ue000": null
+   },
+   "digest": null
+  }
+ },
+ "canonical": "{\"file_spec\":1.2,\"pliego:meta\":{\"digest\":null,\"kernel\":\"pliego-kernel 0.2.0\",\"params\":{\"a\":0.1,\"b\":2,\"\ud83d\ude00\":true,\"\ue000\":null}},\"pliego:sheets\":[{\"id\":\"s\",\"label\":{\"en\":\"Caf\u00e9 \u2615\",\"es\":\"L\u00ednea\u2028nueva\"}}],\"vertices_coords\":[[0,0],[150,0.000005],[1e-7,1e+21],[0,12.5]]}",
+ "digest": "sha256:1c9d6a6ad4f1ea789d7b23d28b86348a869866392f4705b8ca01d6c92a34619d"
+}

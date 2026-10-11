@@ -1,0 +1,37 @@
+{
+  "spec_version": 4,
+  "id": "perforation",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "perforation",
+    "es": "perforado (troquelado)",
+    "fr": "perforation",
+    "pt": "picotado"
+  },
+  "definition": {
+    "en": "A line of short cuts separated by uncut bridges, so the sheet folds along it easily or tears along it on purpose. The ratio of cut to bridge sets which: long bridges fold, short ones tear.",
+    "es": "Una línea de cortes cortos separados por puentes sin cortar, para que el pliego se doble por ella con facilidad o se rasgue por ella a propósito. La proporción entre corte y puente decide cuál: puentes largos doblan, puentes cortos rasgan.",
+    "fr": "Une ligne de courtes entailles séparées par des ponts non coupés, pour que la feuille s'y plie facilement ou s'y déchire volontairement. Le rapport entre coupe et pont en décide : des ponts longs plient, des ponts courts déchirent.",
+    "pt": "Uma linha de cortes curtos separados por pontes sem corte, para que a folha dobre facilmente por ela ou rasgue por ela de propósito. A proporção entre corte e ponte decide qual: pontes longas dobram, pontes curtas rasgam."
+  },
+  "aliases": [
+    {
+      "name": "perforation",
+      "repo": "pliego",
+      "note": "pliego:edges_treatment value; the only treatment that admits a C (cut) assignment as well as M/V/F."
+    }
+  ],
+  "see_also": [
+    "score",
+    "kirigami",
+    "papel-picado"
+  ],
+  "constraints": "Bridges narrower than the stock's min_feature_mm tear during handling, not when intended; the engine separates a perforation at the stock's tear_strain, so a bridge rule is a physics input, not a drawing detail.",
+  "sources": [
+    "Pliego docs/spec/v1/sheet-document.md (sheet document v1) §4 — edge treatment"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass with the sheet commons (keystone lane, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

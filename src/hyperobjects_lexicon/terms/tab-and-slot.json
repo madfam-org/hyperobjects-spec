@@ -1,0 +1,38 @@
+{
+  "spec_version": 4,
+  "id": "tab-and-slot",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "tab and slot",
+    "es": "pestaña y ranura",
+    "fr": "languette et fente",
+    "pt": "lingueta e ranhura"
+  },
+  "definition": {
+    "en": "A join made without glue: a tab cut on one piece passes through a slot or slit in another and is held there by its shape or by friction. The tab is the male side and the slot the female; slotted dividers, cardboard furniture and paper theatres are assembled this way.",
+    "es": "Una unión sin pegamento: una pestaña recortada en una pieza atraviesa una ranura o un corte de otra y queda sujeta por su forma o por fricción. La pestaña es la parte macho y la ranura la hembra; así se arman separadores ranurados, muebles de cartón y teatrinos de papel.",
+    "fr": "Un assemblage sans colle : une languette découpée sur une pièce passe dans une fente d'une autre et y tient par sa forme ou par frottement. La languette est le côté mâle, la fente le côté femelle ; c'est ainsi qu'on monte les intercalaires à fentes, les meubles en carton et les théâtres de papier.",
+    "pt": "Uma união sem cola: uma lingueta recortada numa peça atravessa uma ranhura ou um corte de outra e fica presa pela forma ou por atrito. A lingueta é o lado macho e a ranhura o fêmea; é assim que se montam divisórias encaixadas, móveis de papelão e teatrinhos de papel."
+  },
+  "aliases": [
+    {
+      "name": "tab",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (male)."
+    },
+    {
+      "name": "slot",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (female)."
+    }
+  ],
+  "see_also": [
+    "glue-flap",
+    "kirigami"
+  ],
+  "constraints": "A slot is cut to the tab's width plus the stock's caliper; one cut to the bare width tears as the tab goes in, and one much wider lets the join fall apart.",
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

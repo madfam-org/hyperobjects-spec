@@ -195,9 +195,9 @@
       "required": ["family"],
       "properties": {
         "family": {
-          "description": "Additive (builds the part up), subtractive (cuts it out of stock in 3-D), or cutting (2-D profiles out of sheet).",
+          "description": "Additive (builds the part up), subtractive (cuts it out of stock in 3-D), cutting (2-D profiles, partial-depth lines or perforations in sheet), forming (reshapes a sheet without removing material: creasing, embossing) or finishing (puts something on the surface: print, foil).",
           "type": "string",
-          "enum": ["additive", "subtractive", "cutting"]
+          "enum": ["additive", "subtractive", "cutting", "forming", "finishing"]
         },
         "iso_52900_category": {
           "description": "The ISO/ASTM 52900 additive-manufacturing process category, for additive processes.",
@@ -221,9 +221,9 @@
       "unevaluatedProperties": false
     },
     "cardRef": {
-      "description": "A material card in one of the two commons, as '<repo>/<slug>' — resolved against the bundled catalog snapshot.",
+      "description": "A material card in one of the commons, as '<repo>/<slug>' — resolved against the bundled catalog snapshot. `pliego` (the sheet commons' paper stock cards) is admitted additively; no pliego card is in the snapshot yet, so one fails to resolve until it is captured.",
       "type": "string",
-      "pattern": "^(yantra4d|fashion-cabinet)/[a-z0-9]+(-[a-z0-9]+)*$"
+      "pattern": "^(yantra4d|fashion-cabinet|pliego)/[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "materialClassEntry": {
       "type": "object",

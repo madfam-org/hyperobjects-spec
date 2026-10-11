@@ -1,0 +1,34 @@
+{
+  "spec_version": 4,
+  "id": "book-spine",
+  "domain": "sheet-folding",
+  "term": {
+    "en": "spine",
+    "es": "lomo",
+    "fr": "dos",
+    "pt": "lombada"
+  },
+  "definition": {
+    "en": "The edge where a book's leaves or signatures are folded, sewn or glued together, and the part of the cover over it. In the sheet commons it is the binding interface a book structure exposes.",
+    "es": "El borde donde las hojas o los cuadernillos de un libro se doblan, se cosen o se pegan juntos, y la parte de la tapa que lo cubre. En el común de hojas es la interfaz de encuadernación que ofrece una estructura de libro.",
+    "fr": "Le bord où les feuillets ou les cahiers d'un livre sont pliés, cousus ou collés ensemble, et la partie de la couverture qui le recouvre. Dans le commun des feuilles, c'est l'interface de reliure qu'offre une structure de livre.",
+    "pt": "A borda onde as folhas ou os cadernos de um livro são dobrados, cosidos ou colados juntos, e a parte da capa que a cobre. No comum de folhas é a interface de encadernação que uma estrutura de livro oferece."
+  },
+  "aliases": [
+    {
+      "name": "spine",
+      "repo": "pliego",
+      "note": "hyperobject.interfaces type in the sheet manifest (neutral polarity)."
+    }
+  ],
+  "see_also": [
+    "signature",
+    "leporello",
+    "screenfold-codex",
+    "page-edge"
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass for the sheet commons' interface vocabulary (keystone lane K3, 2026-10-10); no native review yet. es is the house register; fr and pt want a native pass."
+  }
+}

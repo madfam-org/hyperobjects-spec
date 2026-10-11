@@ -1,4 +1,4 @@
-"""The cross-commons reader: one lexicon, both encyclopaedias, the bridge as navigation.
+"""The cross-commons reader: one lexicon, three encyclopaedias, the bridge as navigation.
 
 RFC 0039 G4. The three layers the RFC keeps distinct (§2) each already exist in this
 package or in the two commons; what did not exist is a surface where a visitor can hold
@@ -74,9 +74,18 @@ __all__ = [
 #: fail closed and what lets a clone read the commons with no build step at all.
 READER_DIR = "docs/reader"
 
-#: The two commons, in the order the reader lists them: the solid side first, because
-#: the bridge's forward direction (garment resolves hardware) reads better arriving.
-REPOS: tuple[str, ...] = ("yantra4d", "fashion-cabinet")
+#: The commons, in the order the reader lists them: the solid side first, because the
+#: bridge's forward direction (garment resolves hardware) reads better arriving; the
+#: sheet commons (Pliego, ``sheet-hyperobjects``) third, since it holds no bridge yet.
+REPOS: tuple[str, ...] = ("yantra4d", "fashion-cabinet", "pliego")
+
+#: How the reader names each commons: its display name, and what it is, in `es` (the
+#: house register of the global chrome).
+COMMONS_NAMES: dict[str, tuple[str, str]] = {
+    "yantra4d": ("Yantra4D", "procomún sólido"),
+    "fashion-cabinet": ("Fashion Cabinet", "procomún textil"),
+    "pliego": ("Pliego", "procomún de hojas"),
+}
 
 SNAPSHOT_NAMES = {repo: f"{repo}-catalog.snapshot.json" for repo in REPOS}
 BRIDGE_SNAPSHOT = "commons-bridges.snapshot.json"
@@ -123,6 +132,7 @@ CHROME: dict[str, dict[str, str]] = {
         "fr": "Bénéfice sociétal",
         "pt": "Benefício social",
     },
+    "summary": {"es": "Resumen", "en": "Summary", "fr": "Résumé", "pt": "Resumo"},
     "compensation_notes": {
         "es": "Notas de compensación",
         "en": "Compensation notes",
@@ -173,6 +183,7 @@ LABELS = {
     "bridge_out": "Puente al hardware",
     "bridge_in": "Prendas que lo consumen",
     "manifest": "Manifiesto",
+    "article": "Artículo",
     "unresolved": "Sin resolver",
     "provenance": "Procedencia",
 }
@@ -444,9 +455,8 @@ def reader_status(model: ReaderModel | None = None) -> str:
     bridges = counts["bridges"]
     return (
         f"reader_status: pages={counts['pages']} terms={counts['terms']['total']} "
-        f"yantra4d={counts['catalog']['yantra4d']['entries']} "
-        f"fashion-cabinet={counts['catalog']['fashion-cabinet']['entries']} "
-        f"bridges: edges={bridges['edges']} resolved={bridges['resolved']} "
+        + "".join(f"{repo}={counts['catalog'][repo]['entries']} " for repo in REPOS)
+        + f"bridges: edges={bridges['edges']} resolved={bridges['resolved']} "
         f"unresolved={bridges['unresolved']} unlinked={bridges['unlinked']} "
         f"back={bridges['back_edges']} mirrored={bridges['mirrored']}"
     )
@@ -550,8 +560,7 @@ def _document(*, title: str, root: str, main: str, provenance: str) -> str:
         f'<a href="{root}{href}">{_esc(label)}</a>\n      '
         for href, label in (
             ("terms/index.html", _chrome("terms")),
-            ("yantra4d/index.html", "Yantra4D"),
-            ("fashion-cabinet/index.html", "Fashion Cabinet"),
+            *((f"{repo}/index.html", COMMONS_NAMES[repo][0]) for repo in REPOS),
             ("bridges.html", "Puentes"),
         )
     )
@@ -908,6 +917,15 @@ def _entry_page(model: ReaderModel, key: str) -> str:
             f'<ul class="plain">\n{items}</ul>'
         )
 
+    if entry.get("article_path"):
+        # A path into the commons, never the article's text (RFC 0039 §2).
+        article = f"{source['url']}/blob/{source['commit']}/{entry['article_path']}"
+        body.append(f'<h2>{_esc(LABELS["article"])}</h2>')
+        body.append(
+            f'<p><a href="{_esc(article)}"><span class="mono">'
+            f'{_esc(entry["article_path"])}</span></a> — el artículo completo, en su procomún.</p>'
+        )
+
     if entry.get("manifest"):
         body.append(f'<h2>{_esc(LABELS["manifest"])}</h2>')
         body.append(
@@ -1150,18 +1168,19 @@ def _home(model: ReaderModel) -> str:
     counts = reader_counts(model)
     body = [
         f"<h1>{_esc(_chrome('reader'))}</h1>",
-        '<p class="lede">Un léxico, dos enciclopedias, y el grafo de puentes como '
+        '<p class="lede">Un léxico, tres enciclopedias, y el grafo de puentes como '
         "navegación entre ellas (RFC 0039 G4). Todo se construye de instantáneas fijadas "
         "en este repositorio: sin red, sin checkout de plataforma, sin JavaScript.</p>",
         "<h2>Capas</h2>",
         f'<ul class="plain">'
         f'<li><a href="terms/index.html">{_esc(_chrome("terms"))}</a> — '
         f'{counts["terms"]["total"]} términos cuadrilingües, el diccionario compartido.</li>'
-        f'<li><a href="yantra4d/index.html">Yantra4D</a> — '
-        f'{counts["catalog"]["yantra4d"]["entries"]} entradas del procomún sólido.</li>'
-        f'<li><a href="fashion-cabinet/index.html">Fashion Cabinet</a> — '
-        f'{counts["catalog"]["fashion-cabinet"]["entries"]} entradas del procomún textil.</li>'
-        f'<li><a href="bridges.html">Puentes</a> — {counts["bridges"]["edges"]} aristas '
+        + "".join(
+            f'<li><a href="{repo}/index.html">{_esc(COMMONS_NAMES[repo][0])}</a> — '
+            f'{counts["catalog"][repo]["entries"]} entradas del {COMMONS_NAMES[repo][1]}.</li>'
+            for repo in REPOS
+        )
+        + f'<li><a href="bridges.html">Puentes</a> — {counts["bridges"]["edges"]} aristas '
         f'declaradas, {counts["bridges"]["resolved"]} con página en ambos extremos, '
         f'{counts["bridges"]["unresolved"]} sin resolver.</li></ul>',
         "<h2>Lo que este lector no hace</h2>",
@@ -1175,8 +1194,7 @@ def _home(model: ReaderModel) -> str:
     rows = []
     for label, tally in (
         ("términos", counts["terms"]["languages"]),
-        ("yantra4d", counts["catalog"]["yantra4d"]["languages"]),
-        ("fashion-cabinet", counts["catalog"]["fashion-cabinet"]["languages"]),
+        *((repo, counts["catalog"][repo]["languages"]) for repo in REPOS),
     ):
         cells = "".join(f"<td>{tally[lang]}</td>" for lang in LANGUAGES)
         rows.append(f"<tr><td>{_esc(label)}</td>{cells}</tr>")
