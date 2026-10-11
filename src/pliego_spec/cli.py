@@ -82,7 +82,7 @@ sheet-document (schema: Pliego's, vendored and sha-256-locked)
  18. schema — FOLD 1.2 + pliego: extensions
  19. spec §8.1 lengths and index ranges; §8.2 sheet membership; §8.4 treatment and
      fold-angle pairs; §8.6 stock keys; §8.7 references and unique ids; §8.8 sequence
-     targets; §8.9 one 3-D coordinate per vertex; §8.10 the GOC-1 canonical digest;
+     targets; §8.9 one 3-D coordinate per vertex; §8.10 the §5.15 canonical digest (RFC 8785);
      §8.13 packaging blocks name a declared sheet; §8.14 annotations name a declared
      sheet with printable text, print pages have a margin under half the page, unique
      ids and no overlap

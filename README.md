@@ -966,7 +966,7 @@ depend on the Pliego kernel; build documents with `python -m pliego.cartridge` a
 them with `check sheet-document`). `geometry=NOT verified` — the document check is the
 **structural** subset of the spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
 stock, join, mechanism and control references, sequence targets, one 3-D coordinate per
-vertex, the GOC-1 canonical digest, packaging blocks and annotations naming a declared
+vertex, the spec §5.15 canonical digest (RFC 8785, not GOC-1: `pliego_spec.canonical`), packaging blocks and annotations naming a declared
 sheet, print pages with a margin under half the page, unique ids and no overlap). Face
 simplicity and tiling (§8.3), sheet overlap (§8.5), point containment and developability
 (§8.9), pieces and stacks (§8.11, §8.12) and the containment halves of §8.13 and §8.14

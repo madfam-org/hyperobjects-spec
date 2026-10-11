@@ -15,8 +15,9 @@ engine's ``loadDocument()``. This module checks the subset that needs no geometr
         controls), ids are unique, and a sequence has its `sequence` control;
   §8.8  every sequence target is an M/V/F edge, and every release index is in range;
   §8.9  (structural half) a 3-D frame has one coordinate per vertex;
-  §8.10 `pliego:meta.digest`, when present, equals the SHA-256 of the GOC-1 canonical
-        serialisation of the document with `digest` set to null;
+  §8.10 `pliego:meta.digest`, when present, equals the SHA-256 of the spec §5.15
+        canonical serialisation (RFC 8785; `pliego_spec.canonical`) of the document with
+        `digest` set to null;
   §8.13 (structural half) every `pliego:dielines` / `pliego:finishes` / `pliego:artwork`
         entry names a declared sheet;
   §8.14 (structural half) every `pliego:annotations` entry names a declared sheet and its
@@ -35,12 +36,11 @@ and a pass here is a STRUCTURAL pass only.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass, field
 from importlib import resources
 
-from hyperobjects_schemas.generator_output import canonical_json
+from .canonical import sheet_document_digest
 
 __all__ = [
     "DOCUMENT_SCHEMA",
@@ -130,12 +130,9 @@ def check_stock_card(doc: object) -> list[str]:
 
 
 def document_digest(doc: dict) -> str:
-    """`sha256:<hex>` of the GOC-1 canonical serialisation with meta.digest = null."""
-    copy = json.loads(json.dumps(doc))
-    meta = copy.get("pliego:meta")
-    if isinstance(meta, dict):
-        meta["digest"] = None
-    return "sha256:" + hashlib.sha256(canonical_json(copy)).hexdigest()
+    """`sha256:<hex>` of the spec §5.15 canonical serialisation (RFC 8785) with
+    meta.digest = null. Not GOC-1's `canonical_json`: see `pliego_spec.canonical`."""
+    return sheet_document_digest(doc)
 
 
 def _schema_problems(doc: object) -> list[str]:

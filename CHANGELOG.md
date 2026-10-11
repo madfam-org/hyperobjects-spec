@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The keystone follows Pliego kernel 0.3.0 (package 0.14.0)
+
+Pliego main moved to kernel 0.3.0 (madfam-org/pliego#18, #19, #22, #23). The keystone
+follows it. Nothing in the solid or soft commons moves: no GOC-1 vector, AAS id, assembly
+digest or golden changes. The version is 0.14.0 because the held #62 claims 0.13.0.
+
+#### Changed: the sheet-document digest is spec §5.15 (RFC 8785), not GOC-1
+
+- **`pliego_spec.canonical`** (new): `canonical_bytes`, `es_number` and
+  `sheet_document_digest`. The serialisation is RFC 8785 (JCS), as Pliego's
+  `pliego.canonical_bytes` writes it: numbers spelled as ECMAScript's
+  `Number.prototype.toString` (`1.5e-05` → `0.000015`, `1e-07` → `1e-7`, `1e+16` →
+  `10000000000000000`, `1e21` → `1e+21`), keys sorted by UTF-16 code units, and lone
+  surrogates, NaN, infinities and integers beyond 2^53 refused.
+  `pliego_spec.document.document_digest` (rule 10, §8.10) now hashes it.
+- **Why it is its own function.** GOC-1's `canonical_json` spells floats with Python's
+  `repr` and sorts by code point. Its golden vectors, the AAS content ids, the assembly
+  digest and the standard-parts entry digests all hash those bytes, so it is unchanged.
+  The two forms agree only when every non-integral number lies in 1e-4 ≤ |x| < 1e16 and
+  every key stays in the BMP.
+- **The shared vector** (Pliego `packages/kernel/tests/fixtures/digest_vector.json`, copied
+  byte for byte and blob-pinned) now passes: `sha256:1c9d6a6a…`. GOC-1 gives `cf5240c2…`
+  for it.
+- **Fixtures.** `sheet-documents/kernel-0.3/` holds the same six documents re-rendered by
+  kernel 0.3.0 (pliego `2f85906`, commons `ddc3ed3`), and CI checks them. `kernel-0.2/`
+  is kept unmodified as the record of the change. Its digests are GOC-1. Three of its six
+  files carry a number below 1e-4, so they now fail rule 10 and nothing else, exactly as
+  in Pliego's own `verify`. The hand-written `valley-fold.fold` is re-stamped.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:
