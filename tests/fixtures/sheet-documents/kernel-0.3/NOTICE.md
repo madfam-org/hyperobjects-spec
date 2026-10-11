@@ -18,8 +18,12 @@ PYTHONPATH=<pliego>/packages/kernel/src PLIEGO_MATERIALS=<pliego>/materials \
 | `embossed-stationery.card.fold` | `embossed-stationery` | `card` | `pliego:finishes` (emboss) |
 | `papercraft-unfold.fold.crystal.fold` | `papercraft-unfold` | `fold:crystal` | `pliego:annotations`, `pliego:pages` |
 | `origamic-architecture.default.fold` | `origamic-architecture` | `default` | `pliego:meta.min_feature_mm` |
+| `papercraft-unfold.glued.crystal.fold` | `papercraft-unfold` | `glued:crystal` | 12 glue joins and a fold program (rules 20 and 21 are tested on it) |
+| `card-linkages.crank-rocker.fold` | `card-linkages` | `crank-rocker` | a `rotate` mechanism (rule 19 is tested on it) |
+| `paper-circuit-card.card.fold` | `paper-circuit-card` | `card` | three `trace` finishes with pads (§5.30) |
 
-They replace `../kernel-0.2/` as the current output. Kernel 0.3 stamps the spec §5.15
+The first six replace `../kernel-0.2/` as the current output; the last three were added with
+the kernel-0.3 rules. Kernel 0.3 stamps the spec §5.15
 digest (RFC 8785), which `pliego_spec.canonical` reproduces; kernel 0.2 stamped the GOC-1
 form, so `../kernel-0.2/` is kept unmodified as the record of that contract change (its
 test says which three files now fail rule 10, and why).

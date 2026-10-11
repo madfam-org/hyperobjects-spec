@@ -35,6 +35,33 @@ digest or golden changes. The version is 0.14.0 because the held #62 claims 0.13
   files carry a number below 1e-4, so they now fail rule 10 and nothing else, exactly as
   in Pliego's own `verify`. The hand-written `valley-fold.fold` is re-stamped.
 
+#### Changed: the vendored contracts follow `pliego@2f85906` (kernel 0.3.0)
+
+- **Re-vendored** (its own commit): `sheet-document.schema.json` gains a sheet's
+  `presentation` (§5.16, pliego#19), mechanism `keys`, `period` and `ride`, join
+  `active_from` and step `release_joins` (§5.18–§5.20, pliego#18), and the `trace` finish
+  with `material`, `width_mm`, `path` and `pads` (§5.30, pliego#23). `stock-card` is
+  unchanged. `pliego.lock.json` and `VENDORED.md` are re-pinned.
+- **New structural checks** (`pliego_spec.document_engine`, following the kernel's own
+  code at `2f85906`). Each is a failure, as every sheet rule is:
+  - checked: rule 17 (`presentation.root_face` is a face of its sheet; `end` has a finite
+    origin and a unit quaternion);
+  - checked: rule 19 (`keys` only on hinge, rotate, leaf, translate and slide, strictly
+    increasing, within the travel; `period` > 0, only with keys, spanning them; `ride`
+    names a hinge, rotate or translate mechanism, and rides form no cycle);
+  - checked: rule 20 (`active_from` only on glue, pivot, string and pin joins of a
+    document with a fold program, naming one of its step ids or indexes);
+  - checked: rule 21 (`release_joins` names an existing glue, pivot, string or pin join,
+    releases it at most once, and only at a step after the one that activates it);
+  - checked: §5.30 trace records, the part of rule 13 that needs no polygon (`depth_mm`
+    0, no zero-length segment, no turn sharper than 120°, unique pad ids, every pad
+    touching its trace);
+  - NOT verified, and printed with every verdict: a trace's `region` being its stroked
+    path and the path not crossing itself, rule 15 (a kernel warning), rule 18 (printed
+    art sources) and rule 30 (circuit nets).
+- **Fixtures.** Three more kernel-0.3 documents: glue joins with a fold program, a rotate
+  mechanism and three traces with pads. CI checks all nine.
+
 ### The third kernel: `pliego-spec` for the sheet commons (package 0.12.0)
 
 The keystone learns a third commons before its first cartridge exists:

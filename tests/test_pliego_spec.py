@@ -835,3 +835,144 @@ def test_a_board_card_carries_construction_and_it_is_validated():
     assert card["construction"]["layers"]
     card["construction"]["model"] = "pliego.board v2"
     assert any("construction" in p for p in check("stock-card", card).problems)
+
+
+# ── kernel 0.3.0's rules a structural reader can make (§5.16, §5.18–§5.20, §5.30) ──
+def _k03(name: str) -> dict:
+    return json.loads((KERNEL_03 / name).read_text(encoding="utf-8"))
+
+
+def _rule(doc: dict, label: str) -> list[str]:
+    return [p for p in check("sheet-document", _restamp(doc)).problems if p.startswith(label)]
+
+
+VALLEY_03 = "valley-fold.default.fold"
+GLUED_03 = "papercraft-unfold.glued.crystal.fold"
+CRANK_03 = "card-linkages.crank-rocker.fold"
+CIRCUIT_03 = "paper-circuit-card.card.fold"
+
+
+@pytest.mark.parametrize("name", [GLUED_03, CRANK_03, CIRCUIT_03])
+def test_real_kernel_0_3_joins_mechanisms_and_traces_pass(name):
+    """Kernel 0.3 output that carries glue joins and a fold program (the glued crystal), a
+    rotate mechanism (the crank-rocker) and three trace finishes with pads (the circuit
+    card): the new rules have something real to pass on."""
+    assert check("sheet-document", _k03(name)).ok, check("sheet-document", _k03(name)).problems
+
+
+def test_8_17_presentation_root_face_and_end():
+    doc = _k03(VALLEY_03)
+    doc["pliego:sheets"][0]["presentation"] = {
+        "root_face": 1, "end": {"origin": [0, 0, 10], "rotation": [0, 0, 0, 1]}}
+    assert _rule(doc, "§8.17") == []
+    doc["pliego:sheets"][0]["presentation"]["root_face"] = 2  # the sheet has faces 0 and 1
+    assert any("root_face 2 is not a face of this sheet" in p for p in _rule(doc, "§8.17"))
+    doc["pliego:sheets"][0]["presentation"] = {
+        "end": {"origin": [0, 0, 10], "rotation": [0, 0, 0.5, 1]}}
+    assert any("unit quaternion" in p for p in _rule(doc, "§8.17"))
+
+
+def _keyed(keys=None, **extra) -> dict:
+    doc = _k03(CRANK_03)
+    mech = doc["pliego:mechanisms"][0]
+    if keys is not None:
+        mech["keys"] = keys
+    mech.update(extra)
+    return doc
+
+
+def test_8_19_keyed_mechanisms():
+    good = _keyed([[0, 0], [180, 90], [360, 360]], period=360)
+    assert check("sheet-document", _restamp(good)).ok
+    assert any("increase strictly" in p
+               for p in _rule(_keyed([[0, 0], [0, 90]]), "§8.19"))
+    assert any("more than one period" in p
+               for p in _rule(_keyed([[0, 0], [400, 90]], period=360), "§8.19"))
+    assert any("period needs keys" in p for p in _rule(_keyed(period=360), "§8.19"))
+    doc = _keyed()
+    doc["pliego:mechanisms"][0]["ride"] = "nowhere"
+    assert any("is not a hinge, rotate or translate" in p for p in _rule(doc, "§8.19"))
+
+
+def test_8_19_rides_form_no_cycle():
+    doc = _k03(CRANK_03)
+    a = doc["pliego:mechanisms"][0]
+    b = copy.deepcopy(a)
+    b["id"], b["sheets_moving"] = "turn-rocker", ["rocker"]
+    a["ride"], b["ride"] = "turn-rocker", a["id"]
+    doc["pliego:mechanisms"].append(b)
+    assert any("rides form a cycle" in p for p in _rule(doc, "§8.19"))
+
+
+def _glued_two_steps() -> dict:
+    doc = _k03(GLUED_03)
+    first = doc["pliego:sequence"]["steps"][0]
+    second = copy.deepcopy(first)
+    second.update(id="untie", targets=[], release=[])
+    doc["pliego:sequence"]["steps"].append(second)
+    return doc
+
+
+def test_8_20_active_from_names_a_step_of_the_program():
+    doc = _glued_two_steps()
+    doc["pliego:joins"][0]["active_from"] = "let-go"
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = 1
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = "no-such-step"
+    assert any("is not a step id or index" in p for p in _rule(doc, "§8.20"))
+    doc["pliego:joins"][0]["active_from"] = 2
+    assert any("is not a step id or index" in p for p in _rule(doc, "§8.20"))
+    del doc["pliego:sequence"]
+    doc["pliego:controls"] = [c for c in doc["pliego:controls"] if c["kind"] != "sequence"]
+    assert any("needs a fold program" in p for p in _rule(doc, "§8.20"))
+
+
+def test_8_21_release_joins_once_and_after_activation():
+    doc = _glued_two_steps()
+    doc["pliego:sequence"]["steps"][1]["release_joins"] = ["glue-1"]
+    assert check("sheet-document", _restamp(doc)).ok
+    doc["pliego:joins"][0]["active_from"] = "untie"  # activated and released at one step
+    assert any("released at or before the step that activates it" in p
+               for p in _rule(doc, "§8.21"))
+    del doc["pliego:joins"][0]["active_from"]
+    doc["pliego:sequence"]["steps"][0]["release_joins"] = ["glue-1"]
+    assert any("already released at step 0" in p for p in _rule(doc, "§8.21"))
+    doc["pliego:sequence"]["steps"][0]["release_joins"] = ["glue-99"]
+    assert any("'glue-99', which is not a join" in p for p in _rule(doc, "§8.21"))
+
+
+def _trace(doc: dict) -> dict:
+    return next(f for f in doc["pliego:finishes"] if f["kind"] == "trace" and f["pads"])
+
+
+def test_8_13_trace_pads_are_unique_and_touch_their_trace():
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    trace["pads"][1]["id"] = trace["pads"][0]["id"]
+    assert any("repeats" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    far = [c + 500 for c in trace["path"][0]]
+    trace["pads"][0]["at"] = far
+    assert any("does not touch its trace" in p for p in _rule(doc, "§8.13"))
+
+
+def test_8_13_trace_relief_zero_length_and_sharp_turns():
+    doc = _k03(CIRCUIT_03)
+    _trace(doc)["depth_mm"] = 0.2
+    assert any("no relief" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    trace = _trace(doc)
+    trace["path"] = [trace["path"][0], list(trace["path"][0]), *trace["path"][1:]]
+    assert any("zero length" in p for p in _rule(doc, "§8.13"))
+    doc = _k03(CIRCUIT_03)
+    _trace(doc)["path"] = [[10, 10], [60, 10], [12, 12]]  # a hairpin, about 177°
+    assert any("sharper than 120°" in p for p in _rule(doc, "§8.13"))
+
+
+def test_the_new_unverified_rules_are_named():
+    from pliego_spec.document import UNCHECKED_RULES
+
+    assert {"8.15", "8.18", "8.30"} <= set(UNCHECKED_RULES)
+    assert any("trace outline" in r for r in UNCHECKED_RULES)

@@ -966,11 +966,16 @@ depend on the Pliego kernel; build documents with `python -m pliego.cartridge` a
 them with `check sheet-document`). `geometry=NOT verified` — the document check is the
 **structural** subset of the spec's §8 rules (lengths and index ranges, sheet membership, treatment/assignment pairs,
 stock, join, mechanism and control references, sequence targets, one 3-D coordinate per
-vertex, the spec §5.15 canonical digest (RFC 8785, not GOC-1: `pliego_spec.canonical`), packaging blocks and annotations naming a declared
-sheet, print pages with a margin under half the page, unique ids and no overlap). Face
-simplicity and tiling (§8.3), sheet overlap (§8.5), point containment and developability
-(§8.9), pieces and stacks (§8.11, §8.12) and the containment halves of §8.13 and §8.14
-need a polygon kernel or the face graph and are not judged; a pass is a structural pass.
+vertex, the spec §5.15 canonical digest (RFC 8785, not GOC-1: `pliego_spec.canonical`),
+packaging blocks and annotations naming a declared sheet, print pages with a margin under
+half the page, unique ids and no overlap, and kernel 0.3's rules that need no polygon: a
+trace finish's relief, segments, turns and pads (§5.30), a presentation's root face and
+end (rule 17), keyed mechanisms and rides (rule 19), `active_from` (rule 20) and
+`release_joins` (rule 21)). Face simplicity and tiling (§8.3), sheet overlap (§8.5),
+point containment and developability (§8.9), pieces and stacks (§8.11, §8.12), the
+containment halves of §8.13 and §8.14, a trace's stroked outline, and rules 15, 18 and 30
+need a polygon kernel, the face graph or more than structure and are not judged; a pass
+is a structural pass.
 
 **Strict from birth.** Every sheet rule is a failure from its first release, not a note:
 the commons held zero cartridges when the rules landed, so the whole-commons
@@ -981,9 +986,11 @@ cartridges standing in for real ones until the commons' first re-pin.
 **The vendored contracts.** `sheet-document` and `stock-card` are byte-identical copies of
 Pliego's `packages/schemas/` at a published main commit, pinned in `pliego.lock.json`
 (`check stock-card` is schema-only: derive drift is Pliego's own gate). The copy is
-`pliego@6b6243a`, which includes the packaging blocks (`pliego:dielines`,
+`pliego@2f85906` (kernel 0.3.0), which includes the packaging blocks (`pliego:dielines`,
 `pliego:finishes`, `pliego:artwork`), the print layout (`pliego:annotations`,
-`pliego:pages`) and the stock card's board `construction` block.
+`pliego:pages`), the stock card's board `construction` block, a sheet's `presentation`
+(§5.16), mechanism `keys`, `period` and `ride`, join `active_from` and step
+`release_joins` (§5.18–§5.20) and the `trace` finish (§5.30).
 
 **Pending, deliberately:** no sheet size keys in the
 interface-sizes vocabulary yet (so a sheet `size_key` fails membership until cited keys

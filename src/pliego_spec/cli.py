@@ -83,9 +83,13 @@ sheet-document (schema: Pliego's, vendored and sha-256-locked)
  19. spec §8.1 lengths and index ranges; §8.2 sheet membership; §8.4 treatment and
      fold-angle pairs; §8.6 stock keys; §8.7 references and unique ids; §8.8 sequence
      targets; §8.9 one 3-D coordinate per vertex; §8.10 the §5.15 canonical digest (RFC 8785);
-     §8.13 packaging blocks name a declared sheet; §8.14 annotations name a declared
-     sheet with printable text, print pages have a margin under half the page, unique
-     ids and no overlap
+     §8.13 packaging blocks name a declared sheet, and a trace finish (§5.30) has no
+     relief, no zero-length segment, no turn sharper than 120°, unique pad ids and pads
+     that touch it; §8.14 annotations name a declared sheet with printable text, print
+     pages have a margin under half the page, unique ids and no overlap; §8.17 a
+     presentation's root face is on its sheet and its end is rigid; §8.19 keyed
+     mechanisms (keys, period, ride, no ride cycle); §8.20 active_from names a step of
+     the program; §8.21 release_joins releases each join once, after it activates
   NOT verified (geometry=NOT verified): §{', §'.join(UNVERIFIED_DOCUMENT_RULES)}
 
 stock-card (schema: Pliego's, vendored and sha-256-locked)

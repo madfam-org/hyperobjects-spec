@@ -1,0 +1,881 @@
+{
+ "edges_assignment": [
+  "B",
+  "B",
+  "B",
+  "B",
+  "B",
+  "V",
+  "B",
+  "B",
+  "B"
+ ],
+ "edges_foldAngle": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  180,
+  0,
+  0,
+  0
+ ],
+ "edges_vertices": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   3
+  ],
+  [
+   1,
+   4
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   3,
+   4
+  ],
+  [
+   4,
+   5
+  ],
+  [
+   5,
+   7
+  ],
+  [
+   6,
+   7
+  ]
+ ],
+ "faces_vertices": [
+  [
+   0,
+   3,
+   4,
+   1
+  ],
+  [
+   2,
+   6,
+   7,
+   5,
+   4,
+   3
+  ]
+ ],
+ "file_classes": [
+  "singleModel"
+ ],
+ "file_creator": "pliego-kernel 0.3.0",
+ "file_spec": 1.2,
+ "file_title": "Paper circuit card",
+ "frame_attributes": [
+  "2D",
+  "noCuts",
+  "noJoins"
+ ],
+ "frame_classes": [
+  "creasePattern"
+ ],
+ "frame_unit": "mm",
+ "pliego:controls": [
+  {
+   "default": 0,
+   "id": "switch",
+   "kind": "sequence",
+   "label": {
+    "en": "Fold switch (and the card)",
+    "es": "Interruptor de pliegue (y la tarjeta)",
+    "fr": "Interrupteur à pli (et la carte)",
+    "pt": "Interruptor de dobra (e o cartão)"
+   },
+   "max": 18,
+   "min": 0,
+   "unit": "step"
+  }
+ ],
+ "pliego:edges_name": [
+  "switch-tab",
+  null,
+  null,
+  null,
+  null,
+  "switch-fold",
+  null,
+  null,
+  null
+ ],
+ "pliego:edges_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "pliego:edges_treatment": [
+  "none",
+  "none",
+  "none",
+  "none",
+  "none",
+  "score",
+  "none",
+  "none",
+  "none"
+ ],
+ "pliego:faces_sheet": [
+  0,
+  0
+ ],
+ "pliego:finishes": [
+  {
+   "depth_mm": 0,
+   "id": "plus",
+   "kind": "trace",
+   "material": "copper-tape",
+   "pads": [
+    {
+     "at": [
+      65,
+      115
+     ],
+     "id": "cell-plus",
+     "part": "cell",
+     "pin": "plus",
+     "size_mm": 10
+    },
+    {
+     "at": [
+      100,
+      86
+     ],
+     "id": "led-anode",
+     "part": "led",
+     "pin": "anode",
+     "size_mm": 6
+    }
+   ],
+   "path": [
+    [
+     65,
+     115
+    ],
+    [
+     65,
+     86
+    ],
+    [
+     100,
+     86
+    ]
+   ],
+   "region": [
+    [
+     [
+      62.5,
+      117.5
+     ],
+     [
+      62.5,
+      83.5
+     ],
+     [
+      102.5,
+      83.5
+     ],
+     [
+      102.5,
+      88.5
+     ],
+     [
+      67.5,
+      88.5
+     ],
+     [
+      67.5,
+      117.5
+     ]
+    ]
+   ],
+   "sheet": "card",
+   "side": "front",
+   "width_mm": 5
+  },
+  {
+   "depth_mm": 0,
+   "id": "return",
+   "kind": "trace",
+   "material": "copper-tape",
+   "pads": [
+    {
+     "at": [
+      100,
+      62
+     ],
+     "id": "led-cathode",
+     "part": "led",
+     "pin": "cathode",
+     "size_mm": 6
+    },
+    {
+     "at": [
+      20,
+      30
+     ],
+     "id": "switch-a",
+     "part": "switch",
+     "pin": "contact",
+     "size_mm": 10
+    }
+   ],
+   "path": [
+    [
+     100,
+     62
+    ],
+    [
+     40,
+     62
+    ],
+    [
+     40,
+     30
+    ],
+    [
+     20,
+     30
+    ]
+   ],
+   "region": [
+    [
+     [
+      102.5,
+      64.5
+     ],
+     [
+      37.5,
+      64.5
+     ],
+     [
+      37.5,
+      32.5
+     ],
+     [
+      17.5,
+      32.5
+     ],
+     [
+      17.5,
+      27.5
+     ],
+     [
+      42.5,
+      27.5
+     ],
+     [
+      42.5,
+      59.5
+     ],
+     [
+      102.5,
+      59.5
+     ]
+    ]
+   ],
+   "sheet": "card",
+   "side": "front",
+   "width_mm": 5
+  },
+  {
+   "depth_mm": 0,
+   "id": "tab",
+   "kind": "trace",
+   "material": "copper-tape",
+   "pads": [
+    {
+     "at": [
+      -20,
+      30
+     ],
+     "id": "switch-b",
+     "part": "switch",
+     "pin": "contact",
+     "size_mm": 10
+    },
+    {
+     "at": [
+      40,
+      115
+     ],
+     "id": "cell-minus",
+     "part": "cell",
+     "pin": "minus",
+     "size_mm": 20
+    }
+   ],
+   "path": [
+    [
+     -20,
+     30
+    ],
+    [
+     -20,
+     42
+    ],
+    [
+     6,
+     42
+    ],
+    [
+     6,
+     115
+    ],
+    [
+     30,
+     115
+    ]
+   ],
+   "region": [
+    [
+     [
+      -17.5,
+      27.5
+     ],
+     [
+      -17.5,
+      39.5
+     ],
+     [
+      8.5,
+      39.5
+     ],
+     [
+      8.5,
+      112.5
+     ],
+     [
+      32.5,
+      112.5
+     ],
+     [
+      32.5,
+      117.5
+     ],
+     [
+      3.5,
+      117.5
+     ],
+     [
+      3.5,
+      44.5
+     ],
+     [
+      -22.5,
+      44.5
+     ],
+     [
+      -22.5,
+      27.5
+     ]
+    ]
+   ],
+   "sheet": "card",
+   "side": "front",
+   "width_mm": 5
+  }
+ ],
+ "pliego:meta": {
+  "cartridge": "paper-circuit-card",
+  "digest": "sha256:cc13250e1af7e0eb3c2a47333481a51bd9f3c02490746ff6cc1e98bd1a487876",
+  "kernel": "pliego-kernel 0.3.0",
+  "mode": "card",
+  "params": {
+   "angle": 90,
+   "material": "copper-tape",
+   "stock": "cardstock-250",
+   "width": 5
+  }
+ },
+ "pliego:sequence": {
+  "mode": "kinematic",
+  "steps": [
+   {
+    "duration_ms": 233,
+    "id": "switch-on-1",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (1/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (1/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (1/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (1/6)"
+    },
+    "note": {
+     "en": "Circuit closed (cell + → LED 'led' → switch → cell −): the LED lights. Checked by pliego.press.circuit.",
+     "es": "Circuito cerrado (cell + → LED 'led' → switch → cell −): el LED se enciende. Comprobado con pliego.press.circuit.",
+     "fr": "Circuit fermé (cell + → LED 'led' → switch → cell −) : la LED s'allume. Vérifié par pliego.press.circuit.",
+     "pt": "Circuito fechado (cell + → LED 'led' → switch → cell −): o LED acende. Verificado por pliego.press.circuit."
+    },
+    "release": [],
+    "targets": [
+     [
+      5,
+      30
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-2",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (2/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (2/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (2/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (2/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      60
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-3",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (3/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (3/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (3/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (3/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-4",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (4/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (4/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (4/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (4/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      120
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-5",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (5/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (5/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (5/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (5/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      150
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-6",
+    "label": {
+     "en": "Fold the switch tab over: the contacts meet (6/6)",
+     "es": "Dobla la pestaña del interruptor: los contactos se tocan (6/6)",
+     "fr": "Rabattez la languette de l'interrupteur : les contacts se touchent (6/6)",
+     "pt": "Dobre a aba do interruptor: os contactos tocam-se (6/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      180
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-1",
+    "label": {
+     "en": "Lift the tab: the circuit opens (1/6)",
+     "es": "Levanta la pestaña: el circuito se abre (1/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (1/6)",
+     "pt": "Levante a aba: o circuito abre-se (1/6)"
+    },
+    "note": {
+     "en": "Circuit open: the switch is up and the LED is off.",
+     "es": "Circuito abierto: el interruptor está levantado y el LED, apagado.",
+     "fr": "Circuit ouvert : l'interrupteur est relevé et la LED éteinte.",
+     "pt": "Circuito aberto: o interruptor está levantado e o LED apagado."
+    },
+    "release": [],
+    "targets": [
+     [
+      5,
+      150
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-2",
+    "label": {
+     "en": "Lift the tab: the circuit opens (2/6)",
+     "es": "Levanta la pestaña: el circuito se abre (2/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (2/6)",
+     "pt": "Levante a aba: o circuito abre-se (2/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      120
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-3",
+    "label": {
+     "en": "Lift the tab: the circuit opens (3/6)",
+     "es": "Levanta la pestaña: el circuito se abre (3/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (3/6)",
+     "pt": "Levante a aba: o circuito abre-se (3/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-4",
+    "label": {
+     "en": "Lift the tab: the circuit opens (4/6)",
+     "es": "Levanta la pestaña: el circuito se abre (4/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (4/6)",
+     "pt": "Levante a aba: o circuito abre-se (4/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      60
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-5",
+    "label": {
+     "en": "Lift the tab: the circuit opens (5/6)",
+     "es": "Levanta la pestaña: el circuito se abre (5/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (5/6)",
+     "pt": "Levante a aba: o circuito abre-se (5/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      30
+     ]
+    ]
+   },
+   {
+    "duration_ms": 200,
+    "id": "switch-off-6",
+    "label": {
+     "en": "Lift the tab: the circuit opens (6/6)",
+     "es": "Levanta la pestaña: el circuito se abre (6/6)",
+     "fr": "Relevez la languette : le circuit s'ouvre (6/6)",
+     "pt": "Levante a aba: o circuito abre-se (6/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      0
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-1",
+    "label": {
+     "en": "Fold it over again: the LED lights (1/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (1/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (1/6)",
+     "pt": "Dobre-a outra vez: o LED acende (1/6)"
+    },
+    "note": {
+     "en": "Circuit closed (cell + → LED 'led' → switch → cell −): the LED lights. Checked by pliego.press.circuit.",
+     "es": "Circuito cerrado (cell + → LED 'led' → switch → cell −): el LED se enciende. Comprobado con pliego.press.circuit.",
+     "fr": "Circuit fermé (cell + → LED 'led' → switch → cell −) : la LED s'allume. Vérifié par pliego.press.circuit.",
+     "pt": "Circuito fechado (cell + → LED 'led' → switch → cell −): o LED acende. Verificado por pliego.press.circuit."
+    },
+    "release": [],
+    "targets": [
+     [
+      5,
+      30
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-2",
+    "label": {
+     "en": "Fold it over again: the LED lights (2/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (2/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (2/6)",
+     "pt": "Dobre-a outra vez: o LED acende (2/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      60
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-3",
+    "label": {
+     "en": "Fold it over again: the LED lights (3/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (3/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (3/6)",
+     "pt": "Dobre-a outra vez: o LED acende (3/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      90
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-4",
+    "label": {
+     "en": "Fold it over again: the LED lights (4/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (4/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (4/6)",
+     "pt": "Dobre-a outra vez: o LED acende (4/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      120
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-5",
+    "label": {
+     "en": "Fold it over again: the LED lights (5/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (5/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (5/6)",
+     "pt": "Dobre-a outra vez: o LED acende (5/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      150
+     ]
+    ]
+   },
+   {
+    "duration_ms": 233,
+    "id": "switch-on-again-6",
+    "label": {
+     "en": "Fold it over again: the LED lights (6/6)",
+     "es": "Vuelve a doblarla: el LED se enciende (6/6)",
+     "fr": "Rabattez-la à nouveau : la LED s'allume (6/6)",
+     "pt": "Dobre-a outra vez: o LED acende (6/6)"
+    },
+    "note": null,
+    "release": [],
+    "targets": [
+     [
+      5,
+      180
+     ]
+    ]
+   }
+  ]
+ },
+ "pliego:sheets": [
+  {
+   "back": {
+    "art": null,
+    "color": "#f4efe6"
+   },
+   "front": {
+    "art": null,
+    "color": "#f4efe6"
+   },
+   "grain_deg": 90,
+   "id": "card",
+   "kinematic": null,
+   "label": {
+    "en": "Circuit card",
+    "es": "Tarjeta de circuito",
+    "fr": "Carte à circuit",
+    "pt": "Cartão de circuito"
+   },
+   "offset": [
+    35,
+    0
+   ],
+   "placement": {
+    "origin": [
+     0,
+     0,
+     0
+    ],
+    "rotation": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "stock": "cardstock-250"
+  }
+ ],
+ "pliego:stocks": {
+  "cardstock-250": {
+   "appearance": {
+    "back": "#f4efe6",
+    "front": "#f4efe6"
+   },
+   "caliper_mm": 0.3,
+   "derived": {
+    "D_cd": 4922600,
+    "D_md": 11075900,
+    "E_cd": 2000000000,
+    "E_md": 4500000000,
+    "G12": 1161000000,
+    "areal_density": 0.00025,
+    "collision_thickness": 0.3,
+    "crease_k": 123065,
+    "crease_set_rate": 0.5,
+    "crease_yield_deg": 35,
+    "friction": 0.4,
+    "nu": 0.293,
+    "perf_bridge_mm": 1,
+    "perf_cut_mm": 3,
+    "perf_factor": 0.25,
+    "score_factor": 0.35,
+    "score_yield_deg": 12.25,
+    "tear_strain": 0.015,
+    "thickness": 0.3
+   },
+   "derived_basis": "pliego.stock.derive v1",
+   "gsm": 250,
+   "name": {
+    "en": "Cardstock 250 g/m²",
+    "es": "Cartulina 250 g/m²",
+    "fr": "Bristol 250 g/m²",
+    "pt": "Cartolina 250 g/m²"
+   }
+  }
+ },
+ "pliego:version": 1,
+ "pliego:vertices_sheet": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "vertices_coords": [
+  [
+   0,
+   15
+  ],
+  [
+   0,
+   50
+  ],
+  [
+   35,
+   0
+  ],
+  [
+   35,
+   15
+  ],
+  [
+   35,
+   50
+  ],
+  [
+   35,
+   148
+  ],
+  [
+   140,
+   0
+  ],
+  [
+   140,
+   148
+  ]
+ ]
+}
