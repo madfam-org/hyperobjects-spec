@@ -281,17 +281,43 @@ def test_fc_bend_classes_are_ordered_and_a_woven_is_inextensible():
     assert denim["bending"]["D11"] > poplin["bending"]["D11"]   # stiff > medium-stiff
 
 
-def test_fc_bend_classes_cover_the_vendored_fabric_schema():
-    """Fashion Cabinet holds its schema enum, its preview and its sidecar equal; this rule
-    must map at least every class the keystone's vendored fabric schema admits. (That copy
-    still lists five classes; fashion-cabinet main lists the seven mapped here.)"""
+#: fashion-cabinet main's bend_stiffness_class enum (2026-10-10), softest → stiffest.
+FC_BEND_CLASSES = ["very-soft", "soft", "medium-soft", "medium", "medium-stiff", "stiff",
+                   "very-stiff"]
+
+
+def test_fc_bend_classes_are_the_vendored_fabric_schema_exactly():
+    """Fashion Cabinet holds its schema enum, its preview and its sidecar equal. The
+    keystone's two copies of the fabric schema list the same seven classes, in order, and
+    this rule maps exactly those: a class the schema admits and the rule refuses, or the
+    reverse, is a drift."""
     from hyperobjects_schemas import load
 
     physics = load("fabric-manifest")["properties"]["digital_twin"]["properties"]["physics"]
-    vendored = physics["properties"]["bend_stiffness_class"]["enum"]
-    assert set(vendored) <= set(BEND_CLASS_GF_CM2_CM)
-    ladder = list(BEND_CLASS_GF_CM2_CM)
-    assert [c for c in ladder if c in vendored] == vendored   # same order
+    assert physics["properties"]["bend_stiffness_class"]["enum"] == FC_BEND_CLASSES
+    assert list(BEND_CLASS_GF_CM2_CM) == FC_BEND_CLASSES
+
+
+@pytest.mark.parametrize(("bend_class", "kes_b"), [("medium-soft", 0.07), ("very-stiff", 0.6)])
+def test_fc_the_two_newer_bend_classes_map_to_an_estimated_stiffness(bend_class, kes_b):
+    """medium-soft and very-stiff (fashion-cabinet's 5 → 7 class widening) map to their
+    rungs: between soft and medium, and beyond stiff. No card uses either yet, so a copy of
+    a real card stands in."""
+    card = copy.deepcopy(_fc("manta-cruda"))
+    card["digital_twin"]["physics"]["bend_stiffness_class"] = bend_class
+    doc = map_fc_fabric(card)
+    d = kes_b * 9.80665e-5                       # gf·cm²/cm → N·m
+    assert math.isclose(doc["bending"]["D11"], d, rel_tol=1e-5)
+    assert doc["bending"]["D22"] == doc["bending"]["D11"]
+    assert math.isclose(doc["bending"]["D66"], 0.35 * d, rel_tol=1e-5)
+    for key in ("D11", "D22", "D12", "D66"):
+        assert doc["provenance"][key]["status"] == "estimated", key
+    basis = doc["provenance"]["D11"]["basis"]
+    assert f"{bend_class!r}" in basis and f"{kes_b} gf·cm²/cm" in basis
+    assert "geometric ladder" in basis
+    assert validate(doc).ok
+    neighbours = [BEND_CLASS_GF_CM2_CM[c] for c in FC_BEND_CLASSES]
+    assert neighbours == sorted(neighbours)
 
 
 def test_fc_refuses_an_unknown_bend_class_and_zero_stretch():

@@ -84,7 +84,7 @@
             "weight_gsm": { "type": "number" },
             "bend_stiffness_class": {
               "type": "string",
-              "enum": ["very-soft", "soft", "medium", "medium-stiff", "stiff"]
+              "enum": ["very-soft", "soft", "medium-soft", "medium", "medium-stiff", "stiff", "very-stiff"]
             },
             "stretch_warp_pct": { "type": "number" },
             "stretch_weft_pct": { "type": "number" }

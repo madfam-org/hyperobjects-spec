@@ -312,6 +312,24 @@ def test_real_fabric_card_passes():
     assert conformance.check("fabric-card", _fixture("manta-cruda.material.json")).ok
 
 
+@pytest.mark.parametrize(
+    "bend_class",
+    ["very-soft", "soft", "medium-soft", "medium", "medium-stiff", "stiff", "very-stiff"],
+)
+def test_fabric_card_admits_every_bend_class_fashion_cabinet_lists(bend_class):
+    """fashion-cabinet main lists seven bend_stiffness_class values; the vendored schema
+    admits all seven (it held five until 2026-10-10) and nothing else."""
+    doc = _fixture("manta-cruda.material.json")
+    doc["digital_twin"]["physics"]["bend_stiffness_class"] = bend_class
+    assert conformance.check("fabric-card", doc).ok
+
+
+def test_fabric_card_refuses_an_unlisted_bend_class():
+    doc = _fixture("manta-cruda.material.json")
+    doc["digital_twin"]["physics"]["bend_stiffness_class"] = "extra-stiff"
+    assert not conformance.check("fabric-card", doc).ok
+
+
 def test_fabric_card_non_boolean_etextile_flag():
     doc = _fixture("manta-cruda.material.json")
     doc.setdefault("e_textile", {})["conductive_thread_compatible"] = "yes"
