@@ -1,6 +1,11 @@
 name: CI
 
-# Org policy: self-hosted runners only.
+# Runners (R116, ruled 2026-10-05): this repository is public, so its jobs run on
+# GitHub-hosted ubuntu-24.04 and never on MADFAM's self-hosted ARC pool. `runs-on`
+# is the ADR-010 expression enclii and janua use: the org variable
+# ARC_BOOTSTRAP_COMPLETE is not visible to public repositories, so it resolves to
+# `ubuntu-24.04`. The OpenSCAD snapshot and render libraries the ARC image used
+# to carry come from .github/actions/render-env.
 on:
   push:
     branches: [main]
@@ -14,7 +19,7 @@ concurrency:
 jobs:
   test:
     name: pytest
-    runs-on: madfam-runners-blue
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -63,6 +68,16 @@ jobs:
         run: |
           .venv/bin/python -m pip install --upgrade pip
           .venv/bin/pip install -e ".[geometry,dev]"
+
+      - name: Install the render environment (OpenSCAD + render libraries)
+        # The OpenSCAD tests (tests/test_openscad_render.py, tests/test_parity.py)
+        # skip on a machine with no `openscad`. On the ARC pool the runner image
+        # carried the pinned snapshot; a GitHub-hosted runner has none, so this
+        # installs the one src/y4d_spec/render_environment.py pins, read through
+        # the console script just installed. `-ra` below names any skip.
+        uses: ./.github/actions/render-env
+        with:
+          y4d-spec: .venv/bin/y4d-spec
 
       - name: Verify graph contract in the distributable wheel
         run: |
