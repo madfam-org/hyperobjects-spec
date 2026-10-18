@@ -54,7 +54,13 @@ as; it takes the next free minor then (0.17.0 if this lands first).
   preset) points and 489 quantities, after numeric select values were read as numbers
   (sentinel-gripper's `finger_count * 2` on a select valued "3"). The comparison itself
   needs renders, so its whole-commons pass is the commons nightly at a pin that includes
-  this change. It has not run yet.
+  this change. It has not run yet. Two cartridges were rendered locally (macOS,
+  OpenSCAD 2026.02.13, `--render --require-openscad --parity`): x-carriage, 10 renders,
+  no body-count note; voronoi with `libs/dotSCAD`, 19 renders, **7 notes, all on the
+  vase** (2 bodies at defaults and at three presets, 26, 46 and 38 at the others),
+  the defect the audit reported. Without dotSCAD the vase renders 1 body (its Voronoi
+  module is ignored with a compiler note), so the note depends on a complete
+  OpenSCAD library path, as the render lane already requires.
 
 **Flip condition.** Each rule becomes a failure in a separate change once a run over
 `main` of every commons that declares it prints none of its notes, or every remaining
