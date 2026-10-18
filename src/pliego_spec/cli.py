@@ -61,7 +61,8 @@ sheet-manifest (schema: hyperobjects_schemas sheet-manifest)
      defaults inside their range/options
   6. heritage — a heritage claim cites at least one source (RFC 0039 §7)
   7. hardware_ref — the local half: params_map expressions parse and read only declared
-     parameters (the yantra4d side is not resolved)
+     parameters; with `check cartridge --resolve CATALOG` also the yantra4d side,
+     name-level (the slug, its mode and the params_map keys exist; bridge rule 1)
   8. constraints — the safeFormula dialect: no function calls, no strings, numeric
      parameters only, <=256 characters / 128 tokens
   9. controls — min <= default <= max; a toggle's default is a boolean
@@ -129,10 +130,19 @@ def _run_contract(contract: str, files: list[str]) -> int:
     return 1 if failures else 0
 
 
-def _run_cartridges(dirs: list[str], verbose: bool) -> int:
+def _run_cartridges(dirs: list[str], verbose: bool, resolve: str | None = None) -> int:
+    from .rules import load_hardware_catalog
+
+    hardware = None
+    if resolve:
+        hardware = load_hardware_catalog(_load_json(resolve))
+        print(f"{PROG} check: hardware catalog {resolve} parts={len(hardware)}")
+        if not hardware:
+            print(f"  FAIL {resolve}: no yantra4d parts read (an empty catalog resolves nothing)")
+            return 1
     failures = notes = 0
     for d in dirs:
-        result = check_cartridge(d)
+        result = check_cartridge(d, hardware)
         notes += len(result.notes)
         if result.ok:
             print(f"  ok {d} ({result.slug})")
@@ -160,6 +170,10 @@ def main(argv: list[str] | None = None) -> int:
     p_check.add_argument("paths", nargs="+", help="JSON file(s), or cartridge director(ies)")
     p_check.add_argument("-v", "--verbose", action="store_true",
                          help="cartridge: print notes for passing cartridges too")
+    p_check.add_argument("--resolve", metavar="CATALOG",
+                         help="cartridge: a yantra4d catalog (docs/commons-catalog.json or a "
+                              "vendored slice such as Pliego's yantra4d-hardware.snapshot.json) "
+                              "to resolve a linked hardware_ref against, name-level")
     sub.add_parser("rules", help="print every check, in order, and what is NOT verified")
 
     add_lexicon_parser(sub, PROG)
@@ -181,7 +195,7 @@ def main(argv: list[str] | None = None) -> int:
         print(RULES_TEXT, end="")
         return 0
     if args.target == "cartridge":
-        return _run_cartridges(args.paths, args.verbose)
+        return _run_cartridges(args.paths, args.verbose, args.resolve)
     return _run_contract(args.target, args.paths)
 
 

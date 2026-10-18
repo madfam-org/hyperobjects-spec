@@ -53,7 +53,9 @@ __all__ = [
     "slug_rules",
     "reference_rules",
     "heritage_rules",
+    "hardware_ref_resolution",
     "hardware_ref_rules",
+    "load_hardware_catalog",
     "constraint_rules",
     "control_rules",
     "dead_parameter_problems",
@@ -386,6 +388,52 @@ def hardware_ref_rules(doc: dict) -> list[str]:
                 f"hardware_ref.params_map['{key}'] reads '{ref}', which is not a parameter "
                 f"of this cartridge"
             )
+    return problems
+
+
+def load_hardware_catalog(data: object) -> dict[str, dict]:
+    """A yantra4d resolution surface: slug → {parameter_ids, mode_ids}. Accepts yantra4d's
+    `docs/commons-catalog.json` ({"cartridges": [{slug, parameter_ids, mode_ids}, ...]}) or a
+    vendored slice keyed by slug ({"cartridges": {slug: {...}}}, Pliego's
+    `pliego/data/yantra4d-hardware.snapshot.json` and Fashion Cabinet's snapshot)."""
+    carts = data.get("cartridges", data) if isinstance(data, dict) else data
+    if isinstance(carts, list):
+        items = [(c.get("slug"), c) for c in carts if isinstance(c, dict)]
+    elif isinstance(carts, dict):
+        items = list(carts.items())
+    else:
+        return {}
+    out: dict[str, dict] = {}
+    for slug, entry in items:
+        if isinstance(slug, str) and isinstance(entry, dict):
+            out[slug] = {"parameter_ids": list(entry.get("parameter_ids") or []),
+                         "mode_ids": list(entry.get("mode_ids") or [])}
+    return out
+
+
+def hardware_ref_resolution(doc: dict, parts: dict[str, dict]) -> list[str]:
+    """The remote half of the yantra4d bridge, NAME-LEVEL (bridge handshake rule 1): a linked
+    reference's slug is in the catalog, its `mode` is one of the part's modes and every
+    `params_map` key is a parameter of the part. Rendering the part at the mapped values (rules
+    2 and 3) needs the solid kernel and is not done here."""
+    hw = doc.get("hardware_ref")
+    if not isinstance(hw, dict) or not hw.get("linked") or not hw.get("project_slug"):
+        return []
+    slug = hw["project_slug"]
+    part = parts.get(slug)
+    if part is None:
+        return [f"hardware_ref: project_slug '{slug}' does not resolve to a yantra4d part in "
+                f"the catalog (known: {', '.join(sorted(parts)) or 'none'})"]
+    problems = []
+    mode = hw.get("mode")
+    if mode is not None and mode not in part["mode_ids"]:
+        problems.append(f"hardware_ref: mode '{mode}' is not a mode of yantra4d '{slug}' "
+                        f"(has: {', '.join(part['mode_ids']) or 'none'})")
+    params_map = hw.get("params_map")
+    for key in sorted(params_map) if isinstance(params_map, dict) else []:
+        if key not in part["parameter_ids"]:
+            problems.append(f"hardware_ref.params_map key '{key}' is not a parameter of "
+                            f"yantra4d '{slug}' (has: {', '.join(part['parameter_ids'])})")
     return problems
 
 
