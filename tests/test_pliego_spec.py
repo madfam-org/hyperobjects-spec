@@ -1041,3 +1041,109 @@ def test_paper_electronics_and_fastening_parts_are_in_the_catalog():
     assert load_part("led-5mm")["interfaces"][0]["symmetry"] == 1  # anode ≠ cathode
     cell = {i["id"]: i["size_key"] for i in load_part("coin-cell-cr2032")["interfaces"]}
     assert cell["plus_face"] != cell["minus_face"]  # a reversed cell cannot mate
+
+
+# ── RFC 0045 phase 2 (Pliego spec §5.40–§5.42): laminates and hardware_ref resolution ──
+def _laminate_stock() -> dict:
+    """A laminate snapshot as `pliego.laminate.stock` writes it (kraft-120 under manta-cruda)."""
+    return {
+        "name": {"en": "Case cloth", "es": "Tela de encuadernar", "fr": "Toile de reliure",
+                 "pt": "Tecido de encadernação"},
+        "gsm": 260, "caliper_mm": 0.51,
+        "derived": {"areal_density": 0.00026, "thickness": 0.51, "E_md": 328650000,
+                    "E_cd": 155206000, "nu": 0.244893, "D_md": 5640490, "D_cd": 2650560,
+                    "crease_k": 37907.7, "crease_yield_deg": 35, "crease_set_rate": 0.5,
+                    "score_factor": 0.35, "perf_factor": 0.25, "tear_strain": 0.03,
+                    "friction": 0.4, "collision_thickness": 0.51, "G12": 34339500,
+                    "score_yield_deg": 12.25, "D12": 958700, "D66": 574058},
+        "derived_basis": "pliego.laminate v1",
+        "laminate": {
+            "layers": [
+                {"stock": "kraft-120", "thickness_mm": 0.16, "angle_deg": 0,
+                 "own_bending": "card", "basis": "card-carried sheet_behaviour"},
+                {"material_ref": {"platform": "fashion-cabinet", "material_slug": "manta-cruda",
+                                  "behaviour": "sheet"},
+                 "thickness_mm": 0.35, "angle_deg": 0, "own_bending": "card",
+                 "basis": "vendored snapshot (rule fc-fabric/1)"}],
+            "A": [[1.0, 0.2, 0], [0.2, 0.5, 0], [0, 0, 0.3]],
+            "B": [[-0.1, 0, 0], [0, -0.05, 0], [0, 0, -0.02]],
+            "D": [[5.6, 1.0, 0], [1.0, 2.6, 0], [0, 0, 0.6]],
+            "coupled": True, "coupling_ratio": 0.921974, "governing_layer": 0},
+    }
+
+
+def test_a_laminate_stock_snapshot_is_accepted():
+    doc = _document()
+    doc["pliego:stocks"]["case-cloth"] = _laminate_stock()
+    doc["pliego:meta"]["digest"] = document_digest(doc)
+    assert check("sheet-document", doc).ok, check("sheet-document", doc).problems
+
+
+def test_a_laminate_layer_needs_exactly_one_source_and_the_snapshot_stays_closed():
+    doc = _document()
+    bad = _laminate_stock()
+    bad["laminate"]["layers"][0]["material_ref"] = {"platform": "pliego",
+                                                    "material_slug": "kraft-120",
+                                                    "behaviour": "sheet"}
+    bad["laminate"]["extra"] = 1
+    doc["pliego:stocks"]["case-cloth"] = bad
+    doc["pliego:meta"]["digest"] = document_digest(doc)
+    problems = " ".join(check("sheet-document", doc).problems)
+    assert "laminate" in problems and "extra" in problems
+
+
+def test_a_stock_card_may_carry_its_sheet_behaviour_block():
+    card = json.loads((ROOT / "tests" / "fixtures" / "sheet-stock" / "cardstock-250.stock.json")
+                      .read_text(encoding="utf-8"))
+    card["sheet_behaviour"] = {"sheet_behaviour": "1.0", "units": {}, "axis_1": "machine",
+                               "source": {"platform": "pliego", "material_slug": "cardstock-250",
+                                          "rule": "pliego-stock/1"},
+                               "caliper_mm": 0.3, "areal_density_kg_m2": 0.25, "membrane": {},
+                               "bending": {}, "regime": {}, "provenance": {}}
+    assert check("stock-card", card).ok, check("stock-card", card).problems
+    card["sheet_behaviour"]["source"]["rule"] = "hand-written"
+    assert not check("stock-card", card).ok
+
+
+CLASP_CATALOG = {"cartridges": [{"slug": "magnetic-clasp", "mode_ids": ["set", "half"],
+                                 "parameter_ids": ["disc_dia", "disc_h", "magnet_dia",
+                                                   "magnet_h", "sew_holes"]}]}
+
+
+def test_hardware_ref_resolves_name_level_against_a_catalog(tmp_path):
+    cart = _copy(tmp_path)
+    doc = json.loads((cart / "project.json").read_text(encoding="utf-8"))
+    param = doc["parameters"][0]["id"]
+    doc["hardware_ref"] = {"platform": "yantra4d", "project_slug": "magnetic-clasp",
+                           "linked": True, "params_map": {"magnet_dia": param}}
+    _write(cart, doc)
+    parts = rules.load_hardware_catalog(CLASP_CATALOG)
+    ok = check_cartridge(cart, parts)
+    assert ok.ok, ok.problems
+    assert any("resolved NAME-LEVEL" in n for n in ok.notes)
+    assert any("NOT resolved" in n and "yantra4d" in n for n in check_cartridge(cart).notes)
+    doc["hardware_ref"].update(project_slug="no-such-part")
+    _write(cart, doc)
+    assert any("does not resolve" in p for p in check_cartridge(cart, parts).problems)
+    doc["hardware_ref"].update(project_slug="magnetic-clasp", mode="triple",
+                               params_map={"nope": param})
+    _write(cart, doc)
+    problems = " ".join(check_cartridge(cart, parts).problems)
+    assert "mode 'triple'" in problems and "'nope' is not a parameter" in problems
+
+
+def test_the_catalog_loader_reads_both_shapes_and_the_cli_fails_on_an_empty_one(tmp_path,
+                                                                                capsys):
+    keyed = {"cartridges": {"magnetic-clasp": CLASP_CATALOG["cartridges"][0]}}
+    assert rules.load_hardware_catalog(keyed) == rules.load_hardware_catalog(CLASP_CATALOG)
+    empty = tmp_path / "empty.json"
+    empty.write_text("{}", encoding="utf-8")
+    assert cli.main(["check", "cartridge", str(FIXTURES / "valley-fold"),
+                     "--resolve", str(empty)]) == 1
+    assert "no yantra4d parts read" in capsys.readouterr().out
+
+
+def test_laminate_and_hardware_rules_are_listed_as_not_verified():
+    from pliego_spec.document import UNCHECKED_RULES
+
+    assert {"8.40", "8.41"} <= set(UNCHECKED_RULES)

@@ -113,7 +113,8 @@ def check(contract: str, doc: object) -> ConformanceResult:
     )
 
 
-def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
+def check_cartridge(cartridge_dir: str | Path,
+                    hardware: dict[str, dict] | None = None) -> CartridgeResult:
     """Check a cartridge DIRECTORY: the triple, the manifest and the on-disk rules.
 
     A directory without a project.json is a FAILURE, never a skip — the same verdict
@@ -122,6 +123,10 @@ def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
 
     This does not run the cartridge: no sheet document is built here (that needs the
     Pliego kernel, which the keystone does not depend on). The note says so on every run.
+
+    `hardware` (slug → {parameter_ids, mode_ids}, `rules.load_hardware_catalog`) resolves a
+    linked `hardware_ref` name-level; without it the yantra4d side is NOT resolved and a note
+    says so.
     """
     path = Path(cartridge_dir)
     if not path.is_dir():
@@ -150,7 +155,14 @@ def check_cartridge(cartridge_dir: str | Path) -> CartridgeResult:
         "`pliego-spec check sheet-document`"
     ]
     hw = doc.get("hardware_ref") if isinstance(doc, dict) else None
-    if isinstance(hw, dict) and hw.get("linked"):
+    if isinstance(hw, dict) and hw.get("linked") and hardware is not None:
+        problems += rules.hardware_ref_resolution(doc, hardware)
+        notes.append(
+            f"hardware_ref: the yantra4d side ('{hw.get('project_slug')}') was resolved "
+            f"NAME-LEVEL against a catalog of {len(hardware)} parts; the part was not rendered "
+            "at the mapped values"
+        )
+    elif isinstance(hw, dict) and hw.get("linked"):
         notes.append(
             f"hardware_ref: the yantra4d side ('{hw.get('project_slug')}') was NOT resolved — "
             "only the local half (params_map reads declared parameters) was checked"

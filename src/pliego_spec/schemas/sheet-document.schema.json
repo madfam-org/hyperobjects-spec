@@ -643,6 +643,14 @@
             "perf_bridge_mm": {
               "type": "number",
               "exclusiveMinimum": 0
+            },
+            "D12": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "D66": {
+              "type": "number",
+              "exclusiveMinimum": 0
             }
           },
           "additionalProperties": false
@@ -662,9 +670,152 @@
             }
           },
           "additionalProperties": false
+        },
+        "laminate": {
+          "description": "RFC 0045 phase 2 (spec §5.40): the stock is a laminate of layers, bottom first, reduced by classical laminate theory (pliego.laminate v1). Each layer is a committed Pliego stock or another platform's material by material_ref; A, B and D are in engine units (g/s², g·mm/s², g·mm²/s²), about the mid-plane, Voigt order (1, 2, 6) with axis 1 along the sheet's grain. `derived` holds the free stack's effective constants (D* = D − B·A⁻¹·B) and the governing layer's crease, tear and perforation constants.",
+          "type": "object",
+          "required": [
+            "layers",
+            "A",
+            "B",
+            "D",
+            "coupled",
+            "coupling_ratio",
+            "governing_layer"
+          ],
+          "properties": {
+            "layers": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "thickness_mm",
+                  "angle_deg",
+                  "own_bending",
+                  "basis"
+                ],
+                "properties": {
+                  "stock": {
+                    "$ref": "#/$defs/slug"
+                  },
+                  "material_ref": {
+                    "$ref": "#/$defs/materialRef"
+                  },
+                  "thickness_mm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "angle_deg": {
+                    "type": "number"
+                  },
+                  "own_bending": {
+                    "enum": [
+                      "card",
+                      "plate"
+                    ]
+                  },
+                  "basis": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "oneOf": [
+                  {
+                    "required": [
+                      "stock"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "material_ref"
+                    ]
+                  }
+                ],
+                "additionalProperties": false
+              }
+            },
+            "A": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "B": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "D": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "coupled": {
+              "type": "boolean"
+            },
+            "coupling_ratio": {
+              "type": "number",
+              "minimum": 0
+            },
+            "governing_layer": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
+    },
+    "materialRef": {
+      "type": "object",
+      "required": [
+        "platform",
+        "material_slug",
+        "behaviour"
+      ],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": [
+            "fashion-cabinet",
+            "pliego",
+            "yantra4d"
+          ]
+        },
+        "material_slug": {
+          "$ref": "#/$defs/slug"
+        },
+        "behaviour": {
+          "const": "sheet"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A material another platform owns, used by reference (the keystone's sheet-behaviour contract; spec §5.41)."
     },
     "sheetPoint": {
       "type": "object",

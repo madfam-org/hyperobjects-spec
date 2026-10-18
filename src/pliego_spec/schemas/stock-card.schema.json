@@ -446,6 +446,14 @@
         "perf_bridge_mm": {
           "type": "number",
           "exclusiveMinimum": 0
+        },
+        "D12": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "D66": {
+          "type": "number",
+          "exclusiveMinimum": 0
         }
       },
       "additionalProperties": false
@@ -559,6 +567,46 @@
         }
       },
       "additionalProperties": false
+    },
+    "sheet_behaviour": {
+      "description": "RFC 0045 phase 2 (spec §5.40): the card's own sheet_behaviour block (the keystone's cross-commons contract, hyperobjects-spec docs/SHEET_BEHAVIOUR.md), DERIVED by the keystone's rule pliego-stock/1 from this card and never hand-edited. scripts/qa/verify_sheet_behaviour.py writes it and fails on drift; the keystone's sheet-behaviour schema is the full contract.",
+      "type": "object",
+      "required": [
+        "sheet_behaviour",
+        "units",
+        "axis_1",
+        "source",
+        "caliper_mm",
+        "areal_density_kg_m2",
+        "membrane",
+        "bending",
+        "regime",
+        "provenance"
+      ],
+      "properties": {
+        "sheet_behaviour": {
+          "const": "1.0"
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "platform",
+            "material_slug",
+            "rule"
+          ],
+          "properties": {
+            "platform": {
+              "const": "pliego"
+            },
+            "material_slug": {
+              "type": "string"
+            },
+            "rule": {
+              "const": "pliego-stock/1"
+            }
+          }
+        }
+      }
     }
   },
   "additionalProperties": false,

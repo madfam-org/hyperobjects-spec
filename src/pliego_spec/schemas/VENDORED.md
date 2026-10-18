@@ -13,15 +13,24 @@ Pliego platform publishes ([madfam-org/pliego](https://github.com/madfam-org/pli
 
 | Vendored here | Canonical source | Vendored at | Last changed in |
 |:--|:--|:--|:--|
-| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@2f85906` (main, kernel 0.3.0) | `f8d6677` (the `trace` finish, §5.30, pliego#23; before it `624b12f`, lane E's `keys`, `period`, `ride`, `active_from` and `release_joins`, §5.18–§5.20, pliego#18; and `ef377a0`, lane H's sheet `presentation`, §5.16, pliego#19) |
-| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@2f85906` (main, kernel 0.3.0) | `944adcb` (the board `construction` block, `pliego.board`; pliego#8) |
+| `sheet-document.schema.json` | `packages/schemas/sheet-document.schema.json` | `pliego@0e857c8` (head of madfam-org/pliego branch `feat/geo-stab-sheet-behaviour-laminates`, kernel 0.3.0; re-pin to its merge commit on main) | `7439a74` (laminate stocks and `materialRef`, the laminate-only `D12`/`D66`, spec §5.40–§5.42; before it `f8d6677`, the `trace` finish, §5.30, pliego#23) |
+| `stock-card.schema.json` | `packages/schemas/stock-card.schema.json` | `pliego@0e857c8` (same branch head) | `7439a74` (the card-carried `sheet_behaviour` block and the mirrored `D12`/`D66`; before it `944adcb`, the board `construction` block, pliego#8) |
 
 <!-- markdownlint-enable MD013 -->
 
 Do **not** hand-edit a vendored file. Change the canonical source in Pliego and
 re-vendor. `pliego.lock.json` and this file are written by the keystone.
 
-This is the third re-vendor. The first (`pliego@4b3fbfe`) predates madfam-org/pliego#8
+This is the fourth re-vendor. It takes RFC 0045 phase 2 (minimum) from a pushed Pliego
+pull-request head, so that `pliego-spec check sheet-document` accepts the documents the
+`case-binding` cartridge writes before that pull request merges: a stock snapshot may carry a
+`laminate` block (layers by stock or `material_ref`, A, B, D, `coupled`, `coupling_ratio`,
+`governing_layer`) and its derived block the laminate-only `D12`/`D66`; a stock card may carry a
+`sheet_behaviour` block. Every document the earlier copy accepted is still accepted (the change is
+additive). When the Pliego pull request merges, re-pin `commit` and `last_changed` to its merge
+commit; the bytes do not change.
+
+The third re-vendor follows. The first (`pliego@4b3fbfe`) predates madfam-org/pliego#8
 (packaging) and #9 (papercraft print layout); the second (`pliego@6b6243a`) predates kernel
 0.3.0, that is lane H's hardening (pliego#19: §5.13–§5.17, of which only §5.16
 `presentation` touches the schema; art sources and split cuts are rules on fields that were

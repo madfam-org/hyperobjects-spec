@@ -1,26 +1,26 @@
 {
-  "_comment": "sha256 of the vendored Pliego contracts. Canonical source: github.com/madfam-org/pliego at `commit` (main when vendored); `last_changed` is the last commit before it that touched each file. Never hand-edit a vendored file: change Pliego and re-vendor; see VENDORED.md.",
+  "_comment": "sha256 of the vendored Pliego contracts. Canonical source: github.com/madfam-org/pliego at `commit` (main when vendored, or a pushed pull-request head re-pinned to main once it merges); `last_changed` is the last commit before it that touched each file. Never hand-edit a vendored file: change Pliego and re-vendor; see VENDORED.md.",
   "canonical_repo": "https://github.com/madfam-org/pliego",
   "published": true,
-  "commit": "2f85906f16eeacec95c319165e8466427211d279",
+  "commit": "0e857c8d3e42a755f0e6b3e58ddc78fe4208d9d9",
   "canonical_paths": {
     "sheet-document.schema.json": "packages/schemas/sheet-document.schema.json",
     "stock-card.schema.json": "packages/schemas/stock-card.schema.json"
   },
   "last_changed": {
-    "sheet-document.schema.json": "f8d6677da1dd61f97290ed71c28b05610476189a",
-    "stock-card.schema.json": "944adcb306869532c82c4793cbc54bfbad346083"
+    "sheet-document.schema.json": "7439a74b3423acc8bf26fb78fbfc145c2a5a00d7",
+    "stock-card.schema.json": "7439a74b3423acc8bf26fb78fbfc145c2a5a00d7"
   },
   "git_blob_sha1": {
-    "sheet-document.schema.json": "772353e9c4f2fa52b3c2a6fc25625d6a4b9c39e7",
-    "stock-card.schema.json": "e2bcc4f2981f54a5f440d318d6422080cbfb0680"
+    "sheet-document.schema.json": "507c8a67a9338b525054cd3da9c59052154cada2",
+    "stock-card.schema.json": "237ad95b1a1d5a1f159edca9e3231acbb88c2cbc"
   },
   "hashes": {
-    "sheet-document.schema.json": "092be45c06cd56dfe04f6f598d2d7f03bb9cb2b0ef49c9f680e66cd7878a4139",
-    "stock-card.schema.json": "a120a94d803e2e36d0a595788ee01dd3c896d9a3493f706061381eac86543afa"
+    "sheet-document.schema.json": "2555691d7a4134155a41751c730eae8488a1fcc75e0a9cb58672f9768fc699e4",
+    "stock-card.schema.json": "b7354e2c190d1173448873aaafe7009c632344a603233a1627bea1530be1cd2c"
   },
   "bytes": {
-    "sheet-document.schema.json": 49016,
-    "stock-card.schema.json": 18552
+    "sheet-document.schema.json": 53516,
+    "stock-card.schema.json": 19938
   }
 }

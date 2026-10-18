@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Pliego RFC 0045 phase 2: laminate stocks re-vendored, hardware_ref resolved name-level (package 0.18.0)
+
+Pliego's sheet documents may now carry **laminate stocks** (Pliego spec §5.40–§5.42, the
+`case-binding` cartridge, the first object built from all three commons): a stock snapshot's
+`laminate` block (layers by Pliego stock or `material_ref`, A, B, D, `coupled`,
+`coupling_ratio`, `governing_layer`), the laminate-only derived `D12`/`D66`, and stock cards
+that carry their own `sheet_behaviour` block (rule `pliego-stock/1`). The vendored schemas
+refused all three, so `pliego-spec check sheet-document` failed every `case-binding` document
+(`'laminate' was unexpected`).
+
+**Version.** 0.18.0 is the next free minor after 0.17.0 (#67). #57 (kinematic export) still
+declares 0.11.0 and renumbers when it rebases; it takes the next free minor then.
+
+#### Changed
+
+- **Re-vendored** `sheet-document.schema.json` and `stock-card.schema.json` from the head of
+  the Pliego pull request (`pliego@0e857c8`, branch `feat/geo-stab-sheet-behaviour-laminates`);
+  the lock is re-pinned. The change is additive: every document the earlier copy accepted is
+  still accepted. Re-pin `commit` and `last_changed` to the merge commit once it lands.
+- `UNCHECKED_RULES` lists `8.40` (laminate consistency) and `8.41` (a join's `hardware_ref`,
+  name-level); the Pliego kernel checks both.
+
+#### Added
+
+- **`pliego-spec check cartridge --resolve CATALOG`**: a linked `hardware_ref` is resolved
+  name-level against a yantra4d catalog (`docs/commons-catalog.json`, or a vendored slice such
+  as Pliego's `pliego/data/yantra4d-hardware.snapshot.json`): the slug exists, `mode` is one of
+  its modes, every `params_map` key is one of its parameters (bridge handshake rule 1). The
+  note says the part was not rendered at the mapped values. An empty catalog fails.
+  `rules.load_hardware_catalog`, `rules.hardware_ref_resolution`.
+
 ### geom-core as an optional mesh oracle, with parity notes (package 0.17.0)
 
 The solid mesh bar (watertight, signed volume > 0, the body count `body-count` compares)
