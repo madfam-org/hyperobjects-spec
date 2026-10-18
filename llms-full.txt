@@ -57,6 +57,10 @@ runbook.
   - `body_count.py` — `body-count`, NOTE ONLY, under `--render`: rendered bodies
     vs the declared count (base, mode `overrides`, `part_overrides`;
     `part_quantities` accepts all copies in one mesh).
+  - `mesh_oracle.py` — who measures the mesh bar (`Y4D_SPEC_MESH_ORACLE=trimesh|
+    geomcore|both`, default trimesh); with `both`, `oracle-parity` NOTE ONLY when
+    trimesh and geom-core disagree. geom-core installs from its GitHub Release via
+    `scripts/qa/install_geom_core.sh` (the `geometry-core` extra is empty).
   - `conformance.py` — orchestration; owns the result object and the tiers.
   - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
     body counting, STL export.
