@@ -132,6 +132,25 @@ condition is met (CHANGELOG). The texts in `src/hyperobjects_licenses/texts/` ar
 **vendored** from SPDX license-list-data and sha256-locked, so never hand-edit them. A
 spelling that legitimately differs from SPDX goes in `DOCUMENTED_VARIANTS`, with a test.
 
+With `Y4D_SPEC_MESH_ORACLE=both` (`y4d_spec.mesh_oracle`), every judged mesh is measured
+by trimesh **and** geom-core. The verdict is still trimesh's; a disagreement is a note:
+
+```
+note thimble: oracle-parity: (default, thimble, cadquery): trimesh and geom-core disagree
+  — bodies trimesh=2 geom-core=1; the verdict used trimesh (Y4D_SPEC_MESH_ORACLE=both), a
+  note until the parity pass is written down
+```
+
+→ watertight and body count are compared exactly, the signed volume within 1e-6
+relative. A body-count disagreement is usually definitional: trimesh joins faces that
+share an edge, geom-core faces that share a vertex, so solids touching at one corner
+count differently. A note, never a failure, and `--render` prints a `mesh oracle:` line
+whenever the selection is not the default. An unknown value, or `geomcore`/`both` with
+geom-core not importable, is exit `2`, never a quiet fall back to trimesh. Install
+geom-core with `scripts/qa/install_geom_core.sh` (the `geometry-core` extra is empty:
+pip extras cannot point at the release URL). Do not flip the default before the
+whole-commons parity is written down (CHANGELOG, "oracle-parity").
+
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
 against the whole commons is written down (see `rules.py` for the killed ones).

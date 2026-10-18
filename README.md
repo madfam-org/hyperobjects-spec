@@ -242,6 +242,44 @@ pass on the way out. On a 2.5 M-face chainmail panel of 80 rings that took over 
 15+ minutes and killed a 6 GiB CI runner twice, while labelling the components takes
 seconds. The measurement is identical; only the budget differs.
 
+**The geom-core mesh oracle (optional, `oracle-parity` note only).** trimesh measures the
+three numbers the mesh bar reads (watertight, signed volume, body count).
+[geom-core](https://github.com/madfam-org/geom-core) is the shared mesh-analysis library
+of the geometry factories, *mesh in, numbers out*, and it can measure the same three:
+
+```bash
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@main"
+PYTHON=$(which python) scripts/qa/install_geom_core.sh   # from a checkout of this repo
+# or, by hand, the v0.1.0 release wheel for CPython 3.11 (Linux x86_64, then Apple silicon):
+pip install "https://github.com/madfam-org/geom-core/releases/download/v0.1.0/geom_core-0.1.0-cp311-cp311-linux_x86_64.whl"
+pip install "https://github.com/madfam-org/geom-core/releases/download/v0.1.0/geom_core-0.1.0-cp311-cp311-macosx_11_0_universal2.whl"
+```
+
+geom-core is not on PyPI yet and a pip extra cannot point at a URL, so the
+`geometry-core` extra is empty and only names the seam; the script picks the wheel for the
+running interpreter and OS, pins it by sha256 and proves the import. v0.1.0 has wheels
+for CPython 3.11 on Linux x86_64 and on Apple-silicon macOS only: its `universal2` wheel
+holds an arm64 extension, so on an Intel Mac build it from source
+(`pip install ./geom-core`). `Y4D_SPEC_MESH_ORACLE` selects who measures:
+
+| Value | The verdict reads | Also |
+|---|---|---|
+| `trimesh` (default, unset) | trimesh, exactly as before 0.17.0 | — |
+| `geomcore` | geom-core | — |
+| `both` | trimesh | geom-core measures every judged mesh; a disagreement is an `oracle-parity` **note** |
+
+Tolerances for `both`: signed volume 1e-6 relative, body count and watertight exact. Any
+other value, or `geomcore`/`both` without geom-core importable, makes `--render` exit `2`
+rather than fall back to trimesh. Under every selection trimesh still loads the mesh for
+the extents, the printability notes and the per-body volumes that name an inverted body,
+which geom-core does not report per body. The two oracles do not define a body the same
+way: trimesh joins faces that share an edge, geom-core faces that share a vertex, so two
+solids touching at one corner are two bodies to one and one to the other. Surfacing that
+kind of difference is what `both` is for. **The plan:** `both` runs in CI's geom-core leg
+on every push; the default flips to geom-core in a separate change, only after the
+parity over the whole commons is written down in the CHANGELOG with every disagreement
+explained ("oracle-parity").
+
 **A `cq.Assembly` result is flattened with `toCompound()`**, then exported through the
 same `cq.exporters.export` a `Workplane` uses — not `Assembly.save`, which CadQuery 2.7
 marks `@deprecate()`d ("will be removed in the next release") while 22 commons cartridges

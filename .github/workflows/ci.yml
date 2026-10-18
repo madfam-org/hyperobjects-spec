@@ -308,3 +308,95 @@ jobs:
           .venv/bin/fc-spec lookup fashion-cabinet/garter-belt | grep -q "strap-slot"
           .venv/bin/y4d-spec related tape-edge | grep -q "zipper_tape"
           .venv/bin/pliego-spec define papel-picado --lang es | grep -q "Huixcolotla"
+
+  geom-core-parity:
+    # The geom-core mesh oracle (y4d_spec.mesh_oracle, G5 of the geom-core programme).
+    # Every geometry test and every bundled fixture render is measured by BOTH oracles
+    # (Y4D_SPEC_MESH_ORACLE=both): the verdict stays trimesh's, and a disagreement is an
+    # `oracle-parity` note, counted into the job summary. NOT a required check yet (the
+    # repository has no branch protection, and nothing should be made to wait on this
+    # leg): it is the evidence the default flip waits on, and it reports rather than
+    # gates. A red run here is still a real failure to read — an install that did not
+    # happen, or a test the seam broke — never a parity disagreement, which is a note.
+    #
+    # Python 3.11, not the system 3.12 the pytest job uses: geom-core v0.1.0 ships
+    # Linux wheels for cp38-cp311 only (scripts/qa/install_geom_core.sh refuses others).
+    name: geometry with geom-core (oracle parity, not required)
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
+    timeout-minutes: 25
+    env:
+      Y4D_SPEC_MESH_ORACLE: both
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: System libraries for the CAD kernel (the pytest job's three)
+        run: |
+          SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
+          APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
+          timeout 300 $SUDO apt-get update -qq $APT_OPTS
+          $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
+            libgl1 libglib2.0-0 libxrender1
+
+      - name: Install (geometry + dev extras) and geom-core from its release
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install -e ".[geometry,dev]"
+          PYTHON=.venv/bin/python scripts/qa/install_geom_core.sh
+
+      - name: Install the render environment (OpenSCAD + render libraries)
+        uses: ./.github/actions/render-env
+        with:
+          y4d-spec: .venv/bin/y4d-spec
+
+      - name: Read-proof — both oracles importable
+        # Without this a leg whose kernel or geom-core failed to import would skip every
+        # geometry test and print a green "passed".
+        run: |
+          .venv/bin/python - <<'PY'
+          from y4d_spec.geometry import geometry_available
+          from y4d_spec.mesh_oracle import geom_core_available, require_selection
+
+          print("geometry available:", geometry_available())
+          print("geom-core available:", geom_core_available())
+          print("mesh oracle:", require_selection())
+          if not (geometry_available() and geom_core_available()):
+              raise SystemExit("FATAL: this leg needs the CAD kernel AND geom-core")
+          PY
+
+      - name: Geometry tests with both oracles
+        run: .venv/bin/python -m pytest -m geometry -ra
+
+      - name: Render the bundled fixtures with both oracles and count oracle-parity notes
+        # Some fixtures fail on purpose (dead-param, the divergent twins, frame-plate-wrong),
+        # so the exit code is not the verdict here; the summary line must be present and
+        # say geometry=verified, or the run crashed and the step fails.
+        run: |
+          set +e
+          .venv/bin/y4d-spec check --render --parity tests/fixtures/y4d/*/ > oracle.out 2>&1
+          status=$?
+          set -e
+          cat oracle.out
+          summary=$(grep "^y4d-spec check: " oracle.out || true)
+          if ! grep -q "geometry=verified" <<<"$summary"; then
+            echo "::error::y4d-spec check produced no verified summary line (exit $status)"
+            exit 1
+          fi
+          notes=$(grep -c ": oracle-parity: " oracle.out || true)
+          {
+            echo "### geom-core oracle parity (Y4D_SPEC_MESH_ORACLE=both)"
+            echo ""
+            echo "- oracle-parity notes: **${notes}**"
+            echo "- \`${summary}\` (exit ${status}; some fixtures fail on purpose)"
+            if [ "$notes" != "0" ]; then
+              echo ""
+              echo '```'
+              grep ": oracle-parity: " oracle.out
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          rm -f oracle.out

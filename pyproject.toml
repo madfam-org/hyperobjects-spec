@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperobjects-spec"
-version = "0.16.0"
+version = "0.17.0"
 description = "The MADFAM hyperobject commons spec: validate a Yantra4D, Fashion Cabinet or Pliego cartridge with zero platform code."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -53,6 +53,14 @@ geometry = [
   "networkx>=3.0",
   "rtree>=1.0",
 ]
+# The optional geom-core mesh oracle (y4d_spec.mesh_oracle; Y4D_SPEC_MESH_ORACLE=geomcore|both).
+# Deliberately EMPTY: geom-core is not on PyPI yet (publishing is an owner step), and a pip
+# extra cannot point at a URL. The extra names the seam; the install is
+#   PYTHON=<your venv python> scripts/qa/install_geom_core.sh
+# which picks the v0.1.0 GitHub Release wheel for the interpreter and OS (CPython 3.11 on
+# Linux x86_64 or Apple-silicon macOS), pins it by sha256 and proves the import. Use it on
+# top of [geometry]: trimesh still loads the mesh under every selection.
+geometry-core = []
 dev = ["pytest>=8", "ruff>=0.6"]
 # The AAS projection (hyperobjects_aas) needs only jsonschema at runtime. This extra adds
 # the Eclipse BaSyx Python SDK (MIT), pinned to the release that implements metamodel
