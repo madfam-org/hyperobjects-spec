@@ -6,6 +6,78 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### geom-core as an optional mesh oracle, with parity notes (package 0.17.0)
+
+The solid mesh bar (watertight, signed volume > 0, the body count `body-count` compares)
+was measured by trimesh only. `Y4D_SPEC_MESH_ORACLE` now selects who measures it
+(`y4d_spec.mesh_oracle`): `trimesh` (the default; unset means it, and the results are
+unchanged), `geomcore` (the verdict reads geom-core), or `both` (the verdict reads
+trimesh, and geom-core measures every judged mesh too). Owner direction 2026-10-18
+(geom-core is the one shared mesh-analysis layer of the geometry factories; G5 of that
+programme).
+
+**Version.** 0.17.0 is the next free minor after 0.16.0 (#66). #57 (kinematic export)
+still declares 0.11.0 and renumbers when it rebases; it takes the next free minor then
+(0.18.0 if this lands first).
+
+#### Added
+
+- **`oracle-parity`** (NOTE ONLY, under `--render` with `Y4D_SPEC_MESH_ORACLE=both`):
+  one note per mesh on which trimesh and geom-core disagree beyond tolerance (signed
+  volume 1e-6 relative, body count exact, watertight exact), naming the target and both
+  numbers. A mesh geom-core cannot load is a note too ("not compared"). The exit code
+  never changes.
+- `MeshOracle` (protocol), `TrimeshOracle` (the previous code, moved behind the seam),
+  `GeomCoreOracle` (geom-core v0.1.0 `Analyzer.assess_integrity()`, the port of yantra4d
+  `mesh_integrity.assess`).
+- The `geometry-core` extra, deliberately empty (pip extras cannot point at a URL and
+  geom-core is not on PyPI), and `scripts/qa/install_geom_core.sh`, which installs the
+  v0.1.0 GitHub Release wheel for the running interpreter and OS, pinned by sha256.
+- CI: a `geom-core-parity` job (Python 3.11, the CAD kernel, OpenSCAD, geom-core) runs
+  `pytest -m geometry` and renders every bundled fixture with `both`, and writes the
+  `oracle-parity` count into the job summary. It is not a required check.
+
+#### Behaviour that is not a fall back
+
+- An unknown `Y4D_SPEC_MESH_ORACLE`, or `geomcore`/`both` with geom-core not importable,
+  makes `y4d-spec check --render` exit 2 before anything renders. It never quietly
+  measures with trimesh instead.
+- trimesh still loads every mesh under every selection: the extents, the printability
+  notes and the per-body signed volumes that name an inverted body are trimesh's, because
+  geom-core reports one `inverted` flag for the whole mesh and no volume per body.
+- geom-core's `get_volume()` is the ABSOLUTE volume and would pass an inside-out solid;
+  the adapter reads the signed `assess_integrity().volume`. geom-core's `load_stl` writes a
+  line to the C++ standard output; descriptor 1 is silenced for the load so it never lands
+  in `y4d-spec check` output.
+
+#### Parity so far (macOS, Python 3.11, geom-core v0.1.0 built from the tag)
+
+- Synthetic STLs (`tests/test_mesh_oracle_geometry.py`): closed box, open box, two
+  disjoint bodies, a disjoint degenerate face and an inside-out box agree on all three
+  numbers. Two boxes touching at ONE vertex disagree on the body count, trimesh 2 and
+  geom-core 1: trimesh joins faces that share an edge, geom-core faces that share a vertex.
+  That is a definitional difference, and the reason the default does not flip yet.
+- Every bundled fixture, `y4d-spec check --render --parity tests/fixtures/y4d/*/` with
+  `both` (OpenSCAD 2026.02.13, the macOS app): 53 renders, 0 skipped, **0 `oracle-parity`
+  notes**. `pytest -m geometry` with `both`: 183 passed. With `geomcore` taking the
+  verdict, dual-block, graph-twin, scad-block and thimble: 18 renders, the same verdicts
+  (`failures=0`, `parity=6/6 ok`).
+- The whole solid commons has not been measured with `both` yet.
+
+#### Flip condition
+
+The default moves to `geomcore` in a separate change, after a whole-commons pass with
+`both` at the new pin is written down here with every `oracle-parity` note explained
+(a geom-core defect fixed, or a definitional difference such as vertex-touching bodies
+ruled on). Until then nothing may claim that geom-core decides a verdict.
+
+#### Found on the way
+
+- The v0.1.0 macOS wheel is tagged `universal2` but its extension is arm64 only
+  (`lipo -info`: "Non-fat file … architecture: arm64"). On an Intel Mac it installs and then
+  fails to import. The install script refuses Intel macOS before pip; build from source
+  there.
+
 ### Declared body counts and the constraint dialect are checked (note-first, package 0.16.0)
 
 Two declarations every solid-commons manifest carries were read by nothing. Both are now
