@@ -2,14 +2,14 @@
   "_comment": "sha256 of the vendored Pliego contracts. Canonical source: github.com/madfam-org/pliego at `commit` (main when vendored, or a pushed pull-request head re-pinned to main once it merges); `last_changed` is the last commit before it that touched each file. Never hand-edit a vendored file: change Pliego and re-vendor; see VENDORED.md.",
   "canonical_repo": "https://github.com/madfam-org/pliego",
   "published": true,
-  "commit": "0e857c8d3e42a755f0e6b3e58ddc78fe4208d9d9",
+  "commit": "c4589df451c5917b9296e921d036a1ad7cd54a1c",
   "canonical_paths": {
     "sheet-document.schema.json": "packages/schemas/sheet-document.schema.json",
     "stock-card.schema.json": "packages/schemas/stock-card.schema.json"
   },
   "last_changed": {
-    "sheet-document.schema.json": "7439a74b3423acc8bf26fb78fbfc145c2a5a00d7",
-    "stock-card.schema.json": "7439a74b3423acc8bf26fb78fbfc145c2a5a00d7"
+    "sheet-document.schema.json": "c4589df451c5917b9296e921d036a1ad7cd54a1c",
+    "stock-card.schema.json": "c4589df451c5917b9296e921d036a1ad7cd54a1c"
   },
   "git_blob_sha1": {
     "sheet-document.schema.json": "507c8a67a9338b525054cd3da9c59052154cada2",

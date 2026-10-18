@@ -21,10 +21,10 @@ declares 0.11.0 and renumbers when it rebases; it takes the next free minor then
 
 #### Changed
 
-- **Re-vendored** `sheet-document.schema.json` and `stock-card.schema.json` from the head of
-  the Pliego pull request (`pliego@0e857c8`, branch `feat/geo-stab-sheet-behaviour-laminates`);
+- **Re-vendored** `sheet-document.schema.json` and `stock-card.schema.json` from pliego#37
+  (`pliego@c4589df`, its squash merge on main; vendored from the pushed head, bytes unchanged);
   the lock is re-pinned. The change is additive: every document the earlier copy accepted is
-  still accepted. Re-pin `commit` and `last_changed` to the merge commit once it lands.
+  still accepted.
 - `UNCHECKED_RULES` lists `8.40` (laminate consistency) and `8.41` (a join's `hardware_ref`,
   name-level); the Pliego kernel checks both.
 
