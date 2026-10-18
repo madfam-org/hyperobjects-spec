@@ -51,6 +51,12 @@ runbook.
     literal the source falls back to (`PARAM(lambda: id, lit)` via ast, top-level
     `.scad` assignments, graph binding literals), per (file, line), with no mode
     scoping (GOC-1 v1.0.1 §4.1).
+  - `constraint_dialect.py` — `constraint-dialect`, NOTE ONLY: a static port of
+    the Studio's `safeFormula.ts`; notes every `constraints[]` expression it would
+    throw on (caps, calls, strings, syntax, unknown or non-numeric identifiers).
+  - `body_count.py` — `body-count`, NOTE ONLY, under `--render`: rendered bodies
+    vs the declared count (base, mode `overrides`, `part_overrides`;
+    `part_quantities` accepts all copies in one mesh).
   - `conformance.py` — orchestration; owns the result object and the tiers.
   - `geometry.py` — CadQuery execution through the shared sandbox, the mesh bar,
     body counting, STL export.
