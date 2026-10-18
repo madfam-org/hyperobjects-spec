@@ -1,6 +1,6 @@
 # Hyperobjects Spec Agent Operating Guide
 
-> Last Updated: 2026-09-06
+> Last Updated: 2026-10-18
 
 <!-- MADFAM-AGENTS-CANONICAL v1 -->
 
@@ -207,6 +207,19 @@ switched off by switching the comparison off:
 - A **tightened** tolerance needs no reason. Writing the default longhand is not
   a departure. An explicit `--parity-tolerance` beats a manifest one; no number
   overrides an exemption.
+
+### The declared body count (`body-count`, note-first)
+
+`y4d-spec check --render` compares every passed render's connected bodies with the
+declared count (`y4d_spec/body_count.py`): the base
+`verification.stages.geometry.checks.body_count`, replaced whole by a mode's
+`overrides["geometry.body_count"]`, replaced whole by a part's
+`part_overrides.<part>["geometry.body_count"]`. `part_quantities` widens what is
+accepted to `expected × quantity` (all copies in one mesh). It is a **note**. Do not
+make it a failure until a whole-commons pass at the new pin is written down in the
+CHANGELOG with every mismatch explained (a wrong declaration fixed, or a geometry
+defect fixed), the same flip condition `licence-body` has. Until then, a commons doc
+must not claim that `--render` enforces the declared count.
 
 ## Graph cartridges and the VENDORED transpiler — read before touching `src/y4d_spec/graph/`
 
@@ -424,6 +437,14 @@ Semantics: the expression is the **satisfied** condition — truthy passes, fals
 raises `message` at the declared `severity` (`error` blocks, `warning` does
 not). Either `expression` (what the commons authors) or the legacy `rule` key is
 read.
+
+**Linted, note-first.** `y4d-spec check` (no `--render`) runs every expression through a
+static port of `safeFormula.ts` (`y4d_spec/constraint_dialect.py`, rule
+`constraint-dialect`) and notes what would throw: the caps, an unsupported character,
+a call, a syntax error, an identifier that is not a declared parameter or whose
+default is not a number, and a constraint with no expression. Keep the port in step
+with `safeFormula.ts` (it cites the yantra4d commit it was read from); it becomes a
+failure only after its whole-commons false-positive analysis is written down.
 
 **The trap:** `useConstraints` wraps evaluation in `try { … } catch {}`. An
 expression that throws — unknown identifier, non-numeric parameter, division by

@@ -6,6 +6,67 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Declared body counts and the constraint dialect are checked (note-first, package 0.16.0)
+
+Two declarations every solid-commons manifest carries were read by nothing. Both are now
+compared with what they describe, as **notes**: the exit code does not change.
+
+**Version.** 0.16.0 is the next free minor: no merged or open change declares it. The
+2026-10-18 commons audit suggested 0.16.0 for #57 (kinematic export) when it rebases, but
+#57 is a conflicting draft that still declares 0.11.0 and must renumber whatever it lands
+as; it takes the next free minor then (0.17.0 if this lands first).
+
+#### Added
+
+- **`body-count`** (`y4d_spec.body_count`, under `--render`). The keystone counted every
+  render's connected bodies (`RenderCheck.bodies`) and never compared the count with
+  `verification.stages.geometry.checks.body_count`. solid-hyperobjects' voronoi declares
+  one body; its vase renders 2 at defaults and 26 and 46 at presets, all `ok`, with
+  nothing said. The declaration for a `(mode, part)` is the part's
+  `part_overrides.<part>["geometry.body_count"]`, else the mode's
+  `overrides["geometry.body_count"]`, else the base, each replacing the other whole;
+  `enabled: false` and a mode whose `stages` omit `geometry` are not judged, and
+  `expected` defaults to 1 (yantra4d `verify_design.py`). Counts and `part_quantities` may
+  be expressions over parameters (`"hinge_knuckle_count"`, `'3 if joint_type == "locking"
+  else 2'`), evaluated at the render's parameter point by an `ast` walk with no `eval`. A
+  part with a quantity may render one copy or all of them, so `expected × quantity` is
+  accepted too. Only passed, measured renders are judged. Each note names the rule, the
+  target (mode, part, preset, engine), the observed and declared numbers and the
+  declaring key; an unevaluable declaration is its own note.
+- **`constraint-dialect`** (`y4d_spec.constraint_dialect`, no `--render`). A static port
+  of the Studio's `safeFormula.ts` tokenizer and parser (yantra4d `827ad49f`). It notes
+  every `constraints[]` expression the Studio would throw on, which `useConstraints`
+  swallows so the rule never fires: over 256 characters or 128 tokens, an unsupported
+  character, a function call, a syntax error, an identifier that is not a declared
+  parameter or whose default is not a number, or no expression at all.
+
+#### Whole-commons false-positive analysis
+
+- `constraint-dialect`, solid-hyperobjects `e6aebc7` (512 cartridges, 1,111
+  constraints): **8 notes on 6 cartridges, every one a real defect**. x-carriage
+  `abs(belt_a_level - belt_b_level) >= 9` (a call; rewritten in the commons); `and`/`or`
+  spelled as words in battery-pocket-frame, boot-hook-puller, heel-tip-blank (2) and
+  voronoi (the parser stops at the word, a trailing token); julia-vase's two
+  `condition`-shaped entries with no expression. No unknown-identifier or non-numeric
+  finding fired on a healthy constraint.
+- `body-count`, the static half on solid-hyperobjects `e6aebc7`: every judged
+  declaration evaluates at every parameter point the renders use, 3,927 (target or
+  preset) points and 489 quantities, after numeric select values were read as numbers
+  (sentinel-gripper's `finger_count * 2` on a select valued "3"). The comparison itself
+  needs renders, so its whole-commons pass is the commons nightly at a pin that includes
+  this change. It has not run yet. Two cartridges were rendered locally (macOS,
+  OpenSCAD 2026.02.13, `--render --require-openscad --parity`): x-carriage, 10 renders,
+  no body-count note; voronoi with `libs/dotSCAD`, 19 renders, **7 notes, all on the
+  vase** (2 bodies at defaults and at three presets, 26, 46 and 38 at the others),
+  the defect the audit reported. Without dotSCAD the vase renders 1 body (its Voronoi
+  module is ignored with a compiler note), so the note depends on a complete
+  OpenSCAD library path, as the render lane already requires.
+
+**Flip condition.** Each rule becomes a failure in a separate change once a run over
+`main` of every commons that declares it prints none of its notes, or every remaining
+note is written down here as explained. For `body-count` that run is a full nightly
+(`render_scope=everything`) at the new pin.
+
 ### Sheet behaviour: all 28 Pliego stock cards, boards and foam, seven fabric bend classes (package 0.15.0)
 
 Closes the gaps #62 left. Additive for every document that already had a golden: none of

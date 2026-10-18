@@ -100,8 +100,10 @@ up, where a glob also sweeps in siblings like `libs/` that were never cartridges
    vendored tree, no shipped LICENSE contradicting the declared one, and **every
    declared parameter is actually referenced by a source** (below). As a note only,
    every manifest `default` that differs from the literal the source falls back to
-   (`default-drift`, below), and every shipped LICENSE whose **body** is not the
-   canonical text of the declared licence (`licence-body`, below).
+   (`default-drift`, below), every shipped LICENSE whose **body** is not the
+   canonical text of the declared licence (`licence-body`, below), and every
+   `constraints[]` expression the Studio's parser cannot evaluate
+   (`constraint-dialect`, below).
 
 **Licence bodies (note-first).** The declared-vs-shipped rule reads a LICENSE's title
 line. That let a file titled CERN-OHL-W carry the whole CERN-OHL-S body, in
@@ -124,6 +126,21 @@ Every finding is a **note** and the exit code does not change. The summary gains
 whenever a checked cartridge ships a licence file. A commons root LICENSE belongs to no
 cartridge, so `y4d-spec license-body <dir> --declared CERN-OHL-W-2.0` (also on
 `fc-spec`) checks any tree the same way and exits 0 whatever it finds.
+
+**Constraints must be in the Studio's dialect (`constraint-dialect`, note only).** The
+Studio evaluates `constraints[]` client-side with its own parser
+(yantra4d `apps/studio/src/lib/safeFormula.ts`), and `useConstraints` swallows whatever
+it throws, so a rule outside the dialect does not error: it never fires. The check
+tokenises and parses every `expression` (or legacy `rule`) with a static port of that
+parser and notes what would throw: more than 256 characters or 128 tokens, a
+character no token starts with (a quote, a comma, `^`, a lone `=`), a function call
+(`abs(…)`, `min(…)`: the dialect has none), a syntax error (a trailing `and`/`or`, an
+unclosed `(`), an identifier that is not a declared parameter, an identifier whose
+default is not a number (the dialect has no strings), and a constraint with no
+expression at all. Division by zero is not judged, because it depends on the values a
+user picks. On solid-hyperobjects at `e6aebc7` it fires 8 times on 6 of 512
+cartridges (1,111 constraints): x-carriage's `abs()`, five `and`/`or` spellings and
+two `condition`-shaped entries in julia-vase.
 
 **Every declared parameter must reach geometry.** A parameter the sources never read is
 a control the UI offers that changes nothing, and it fails the check. OpenSCAD is where
@@ -198,6 +215,22 @@ commons at `700f9d0`, on 4 of 516.
 - **distinct per part** — two parts rendering identical geometry means your
   `target_part` dispatch is not wired, and the platform will silently serve the wrong
   body.
+
+**The declared body count (`body-count`, note only).** Every render's connected bodies
+are compared with the count the manifest declares for that `(mode, part)`:
+`verification.stages.geometry.checks.body_count.expected`, replaced whole by the
+mode's `overrides["geometry.body_count"]`, replaced whole in turn by
+`part_overrides.<part>["geometry.body_count"]`. `enabled: false`, or a mode whose
+`stages` list leaves out `geometry`, is not judged; `expected` defaults to 1. A count may
+be an expression over parameter ids (`"hinge_knuckle_count"`,
+`'3 if joint_type == "locking" else 2'`), evaluated at the render's own parameter point
+(the defaults, with a preset's values over them) by walking a vetted `ast`, never
+`eval`. A part with `part_quantities` may render one copy or all of them in one mesh,
+so `expected × quantity` bodies is accepted too. A mismatch is a **note** that names
+the target (mode, part, preset, engine), both numbers and the declaration it came from;
+a declaration that cannot be evaluated there is a note of its own. It becomes a failure
+in a separate change, only after a whole-commons pass over every commons that declares
+counts shows no unexplained mismatch (CHANGELOG, "body-count").
 
 **How a body is counted, and why it is not `mesh.split()`.** A body is a connected
 component of the vertex-merged mesh, and its volume is the sum of its faces' signed

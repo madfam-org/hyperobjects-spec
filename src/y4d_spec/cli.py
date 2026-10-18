@@ -315,7 +315,7 @@ def _cmd_render_env(args) -> int:
 
 
 def _cmd_rules(args) -> int:
-    from . import default_drift, rules, semantic_rules, structure
+    from . import constraint_dialect, default_drift, rules, semantic_rules, structure
 
     print("y4d-spec checks a cartridge against, in order:\n")
     print("  1. the project-manifest JSON Schema (bundled from yantra4d/packages/schemas)")
@@ -329,6 +329,7 @@ def _cmd_rules(args) -> int:
         rules.verification_rules,
         semantic_rules.interface_frame_rules,
         semantic_rules.requirements_rules,
+        constraint_dialect.constraint_dialect_notes,
     ):
         first = (fn.__doc__ or "").strip().splitlines()[0]
         print(f"       {fn.__name__:28} {first}")
@@ -351,6 +352,8 @@ def _cmd_rules(args) -> int:
     print("       have volume > 0, contain no inverted body, and be distinct per part.")
     print("       Without an OpenSCAD binary those targets are SKIPPED (never counted as")
     print("       verified); --require-openscad makes the absence a failure instead.")
+    print("       As a NOTE only (body-count, y4d_spec.body_count): each passed render's")
+    print("       connected bodies against the declared count for that (mode, part).")
     print("       BEFORE any of that, the BUILT SHAPE goes through the B-Rep gate")
     print("       (y4d_spec.brep): BRepCheck_Analyzer(shape).IsValid(), plus a signed")
     print("       volume that must not be negative on the whole shape OR on any solid")

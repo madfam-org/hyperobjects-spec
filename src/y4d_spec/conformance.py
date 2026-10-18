@@ -25,6 +25,8 @@ from pathlib import Path
 from hyperobjects_schemas import load as load_schema
 
 from . import rules, structure
+from .body_count import body_count_notes
+from .constraint_dialect import constraint_dialect_notes
 from .semantic_rules import (
     FRAME_GRAMMAR_MIN_KEYSTONE,
     FRAME_GRAMMAR_VERSION,
@@ -149,9 +151,9 @@ def check_manifest(doc: dict) -> CartridgeResult:
     problems = _schema_errors(doc)
     problems.extend(rules.all_manifest_rules(doc))
     slug = (doc.get("project") or {}).get("slug") if isinstance(doc.get("project"), dict) else None
-    return CartridgeResult(
-        slug=slug, ok=not problems, problems=problems, notes=frame_grammar_notes(doc)
-    )
+    # constraint-dialect is NOTE ONLY (y4d_spec.constraint_dialect): it never adds a problem.
+    notes = frame_grammar_notes(doc) + constraint_dialect_notes(doc)
+    return CartridgeResult(slug=slug, ok=not problems, problems=problems, notes=notes)
 
 
 def frame_grammar_notes(doc: dict) -> list[str]:
@@ -314,6 +316,10 @@ def check_cartridge(
             # Per-render notes (preset-vs-default sameness, printability
             # measurements) join the cartridge's notes and never touch `ok`.
             result.notes.extend(check.notes)
+
+        # body-count is NOTE ONLY (y4d_spec.body_count): rendered connected bodies
+        # against the declared count, per render. It never adds a problem.
+        result.notes.extend(body_count_notes(doc, result.renders))
 
         for pc in result.parity:
             if pc.exempt:
