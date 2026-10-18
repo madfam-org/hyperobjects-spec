@@ -83,6 +83,13 @@ def test_override_replaces_the_base_whole():
     assert declared_body_count(doc, "set", "body").expected == 5
 
 
+def test_bare_count_shorthand_is_the_expected_count():
+    doc = _manifest(
+        **BASE_1, mode_overrides={"set": {"part_overrides": {"pin": {"geometry.body_count": 2}}}}
+    )
+    assert declared_body_count(doc, "set", "pin").expected == 2
+
+
 def test_disabled_undeclared_and_geometry_free_modes_are_not_judged():
     assert declared_body_count({"modes": []}, "single", "body") is None
     disabled = _manifest(stages={"geometry": {"checks": {"body_count": {"enabled": False}}}})
@@ -101,6 +108,8 @@ def test_count_expressions_from_the_commons_evaluate():
     assert evaluate_count('3 if joint_type == "locking" else 2', params) == 3
     assert evaluate_count("N * N * N - (N - 2) * (N - 2) * (N - 2)", params) == 26
     assert evaluate_count("6 * N * N", params) == 54
+    # sentinel-gripper: `finger_count` is a select valued "3", so this is 6, not "33".
+    assert evaluate_count("finger_count * 2", {"finger_count": "3"}) == 6
 
 
 @pytest.mark.parametrize(

@@ -49,8 +49,12 @@ as; it takes the next free minor then (0.17.0 if this lands first).
   voronoi (the parser stops at the word, a trailing token); julia-vase's two
   `condition`-shaped entries with no expression. No unknown-identifier or non-numeric
   finding fired on a healthy constraint.
-- `body-count` needs renders, so its whole-commons pass is the commons nightly at a pin
-  that includes this change. It has not run yet.
+- `body-count`, the static half on solid-hyperobjects `e6aebc7`: every judged
+  declaration evaluates at every parameter point the renders use, 3,927 (target or
+  preset) points and 489 quantities, after numeric select values were read as numbers
+  (sentinel-gripper's `finger_count * 2` on a select valued "3"). The comparison itself
+  needs renders, so its whole-commons pass is the commons nightly at a pin that includes
+  this change. It has not run yet.
 
 **Flip condition.** Each rule becomes a failure in a separate change once a run over
 `main` of every commons that declares it prints none of its notes, or every remaining

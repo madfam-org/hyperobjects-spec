@@ -30,7 +30,8 @@ How a declaration is resolved for one render `(mode, part, preset)`:
   * `expected` defaults to 1 (the platform verifier's default, yantra4d
     `apps/api/tests/scripts/verify_design.py` `check_body_count`). It is a whole number
     or an expression string over parameter ids, evaluated at the render's parameter
-    point: the manifest defaults, with the preset's values over them. The expression
+    point: the manifest defaults, with the preset's values over them (a select whose
+    option is spelled as a number reads as that number). The expression
     language is small and evaluated by walking a vetted `ast` (numbers, strings,
     booleans, parameter ids, `+ - * / // %`, unary `- + not`, comparisons, `and`/`or`
     and `a if c else b`); nothing is passed to `eval`.
@@ -123,6 +124,11 @@ def declared_body_count(doc: dict, mode_id: str, part_id: str) -> BodyCountDecla
             block = checks["body_count"]
             source = "verification.stages.geometry.checks.body_count"
 
+    if isinstance(block, bool) or block is None:
+        return None
+    if isinstance(block, int | float | str):
+        # The shorthand `"geometry.body_count": 2` (a bare count, no object).
+        block = {"expected": block}
     if not isinstance(block, dict) or block.get("enabled", True) is False:
         return None
 
@@ -149,6 +155,22 @@ _COMPARE = {
 }
 
 
+def _numeric(value: object) -> object:
+    """A select whose options are spelled as numbers ("3") counts as that number.
+
+    Without this `finger_count * 2` on a select valued "3" is Python's "33". A string that
+    does not spell a number stays a string, so `joint_type == "locking"` still compares.
+    """
+    if isinstance(value, str):
+        text = value.strip()
+        for cast in (int, float):
+            try:
+                return cast(text)
+            except ValueError:
+                continue
+    return value
+
+
 def _walk(node: ast.AST, params: Mapping[str, object]) -> object:
     if isinstance(node, ast.Expression):
         return _walk(node.body, params)
@@ -157,7 +179,7 @@ def _walk(node: ast.AST, params: Mapping[str, object]) -> object:
     if isinstance(node, ast.Name):
         if node.id not in params:
             raise BodyCountError(f"'{node.id}' is not a parameter with a value here")
-        return params[node.id]
+        return _numeric(params[node.id])
     if isinstance(node, ast.BinOp) and type(node.op) in _BINOPS:
         left, right = _walk(node.left, params), _walk(node.right, params)
         try:
