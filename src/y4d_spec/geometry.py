@@ -604,25 +604,55 @@ def _judge_stl(
     # raw flag reports valid geometry as holed.
     mesh.merge_vertices()
 
-    watertight = bool(mesh.is_watertight)
-    volume = float(mesh.volume)
-
+    # The three numbers the bar reads come from the selected mesh oracle
+    # (y4d_spec.mesh_oracle, Y4D_SPEC_MESH_ORACLE): trimesh by default, exactly the
+    # code this was before the seam; geom-core when asked. Trimesh ALWAYS measures,
+    # because the per-body signed volumes that name an inverted body, the extents and
+    # the printability notes are trimesh's under every selection.
+    #
     # Bodies = connected components of the merged mesh, each with its signed
     # volume — computed directly (see _bodies) rather than via split()/submesh(),
     # whose per-body rebuild and repair pass cost 7 GB on a large multi-body render
     # and could never decide the verdict anyway. A failure here degrades to
     # "could not split" and the watertight/volume findings stand on their own.
-    try:
-        bodies = _bodies(mesh)
-    except Exception as exc:
-        bodies = []
-        problems.append(f"could not split into bodies ({type(exc).__name__}: {exc})")
+    from .mesh_oracle import RULE_ID as ORACLE_PARITY
+    from .mesh_oracle import (
+        GeomCoreOracle,
+        MeshOracleError,
+        TrimeshOracle,
+        oracle_parity_note,
+        require_selection,
+    )
+
+    selection = require_selection()
+    by_trimesh = TrimeshOracle().measure(stl_path, mesh=mesh)
+    verdict = by_trimesh
+    by_geom_core = None
+    geom_core_error = None
+    if selection != "trimesh":
+        try:
+            by_geom_core = GeomCoreOracle().measure(stl_path)
+        except MeshOracleError as exc:
+            geom_core_error = str(exc)
+        if selection == "geomcore":
+            if by_geom_core is None:
+                problems.append(
+                    f"the geom-core mesh oracle could not measure it ({geom_core_error})"
+                )
+            else:
+                verdict = by_geom_core
+
+    watertight = verdict.watertight
+    volume = verdict.volume
+    body_volumes = by_trimesh.body_volumes or ()
+    if by_trimesh.bodies_error is not None:
+        problems.append(f"could not split into bodies ({by_trimesh.bodies_error})")
 
     if not watertight:
         # Count boundary edges directly rather than via mesh.outline(), which needs a
         # graph engine and would turn a plain finding into an ImportError.
         problems.append(
-            f"not watertight — {_boundary_edges(mesh)} boundary edge(s); the mesh "
+            f"not watertight — {verdict.boundary_edges} boundary edge(s); the mesh "
             f"does not enclose a volume"
         )
     if volume <= 0:
@@ -635,7 +665,7 @@ def _judge_stl(
     # shape yields 200+ identical lines that push every OTHER finding — including the
     # B-Rep status that names the CAUSE — off the top of the report. The count and the
     # worst offenders are what a reader acts on; the remaining repetitions are not.
-    inverted = [(i, bvol) for i, (_faces, bvol) in enumerate(bodies) if bvol < 0]
+    inverted = [(i, bvol) for i, bvol in enumerate(body_volumes) if bvol < 0]
     for i, bvol in inverted[:MAX_INVERTED_BODY_LINES]:
         problems.append(
             f"body {i} has negative volume ({bvol:.4f}) — an inverted/inside-out "
@@ -644,7 +674,7 @@ def _judge_stl(
     if len(inverted) > MAX_INVERTED_BODY_LINES:
         problems.append(
             f"(+{len(inverted) - MAX_INVERTED_BODY_LINES} further inverted "
-            f"body/bodies, {len(inverted)} of {len(bodies)} in total)"
+            f"body/bodies, {len(inverted)} of {len(body_volumes)} in total)"
         )
 
     check = RenderCheck(
@@ -654,7 +684,7 @@ def _judge_stl(
         problems=problems,
         volume=volume,
         watertight=watertight,
-        bodies=len(bodies),
+        bodies=verdict.bodies if verdict.bodies is not None else 0,
         extents=tuple(float(x) for x in mesh.extents),
         preset=preset,
         engine=engine,
@@ -676,6 +706,17 @@ def _judge_stl(
                 mesh, mode=mode, part=part, preset=preset, engine=engine
             )
         ]
+
+    # oracle-parity (Y4D_SPEC_MESH_ORACLE=both): NOTE ONLY, after printability because
+    # that block assigns `check.notes` whole. Never touches `ok`.
+    if selection == "both":
+        if by_geom_core is None:
+            check.notes.append(
+                f"{ORACLE_PARITY}: {check.target}: geom-core could not measure this mesh "
+                f"({geom_core_error}); not compared"
+            )
+        elif note := oracle_parity_note(check.target, by_trimesh, by_geom_core):
+            check.notes.append(note)
 
     return check
 

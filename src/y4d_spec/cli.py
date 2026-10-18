@@ -61,6 +61,25 @@ def _cmd_check(args) -> int:
             )
             return 2
 
+        # The mesh oracle (y4d_spec.mesh_oracle). Refused up front, like the extra
+        # above: an unknown Y4D_SPEC_MESH_ORACLE, or geom-core asked for and absent, is
+        # an environment problem and must not surface as a crash mid-cartridge. The
+        # default (trimesh) prints nothing, so default output is unchanged.
+        from .mesh_oracle import MeshOracleError, require_selection
+
+        try:
+            mesh_oracle = require_selection()
+        except MeshOracleError as exc:
+            print(f"  ERROR {exc}")
+            return 2
+        if mesh_oracle == "geomcore":
+            print("  mesh oracle: geomcore (the verdict reads geom-core)")
+        elif mesh_oracle == "both":
+            print(
+                "  mesh oracle: both (the verdict reads trimesh; geom-core is compared, "
+                "disagreements are oracle-parity notes)"
+            )
+
         # Say which OpenSCAD is about to be used, BEFORE any cartridge is checked. The
         # commons uses snapshot syntax no tagged release has, so a machine one release
         # behind reports a cartridge failure for what is an environment problem — and
@@ -354,6 +373,9 @@ def _cmd_rules(args) -> int:
     print("       verified); --require-openscad makes the absence a failure instead.")
     print("       As a NOTE only (body-count, y4d_spec.body_count): each passed render's")
     print("       connected bodies against the declared count for that (mode, part).")
+    print("       The mesh is measured by trimesh; Y4D_SPEC_MESH_ORACLE=geomcore|both")
+    print("       measures it with geom-core (y4d_spec.mesh_oracle), and with `both`")
+    print("       a trimesh/geom-core disagreement is a NOTE only (oracle-parity).")
     print("       BEFORE any of that, the BUILT SHAPE goes through the B-Rep gate")
     print("       (y4d_spec.brep): BRepCheck_Analyzer(shape).IsValid(), plus a signed")
     print("       volume that must not be negative on the whole shape OR on any solid")
