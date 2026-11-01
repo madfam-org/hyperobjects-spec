@@ -1,0 +1,120 @@
+{
+  "spec_version": 1,
+  "key": "dc-barrel-plug-5-5x2-1",
+  "category": "connector",
+  "name": {
+    "en": "DC barrel plug 5.5 × 2.1 mm",
+    "es": "Plug de alimentación DC 5.5 × 2.1 mm",
+    "fr": "Fiche d'alimentation CC 5,5 × 2,1 mm",
+    "pt": "Plugue de alimentação CC 5,5 × 2,1 mm"
+  },
+  "description": {
+    "en": "The 5.5 × 2.1 mm DC barrel plug class: a barrel Ø5.5 mm outside and Ø2.1 mm inside, 9.5 mm from the tip to the collar, mating a 5.5 × 2.1 DC jack.",
+    "es": "La clase de plug de barril DC de 5.5 × 2.1 mm: un barril de Ø5.5 mm por fuera y Ø2.1 mm por dentro, de 9.5 mm de la punta al collarín, que acopla con un jack DC de 5.5 × 2.1.",
+    "fr": "La classe de fiche cylindrique CC 5,5 × 2,1 mm : un fût de Ø5,5 mm à l'extérieur et Ø2,1 mm à l'intérieur, à 9,5 mm de la pointe à la collerette, qui s'accouple à un jack CC 5,5 × 2,1.",
+    "pt": "A classe de plugue de barril CC de 5,5 × 2,1 mm: um barril de Ø5,5 mm por fora e Ø2,1 mm por dentro, a 9,5 mm da ponta ao colar, que acopla num jack CC de 5,5 × 2,1."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "5.5 × 2.1 mm DC barrel plug (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky PP3-002A DC power plug (rev 1.06) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/pp3-002a.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "barrel Ø5.5 ±0.05 outside, Ø2.1 ±0.05 inside, 9.5 ±0.3 from the tip to the collar"
+    },
+    {
+      "title": "Same Sky PJ-002A DC power jack (rev 1.10) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/pj-002a.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "centre pin Ø2.0; mating plug Ø5.5; bore Ø6.50; jack insertion depth 9.5"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the collar's front face, on the barrel's axis. +z runs along the barrel to its tip at z = 9.5; the body and cable lie at z < 0. +x is an arbitrary radial reference: the barrel is round.",
+  "dimensions": {
+    "outside_diameter": {
+      "value": 5.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05",
+      "note": "the jack sheet's mating plug Ø5.5 (source 1)"
+    },
+    "inside_diameter": {
+      "value": 2.1,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05"
+    },
+    "barrel_length": {
+      "value": 9.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "tip to collar; the jack's insertion depth 9.5 (source 1)"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "dc-barrel-5.5x2.1",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the barrel goes into a 5.5 × 2.1 jack over its Ø2.0 pin; the collar seats on the jack's front face (the jack's 9.5 insertion depth equals the barrel's length)."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "One maker's plug drawing, matched by its jack sheets. The 12 mm barrel option some makers sell is not covered.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 2.75,
+        "length": 9.5,
+        "from": [
+          "outside_diameter",
+          "barrel_length"
+        ],
+        "note": "the barrel, collar to tip"
+      }
+    ],
+    "note": "The barrel only (its bore not subtracted); the body has no cited size."
+  }
+}

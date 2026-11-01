@@ -1,0 +1,93 @@
+{
+  "spec_version": 1,
+  "key": "arcade-button-30mm",
+  "category": "switch",
+  "status": "provisional",
+  "name": {
+    "en": "30 mm arcade pushbutton (snap-in)",
+    "es": "Botón arcade de 30 mm (de presión)",
+    "fr": "Bouton d'arcade 30 mm (à clipser)",
+    "pt": "Botão de arcade de 30 mm (de encaixe)"
+  },
+  "description": {
+    "en": "The 30 mm snap-in arcade pushbutton class: a round button that snaps into a φ30 mm hole in a control panel up to 3.9 mm thick, a microswitch below.",
+    "es": "La clase de botón arcade de 30 mm de presión: un botón redondo que se encaja en un barreno de φ30 mm de un panel de control de hasta 3.9 mm de espesor, con un microinterruptor debajo.",
+    "fr": "La classe de bouton d'arcade 30 mm à clipser : un bouton rond qui se clipse dans un trou de φ30 mm d'un panneau de commande jusqu'à 3,9 mm d'épaisseur, un micro-interrupteur en dessous.",
+    "pt": "A classe de botão de arcade de 30 mm de encaixe: um botão redondo que encaixa num furo de φ30 mm de um painel de controlo de até 3,9 mm de espessura, com um microinterruptor por baixo."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "30 mm snap-in arcade pushbutton (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Sanwa Denshi OBSF-30 pushbutton, official store item page",
+      "url": "https://www.sanwa-d.shop/shopdetail/000000000109/",
+      "publisher": "Sanwa Denshi",
+      "accessed": "2026-11-01",
+      "supports": "mounting hole φ30 ±0.1; panel 3.9 max; switch SW-68 (Faston tab) or SW-68CAU"
+    },
+    {
+      "title": "Sanwa Denshi OBSC-30 clear pushbutton, official store item page",
+      "url": "https://www.sanwa-d.shop/shopdetail/000000000177/",
+      "publisher": "Sanwa Denshi",
+      "accessed": "2026-11-01",
+      "supports": "mounting hole φ30 ±0.1; panel 3.9 max"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the bezel's underside, the face that seats on the panel's top. +z points up out of the panel, toward the player; the body and microswitch lie at z < 0 below the panel. +x is an arbitrary radial reference: the button is round.",
+  "dimensions": {
+    "panel_hole_diameter": {
+      "value": 30,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "mounting hole; OBSC-30 the same (source 1)"
+    },
+    "panel_thickness_max": {
+      "value": 3.9,
+      "unit": "mm",
+      "source": 0,
+      "note": "for the snap-in"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "panel_mount",
+      "label": {
+        "en": "Panel hole",
+        "es": "Barreno del panel",
+        "fr": "Trou du panneau",
+        "pt": "Furo do painel"
+      },
+      "geometry_type": "socket",
+      "size_key": "arcade-button-30mm-snap-in",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the body snaps down through the panel hole and the bezel's underside seats on the panel's top face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry from one maker only (Sanwa Denshi's official store pages); no second vendor's 30 mm specification could be retrieved. The cap and plunger diameters, the depth below the panel and the microswitch's tab size are not published there and are not stated."
+}

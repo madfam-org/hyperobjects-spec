@@ -154,6 +154,27 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
         "led-5mm.body": +1,
         "brad-round-head-brass.shank": +1,  # the shank runs +z from the head's underside
         "eyelet-gs-4-4.barrel": +1,        # the barrel runs +z from the flange's underside
+        # console parts: a receptacle's body runs −z behind its front face (normal +z); a
+        # plug's shell, shaft, pin or barrel runs +z from its overmold face, shoulder, sleeve
+        # rim or collar toward the partner.
+        **{f"{k}.mating": -1 for k in (
+            "usb-c-receptacle", "usb-a-receptacle", "usb-micro-b-receptacle",
+            "hdmi-type-a-receptacle", "trs-3-5mm-jack", "rca-jack", "dc-barrel-jack-5-5x2-1",
+            "iec-60320-c8", "iec-60320-c14")},
+        **{f"{k}.mating": +1 for k in (
+            "usb-c-plug", "usb-a-plug", "usb-micro-b-plug", "hdmi-type-a-plug",
+            "trs-3-5mm-plug", "rca-plug", "dc-barrel-plug-5-5x2-1")},
+        "dsub-de9-male.mating": +1,        # the pin shell runs +z ahead of the flange
+        "dsub-de9-female.mating": -1,      # the socket shell runs from the flange (z 0) up to
+                                           # under the origin at z = 6.731, normal +z
+        "dsub-de9-male.panel": +1,         # the D-shell runs +z through the panel cutout
+        "dsub-de9-female.panel": +1,
+        "arcade-button-24mm.panel_mount": +1,  # the body runs −z below the bezel, normal −z
+        "arcade-button-30mm.panel_mount": +1,
+        "optical-disc-cd-120mm.centre_hole": -1,   # the hole runs +z from the read-out side,
+        "optical-disc-dvd-120mm.centre_hole": -1,  # normal −z toward the hub
+        "f-type-port.coupling": -1,        # as sma-bulkhead-jack.coupling: the nut covers the
+                                           # thread behind the port's front face
     }
     seen = set()
     for key in hyperobjects_standard_parts.list_part_keys():
@@ -166,7 +187,7 @@ def test_axis_interfaces_put_the_body_on_the_side_their_polarity_says():
                 continue  # mid-plane origins (camera, bay): no body side to check
             seen.add(name)
             assert name in body_side, f"{name}: add it to the audit"
-            if name == "sma-bulkhead-jack.coupling":
+            if name in ("sma-bulkhead-jack.coupling", "f-type-port.coupling"):
                 continue
             expected = {"male": +1, "female": -1}[iface["polarity"]]
             assert body_side[name] == expected, name

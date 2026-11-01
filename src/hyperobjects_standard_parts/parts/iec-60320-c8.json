@@ -1,0 +1,187 @@
+{
+  "spec_version": 1,
+  "key": "iec-60320-c8",
+  "category": "connector",
+  "name": {
+    "en": "IEC 60320 C8 appliance inlet",
+    "es": "Entrada de aparato IEC 60320 C8",
+    "fr": "Socle de connecteur CEI 60320 C8",
+    "pt": "Entrada de aparelho IEC 60320 C8"
+  },
+  "description": {
+    "en": "The IEC 60320 C8 appliance inlet: a two-pin, 2.5 A, class II mains inlet whose figure-eight recess (16.5 × 8.2 mm inside) takes a C7 connector. Many consoles' power inlets are one.",
+    "es": "La entrada de aparato IEC 60320 C8: una entrada de red de dos pines, 2.5 A y clase II cuyo hueco en forma de ocho (16.5 × 8.2 mm por dentro) recibe un conector C7. La entrada de alimentación de muchas consolas es una.",
+    "fr": "Le socle de connecteur CEI 60320 C8 : une entrée secteur à deux broches, 2,5 A, classe II, dont le logement en huit (16,5 × 8,2 mm à l'intérieur) reçoit un connecteur C7. L'entrée d'alimentation de nombreuses consoles en est un.",
+    "pt": "A entrada de aparelho IEC 60320 C8: uma entrada de rede de dois pinos, 2,5 A e classe II cujo rebaixo em forma de oito (16,5 × 8,2 mm por dentro) recebe um conector C7. A entrada de alimentação de muitas consolas é uma."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Qualtek 771W-X2/01, IEC 60320 C8 snap-in inlet",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Qualtek 771W-X2/01 AC receptacle (IEC 60320 C8 snap-in inlet), drawing rev F (2009-04-28)",
+      "url": "https://qualtekusa.com/wp-content/uploads/specsheets/771wx201.pdf",
+      "publisher": "Qualtek Electronics",
+      "accessed": "2026-11-01",
+      "supports": "flange 28.3 × 16 ±0.3, R2 corners, 3.0 ±0.2 thick; recess (inside) 16.5 × 8.2 +0.8/0 with a 60° waist; two pins Ø2.36 ±0.04 at 8.6 ±0.15 pitch; panel cut-out a cross: 19.5 × 12.5 centre with side lobes to 24.5 over a 7.5 band, ±0.1; panel 0.6–1.5; 2.5 A 250 V AC"
+    },
+    {
+      "title": "Qualtek product pages 771W-X2/01, 701W-X2/04 and 703W-00/03",
+      "url": "https://www.qualtekusa.com/product/771W-X2-01/",
+      "publisher": "Qualtek Electronics",
+      "accessed": "2026-11-01",
+      "supports": "771W-X2/01: IEC 60320 C8 low-current inlet; 701W-X2/04: IEC 60320 C14 universal snap-in AC power inlet; 703W-00/03: IEC 60320 C14 non-countersunk screw mount"
+    },
+    {
+      "title": "Schurter 2578 IEC appliance inlet C8, snap-in, front side, datasheet (2015-04-29)",
+      "url": "https://docs.rs-online.com/276c/0900766b814421a4.pdf",
+      "publisher": "Schurter (hosted by RS)",
+      "accessed": "2026-11-01",
+      "supports": "appliance inlet C8 according to IEC 60320; IEC 2.5 A / 250 VAC 50 Hz; protection class II; line and neutral contacts; front flange 27.2 × 16, 3 thick; cut-out 24.1 × 11.7 +0.20/0 for a 1.5–3.0 panel"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the recess on the inlet's front (mating) face, the flange's face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "recess_width": {
+      "value": 16.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.8/0",
+      "note": "inside, along the line of the pins"
+    },
+    "recess_height": {
+      "value": 8.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.8/0",
+      "note": "inside"
+    },
+    "pin_pitch": {
+      "value": 8.6,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15"
+    },
+    "pin_diameter": {
+      "value": 2.36,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.04"
+    },
+    "pins": {
+      "value": 2,
+      "unit": "count",
+      "source": 2,
+      "note": "line and neutral, protection class II"
+    },
+    "flange_width": {
+      "value": 28.3,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "Schurter 2578: 27.2 (source 2)"
+    },
+    "flange_height": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "Schurter 2578: 16 (source 2)"
+    },
+    "flange_thickness": {
+      "value": 3.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.2"
+    },
+    "panel_cutout_centre_width": {
+      "value": 19.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "the cross-shaped snap-in cut-out's centre"
+    },
+    "panel_cutout_centre_height": {
+      "value": 12.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1"
+    },
+    "panel_cutout_overall_width": {
+      "value": 24.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "across the side lobes"
+    },
+    "panel_cutout_lobe_height": {
+      "value": 7.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "the band the side lobes span"
+    },
+    "panel_thickness_min": {
+      "value": 0.6,
+      "unit": "mm",
+      "source": 0
+    },
+    "panel_thickness_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "rated_current": {
+      "value": 2.5,
+      "unit": "A",
+      "source": 0,
+      "note": "Schurter 2578: IEC 2.5 A (source 2)"
+    },
+    "rated_voltage": {
+      "value": 250,
+      "unit": "V",
+      "source": 0,
+      "note": "the standard's AC"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "iec-60320-c7-c8",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a C7 connector's nose enters the recess and takes the two pins. Symmetry 2: the plain figure-eight outline and the two pins both makers draw are the same after a half-turn (the polarised C7P/C8P variant is not this part)."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60320 is not freely published, so the facts are one inlet's drawing (Qualtek 771W, snap-in), with Schurter's 2578 confirming the designation, the rating and the class. The panel cut-out is this part's: Schurter's snap-in 2578 asks for 24.1 × 11.7 and screw-on inlets differ again. The C7 connector's face is not sourced, so it has no entry yet."
+}

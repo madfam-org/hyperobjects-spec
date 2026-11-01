@@ -1,0 +1,160 @@
+{
+  "spec_version": 1,
+  "key": "usb-c-receptacle",
+  "category": "connector",
+  "name": {
+    "en": "USB Type-C receptacle",
+    "es": "Receptáculo USB Tipo C",
+    "fr": "Embase USB Type-C",
+    "pt": "Receptáculo USB Tipo C"
+  },
+  "description": {
+    "en": "The USB Type-C receptacle interface: a 24-pin, 0.5 mm-pitch tongue inside a shell opening 8.34 × 2.56 mm that takes a Type-C plug either way up. A device's port cutout is sized from it and from the plug's overmold.",
+    "es": "La interfaz del receptáculo USB Tipo C: una lengüeta de 24 pines a paso de 0.5 mm dentro de una abertura de carcasa de 8.34 × 2.56 mm que recibe una clavija Tipo C en cualquiera de sus dos posiciones. El recorte del puerto de un aparato se dimensiona a partir de ella y del sobremoldeo de la clavija.",
+    "fr": "L'interface de l'embase USB Type-C : une languette de 24 broches au pas de 0,5 mm dans une ouverture de blindage de 8,34 × 2,56 mm qui reçoit une fiche Type-C dans les deux sens. La découpe du port d'un appareil se dimensionne d'après elle et d'après le surmoulage de la fiche.",
+    "pt": "A interface do receptáculo USB Tipo C: uma lingueta de 24 pinos com passo de 0,5 mm dentro de uma abertura de blindagem de 8,34 × 2,56 mm que recebe uma ficha Tipo C nos dois sentidos. O recorte da porta de um aparelho dimensiona-se a partir dela e do sobremoldado da ficha."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "USB Type-C Cable and Connector Specification, Release 2.5",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "USB Type-C Cable and Connector Specification, Release 2.5 (March 2026)",
+      "url": "https://www.usb.org/sites/default/files/USB%20Type-C%202.5%20Release%20202603.zip",
+      "publisher": "USB 3.0 Promoter Group (USB-IF document library)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 3-1 (receptacle interface): shell opening 8.34 +0.06/−0.02 wide, 2.56 ±0.04 high; shell length 6.20 REF (6.20 ±0.20 effective when mounted, note 7); tongue 6.690 +0.045/−0.055 wide, 4.45 ±0.10 long, 0.70 ±0.05 thick over the contacts; signal contact pitch 0.5; §3.2.3: 24 pins. Figures 3-3 and 3-12 (plug interface): shell 8.25 ±0.03 wide, 2.40 ±0.03 high, 6.65 ±0.10 from the overmold face to the tip; overmold 12.85 max wide, 7.0 max high. §2.1 and §2.3.2: the plug mates either way up. Figure 3-82 (informative): the overmold face stays at least 0.05 off the product surface when the plug is fully seated. Figure 3-81 (informative): ports at least 7.50 apart stacked, 13.35 side by side, centre to centre. Note 8: a 1.5 min lead-in if the receptacle shell is modified"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the shell opening on the receptacle's front (mating) face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "opening_width": {
+      "value": 8.34,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.06/−0.02",
+      "note": "the shell opening, inside"
+    },
+    "opening_height": {
+      "value": 2.56,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.04",
+      "note": "the shell opening, inside"
+    },
+    "shell_length": {
+      "value": 6.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.20",
+      "note": "REF in Figure 3-1; ±0.20 is note 7's effective length when mounted in a product"
+    },
+    "tongue_width": {
+      "value": 6.69,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.045/−0.055"
+    },
+    "tongue_length": {
+      "value": 4.45,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "from datum A"
+    },
+    "tongue_thickness": {
+      "value": 0.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05",
+      "note": "over the contacts"
+    },
+    "contact_pitch": {
+      "value": 0.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "signal contact pitch, basic"
+    },
+    "contacts": {
+      "value": 24,
+      "unit": "count",
+      "source": 0
+    },
+    "plug_overmold_width_max": {
+      "value": 12.85,
+      "unit": "mm",
+      "source": 0,
+      "note": "the opening an enclosure leaves must clear the plug's overmold"
+    },
+    "plug_overmold_height_max": {
+      "value": 7.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "as plug_overmold_width_max"
+    },
+    "overmold_to_enclosure_gap_min": {
+      "value": 0.05,
+      "unit": "mm",
+      "source": 0,
+      "note": "informative (Figure 3-82): the seated plug's overmold face to the product surface"
+    },
+    "port_spacing_stacked_min": {
+      "value": 7.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "informative (Figure 3-81), centre to centre"
+    },
+    "port_spacing_side_by_side_min": {
+      "value": 13.35,
+      "unit": "mm",
+      "source": 0,
+      "note": "informative (Figure 3-81), centre to centre"
+    },
+    "shell_lead_in_min": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "note 8: only where the receptacle shell is modified for an enclosure"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "usb-type-c",
+      "polarity": "female",
+      "symmetry": 2,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a Type-C plug enters the shell opening. Symmetry 2: the plug mates either way up (§2.1). Framed on the shell's front face; where the plug's overmold face sits when seated is not one cited number, so a mate seats it on this face, a convention."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The USB Type-C specification is free from the USB-IF document library. It gives no normative outside envelope for the receptacle (the mid-mount and other footprints are informative) and no numeric panel cutout, so the body is not modelled; the enclosure facts above are what a port cutout reads."
+}

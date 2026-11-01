@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "usb-a-plug",
+  "category": "connector",
+  "name": {
+    "en": "USB Standard-A plug",
+    "es": "Clavija USB Estándar A",
+    "fr": "Fiche USB Standard-A",
+    "pt": "Ficha USB Standard-A"
+  },
+  "description": {
+    "en": "The USB Standard-A (Series A) plug interface: a shell 12.00 × 4.50 mm, at least 11.75 mm long ahead of the overmold, mating a Standard-A receptacle one way up.",
+    "es": "La interfaz de la clavija USB Estándar A (Serie A): una carcasa de 12.00 × 4.50 mm, de al menos 11.75 mm de largo delante del sobremoldeo, que acopla con un receptáculo Estándar A en una sola posición.",
+    "fr": "L'interface de la fiche USB Standard-A (série A) : un blindage de 12,00 × 4,50 mm, long d'au moins 11,75 mm devant le surmoulage, qui s'accouple à une embase Standard-A dans un seul sens.",
+    "pt": "A interface da ficha USB Standard-A (Série A): uma blindagem de 12,00 × 4,50 mm, com pelo menos 11,75 mm de comprimento à frente do sobremoldado, que acopla num receptáculo Standard-A num só sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "USB 2.0 Specification, Series A plug (Figure 6-9)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Universal Serial Bus Specification, Revision 2.0 (April 27, 2000), chapter 6",
+      "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+      "publisher": "USB Implementers Forum (USB-IF document library)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 6-7 (Series A receptacle interface): opening 12.50 ±0.10 wide, 5.12 ±0.10 high; tongue 11.10 ±0.10 wide, 8.38 ±0.08 long; 8.88 ±0.20 from the tongue root to the front face; contacts at ±1.00 and ±3.50 from the centre line, 1.00 ±0.05 wide; mated, 2.67 min from the receptacle face to the plug's overmold. Figure 6-9 (Series A plug): shell 12.00 ±0.10 wide, 4.50 ±0.10 high; 11.75 min from the tip to the overmold; cavity 8.65 ±0.19 deep; overmold 16.0 max wide, 8.0 max high. Table 6-1: four contacts and the shell"
+    },
+    {
+      "title": "USB 3.1 Legacy Cable and Connector Specification, Revision 1.0 (September 22, 2017)",
+      "url": "https://www.usb.org/sites/default/files/USB%203.1%20Legacy%20Cable%20and%20Connector%20Revision%201.0.zip",
+      "publisher": "USB 3.0 Promoter Group (USB-IF document library)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 5-1 detail Y: the Standard-A receptacle opening 12.50 ±0.10 × 5.12 ±0.10 and the 11.10 ±0.10 tongue width, labelled; Figure 5-4: the Standard-A plug shell 12.00 ±0.10 × 4.50 ±0.10"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the overmold's front face, on the shell axis. +z runs along the shell to its tip at z = 11.75; +x runs along the shell's width; +y = z × x runs along its height, pointing toward the half of the shell that holds the contact insulator. The overmold and cable lie at z < 0.",
+  "dimensions": {
+    "shell_width": {
+      "value": 12.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "the USB 3.1 legacy specification's Figure 5-4 agrees (source 1)"
+    },
+    "shell_height": {
+      "value": 4.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10"
+    },
+    "shell_length_min": {
+      "value": 11.75,
+      "unit": "mm",
+      "source": 0,
+      "note": "from the tip to the overmold"
+    },
+    "cavity_depth": {
+      "value": 8.65,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.19"
+    },
+    "overmold_width_max": {
+      "value": 16.0,
+      "unit": "mm",
+      "source": 0
+    },
+    "overmold_height_max": {
+      "value": 8.0,
+      "unit": "mm",
+      "source": 0
+    },
+    "contacts": {
+      "value": 4,
+      "unit": "count",
+      "source": 0,
+      "note": "plus the shell"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "usb-type-a",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shell goes into a Standard-A receptacle, one way up. A mate seats the overmold face on the receptacle's front face, a convention: the specification keeps them at least 2.67 apart when mated. The x_axis is −x so that a mate (a half-turn about the frame's x, ASM-1 §3.4) puts the plug's +y side on the receptacle's +y side."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The overmold's length is not normative, so only the shell, at its minimum cited length, is in the envelope.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -6,
+          -2.25,
+          0
+        ],
+        "max": [
+          6,
+          2.25,
+          11.75
+        ],
+        "from": [
+          "shell_width",
+          "shell_height",
+          "shell_length_min"
+        ],
+        "note": "the shell, overmold face to tip, at its minimum length"
+      }
+    ],
+    "note": "The shell at its nominal width and height and minimum length; the overmold is not modelled."
+  }
+}

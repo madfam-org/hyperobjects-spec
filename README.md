@@ -1673,12 +1673,12 @@ interface sizes are one), validated by their own schema
 <!-- counts:fabrication-status:start -->
 ```
 $ y4d-spec vocab   # second verdict
-y4d-spec vocab fabrication: vocabularies=5 entries=132 failures=0
+y4d-spec vocab fabrication: vocabularies=5 entries=157 failures=0
 fabrication_status[processes]: entries=15 cited=14 dimensions=0 provisional=0 review: signed=0 draft=15
 fabrication_status[material-classes]: entries=26 cited=26 dimensions=0 provisional=0 review: signed=0 draft=26
 fabrication_status[process-parameters]: entries=17 cited=17 dimensions=0 provisional=0 review: signed=0 draft=17
 fabrication_status[fabrication-capabilities]: entries=13 cited=2 dimensions=0 provisional=0 review: signed=0 draft=13
-fabrication_status[interface-sizes]: entries=61 cited=61 dimensions=200 provisional=4 review: signed=0 draft=61
+fabrication_status[interface-sizes]: entries=86 cited=86 dimensions=275 provisional=6 review: signed=0 draft=86
 ```
 <!-- counts:fabrication-status:end -->
 
@@ -1707,7 +1707,10 @@ cited dimensions, optional parameters (an extrusion's cut length), and mating in
 in the SEM-1 §2.3 shape — frame expressions over the part's own parameters, polarity, a
 `size_key` from `interface-sizes`, symmetry. Facts only; no datasheet prose, no CAD.
 Thirty-seven parts cover the two Phase-4 test assemblies (a Voron 2.4-class motion frame and a
-5-inch FPV quad), the Phase-6 2.4 gantry (MGN9 Y rails, the A/B belt, the XY-joint idler) and the 2.4-class Z drive, Z belts, bed hardware and 350 build plate; the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
+5-inch FPV quad), the Phase-6 2.4 gantry (MGN9 Y rails, the A/B belt, the XY-joint idler) and the 2.4-class Z drive, Z belts, bed hardware and 350 build plate; seven more give the
+sheet commons' paper circuits their coin cell, LEDs and fasteners, and twenty-eight give the
+console and game-media families their connectors (USB, HDMI, DE-9, audio, RF, DC), IEC 60320
+couplers, AA and AAA cells, SD cards, optical discs, the UMD cartridge and arcade buttons; the frame, motor, camera, prop, stack, antenna and SMA-jack entries are commercial
 **classes**, stated by shared facts, never a copy of one vendor's design. Since 0.7.0
 (ASM-1 §9) a pulley or idler may carry a cited `belt_engagement` (a toothed part's pitch
 diameter or a smooth part's running diameter, and where the belt's mid-plane sits) and a
@@ -1723,7 +1726,7 @@ frames = interface_frames(load_part("extrusion-2020"),
 
 The lane — schema, citations, membership of every `size_key`, frames evaluating at the
 defaults and at every parameter bound, exact unit and orthogonal axes — is the third
-verdict of `y4d-spec vocab` (`vocab standard-parts: parts=44 interfaces=123 failures=0`).
+verdict of `y4d-spec vocab` (`vocab standard-parts: parts=72 interfaces=159 failures=0`).
 [`docs/STANDARD_PARTS.md`](docs/STANDARD_PARTS.md) has the per-part table, the polarity
 convention and how to add a part.
 

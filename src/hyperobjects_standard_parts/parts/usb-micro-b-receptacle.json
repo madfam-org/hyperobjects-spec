@@ -1,0 +1,121 @@
+{
+  "spec_version": 1,
+  "key": "usb-micro-b-receptacle",
+  "category": "connector",
+  "name": {
+    "en": "USB Micro-B receptacle",
+    "es": "Receptáculo USB Micro-B",
+    "fr": "Embase USB Micro-B",
+    "pt": "Receptáculo USB Micro-B"
+  },
+  "description": {
+    "en": "The USB Micro-B receptacle interface: a five-contact opening 6.9 × 1.85 mm whose bottom corners are chamfered to 5.4 mm, so a Micro-B plug enters one way up only.",
+    "es": "La interfaz del receptáculo USB Micro-B: una abertura de cinco contactos de 6.9 × 1.85 mm con las esquinas inferiores achaflanadas hasta 5.4 mm, de modo que una clavija Micro-B entra en una sola posición.",
+    "fr": "L'interface de l'embase USB Micro-B : une ouverture à cinq contacts de 6,9 × 1,85 mm dont les coins inférieurs sont chanfreinés jusqu'à 5,4 mm, si bien qu'une fiche Micro-B n'entre que dans un sens.",
+    "pt": "A interface do receptáculo USB Micro-B: uma abertura de cinco contatos de 6,9 × 1,85 mm com os cantos inferiores chanfrados até 5,4 mm, de modo que uma ficha Micro-B só entra num sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "USB Micro-USB Cables and Connectors Specification, Revision 1.01",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Universal Serial Bus Micro-USB Cables and Connectors Specification, Revision 1.01 (April 4, 2007)",
+      "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+      "publisher": "USB Implementers Forum (in the USB 2.0 specification package)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 4-10 (Micro-B receptacle interface): opening 6.9 +0.06/−0.02 wide and 1.85 +0.08/−0.02 high, 5.4 ±0.05 wide at the bottom where the chamfers meet, 3.5 ±0.1 deep from the shell front to the back wall; tongue 2.7 +0.05/−0.08 long. Figure 4-7 (Micro-B plug): shell 6.85 +0.02/−0.06 wide and 1.8 +0.02/−0.08 high, 5.3 wide at the bottom; Figure 4-8: 5.4 min from the overmold face to the tip; Figure 4-5: overmold 10.6 max wide, 8.5 max high. §4.2: five contacts. §4.5.6: a wrong-way insertion is blocked"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the opening on the receptacle's front (mating) face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height, pointing from the chamfered (narrow) side of the opening toward its full-width side. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "opening_width": {
+      "value": 6.9,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.06/−0.02"
+    },
+    "opening_height": {
+      "value": 1.85,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.08/−0.02"
+    },
+    "opening_bottom_width": {
+      "value": 5.4,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05",
+      "note": "where the chamfers meet the narrow side"
+    },
+    "depth": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "from the shell front to the back wall"
+    },
+    "tongue_length": {
+      "value": 2.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.05/−0.08"
+    },
+    "contacts": {
+      "value": 5,
+      "unit": "count",
+      "source": 0
+    },
+    "plug_overmold_width_max": {
+      "value": 10.6,
+      "unit": "mm",
+      "source": 0,
+      "note": "the opening an enclosure leaves must clear the plug's overmold"
+    },
+    "plug_overmold_height_max": {
+      "value": 8.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "as plug_overmold_width_max"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "usb-micro-b",
+      "polarity": "female",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a Micro-B plug enters the opening. Symmetry 1: the chamfered outline admits it one way up only (§4.5.6)."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The Micro-USB specification ships inside the USB 2.0 package on the USB-IF document library; its licence allows internal reproduction only, so the entry states facts and copies no drawing. No panel cutout is given, so the body is not modelled."
+}

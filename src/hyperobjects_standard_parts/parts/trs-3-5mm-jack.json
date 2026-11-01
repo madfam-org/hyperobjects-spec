@@ -1,0 +1,104 @@
+{
+  "spec_version": 1,
+  "key": "trs-3-5mm-jack",
+  "category": "connector",
+  "name": {
+    "en": "3.5 mm TRS jack",
+    "es": "Jack TRS de 3.5 mm",
+    "fr": "Jack TRS 3,5 mm",
+    "pt": "Jack TRS de 3,5 mm"
+  },
+  "description": {
+    "en": "The 3.5 mm three-conductor (tip, ring, sleeve) audio jack class: a Ø3.6 mm bore that takes a 3.5 mm TRS plug. A device's headphone or audio port is cut from it.",
+    "es": "La clase de jack de audio de 3.5 mm de tres conductores (punta, anillo, manga): un barreno de Ø3.6 mm que recibe un plug TRS de 3.5 mm. El puerto de audífonos o de audio de un aparato se recorta a partir de ella.",
+    "fr": "La classe de jack audio 3,5 mm à trois conducteurs (pointe, bague, manchon) : un alésage de Ø3,6 mm qui reçoit une fiche TRS 3,5 mm. Le port casque ou audio d'un appareil se découpe d'après elle.",
+    "pt": "A classe de jack de áudio de 3,5 mm de três condutores (ponta, anel, manga): um furo de Ø3,6 mm que recebe um plugue TRS de 3,5 mm. A porta de fones ou de áudio de um aparelho recorta-se a partir dela."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "3.5 mm TRS audio jack (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky SJ1-352XN 3.5 mm PCB audio jack (rev 1.06) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/sj1-352xn.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "mating plug Ø3.5, 14 from the shoulder to the tip; bore Ø3.60 +0.1/−0.05; pins 1 sleeve, 2 tip, 3 ring"
+    },
+    {
+      "title": "Same Sky SJ1-353X 3.5 mm threaded audio jack (rev 1.04) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/sj1-353x.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "bore Ø3.60; M6 × 0.5 bushing 4.0 long with an Ø8.0 × 1.80 nut; pins 1 sleeve, 2 tip, 3 ring"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the bore on the jack's front face. +z points out of the bore, toward a plug; the body lies at z < 0. +x is an arbitrary radial reference: the bore is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "bore_diameter": {
+      "value": 3.6,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.1/−0.05",
+      "note": "the threaded SJ1-353X draws the same Ø3.60 (source 1)"
+    },
+    "plug_diameter": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "the mating plug the sheet names"
+    },
+    "plug_length": {
+      "value": 14,
+      "unit": "mm",
+      "source": 0,
+      "note": "the mating plug, shoulder to tip"
+    },
+    "conductors": {
+      "value": 3,
+      "unit": "count",
+      "source": 0,
+      "note": "sleeve, tip, ring; SJ1-353X the same (source 1)"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "trs-3.5mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a 3.5 mm plug enters the bore. A mate seats the plug's shoulder on the jack's front face, a convention: no source states the seated position."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60603-11, which governs the connector, is not freely published, so this is a class entry stated by the facts two jack series of one maker share (the bore and the mating plug). A panel-mount member's bushing (M6 × 0.5 on SJ1-353X) and every body outline vary by part and are not stated."
+}

@@ -1,0 +1,119 @@
+{
+  "spec_version": 1,
+  "key": "trs-3-5mm-plug",
+  "category": "connector",
+  "name": {
+    "en": "3.5 mm TRS plug",
+    "es": "Plug TRS de 3.5 mm",
+    "fr": "Fiche TRS 3,5 mm",
+    "pt": "Plugue TRS de 3,5 mm"
+  },
+  "description": {
+    "en": "The 3.5 mm three-conductor (tip, ring, sleeve) audio plug class: a Ø3.5 mm shaft 14 mm from the shoulder to the tip, mating a 3.5 mm jack.",
+    "es": "La clase de plug de audio de 3.5 mm de tres conductores (punta, anillo, manga): un vástago de Ø3.5 mm, de 14 mm del hombro a la punta, que acopla con un jack de 3.5 mm.",
+    "fr": "La classe de fiche audio 3,5 mm à trois conducteurs (pointe, bague, manchon) : une tige de Ø3,5 mm, à 14 mm de l'épaulement à la pointe, qui s'accouple à un jack 3,5 mm.",
+    "pt": "A classe de plugue de áudio de 3,5 mm de três condutores (ponta, anel, manga): uma haste de Ø3,5 mm, a 14 mm do ombro à ponta, que acopla num jack de 3,5 mm."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "3.5 mm TRS audio plug (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky SP-3530 3.5 mm audio plug (rev 1.03) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/sp-3530.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "3 conductor; shaft (sleeve) Ø3.5 ±0.05; 14 ±0.3 from the tip to the shoulder"
+    },
+    {
+      "title": "Same Sky SJ1-352XN 3.5 mm PCB audio jack (rev 1.06) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/sj1-352xn.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "mating plug Ø3.5, 14 from the shoulder to the tip; bore Ø3.60 +0.1/−0.05; pins 1 sleeve, 2 tip, 3 ring"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the shoulder (the body face the shaft leaves), on the shaft's axis. +z runs along the shaft to the tip at z = 14; the body and cable lie at z < 0. +x is an arbitrary radial reference: the shaft is round.",
+  "dimensions": {
+    "shaft_diameter": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05",
+      "note": "the jack sheet's mating plug Ø3.5 (source 1)"
+    },
+    "shaft_length": {
+      "value": 14,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "tip to shoulder; the jack sheet's mating plug 14 (source 1)"
+    },
+    "conductors": {
+      "value": 3,
+      "unit": "count",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "trs-3.5mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shaft goes into a 3.5 mm jack. A mate seats the shoulder on the jack's front face, a convention."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry: the shaft diameter and length are what the plug and the jack sheets agree on. The positions of the tip, ring and sleeve bands and the body's size vary by part and are not stated.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 1.75,
+        "length": 14,
+        "from": [
+          "shaft_diameter",
+          "shaft_length"
+        ],
+        "note": "the shaft, shoulder to tip"
+      }
+    ],
+    "note": "The shaft only; the body has no cited size and is not modelled."
+  }
+}

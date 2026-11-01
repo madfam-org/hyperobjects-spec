@@ -1,0 +1,1321 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the console, handheld, controller, cable, power-adapter and game-media standard parts need (USB, HDMI, D-sub, audio, RF and DC power connectors, IEC 60320 couplers, AA and AAA cells, SD cards, optical discs, the UMD cartridge, arcade pushbuttons) and the base file did not define. Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
+  },
+  "entries": [
+    {
+      "key": "usb-type-c",
+      "label": {
+        "en": "USB Type-C plug in a receptacle",
+        "es": "Clavija USB Tipo C en un receptáculo",
+        "fr": "Fiche USB Type-C dans une embase",
+        "pt": "Ficha USB Tipo C num receptáculo"
+      },
+      "definition": {
+        "en": "A USB Type-C plug in a Type-C receptacle, either way up; and that receptacle. The port opening in an enclosure must also clear the plug's overmold.",
+        "es": "Una clavija USB Tipo C en un receptáculo Tipo C, en cualquiera de sus dos posiciones; y ese receptáculo. La abertura del puerto en una carcasa también debe dejar pasar el sobremoldeo de la clavija.",
+        "fr": "Une fiche USB Type-C dans une embase Type-C, dans les deux sens ; et cette embase. L'ouverture du port dans un boîtier doit aussi laisser passer le surmoulage de la fiche.",
+        "pt": "Uma ficha USB Tipo C num receptáculo Tipo C, nos dois sentidos; e esse receptáculo. A abertura da porta numa caixa também deve deixar passar o sobremoldado da ficha."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "receptacle_opening_width": {
+          "value": 8.34,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.06/−0.02"
+        },
+        "receptacle_opening_height": {
+          "value": 2.56,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.04"
+        },
+        "plug_shell_width": {
+          "value": 8.25,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.03"
+        },
+        "plug_shell_height": {
+          "value": 2.4,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.03"
+        },
+        "plug_overmold_width_max": {
+          "value": 12.85,
+          "unit": "mm",
+          "source": 0
+        },
+        "plug_overmold_height_max": {
+          "value": 7.0,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "USB Type-C Cable and Connector Specification, Release 2.5 (March 2026)",
+          "url": "https://www.usb.org/sites/default/files/USB%20Type-C%202.5%20Release%20202603.zip",
+          "publisher": "USB 3.0 Promoter Group (USB-IF document library)",
+          "accessed": "2026-11-01",
+          "supports": "Figure 3-1 (receptacle interface): shell opening 8.34 +0.06/−0.02 wide, 2.56 ±0.04 high; shell length 6.20 REF (6.20 ±0.20 effective when mounted, note 7); tongue 6.690 +0.045/−0.055 wide, 4.45 ±0.10 long, 0.70 ±0.05 thick over the contacts; signal contact pitch 0.5; §3.2.3: 24 pins. Figures 3-3 and 3-12 (plug interface): shell 8.25 ±0.03 wide, 2.40 ±0.03 high, 6.65 ±0.10 from the overmold face to the tip; overmold 12.85 max wide, 7.0 max high. §2.1 and §2.3.2: the plug mates either way up. Figure 3-82 (informative): the overmold face stays at least 0.05 off the product surface when the plug is fully seated. Figure 3-81 (informative): ports at least 7.50 apart stacked, 13.35 side by side, centre to centre. Note 8: a 1.5 min lead-in if the receptacle shell is modified"
+        }
+      ],
+      "notes": "Added for the console-parts entries (usb-c-receptacle and usb-c-plug, mating). Symmetry 2 on both sides."
+    },
+    {
+      "key": "usb-type-a",
+      "label": {
+        "en": "USB Standard-A plug in a receptacle",
+        "es": "Clavija USB Estándar A en un receptáculo",
+        "fr": "Fiche USB Standard-A dans une embase",
+        "pt": "Ficha USB Standard-A num receptáculo"
+      },
+      "definition": {
+        "en": "A USB Standard-A (Series A) plug in a Standard-A receptacle, one way up; and that receptacle.",
+        "es": "Una clavija USB Estándar A (Serie A) en un receptáculo Estándar A, en una sola posición; y ese receptáculo.",
+        "fr": "Une fiche USB Standard-A (série A) dans une embase Standard-A, dans un seul sens ; et cette embase.",
+        "pt": "Uma ficha USB Standard-A (Série A) num receptáculo Standard-A, num só sentido; e esse receptáculo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "receptacle_opening_width": {
+          "value": 12.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "receptacle_opening_height": {
+          "value": 5.12,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "plug_shell_width": {
+          "value": 12.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "plug_shell_height": {
+          "value": 4.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "plug_overmold_width_max": {
+          "value": 16.0,
+          "unit": "mm",
+          "source": 0
+        },
+        "plug_overmold_height_max": {
+          "value": 8.0,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Universal Serial Bus Specification, Revision 2.0 (April 27, 2000), chapter 6",
+          "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+          "publisher": "USB Implementers Forum (USB-IF document library)",
+          "accessed": "2026-11-01",
+          "supports": "Figure 6-7 (Series A receptacle interface): opening 12.50 ±0.10 wide, 5.12 ±0.10 high; tongue 11.10 ±0.10 wide, 8.38 ±0.08 long; 8.88 ±0.20 from the tongue root to the front face; contacts at ±1.00 and ±3.50 from the centre line, 1.00 ±0.05 wide; mated, 2.67 min from the receptacle face to the plug's overmold. Figure 6-9 (Series A plug): shell 12.00 ±0.10 wide, 4.50 ±0.10 high; 11.75 min from the tip to the overmold; cavity 8.65 ±0.19 deep; overmold 16.0 max wide, 8.0 max high. Table 6-1: four contacts and the shell"
+        }
+      ],
+      "notes": "Added for the console-parts entries (usb-a-receptacle and usb-a-plug, mating)."
+    },
+    {
+      "key": "usb-micro-b",
+      "label": {
+        "en": "USB Micro-B plug in a receptacle",
+        "es": "Clavija USB Micro-B en un receptáculo",
+        "fr": "Fiche USB Micro-B dans une embase",
+        "pt": "Ficha USB Micro-B num receptáculo"
+      },
+      "definition": {
+        "en": "A USB Micro-B plug in a Micro-B receptacle, one way up; and that receptacle.",
+        "es": "Una clavija USB Micro-B en un receptáculo Micro-B, en una sola posición; y ese receptáculo.",
+        "fr": "Une fiche USB Micro-B dans une embase Micro-B, dans un seul sens ; et cette embase.",
+        "pt": "Uma ficha USB Micro-B num receptáculo Micro-B, num só sentido; e esse receptáculo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "receptacle_opening_width": {
+          "value": 6.9,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.06/−0.02"
+        },
+        "receptacle_opening_height": {
+          "value": 1.85,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.08/−0.02"
+        },
+        "plug_shell_width": {
+          "value": 6.85,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.02/−0.06"
+        },
+        "plug_shell_height": {
+          "value": 1.8,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.02/−0.08"
+        },
+        "plug_overmold_width_max": {
+          "value": 10.6,
+          "unit": "mm",
+          "source": 0
+        },
+        "plug_overmold_height_max": {
+          "value": 8.5,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Universal Serial Bus Micro-USB Cables and Connectors Specification, Revision 1.01 (April 4, 2007)",
+          "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+          "publisher": "USB Implementers Forum (in the USB 2.0 specification package)",
+          "accessed": "2026-11-01",
+          "supports": "Figure 4-10 (Micro-B receptacle interface): opening 6.9 +0.06/−0.02 wide and 1.85 +0.08/−0.02 high, 5.4 ±0.05 wide at the bottom where the chamfers meet, 3.5 ±0.1 deep from the shell front to the back wall; tongue 2.7 +0.05/−0.08 long. Figure 4-7 (Micro-B plug): shell 6.85 +0.02/−0.06 wide and 1.8 +0.02/−0.08 high, 5.3 wide at the bottom; Figure 4-8: 5.4 min from the overmold face to the tip; Figure 4-5: overmold 10.6 max wide, 8.5 max high. §4.2: five contacts. §4.5.6: a wrong-way insertion is blocked"
+        }
+      ],
+      "notes": "Added for the console-parts entries (usb-micro-b-receptacle and usb-micro-b-plug, mating)."
+    },
+    {
+      "key": "trs-3.5mm",
+      "label": {
+        "en": "3.5 mm TRS plug in a jack",
+        "es": "Plug TRS de 3.5 mm en un jack",
+        "fr": "Fiche TRS 3,5 mm dans un jack",
+        "pt": "Plugue TRS de 3,5 mm num jack"
+      },
+      "definition": {
+        "en": "A 3.5 mm three-conductor audio plug in a 3.5 mm jack; and that jack.",
+        "es": "Un plug de audio de 3.5 mm de tres conductores en un jack de 3.5 mm; y ese jack.",
+        "fr": "Une fiche audio 3,5 mm à trois conducteurs dans un jack 3,5 mm ; et ce jack.",
+        "pt": "Um plugue de áudio de 3,5 mm de três condutores num jack de 3,5 mm; e esse jack."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "plug_diameter": {
+          "value": 3.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.05"
+        },
+        "plug_length": {
+          "value": 14,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.3",
+          "note": "shoulder to tip"
+        },
+        "jack_bore_diameter": {
+          "value": 3.6,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "+0.1/−0.05"
+        }
+      },
+      "sources": [
+        {
+          "title": "Same Sky SP-3530 3.5 mm audio plug (rev 1.03) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/sp-3530.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "3 conductor; shaft (sleeve) Ø3.5 ±0.05; 14 ±0.3 from the tip to the shoulder"
+        },
+        {
+          "title": "Same Sky SJ1-352XN 3.5 mm PCB audio jack (rev 1.06) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/sj1-352xn.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "mating plug Ø3.5, 14 from the shoulder to the tip; bore Ø3.60 +0.1/−0.05; pins 1 sleeve, 2 tip, 3 ring"
+        }
+      ],
+      "notes": "Added for the console-parts entries (trs-3-5mm-jack and trs-3-5mm-plug, mating)."
+    },
+    {
+      "key": "dsub-de-9",
+      "label": {
+        "en": "DE-9 D-sub connector pair",
+        "es": "Par de conectores D-sub DE-9",
+        "fr": "Paire de connecteurs D-sub DE-9",
+        "pt": "Par de conectores D-sub DE-9"
+      },
+      "definition": {
+        "en": "A 9-contact D-sub pin connector mated to a 9-contact socket connector (MIL-DTL-24308 shell size 1), keyed by the keystone shell, flanges .265 in apart.",
+        "es": "Un conector D-sub de 9 pines acoplado a un conector de 9 contactos hembra (MIL-DTL-24308 tamaño de carcasa 1), orientado por la carcasa trapezoidal, con las bridas a .265 in.",
+        "fr": "Un connecteur D-sub à 9 broches accouplé à un connecteur à 9 douilles (MIL-DTL-24308 taille de boîtier 1), détrompé par le boîtier trapézoïdal, collerettes à .265 in.",
+        "pt": "Um conector D-sub de 9 pinos acoplado a um conector de 9 soquetes (MIL-DTL-24308 tamanho de carcaça 1), orientado pela carcaça trapezoidal, com os flanges a .265 in."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "contacts": {
+          "value": 9,
+          "unit": "count",
+          "source": 0
+        },
+        "contact_pitch": {
+          "value": 2.7432,
+          "unit": "mm",
+          "source": 0,
+          "note": ".108 in, the governing unit, converted exactly"
+        },
+        "row_spacing": {
+          "value": 2.8448,
+          "unit": "mm",
+          "source": 0,
+          "note": ".112 in, converted exactly"
+        },
+        "mated_flange_spacing": {
+          "value": 6.731,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.381",
+          "note": ".265 ±.015 in, converted exactly"
+        }
+      },
+      "sources": [
+        {
+          "title": "MIL-DTL-24308K with Amendment 1, Connectors, electric, rectangular, nonenvironmental, miniature, polarized shell, rack and panel, general specification for (5 December 2022)",
+          "url": "https://quicksearch.dla.mil/qsDocDetails.aspx?ident_number=17161",
+          "publisher": "Defense Logistics Agency (ASSIST)",
+          "accessed": "2026-11-01",
+          "supports": "appendix A, Figure A-1, arrangement 1 (shell size 1): 9 size-20 contacts, 5 over 4, at true position; .108 in pitch along a row, rows .112 apart, the rows offset .054; markings shown for the pin insert front (socket inserts opposite): the wide side up, contact 1 at the upper left; §3.4.3.1: polarized by the keystone shell; Figure 2: mated spacing for shell sizes 1 and 2 .265 ±.015 in, flange to flange"
+        }
+      ],
+      "notes": "Added for the console-parts entries (dsub-de9-male and dsub-de9-female, mating)."
+    },
+    {
+      "key": "dsub-shell-1-panel",
+      "label": {
+        "en": "DE-9 D-sub behind a panel cutout",
+        "es": "D-sub DE-9 detrás de un recorte de panel",
+        "fr": "D-sub DE-9 derrière une découpe de panneau",
+        "pt": "D-sub DE-9 atrás de um recorte de painel"
+      },
+      "definition": {
+        "en": "A shell-size-1 (9-contact) D-sub mounted behind a panel: its D-shell through the panel's keystone cutout, its flange on the panel's back face, two screws .984 in apart; and that cutout.",
+        "es": "Un D-sub de tamaño de carcasa 1 (9 contactos) montado detrás de un panel: su carcasa a través del recorte trapezoidal, su brida sobre la cara posterior del panel, dos tornillos a .984 in; y ese recorte.",
+        "fr": "Un D-sub de taille de boîtier 1 (9 contacts) monté derrière un panneau : son boîtier à travers la découpe trapézoïdale, sa collerette contre la face arrière du panneau, deux vis espacées de .984 in ; et cette découpe.",
+        "pt": "Um D-sub de tamanho de carcaça 1 (9 contatos) montado atrás de um painel: a carcaça através do recorte trapezoidal, o flange na face de trás do painel, dois parafusos a .984 in; e esse recorte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "hole_spacing": {
+          "value": 24.99,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.984 in; the drawing prints both"
+        },
+        "hole_diameter": {
+          "value": 3.05,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.120 in"
+        },
+        "cutout_width": {
+          "value": 20.47,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.127",
+          "note": "0.806 ±0.005 in, at the wide edge"
+        },
+        "cutout_height": {
+          "value": 10.67,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.127",
+          "note": "0.420 ±0.005 in"
+        },
+        "cutout_corner_radius": {
+          "value": 2.51,
+          "unit": "mm",
+          "source": 0,
+          "note": "R0.099 in"
+        },
+        "panel_thickness_max": {
+          "value": 1.651,
+          "unit": "mm",
+          "source": 0,
+          "note": "0.065 in recommended maximum, converted exactly"
+        }
+      },
+      "sources": [
+        {
+          "title": "NorComp, Panel cutouts D-sub – single, front or back mounted (drawing rev 13)",
+          "url": "https://content.norcomp.net/rohspdfs/Connectors/PanelCutOuts/Panel_Cutout_D-Sub-Single.pdf",
+          "publisher": "NorComp",
+          "accessed": "2026-11-01",
+          "supports": "row 9 STD: holes 0.984 [24.99] apart, Ø0.120 [3.05]; front-mounted cutout 0.815 [20.70] at the wide edge × 0.460 [11.68], R0.094, +0.010/−0.000 in, no recommended maximum panel; back-mounted cutout 0.806 [20.47] × 0.420 [10.67], R0.099, ±0.005 in, recommended maximum panel 0.065 in; sides 10° +0°/−2°"
+        }
+      ],
+      "notes": "Added for the console-parts entries (the DE-9 connectors' panel interface): NorComp's back-mounted cutout. A front-mounted cutout is larger (0.815 × 0.460 in) and is stated on the parts."
+    },
+    {
+      "key": "rca-phono",
+      "label": {
+        "en": "RCA plug in a jack",
+        "es": "Plug RCA en un jack",
+        "fr": "Fiche RCA dans une embase",
+        "pt": "Plugue RCA num jack"
+      },
+      "definition": {
+        "en": "An RCA (phono) plug on an RCA jack: the plug's pin in the centre contact, its sleeve over the outer contact; and that jack.",
+        "es": "Un plug RCA en un jack RCA: el pin del plug en el contacto central y su manga sobre el contacto exterior; y ese jack.",
+        "fr": "Une fiche RCA sur une embase RCA : la broche dans le contact central, le manchon sur le contact extérieur ; et cette embase.",
+        "pt": "Um plugue RCA num jack RCA: o pino no contato central e a manga sobre o contato exterior; e esse jack."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "pin_diameter": {
+          "value": 3.25,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0/−0.15"
+        },
+        "jack_outer_contact_diameter": {
+          "value": 8.3,
+          "unit": "mm",
+          "source": 1
+        }
+      },
+      "sources": [
+        {
+          "title": "Same Sky RCP-02 RCA plug (rev 1.04) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/rcp-02.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "centre pin Ø3.25 +0/−0.15, standing 8 ±0.5 beyond the outer sleeve; outer sleeve Ø9, 5.5 long"
+        },
+        {
+          "title": "Same Sky RCJ-02 RCA jack (rev 1.05) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/rcj-02.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "outer contact (shell) Ø8.30; centre-contact opening Ø3.50"
+        }
+      ],
+      "notes": "Added for the console-parts entries (rca-jack and rca-plug, mating)."
+    },
+    {
+      "key": "f-type-3-8-32-unef",
+      "label": {
+        "en": "F connector on a 3/8-32 UNEF port",
+        "es": "Conector F en un puerto 3/8-32 UNEF",
+        "fr": "Connecteur F sur une embase 3/8-32 UNEF",
+        "pt": "Conector F numa porta 3/8-32 UNEF"
+      },
+      "definition": {
+        "en": "A 75 Ω F connector's coupling nut on an F port's external 3/8-32 UNEF thread; and that port.",
+        "es": "La tuerca de acoplamiento de un conector F de 75 Ω sobre la rosca exterior 3/8-32 UNEF de un puerto F; y ese puerto.",
+        "fr": "L'écrou d'accouplement d'un connecteur F 75 Ω sur le filetage extérieur 3/8-32 UNEF d'une embase F ; et cette embase.",
+        "pt": "A porca de acoplamento de um conector F de 75 Ω sobre a rosca exterior 3/8-32 UNEF de uma porta F; e essa porta."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "thread",
+      "dimensions": {
+        "thread": {
+          "value": "3/8-32 UNEF-2A",
+          "unit": "thread",
+          "source": 0,
+          "note": "the port's external thread"
+        }
+      },
+      "sources": [
+        {
+          "title": "L-com RFPCB-F-FS-1G-86, 75 Ω F female bulkhead-mount PCB connector, customer drawing (rev A, 2023-03-16)",
+          "url": "https://www.l-com.com/Images/Downloadables/2D/RFPCB-F-FS-1G-86_2D.pdf",
+          "publisher": "L-com (Infinite Electronics)",
+          "accessed": "2026-11-01",
+          "supports": "F female port thread 3/8–32 UNEF–2A; 75 Ω; DC–1 GHz (the sheet marks every dimension as reference only)"
+        }
+      ],
+      "notes": "Added for the console-parts entries (f-type-port.coupling)."
+    },
+    {
+      "key": "dc-barrel-5.5x2.1",
+      "label": {
+        "en": "5.5 × 2.1 mm DC barrel plug in a jack",
+        "es": "Plug de barril DC de 5.5 × 2.1 mm en un jack",
+        "fr": "Fiche cylindrique CC 5,5 × 2,1 mm dans un jack",
+        "pt": "Plugue de barril CC de 5,5 × 2,1 mm num jack"
+      },
+      "definition": {
+        "en": "A 5.5 × 2.1 mm DC barrel plug in a jack with a Ø2.0 mm centre pin; and that jack. A 5.5 × 2.5 plug is a different fit.",
+        "es": "Un plug de barril DC de 5.5 × 2.1 mm en un jack con pin central de Ø2.0 mm; y ese jack. Un plug de 5.5 × 2.5 es otro ajuste.",
+        "fr": "Une fiche cylindrique CC 5,5 × 2,1 mm dans un jack à broche centrale de Ø2,0 mm ; et ce jack. Une fiche 5,5 × 2,5 est un autre ajustement.",
+        "pt": "Um plugue de barril CC de 5,5 × 2,1 mm num jack com pino central de Ø2,0 mm; e esse jack. Um plugue de 5,5 × 2,5 é outro encaixe."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "plug_outside_diameter": {
+          "value": 5.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.05"
+        },
+        "plug_inside_diameter": {
+          "value": 2.1,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.05"
+        },
+        "jack_pin_diameter": {
+          "value": 2.0,
+          "unit": "mm",
+          "source": 1
+        },
+        "insertion_depth": {
+          "value": 9.5,
+          "unit": "mm",
+          "source": 1
+        }
+      },
+      "sources": [
+        {
+          "title": "Same Sky PP3-002A DC power plug (rev 1.06) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/pp3-002a.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "barrel Ø5.5 ±0.05 outside, Ø2.1 ±0.05 inside, 9.5 ±0.3 from the tip to the collar"
+        },
+        {
+          "title": "Same Sky PJ-002A DC power jack (rev 1.10) datasheet",
+          "url": "https://www.sameskydevices.com/product/resource/pj-002a.pdf",
+          "publisher": "Same Sky (formerly CUI Devices)",
+          "accessed": "2026-11-01",
+          "supports": "centre pin Ø2.0; mating plug Ø5.5; bore Ø6.50; jack insertion depth 9.5"
+        }
+      ],
+      "notes": "Added for the console-parts entries (dc-barrel-jack-5-5x2-1 and dc-barrel-plug-5-5x2-1, mating)."
+    },
+    {
+      "key": "iec-60320-c7-c8",
+      "label": {
+        "en": "IEC 60320 C7 connector in a C8 inlet",
+        "es": "Conector IEC 60320 C7 en una entrada C8",
+        "fr": "Connecteur CEI 60320 C7 dans un socle C8",
+        "pt": "Conector IEC 60320 C7 numa entrada C8"
+      },
+      "definition": {
+        "en": "An IEC 60320 C7 connector in a C8 appliance inlet's figure-eight recess, either way round; and that inlet.",
+        "es": "Un conector IEC 60320 C7 en el hueco en forma de ocho de una entrada de aparato C8, en cualquiera de sus dos posiciones; y esa entrada.",
+        "fr": "Un connecteur CEI 60320 C7 dans le logement en huit d'un socle C8, dans les deux sens ; et ce socle.",
+        "pt": "Um conector IEC 60320 C7 no rebaixo em forma de oito de uma entrada de aparelho C8, nos dois sentidos; e essa entrada."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "recess_width": {
+          "value": 16.5,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.8/0"
+        },
+        "recess_height": {
+          "value": 8.2,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.8/0"
+        },
+        "pin_pitch": {
+          "value": 8.6,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.15"
+        },
+        "pin_diameter": {
+          "value": 2.36,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.04"
+        }
+      },
+      "sources": [
+        {
+          "title": "Qualtek 771W-X2/01 AC receptacle (IEC 60320 C8 snap-in inlet), drawing rev F (2009-04-28)",
+          "url": "https://qualtekusa.com/wp-content/uploads/specsheets/771wx201.pdf",
+          "publisher": "Qualtek Electronics",
+          "accessed": "2026-11-01",
+          "supports": "flange 28.3 × 16 ±0.3, R2 corners, 3.0 ±0.2 thick; recess (inside) 16.5 × 8.2 +0.8/0 with a 60° waist; two pins Ø2.36 ±0.04 at 8.6 ±0.15 pitch; panel cut-out a cross: 19.5 × 12.5 centre with side lobes to 24.5 over a 7.5 band, ±0.1; panel 0.6–1.5; 2.5 A 250 V AC"
+        }
+      ],
+      "notes": "Added for the console-parts entries (iec-60320-c8.mating); the C7 side has no entry yet."
+    },
+    {
+      "key": "iec-60320-c13-c14",
+      "label": {
+        "en": "IEC 60320 C13 connector in a C14 inlet",
+        "es": "Conector IEC 60320 C13 en una entrada C14",
+        "fr": "Connecteur CEI 60320 C13 dans un socle C14",
+        "pt": "Conector IEC 60320 C13 numa entrada C14"
+      },
+      "definition": {
+        "en": "An IEC 60320 C13 connector in a C14 appliance inlet's recess, one way up; and that inlet.",
+        "es": "Un conector IEC 60320 C13 en el hueco de una entrada de aparato C14, en una sola posición; y esa entrada.",
+        "fr": "Un connecteur CEI 60320 C13 dans le logement d'un socle C14, dans un seul sens ; et ce socle.",
+        "pt": "Um conector IEC 60320 C13 no rebaixo de uma entrada de aparelho C14, num só sentido; e essa entrada."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "recess_width": {
+          "value": 24,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.5/0",
+          "note": "703W the same (source 1)"
+        },
+        "recess_height": {
+          "value": 16,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.5/0",
+          "note": "703W the same (source 1)"
+        }
+      },
+      "sources": [
+        {
+          "title": "Qualtek 701W-X2/04 AC receptacle (IEC 60320 C14 snap-in inlet), drawing rev E (2021-06-22)",
+          "url": "https://qualtekusa.com/wp-content/uploads/specsheets/701wx204.pdf",
+          "publisher": "Qualtek Electronics",
+          "accessed": "2026-11-01",
+          "supports": "flange 30.7 × 23.7 ±0.3, 3.2 ±0.2 thick; recess (inside) 24 × 16 +0.5/0; body 26.7 × 19.8 ±0.3, 16 below the flange; three pins (line, neutral, earth above them); panel cut-out 27 × 20.5 +0.3/0; panel 0.8–1.5; UL/CSA 15 A, VDE/CCC 10 A, 250 V AC; 6.3 × 0.8 quick-connect tabs"
+        },
+        {
+          "title": "Qualtek 703W-00/03 AC receptacle (IEC 60320 C14 screw mount), drawing rev C (2008-08-28)",
+          "url": "https://qualtekusa.com/wp-content/uploads/specsheets/703w0003.pdf",
+          "publisher": "Qualtek Electronics",
+          "accessed": "2026-11-01",
+          "supports": "recess (inside) 24 × 16 +0.5/0; front block 30 × 22, R5 corners; screw holes 40 ±0.2 apart, Ø3.4 in the part and Ø3.5 in the panel; panel cut-out 30.5 × 22.5, R5; UL/CSA 15 A, VDE 10 A, 250 V AC"
+        }
+      ],
+      "notes": "Added for the console-parts entries (iec-60320-c14.mating); the C13 side has no entry yet."
+    },
+    {
+      "key": "hdmi-type-a",
+      "label": {
+        "en": "HDMI Type A plug in a receptacle",
+        "es": "Clavija HDMI Tipo A en un receptáculo",
+        "fr": "Fiche HDMI Type A dans une embase",
+        "pt": "Ficha HDMI Tipo A num receptáculo"
+      },
+      "definition": {
+        "en": "An HDMI Type A plug in a Type A receptacle, one way up; and that receptacle.",
+        "es": "Una clavija HDMI Tipo A en un receptáculo Tipo A, en una sola posición; y ese receptáculo.",
+        "fr": "Une fiche HDMI Type A dans une embase Type A, dans un seul sens ; et cette embase.",
+        "pt": "Uma ficha HDMI Tipo A num receptáculo Tipo A, num só sentido; e esse receptáculo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "receptacle_opening_width": {
+          "value": 14.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.05/−0.04"
+        },
+        "receptacle_opening_height": {
+          "value": 4.55,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.05/−0.04"
+        },
+        "plug_shell_width": {
+          "value": 13.9,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "+0.04/−0.05"
+        },
+        "plug_shell_height": {
+          "value": 4.45,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "+0.04/−0.05"
+        }
+      },
+      "sources": [
+        {
+          "title": "Kycon KDMIX-NS2-NS-B15TR-2.1 HDMI Type A receptacle, SMT with through-hole shield, catalogue drawing",
+          "url": "https://cloud.kycon.com/Catalog_PDF/KDMIX-NS2-NS-B15TR-2.1.pdf",
+          "publisher": "Kycon",
+          "accessed": "2026-11-01",
+          "supports": "19 positions at 0.50 ±0.05 pitch; opening (inside of the shell) 14.00 × 4.55, +0.05/−0.04; two chamfered corners on one long side of the opening; insertion force 44.1 N max"
+        },
+        {
+          "title": "CUI Devices HD03-19-P-FR HDMI plug datasheet, rev 1.01 (2022-08-05; discontinued part)",
+          "url": "https://www.sameskydevices.com/product/resource/hd03-19-p-fr.pdf",
+          "publisher": "CUI Devices (Same Sky)",
+          "accessed": "2026-11-01",
+          "supports": "19 contacts; plug shell outside 13.90 × 4.45, +0.04/−0.05; insertion force 44.1 N max"
+        }
+      ],
+      "notes": "Added for the console-parts entries (hdmi-type-a-receptacle and hdmi-type-a-plug, mating)."
+    },
+    {
+      "key": "arcade-button-24mm-snap-in",
+      "status": "provisional",
+      "label": {
+        "en": "24 mm arcade button in a panel hole",
+        "es": "Botón arcade de 24 mm en un barreno de panel",
+        "fr": "Bouton d'arcade 24 mm dans un trou de panneau",
+        "pt": "Botão de arcade de 24 mm num furo de painel"
+      },
+      "definition": {
+        "en": "A 24 mm snap-in arcade pushbutton through a φ24 mm hole in a panel up to 3.9 mm thick, its bezel on the panel's top; and that hole.",
+        "es": "Un botón arcade de 24 mm de presión a través de un barreno de φ24 mm en un panel de hasta 3.9 mm, con el bisel sobre la cara superior del panel; y ese barreno.",
+        "fr": "Un bouton d'arcade 24 mm à clipser à travers un trou de φ24 mm d'un panneau jusqu'à 3,9 mm, sa lunette sur le dessus du panneau ; et ce trou.",
+        "pt": "Um botão de arcade de 24 mm de encaixe através de um furo de φ24 mm num painel de até 3,9 mm, com o aro sobre a face de cima do painel; e esse furo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "hole_diameter": {
+          "value": 24,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        },
+        "panel_thickness_max": {
+          "value": 3.9,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Sanwa Denshi OBSF-24 pushbutton, official store item page",
+          "url": "https://www.sanwa-d.shop/shopdetail/000000000110/",
+          "publisher": "Sanwa Denshi",
+          "accessed": "2026-11-01",
+          "supports": "mounting hole φ24 ±0.1; panel 3.9 mm max"
+        }
+      ],
+      "notes": "Added for the console-parts entries (arcade-button-24mm.panel_mount). One maker's figures; a 24 mm button does not mate a 30 mm hole."
+    },
+    {
+      "key": "arcade-button-30mm-snap-in",
+      "status": "provisional",
+      "label": {
+        "en": "30 mm arcade button in a panel hole",
+        "es": "Botón arcade de 30 mm en un barreno de panel",
+        "fr": "Bouton d'arcade 30 mm dans un trou de panneau",
+        "pt": "Botão de arcade de 30 mm num furo de painel"
+      },
+      "definition": {
+        "en": "A 30 mm snap-in arcade pushbutton through a φ30 mm hole in a panel up to 3.9 mm thick, its bezel on the panel's top; and that hole.",
+        "es": "Un botón arcade de 30 mm de presión a través de un barreno de φ30 mm en un panel de hasta 3.9 mm, con el bisel sobre la cara superior del panel; y ese barreno.",
+        "fr": "Un bouton d'arcade 30 mm à clipser à travers un trou de φ30 mm d'un panneau jusqu'à 3,9 mm, sa lunette sur le dessus du panneau ; et ce trou.",
+        "pt": "Um botão de arcade de 30 mm de encaixe através de um furo de φ30 mm num painel de até 3,9 mm, com o aro sobre a face de cima do painel; e esse furo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "hole_diameter": {
+          "value": 30,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        },
+        "panel_thickness_max": {
+          "value": 3.9,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Sanwa Denshi OBSF-30 pushbutton, official store item page",
+          "url": "https://www.sanwa-d.shop/shopdetail/000000000109/",
+          "publisher": "Sanwa Denshi",
+          "accessed": "2026-11-01",
+          "supports": "mounting hole φ30 ±0.1; panel 3.9 max; switch SW-68 (Faston tab) or SW-68CAU"
+        }
+      ],
+      "notes": "Added for the console-parts entries (arcade-button-30mm.panel_mount). One maker's figures; a 24 mm button does not mate a 30 mm hole."
+    },
+    {
+      "key": "cell-aa",
+      "label": {
+        "en": "AA cell in a bay",
+        "es": "Pila AA en un compartimento",
+        "fr": "Pile AA dans un compartiment",
+        "pt": "Pilha AA num compartimento"
+      },
+      "definition": {
+        "en": "The body of an AA-size cylindrical cell in a battery bay, trough or holder that takes it at its maximum size; and that bay. The contacts at each end are separate keys.",
+        "es": "El cuerpo de una pila cilíndrica de tamaño AA en un compartimento, canal o portapilas que la recibe a su tamaño máximo; y ese compartimento. Los contactos de cada extremo son claves aparte.",
+        "fr": "Le corps d'une pile cylindrique au format AA dans un compartiment, une goulotte ou un support qui la reçoit à sa taille maximale ; et ce compartiment. Les contacts de chaque extrémité sont des clés distinctes.",
+        "pt": "O corpo de uma pilha cilíndrica de tamanho AA num compartimento, calha ou suporte que a recebe no seu tamanho máximo; e esse compartimento. Os contatos de cada extremidade são chaves à parte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "diameter_max": {
+          "value": 14.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "the second maker's drawing agrees (source 1)"
+        },
+        "length_max": {
+          "value": 50.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "pip included; the second maker's drawing agrees (source 1)"
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E91 AA alkaline product datasheet (form E91NA0426)",
+          "url": "https://data.energizer.com/pdfs/E91NA0426.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-15A, IEC-LR6; nominal 1.5 V; typical weight 23.0 g; industry-standard dimensions: diameter 14.50 max / 13.70 min; height 50.50 max / 49.50 min; positive pip diameter 5.50 max, pip height 1.00 min; negative flat contact diameter 7.00 min"
+        },
+        {
+          "title": "Duracell Coppertop MN1500 size AA technical datasheet (MN15USCT0122)",
+          "url": "https://cdn.prod.website-files.com/6835fa821f0f20d8b0b5851c/6899e006fd5a5101be9743f8_MN15USCT0122.pdf",
+          "publisher": "Duracell",
+          "accessed": "2026-11-01",
+          "supports": "dimensions shown are ANSI standards: diameter 14.5 / 13.5; height 50.5 / 49.5; pip 5.5 max, pip height 1.0 min; nominal 1.5 V; typical weight 24 g; ANSI 15AP"
+        }
+      ],
+      "notes": "Added for the console-parts entries. A AA cell does not mate a bay of the other size: the keys differ on purpose."
+    },
+    {
+      "key": "cell-aa-plus-contact",
+      "label": {
+        "en": "AA cell positive pip on a contact",
+        "es": "Botón positivo de pila AA sobre un contacto",
+        "fr": "Téton positif de pile AA sur un contact",
+        "pt": "Pino positivo de pilha AA sobre um contato"
+      },
+      "definition": {
+        "en": "Face contact between the positive pip of an AA cell and the bay's positive contact.",
+        "es": "Contacto cara a cara entre el botón positivo de una pila AA y el contacto positivo del compartimento.",
+        "fr": "Contact face à face entre le téton positif d'une pile AA et le contact positif du compartiment.",
+        "pt": "Contato face a face entre o pino positivo de uma pilha AA e o contato positivo do compartimento."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "pip_diameter_max": {
+          "value": 5.5,
+          "unit": "mm",
+          "source": 0
+        },
+        "pip_height_min": {
+          "value": 1.0,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E91 AA alkaline product datasheet (form E91NA0426)",
+          "url": "https://data.energizer.com/pdfs/E91NA0426.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-15A, IEC-LR6; nominal 1.5 V; typical weight 23.0 g; industry-standard dimensions: diameter 14.50 max / 13.70 min; height 50.50 max / 49.50 min; positive pip diameter 5.50 max, pip height 1.00 min; negative flat contact diameter 7.00 min"
+        },
+        {
+          "title": "Duracell Coppertop MN1500 size AA technical datasheet (MN15USCT0122)",
+          "url": "https://cdn.prod.website-files.com/6835fa821f0f20d8b0b5851c/6899e006fd5a5101be9743f8_MN15USCT0122.pdf",
+          "publisher": "Duracell",
+          "accessed": "2026-11-01",
+          "supports": "dimensions shown are ANSI standards: diameter 14.5 / 13.5; height 50.5 / 49.5; pip 5.5 max, pip height 1.0 min; nominal 1.5 V; typical weight 24 g; ANSI 15AP"
+        }
+      ],
+      "notes": "Kept apart from the negative contact's key so a reversed cell cannot mate."
+    },
+    {
+      "key": "cell-aa-minus-contact",
+      "label": {
+        "en": "AA cell negative end on a contact",
+        "es": "Extremo negativo de pila AA sobre un contacto",
+        "fr": "Extrémité négative de pile AA sur un contact",
+        "pt": "Extremidade negativa de pilha AA sobre um contato"
+      },
+      "definition": {
+        "en": "Face contact between the flat negative end of an AA cell and the bay's negative contact.",
+        "es": "Contacto cara a cara entre el extremo negativo plano de una pila AA y el contacto negativo del compartimento.",
+        "fr": "Contact face à face entre l'extrémité négative plate d'une pile AA et le contact négatif du compartiment.",
+        "pt": "Contato face a face entre a extremidade negativa plana de uma pilha AA e o contato negativo do compartimento."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "contact_diameter_min": {
+          "value": 7.0,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E91 AA alkaline product datasheet (form E91NA0426)",
+          "url": "https://data.energizer.com/pdfs/E91NA0426.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-15A, IEC-LR6; nominal 1.5 V; typical weight 23.0 g; industry-standard dimensions: diameter 14.50 max / 13.70 min; height 50.50 max / 49.50 min; positive pip diameter 5.50 max, pip height 1.00 min; negative flat contact diameter 7.00 min"
+        }
+      ],
+      "notes": "Kept apart from the positive contact's key so a reversed cell cannot mate."
+    },
+    {
+      "key": "cell-aaa",
+      "label": {
+        "en": "AAA cell in a bay",
+        "es": "Pila AAA en un compartimento",
+        "fr": "Pile AAA dans un compartiment",
+        "pt": "Pilha AAA num compartimento"
+      },
+      "definition": {
+        "en": "The body of an AAA-size cylindrical cell in a battery bay, trough or holder that takes it at its maximum size; and that bay. The contacts at each end are separate keys.",
+        "es": "El cuerpo de una pila cilíndrica de tamaño AAA en un compartimento, canal o portapilas que la recibe a su tamaño máximo; y ese compartimento. Los contactos de cada extremo son claves aparte.",
+        "fr": "Le corps d'une pile cylindrique au format AAA dans un compartiment, une goulotte ou un support qui la reçoit à sa taille maximale ; et ce compartiment. Les contacts de chaque extrémité sont des clés distinctes.",
+        "pt": "O corpo de uma pilha cilíndrica de tamanho AAA num compartimento, calha ou suporte que a recebe no seu tamanho máximo; e esse compartimento. Os contatos de cada extremidade são chaves à parte."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "diameter_max": {
+          "value": 10.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "the second maker's drawing agrees (source 1)"
+        },
+        "length_max": {
+          "value": 44.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "pip included; the second maker's drawing agrees (source 1)"
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E92 AAA alkaline product datasheet (form E92NA0425)",
+          "url": "https://data.energizer.com/pdfs/E92NA0425.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-24A, IEC-LR03; nominal 1.5 V; typical weight 11.5 g; industry-standard dimensions: diameter 10.50 max / 9.80 min; height 44.50 max / 43.50 min; positive pip diameter 3.80 max, pip height 0.80 min; negative contact diameter 4.30 min (values as the page renders them; the file's hidden text layer also holds 9.50 and 43.30, which are not drawn)"
+        },
+        {
+          "title": "Duracell Coppertop MN2400 size AAA technical datasheet (MN24USCT0122)",
+          "url": "https://cdn.prod.website-files.com/6835fa821f0f20d8b0b5851c/6899e0ecf015a35407d1756d_MN24USCT0122.pdf",
+          "publisher": "Duracell",
+          "accessed": "2026-11-01",
+          "supports": "dimensions shown are ANSI standards: diameter 10.5 / 9.5; height 44.5 / 43.5; pip 3.8 max, pip height 0.8 min; nominal 1.5 V; typical weight 13 g; ANSI 24AP"
+        }
+      ],
+      "notes": "Added for the console-parts entries. A AAA cell does not mate a bay of the other size: the keys differ on purpose."
+    },
+    {
+      "key": "cell-aaa-plus-contact",
+      "label": {
+        "en": "AAA cell positive pip on a contact",
+        "es": "Botón positivo de pila AAA sobre un contacto",
+        "fr": "Téton positif de pile AAA sur un contact",
+        "pt": "Pino positivo de pilha AAA sobre um contato"
+      },
+      "definition": {
+        "en": "Face contact between the positive pip of an AAA cell and the bay's positive contact.",
+        "es": "Contacto cara a cara entre el botón positivo de una pila AAA y el contacto positivo del compartimento.",
+        "fr": "Contact face à face entre le téton positif d'une pile AAA et le contact positif du compartiment.",
+        "pt": "Contato face a face entre o pino positivo de uma pilha AAA e o contato positivo do compartimento."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "pip_diameter_max": {
+          "value": 3.8,
+          "unit": "mm",
+          "source": 0
+        },
+        "pip_height_min": {
+          "value": 0.8,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E92 AAA alkaline product datasheet (form E92NA0425)",
+          "url": "https://data.energizer.com/pdfs/E92NA0425.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-24A, IEC-LR03; nominal 1.5 V; typical weight 11.5 g; industry-standard dimensions: diameter 10.50 max / 9.80 min; height 44.50 max / 43.50 min; positive pip diameter 3.80 max, pip height 0.80 min; negative contact diameter 4.30 min (values as the page renders them; the file's hidden text layer also holds 9.50 and 43.30, which are not drawn)"
+        },
+        {
+          "title": "Duracell Coppertop MN2400 size AAA technical datasheet (MN24USCT0122)",
+          "url": "https://cdn.prod.website-files.com/6835fa821f0f20d8b0b5851c/6899e0ecf015a35407d1756d_MN24USCT0122.pdf",
+          "publisher": "Duracell",
+          "accessed": "2026-11-01",
+          "supports": "dimensions shown are ANSI standards: diameter 10.5 / 9.5; height 44.5 / 43.5; pip 3.8 max, pip height 0.8 min; nominal 1.5 V; typical weight 13 g; ANSI 24AP"
+        }
+      ],
+      "notes": "Kept apart from the negative contact's key so a reversed cell cannot mate."
+    },
+    {
+      "key": "cell-aaa-minus-contact",
+      "label": {
+        "en": "AAA cell negative end on a contact",
+        "es": "Extremo negativo de pila AAA sobre un contacto",
+        "fr": "Extrémité négative de pile AAA sur un contact",
+        "pt": "Extremidade negativa de pilha AAA sobre um contato"
+      },
+      "definition": {
+        "en": "Face contact between the flat negative end of an AAA cell and the bay's negative contact.",
+        "es": "Contacto cara a cara entre el extremo negativo plano de una pila AAA y el contacto negativo del compartimento.",
+        "fr": "Contact face à face entre l'extrémité négative plate d'une pile AAA et le contact négatif du compartiment.",
+        "pt": "Contato face a face entre a extremidade negativa plana de uma pilha AAA e o contato negativo do compartimento."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "surface",
+      "dimensions": {
+        "contact_diameter_min": {
+          "value": 4.3,
+          "unit": "mm",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "Energizer E92 AAA alkaline product datasheet (form E92NA0425)",
+          "url": "https://data.energizer.com/pdfs/E92NA0425.pdf",
+          "publisher": "Energizer",
+          "accessed": "2026-11-01",
+          "supports": "designation ANSI-24A, IEC-LR03; nominal 1.5 V; typical weight 11.5 g; industry-standard dimensions: diameter 10.50 max / 9.80 min; height 44.50 max / 43.50 min; positive pip diameter 3.80 max, pip height 0.80 min; negative contact diameter 4.30 min (values as the page renders them; the file's hidden text layer also holds 9.50 and 43.30, which are not drawn)"
+        }
+      ],
+      "notes": "Kept apart from the positive contact's key so a reversed cell cannot mate."
+    },
+    {
+      "key": "sd-card",
+      "label": {
+        "en": "SD card in a slot",
+        "es": "Tarjeta SD en una ranura",
+        "fr": "Carte SD dans une fente",
+        "pt": "Cartão SD numa ranhura"
+      },
+      "definition": {
+        "en": "A standard-size SD card (32 × 24 × 2.1 mm) in a card slot or pocket that takes it contact edge first, keyed by the chamfered corner; and that slot.",
+        "es": "Una tarjeta SD de tamaño estándar (32 × 24 × 2.1 mm) en una ranura o hueco que la recibe por el borde de los contactos, orientada por la esquina achaflanada; y esa ranura.",
+        "fr": "Une carte SD de taille standard (32 × 24 × 2,1 mm) dans une fente ou une cavité qui la reçoit par le côté des contacts, détrompée par le coin chanfreiné ; et cette fente.",
+        "pt": "Um cartão SD de tamanho padrão (32 × 24 × 2,1 mm) numa ranhura ou rebaixo que o recebe pela borda dos contatos, orientado pelo canto chanfrado; e essa ranhura."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "length": {
+          "value": 32.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "width": {
+          "value": 24.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10"
+        },
+        "thickness": {
+          "value": 2.1,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.15"
+        },
+        "corner_chamfer": {
+          "value": 4,
+          "unit": "mm",
+          "source": 1,
+          "tolerance": "±0.15"
+        }
+      },
+      "sources": [
+        {
+          "title": "Transcend SDC10I industrial SD card datasheet (Transcend-SDC10I-202510)",
+          "url": "https://CDN.transcend-info.com/products/images/modelpic/539/Transcend-SDC10I-202510.pdf",
+          "publisher": "Transcend Information",
+          "accessed": "2026-11-01",
+          "supports": "SD card mechanical dimensions: 24.00 ±0.10 wide, 32.00 ±0.10 long, 2.10 ±0.15 thick"
+        },
+        {
+          "title": "Swissbit S-50 industrial SDHC/SDXC memory card product data sheet, revision 1.09 (2024-08-13)",
+          "url": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8442/Swissbit_02-03-2025_S-50_data_sheet.pdf",
+          "publisher": "Swissbit (hosted by Digi-Key)",
+          "accessed": "2026-11-01",
+          "supports": "Table 11: 32.00 ±0.1 × 24.00 ±0.1 × 2.10 ±0.15 mm, 2 g; Figure 1: nine contact pads along one short edge, a 4 mm card-body corner chamfer beside pad 9 at that edge, the write-protect (lock) slider on the long edge opposite the chamfer; general tolerance ±0.15"
+        }
+      ],
+      "notes": "Added for the console-parts entries (sd-card.body). A microSD card does not mate this key: the keys differ on purpose."
+    },
+    {
+      "key": "microsd-card",
+      "label": {
+        "en": "microSD card in a slot",
+        "es": "Tarjeta microSD en una ranura",
+        "fr": "Carte microSD dans une fente",
+        "pt": "Cartão microSD numa ranhura"
+      },
+      "definition": {
+        "en": "A microSD card (15 × 11 × 1.0 mm) in a card slot or pocket that takes it contact end first; and that slot.",
+        "es": "Una tarjeta microSD (15 × 11 × 1.0 mm) en una ranura o hueco que la recibe por el extremo de los contactos; y esa ranura.",
+        "fr": "Une carte microSD (15 × 11 × 1,0 mm) dans une fente ou une cavité qui la reçoit par l'extrémité des contacts ; et cette fente.",
+        "pt": "Um cartão microSD (15 × 11 × 1,0 mm) numa ranhura ou rebaixo que o recebe pela extremidade dos contatos; e essa ranhura."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "length": {
+          "value": 15.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        },
+        "width": {
+          "value": 11.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        },
+        "thickness": {
+          "value": 1.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.1"
+        }
+      },
+      "sources": [
+        {
+          "title": "Kingston microSDHC memory card (SDCIT, 8–32 GB) specification sheet, document 4900180-001.A00",
+          "url": "https://www.kingston.com/datasheets/SDCIT-specsheet-8gb-32gb_us.pdf",
+          "publisher": "Kingston Technology",
+          "accessed": "2026-11-01",
+          "supports": "appendix, microSD mechanical dimensions: 15.00 ±0.1 long, 11.00 ±0.1 wide, 1.00 ±0.1 thick (0.70 ±0.1 over the contact area); the contact end narrows to 9.70 ±0.1, flush with one long side, with the step on the other; eight contact pads; weight 0.5 g typical; no mechanical write-protect switch"
+        },
+        {
+          "title": "Transcend industrial-temperature microSDHC10I datasheet (EN_USDC10I_PS_2020)",
+          "url": "https://jp.transcend-info.com/products/images/modelpic/574/EN_USDC10I_PS_2020.pdf",
+          "publisher": "Transcend Information",
+          "accessed": "2026-11-01",
+          "supports": "microSD mechanical dimensions: 11.0 ±0.1 × 15.0 ±0.1 × 1.0 ±0.1 mm"
+        }
+      ],
+      "notes": "Added for the console-parts entries (microsd-card.body)."
+    },
+    {
+      "key": "optical-disc-120mm",
+      "label": {
+        "en": "120 mm optical disc in a pocket",
+        "es": "Disco óptico de 120 mm en un hueco",
+        "fr": "Disque optique de 120 mm dans une cavité",
+        "pt": "Disco ótico de 120 mm num rebaixo"
+      },
+      "definition": {
+        "en": "The outline of a 120 mm optical disc (CD or DVD) lying in a tray, case or pocket; and that pocket. Both standards give the same diameter and the same maximum rim thickness.",
+        "es": "El contorno de un disco óptico de 120 mm (CD o DVD) apoyado en una bandeja, un estuche o un hueco; y ese hueco. Ambas normas dan el mismo diámetro y el mismo espesor máximo en el borde.",
+        "fr": "Le contour d'un disque optique de 120 mm (CD ou DVD) posé dans un tiroir, un boîtier ou une cavité ; et cette cavité. Les deux normes donnent le même diamètre et la même épaisseur maximale au bord.",
+        "pt": "O contorno de um disco ótico de 120 mm (CD ou DVD) apoiado numa bandeja, estojo ou rebaixo; e esse rebaixo. As duas normas dão o mesmo diâmetro e a mesma espessura máxima na borda."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "diameter": {
+          "value": 120.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.3",
+          "note": "ECMA-267 120,00 ±0,30 (source 1)"
+        },
+        "thickness_max": {
+          "value": 1.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "at the rim; ECMA-267 1,50 (source 1)"
+        }
+      },
+      "sources": [
+        {
+          "title": "ECMA-130, Data interchange on read-only 120 mm optical data disks (CD-ROM), 2nd edition (June 1996)",
+          "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-130_2nd_edition_june_1996.pdf",
+          "publisher": "Ecma International",
+          "accessed": "2026-11-01",
+          "supports": "clause 8: centre hole d1 = 15,0 mm +0,1/−0,0; clamping area from d2 = 26 mm max to d3 = 33 mm min; information area d4 = 44 mm max to d5 = 118 mm max; user data zone from d7 = 50,0 mm +0,0/−0,4 to d8 = 116 mm max; transparent substrate e = 1,2 mm ±0,1; overall diameter d10 = 120,0 mm ±0,3; total height at the rim at most 1,5 mm; clause 7: mass 14 g to 33 g"
+        },
+        {
+          "title": "ECMA-267, 120 mm DVD – Read-Only Disk, 3rd edition (April 2001)",
+          "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-267_3rd_edition_april_2001.pdf",
+          "publisher": "Ecma International",
+          "accessed": "2026-11-01",
+          "supports": "clause 10: overall diameter d1 = 120,00 mm ±0,30; centre hole d2 = 15,00 mm +0,15/−0,00; total thickness e1 = 1,20 mm +0,30/−0,06; clamping zone from d4 = 22,0 mm max to d5 = 33,0 mm min, thickness e2 = 1,20 mm +0,20/−0,10; data zone from d8 = 48,0 mm +0,0/−0,4 to d9 = 116,0 mm max; total thickness at the rim at most 1,50 mm; clause 11: mass 13 g to 20 g"
+        }
+      ],
+      "notes": "Added for the console-parts entries (the CD and the DVD, outline)."
+    },
+    {
+      "key": "optical-disc-centre-hole-15mm",
+      "label": {
+        "en": "15 mm optical-disc centre hole on a hub",
+        "es": "Orificio central de 15 mm de disco óptico sobre un cubo",
+        "fr": "Trou central de 15 mm de disque optique sur un moyeu",
+        "pt": "Furo central de 15 mm de disco ótico sobre um cubo"
+      },
+      "definition": {
+        "en": "The 15 mm centre hole of a 120 mm CD or DVD over a spindle, tray or case hub; and that hub.",
+        "es": "El orificio central de 15 mm de un CD o DVD de 120 mm sobre un eje, una bandeja o el cubo de un estuche; y ese cubo.",
+        "fr": "Le trou central de 15 mm d'un CD ou d'un DVD de 120 mm sur un axe, un tiroir ou le moyeu d'un boîtier ; et ce moyeu.",
+        "pt": "O furo central de 15 mm de um CD ou DVD de 120 mm sobre um eixo, uma bandeja ou o cubo de um estojo; e esse cubo."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "diameter": {
+          "value": 15.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "+0.1/−0.0",
+          "note": "ECMA-267 gives 15,00 +0,15/−0,00 (source 1)"
+        }
+      },
+      "sources": [
+        {
+          "title": "ECMA-130, Data interchange on read-only 120 mm optical data disks (CD-ROM), 2nd edition (June 1996)",
+          "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-130_2nd_edition_june_1996.pdf",
+          "publisher": "Ecma International",
+          "accessed": "2026-11-01",
+          "supports": "clause 8: centre hole d1 = 15,0 mm +0,1/−0,0; clamping area from d2 = 26 mm max to d3 = 33 mm min; information area d4 = 44 mm max to d5 = 118 mm max; user data zone from d7 = 50,0 mm +0,0/−0,4 to d8 = 116 mm max; transparent substrate e = 1,2 mm ±0,1; overall diameter d10 = 120,0 mm ±0,3; total height at the rim at most 1,5 mm; clause 7: mass 14 g to 33 g"
+        },
+        {
+          "title": "ECMA-267, 120 mm DVD – Read-Only Disk, 3rd edition (April 2001)",
+          "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-267_3rd_edition_april_2001.pdf",
+          "publisher": "Ecma International",
+          "accessed": "2026-11-01",
+          "supports": "clause 10: overall diameter d1 = 120,00 mm ±0,30; centre hole d2 = 15,00 mm +0,15/−0,00; total thickness e1 = 1,20 mm +0,30/−0,06; clamping zone from d4 = 22,0 mm max to d5 = 33,0 mm min, thickness e2 = 1,20 mm +0,20/−0,10; data zone from d8 = 48,0 mm +0,0/−0,4 to d9 = 116,0 mm max; total thickness at the rim at most 1,50 mm; clause 11: mass 13 g to 20 g"
+        }
+      ],
+      "notes": "Added for the console-parts entries (the CD and the DVD, centre_hole)."
+    },
+    {
+      "key": "umd-cartridge",
+      "label": {
+        "en": "UMD cartridge in a bay",
+        "es": "Cartucho UMD en un compartimento",
+        "fr": "Cartouche UMD dans un logement",
+        "pt": "Cartucho UMD num compartimento"
+      },
+      "definition": {
+        "en": "The case of a UMD disc cartridge (65 × 64 × 4.35 mm max) in a handheld's disc bay or a pocket; and that bay.",
+        "es": "El estuche de un cartucho de disco UMD (65 × 64 × 4.35 mm como máximo) en el compartimento de disco de una consola portátil o en un hueco; y ese compartimento.",
+        "fr": "Le boîtier d'une cartouche de disque UMD (65 × 64 × 4,35 mm au plus) dans le logement de disque d'une console portable ou une cavité ; et ce logement.",
+        "pt": "O estojo de um cartucho de disco UMD (65 × 64 × 4,35 mm no máximo) no compartimento de disco de uma consola portátil ou num rebaixo; e esse compartimento."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "pocket",
+      "dimensions": {
+        "length": {
+          "value": 65.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.15",
+          "note": "the standard's L1"
+        },
+        "width": {
+          "value": 64.0,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "±0.10",
+          "note": "the standard's L3"
+        },
+        "thickness_max": {
+          "value": 4.35,
+          "unit": "mm",
+          "source": 0,
+          "note": "L9 inside D1"
+        }
+      },
+      "sources": [
+        {
+          "title": "ECMA-365, Data Interchange on 60 mm Read-Only ODC – Capacity: 1,8 Gbytes (UMD™), 1st edition (June 2005)",
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-365_1st_edition_june_2005.pdf",
+          "publisher": "Ecma International",
+          "accessed": "2026-11-01",
+          "supports": "clause 10.3.1 and Figure 7: case total length L1 = 65,00 mm ±0,15; total width L3 = 64,00 mm ±0,10; top edge arc R1 = 32,00 mm ±0,10; bottom edge arc R2 = 70,00 mm ±0,20; bottom corner radius R3 = 5,00 mm ±0,15; thickness L9 = 4,20 mm ±0,10, and 4,35 mm max inside the D1 = 50,00 mm circle about the disk centre; location hole D2 = 3,60 mm +0,07/−0,00; clause 11: disk diameter d1 = 60,00 mm ±0,30, thickness e1 = 0,840 mm +0,090/−0,075; clause 12.1: disk mass 2,8 g to 3,5 g"
+        }
+      ],
+      "notes": "Added for the console-parts entries (umd-cartridge.case)."
+    }
+  ]
+}

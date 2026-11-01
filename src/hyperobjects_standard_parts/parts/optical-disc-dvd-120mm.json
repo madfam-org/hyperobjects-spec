@@ -1,0 +1,193 @@
+{
+  "spec_version": 1,
+  "key": "optical-disc-dvd-120mm",
+  "category": "media",
+  "name": {
+    "en": "DVD, 120 mm",
+    "es": "DVD de 120 mm",
+    "fr": "DVD de 120 mm",
+    "pt": "DVD de 120 mm"
+  },
+  "description": {
+    "en": "A 120 mm read-only DVD to ECMA-267: 120 mm across, a 15 mm centre hole, 1.2 mm thick. It sits on a spindle, tray or case hub by its centre hole and in a pocket by its outline, like a 120 mm CD.",
+    "es": "Un DVD de solo lectura de 120 mm según ECMA-267: 120 mm de diámetro, un orificio central de 15 mm y 1.2 mm de espesor. Se asienta en un eje, una bandeja o el cubo de un estuche por su orificio central y en un hueco por su contorno, como un CD de 120 mm.",
+    "fr": "Un DVD en lecture seule de 120 mm selon ECMA-267 : 120 mm de diamètre, un trou central de 15 mm, 1,2 mm d'épaisseur. Il se pose sur un axe, un tiroir ou le moyeu d'un boîtier par son trou central et dans une cavité par son contour, comme un CD de 120 mm.",
+    "pt": "Um DVD só de leitura de 120 mm segundo a ECMA-267: 120 mm de diâmetro, um furo central de 15 mm e 1,2 mm de espessura. Assenta num eixo, numa bandeja ou no cubo de um estojo pelo furo central e num rebaixo pelo contorno, como um CD de 120 mm."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "ECMA-267 (ISO/IEC 16448), 120 mm DVD read-only disk",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "ECMA-267, 120 mm DVD – Read-Only Disk, 3rd edition (April 2001)",
+      "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-267_3rd_edition_april_2001.pdf",
+      "publisher": "Ecma International",
+      "accessed": "2026-11-01",
+      "supports": "clause 10: overall diameter d1 = 120,00 mm ±0,30; centre hole d2 = 15,00 mm +0,15/−0,00; total thickness e1 = 1,20 mm +0,30/−0,06; clamping zone from d4 = 22,0 mm max to d5 = 33,0 mm min, thickness e2 = 1,20 mm +0,20/−0,10; data zone from d8 = 48,0 mm +0,0/−0,4 to d9 = 116,0 mm max; total thickness at the rim at most 1,50 mm; clause 11: mass 13 g to 20 g"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the centre hole, on the disc's read-out side. +z runs through the disc to the label side; +x is an arbitrary radial reference: the disc is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "diameter": {
+      "value": 120.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.30",
+      "note": "the standard's d1"
+    },
+    "centre_hole_diameter": {
+      "value": 15.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.15/−0.00",
+      "note": "d2, the substrates' hole"
+    },
+    "thickness": {
+      "value": 1.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.30/−0.06",
+      "note": "e1, adhesive, spacer and label included"
+    },
+    "rim_thickness_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "total thickness at the rim"
+    },
+    "clamping_zone_inner_diameter_max": {
+      "value": 22.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d4"
+    },
+    "clamping_zone_outer_diameter_min": {
+      "value": 33.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d5"
+    },
+    "clamping_zone_thickness": {
+      "value": 1.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.20/−0.10",
+      "note": "the standard's e2"
+    },
+    "data_zone_start_diameter": {
+      "value": 48.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.0/−0.4",
+      "note": "the standard's d8"
+    },
+    "data_zone_end_diameter_max": {
+      "value": 116.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d9"
+    },
+    "mass_min": {
+      "value": 13,
+      "unit": "g",
+      "source": 0
+    },
+    "mass_max": {
+      "value": 20,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "centre_hole",
+      "label": {
+        "en": "Centre hole",
+        "es": "Orificio central",
+        "fr": "Trou central",
+        "pt": "Furo central"
+      },
+      "geometry_type": "socket",
+      "size_key": "optical-disc-centre-hole-15mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a spindle, tray or case hub enters the centre hole from the read-out side."
+    },
+    {
+      "id": "outline",
+      "label": {
+        "en": "Disc outline",
+        "es": "Contorno del disco",
+        "fr": "Contour du disque",
+        "pt": "Contorno do disco"
+      },
+      "geometry_type": "pocket",
+      "size_key": "optical-disc-120mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the disc lies in a tray or case pocket read-out side down."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "ECMA-267 is the free Ecma edition of ISO/IEC 16448. It covers the 120 mm read-only DVD; the 80 mm DVD is a separate standard (ECMA-268) and has no entry yet. The outline and centre-hole keys are shared with the 120 mm CD.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 60,
+        "length": 1.5,
+        "from": [
+          "diameter",
+          "rim_thickness_max"
+        ],
+        "note": "the disc at its nominal diameter and maximum thickness"
+      }
+    ],
+    "note": "A cylinder at the nominal diameter and the maximum thickness; the centre hole is not subtracted."
+  }
+}

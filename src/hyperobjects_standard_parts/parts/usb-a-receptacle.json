@@ -1,0 +1,141 @@
+{
+  "spec_version": 1,
+  "key": "usb-a-receptacle",
+  "category": "connector",
+  "name": {
+    "en": "USB Standard-A receptacle",
+    "es": "Receptáculo USB Estándar A",
+    "fr": "Embase USB Standard-A",
+    "pt": "Receptáculo USB Standard-A"
+  },
+  "description": {
+    "en": "The USB Standard-A (Series A) receptacle interface: an opening 12.50 × 5.12 mm with a contact tongue along one side, taking a Standard-A plug one way up.",
+    "es": "La interfaz del receptáculo USB Estándar A (Serie A): una abertura de 12.50 × 5.12 mm con una lengüeta de contactos a lo largo de un lado, que recibe una clavija Estándar A en una sola posición.",
+    "fr": "L'interface de l'embase USB Standard-A (série A) : une ouverture de 12,50 × 5,12 mm avec une languette de contacts le long d'un côté, qui reçoit une fiche Standard-A dans un seul sens.",
+    "pt": "A interface do receptáculo USB Standard-A (Série A): uma abertura de 12,50 × 5,12 mm com uma lingueta de contatos ao longo de um lado, que recebe uma ficha Standard-A num só sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "USB 2.0 Specification, Series A receptacle (Figure 6-7)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Universal Serial Bus Specification, Revision 2.0 (April 27, 2000), chapter 6",
+      "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+      "publisher": "USB Implementers Forum (USB-IF document library)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 6-7 (Series A receptacle interface): opening 12.50 ±0.10 wide, 5.12 ±0.10 high; tongue 11.10 ±0.10 wide, 8.38 ±0.08 long; 8.88 ±0.20 from the tongue root to the front face; contacts at ±1.00 and ±3.50 from the centre line, 1.00 ±0.05 wide; mated, 2.67 min from the receptacle face to the plug's overmold. Figure 6-9 (Series A plug): shell 12.00 ±0.10 wide, 4.50 ±0.10 high; 11.75 min from the tip to the overmold; cavity 8.65 ±0.19 deep; overmold 16.0 max wide, 8.0 max high. Table 6-1: four contacts and the shell"
+    },
+    {
+      "title": "USB 3.1 Legacy Cable and Connector Specification, Revision 1.0 (September 22, 2017)",
+      "url": "https://www.usb.org/sites/default/files/USB%203.1%20Legacy%20Cable%20and%20Connector%20Revision%201.0.zip",
+      "publisher": "USB 3.0 Promoter Group (USB-IF document library)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 5-1 detail Y: the Standard-A receptacle opening 12.50 ±0.10 × 5.12 ±0.10 and the 11.10 ±0.10 tongue width, labelled; Figure 5-4: the Standard-A plug shell 12.00 ±0.10 × 4.50 ±0.10"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the opening on the receptacle's front (mating) face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height, pointing from the contact tongue toward the open half of the cavity. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "opening_width": {
+      "value": 12.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "the USB 3.1 legacy specification's Figure 5-1 labels it (source 1)"
+    },
+    "opening_height": {
+      "value": 5.12,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10"
+    },
+    "tongue_width": {
+      "value": 11.1,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10"
+    },
+    "tongue_length": {
+      "value": 8.38,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.08"
+    },
+    "cavity_depth": {
+      "value": 8.88,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.20",
+      "note": "from the tongue root to the front face"
+    },
+    "contacts": {
+      "value": 4,
+      "unit": "count",
+      "source": 0,
+      "note": "plus the shell"
+    },
+    "contact_width": {
+      "value": 1.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05"
+    },
+    "plug_overmold_width_max": {
+      "value": 16.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "the opening an enclosure leaves must clear the plug's overmold"
+    },
+    "plug_overmold_height_max": {
+      "value": 8.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "as plug_overmold_width_max"
+    },
+    "mated_gap_min": {
+      "value": 2.67,
+      "unit": "mm",
+      "source": 0,
+      "note": "from the receptacle's front face to the plug's overmold, mated"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "usb-type-a",
+      "polarity": "female",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a Standard-A plug enters the opening. Symmetry 1: it goes in one way up, its contact insulator into the open half of the cavity beside the tongue."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The USB 2.0 specification is free from the USB-IF document library; the USB 3.1 legacy connector specification's clearer drawing confirms which feature each Series A number belongs to. No panel cutout or normative housing envelope is given, so the body is not modelled."
+}

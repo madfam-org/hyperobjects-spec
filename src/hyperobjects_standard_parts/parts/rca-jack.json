@@ -1,0 +1,98 @@
+{
+  "spec_version": 1,
+  "key": "rca-jack",
+  "category": "connector",
+  "name": {
+    "en": "RCA (phono) jack",
+    "es": "Jack RCA",
+    "fr": "Embase RCA (Cinch)",
+    "pt": "Jack RCA"
+  },
+  "description": {
+    "en": "The RCA (phono) jack class: a centre contact behind a Ø3.5–3.6 mm opening inside an outer contact Ø8.3 mm across, taking an RCA plug. A console's composite video and audio outputs use it.",
+    "es": "La clase de jack RCA: un contacto central detrás de una abertura de Ø3.5–3.6 mm dentro de un contacto exterior de Ø8.3 mm, que recibe un plug RCA. Las salidas de video compuesto y audio de una consola lo usan.",
+    "fr": "La classe d'embase RCA (Cinch) : un contact central derrière une ouverture de Ø3,5–3,6 mm dans un contact extérieur de Ø8,3 mm, qui reçoit une fiche RCA. Les sorties vidéo composite et audio d'une console l'utilisent.",
+    "pt": "A classe de jack RCA: um contato central atrás de uma abertura de Ø3,5–3,6 mm dentro de um contato exterior de Ø8,3 mm, que recebe um plugue RCA. As saídas de vídeo composto e áudio de uma consola usam-no."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "RCA (phono) jack, PCB mount (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky RCJ-02 RCA jack (rev 1.05) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/rcj-02.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "outer contact (shell) Ø8.30; centre-contact opening Ø3.50"
+    },
+    {
+      "title": "Same Sky RCJ-04 RCA jack (rev 1.07) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/rcj-04.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "outer contact Ø8.3 ±0.1"
+    },
+    {
+      "title": "Same Sky RCJ-01 RCA jack (rev 1.06) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/rcj-01.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "outer contact 8.30; centre-contact opening Ø3.60"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the outer contact's front face, on the jack's axis. +z points out of the jack, toward a plug; the body lies at z < 0. +x is an arbitrary radial reference: the jack is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "outer_contact_diameter": {
+      "value": 8.3,
+      "unit": "mm",
+      "source": 0,
+      "note": "RCJ-04 8.3 ±0.1 (source 1); RCJ-01 8.30 (source 2)"
+    },
+    "centre_opening_diameter": {
+      "value": 3.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "RCJ-01 draws Ø3.60 (source 2): it varies by part"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "rca-phono",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a plug's centre pin enters the centre contact while its outer sleeve grips the outer contact. A mate puts the plug's sleeve rim on this face, a convention: no source states the seated position."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60130-9, which governs the connector, is not freely published. The facts are those three jack series of one maker share; a second maker's drawing would make the class stronger. Jack insertion depth and any panel thread are not stated by the sources."
+}

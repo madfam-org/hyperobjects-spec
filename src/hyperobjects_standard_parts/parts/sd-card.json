@@ -1,0 +1,142 @@
+{
+  "spec_version": 1,
+  "key": "sd-card",
+  "category": "media",
+  "name": {
+    "en": "SD memory card",
+    "es": "Tarjeta de memoria SD",
+    "fr": "Carte mémoire SD",
+    "pt": "Cartão de memória SD"
+  },
+  "description": {
+    "en": "A standard-size SD memory card, 32 × 24 × 2.1 mm, with nine contact pads along one short edge, a chamfered corner at that edge and a write-protect slider on one long edge. It goes into a card slot contact edge first.",
+    "es": "Una tarjeta de memoria SD de tamaño estándar, de 32 × 24 × 2.1 mm, con nueve contactos en un borde corto, una esquina achaflanada en ese borde y un deslizador de protección contra escritura en un borde largo. Entra en una ranura por el borde de los contactos.",
+    "fr": "Une carte mémoire SD de taille standard, de 32 × 24 × 2,1 mm, avec neuf plages de contact le long d'un petit côté, un coin chanfreiné sur ce côté et un curseur de protection en écriture sur un grand côté. Elle entre dans une fente par le côté des contacts.",
+    "pt": "Um cartão de memória SD de tamanho padrão, de 32 × 24 × 2,1 mm, com nove contatos ao longo de uma borda curta, um canto chanfrado nessa borda e um seletor de proteção contra escrita numa borda longa. Entra numa ranhura pela borda dos contatos."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "SD Association SD Memory Card, standard-size form factor",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Transcend SDC10I industrial SD card datasheet (Transcend-SDC10I-202510)",
+      "url": "https://CDN.transcend-info.com/products/images/modelpic/539/Transcend-SDC10I-202510.pdf",
+      "publisher": "Transcend Information",
+      "accessed": "2026-11-01",
+      "supports": "SD card mechanical dimensions: 24.00 ±0.10 wide, 32.00 ±0.10 long, 2.10 ±0.15 thick"
+    },
+    {
+      "title": "Swissbit S-50 industrial SDHC/SDXC memory card product data sheet, revision 1.09 (2024-08-13)",
+      "url": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8442/Swissbit_02-03-2025_S-50_data_sheet.pdf",
+      "publisher": "Swissbit (hosted by Digi-Key)",
+      "accessed": "2026-11-01",
+      "supports": "Table 11: 32.00 ±0.1 × 24.00 ±0.1 × 2.10 ±0.15 mm, 2 g; Figure 1: nine contact pads along one short edge, a 4 mm card-body corner chamfer beside pad 9 at that edge, the write-protect (lock) slider on the long edge opposite the chamfer; general tolerance ±0.15"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the contact (leading) edge, on the plane of the contact face. +z points out of the contact face; +y points from the rear edge toward the contact edge, so the card occupies y from −32 to 0 and z from −2.1 to 0; +x points across the width toward the long edge that carries the write-protect slider. Seen from +z with the contact edge up, the 4 mm chamfered corner is the contact edge's −x corner (Swissbit Figure 1).",
+  "dimensions": {
+    "length": {
+      "value": 32.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "Swissbit 32.00 ±0.1 (source 1)"
+    },
+    "width": {
+      "value": 24.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "Swissbit 24.00 ±0.1 (source 1)"
+    },
+    "thickness": {
+      "value": 2.1,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15",
+      "note": "Swissbit 2.10 ±0.15 (source 1)"
+    },
+    "corner_chamfer": {
+      "value": 4,
+      "unit": "mm",
+      "source": 1,
+      "tolerance": "±0.15",
+      "note": "the card-body corner chamfer at the contact edge, beside pad 9; Swissbit's general tolerance"
+    },
+    "contact_pads": {
+      "value": 9,
+      "unit": "count",
+      "source": 1
+    },
+    "mass": {
+      "value": 2,
+      "unit": "g",
+      "source": 1,
+      "note": "typical"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo",
+        "fr": "Corps",
+        "pt": "Corpo"
+      },
+      "geometry_type": "pocket",
+      "size_key": "sd-card",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          -1.05
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the card goes into a slot contact edge first; the frame sits at the centre of the contact edge at mid-thickness, its normal along the insertion direction. Symmetry 1: the chamfered corner keys the card, so a slot's frame fixes which way up it goes."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The SD Association's physical specification is distributed behind a click-through licence, so the numbers cite two card makers' datasheets that print the standard form factor; they agree. The write-protect slider's position is drawn by Swissbit but its dimension lines are not unambiguous, so it is not stated here.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -12,
+          -32,
+          -2.1
+        ],
+        "max": [
+          12,
+          0,
+          0
+        ],
+        "from": [
+          "width",
+          "length",
+          "thickness"
+        ],
+        "note": "the card at its nominal size"
+      }
+    ],
+    "note": "A box at the nominal length, width and thickness; the chamfer, the slider and the contact recesses are not modelled."
+  }
+}

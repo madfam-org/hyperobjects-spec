@@ -1,0 +1,90 @@
+{
+  "spec_version": 1,
+  "key": "hdmi-type-a-plug",
+  "category": "connector",
+  "status": "provisional",
+  "name": {
+    "en": "HDMI Type A plug",
+    "es": "Clavija HDMI Tipo A",
+    "fr": "Fiche HDMI Type A",
+    "pt": "Ficha HDMI Tipo A"
+  },
+  "description": {
+    "en": "The HDMI Type A plug interface: a 19-contact shell 13.90 × 4.45 mm with two chamfered corners on one long side, mating a Type A receptacle one way up.",
+    "es": "La interfaz de la clavija HDMI Tipo A: una carcasa de 19 contactos de 13.90 × 4.45 mm con dos esquinas achaflanadas en un lado largo, que acopla con un receptáculo Tipo A en una sola posición.",
+    "fr": "L'interface de la fiche HDMI Type A : un blindage à 19 contacts de 13,90 × 4,45 mm avec deux coins chanfreinés sur un grand côté, qui s'accouple à une embase Type A dans un seul sens.",
+    "pt": "A interface da ficha HDMI Tipo A: uma blindagem de 19 contatos de 13,90 × 4,45 mm com dois cantos chanfrados num lado longo, que acopla num receptáculo Tipo A num só sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "HDMI Type A plug, 19 positions",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "CUI Devices HD03-19-P-FR HDMI plug datasheet, rev 1.01 (2022-08-05; discontinued part)",
+      "url": "https://www.sameskydevices.com/product/resource/hd03-19-p-fr.pdf",
+      "publisher": "CUI Devices (Same Sky)",
+      "accessed": "2026-11-01",
+      "supports": "19 contacts; plug shell outside 13.90 × 4.45, +0.04/−0.05; insertion force 44.1 N max"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the overmold's front face, on the shell axis. +z runs along the shell toward its tip (the shell's length is not cited); +x runs along the shell's width; +y = z × x points from the long side with the two chamfered corners toward the plain long side. The overmold and cable lie at z < 0.",
+  "dimensions": {
+    "shell_width": {
+      "value": 13.9,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.04/−0.05"
+    },
+    "shell_height": {
+      "value": 4.45,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.04/−0.05"
+    },
+    "contacts": {
+      "value": 19,
+      "unit": "count",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "hdmi-type-a",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shell goes into a Type A receptacle, plain side to plain side. A mate seats the overmold face on the receptacle's front face, a convention. The x_axis is −x so that a mate (a half-turn about the frame's x, ASM-1 §3.4) puts the plug's +y side on the receptacle's +y side."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "One maker's plug drawing, for a part since discontinued; a current plug drawing from a second maker would strengthen it. The shell's length and the overmold are not stated (the drawing's 10.25 runs to a rib, not to a stated insertion depth), so there is no envelope."
+}

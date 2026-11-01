@@ -1,0 +1,134 @@
+{
+  "spec_version": 1,
+  "key": "rca-plug",
+  "category": "connector",
+  "name": {
+    "en": "RCA (phono) plug",
+    "es": "Clavija RCA",
+    "fr": "Fiche RCA (Cinch)",
+    "pt": "Plugue RCA"
+  },
+  "description": {
+    "en": "The RCA (phono) plug class: a Ø3.25 mm centre pin standing 8 mm beyond an outer sleeve Ø9 mm across, mating an RCA jack.",
+    "es": "La clase de plug RCA: un pin central de Ø3.25 mm que sobresale 8 mm de una manga exterior de Ø9 mm, que acopla con un jack RCA.",
+    "fr": "La classe de fiche RCA (Cinch) : une broche centrale de Ø3,25 mm qui dépasse de 8 mm d'un manchon extérieur de Ø9 mm, qui s'accouple à une embase RCA.",
+    "pt": "A classe de plugue RCA: um pino central de Ø3,25 mm que sobressai 8 mm de uma manga exterior de Ø9 mm, que acopla num jack RCA."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "RCA (phono) plug, cable mount (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky RCP-02 RCA plug (rev 1.04) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/rcp-02.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "centre pin Ø3.25 +0/−0.15, standing 8 ±0.5 beyond the outer sleeve; outer sleeve Ø9, 5.5 long"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the outer sleeve's front rim, on the plug's axis. +z runs along the centre pin to its tip at z = 8; the body and cable lie at z < 0. +x is an arbitrary radial reference: the plug is round.",
+  "dimensions": {
+    "pin_diameter": {
+      "value": 3.25,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0/−0.15"
+    },
+    "pin_protrusion": {
+      "value": 8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.5",
+      "note": "beyond the outer sleeve"
+    },
+    "sleeve_outside_diameter": {
+      "value": 9,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.30",
+      "note": "the sheet's general tolerance"
+    },
+    "sleeve_length": {
+      "value": 5.5,
+      "unit": "mm",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "rca-phono",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the centre pin enters a jack's centre contact. A mate puts the sleeve rim on the jack's front face, a convention."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "One maker's current RCA plug drawing; its discontinued predecessor drew the same Ø9.0 sleeve and a Ø3.2 pin. The sleeve's inside diameter, which grips the jack, is not printed, so the fit is the jack's outer contact Ø8.3.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          -5.5
+        ],
+        "axis": "z",
+        "radius": 4.5,
+        "length": 5.5,
+        "from": [
+          "sleeve_outside_diameter",
+          "sleeve_length"
+        ],
+        "note": "the outer sleeve"
+      },
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 1.625,
+        "length": 8,
+        "from": [
+          "pin_diameter",
+          "pin_protrusion"
+        ],
+        "note": "the centre pin beyond the sleeve"
+      }
+    ],
+    "note": "The outer sleeve and the protruding pin; the body behind the sleeve has no cited size and is not modelled."
+  }
+}
