@@ -56,9 +56,11 @@ renumbers when it rebases.
 #### For consumers
 
 - The commons' preset generators move to the commons and read this catalog at the keystone pin.
-- Because of the sweep, the book-fold presets of the 14 Samsung entries will name
-  `usb_c_present` / `card_slot_present` as archetype fallbacks instead of sourced values when
-  they are regenerated.
+- Because of the sweep, the six Samsung Fold presets of `book-fold-phone` now name
+  `usb-c port` as an archetype fallback. Their value is unchanged, because the archetype default
+  is also "present". The eight Samsung Flip entries belong to `flip-fold-phone`, which has no
+  cartridge yet. Regenerated from this catalog, every other preset value of the two device
+  families is identical (solid-hyperobjects, W0-c).
 
 ### Pliego RFC 0045 phase 2: laminate stocks re-vendored, hardware_ref resolved name-level (package 0.18.0)
 
