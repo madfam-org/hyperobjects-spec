@@ -1,0 +1,255 @@
+{
+  "spec_version": 1,
+  "key": "vivo-x-flip",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "vivo",
+  "model": "X Flip",
+  "aliases": [
+    "V2256A"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.25,
+        "height": 86.4,
+        "depth": 16.62
+      },
+      "open": {
+        "width": 75.25,
+        "height": 166.42,
+        "depth": 7.75
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 198,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 3.0,
+      "resolution_px": [
+        682,
+        422
+      ],
+      "aspect": "14.5:9",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 64.8,
+        "height": 40.1,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 6.74,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": "21:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 157.4,
+        "height": 67.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": "UTG"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed.height",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "高度 86.40mm（折叠）"
+    },
+    {
+      "field": "dimensions_mm.states.closed.width",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.25mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "钻黑：7.75mm（展开）、16.62（折叠）"
+    },
+    {
+      "field": "dimensions_mm.states.open.height",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "高度 166.42mm（展开）"
+    },
+    {
+      "field": "dimensions_mm.states.open.width",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.25mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "钻黑：7.75mm（展开）、16.62（折叠）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "重量 菱紫、钻黑：198g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "尺寸（英寸） 外屏：3.0英寸"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "分辨率 外屏：682 × 422"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "刷新率 外屏：60Hz"
+    },
+    {
+      "field": "displays[0].aspect",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "屏幕比例 外屏：14.5:9"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "尺寸（英寸） 内屏：6.74英寸"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "分辨率 内屏：2520 × 1080"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "刷新率 内屏：60Hz;120Hz"
+    },
+    {
+      "field": "displays[1].aspect",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "屏幕比例 内屏：21:9"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "屏幕材质 AMOLED"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "USB接口类型 Type-C ... SIM卡类型 双nano"
+    },
+    {
+      "field": "aliases",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/param/xflip",
+      "retrieved": "2026-09-13",
+      "quote": "全网通（V2256A）"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/xflip/",
+      "retrieved": "2026-09-13",
+      "quote": "全新 5.3mm 超大直径水滴设计，对比小水滴，折痕得到 44% 的优化"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/xflip/",
+      "retrieved": "2026-09-13",
+      "quote": "悬停视话 台历模式"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.vivo.com.cn/vivo/xflip/",
+      "retrieved": "2026-09-13",
+      "quote": "UTG 超韧玻璃，折痕隐形"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.0 in, a:b = 682:422 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.vivo.com.cn/vivo/param/xflip>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.vivo.com.cn/vivo/param/xflip>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.74 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.vivo.com.cn/vivo/param/xflip>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.vivo.com.cn/vivo/param/xflip>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "TRANSLATION: 高度 = height, 宽度 = width, 厚度 = thickness, 展开 = unfolded, 折叠 = folded, 重量 = weight, 尺寸（英寸） = size in inches, 内屏 = inner screen, 外屏 = cover screen, 分辨率 = resolution, 刷新率 = refresh rate, 屏幕比例 = screen ratio, 屏幕材质 = screen material, 上市时间 = launch/on-sale time. vivo uses no 约 anywhere, so these figures are exact as published. COLOURWAY VARIANTS: 厚度 is published three ways — 菱紫 (Rhombus Purple) 8.19mm 展开 / 17.56 折叠; 钻黑 (Diamond Black) 7.75mm 展开 / 16.62 折叠; 绸金 (Silk Gold) 7.84mm 展开 / 16.80 折叠 — and 重量 as 菱紫、钻黑：198g / 绸金：199g. I recorded the 钻黑 (Diamond Black) depths together with its matching 198 g mass so the entry describes one real configuration; the other colourways differ as listed. Note vivo omits the 'mm' unit on the folded figures ('、16.62（折叠）') — transcribed exactly as published. Height and width are shared across colourways. CAUTION: the LLM-rendered WebFetch of this page mis-assigned 菱紫 as 7.75/16.62; the raw Nuxt payload quoted above is what I actually used. announced AND released LEFT NULL: the only date vivo publishes is 上市时间 '2023年4月' (April 2023) — month precision only, which cannot be written as YYYY-MM-DD without inventing a day; the exact launch date appears only on secondary sites, so it is omitted. hinge.crease: '全新 5.3mm 超大直径水滴设计' = 'all-new 5.3mm extra-large-diameter waterdrop design' -> teardrop. hinge.free_stop = true from '悬停视话' ('hover video call') and '悬停蔡司影像'/'悬停自拍' ('hover ZEISS imaging'/'hover selfie') on the product page. materials.cover_glass 'UTG' from 'UTG 超韧玻璃，折痕隐形' = 'UTG ultra-tough glass, invisible crease' — vivo states this for the INNER folding display only; no glass is named for the cover screen, and no frame/back material row exists, so those stay null. panel recorded as OLED per the SPEC enum; vivo's literal wording is a single device-level 屏幕材质 AMOLED row, not split per screen (contrast IS split: 内屏 8000000:1 / 外屏 6000000:1). Inner refresh_hz records the stated maximum of '内屏：60Hz;120Hz'. controls left empty (not surveyed; vivo does list 指纹识别 侧边电容指纹, a side capacitive fingerprint). || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

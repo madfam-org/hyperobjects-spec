@@ -1,0 +1,227 @@
+{
+  "spec_version": 1,
+  "key": "honor-magic-v-flip",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "HONOR",
+  "model": "Magic V Flip",
+  "aliases": [
+    "荣耀Magic V Flip"
+  ],
+  "status": "verified",
+  "announced": "2024-06-13",
+  "released": "2024-06-21",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.6,
+        "height": 86.5,
+        "depth": 14.89
+      },
+      "open": {
+        "width": 75.6,
+        "height": 167.3,
+        "depth": 7.15
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 193,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 4.0,
+      "resolution_px": [
+        1200,
+        1092
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 75.1,
+        "height": 68.4,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 6.8,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 158.8,
+        "height": 68.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed.height",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "折叠态：86.5 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.width",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.6mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "折叠态：14.89 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.height",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "展开态：167.3 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.width",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.6mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "展开态：7.15 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "重量 约193克（含电池）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "外屏：4.0英寸"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "外屏：1200x1092 像素"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/news/honor-magic-v-flip-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "这块外屏引入旗舰全域低功耗LTPO屏幕，兼具0.1Hz-120Hz高刷新率"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：6.8英寸"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：2520x1080像素"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "屏幕类型 OLED"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "数据线接口：USB Type-C，USB 2.0 ... SIM卡类型 nano卡"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip/",
+      "retrieved": "2026-09-13",
+      "quote": "悬停自拍 解放双手，轻松出片。"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/news/honor-magic-v-flip-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "2024年6月13日，荣耀首款竖折手机——荣耀Magic V Flip在一场科技时尚大秀中正式亮相"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.honor.com/cn/news/honor-magic-v-flip-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "6月13日20:40 ... 开启预售，6月21日10:08开售"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.0 in, a:b = 1200:1092 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.honor.com/cn/phones/honor-magic-v-flip/spec/>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.honor.com/cn/phones/honor-magic-v-flip/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.8 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.honor.com/cn/phones/honor-magic-v-flip/spec/>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.honor.com/cn/phones/honor-magic-v-flip/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "DOMAIN: hihonor.com is an alias — https://www.hihonor.com/cn/phone/honor-magic-v-flip/ returns HTTP 301 to https://www.honor.com/cn/phone/honor-magic-v-flip/, so honor.com/cn IS HONOR's primary Chinese site and is cited as primary here. The /spec/ page is JS-rendered (WebFetch returned an empty frame); values were read from the page's own data-value attributes via the curl fallback. TRANSLATION: 长度 = length/height, 宽度 = width, 厚度 = thickness, 展开态 = unfolded state, 折叠态 = folded state, 重量 = weight, 约 = approximately, 克 = grams (约193克（含电池） = 'approx. 193 g, including battery' — kept HONOR's 约, not rounded away), 英寸 = inches, 内屏 = inner screen, 外屏 = cover screen, 像素 = pixels, 屏幕类型 = screen type. HONOR footnotes that the diagonals are standard-rectangle measurements and the real visible area is slightly smaller (rounded-corner design), and that thickness excludes the camera bump. INNER-SCREEN REFRESH LEFT NULL: the honor.com/cn spec page has NO refresh-rate row at all, and its only Hz figures are PWM dimming (内屏 3840Hz 超高频PWM调光, 外屏 2160Hz) which is NOT a refresh rate. The 0.1-120Hz LTPO figure on the product page and in the launch article is explicitly attributed to the 外屏 — '这块外屏引入旗舰全域低功耗LTPO屏幕，兼具0.1Hz-120Hz高刷新率与低功耗全屏显示的领先优势' = 'this cover screen adopts a flagship all-domain low-power LTPO panel, combining 0.1Hz-120Hz high refresh with low-power always-on display' — and a product-page footnote confirms '0.1Hz指外屏...'. The HONOR support page for this model carries no refresh figure either. Inner-panel 120Hz appears only on secondary sites (GSMArena/PhoneArena), so it is left null. hinge.crease LEFT NULL: HONOR names the hinge '荣耀鲁班铰链' (HONOR Luban hinge) built with '荣耀自研盾构钢' (self-developed shield-tunnelling steel) but never states a waterdrop/水滴 or U crease shape on any page I fetched. hinge.free_stop = true from '悬停自拍' ('hover selfie — frees your hands') on the product page, corroborated by '悬停拍摄' and '悬停自拍' in the launch article. materials ALL null: the launch article describes '柔和钻切直边中框' ('soft diamond-cut straight-edge middle frame'), a shape/finish rather than a material, and no 材质 / 玻璃 / 中框材质 row exists on the spec page. released: the year is not inside the 开售 sentence itself — it comes from the same article, dated 2024年6月13日 in its own description and HONOR_DREDATE meta 2024-06-13; '6月21日10:08开售' = 'on sale 21 June at 10:08'. panel recorded as OLED per the SPEC enum; HONOR gives ONE device-level 屏幕类型 OLED row, not split per screen. aspect left null (no ratio row published). controls left empty (not surveyed). || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

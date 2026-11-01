@@ -1,0 +1,209 @@
+{
+  "spec_version": 1,
+  "key": "oneplus-open",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "OnePlus",
+  "model": "Open",
+  "status": "verified",
+  "announced": "2023-10-19",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.3,
+        "height": 153.4,
+        "depth": 11.9
+      },
+      "open": {
+        "width": 143.1,
+        "height": 153.4,
+        "depth": 5.9
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 239,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.31,
+      "resolution_px": [
+        2484,
+        1116
+      ],
+      "aspect": "20:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 146.2,
+        "height": 65.7,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.82,
+      "resolution_px": [
+        2440,
+        2268
+      ],
+      "aspect": "1.0758:1",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 145.5,
+        "height": 135.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": "teardrop"
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "vegan leather (Voyager Black); matte-frosted glass (Emerald Dusk)",
+    "cover_glass": "Ceramic Guard"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "When closed Height: 153.4 mm Width: 73.3 mm Thickness: 11.9 mm (Voyager Black variant)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "When opened Height: 153.4 mm Width: 143.1 mm Thickness: 5.9 mm (Voyager Black variant)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Weight Voyager Black: 239g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Size: 6.31\", measured diagonally from corner to corner Resolution: 2484*1116 (2K), 431 ppi"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Refresh Rate: 10-120 Hz dynamic Panel Type: Super Fluid AMOLED with LTPO 3.0"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Size: 7.82\", measured diagonally from corner to corner Resolution: 2440*2268 (2K), 426 ppi"
+    },
+    {
+      "field": "displays[1].panel",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Refresh Rate: 1-120 Hz dynamic Panel Type: Flexi-fluid AMOLED with LTPO 3.0"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen (secondary display) ... Protective Material: Ceramic Guard"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Sensors Side-mounted Fingerprint Sensor"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "Ports USB 3.1 Type-C Support standard Type-C earphones Dual nano-SIM slot"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/open/specs",
+      "retrieved": "2026-09-13",
+      "quote": "When opened ... Width: 143.1 mm ... When closed ... Width: 73.3 mm"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/press/press-release/oneplus-ignites-the-foldable-smartphone-market-with-global-launch-of-the-oneplus-open",
+      "retrieved": "2026-09-13",
+      "quote": "the Flexion \"water-drop\"-shaped pressure-relieving hinge to keep crease at the minimal"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/press/press-release/oneplus-ignites-the-foldable-smartphone-market-with-global-launch-of-the-oneplus-open",
+      "retrieved": "2026-09-13",
+      "quote": "Voyager Black features a more understated rear cover in vegan leather that oozes class."
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.oneplus.com/us/press/press-release/oneplus-ignites-the-foldable-smartphone-market-with-global-launch-of-the-oneplus-open",
+      "retrieved": "2026-09-13",
+      "quote": "October 19, 2023 –– Global technology brand OnePlus today announced the global launch"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.31 in, a:b = 2484:1116 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://www.oneplus.com/us/open/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.82 in, a:b = 2440:2268 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://www.oneplus.com/us/open/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "All geometry is the VOYAGER BLACK colourway: oneplus.com publishes per-colourway thicknesses and weights (closed 11.7 mm / open 5.8 mm / 245 g for Emerald Dusk; closed 11.9 mm / open 5.9 mm / 239 g for Voyager Black AND Crimson Shadow). Height and width are identical across colourways. Fetched from the global/US page www.oneplus.com/us/open/specs; www.oneplus.com/global/open/specs carries the same mm values (it omits Crimson Shadow), and the India page (redirects to oneplus.in) states the same numbers in cm. No unit conversion was performed - OnePlus states mm directly. refresh_hz records the MAXIMUM of the OEM's dynamic range: cover 'Refresh Rate: 10-120 Hz dynamic', inner 'Refresh Rate: 1-120 Hz dynamic'. panel normalised to OLED; OEM wording is 'Super Fluid AMOLED with LTPO 3.0' (cover) and 'Flexi-fluid AMOLED with LTPO 3.0' (inner). resolution_px is recorded exactly as OnePlus prints it ('2484*1116' cover, '2440*2268' inner); OnePlus does not label which figure is width and which is height, and for the portrait cover screen the first number is clearly the long axis - i.e. the ordering is NOT the [width,height] order Google uses, so consumers must not assume a common order across the entries in this array. Cover aspect is printed by OnePlus as '20:09'; recorded here as 20:9. hinge.crease=teardrop rests on OnePlus's own press-release wording about the 'water-drop'-shaped hinge that minimises the crease (the product page words it as 'The “waterdrop”-shaped tension relief mechanism ensures a larger bend radius, minimizing the display crease'); OnePlus never uses the words 'teardrop' or 'U-shaped'. hinge.free_stop left null: no OnePlus page fetched (specs, overview, press release) documents free-stop or hold-at-any-angle. materials.frame left NULL: OnePlus publishes only 'Key hinge components utilize a proprietary cobalt molybdenum alloy' and the marketing line 'Titanium alloy, carbon fiber, and more' - neither states the frame/mid-frame material for this model. released left null: the OnePlus press release dates the launch 2023-10-19 but no OnePlus page states the on-sale date. hinge.type/axis are the registry's family assignment, corroborated by OnePlus's own opened/closed figures - width 73.3 mm -> 143.1 mm at a constant 153.4 mm height, i.e. a book fold about the long axis. active_area_mm left null: deriving it from a marketing diagonal with rounded corners would invent precision."
+  ]
+}

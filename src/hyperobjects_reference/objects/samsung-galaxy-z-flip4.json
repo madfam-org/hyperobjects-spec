@@ -1,0 +1,184 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-flip4",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Flip4",
+  "aliases": [
+    "SM-F721B"
+  ],
+  "status": "verified",
+  "announced": "2022-08-10",
+  "released": "2022-08-26",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 71.9,
+        "height": 84.9,
+        "depth": 15.9
+      },
+      "open": {
+        "width": 71.9,
+        "height": 165.2,
+        "depth": 6.9
+      }
+    },
+    "depth_at_hinge": 17.1,
+    "corner_radius": null
+  },
+  "mass_g": 187,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.7,
+      "resolution_px": [
+        2640,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 157.5,
+        "height": 64.4,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 1.9,
+      "resolution_px": [
+        260,
+        512
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 21.9,
+        "height": 43.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Armor Aluminum (frames and hinge cover)",
+    "back": "Corning Gorilla Glass Victus+ (rear glass)",
+    "cover_glass": "Corning Gorilla Glass Victus+"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 71.9 x 84.9 x 17.1mm (Hinge) - 15.9mm (Sagging)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 71.9 x 165.2 x 6.9mm"
+    },
+    {
+      "field": "dimensions_mm.depth_at_hinge",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 71.9 x 84.9 x 17.1mm (Hinge) - 15.9mm (Sagging)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 187g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 6.7-inch FHD+ Dynamic AMOLED 2X Infinity Flex Display (2640 x 1080, 22:9) 120Hz adaptive refresh rate"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Screen 1.9-inch Super AMOLED Display 260 x 512"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "With our Armor Aluminum frames and hinge cover along with exclusive Corning Gorilla Glass Victus+"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Gorilla Glass Victus + on the Cover Screen and rear glass, Z Flip4 and Z Fold4 are our toughest foldables"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Flex mode supported at angles between 75° and 115°."
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "August 10, 2022"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "available for pre-order beginning August 10 with general availability starting August 26"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Glass Victus + on the Cover Screen and rear glass, Z Flip4 and Z Fold4 are our toughest foldables"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.7 in, a:b = 2640:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 1.9 in, a:b = 260:512 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4-the-most-versatile-devices-changing-the-way-we-interact-with-smartphones>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung prints Dimension & Weight as WIDTH x HEIGHT x DEPTH; mapped to height/width/depth accordingly. Samsung never publishes a crease shape (teardrop/U) for any Flip, so hinge.crease is null throughout. hinge.max_angle_deg left null: Samsung states Flex Mode working angles, not a maximum hinge angle. Folded thickness published as a range: 17.1mm at the hinge, 15.9mm at the tapered end; 15.9 in closed.depth, 17.1 in depth_at_hinge (identical folded thickness figures to Flip3 but independently sourced from the Flip4 release, not carried over). Cover Screen refresh rate NOT stated - null. Cover glass is Victus PLUS on this generation (Victus on Flip3, Victus 2 from Flip5) - the '+' is rendered as a separate element in Samsung's HTML, hence the split quote. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: ports[0] = {\"kind\": \"sim\", \"position\": null}."
+  ]
+}

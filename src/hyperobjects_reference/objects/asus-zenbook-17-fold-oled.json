@@ -1,0 +1,127 @@
+{
+  "spec_version": 1,
+  "key": "asus-zenbook-17-fold-oled",
+  "kind": "device",
+  "family": "foldable-laptop",
+  "brand": "ASUS",
+  "model": "Zenbook 17 Fold OLED UX9702",
+  "aliases": [
+    "Zenbook 17 Fold OLED",
+    "UX9702"
+  ],
+  "status": "partial",
+  "announced": "2022-08-31",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "open": {
+        "width": 378.5,
+        "height": 287.6,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1500,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 17.3,
+      "resolution_px": [
+        2560,
+        1920
+      ],
+      "aspect": "4:3",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 351.5,
+        "height": 263.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "37.85 x 28.76 x 0.87 ~ 1.29 cm (14.90\" x 11.32\" x 0.34\" ~ 0.51\")"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "1.50 kg (3.31 lbs)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "17.3-inch, 2560 x 1920 FOLED 4:3 aspect ratio, 0.2ms response time, 60Hz refresh rate"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "2x Thunderbolt 4 supports display / power delivery 1x 3.5mm Combo Audio Jack"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/1271/",
+      "retrieved": "2026-09-13",
+      "quote": "precision-engineered 180 degree hinge ... tested to withstand over 30,000 open-and-close cycles"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/1269/",
+      "retrieved": "2026-09-13",
+      "quote": "August 31, 2022"
+    }
+  ],
+  "notes": [
+    "RETRIEVED VIA ARCHIVE: asus.com has RETIRED this product page - the live global, US, CA, CH-EN and ME-EN techspec URLs all 301-redirect to the generic Zenbook landing page. The dimensions, weight, display and ports above were read from a web.archive.org snapshot of the MANUFACTURER url https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/techspec/ (snapshot 2024-02-21, cross-checked against snapshots 2022-12-06 and 2022-12-29 which carry identical values), which SPEC treats as primary; retrieved date is today per SPEC. NOTE WebFetch cannot reach web.archive.org at all - the snapshots were pulled with the curl fallback. ONE PANEL THAT FOLDS - single display, role primary. AXIS MAPPING: ASUS publishes ONE dimension row, 'Dimensions (W x D x H)' = 37.85 x 28.76 x 0.87 ~ 1.29 cm, and it is the UNFOLDED state - 378.5 x 287.6 mm comfortably contains the 351.5 x 263.7 mm unfolded active area and could not contain it when folded. So manufacturer WIDTH 378.5 -> open.width, manufacturer DEPTH 287.6 -> open.height, manufacturer HEIGHT/thickness -> open.depth. cm -> mm x10. dimensions_mm.closed IS ENTIRELY NULL: ASUS publishes no folded dimension for this machine anywhere on its tech-spec page or in either press release - the only folded description ASUS gives is the qualitative 'smaller than a sheet of photocopier paper'. Halving the unfolded width would be an inference, so it was not done. open.depth IS ALSO NULL: ASUS gives a RANGE, '0.87 ~ 1.29 cm' (8.7 ~ 12.9 mm), and never states what the two ends correspond to - unlike the Zenbook Duo, where an ASUS press release explicitly pins the low end to 'without Bluetooth keyboard'. No such disambiguation exists here, a range cannot be stored in a scalar field, and picking either end would be a guess, so the field is null and the verbatim range is recorded in this note. FOLDED GEOMETRY (qualitative, from the ASUS press release, recorded here not as fields): the 4:3 17.3in panel 'folds in the middle to create two seamless 3:2 12.5-inch 1920 by 1280 displays'. mass_g 1500 = 1.50 kg x 1000; ASUS's without-keyboard figure - the press release states 'weighs just 1.5 kg without the keyboard, or 1.8 kg with it'. active_area_mm derived from sourced diagonal + sourced resolution assuming square pixels: 2560x1920 is exactly 4:3, matching the stated aspect, so w = 17.3 x 2560 / 3200 x 25.4 = 351.5 mm and h = 17.3 x 1920 / 3200 x 25.4 = 263.7 mm. Panel labelled 'FOLED' by ASUS; recorded as OLED. hinge.axis 'long' read from the fold-in-the-middle geometry ASUS describes. free_stop null - not documented; ASUS rates the hinge for 30,000+ open-close cycles and the machine to MIL-STD-810H. PORTS: 2x Thunderbolt 4 (recorded as usb_c) plus a 3.5mm combo jack; positions null. materials.* ALL NULL: ASUS's tech-spec page has no materials row, and although the launch press release mentions a dark green faux-leather cover, the same release also describes a 'faux leather kickstand' on the detachable keyboard, so it is not certain the material statement describes the laptop chassis rather than the keyboard accessory - left null rather than guessed. status 'partial' solely because closed dimensions are unavailable from ASUS. released null - ASUS says only 'globally during Q4 2022'."
+  ]
+}

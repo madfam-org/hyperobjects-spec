@@ -1,0 +1,192 @@
+{
+  "spec_version": 1,
+  "key": "vivo-x-fold-5",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "vivo",
+  "model": "X Fold5",
+  "aliases": [
+    "X Fold5"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 72.6,
+        "height": 159.68,
+        "depth": 9.2
+      },
+      "open": {
+        "width": 142.29,
+        "height": 159.68,
+        "depth": 4.3
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 217,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.53,
+      "resolution_px": [
+        2748,
+        1172
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 152.6,
+        "height": 65.1,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.03,
+      "resolution_px": [
+        2480,
+        2200
+      ],
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 152.6,
+        "height": 135.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "Glass fiber (Gray), glass (White)",
+    "cover_glass": "2nd-Gen Armor Glass"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 159.68 mm × 72.60 mm × 9.20 mm (Gray);"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 159.68 mm × 142.29 mm × 4.30 mm (Gray);"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 217g(Gray), 226g(White)"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen: 6.53″ (16.58 cm)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen: 2748 × 1172"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 8.03″ (20.38 cm)"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 2480 × 2200"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Refresh Rate LTPO Adaptive Refresh Rate (1-120Hz)"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Type AMOLED"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Back Cover Material Glass fiber (Gray),  glass (White)"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "Built to withstand drops and accidents with 2nd-Gen Armor Glass."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold5",
+      "retrieved": "2026-09-13",
+      "quote": "USB USB 3.2 Gen1 ... Card Slot 2 nano SIMs"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.53 in, a:b = 2748:1172 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.vivo.com/en/products/param/x-fold5>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.vivo.com/en/products/param/x-fold5>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.03 in, a:b = 2480:2200 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.vivo.com/en/products/param/x-fold5>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.vivo.com/en/products/param/x-fold5>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Sourced from vivo's global English site (vivo.com/en). TRAP (c) per-colour dimensions AND mass: vivo publishes two full sets — Gray at 159.68 × 72.60 × 9.20 mm folded / 159.68 × 142.29 × 4.30 mm unfolded and 217 g, and White at 159.68 × 72.60 × 9.70 mm folded / 159.68 × 142.29 × 4.55 mm unfolded and 226 g. The recorded values are the GRAY (Titanium Gray) variant, which vivo lists first and which is the thinner/lighter of the two; the White variant is 0.50 mm thicker folded, 0.25 mm thicker unfolded and 9 g heavier, which matters for a CAD shell. The difference tracks the back material (glass fibre on Gray, glass on White). No hinge-side vs non-hinge-side split is published, so depth_at_hinge is null; height is identical in both states. DISPLAYS: vivo gives one Refresh Rate row, 'LTPO Adaptive Refresh Rate (1-120Hz)', and one Type row, 'AMOLED', both covering the two screens; refresh_hz is recorded as the 120 Hz maximum of that 1-120 Hz range for both. CREASE: vivo describes 'a rotating-sliding hinge' whose 'kinematic design reduces visible creases' but never names a crease profile (no teardrop/water-drop or U), so hinge.crease is null. FREE_STOP: unlike the X Fold3 Pro, the X Fold5 global pages contain no hover / free-angle / multi-angle claim at all, so hinge.free_stop is left null rather than carried over from the sibling model. No frame/mid-frame material is published, so materials.frame is null. Announce/release dates are not stated on either vivo global page, so both are null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: displays[1].panel = 'OLED'; displays[1].refresh_hz = 120; hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

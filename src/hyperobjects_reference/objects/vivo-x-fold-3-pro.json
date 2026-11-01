@@ -1,0 +1,192 @@
+{
+  "spec_version": 1,
+  "key": "vivo-x-fold-3-pro",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "vivo",
+  "model": "X Fold3 Pro",
+  "aliases": [
+    "X Fold3 Pro"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 72.55,
+        "height": 159.96,
+        "depth": 11.2
+      },
+      "open": {
+        "width": 142.4,
+        "height": 159.96,
+        "depth": 5.2
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 236,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.53,
+      "resolution_px": [
+        2748,
+        1172
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 152.6,
+        "height": 65.1,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.03,
+      "resolution_px": [
+        2480,
+        2200
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 152.6,
+        "height": 135.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "Glass fiber",
+    "cover_glass": "Armor Glass"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 159.96 mm × 72.55 mm × 11.20 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 159.96 mm × 142.40 mm × 5.20 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 236g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Size Main: 8.03 inchesCover: 6.53 inches"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Resolution Main: 2480 × 2200Cover: 2748 × 1172"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Refresh Rate Main: up to 120 HzCover: up to 120 Hz"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Type AMOLED"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Main: 8.03 inches ... Main: 2480 × 2200 ... Main: up to 120 Hz ... Type AMOLED"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Back Cover Material Glass fiber"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "Armor Glass has been recognized with SGS 5-Star Glass Drop Resistance Certification"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "it ensures smooth and stable opening and closing while hovering at a free angle"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.vivo.com/en/products/param/x-fold3-pro",
+      "retrieved": "2026-09-13",
+      "quote": "USB USB Type-C, USB 3.2 Gen2 ... Card Slot 2 nano SIMs"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.53 in, a:b = 2748:1172 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.vivo.com/en/products/param/x-fold3-pro>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.vivo.com/en/products/param/x-fold3-pro>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.03 in, a:b = 2480:2200 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://www.vivo.com/en/products/param/x-fold3-pro>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Sourced from vivo's global English site (vivo.com/en). vivo publishes a single folded/unfolded dimension pair with no per-colour or hinge-side split, so TRAPs (b) and (c) do not apply here and depth_at_hinge is null; height (159.96 mm) is identical in both states as vivo lists it. The parameter table concatenates the two screens on one line ('Main: 8.03 inchesCover: 6.53 inches'); Main is the inner display and Cover the outer, so displays[1] (inner) = 8.03 in / 2480 × 2200 and displays[0] (cover) = 6.53 in / 2748 × 1172. vivo gives one panel Type row, 'AMOLED', covering both screens. free_stop is true on vivo's explicit wording 'hovering at a free angle' for the Carbon Fiber Ultra-Durable Hinge. CREASE: vivo never names a crease profile (no teardrop/water-drop or U wording) for this model, so hinge.crease is null. MATERIALS: vivo's spec table gives only Back Cover Material (Glass fiber); the product page adds 'Armor Back Cover UPE Fiber + Glass Fiber' as marketing detail. No frame/mid-frame material is published, so materials.frame is null. cover_glass is vivo's 'Armor Glass' as named on the product page's screen-protection section. Announce/release dates are not stated on either vivo global page, so both are null (dates seen only on non-permitted secondary sites). || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

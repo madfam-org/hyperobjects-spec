@@ -1,0 +1,609 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/reference-object.schema.json",
+  "title": "Reference Object (a real product's published facts)",
+  "description": "One entry of the keystone's reference-objects catalog: the published facts about a real commercial object — a console, a handheld, a phone, a controller, a media format, a case, a carton, a booklet, an accessory — that a commons family cartridge turns into a named PRESET. Facts only: every non-null value is covered by a `sources[]` entry whose `field` is that value's path or an ancestor of it, and `null` means unresolved, never guessed. Never CAD, never artwork, never a likeness: the geometry is the family's, the numbers are the maker's. A covered list (`controls`, `ports`, `media`) is the source's complete list, so a kind it does not contain is a sourced absence. Which paths are covered, which tiers may cover a value, and whether a derived display area matches its formula are rules of `hyperobjects_reference`, not of this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec_version",
+    "key",
+    "kind",
+    "family",
+    "brand",
+    "model",
+    "status",
+    "dimensions_mm",
+    "sources"
+  ],
+  "properties": {
+    "spec_version": {
+      "const": 1
+    },
+    "key": {
+      "description": "Catalog key, the file stem, and the preset slug a generator writes.",
+      "$ref": "#/$defs/slug"
+    },
+    "kind": {
+      "description": "What the object is. A grouping for readers and generators, not a mating rule.",
+      "enum": [
+        "device",
+        "controller",
+        "media",
+        "case",
+        "carton",
+        "booklet",
+        "insert",
+        "accessory"
+      ]
+    },
+    "family": {
+      "description": "The commons family cartridge this object is a preset of (a solid or sheet commons slug), or null when no family exists for it yet.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/slug"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "brand": {
+      "$ref": "#/$defs/text"
+    },
+    "model": {
+      "$ref": "#/$defs/text"
+    },
+    "model_numbers": {
+      "description": "Maker's model or product codes (e.g. CTR-001, CFI-2016), as printed.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "uniqueItems": true
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "uniqueItems": true
+    },
+    "regions": {
+      "description": "Market regions the facts describe (JP, NA, EU, AU, KR, CN, global), when a region changes them.",
+      "type": "array",
+      "items": {
+        "enum": [
+          "JP",
+          "NA",
+          "EU",
+          "AU",
+          "KR",
+          "CN",
+          "global"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "description": "verified: the envelope and what the family needs are sourced; partial: something the family needs is null; unverified: no value is sourced at all.",
+      "enum": [
+        "verified",
+        "partial",
+        "unverified"
+      ]
+    },
+    "announced": {
+      "$ref": "#/$defs/nullableDate"
+    },
+    "released": {
+      "$ref": "#/$defs/nullableDate"
+    },
+    "external_ids": {
+      "description": "Neutral public identifiers a consumer may join on. Never a consumer's own key.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wikidata": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^Q[1-9][0-9]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "igdb_platform": {
+          "description": "An IGDB platform slug, when the object IS a platform (nds, 3ds, n64 …).",
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "dimensions_mm": {
+      "description": "Outside dimensions per named state (closed, open, horizontal, vertical, body …), with the axes LABELLED AS THE SOURCE LABELS THEM; the family's generator maps them onto its axes and says how in its README. `excludes_projections` records whether the source measured the body without sticks, feet and buttons (most makers' tables do).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "states": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/box"
+          }
+        },
+        "depth_at_hinge": {
+          "$ref": "#/$defs/nullableMm"
+        },
+        "corner_radius": {
+          "$ref": "#/$defs/nullableMm"
+        },
+        "excludes_projections": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "states"
+      ]
+    },
+    "mass_g": {
+      "$ref": "#/$defs/nullablePositive"
+    },
+    "displays": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/display"
+      }
+    },
+    "hinge": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/hinge"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "controls": {
+      "description": "The source's control list: kind and count. A covered list is complete.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/countedFeature"
+      }
+    },
+    "ports": {
+      "description": "The source's port list: kind (usb_c, headphone_3_5, hdmi, sim, microsd, de9, rf, multi_av …) and count. A covered list is complete.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/countedFeature"
+      }
+    },
+    "media": {
+      "description": "The object's media interfaces (cartridge_top, cartridge_front, card_slot, disc_lid, disc_tray, disc_slot …). A covered list is complete; an empty covered list is a sourced 'no media drive'.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/countedFeature"
+      }
+    },
+    "materials": {
+      "description": "Materials as the source words them, per part.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/text"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "features": {
+      "description": "Family-specific facts that have no home above (panel switch count, controller bays, page count, trim size …). Each is a number, a string, a boolean or null, and is sourced by its path like any other value.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/text"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "sources": {
+      "description": "Where every value came from. `field` is a path (`dimensions_mm.states.closed`, `displays[0]`, `features.page_count`); an entry covers that path and everything below it. An empty index (`displays[].panel`) covers that path in every item of the list.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "conflicts": {
+      "description": "Where sources disagree: every candidate, the one chosen and why. The object's value at `field` must equal the chosen candidate's.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 20000
+      }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
+    },
+    "nullableDate": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullableMm": {
+      "oneOf": [
+        {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullablePositive": {
+      "oneOf": [
+        {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "box": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "depth"
+      ],
+      "properties": {
+        "width": {
+          "$ref": "#/$defs/nullableMm"
+        },
+        "height": {
+          "$ref": "#/$defs/nullableMm"
+        },
+        "depth": {
+          "$ref": "#/$defs/nullableMm"
+        }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/text"
+        },
+        "diagonal_in": {
+          "$ref": "#/$defs/nullablePositive"
+        },
+        "resolution_px": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "aspect": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9.]+:[0-9.]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "panel": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refresh_hz": {
+          "$ref": "#/$defs/nullablePositive"
+        },
+        "active_area_mm": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "width",
+                "height",
+                "derived"
+              ],
+              "properties": {
+                "width": {
+                  "$ref": "#/$defs/nullableMm"
+                },
+                "height": {
+                  "$ref": "#/$defs/nullableMm"
+                },
+                "derived": {
+                  "type": "boolean"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "hinge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "axis": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_angle_deg": {
+          "oneOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 360
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "free_stop": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "crease": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "countedFeature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "count": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "tier",
+        "retrieved"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "pattern": "^[a-z_][a-z0-9_]*(\\[[0-9]*\\])*(\\.[a-z_][a-z0-9_]*(\\[[0-9]*\\])*)*$"
+        },
+        "tier": {
+          "description": "primary: the maker's own page, press release, manual or press kit. museum: a collection record that publishes the object's measurements. regulatory: a filing. derived: a computation over sourced inputs (`method` names it). measured: our own instrument on a specimen. secondary: locates a primary and covers NO value.",
+          "enum": [
+            "primary",
+            "museum",
+            "regulatory",
+            "derived",
+            "measured",
+            "secondary"
+          ]
+        },
+        "url": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieved": {
+          "description": "The day the source was read (or the specimen measured).",
+          "$ref": "#/$defs/date"
+        },
+        "quote": {
+          "description": "The line that carries the value, verbatim and short.",
+          "$ref": "#/$defs/text"
+        },
+        "method": {
+          "$ref": "#/$defs/text"
+        },
+        "instrument": {
+          "$ref": "#/$defs/text"
+        },
+        "resolution_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "specimen": {
+          "description": "Which physical unit was measured: model number, region, and a collection id. Never an owner's name.",
+          "$ref": "#/$defs/text"
+        },
+        "measurer_role": {
+          "description": "Who measured, as a role (owner, volunteer, curator). Never a person's name.",
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "candidates",
+        "chosen",
+        "reason"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidates": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "source"
+            ],
+            "properties": {
+              "value": {},
+              "source": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "chosen": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

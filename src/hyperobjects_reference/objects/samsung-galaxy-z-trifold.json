@@ -1,0 +1,202 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-trifold",
+  "kind": "device",
+  "family": "tri-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z TriFold",
+  "aliases": [
+    "SM-F968B",
+    "SM-F968BZKGXSG"
+  ],
+  "status": "verified",
+  "announced": "2025-12-02",
+  "released": "2025-12-12",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.0,
+        "height": 159.2,
+        "depth": 12.9
+      },
+      "open": {
+        "width": 214.1,
+        "height": 159.2,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 309,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 10.0,
+      "resolution_px": [
+        2160,
+        1584
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 204.8,
+        "height": 150.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 6.5,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": "21:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 151.8,
+        "height": 65.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "tri_fold",
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": "right"
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Advanced Armor Aluminum (titanium hinge housing)",
+    "back": "Ceramic-Glass Fiber Reinforced Polymer",
+    "cover_glass": "Corning Gorilla Glass Ceramic 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Folded (HxWxD) 159.2 x 75.0 x 12.9 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded (HxWxD) 159.2 x 214.1 x 3.9 mm … / 4.2 mm (center screen) / 4.0 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 309 g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 10.0-inch QXGA+ Dynamic AMOLED 2X (2160 x 1584), 269 ppi … 120 Hz adaptive refresh rate"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Screen 6.5-inch FHD+ Dynamic AMOLED 2X (2520 x 1080, 21:9), 422 ppi … 120 Hz adaptive refresh rate"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Glass/Metal Cover Corning® Gorilla® Glass Ceramic 2"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Back Ceramic-Glass Fiber Reinforced Polymer"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Frame Titanium Hinge Housing and Advanced Armor Aluminum Frame"
+    },
+    {
+      "field": "hinge.type",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Samsung refined the Armor FlexHinge … Two differently sized hinges with a dual-rail structure"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Sensors Capacitive fingerprint sensor (side)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "Korea on December 2, 2025 … Samsung Electronics today announced the launch of Galaxy Z TriFold"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation",
+      "retrieved": "2026-09-13",
+      "quote": "expected to be available for purchase in Korea on Dec. 12, 2025"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.samsung.com/sg/smartphones/galaxy-z/galaxy-z-trifold-crafted-black-512gb-sm-f968bzkgxsp/",
+      "retrieved": "2026-09-13",
+      "quote": "USB Interface USB Type-C … USB Version USB 3.2 Gen 1"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 10.0 in, a:b = 2160:1584 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.5 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/introducing-galaxy-z-trifold-the-shape-of-whats-next-in-mobile-innovation>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "THIS PRODUCT IS REAL AND SHIPPING as of 2026-09-13 - see the prose determination accompanying this array for the Samsung URLs read. Primary figures are from Samsung's own global newsroom press release, which carries the full 'Galaxy Z TriFold' spec table; they were cross-checked identically against two samsung.com regional product spec pages (Singapore SM-F968BZKGXSP and Gulf SM-F968BZKGXSG). The samsung.com/us product page is narrative and carries no consolidated spec table, and https://www.samsung.com/us/smartphones/galaxy-z-trifold/specs/ returns HTTP 404 - hence the regional pages, noted per SPEC. WHY open.depth IS NULL: Samsung publishes a per-panel thickness breakdown for the unfolded state, verbatim 'Unfolded (HxWxD) 159.2 x 214.1 x 3.9 mm (screen with the SIM tray) / 4.2 mm (center screen) / 4.0 mm (screen with the side button)' (the samsung.com regional pages render the same thing as the range '3.9-4.2'); choosing one of the three would be an inference, so depth is null and Samsung's string is preserved here. The folded state has a single stated depth (12.9 mm) so that one is recorded. Samsung writes 'Dynamic AMOLED 2X'; recorded as OLED per the SPEC enum. Main screen 10.0 in full rectangle / 9.9 in accounting for rounded corners; cover screen 6.5 in both ways. 1600 nits peak on the main screen, 2600 nits on the cover. resolution_px preserves Samsung's own ordering. RELEASED-DATE CAVEAT: Samsung's wording is 'expected to be available for purchase in Korea on Dec. 12, 2025', i.e. forward-looking at the time of writing; Samsung's US newsroom separately headlines 'The Highly Anticipated Samsung Galaxy Z TriFold is Available in U.S.' with a Jan 30 slug (https://news.samsung.com/us/highly-anticipated-samsung-galaxy-z-trifold-available-u-s-jan-30/, US availability 2026-01-30) - that page timed out on repeated fetches so the US date is not recorded in a field. hinge.max_angle_deg, free_stop and crease are not published by Samsung - null. Colors: Crafted Black. Battery 5,600 mAh three-cell (rated 5437 mAh). IP48. 16 GB RAM with 512 GB or 1 TB storage; no microSD. hinge.axis is NULL on purpose: no manufacturer page states a hinge/fold axis. It is unambiguous from the OEM's own dimension rows (the height stays constant while the width changes between states, so the hinge line runs along the long edge), but deriving it would breach the SPEC rule that active_area_mm is the only derived field."
+  ]
+}

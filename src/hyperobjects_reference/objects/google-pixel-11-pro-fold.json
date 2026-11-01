@@ -1,0 +1,182 @@
+{
+  "spec_version": 1,
+  "key": "google-pixel-11-pro-fold",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Google",
+  "model": "Pixel 11 Pro Fold",
+  "status": "verified",
+  "announced": "2026-08-12",
+  "released": "2026-08-20",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 76,
+        "height": 155.2,
+        "depth": 10.1
+      },
+      "open": {
+        "width": 150.4,
+        "height": 155.2,
+        "depth": 5
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 239,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.5,
+      "resolution_px": [
+        1080,
+        2342
+      ],
+      "aspect": "19.5:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 69.1,
+        "height": 149.9,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.0,
+      "resolution_px": [
+        2076,
+        2152
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 141.1,
+        "height": 146.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Satin-finish spacecraft-grade aluminum",
+    "back": "Ultra-durable composite matte back",
+    "cover_glass": "Ultra-durable glass ceramic"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Folded : 155.2 mm (height) x 76 mm (width) x 10.1 mm (depth)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded : 155.2 mm (height) x 150.4 mm (width) x 5 mm (depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "239 g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_11_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "6.5-inch Super Actua display 19.5:9 aspect ratio 1080 x 2342 OLED at 399 PPI"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_11_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "8-inch Super Actua Flex display 2076 x 2152 OLED at 372 PPI"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (1–120 Hz)"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Ultra-durable composite matte back with satin-finish spacecraft-grade aluminum frame"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Ultra-durable glass ceramic cover glass"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_11_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Buttons and ports USB Type-C 3.2 Power button Volume controls"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/pixel-11-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "Google's most sophisticated foldable: Pixel 11 Pro Fold Aug 12, 2026"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/pixel-11-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "available for pre-order today and hits shelves on August 20"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.5 in, a:b = 1080:2342 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://store.google.com/us/product/pixel_11_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.0 in, a:b = 2076:2152 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://store.google.com/us/product/pixel_11_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "NEWEST Google foldable as of 2026-09-13 -- announced 2026-08-12, on sale 2026-08-20; it supersedes the Pixel 10 Pro Fold, which is still buyable on store.google.com but no longer the current model. URL TRAP: the locale-less store.google.com/product/pixel_11_pro_fold_specs renders client-side and yields no spec text; the /gb/ and /us/ locale paths return the full spec table to a plain curl. Dimensions and mass come from the en-GB page, which prints native MILLIMETRES; display diagonals come from the en-US page, which prints inches ('6.5-inch', '8-inch') -- the en-GB page gives only rounded inches for dimensions (6.1 x 3 x 0.4 in / 8.4 oz), so NO conversion was performed in either direction. Google states a new 'gearless hinge' with 'improved crease performance, thanks to the new hinge's larger bend radius' -- that is crease PERFORMANCE, not crease SHAPE, so crease is null. No free-stop claim -> null. blog.google adds that the back cover is a glass fibre composite 'designed to be nearly impossible to crack'; the spec page's own wording ('Ultra-durable composite matte back') is what is recorded in materials.back. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

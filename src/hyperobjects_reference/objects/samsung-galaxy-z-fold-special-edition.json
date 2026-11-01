@@ -1,0 +1,125 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-fold-special-edition",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Fold Special Edition",
+  "aliases": [
+    "갤럭시 Z 폴드 스페셜 에디션",
+    "SM-F958N",
+    "Galaxy W25 (China)"
+  ],
+  "status": "partial",
+  "announced": "2024-10-21",
+  "released": "2024-10-25",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": 10.6
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 236,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.5,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.0,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "10.6mm의 두께와 236g의 무게는 ‘갤럭시 Z 폴드6’와 비교했을 때 1.5mm 얇고 3g이 가벼다."
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "10.6mm의 두께와 236g의 무게"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "메인 스크린은 20:18 비율의 203.1mm(8.0형) 디스플레이가 적용돼"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "커버 스크린의 경우 21:9의 비율의 164.8mm(6.5형) 디스플레이가 적용돼"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "2024/10/21"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-%EA%B0%A4%EB%9F%AD%EC%8B%9C-z-%ED%8F%B4%EB%93%9C-%EC%8A%A4%ED%8E%98%EC%85%9C-%EC%97%90%EB%94%94%EC%85%98-%EA%B5%AD%EB%82%B4-%EC%B6%9C%EC%8B%9C-2",
+      "retrieved": "2026-09-13",
+      "quote": "‘갤럭시 Z 폴드 스페셜 에디션(Galaxy Z Fold Special Edition)’을 25일 국내 출시한다."
+    }
+  ],
+  "notes": [
+    "Korea/China-only model; samsung.com DOES list it (Korean product page https://www.samsung.com/sec/smartphones/galaxy-z-fold6-se-f958/SM-F958NZKAKOO/ ) but that page's spec table is rendered client-side and returned no spec text to curl, so the values here come from the Samsung Newsroom Korea launch press release, which is primary but gives only THICKNESS and WEIGHT -- no folded/unfolded height or width, no unfolded thickness, no resolutions, no panel type, no refresh rate. Those are all null rather than borrowed from the Z Fold6. Translations: '10.6mm의 두께와 236g의 무게' = 'a thickness of 10.6mm and a weight of 236g'; '메인 스크린은 20:18 비율의 203.1mm(8.0형)' = 'the main screen is a 20:18 ratio 203.1mm (8.0-inch) display'; '커버 스크린 ... 21:9의 비율의 164.8mm(6.5형)' = 'the cover screen is a 21:9 ratio 164.8mm (6.5-inch) display'; '25일 국내 출시한다' = 'launches domestically on the 25th' (of October 2024). The 10.6mm is stated as 'the thickness' with no hinge/sagging pair -> depth_at_hinge null. Widely reported full dimensions (e.g. 142.6 x 157.9 x 5.6 mm) appear only on GSMArena-class sites and are NOT recorded here. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: displays[0].aspect = '21:9'; displays[1].aspect = '20:18'; hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

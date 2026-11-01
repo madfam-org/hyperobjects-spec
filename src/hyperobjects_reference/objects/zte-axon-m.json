@@ -1,0 +1,161 @@
+{
+  "spec_version": 1,
+  "key": "zte-axon-m",
+  "kind": "device",
+  "family": "dual-screen-hinge-phone",
+  "brand": "ZTE",
+  "model": "Axon M",
+  "aliases": [
+    "中兴天机Axon M",
+    "Z999"
+  ],
+  "status": "verified",
+  "announced": "2017-10-17",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 71.6,
+        "height": 150.9,
+        "depth": 12.2
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 230,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 5.2,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 115.1,
+        "height": 64.8,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 5.2,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 115.1,
+        "height": 64.8,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180412164722id_/http://www.ztedevices.com/en/product/smart-phone/axonm",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions 5.94*2.82*0.48\""
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180412164722id_/http://www.ztedevices.com/en/product/smart-phone/axonm",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 8.1 oz."
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180412164722id_/http://www.ztedevices.com/en/product/smart-phone/axonm",
+      "retrieved": "2026-09-13",
+      "quote": "Fingerprint Yes"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180426020848id_/http://www.ztedevices.com/cn/product/smart-phone/axon_m",
+      "retrieved": "2026-09-13",
+      "quote": "双 5.2’屏幕 FHD 1920 x 1080 双屏展开后约.6.75’"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180426020848id_/http://www.ztedevices.com/cn/product/smart-phone/axon_m",
+      "retrieved": "2026-09-13",
+      "quote": "3.5mm Earphone Jack, Type-C with USB2.0, micro SD"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.zte.com.cn/global/topics/mwc2018/newsdetail.aspx-id=121708858.html",
+      "retrieved": "2026-09-13",
+      "quote": "17 October 2017, Shanghai, China … announcement for the upcoming launch of the revolutionary ZTE Axon M"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 5.2 in, a:b = 1920:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://web.archive.org/web/20180426020848id_/http://www.ztedevices.com/cn/product/smart-phone/axon_m>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 5.2 in, a:b = 1920:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://web.archive.org/web/20180426020848id_/http://www.ztedevices.com/cn/product/smart-phone/axon_m>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "ztedevices.com is dead for this model; both spec pages were read via web.archive.org snapshots OF THE ZTE URL - global English product page snapshot 2018-04-12, China product page snapshot 2018-04-26. CONFLICT BETWEEN TWO ZTE PAGES: the global English page states inches only, 'Dimensions 5.94*2.82*0.48\"' (x25.4 = 150.876 / 71.628 / 12.192 mm, recorded as 150.9 / 71.6 / 12.2); the ZTE China page states millimetres natively as '尺寸 150.8*68.9*12.1 mm'. Height and depth agree to ~0.1 mm but the WIDTH differs by 2.7 mm (71.6 vs 68.9). The global page's values are recorded here per the SPEC's prefer-global rule; the China figures are reproduced verbatim above and should be treated as a genuine unresolved OEM discrepancy (the China SKU is 6GB/128GB vs 4GB/64GB globally). Mass: ZTE states '8.1 oz.' only; 8.1 x 28.349523125 = 229.63 g, recorded as 230 g (no significant figures added). ZTE never publishes an unfolded/open dimension - open left entirely null. The global page's display row reads only 'Display 2.5D, PPI 426' with no size or resolution, so the display figures come from the ZTE China page: dual 5.2\" FHD 1920x1080 panels, combined approx 6.75\" when unfolded. resolution_px preserves ZTE's own ordering (1920 x 1080). Panel technology is never stated by ZTE - left null (do NOT fill 'IPS LCD' from GSMArena). hinge.type left null: ZTE publishes no hinge angle, free-stop or mechanism spec anywhere I could reach - ZTE's Italian newsroom calls it only a 'smartphone pieghevole dual screen'. . released left null: ZTE publishes no retail date on any zte.com.cn / ztedevices.com page I could reach - the AT&T pre-order (Nov 1 2017) and in-store (Nov 17 2017) dates are carrier/press dates, not manufacturer, and are excluded per SPEC. The zte.com.cn MWC2018 press release is the only ZTE-domain page that dates the announcement. hinge.axis is NULL on purpose: no manufacturer page states a hinge/fold axis. It is unambiguous from the OEM's own dimension rows (the height stays constant while the width changes between states, so the hinge line runs along the long edge), but deriving it would breach the SPEC rule that active_area_mm is the only derived field."
+  ]
+}

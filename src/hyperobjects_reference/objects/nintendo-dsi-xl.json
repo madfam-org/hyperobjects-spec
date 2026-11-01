@@ -1,0 +1,151 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-dsi-xl",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo DSi XL",
+  "aliases": [
+    "UTL-001",
+    "ニンテンドーDSi LL",
+    "Nintendo DSi LL"
+  ],
+  "status": "partial",
+  "announced": "2009-10-29",
+  "released": "2009-11-21",
+  "external_ids": {
+    "igdb_platform": "nintendo-dsi"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 91.4,
+        "height": 161.0,
+        "depth": 21.2
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 314,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.2,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 4.2,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/dsiLL/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "横 161.0mm 縦 91.4mm 厚さ 21.2mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/dsiLL/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "約314g（バッテリーパック・タッチペン含む）"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/dsiLL/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "4.2型 透過型TFTカラー液晶（26万色表示可能）"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2009/091029.html",
+      "retrieved": "2026-09-13",
+      "quote": "4.2インチ×2画面の ニンテンドーDSi LL"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20100806173951/http://www.nintendo.com/ds/systems/compare",
+      "retrieved": "2026-09-13",
+      "quote": "4.2 inches (diagonal), Approximately 314 grams (11.08 ounces)."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/dsiLL/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "DSカードスロット SDメモリーカードスロット ACアダプタ接続端子 ステレオヘッドホン／マイク接続端子"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2009/091029.html",
+      "retrieved": "2026-09-13",
+      "quote": "画面と本体を大きくした「LLサイズのニンテンドーDSi」"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2009/091029.html",
+      "retrieved": "2026-09-13",
+      "quote": "2009年11月21日（土曜日）にメーカー希望小売価格20,000円（消費税込）で発売する"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2009/091029.html",
+      "retrieved": "2026-09-13",
+      "quote": "ニュースリリース : 2009年10月29日 DSiが広視野角・大画面に！ ニンテンドーDSi LL"
+    }
+  ],
+  "notes": [
+    "Japan-market pages (nintendo.co.jp), model UTL-001; sold as ニンテンドーDSi LL in Japan (alias recorded). status=partial ONLY because pixel resolution is missing. RESOLUTION NOT PUBLISHED: Nintendo gives 4.2型/4.2インチ and the panel type but no pixel count on the JP DSi LL spec page, the 2009-10-29 announcement release, or Nintendo of America's archived comparison page. 256x192 appears only on non-acceptable sources, so resolution_px, aspect and active_area_mm are null per THE RULE. Axis mapping: Nintendo lists 横161.0mm / 縦91.4mm / 厚さ21.2mm; height=横161.0 (long axis), width=縦91.4, depth=厚さ21.2 — Nintendo's own label for the long axis is 'width'. Closed/folded state; open state not published. CORROBORATION: mass and diagonal are independently confirmed in English by Nintendo of America's own DS systems comparison page via web.archive.org snapshot dated 2010-08-06 of http://www.nintendo.com/ds/systems/compare ('4.2 inches (diagonal), Approximately 314 grams (11.08 ounces).') — an archived manufacturer URL, still primary per SPEC. HINGE.TYPE IS THE WEAKEST CLAIM IN THIS ENTRY: no Nintendo page located states the folding form factor for the DSi LL — unlike every other folding model here, its size row is headed plainly 本体サイズ with NO （折りたたみ時）'when folded' qualifier, and neither the JP spec page, the JP product pages, the announcement release nor the archived NOA page uses folding/clamshell wording. hinge.type=clamshell therefore rests on a two-step chain: Nintendo's announcement describes the product as 画面と本体を大きくした「LLサイズのニンテンドーDSi」 ('an LL-size Nintendo DSi with the screen and body enlarged'), and the DSi's own spec table IS headed 本体サイズ（折りたたみ時）. That is an inference from Nintendo statements, not a quoted spec line; treat hinge.type here as lower-confidence than the dimensions and mass. hinge.axis likewise. The source page is the three-way ニンテンドーDS Lite/DSi/DSi LL comparison; the announcement release also notes two styluses, the housed one 約96.00mm and a longer 129.3mm pen. controls[] left empty: the spec page does not enumerate the control set. ports: DS card slot and FULL-SIZE SD memory card slot omitted (the SD slot is not microSD and no enum kind fits); Nintendo does not state the headphone jack's 3.5 mm diameter. announced = date of Nintendo's own announcement release; released = Japan launch; North American launch (2010) not sourced from a Nintendo page, left out. refresh_hz, materials, corner_radius, depth_at_hinge: not published, null. hinge.axis='long' from clamshell geometry, not a quoted line."
+  ]
+}

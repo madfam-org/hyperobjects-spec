@@ -1,0 +1,165 @@
+{
+  "spec_version": 1,
+  "key": "kyocera-echo",
+  "kind": "device",
+  "family": "dual-screen-hinge-phone",
+  "brand": "Kyocera",
+  "model": "Echo",
+  "aliases": [
+    "KYOCERA Echo",
+    "M9300"
+  ],
+  "status": "verified",
+  "announced": "2011-02-07",
+  "released": "2011-04-17",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 56.5,
+        "height": 115.0,
+        "depth": 17.2
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 193,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.5,
+      "resolution_px": [
+        800,
+        480
+      ],
+      "aspect": null,
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 76.2,
+        "height": 45.7,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.5,
+      "resolution_px": [
+        800,
+        480
+      ],
+      "aspect": null,
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 76.2,
+        "height": 45.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Size: 4.5 x 2.2 x 0.7 in (115.0 x 56.5 x 17.2 mm)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Weight: 6.8 ounces (193 grams)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Screen Resolution: 800 X 480 pixels, WVGA 262K-color TFT (x2)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dual 3.5\" WVGA touchscreen displays combine to form a 4.7\" display"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "WVGA 262K-color TFT (x2)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "3.5mm stereo headset jack … Expandable memory: 8GB microSD card included; supports cards up to 32GB"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://americas.kyocera.com/press-releases/press-releases_201503232609.htm",
+      "retrieved": "2026-09-13",
+      "quote": "February 07, 2011"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://americas.kyocera.com/press-releases/press-releases_201503232630.htm",
+      "retrieved": "2026-09-13",
+      "quote": "Kyocera Echo is available on April 17, exclusively from Sprint"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.5 in, a:b = 800:480 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.5 in, a:b = 800:480 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://web.archive.org/web/20110428111010id_/http://www.echobykyocera.com/support/downloads/Echo_Spec_Sheet.pdf>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Dimensions and mass come from Kyocera's OWN spec sheet PDF (Echo_Spec_Sheet.pdf, footer '©2011 Kyocera Communications Inc. (KCI), San Diego California, USA', dated 3/11), retrieved via web.archive.org snapshot 2011-04-28 of the Kyocera-operated microsite echobykyocera.com - PRIMARY, not the Sprint carrier release. Kyocera states both inches and millimetres; the millimetre values are Kyocera's own, so no conversion was needed. The two Kyocera Americas press releases supply the announce and availability dates; the Feb 7 2011 release says only 'available this spring' - the exact April 17 date comes from Kyocera's March 21 2011 developer-program release. Kyocera never publishes an open/unfolded dimension - open left entirely null; the closed figure is the phone with the second display stowed under the first. Kyocera states 'WVGA 262K-color TFT (x2)' - TFT recorded as LCD per the SPEC enum. Combined display is 4.7\" diagonal (Kyocera's 'Tablet Mode'); not recorded as a third physical display. hinge.type left null: Kyocera calls it a 'Unique, patent-pending, pivot hinge' and adds 'Kyocera used a Super Copper Alloy and advanced structural analysis to create a three-dimensional hinge design so unique it has six patents pending' - there is no matching value in the SPEC enum and Kyocera publishes no angle. Processor 1GHz Snapdragon (QSD8650); two 1370 mAh Li-Ion batteries shipped in box. hinge.axis is NULL on purpose: Kyocera states no axis. Its pivot hinge slides the lower display out and up so the two screens end up stacked along the long axis, but that is a reading of Kyocera's product photos, not a published value."
+  ]
+}

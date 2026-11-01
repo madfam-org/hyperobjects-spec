@@ -1,0 +1,174 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-3ds",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo 3DS",
+  "aliases": [
+    "CTR-001"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2011-02-26",
+  "external_ids": {
+    "igdb_platform": "3ds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74,
+        "height": 134,
+        "depth": 21
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 235,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.53,
+      "resolution_px": [
+        800,
+        240
+      ],
+      "aspect": "10:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 76.8,
+        "height": 46.08,
+        "derived": false
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.02,
+      "resolution_px": [
+        320,
+        240
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": false
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "サイズ 縦74mm×横134mm×厚さ21mm（折りたたみ時）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "質量 約235g（バッテリーパック・タッチペン・SDカードを含む）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "裸眼立体視機能付きワイド液晶 3.53型（横76.8mm×縦46.08mm）/ 横800ドット×縦240ドット"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "タッチ入力機能付き液晶 3.02型（横61.44mm×縦46.08mm）/ 横320ドット×縦240ドット"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "A/B/X/Yボタン、十字ボタン、L/Rボタン、START/SELECTボタン スライドパッド(360度のアナログ入力可能) タッチスクリーン"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "ゲームカードスロット SDカードスロット 充電端子 ACアダプター接続端子 ヘッドホン接続端子（ステレオ出力）"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "縦74mm×横134mm×厚さ21mm（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/3ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "発売日 2011年2月26日"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model CTR-001. Axis mapping: Nintendo lists 縦74mm×横134mm×厚さ21mm; height=横134 (long axis), width=縦74, depth=厚さ21 — Nintendo's own label for the long axis is 'width' (横). Closed/folded state as stated (折りたたみ時), which is also the source for hinge.type=clamshell; open state not published, left null. Nintendo gives these three figures as whole millimetres, so no extra precision has been added. TOP SCREEN / AUTOSTEREOSCOPIC 3D: recorded literally as Nintendo states it — 横800ドット×縦240ドット, i.e. [800,240], aspect 10:3. Nintendo's own gloss on the same line: 横800ドットを左目用・右目用にそれぞれ400ドット割り当てることで立体表現が可能 ('the 800 horizontal dots are allocated 400 each to the left and right eye, enabling stereoscopic display'), so the per-eye image is 400x240 (5:3) and the panel is a parallax-barrier autostereoscopic 裸眼立体視 wide LCD. The 800x240 figure is the panel's real dot count, not a marketing doubling. ACTIVE AREA IS PUBLISHED, NOT DERIVED: Nintendo prints the active area in millimetres inline with each diagonal (横76.8mm×縦46.08mm top, 横61.44mm×縦46.08mm bottom), so active_area_mm is quoted, and 'derived' is set FALSE here deliberately — marking published values as derived would misreport their provenance. Both displays are LCD; the bottom adds touch input. aspect strings are the exact reduction of the sourced resolutions, not an independent measurement. refresh_hz, materials, corner_radius, depth_at_hinge: not published, null. controls[].position null — Nintendo lists the controls but not their placement; the 3D depth slider (3Dボリューム), HOME button, wireless switch and power button are listed by Nintendo under その他入力 and have no matching enum kind. ports: game card slot, FULL-SIZE SD card slot, charging terminal and AC adapter connector are omitted (no matching enum kind; the SD slot is not microSD); Nintendo does not state the headphone jack's 3.5 mm diameter. released = Japan launch; other regions not sourced from a Nintendo page. announced: no Nintendo announcement release fetched, left null."
+  ]
+}

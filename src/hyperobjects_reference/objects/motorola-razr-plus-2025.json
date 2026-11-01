@@ -1,0 +1,212 @@
+{
+  "spec_version": 1,
+  "key": "motorola-razr-plus-2025",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Motorola",
+  "model": "Razr+ (2025)",
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.99,
+        "height": 88.09,
+        "depth": 15.32
+      },
+      "open": {
+        "width": 73.99,
+        "height": 171.42,
+        "depth": 7.09
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 189,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.9,
+      "resolution_px": [
+        1080,
+        2640
+      ],
+      "aspect": "22:9",
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 66.4,
+        "height": 162.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 4.0,
+      "resolution_px": [
+        1272,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 77.4,
+        "height": 65.8,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": null,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "Leather-inspired/Velvet-inspired finish",
+    "cover_glass": "Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 73.99 x 171.42 x 7.09 mm Closed: 73.99 x 88.09 x 15.32 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 189g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: 6.9\"\" FHD+ pOLED display External display: 4.0\"\" pOLED display"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: 6.9\"\" FHD+ pOLED display External display: 4.0\"\" pOLED display"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: FHD+ (2640 x 1080) | 413ppi External display: 1272 x 1080 | 417ppi"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: FHD+ (2640 x 1080) | 413ppi External display: 1272 x 1080 | 417ppi"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: LTPO Foldable AMOLED HDR10+ 10-bit"
+    },
+    {
+      "field": "displays[1].panel",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "External display: LTPS Flexible AMOLED HDR10+ 10-bit"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Up to 165Hz refresh rate19 Touch rate: 220Hz/300Hz (game mode only) Peak Brightness: 3000nit"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Up to 165Hz refresh rate Touch rate: 120Hz/165Hz (game mode only) Peak Brightness: 2400nit"
+    },
+    {
+      "field": "displays[0].aspect",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Aspect Ratio Main display: 22:9"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Rear: Leather-inspired/Velvet-inspired finish"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Front: Corning® GorillaTM Glass Victus"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Ports Type-C port (USB 2.0)"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025",
+      "retrieved": "2026-09-13",
+      "quote": "Side fingerprint reader | Face Unlock"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.9 in, a:b = 1080:2640 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.0 in, a:b = 1272:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://en-us.support.motorola.com/app/answers/detail/a_id/187130/~/specifications---motorola-razr-+-2025>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "CONFIRMED TO EXIST as a distinct physical device: Motorola Support US publishes a dedicated 'Specifications - motorola razr + 2025' page (a_id 187130) whose numbers differ from every other razr here (4,000 mAh battery, Snapdragon 8s Gen 3). NO EU/GLOBAL NAME FOUND: there is no 'Razr 60 Pro' and no 'Razr 60 Plus'. Motorola's own global launch release of 2025-04-24 announces only two devices with paired naming ('razr 60 ultra/razr ultra' and 'razr 60/razr'), and motorola.com/gb's razr family page (https://www.motorola.com/gb/en/family/moto-razr) lists Razr 60, Razr 60 Ultra, Razr 70 and Razr Fold but no 2025 'plus' model, so aliases is deliberately empty and the model appears to be North America only. NAMING CAVEAT: that same 2025 press release twice writes 'razr 60 ultra/razr+' in its sustainability paragraph, which contradicts its own title and its six other uses of 'razr 60 ultra/razr ultra'; footnote 16 of the release ('Compared with the predecessor motorola razr 50 ultra /motorola razr+') shows this is stale text carried over from the 2024 generation, where razr 50 ultra WAS the razr+. announced and released are null: the accessible Motorola press release does not announce or date this model, and its availability section covers only razr ultra and razr. A Motorola North America release titled 'Motorola announces next-gen motorola razr family in North America, introducing ai-powered flip phones across three tiers' exists on prnewswire.com, which is outside the accepted primary domains, so no date was taken from it. Dimensions are printed unlabelled and width-first; mapped as width 73.99 / height 171.42 open, 88.09 closed, matching the labelled 'H x W x D' ordering Motorola uses on its 2026 pages. Display resolutions recorded [width, height] for the main panel (Motorola writes '2640 x 1080'); the cover pair '1272 x 1080' is kept in Motorola's own order because no orientation is stated. hinge.free_stop left null: 'Flex View' appears nowhere on this model's Motorola pages and the 2025 press release that mentions Flex View does not cover this device. materials.frame null: no titanium/hinge material statement on this model's page. crease null - never stated. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

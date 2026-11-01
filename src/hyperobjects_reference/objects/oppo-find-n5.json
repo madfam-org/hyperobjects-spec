@@ -1,0 +1,186 @@
+{
+  "spec_version": 1,
+  "key": "oppo-find-n5",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "OPPO",
+  "model": "Find N5",
+  "aliases": [
+    "CPH2671",
+    "PKH110"
+  ],
+  "status": "verified",
+  "announced": "2025-02-20",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74.42,
+        "height": 160.87,
+        "depth": 8.93
+      },
+      "open": {
+        "width": 146.58,
+        "height": 160.87,
+        "depth": 4.21
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 229,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.62,
+      "resolution_px": [
+        2616,
+        1140
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 154.1,
+        "height": 67.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "aircraft-grade 7-series aluminium alloy",
+    "back": "composite glass fibre",
+    "cover_glass": "Ultra-Thin Nanocrystal Glass (cover screen); PET + UTG (inner screen)"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Height Fold: about 160.87mm Width Fold: about 74.42mm Thickness Fold: about 8.93mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Open: about 160.87mm ... Open: about 146.58mm ... Open: about 4.21mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Weight about 229g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: 8.12 inches (diagonal) Cover screen: 6.62 inches (diagonal)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: QXGA+ 2480 x 2248 Pixels Cover screen: FHD+ 2616 x 1140 Pixels"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Panel Inner screen: AMOLED Cover screen: AMOLED"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Refresh Rate Maximum: 120Hz"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Glasses Inner screen: Cover glass (PET + UTG) Cover screen: Ultra-Thin Nanocrystal Glass"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/",
+      "retrieved": "2026-09-13",
+      "quote": "Shielded Aluminium Alloy Frame Crafted from aircraft-grade 7-series Aluminium Alloy"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n5/",
+      "retrieved": "2026-09-13",
+      "quote": "超薄天穹复合纤维 后盖复合玻璃纤维材料，约 50% 的厚度减薄"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/",
+      "retrieved": "2026-09-13",
+      "quote": "Explore unlimited angles and embrace hands-free enjoyment."
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/newsroom/press/find-n5-global-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "February 20, 2025, SINGAPORE ... today announced the global availability of its Find N5"
+    },
+    {
+      "field": "aliases",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "OPPO Find N5 入网型号：PKH110"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "USB Interface USB Type-C, USB 3.1 Gen 2 ... SIM Card Type Nano-SIM card/Nano-USIM card"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.62 in, a:b = 2616:1140 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.oppo.com/en/smartphones/series-find-n/find-n5/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "NAMING: same 'Find N5' name globally and in China; model codes CPH2671 (global) and 入网型号 PKH110 (China), both in aliases. Recorded dimensions and mass are the GLOBAL page values, which cover the two globally sold colours (Cosmic Black, Misty White). TRAP (c) — IMPORTANT DIVERGENCE: oppo.com/cn lists a third, thicker colour that the global page does not: 厚 展开：约 4.36 毫米（暮紫），约 4.21 毫米（玉白，缎黑）/ 折叠：约 9.35 毫米（暮紫），约 8.93 毫米（玉白，缎黑）, 重量 约 234 克（暮紫）约 229 克（玉白，缎黑） — i.e. the Dusk Purple (暮紫) variant is 9.35 mm folded / 4.36 mm unfolded and 234 g, versus 8.93 / 4.21 / 229 for Jade White (玉白) and Satin Black (缎黑). A CAD shell built to 8.93 mm will NOT fit the Dusk Purple unit. OPPO publishes a single folded thickness with no hinge-side vs non-hinge-side split, so depth_at_hinge is null; height is identical folded and open. All OPPO figures are prefixed 'about' / 约 — the manufacturer's own precision is kept. CREASE: OPPO names the hinge 'Titanium Alloy Flexion Hinge' (钛合金天穹铰链) and cites a 'TÜV Rheinland Minimised Crease Certification' / 无感折痕认证, but never states a teardrop/water-drop or U crease profile, so hinge.crease is null. free_stop is true on the FlexForm camera's documented multi-angle, hands-free use. MATERIALS: frame from the global page's aircraft-grade 7-series aluminium alloy claim; back from the Chinese page's 后盖复合玻璃纤维材料 (back cover uses composite glass fibre material, translation of the quoted line) — the global page has no back-material statement, so the CN page is cited for it. RELEASED: the press release announces global availability on 2025-02-20 but states no separate on-sale date, so released is left null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: displays[1].diagonal_in = 8.12; displays[1].resolution_px = [2480, 2248]; displays[1].panel = 'OLED'; displays[1].refresh_hz = 120; hinge.type = 'book'; hinge.axis = 'long'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: displays[1] = {\"role\": \"inner\", \"diagonal_in\": null, \"resolution_px\": null, \"aspect\": null, \"panel\": null, \"refresh_hz\": null, \"active_area_mm\": {\"width\": null, \"height\": null, \"derived\": true}}."
+  ]
+}

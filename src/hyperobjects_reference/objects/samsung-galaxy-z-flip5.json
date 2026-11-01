@@ -1,0 +1,177 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-flip5",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Flip5",
+  "aliases": [
+    "SM-F731B"
+  ],
+  "status": "verified",
+  "announced": "2023-07-26",
+  "released": "2023-08-11",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 71.9,
+        "height": 85.1,
+        "depth": 15.1
+      },
+      "open": {
+        "width": 71.9,
+        "height": 165.1,
+        "depth": 6.9
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 187,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.7,
+      "resolution_px": [
+        2640,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 157.5,
+        "height": 64.4,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 3.4,
+      "resolution_px": [
+        720,
+        748
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 59.9,
+        "height": 62.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Armor Aluminum",
+    "back": "Corning Gorilla Glass Victus 2",
+    "cover_glass": "Corning Gorilla Glass Victus 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 71.9 x 85.1 x 15.1mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 71.9 x 165.1 x 6.9mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 187g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 6.7-inch FHD+ Dynamic AMOLED 2X 120Hz Adaptive refresh rate (1~120Hz) Infinity Flex Display (2640 x 1080, 22:9)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Screen 3.4-inch Super AMOLED 60Hz Display 720 x 748 306 PPI"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Armor Aluminum frames and Corning Gorilla Glass Victus 2 applied to both the Flex Window and back cover"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Armor Aluminum frames and Corning Gorilla Glass Victus 2 applied to both the Flex Window and back cover"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Flex Mode supported at angles between 75° and 115°."
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "July 26, 2023"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "available for pre-order in select markets from July 26, with general availability starting August 11"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise",
+      "retrieved": "2026-09-13",
+      "quote": "Gorilla Glass Victus 2 applied to both the Flex Window and back cover"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.7 in, a:b = 2640:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.4 in, a:b = 720:748 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5-delivering-flexibility-and-versatility-without-compromise>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung prints Dimension & Weight as WIDTH x HEIGHT x DEPTH; mapped to height/width/depth accordingly. Samsung never publishes a crease shape (teardrop/U) for any Flip, so hinge.crease is null throughout. hinge.max_angle_deg left null: Samsung states Flex Mode working angles, not a maximum hinge angle. First Flip generation for which Samsung publishes a SINGLE folded thickness (15.1mm) rather than a hinge/sagging range, because the new Flex Hinge closes the gap - depth_at_hinge is therefore null (not unknown: Samsung no longer publishes a separate hinge figure). Cover screen jumps to 3.4in here from 1.9in on Flip4 - measured independently from this release. Cover refresh rate 60Hz IS stated. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: ports[0] = {\"kind\": \"sim\", \"position\": null}."
+  ]
+}

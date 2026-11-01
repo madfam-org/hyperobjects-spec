@@ -6,6 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The reference-objects catalog: the facts behind commons presets (package 0.19.0)
+
+A new package, `hyperobjects_reference`, with its schema `reference-object.schema.json` and the
+lane `ho-reference check`. A **reference object** is a real product described by its published
+facts (a console, a handheld, a phone, a controller, a media format, a case, a carton, a
+booklet). A commons family cartridge turns those facts into a named preset.
+
+The owner's separation ruling of 2026-11-01 places all geometry, and the facts it is generated
+from, on the geometry side: the keystone and the commons. Consumers read prerendered artifacts
+and hold neither. Until now the 84 devices behind the commons' `clamshell-dual-screen-handheld`
+and `book-fold-phone` presets lived in a consumer (Telesia's
+`data/registry/device-geometry.json`). They open this catalog.
+
+**Version.** 0.19.0 is the next free minor after 0.18.0 (#68). #57 still declares 0.11.0 and
+renumbers when it rebases.
+
+#### Added
+
+- `reference-object.schema.json` (authored here): identity, `dimensions_mm.states` with axes
+  labelled as the source labels them, displays, hinge, `controls` / `ports` / `media` as
+  counted kinds, materials, family-specific `features`, `sources[]` with six tiers, and
+  `conflicts[]`.
+- `hyperobjects_reference`:
+  - the loader (`list_keys`, `load_object`, `load_catalog`, `load_family`);
+  - the paths (`value_at`, `field_exists`, `covers` with `[]` wildcards);
+  - the absence rule generators rely on (`is_sourced`);
+  - `leaves`;
+  - the digests (`object_digest`, `catalog_digest`, `family_digest`).
+- `hyperobjects_reference.check`, seven rules, each with a failure test built from a real
+  object:
+  1. schema and file name;
+  2. every value covered by a value-tier source;
+  3. sources name real paths;
+  4. per-tier required fields (a `measured` value carries instrument, resolution, specimen and
+     measurer role, and no URL);
+  5. derived display areas equal the derivation law;
+  6. conflicts are decided;
+  7. status is honest.
+- `ho-reference check | status | digest --family`.
+- The 84 imported objects. The import is lossless (a round trip back to
+  `telesia.device_geometry.v1` differs only by the documented edits) apart from an **evidence
+  sweep**: 17 objects carried list items no source covered (a port in 14 Samsung entries;
+  placeholder display slots in two OPPO entries and the Sony Tablet P). They were removed under
+  the registry's own rule and kept verbatim in each object's `notes`.
+- `docs/REFERENCE_OBJECTS.md`: rules, tiers, the measuring protocol, how a commons consumes it,
+  and the import's provenance.
+
+#### For consumers
+
+- The commons' preset generators move to the commons and read this catalog at the keystone pin.
+- Because of the sweep, the book-fold presets of the 14 Samsung entries will name
+  `usb_c_present` / `card_slot_present` as archetype fallbacks instead of sourced values when
+  they are regenerated.
+
 ### Pliego RFC 0045 phase 2: laminate stocks re-vendored, hardware_ref resolved name-level (package 0.18.0)
 
 Pliego's sheet documents may now carry **laminate stocks** (Pliego spec §5.40–§5.42, the

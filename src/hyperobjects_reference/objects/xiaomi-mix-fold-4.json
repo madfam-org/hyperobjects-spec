@@ -1,0 +1,182 @@
+{
+  "spec_version": 1,
+  "key": "xiaomi-mix-fold-4",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Xiaomi",
+  "model": "MIX Fold 4",
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.1,
+        "height": 159.37,
+        "depth": 9.47
+      },
+      "open": {
+        "width": 143.3,
+        "height": 159.37,
+        "depth": 4.59
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 226,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.56,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 153.2,
+        "height": 65.6,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.98,
+      "resolution_px": [
+        2488,
+        2224
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 151.1,
+        "height": 135.1,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "metal (Xiaomi states only 金属中框, metal mid-frame; no alloy named)",
+    "back": null,
+    "cover_glass": "Xiaomi Longjing Glass (小米龙晶玻璃), cover screen"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "长度：159.37mm 宽度：73.1mm（折叠） 143.3mm（展开）"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "厚度：9.47mm（折叠） 4.59mm（展开）"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "宽度：73.1mm（折叠） 143.3mm（展开）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "重量：226g（黑色/白色/龙胆蓝） 228g（小米龙鳞纤维版）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "6.56英寸 FHD+超清视感屏 类型：AMOLED 分辨率： 2520x1080 显示帧率：最高 120Hz"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "7.98英寸 2K+ 超清视感屏 类型：AMOLED （Pol-less Plus） 分辨率：2488x2224 显示帧率：最高 120Hz"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "玻璃盖板：小米龙晶玻璃"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4",
+      "retrieved": "2026-09-13",
+      "quote": "小米龙骨转轴2.0 超微形态，超级坚固 R1.6超微水滴形态"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4",
+      "retrieved": "2026-09-13",
+      "quote": "悬停多角度 悬停自拍 悬停合影 悬停延时摄影"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4",
+      "retrieved": "2026-09-13",
+      "quote": "弧型水滴金属中框"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.mi.com/prod/xiaomi-mix-fold-4/specs",
+      "retrieved": "2026-09-13",
+      "quote": "USB Type-C 双面充电接口，支持USB 3.2 GEN1 / 支持双 Nano-SIM 卡槽"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.56 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://www.mi.com/prod/xiaomi-mix-fold-4/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.98 in, a:b = 2488:2224 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://www.mi.com/prod/xiaomi-mix-fold-4/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "China-only model. IMPORTANT URL NOTE: the MIX Fold 4 is no longer at the same slug pattern as the MIX Fold 3 — https://www.mi.com/xiaomi-mix-fold-4/specs returns Xiaomi's 404 page, and the Wayback Machine has NO capture of it (CDX prefix query on www.mi.com/xiaomi-mix returned only xiaomi-mix-fold-3 rows). The live page is https://www.mi.com/prod/xiaomi-mix-fold-4/specs, whose spec text is served from Xiaomi's own content origin at mishop-pc.cnbj1.mi-fds.com/mishop-pc/production/mishop_pc/xiaomi-mix-fold-4/specs/entry-1774514297940.js; that is the bundle the mi.com page itself loads, so it is the manufacturer page's own content. TRANSLATIONS: 长度=length, 宽度=width, 折叠=folded, 展开=unfolded, 厚度=thickness, 重量=weight, 外屏=cover screen, 内屏=inner screen, 分辨率=resolution, 显示帧率=display refresh rate, 玻璃盖板=cover glass, 小米龙晶玻璃=Xiaomi Longjing (Dragon Crystal) Glass, R1.6超微水滴形态=R1.6 ultra-micro water-drop form, 悬停多角度=hover multi-angle, 弧型水滴金属中框=arc water-drop metal mid-frame, 黑色/白色/龙胆蓝=black/white/gentian blue, 小米龙鳞纤维版=Xiaomi Dragon Scale Fibre edition. TRAP (c) per-variant mass: 226 g for black/white/gentian blue, 228 g for the Dragon Scale Fibre edition; the recorded 226 g is the black/white/gentian-blue variant. Thickness is NOT variant-split for this model — Xiaomi gives a single folded/unfolded pair (9.47 mm / 4.59 mm), mapped to closed.depth and open.depth per TRAP (a). A single length (159.37 mm) applies to both states. No hinge-side thickness is published, so depth_at_hinge is null. CREASE: recorded as teardrop because Xiaomi explicitly writes R1.6超微水滴形态 (R1.6 ultra-micro water-drop form) for the 小米龙骨转轴2.0 hinge — 水滴 is literally water-drop. MATERIALS: frame recorded as plain 'metal' because Xiaomi writes only 弧型水滴金属中框 (arc water-drop metal mid-frame) and never names the alloy; back is null because mi.com lists the four finishes as colour/edition names (黑色/白色/龙胆蓝/小米龙鳞纤维版) with no back-material spec row. Announce/release dates are not stated on mi.com, so both are null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

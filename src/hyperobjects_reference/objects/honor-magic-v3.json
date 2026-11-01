@@ -1,0 +1,196 @@
+{
+  "spec_version": 1,
+  "key": "honor-magic-v3",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "HONOR",
+  "model": "Magic V3",
+  "status": "verified",
+  "announced": "2024-07-12",
+  "released": "2024-07-19",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74.0,
+        "height": 156.6,
+        "depth": 9.3
+      },
+      "open": {
+        "width": 145.3,
+        "height": 156.6,
+        "depth": 4.4
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 230,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.43,
+      "resolution_px": [
+        2376,
+        1060
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 149.2,
+        "height": 66.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.92,
+      "resolution_px": [
+        2344,
+        2156
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 148.1,
+        "height": 136.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "Aerospace special fibre on the Black/Velvet Black version",
+    "cover_glass": "HONOR Anti-scratch NanoCrystal Shield (outer screen); inner screen: HONOR Super Armored Inner Screen"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Height 156.6 mm Width folded: 74.0 mm unfolded: 145.3 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Black Version: folded: 9.2 mm unfolded: 4.35 mm Other Version: folded: 9.3 mm unfolded: 4.4 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Black Version: Approx. 226 g (including the battery) Other Version: Approx. 230 g (including the battery)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: 7.92 inches Outer screen: 6.43 inches"
+    },
+    {
+      "field": "displays[].resolution_px",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: 2344×2156 Pixels Outer screen: 2376×1060 Pixels"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: foldable OLED Outer screen: OLED"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/",
+      "retrieved": "2026-09-13",
+      "quote": "7.92-inch Large screen 1-120Hz LTPO display"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/",
+      "retrieved": "2026-09-13",
+      "quote": "Experience the ultimate freedom with flexible hovering. Supports a wide range of apps"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: HONOR Super Armored Inner Screen Outer screen: HONOR Anti-scratch NanoCrystal Shield"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/",
+      "retrieved": "2026-09-13",
+      "quote": "first time mobile phones have been armored with aerospace-grade fibers, which enhance the impact resistance by 40 times"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v3/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "USB: USB Type-C, USB 3.1 GEN1"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/news/honor-magic-v3-series-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "[Shenzhen, China – July 12, 2024] – Global technology brand HONOR today announced the launch"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/news/honor-magic-v3-series-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "Starting from July 19th, the HONOR Magic V3 and the HONOR Magic Vs3 will be available for purchase in China"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.43 in, a:b = 2376:1060 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://www.honor.com/global/phones/honor-magic-v3/spec/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://www.honor.com/global/phones/honor-magic-v3/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.92 in, a:b = 2344:2156 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://www.honor.com/global/phones/honor-magic-v3/spec/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://www.honor.com/global/phones/honor-magic-v3/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "TWO folded thicknesses are published, split by colour variant (not hinge/non-hinge side): Black Version folded 9.2 mm / unfolded 4.35 mm @ approx. 226 g, Other Version folded 9.3 mm / unfolded 4.4 mm @ approx. 230 g. Per the larger-value rule the Other Version figures are recorded (9.3 / 4.4 / 230 g); 9.2 mm / 226 g is the figure HONOR markets. No hinge-side value is published so depth_at_hinge is null. Height 156.6 mm is published as one value for both states. hinge.crease is null: neither the global page nor the China page (https://www.honor.com/cn/phones/honor-magic-v3/) contains any water-drop/teardrop or U-crease claim - they say only \"Low visible crease\" and \"HONOR Super Steel Hinge ... one-piece arch bridge structure\". Cover-screen refresh_hz is null: the global page states the outer screen has \"All-range Low Power LTPO\" and a \"1Hz minimum refresh rate\" but never states its maximum; the China page likewise says only \"全域低功耗 LTPO显示技术，刷新率低至1Hz\" (\"all-range low-power LTPO display technology, refresh rate as low as 1 Hz\"). Only the inner screen's 1-120 Hz is stated, so only that display carries 120. Display aspect ratios are not published for this model (unlike the Magic V2 page) - left null. materials.frame null: the China page names \"自研高强7系铝合金\" (\"self-developed high-strength 7-series aluminium alloy\") as a body material but never ties it to the frame/middle frame, so it is not recorded as materials.frame. materials.back: the China page footnote restricts the fibre to one colour - \"航天特种纤维仅荣耀Magic V3绒黑色支持\" (\"the aerospace special fibre is supported only on the HONOR Magic V3 Velvet Black\"). resolution_px recorded in HONOR's printed order (long axis first). active_area_mm left null - HONOR states the diagonals are standard-rectangle measurements and the actual viewable area is slightly smaller. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

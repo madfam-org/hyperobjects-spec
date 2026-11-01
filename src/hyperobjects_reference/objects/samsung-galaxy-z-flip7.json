@@ -1,0 +1,170 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-flip7",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Flip7",
+  "aliases": [
+    "SM-F766B"
+  ],
+  "status": "verified",
+  "announced": "2025-07-09",
+  "released": "2025-07-25",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.2,
+        "height": 85.5,
+        "depth": 13.7
+      },
+      "open": {
+        "width": 75.2,
+        "height": 166.7,
+        "depth": 6.5
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 188,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.9,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 161.1,
+        "height": 69.0,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 4.1,
+      "resolution_px": [
+        1048,
+        948
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 77.2,
+        "height": 69.9,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Armor Aluminum",
+    "back": null,
+    "cover_glass": "Corning Gorilla Glass Victus 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 75.2 x 85.5 x 13.7mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 75.2 x 166.7 x 6.5mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 188g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 6.9-inch FHD+ Dynamic AMOLED 2X 120Hz Adaptive refresh rate (1~120Hz) 2520 x 1080 (21:9)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Screen 4.1-inch Super AMOLED 1048 x 948, 60/120Hz refresh rate"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Armor Aluminum frame does not include volume and side keys, SIM tray or camera lens barrel."
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Corning® Gorilla® Glass Victus® 2"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Flex Mode, letting users capture content hands-free, without even opening the device."
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "July 9, 2025"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow",
+      "retrieved": "2026-09-13",
+      "quote": "Galaxy Z Flip7 will be available for pre-order starting July 9, with general availability beginning July 25"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.9 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.1 in, a:b = 1048:948 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/samsung-galaxy-z-flip7-a-pocket-sized-ai-powerhouse-with-a-new-edge-to-edge-flexwindow>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung prints Dimension & Weight as WIDTH x HEIGHT x DEPTH; mapped to height/width/depth accordingly. Samsung never publishes a crease shape (teardrop/U) for any Flip, so hinge.crease is null throughout. hinge.max_angle_deg left null: Samsung states Flex Mode working angles, not a maximum hinge angle. Cover screen grows to 4.1in with a 1048 x 948 panel; recorded in Samsung's printed order (the Flip8 release prints the same panel family as '948 x 1048' - Samsung's axis ordering for the cover panel is inconsistent between releases, so each entry keeps its own source's order). Cover refresh recorded as 120 (max) from the stated '60/120Hz'. Main panel ppi not stated in this release - not recorded. Back material not stated - null. depth_at_hinge null: single folded thickness published. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: ports[0] = {\"kind\": \"sim\", \"position\": null}."
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "spec_version": 1,
+  "key": "lg-wing",
+  "kind": "device",
+  "family": "swivel-dual-screen",
+  "brand": "LG",
+  "model": "WING 5G",
+  "aliases": [
+    "LG Wing",
+    "LG WING 5G"
+  ],
+  "status": "verified",
+  "announced": "2020-09-14",
+  "released": "2020-10-15",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74.5,
+        "height": 169.5,
+        "depth": 10.9
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 260,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 6.8,
+      "resolution_px": [
+        2460,
+        1080
+      ],
+      "aspect": "20.5:9",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 158.2,
+        "height": 69.4,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.9,
+      "resolution_px": [
+        1240,
+        1080
+      ],
+      "aspect": "1.15:1",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 74.7,
+        "height": 65.1,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "swivel",
+    "axis": null,
+    "max_angle_deg": 90,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions: 169.5 x 74.5 x 10.9 mm; 260g"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions: 169.5 x 74.5 x 10.9 mm; 260g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen: 6.8-inch 20.5:9 FHD+ P-OLED FullVision (2,460 x 1,080 / 395ppi)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Second Screen: 3.9-inch 1.15:1 G-OLED (1,240 x 1,080 / 419ppi)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "microSD (up to 2TB) … USB Type-C (USB 3.1 Gen 1 Compatible)"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "In-Display Fingerprint Sensor"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/PDF/LG-WING-US-Availability-Release-9-28.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "primary 6.8-inch OLED Full Vision edge-to-edge screen swivels clockwise rotating 90 degrees"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-WING-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "ENGLEWOOD CLIFFS, N.J., Sept. 14, 2020 — LG Electronics USA today announced the LG WING 5G"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/PDF/LG-WING-US-Availability-Release-9-28.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "It will be available first from Verizon on Oct. 15 with pre-order beginning Oct. 1"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.8 in, a:b = 2460:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://www.lg.com/us/press-release/LG-WING-US-Release.pdf>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.9 in, a:b = 1240:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://www.lg.com/us/press-release/LG-WING-US-Release.pdf>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Both figures come from LG's own US press-release PDFs still hosted live on lg.com (no web.archive.org snapshot needed for this entry, unlike most other dead LG pages). The 169.5 x 74.5 x 10.9 mm figure is the device in Basic Mode, i.e. with the main screen swivelled shut over the second screen - recorded as 'closed'. LG publishes NO dimensions for Swivel Mode (the T-shaped open state), so 'open' is entirely null. Both displays are recorded because both are physical panels present at all times: the 6.8\" main screen that swivels, and the 3.9\" second screen beneath it, which is only exposed in Swivel Mode. LG writes the second screen's panel as 'G-OLED' in the spec list; recorded as OLED per the SPEC enum. Refresh rates are not published by LG for either panel - null. hinge.max_angle_deg 90 is LG's own '90 degrees', stated as a clockwise rotation of the entire front of the phone; hinge.axis is null because a swivel rotates about an axis perpendicular to the display plane, which neither 'long' nor 'short' describes. LG states durability as '200,000 swivels', a Hydraulic Damper in the hinge, a dual lock mechanism, and 'Thermoplastic polyoxymethylene is applied to the back of the Main Screen' - that last is an internal surface treatment, not a frame/back/cover-glass spec, so materials remain null. LG describes the body only as 'slim but tough composite materials'. Battery 4,000 mAh; Snapdragon 765G; colors Aurora Gray / Illusion Sky. Released date is US/Verizon first availability; LG notes 'AT&T and T-Mobile will offer it later this fall'."
+  ]
+}

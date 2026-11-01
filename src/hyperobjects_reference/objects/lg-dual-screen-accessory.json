@@ -1,0 +1,140 @@
+{
+  "spec_version": 1,
+  "key": "lg-dual-screen-accessory",
+  "kind": "device",
+  "family": "dual-screen-hinge-phone",
+  "brand": "LG",
+  "model": "LG Dual Screen (for V60 ThinQ 5G)",
+  "aliases": [
+    "LG Dual Screen",
+    "LG DualScreen"
+  ],
+  "status": "verified",
+  "announced": "2020-02-26",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 86.1,
+        "height": 176,
+        "depth": 15
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 134,
+  "displays": [
+    {
+      "role": "secondary",
+      "diagonal_in": 6.8,
+      "resolution_px": [
+        2460,
+        1080
+      ],
+      "aspect": "20.5:9",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 158.2,
+        "height": 69.4,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": null,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "dual_screen_360",
+    "axis": null,
+    "max_angle_deg": 360,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dual Screen Size & Weight - 6.93\" (H) x 3.39\" (W) x 0.59\" (D), 4.73 oz."
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dual Screen Size & Weight - 6.93\" (H) x 3.39\" (W) x 0.59\" (D), 4.73 oz."
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Display - 6.8\" FHD+ OLED (2460 x 1080), 395 ppi"
+    },
+    {
+      "field": "displays[0].aspect",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-V60-ThinQ-5G-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Both the LG V60 and upgraded LG Dual Screen come with super sharp 6.8-inch, 20.5:9, FHD+ P-OLED displays"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Display – view time and notifications when the device is folded"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "360˚ Freestop Hinge – pivot the screen to any angle to use in laptop mode, stand mode, or tent mode"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.lg.com/us/press-release/LG-V60-ThinQ-5G-US-Release.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "ENGLEWOOD CLIFFS, N.J., Feb. 26, 2020 — LG Electronics USA, Inc. (LG) introduced the LG V60 ThinQ 5G"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.8 in, a:b = 2460:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://www.lg.com/us/support/products/documents/Specs_LG_V60_ThinQ_DualScreen_Verizon_0310.pdf>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "THIS IS AN ACCESSORY, NOT A PHONE - it is a detachable case with a second display that clips onto a host phone; it has no SoC, no radio and no battery of its own, which is why external_ids.igdb_platform is null and ports is []. HOST PHONES: the recorded unit is the LG Dual Screen for the LG V60 ThinQ 5G / V60 ThinQ 5G UW; LG states 'Compatible with the LG V60 ThinQ 5G UW'. A SEPARATE, DIFFERENTLY SIZED LG Dual Screen exists for the LG G8X ThinQ - LG's own G8X spec sheet (https://www.lg.com/us/support/products/documents/LG_G8X_ThinQ_Dual_Screen_Unlocked_Specsheet.pdf) states verbatim 'Dual Screen Size & Weight - 6.53\" x 3.33\" x 0.59\"; 4.90 oz.' and 'Display - 6.4\" FHD+ OLED (2340 x 1080, including notch); 403 ppi', also with a '360˚ Freestop Hinge' and a Cover Display. Those G8X numbers are NOT merged into the fields above. CONVERSIONS (LG publishes inches and ounces only): 6.93 in x 25.4 = 176.022 mm; 3.39 in x 25.4 = 86.106 mm; 0.59 in x 25.4 = 14.986 mm; 4.73 oz x 28.349523125 = 134.09 g. Recorded as 176 / 86.1 / 15 mm and 134 g so as not to add significant figures beyond LG's own. Per the SPEC, a slab-like accessory fills 'closed' only; LG publishes no second dimensional state - open is null. LG states the Cover Display exists but publishes NO size, resolution or panel type for it anywhere on the V60 or G8X spec sheets, so that display object is all-null (a 2.1-inch monochrome figure circulates on secondary sites only and was deliberately not used). Related LG-published figures for context, not merged: 'V60 ThinQ Size & Weight - 6.67\" (H) x 3.06\" (W) x 0.35\" (D), 7.68 oz.' and 'Combined Weight - 12.41 oz.' hinge.free_stop true is sourced from LG's own word 'Freestop'. released left null - LG's announcement release says only 'will be available in the coming weeks from AT&T, T-Mobile, U.S. Cellular and Verizon' with 'availability will vary by network partner and be announced at a later date'. lg.com PDFs were still served live; no web.archive.org snapshot was needed for this entry. hinge.axis is NULL on purpose: no manufacturer page states a hinge/fold axis. It is unambiguous from the OEM's own dimension rows (the height stays constant while the width changes between states, so the hinge line runs along the long edge), but deriving it would breach the SPEC rule that active_area_mm is the only derived field."
+  ]
+}

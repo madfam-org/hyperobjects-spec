@@ -1,0 +1,213 @@
+{
+  "spec_version": 1,
+  "key": "motorola-razr-plus-2024",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Motorola",
+  "model": "Razr+ (2024)",
+  "aliases": [
+    "Razr 50 Ultra"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.99,
+        "height": 88.09,
+        "depth": 15.32
+      },
+      "open": {
+        "width": 73.99,
+        "height": 171.42,
+        "depth": 7.09
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 189,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 4.0,
+      "resolution_px": [
+        1272,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 77.4,
+        "height": 65.8,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 6.9,
+      "resolution_px": [
+        2640,
+        1080
+      ],
+      "aspect": "22:9",
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 162.2,
+        "height": 66.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "6000 series high strength aluminum",
+    "back": "Vegan leather",
+    "cover_glass": "Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 73.99 x 171.42 x 7.09mm | Closed: 73.99 x 88.09x 15.32mm"
+    },
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/50-ultra/pmipmgs37ms",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 73.99 x 171.42 x 7.09 mm | Closed: 73.99 x 88.09 x 15.32 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 189g"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/50-ultra/pmipmgs37ms",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 189 g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "External display: 4.0\" pOLED display"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "External display: 1272 x 1080 | 417ppi"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "External display: LTPO, Flexible AMOLED, HDR10+, 10-bit, 100% DCI-P3 color gamut"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "External display: LTPO, Flexible AMOLED, HDR10+, Up to 165Hz refresh rate"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: 6.9\" FHD+ pOLED display"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: FHD+ (2640 x 1080) | 413ppi"
+    },
+    {
+      "field": "displays[1].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: LTPO, Foldable AMOLED, HDR10+, 10-bit, 120% DCI-P3 color gamut"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: LTPO, Foldable AMOLED, HDR10+, Up to 165Hz refresh rate"
+    },
+    {
+      "field": "displays[1].aspect",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: 22:9"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Corning Gorilla Glass Victus on front, Vegan leather on rear 6000 series high strength aluminum (frame)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh",
+      "retrieved": "2026-09-13",
+      "quote": "Ports Type-C port (USB 2.0) ... SIM Card eSIM + physical SIM"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.0 in, a:b = 1272:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.9 in, a:b = 2640:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-plus-gen-2/pmipmgs38mh>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "US name 'motorola razr+ 2024'; EU/global name 'Razr 50 Ultra' - one physical device. PAIRING VERIFIED: the US page (device field 'motorola razr+ 2024') and the UK page (device field 'motorola razr 50 ultra') publish byte-identical geometry - open 73.99 x 171.42 x 7.09 mm, closed 73.99 x 88.09 x 15.32 mm, 189 g, 6.9in/4.0in displays, 2640x1080 / 1272x1080, same Gorilla Glass Victus + vegan leather + 6000-series aluminium body - and the US page serves image assets named 'razr-50-plus-*'. Both URLs are cited. Dimensions printed W x H x D; 73.99 mapped to width. The US quote reproduces Motorola's own typo ('88.09x 15.32mm', missing space) verbatim; the GB page prints it correctly. displays[0].aspect null - Motorola prints only 'Main display: 22:9' on this page. hinge.crease / hinge.free_stop null: neither 'teardrop' nor 'Flex View' appears as page content on the 2024 pages (unlike the 2023 razr+ page). No 'titanium-reinforced hinge' claim appears on either page, so no titanium is recorded. announced/released null: no reachable manufacturer press release. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

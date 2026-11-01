@@ -1,0 +1,180 @@
+{
+  "spec_version": 1,
+  "key": "new-nintendo-3ds-xl",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "New Nintendo 3DS XL",
+  "aliases": [
+    "RED-001",
+    "Newニンテンドー3DS LL",
+    "New Nintendo 3DS LL"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2014-10-11",
+  "external_ids": {
+    "igdb_platform": "new-nintendo-3ds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 93.5,
+        "height": 160,
+        "depth": 21.5
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 329,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.88,
+      "resolution_px": [
+        800,
+        240
+      ],
+      "aspect": "10:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 106.2,
+        "height": 63.72,
+        "derived": false
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 4.18,
+      "resolution_px": [
+        320,
+        240
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 84.96,
+        "height": 63.72,
+        "derived": false
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "縦93.5mm×横160mm×厚さ21.5mm（折りたたみ時）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "約329g（バッテリーパック・タッチペン・microSDカードを含む）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "裸眼立体視機能付きワイド液晶 4.88型（横106.2mm×縦63.72mm）/ 横800ドット×縦240ドット"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "タッチ入力機能付き液晶 4.18型（横84.96mm×縦63.72mm）/ 横320ドット×縦240ドット"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "A/B/X/Yボタン、十字ボタン、L/Rボタン、ZL/ZRボタン、START/SELECTボタン スライドパッド Cスティック"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "ゲームカードスロット microSDカードスロット 充電端子 ACアダプター接続端子 ヘッドホン接続端子（ステレオ出力）"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "縦93.5mm×横160mm×厚さ21.5mm（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/specs/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "発売日 2014年10月11日"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model RED-001; 'Newニンテンドー3DS LL' in Japan. Source is Nintendo's 本体の主な仕様 three-column comparison page; the column is identified as the New 3DS LL by its RED-004 stylus and SPR-003 battery pack, and by its 2014年10月11日 release date shared with the New 3DS. Axis mapping: Nintendo lists 縦93.5mm×横160mm×厚さ21.5mm; height=横160 (long axis), width=縦93.5, depth=厚さ21.5 — Nintendo's own label for the long axis is 'width' (横). Closed/folded state (折りたたみ時), also the source for hinge.type=clamshell; open state not published. TOP SCREEN / AUTOSTEREOSCOPIC 3D: recorded literally as 横800ドット×縦240ドット = [800,240], aspect 10:3, with Nintendo's own same-line gloss that the 800 horizontal dots are split 400 per eye (per-eye 400x240, 5:3). ACTIVE AREA IS PUBLISHED, NOT DERIVED: Nintendo prints the mm active area inline with each diagonal, so 'derived' is deliberately FALSE. The published panel figures (4.88型 106.2x63.72 top, 4.18型 84.96x63.72 bottom) are identical to the 3DS XL's; both are quoted from Nintendo's own pages for each model rather than copied across. CONTROLS: adds ZL/ZR and the Cスティック, hence bumper count 4 and stick count 2. controls[].position null — placement not stated; HOME and power buttons appear under その他入力 with no matching enum kind. ports: microSD explicitly stated by Nintendo; game card slot, charging terminal and AC adapter connector omitted (no matching enum kind); the 3.5 mm diameter is not stated by Nintendo. NOTE this model is the only one in the family whose dedicated product page was not fetched separately — all values come from the comparison page, which is equally primary. released = Japan launch; Western launch (2015) not sourced from a Nintendo page. announced: not sourced, null."
+  ]
+}

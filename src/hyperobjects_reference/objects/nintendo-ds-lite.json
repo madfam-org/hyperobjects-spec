@@ -1,0 +1,176 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-ds-lite",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo DS Lite",
+  "aliases": [
+    "USG-001"
+  ],
+  "status": "verified",
+  "announced": "2006-01-26",
+  "released": "2006-03-02",
+  "external_ids": {
+    "igdb_platform": "nds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.9,
+        "height": 133.0,
+        "depth": 21.5
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 218,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3,
+      "resolution_px": [
+        256,
+        192
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3,
+      "resolution_px": [
+        256,
+        192
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）(縦)73.9×(横)133.0×(厚さ)21.5mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "重さ（内蔵充電池、タッチペン含む）約218g"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "３インチ（対角）透過型TFTカラー液晶・192×256ピクセル解像度 0.24mmドットピッチ・26万色表示"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "十字ボタン、Ａ/Ｂ/Ｘ/Ｙボタン、Ｌ/Ｒボタン、START/SELECTボタン・タッチスクリーン・内蔵マイク"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）横133.0mm 縦73.9mm 厚さ21.5mm"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "ＤＳカードスロット ゲームボーイアドバンスカートリッジスロット ＡＣアダプタ接続端子 ステレオヘッドホン／マイク接続端子"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2006/060126.html",
+      "retrieved": "2026-09-13",
+      "quote": "ニンテンドーＤＳ Ｌｉｔｅ ３月２日発売"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2006/060126.html",
+      "retrieved": "2026-09-13",
+      "quote": "ニュースリリース : 2006年1月26日 ニンテンドーＤＳに上位モデル登場"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model USG-001. Axis mapping as for the DS: height=横133.0, width=縦73.9, depth=厚さ21.5 — Nintendo's own label for the long axis is 'width' (横), the reverse of this registry's key. Closed/folded state (折りたたみ時); open state not published, left null. Dimensions confirmed twice by Nintendo: the DS spec page and the 2008 DSi news release comparison table give identical figures. MASS DISCREPANCY: nintendo.co.jp states 約218g（バッテリーパック・タッチペン・ＧＢＡコネクタカバー含む） i.e. including the GBA connector cover; Nintendo of America's archived DS systems comparison page (web.archive.org snapshot 2010-08-06 of http://www.nintendo.com/ds/systems/compare) states '3\" (diagonal measurement), 216g' with no inclusion list. Both are Nintendo primary; the Japanese figure is recorded because it states what is being weighed, and the 216 g NOA figure is flagged here rather than silently averaged. RESOLUTION ORDER: Nintendo writes '192×256ピクセル' (height×width); recorded as [256,192]. active_area_mm IS DERIVED: 256 × 0.24 mm dot pitch = 61.44 mm, 192 × 0.24 mm = 46.08 mm, both inputs quoted from this same page; cross-check sqrt(61.44²+46.08²) = 76.80 mm = 3.02 in vs Nintendo's stated 3インチ. Panel 透過型TFTカラー液晶 (transmissive TFT colour LCD) with 4-step brightness — differs from the original DS's transflective panel. announced = the date of Nintendo's own announcement news release. released = Japan launch; other regions not sourced from a Nintendo page. refresh_hz, materials, corner_radius, depth_at_hinge: not published, null. hinge.axis='long' from clamshell geometry, not a quoted line. controls[].position null — placement not stated in the spec text. CONTROLS CAVEAT: on the DS spec page the 主な操作部 row is a single merged cell spanning the DS Lite and DS columns, so Nintendo states one control list for both models; it is not a per-model line. ports: DS card slot and GBA cartridge slot omitted (no matching SPEC enum kind); Nintendo does not state the headphone jack's 3.5 mm diameter."
+  ]
+}

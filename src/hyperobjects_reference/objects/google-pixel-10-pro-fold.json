@@ -1,0 +1,209 @@
+{
+  "spec_version": 1,
+  "key": "google-pixel-10-pro-fold",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Google",
+  "model": "Pixel 10 Pro Fold",
+  "status": "verified",
+  "announced": "2025-08-20",
+  "released": "2025-10-09",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 76.3,
+        "height": 155.2,
+        "depth": 10.8
+      },
+      "open": {
+        "width": 150.4,
+        "height": 155.2,
+        "depth": 5.2
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 258,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.4,
+      "resolution_px": [
+        1080,
+        2364
+      ],
+      "aspect": "20:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 67.6,
+        "height": 147.9,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.0,
+      "resolution_px": [
+        2076,
+        2152
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 141.1,
+        "height": 146.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "satin finish spacecraft-grade aluminum",
+    "back": "Corning Gorilla Glass Victus 2, silky matte",
+    "cover_glass": "Corning Gorilla Glass Victus 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_10_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 155.2 mm (height) x 76.3 mm (width) x 10.8 mm (depth)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_10_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 155.2 mm (height) x 150.4 mm (width) x 5.2 mm (depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_10_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions and weight ... 258 g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "6.4-inch Actua display 20:9 aspect ratio 1080 x 2364 OLED at 408 PPI"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (60-120Hz)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "8-inch Super Actua Flex display 2076 x 2152 OLED at 373 PPI"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (1-120 Hz)"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Corning® Gorilla® Glass Victus® 2 silky matte back with satin finish spacecraft-grade aluminum frame"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Scratch-resistant Corning® Gorilla® Glass Victus® 2 cover glass"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Authentication Fingerprint Unlock Face Unlock Pattern, PIN, password"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Buttons and ports USB Type-C® 3.2 ... SIMs Dual SIM (Single Nano SIM and eSIM)"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/pixel-10-pro-fold-gearless-hinge-design/",
+      "retrieved": "2026-09-13",
+      "quote": "This is what we call a gearless hinge — which literally means it doesn't have any gears"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/google-pixel-10-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "Aug 20, 2025 ... Introducing Pixel 10 Pro Fold: Google's most durable foldable phone"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/google-pixel-10-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "Pixel 10 Pro Fold is available for pre-order today and hits shelves on October 9."
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.4 in, a:b = 1080:2364 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.0 in, a:b = 2076:2152 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "CONFIRMED live on store.google.com as of 2026-09-13: https://store.google.com/us/product/pixel_10_pro_fold_specs?hl=en-US returns 200 with the full spec table and a 'From $1,799 ... Buy' control, even though the Pixel 11 Pro Fold has taken its place in the store's top navigation. WATCH THE URL: the locale-less https://store.google.com/product/pixel_10_pro_fold_specs?hl=en-US geo-redirected to store.google.com/?hl=es-419 (Mexico home page) and returned no spec content - use the /us/ or /gb/ path. mm dimensions were taken from the en-GB locale page, which prints them natively in mm; NO conversion was performed. The en-US page states only rounded inches for the same device (Folded: 6.1 in x 3 in x 0.4 in; Unfolded: 6.1 in x 5.9 in x 0.2 in; 9.1 oz) - those inch values are far too coarse for CAD and were NOT used or converted. CAMERA-BAR TRAP, checked explicitly: the 'Dimensions and weight' heading does carry a footnote, but its full text is only 'Dimensions and weight vary by configuration and manufacturing process.' Google makes NO statement anywhere on this page about whether the 10.8 mm folded depth includes or excludes the camera bar, so the reference surface for that figure is unknown - do not assume it is the camera-bar peak. Display diagonals: en-US prints '6.4-inch Actua display' and '8-inch Super Actua Flex display'; en-GB prints the same panels as '162 mm' and '8-inch (204 mm)'. refresh_hz 120 is the maximum of Google's stated ranges (cover 60-120 Hz, inner 1-120 Hz). Inner-display aspect ratio left null - Google states one only for the cover (20:9). hinge.crease left NULL: Google calls it a 'gearless hinge' and the dedicated blog.google hinge-design article describes cams and materials but never the crease SHAPE. hinge.free_stop left NULL: neither the spec page nor either blog post documents free-stop or hold-at-any-angle (the spec page's 'Tabletop mode hands-free shots' is a camera feature, not a hinge claim). max_angle_deg left null - not published. hinge.type/axis are the registry's family assignment, corroborated by Google's own folded-vs-unfolded figures. controls[0].position left null: the page lists 'Fingerprint Unlock' but never states where the sensor sits. Google's hinge material statement is 'Multi-alloy steel with an aerospace-grade high-strength aluminum alloy cover'. active_area_mm left null. SUPERSEDED: the Pixel 11 Pro Fold (announced 2026-08-12) is the current Pixel foldable as of 2026-09-13."
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-2ds",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo 2DS",
+  "aliases": [
+    "FTR-001"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2013-10-12",
+  "external_ids": {
+    "igdb_platform": "3ds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 127,
+        "height": 144,
+        "depth": 20.3
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 260,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.53,
+      "resolution_px": [
+        400,
+        240
+      ],
+      "aspect": "5:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 76.8,
+        "height": 46.08,
+        "derived": false
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.02,
+      "resolution_px": [
+        320,
+        240
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": false
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "サイズ 縦127mm×横144mm×厚さ20.3mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "質量 約260g（バッテリーパック・タッチペン・SDカードを含む）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "ワイド液晶 3.53型（横76.8mm×縦46.08mm）/ 横400ドット×縦240ドット 約1677万色表示可能"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "タッチ入力機能付き液晶 3.02型（横61.44mm×縦46.08mm）/ 横320ドット×縦240ドット"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "A/B/X/Yボタン、十字ボタン、L/Rボタン、START/SELECTボタン スライドパッド（360度のアナログ入力可能） タッチスクリーン"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/3dsseries/2ds/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "ゲームカードスロット SDカードスロット ACアダプター接続端子 ヘッドホン接続端子（ステレオ出力）"
+    },
+    {
+      "field": "hinge.type",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/News/2013/October/The-latest-member-of-the-Nintendo-3DS-family-Nintendo-2DS-arrives-this-week--816287.html",
+      "retrieved": "2026-09-13",
+      "quote": "taking on a new distinctive fixed slate form design"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/News/2013/October/The-latest-member-of-the-Nintendo-3DS-family-Nintendo-2DS-arrives-this-week--816287.html",
+      "retrieved": "2026-09-13",
+      "quote": "Nintendo 2DS, which will launch on 12th October in two colour combinations"
+    }
+  ],
+  "notes": [
+    "FAMILY ASSIGNMENT IS DEBATABLE — THE 2DS IS NOT A CLAMSHELL. It is a fixed, non-folding wedge-shaped slate with two screens behind a single front panel. Listed in this family at the requester's explicit instruction, but hinge.type, hinge.axis and every other hinge field are null because there is no hinge. Nintendo's own launch announcement calls it 'a new distinctive fixed slate form design', quoted as the source for hinge.type=null, and Nintendo's JP spec page is the only one in this family whose サイズ line carries NO （折りたたみ時）'when folded' qualifier — a second, structural confirmation that it does not fold. If this registry keys off hinge presence, the 2DS belongs in a dual-screen-slate family instead; it shares the 3DS platform and dual-screen layout but not the form factor. DIMENSION ORDERING IS GENUINELY AMBIGUOUS HERE. Nintendo lists 縦127mm×横144mm×厚さ20.3mm. This registry's rule is height = the long axis, so height=144 (Nintendo's 横), width=127 (Nintendo's 縦), depth=20.3. But unlike the folding models, a 2DS is held upright, so a user would naturally call Nintendo's 縦127mm the height and 横144mm the width — the exact reverse. Both readings are recorded here so the numbers can be re-mapped without re-fetching: Nintendo 縦=127, 横=144, 厚さ=20.3. Depth is also NOT uniform: the 2DS is wedge-shaped, thicker at the top than at the bottom edge, and Nintendo publishes only the single 20.3 mm figure without saying where it is measured; no taper figures are published, so depth_at_hinge stays null. TOP SCREEN IS 400x240, NOT 800x240: the 2DS drops the autostereoscopic 3D panel, and Nintendo's line reads 横400ドット×縦240ドット (aspect 5:3) against the 3DS's 横800ドット×縦240ドット, while the published diagonal (3.53型) and active area (76.8x46.08 mm) are identical to the 3DS's top screen. This is quoted, not inferred. ACTIVE AREA IS PUBLISHED, NOT DERIVED: printed in mm inline with each diagonal, so 'derived' is deliberately FALSE. RELEASE DATE — TWO DIFFERENT DATES, BOTH NINTENDO: released is recorded as 2013-10-12, the original European/North American launch, quoted from Nintendo UK's own news page (dated 10th October 2013). Nintendo's JP spec page instead shows 発売日 2016年9月15日 because the 2DS did not reach Japan until 2016; that JP page is also the source of every dimension, mass and display figure above. Do not read the JP 2016 date as the product's launch. Nintendo's JP page footnote also records a limited-quantity 2016-02-27 Pokémon-branded 2DS pack, since discontinued. Sound is a MONAURAL speaker (モノラルスピーカー) — the only model in this family without stereo speakers. controls: same set as the 3DS (no ZL/ZR, no C-stick); positions not stated by Nintendo, left null. ports: game card slot, FULL-SIZE SD card slot and AC adapter connector omitted (no matching enum kind; not microSD); the 3.5 mm diameter is not stated by Nintendo. Uses the CTR-003 battery and an FTR-004 stylus per Nintendo. announced: no Nintendo announcement release located, left null. refresh_hz, materials, corner_radius: not published, null."
+  ]
+}

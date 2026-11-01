@@ -1,0 +1,229 @@
+{
+  "spec_version": 1,
+  "key": "ayaneo-flip-1s-ds",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "AYANEO",
+  "model": "FLIP 1S DS",
+  "aliases": [
+    "AYANEO Flip 1S DS",
+    "AYANEO FLIP 1S DS",
+    "FLIP 1S DS",
+    "Flip 1S DS"
+  ],
+  "status": "verified",
+  "announced": "2025-06-10",
+  "released": "2025-07-10",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 102,
+        "height": 180,
+        "depth": 29.3
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 655,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 7,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "aspect": "16:9",
+      "panel": "OLED",
+      "refresh_hz": 144,
+      "active_area_mm": {
+        "width": 155.0,
+        "height": 87.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 4.5,
+      "resolution_px": [
+        1620,
+        1080
+      ],
+      "aspect": "3:2",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 95.1,
+        "height": 63.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "stick",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "trigger",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "bumper",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "CNC all-metal A-side (lid exterior)",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Size 180*102*29.3mm (35.7mm at the grip)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Weight About 655g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 7 Inch 1080P 144Hz OLED Vivid High-refresh Display"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Parameters 1920 × 1080 | 315 PPI | 150% sRGB Color Gamut Volume | 800nits"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Secondary Screen 4.5 Inch 1620 × 1080 IPS Screen | 3:2 Aspect Ratio"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Full-angle standstill | Maximum opening angle 180°"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "2 x USB4 | 40Gbps | DP 1.4 ... 1 x Micro SD ... 1 x 3.5mm Headphone Jack"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Joystick TMR electromagnetic medium joystick (1000Hz polling rate); Trigger Hall linear triggers"
+    },
+    {
+      "field": "controls[5]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Flip-1S-DS",
+      "retrieved": "2026-09-13",
+      "quote": "Biometrics Fingerprint recognition power button"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/887",
+      "retrieved": "2026-09-13",
+      "quote": "the cross key and ABXY buttons having an upgraded feel, longer key travel"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/887",
+      "retrieved": "2026-09-13",
+      "quote": "The FLIP 1S has been upgraded to a CNC all-metal A-side"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/884",
+      "retrieved": "2026-09-13",
+      "quote": "the new generation of flip dual-screen Windows handheld, AYANEO FLIP 1S DS, is officially unveiled"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/887",
+      "retrieved": "2026-09-13",
+      "quote": "On July 10, 2025, AYANEO officially launched brand-new dual-screen flip handheld, the AYANEO FLIP 1S DS"
+    }
+  ],
+  "notes": [
+    "OFFICIAL NAME CONFIRMED on ayaneo.com: the product page <title> and heading read 'AYANEO Flip 1S DS' (URL /product/AYANEO-Flip-1S-DS) while AYANEO's own launch articles style it 'AYANEO FLIP 1S DS' and the spec sheet renders it as 'AYANEO FL_IP 1S (DS)'. Both casings are AYANEO's; 'FLIP 1S DS' is used as the model string and the variants are in aliases. As with the Flip DS, dimensions/mass/display parameters are published by AYANEO ONLY inside a spec-sheet IMAGE on the product page (.../product/2025/AYANEO_FLIP_1S_DS_EN_20250710/07.webp), read visually; the page HTML carries no text specs and AYANEO's own store (shop.ayaneo.com) product body contains only a customs notice. AYANEO prints one size, '180*102*29.3mm (35.7mm at the grip)' = folded/closed state → dimensions_mm.closed; open state is not published (null). 35.7mm 'at the grip' is a grip bulge, not a hinge thickness → depth_at_hinge null. AXIS ORDERING: 180mm is the long edge (landscape width in use), recorded as `height` per the OEM-ordering rule. active_area_mm derived from sourced diagonal + sourced resolution: 25.4*D*w/hypot(w,h) x 25.4*D*h/hypot(w,h). The derivation is corroborated by AYANEO's own printed PPI: 7in/1920x1080 → 314.7 PPI vs AYANEO's '315 PPI', and 4.5in/1620x1080 → 432.7 PPI vs AYANEO's '433PPI' — both match, so the diagonals are close to exact. Secondary panel is IPS → recorded as LCD per the schema enum. Main-screen refresh: AYANEO lists 144/120/90/60Hz; 144 recorded as the maximum. Secondary-screen refresh is not published (null). stick/trigger/bumper counts are not stated by AYANEO → null rather than guessed; abxy=4 / dpad=1 follow from AYANEO's own 'cross key and ABXY buttons'. Ports: both USB-C ports are full-function USB4 40Gbps with DP 1.4 and PD. ANNOUNCED 2025-06-10 = AYANEO's unveiling article; RELEASED 2025-07-10 = AYANEO's own 'officially launched' date, which is simultaneously the pre-order/IGG opening — AYANEO states 'Pre-orders Now Open, First Batch Ready for Immediate Shipment', so on this model the launch and first shipment are not separated by AYANEO. CPU options: AMD Ryzen AI 9 HX 370 or Ryzen 7 8840U (AYANEO's article 884 mentioned an 'AMD Ryzen 7 7840U' variant for the earlier Flip DS, not this one). external_ids.igdb_platform null: Windows PC, not an IGDB platform."
+  ]
+}

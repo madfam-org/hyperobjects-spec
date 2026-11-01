@@ -1,0 +1,234 @@
+{
+  "spec_version": 1,
+  "key": "ayaneo-pocket-ds",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "AYANEO",
+  "model": "Pocket DS",
+  "aliases": [
+    "AYANEO Pocket DS",
+    "AYANEO Pocket DS G3x Gen2",
+    "Pocket DS"
+  ],
+  "status": "verified",
+  "announced": "2025-07-29",
+  "released": "2025-08-18",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 101.8,
+        "height": 179.8,
+        "depth": 25
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 540,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 7,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "aspect": "16:9",
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 155.0,
+        "height": 87.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 5,
+      "resolution_px": [
+        1024,
+        768
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 101.6,
+        "height": 76.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "stick",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "trigger",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "bumper",
+      "count": null,
+      "position": "lower_deck"
+    },
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "CNC metal A-shell (lid exterior)",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "SIze 179.8*101.8*25mm (34.4mm at the grip)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Weight About 540g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 7\" 1080P OLED vibrant high refresh-rate display"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Resolution: 1920 × 1080 | Support HDR | 150% sRGB color gamut volume"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Five refresh rate options: 165Hz / 144Hz / 120Hz / 90Hz / 60Hz"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Secondary Display 5\" LCD screen with 1024 × 768 resolution | 4:3 aspect ratio"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Full-angle adjustable hinge | Max opening angle: 180°"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/892",
+      "retrieved": "2026-09-13",
+      "quote": "Its 0–180° stepless hinge allows smooth, flexible opening and positioning"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Port 1 × Full-function USB 3.2 Gen 2 Type-C | 10Gbps; 1 × Micro SD slot | 100MB/s"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Joystick TMR medium joystick; Trigger Linear Hall-effect triggers; Controller Master Controller"
+    },
+    {
+      "field": "controls[5]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/product/AYANEO-Pocket-DS.html",
+      "retrieved": "2026-09-13",
+      "quote": "Fingerprint recognition Power button with integrated fingerprint recognition"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/892",
+      "retrieved": "2026-09-13",
+      "quote": "The D-pad and ABXY buttons feature standard travel with crisp rebound"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/892",
+      "retrieved": "2026-09-13",
+      "quote": "The CNC metal top shell delivers both durability and premium feel"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/890",
+      "retrieved": "2026-09-13",
+      "quote": "On July 29, 2025 ... AYANEO Pocket DS officially opened for pre orders"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.ayaneo.com/article/892",
+      "retrieved": "2026-09-13",
+      "quote": "On August 18, 2025, AYANEO officially unveiled the highly anticipated AYANEO Pocket DS"
+    }
+  ],
+  "notes": [
+    "Dimensions, mass and the full display table come from AYANEO's own spec-sheet IMAGE on the ayaneo.com product page (.../product/2025/AYANEO_Pocket_DS/EN/07.webp), read visually — the product page HTML carries no text specs. AYANEO prints one size, '179.8*101.8*25mm (34.4mm at the grip)' = folded/closed state → dimensions_mm.closed; no open-state dimension is published (null). 34.4mm 'at the grip' is a grip bulge, not a hinge thickness → depth_at_hinge null. AXIS ORDERING: 179.8mm is the long edge (landscape width in use), recorded as `height` per the OEM-ordering rule. active_area_mm derived from sourced diagonal + sourced resolution: 25.4*D*w/hypot(w,h) x 25.4*D*h/hypot(w,h); corroborated by AYANEO's own printed '256PPI' for the secondary screen, which matches 5in/1024x768 exactly (256.0). Main screen is OLED; secondary is LCD (AYANEO's own words). Secondary-screen refresh rate is not published (null). NO HEADPHONE JACK: AYANEO's Port row lists ONLY '1 × Full-function USB 3.2 Gen 2 Type-C' and '1 × Micro SD slot' — no 3.5mm jack is listed anywhere on AYANEO's page, so none is recorded (this is a real difference from the Windows FLIP DS / FLIP 1S DS, both of which do list a 3.5mm jack). stick/trigger/bumper counts are not stated by AYANEO → null rather than guessed. DATES: AYANEO published two separate events — pre-orders/Indiegogo pre-launch opened 2025-07-29 (recorded as `announced`, and the earliest AYANEO-dated article for this product) and AYANEO's own article titled '...AYANEO Pocket DS Officially Released' is dated 2025-08-18 (recorded as `released`). Because this was a crowdfunded launch these are the announce and availability dates respectively; note AYANEO's direct store listing (shop.ayaneo.com/products/ayaneo-pocket-ds-g3x-gen2) was not published until 2025-10-28, which is when it reached AYANEO's own retail channel. SoC Qualcomm Snapdragon G3x Gen 2; OS Android 13 — hence the 'G3x Gen2' alias AYANEO uses in its store SKU name. external_ids.igdb_platform null: Android device, not an IGDB games platform."
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "spec_version": 1,
+  "key": "asus-zenbook-duo-2025",
+  "kind": "device",
+  "family": "dual-screen-laptop",
+  "brand": "ASUS",
+  "model": "Zenbook DUO UX8406CA",
+  "aliases": [
+    "Zenbook Duo 2025",
+    "UX8406CA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 313.5,
+        "height": 217.9,
+        "depth": 14.6
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1350,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "31.35 x 21.79 x 1.46 ~ 1.99 cm (12.34\" x 8.58\" x 0.57\" ~ 0.78\")"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "1.65 kg (3.64 lbs) Weight of system: 1.35 kg Weight of keyboard: 0.30 kg"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "14.0-inch, 3K (2880 x 1800) OLED 16:10 aspect ratio, 0.2ms response time, 120Hz refresh rate"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "2x Thunderbolt 4 ... 1x USB 3.2 Gen 1 Type-A ... 1x HDMI 2.1 TMDS 1x 3.5mm Combo Audio Jack"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/zenbook-duo-14-oled-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "joined by a lay-flat 180 degree hinge to instantly expand the visual workspace"
+    }
+  ],
+  "notes": [
+    "MODEL EXISTS, BUT ASUS DOES NOT PUBLISH A '2025' PRODUCT PAGE. UX8406CA is real and is listed by ASUS as a Model on the SAME tech-spec page as the UX8406MA - https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/ - whose title is 'Zenbook DUO (2024) UX8406'. Probing asus.com for asus-zenbook-duo-2025-ux8406ca, asus-zenbook-duo-ux8406ca and asus-zenbook-duo-2025-ux8406 all 301-redirect to the generic Zenbook landing page, so the slug 'asus-zenbook-duo-2025' is OUR label, not ASUS's. On that shared page every mechanical row is IDENTICAL for the two model columns (same dimensions, same 1.65 kg / 1.35 kg / 0.30 kg weights, same I/O); the UX8406CA differs only in SoC (Core Ultra 9 285H vs 185H), Wi-Fi 7 vs 6E and Bluetooth 5.4 vs 5.3. AXIS MAPPING: manufacturer WIDTH 313.5 mm -> closed.width, manufacturer DEPTH 217.9 mm -> closed.height, manufacturer HEIGHT/thickness -> closed.depth; closed.width is the LONG axis; cm -> mm x10. Thickness 14.6 mm is the without-keyboard figure (the 1.46 end of ASUS's '1.46 ~ 1.99 cm' range, disambiguated by the ASUS press-release line '31.3 x 21.7 x 1.46 cm (without Bluetooth keyboard)'); 19.9 mm is the stack with the keyboard attached. mass_g 1350 = 'Weight of system: 1.35 kg' x 1000. dimensions_mm.open null. DISPLAY CAVEAT: the shared tech-spec page lists TWO panel options for this series - 3K (2880 x 1800) 120Hz and FHD (1920 x 1200) 60Hz - and does not machine-readably bind either one to UX8406CA alone; a live render of the page showed the FHD 60Hz panel against the UX8406CA column while the archived render listed the 3K 120Hz panel first for both. The 3K 2880x1800 120Hz panel recorded here is a real, ASUS-listed option for this series, but a UX8406CA buyer may receive the FHD 60Hz panel; treat resolution and refresh_hz as CONFIG-DEPENDENT. The 14.0-inch diagonal and 16:10 aspect are unambiguous for every option. active_area_mm derived from the sourced diagonal + the recorded resolution assuming square pixels: 14.0 x 2880 / sqrt(2880^2+1800^2) x 25.4 = 301.5 x 188.5 mm; it would differ if the FHD panel is fitted only in pixel count, not physical size. HINGE: 'clamshell' at 180 deg, NOT dual_screen_360. PORTS: the '1x USB 3.2 Gen 1 Type-A' ASUS lists is omitted because SPEC's enum has no usb_a; positions null. materials.* all null - ASUS states no chassis material on the tech-spec page, and the 90% PIR magnesium-aluminum alloy quote belongs to the UX8406 launch press release, so it was NOT carried over to this model. announced null - the ASUS news page for this refresh (asus.com/us/news/zhcoy8kavssuhqlf/) returned HTTP 500 'We'll be back' on every attempt via both WebFetch and curl, so the February 2025 date reported by secondary press is not recorded. NOTE ALSO: a NEWER Zenbook DUO exists - UX8407, which ASUS's own pressroom titles 'ASUS Zenbook DUO (2026) UX8407' - so UX8406CA is not the current Duo as of 2026-09-13."
+  ]
+}

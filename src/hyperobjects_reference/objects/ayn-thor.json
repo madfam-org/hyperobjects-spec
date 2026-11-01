@@ -1,0 +1,112 @@
+{
+  "spec_version": 1,
+  "key": "ayn-thor",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "AYN",
+  "model": "Thor",
+  "aliases": [
+    "AYN Thor Lite",
+    "AYN Thor Base",
+    "AYN Thor Pro",
+    "AYN Thor Max"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": null,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 6.0,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.92,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.ayntec.com/products/ayn-thor",
+      "retrieved": "2026-09-13",
+      "quote": "Customized Full HD 6\" AMOLED Touch Screen"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.ayntec.com/products/ayn-thor",
+      "retrieved": "2026-09-13",
+      "quote": "3.92\" AMOLED Touch Display (Bottom Screen)"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.ayntec.com/products/ayn-thor",
+      "retrieved": "2026-09-13",
+      "quote": "Exclusively 6'' AMOLED Dual Screen Gaming Handheld"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.ayntec.com/products/ayn-thor",
+      "retrieved": "2026-09-13",
+      "quote": "6'' AMOLED Dual Screen Gaming Handheld ... (Bottom Screen)"
+    }
+  ],
+  "notes": [
+    "REFERENCE DEVICE, and the registry's worst-sourced entry. AYN publishes NO dimensions and NO mass on any page of its own site. Verified exhaustively: the product page body_html (extracted from the page's embedded Shopify product JSON) states only SoC/RAM/storage tiers, the two display diagonals, Android 13, 6000mAh, Hall sticks and warranty; ayntec.com has no Thor spec/landing page (checked sitemap_pages_1.xml - only Loki/Odin pages exist) and no Thor blog posts (sitemap_blogs_1.xml); the Thor TPU shell and carrying-case accessory pages state no dimensions either. The domain ayn.tech named in the request does not resolve (DNS ENOTFOUND) - AYN's official store is ayntec.com. TRAP: the product page's cart JSON contains \"weight\":800 for every variant - that is the Shopify SHIPPING weight of the boxed product, NOT the device mass, and must not be used as mass_g. SECONDARY-ONLY (left null here, listed so a human can decide): review/aggregator sites (hothardware.com, droix.net, retrocatalog.com, retrospecgame.com) consistently state ~150 x 94 x 25.6 mm (5.9 x 3.7 x 1 in) and ~380 g, top screen 1080x1920 @120Hz 650 nits, bottom screen 1080x1240 @60Hz 550 nits, and ports USB 3.1 Type-C / 3.5mm / microSD with DisplayPort Alt Mode. None of that appears on ayntec.com. AYN states \"Full HD\" for the 6in panel, which conventionally denotes 1920x1080, but prints no pixel count, so resolution_px is left null rather than inferred. hinge.type=clamshell and hinge.axis=long are read from AYN's own \"Dual Screen ... (Bottom Screen)\" description of a top-over-bottom folding handheld, not from any published hinge statement; no angle, free-stop or crease figure is published anywhere by AYN."
+  ]
+}

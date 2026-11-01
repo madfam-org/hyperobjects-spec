@@ -1,0 +1,164 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-fold3",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Fold3 5G",
+  "aliases": [
+    "Galaxy Z Fold3",
+    "SM-F926"
+  ],
+  "status": "verified",
+  "announced": "2021-08-11",
+  "released": "2021-08-27",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 67.1,
+        "height": 158.2,
+        "depth": 16.0
+      },
+      "open": {
+        "width": 128.1,
+        "height": 158.2,
+        "depth": 6.4
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 271,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.2,
+      "resolution_px": [
+        2268,
+        832
+      ],
+      "aspect": "24.5:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 147.8,
+        "height": 54.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.6,
+      "resolution_px": [
+        2208,
+        1768
+      ],
+      "aspect": "22.5:18",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 150.7,
+        "height": 120.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Armor Aluminum",
+    "back": null,
+    "cover_glass": "Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 67.1 x 158.2 x 16.0mm (Hinge) – 14.4mm (Sagging)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 128.1 x 158.2 x 6.4mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 271g"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "7.6-inch QXGA+ Dynamic AMOLED 2X Display (22.5:18) Infinity Flex Display (2208 x 1768) 374ppi, 120Hz"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "6.2-inch HD+ Dynamic AMOLED 2X Display (24.5:9), 2268 x 832 387ppi, 120Hz adaptive refresh rate"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "Hideaway Hinge ... enables the devices to stay in place at any angle ... with Flex mode"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "built with our new Armor Aluminum ... along with the toughest Corning Gorilla Glass Victus"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "Korea on August 11, 2021"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g",
+      "retrieved": "2026-09-13",
+      "quote": "they will launch on August 27 starting with select markets"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.2 in, a:b = 2268:832 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.6 in, a:b = 2208:1768 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/the-next-chapter-in-mobile-innovation-unfold-your-world-with-galaxy-z-fold3-5g-and-galaxy-z-flip3-5g>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung's spec table prints Folded/Unfolded as WIDTH x HEIGHT x DEPTH -- the second value is identical folded and unfolded (the hinge-axis dimension), so it is mapped to `height` and the first value to `width`. Two folded thicknesses: 16.0mm '(Hinge)' and 14.4mm '(Sagging)'. Larger (16.0) -> closed.depth; the hinge-side value (16.0) -> depth_at_hinge; 14.4mm is the non-hinge side. Materials: the release says Armor Aluminum frame and Gorilla Glass Victus but does not separately identify the back-cover glass, so materials.back is left null. Crease shape never stated -> null. This generation adds S Pen support (S Pen Fold Edition, sold separately, no built-in slot) -- not modelled in `controls`. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: dimensions_mm.depth_at_hinge = 16.0; hinge.type = 'book'; hinge.axis = 'long'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: ports[0] = {\"kind\": \"usb_c\", \"position\": null}."
+  ]
+}

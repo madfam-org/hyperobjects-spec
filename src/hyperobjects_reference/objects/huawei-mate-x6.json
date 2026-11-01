@@ -1,0 +1,192 @@
+{
+  "spec_version": 1,
+  "key": "huawei-mate-x6",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "HUAWEI",
+  "model": "Mate X6",
+  "aliases": [
+    "ICL-LX9"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.78,
+        "height": 156.6,
+        "depth": 9.9
+      },
+      "open": {
+        "width": 144.04,
+        "height": 156.6,
+        "depth": 4.6
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 239,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.45,
+      "resolution_px": [
+        2440,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 149.8,
+        "height": 66.3,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.93,
+      "resolution_px": [
+        2440,
+        2240
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 148.4,
+        "height": 136.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "550 MPa aviation-grade aluminium middle frame",
+    "back": "Vegan fiber on the Nebula Gray version; vegan leather on the Nebula Red and Black versions",
+    "cover_glass": "Kunlun Glass 2nd Generation (第二代昆仑玻璃); Basalt-tempered 2nd-gen Kunlun Glass on the Collector's Edition"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Height 156.6 mm Width Folded: 73.78 mm Unfolded: 144.04 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Depth Folded: 9.85 mm (Vegan Fiber) /9.9 mm (Vegan Leather) Unfolded: 4.6 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Weight Approx. 239 g (including battery)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Size Main Screen: 7.93 inches Cover Screen: 6.45 inches"
+    },
+    {
+      "field": "displays[].resolution_px",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Resolution Main Screen: 2440 × 2240 Pixels Cover Screen: 2440 × 1080 Pixels"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen: OLED, 1-120 Hz LTPO adaptive refresh rate Cover Screen: OLED, 1-120 Hz LTPO adaptive refresh rate"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/",
+      "retrieved": "2026-09-13",
+      "quote": "The 550 MPa aviation-grade aluminum middle frame is designed to withstand drops and impact."
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/",
+      "retrieved": "2026-09-13",
+      "quote": "The Nebula Gray version uses vegan fiber, and the Nebula Red and Black versions use vegan leather."
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/cn/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "玻璃类型 HUAWEI Mate X6：第二代昆仑玻璃 HUAWEI Mate X6 典藏版：第二代玄武钢化昆仑玻璃"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/cn/phones/mate-x6/",
+      "retrieved": "2026-09-13",
+      "quote": "全新玄武水滴铰链，体积小巧，开合流畅，悬停稳当。采用 1900 MPa 创新火箭钢材料"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/cn/phones/mate-x6/",
+      "retrieved": "2026-09-13",
+      "quote": "悬停拍照，悬停稳当，解放双手"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/en/phones/mate-x6/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "USB Type-C, USB 3.1 GEN1"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.45 in, a:b = 2440:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://consumer.huawei.com/en/phones/mate-x6/specs/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://consumer.huawei.com/en/phones/mate-x6/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.93 in, a:b = 2440:2240 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://consumer.huawei.com/en/phones/mate-x6/specs/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://consumer.huawei.com/en/phones/mate-x6/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "TWO folded thicknesses are published, split by back material (not hinge/non-hinge side): 9.85 mm (Vegan Fiber) and 9.9 mm (Vegan Leather). Per the larger-value rule 9.9 is recorded in closed.depth and both are quoted; no hinge-side value is published, so depth_at_hinge is null. Mass is a single published value (239 g) covering both finishes. Huawei explicitly states what the thickness excludes: \"Folded thickness does not include the appearance of the camera module. Unfolded thickness does not include screen borders.\" - so closed.depth 9.9 mm is a body thickness WITHOUT the camera bump, which matters for a CAD envelope. Height 156.6 mm is published as one value for both states. The China spec page independently confirms every figure: \"长度 156.6 mm 宽度 折叠：73.78 mm 展开：144.04 mm 厚度 折叠：9.85 mm（锦纤版）/ 9.9 mm（素皮版）展开：4.6 mm 重量 约 239 克\" = \"Length 156.6 mm; Width folded 73.78 mm, unfolded 144.04 mm; Thickness folded 9.85 mm (fibre version) / 9.9 mm (vegan-leather version), unfolded 4.6 mm; Weight approx. 239 g\". Chinese translations of the cited hinge/glass lines: \"全新玄武水滴铰链，体积小巧，开合流畅，悬停稳当。采用 1900 MPa 创新火箭钢材料\" = \"All-new Basalt water-drop hinge - compact, smooth to open and close, stable when hovering. It uses an innovative 1900 MPa rocket-steel material.\" \"悬停拍照，悬停稳当，解放双手\" = \"Hover photography - stable hovering, hands free.\" \"玻璃类型 ... 第二代昆仑玻璃 ... 典藏版：第二代玄武钢化昆仑玻璃\" = \"Glass type: HUAWEI Mate X6 - 2nd-generation Kunlun Glass; Collector's Edition - 2nd-generation Basalt-tempered Kunlun Glass.\" The teardrop crease and free-stop hovering are stated on Huawei's China page only; the English page calls it only an \"Advanced precision hinge ... Made of 1900 MPa ultra-high strength steel\". The China page lists a wider colour/material split than the English one; materials.back records the English-page wording. Display aspect ratios are not published - left null; PPI is published (Main 417, Cover 413) but active_area_mm is left null because Huawei states the diagonals are standard-rectangle measurements with a slightly smaller actual viewing area. resolution_px recorded in Huawei's printed order (long axis first). announced/released null: no manufacturer page carrying a launch date for this model was found; the November/December 2024 dates appear only on excluded secondary sources. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-fold2",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Fold2",
+  "aliases": [
+    "Galaxy Z Fold2 5G",
+    "SM-F916"
+  ],
+  "status": "verified",
+  "announced": "2020-09-01",
+  "released": "2020-09-18",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 68.0,
+        "height": 159.2,
+        "depth": 16.8
+      },
+      "open": {
+        "width": 128.2,
+        "height": 159.2,
+        "depth": 6.9
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 282,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.2,
+      "resolution_px": [
+        2260,
+        816
+      ],
+      "aspect": "25:9",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 148.1,
+        "height": 53.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.6,
+      "resolution_px": [
+        2208,
+        1768
+      ],
+      "aspect": "22.5:18",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 150.7,
+        "height": 120.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 68.0 x 159.2 x 16.8mm (Hinge) ~ 13.8mm(Sagging), 282g"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 128.2 x 159.2 x 6.9mm(Frame) ~ 6.0mm(Screen) , 282g"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 68.0 x 159.2 x 16.8mm (Hinge) ~ 13.8mm(Sagging), 282g"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "7.6” QXGA+ Dynamic AMOLED 2X Display (22.5:18) Infinity Flex Display (2208 x 1768), 373ppi"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "the massive 7.6-inch Main Screen ... immerses you with a 120Hz adaptable refresh rate"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "6.2” HD+ Super AMOLED Display (25:9), 2260 x 816, 386ppi"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Hideaway Hinge, which fits seamlessly into the device body ... enables free standing capabilities"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Bluetooth v 5.0 (LE up to 2Mbps), USB type-C, NFC, Location (GPS, Galileo, Glonass, BeiDou)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "Korea on September 1, 2020"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future",
+      "retrieved": "2026-09-13",
+      "quote": "on September 18, 2020, with pre-orders from September 1, 2020"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.2 in, a:b = 2260:816 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.6 in, a:b = 2208:1768 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/introducing-the-galaxy-z-fold2-change-the-shape-of-the-future>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung's spec table prints Folded/Unfolded as WIDTH x HEIGHT x DEPTH -- the second value is identical folded and unfolded (the hinge-axis dimension), so it is mapped to `height` and the first value to `width`. Samsung gives TWO folded thicknesses: 16.8mm '(Hinge)' and 13.8mm '(Sagging)'. Per the family rule the LARGER (16.8) is closed.depth and the hinge-side value (also 16.8) is depth_at_hinge; 13.8mm is the non-hinge/taper side. Unfolded thickness is also a pair: 6.9mm '(Frame)' and 6.0mm '(Screen)'; the larger frame value is recorded as open.depth. Cover-screen refresh rate is not stated -> null (only the Main Screen's 120Hz is stated, in body copy). No frame/back/glass materials in the release; Samsung Ultra Thin Glass is stated for the MAIN SCREEN only, which is the foldable panel, not the cover_glass of the closed device, so materials left null. Crease shape never stated -> null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: dimensions_mm.depth_at_hinge = 16.8; hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

@@ -145,6 +145,11 @@ runbook.
   `standard-part.schema.json`), interfaces in the SEM-1 §2.3 shape, the loader,
   `resolve_parameters`, `interface_frames`, `part_digest`, and the catalog lane
   (third verdict of `vocab`). See docs/STANDARD_PARTS.md.
+- `hyperobjects_reference` — the reference-objects catalog: one cited JSON
+  entry per real product (`objects/{key}.json`, schema
+  `reference-object.schema.json`), the facts a commons family turns into a named
+  preset; path/coverage helpers, `family_digest`, and the lane `ho-reference
+  check`. Facts only, `null` never guessed. See docs/REFERENCE_OBJECTS.md.
 
 ## Durable contracts
 
