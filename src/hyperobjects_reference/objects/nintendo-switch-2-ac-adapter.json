@@ -1,0 +1,126 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-2-ac-adapter",
+  "kind": "accessory",
+  "family": "power-adapter",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch 2 AC Adapter",
+  "model_numbers": [
+    "NGN-01"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2025-06-05",
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 38.5,
+        "height": 45.0,
+        "depth": 49.5
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": null,
+  "features": {
+    "host_console": "nintendo-switch-2, nintendo-switch-2-dock",
+    "prong_standard": null,
+    "inlet": null,
+    "input": "AC 100V-240V 50/60Hz 1.6A",
+    "output_connector": "usb-c-plug",
+    "output_voltage_v": 20.0,
+    "output_current_a": 3.0,
+    "output_rails": "DC 5.0V/3.0A, 9.0V/3.0A, 15.0V/3.0A, 20.0V/3.0A",
+    "cable_length_mm": 1500
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 49.5mm x 横 38.5mm x 高さ 45.0mm"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "ACプラグ、USB-CⓇ充電ケーブルを除いたサイズ"
+    },
+    {
+      "field": "features.input",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "入力 AC 100V-240V 50/60Hz 1.6A"
+    },
+    {
+      "field": "features.output_rails",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V/3.0A , 9.0V/3.0A , 15.0V/3.0A , 20.0V/3.0A"
+    },
+    {
+      "field": "features.output_voltage_v",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V/3.0A , 9.0V/3.0A , 15.0V/3.0A , 20.0V/3.0A"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V/3.0A , 9.0V/3.0A , 15.0V/3.0A , 20.0V/3.0A"
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB-CⓇ充電ケーブルの長さは約1.5m（ACアダプターと着脱可能）"
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "1.5 m × 1000 = 1500 mm, from Nintendo Japan's 'USB-C充電ケーブルの長さは約1.5m' (https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html)."
+    },
+    {
+      "field": "features.output_connector",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/ac-adaptor.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB-CⓇ充電ケーブルの長さは約1.5m（ACアダプターと着脱可能）"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "「Nintendo Switch 2 本体」または「Nintendo Switch 2 ドック」に接続して使用するACアダプターです。"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch 2 ACアダプター 希望小売価格：3,980円（税込） 発売日：2025.6.5（木）"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "secondary",
+      "url": "https://www.nintendo.com/au/hardware/nintendo-switch-2/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 49.5mm x 38.5mm x 45mm"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan labels three axes 縦 49.5 / 横 38.5 / 高さ 45.0. Because 高さ (height) is labelled separately, 縦 is read as the front-to-back length: width=38.5 (横), height=45.0 (高さ), depth=49.5 (縦). The Australian page prints the same three numbers unlabelled (secondary, covers nothing). Size excludes the AC plug and the detachable USB-C cable (excludes_projections=true).",
+    "Four USB PD rails, all 3.0 A: output_voltage_v / output_current_a hold the highest (20.0 V / 3.0 A); output_rails holds all four as printed. The cable is detachable from the adapter ('ACアダプターと着脱可能'), so output_connector is the plug of that USB-C cable. model_numbers NGN-01 from Nintendo's EU ecodesign page ('External power supply model: NGN-01', the Switch 2 AC adapter)."
+  ]
+}

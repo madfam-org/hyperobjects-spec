@@ -1,0 +1,94 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-dock-with-lan-port",
+  "kind": "accessory",
+  "family": "console-dock",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch dock with LAN port",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 175,
+        "height": 104,
+        "depth": 50.7
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 315,
+  "ports": [
+    {
+      "kind": "usb",
+      "count": 2,
+      "position": "side"
+    },
+    {
+      "kind": "system_connector",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "ethernet",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "host_console": "nintendo-switch-oled-model, nintendo-switch"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock_oled.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "縦104mm×横175mm×厚さ50.7mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock_oled.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "約315g"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock_oled.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "USB端子（側面×２[USB2.0対応]） 本体接続端子 ACアダプター接続端子 HDMI端子 LAN端子"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/detail/switch-oled/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "「Nintendo Switch（有機ELモデル）」に付属のドックには、2つのUSB端子とテレビに接続するためのHDMI端子に加え、新たに有線LAN端子も搭載。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/detail/switch-oled/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "「Nintendo Switch（有機ELモデル）」のドックは、「Nintendo Switch」でも使えますか？ 有線LAN端子も含めて、お使いいただけます。"
+    }
+  ],
+  "notes": [
+    "The dock with a wired LAN port (Nintendo Japan spec modal dock_oled, linked from the Nintendo Switch (OLED model) page). Axis map as the original dock: width=175 (横), height=104 (縦), depth=50.7 (厚さ). Nintendo of America's tech-specs page gives the same dock in inches only ('Approximately 4.1 inches high, 6.9 inches long, and 2.0 inches deep', '.69 lbs'), consistent and not used.",
+    "host_console: Nintendo's OLED-model page says this dock ships with the Nintendo Switch (OLED model), and its FAQ says the OLED-model dock also works with the original Nintendo Switch, LAN port included. ports is Nintendo's complete list: two side USB ports only (no rear USB), plus LAN."
+  ]
+}

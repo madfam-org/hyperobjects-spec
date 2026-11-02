@@ -1,0 +1,141 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-ac-adapter-hac-002",
+  "kind": "accessory",
+  "family": "power-adapter",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch AC Adapter",
+  "model_numbers": [
+    "HAC-002"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2017-03-03",
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 65.8,
+        "height": 50.8,
+        "depth": 34.6
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": null,
+  "features": {
+    "host_console": "nintendo-switch, nintendo-switch-oled-model, nintendo-switch-lite, nintendo-switch-dock",
+    "prong_standard": null,
+    "inlet": null,
+    "input": "AC 100V-240V 50/60Hz 1A",
+    "output_connector": "usb-c-plug",
+    "output_voltage_v": 15.0,
+    "output_current_a": 2.6,
+    "output_rails": "DC 5.0V 1.5A / 15.0V 2.6A",
+    "cable_length_mm": 1500
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "幅65.8mm×高さ50.8mm×厚さ34.6mm ※ACプラグ、DCケーブルを除いたサイズ"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "※ACプラグ、DCケーブルを除いたサイズ"
+    },
+    {
+      "field": "features.input",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "入力 AC 100V-240V 50/60Hz 1A"
+    },
+    {
+      "field": "features.output_rails",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V 1.5A/15.0V 2.6A"
+    },
+    {
+      "field": "features.output_voltage_v",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V 1.5A/15.0V 2.6A"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "出力 DC 5.0V 1.5A/15.0V 2.6A"
+    },
+    {
+      "field": "features.output_voltage_v",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Corporate/Consumer-Information/Eco-design/Product-Ecodesign-Information-Accessories-part-3--2802495.html",
+      "retrieved": "2026-11-01",
+      "quote": "Output voltage: DC5.0V/DC15.0V"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Corporate/Consumer-Information/Eco-design/Product-Ecodesign-Information-Accessories-part-3--2802495.html",
+      "retrieved": "2026-11-01",
+      "quote": "Output current: 1.5A/2.6A"
+    },
+    {
+      "field": "features.output_rails",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/eu/media/downloads/support_1/nintendoswitch/NSwitch_Information_ACAdapter_EUR.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "DC 5.0V / 1.5A / 7.5W DC 15.0V / 2.6A / 39.0W"
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "コードの長さ 約1.5m"
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "1.5 m × 1000 = 1500 mm, from Nintendo Japan's 'コードの長さ 約1.5m' (the HAC-002 spec modal, https://www.nintendo.com/jp/hardware/switch/accessories/ac-adaptor.html?width=960)."
+    },
+    {
+      "field": "features.output_connector",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/detail/switch/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB Type-C™端子（底面） ACアダプターやNintendo Switchドックを接続します。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "「Nintendo Switch」ファミリー本体または「Nintendo Switchドック」に接続して使用するACアダプターです。"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch ACアダプター 希望小売価格：3,278円（税込） 発売日：2017.3.3（金）"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan accessory spec modal for the Nintendo Switch AC adapter; the EU information leaflet (HAC-002(EUR)) and Nintendo's EU ecodesign page print the same ratings. Axis map: width=65.8 (幅), height=50.8 (高さ), depth=34.6 (厚さ); 'excluding the AC plug and DC cable' is recorded as excludes_projections=true.",
+    "Two output rails: output_voltage_v / output_current_a hold the higher rail (15.0 V / 2.6 A, the one that powers the dock) and output_rails holds both as printed (Nintendo's footnote: the voltage changes automatically with the connected device). output_connector: the cable is hardwired and plugs into the console's USB Type-C port (Nintendo's console page), hence the standard-part key usb-c-plug.",
+    "prong_standard and inlet: not stated (the AC plug folds into the body on the JP unit, not printed); null. Regional variants (JPN/USA/EUR/UKV/AUS) share the model number with a suffix; the dimension and rating figures here are the Japanese page's."
+  ]
+}

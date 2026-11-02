@@ -1,0 +1,108 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-2-dock",
+  "kind": "accessory",
+  "family": "console-dock",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch 2 Dock",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 201,
+        "height": 115,
+        "depth": 51.2
+      }
+    },
+    "excludes_projections": false
+  },
+  "mass_g": 383,
+  "ports": [
+    {
+      "kind": "usb",
+      "count": 2,
+      "position": "side"
+    },
+    {
+      "kind": "system_connector",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "ethernet",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "host_console": "nintendo-switch-2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/dock.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦115mm×横201mm× 厚さ51.2mm"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/dock.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦は足部2.0mmも含む"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/dock.html",
+      "retrieved": "2026-11-01",
+      "quote": "約383g"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/dock.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB端子（側面×2[USB2.0対応]） 本体接続端子 ACアダプター接続端子 HDMI端子"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB端子 （側面×2[USB2.0対応]） 本体接続端子 ACアダプター接続端子 HDMI端子 LAN端子"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch 2 本体をこの中に差し込んで接続します。"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "secondary",
+      "url": "https://www.nintendo.com/au/hardware/nintendo-switch-2/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 115mm x 201mm x 51.2mm"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan labels the axes (縦115mm×横201mm×厚さ51.2mm) and says the 縦 figure includes the 2.0 mm feet ('縦は足部2.0mmも含む'), so excludes_projections=false: the height includes the feet. Axis map: width=201 (横), height=115 (縦), depth=51.2 (厚さ). The Australian page prints the same numbers unlabelled (recorded as secondary, it covers nothing).",
+    "ports: the dock-set page's spec block lists USB, system connector, AC adapter port and HDMI and its figure labels a LAN端子 too; the Switch 2 spec page's dock block lists all five, which is the complete list filed. The rear cooling fan (放熱ファン) and cover are labelled on Nintendo's figure but not dimensioned."
+  ]
+}

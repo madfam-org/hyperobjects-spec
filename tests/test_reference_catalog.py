@@ -293,7 +293,9 @@ def test_family_digest_is_order_free():
 
 def test_cli_check_and_digest(capsys, tmp_path, ds3):
     assert main(["check"]) == 0
-    assert "ho-reference check: objects=84 values=" in capsys.readouterr().out
+    # The catalog only grows (research lanes add objects); the import floor is 84.
+    found = re.search(r"ho-reference check: objects=([0-9]+) values=", capsys.readouterr().out)
+    assert found and int(found.group(1)) >= 84
     assert main(["digest", "--family", "tri-fold-phone"]) == 0
     assert capsys.readouterr().out.startswith(family_digest("tri-fold-phone"))
     ds3["mass_g"] = None

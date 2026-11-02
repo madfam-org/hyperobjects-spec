@@ -1,0 +1,73 @@
+{
+  "spec_version": 1,
+  "key": "atari-2600-cartridge",
+  "kind": "media",
+  "family": "plug-in-media",
+  "brand": "Atari",
+  "model": "Atari 2600 (VCS) game cartridge",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "shell": {
+        "width": 82.6,
+        "height": 25.4,
+        "depth": 95.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "host_console": "atari-2600-cx2600",
+    "edge_contacts": null,
+    "contact_pitch_mm": null,
+    "insertion_edge": null,
+    "card": null,
+    "shutter": null,
+    "pass_through_slot": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.shell",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730615",
+      "retrieved": "2026-11-01",
+      "quote": "3 1/4w x 1h x 3 3/4l (in) 8.26w x 2.54h x 9.52l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.shell",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "CHM catalogue 102730615 prints '8.26w x 2.54h x 9.52l (cm)'; ×10 to mm (82.6, 25.4, 95.2); axes as CHM labels them: w→width, h→height, l→depth."
+    },
+    {
+      "field": "dimensions_mm.states.shell",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730617",
+      "retrieved": "2026-11-01",
+      "quote": "3 1/4w x 1h x 3 3/4l (in) 8.26w x 2.54h x 9.52l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.shell",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730618",
+      "retrieved": "2026-11-01",
+      "quote": "3 1/4w x 1h x 3 3/4l (in) 8.26w x 2.54h x 9.52l (cm)"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730615",
+      "retrieved": "2026-11-01",
+      "quote": "Atari 2600 Moon Patrol video game cartridge, for use for 2600 machine and joystick."
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalogue records of three bare cartridges: Moon Patrol (Atari, Inc., 1982, 102730615), Laser Blast (Activision, 1981, 102730617) and California Games (1987, 102730618). All three carry the identical figure '3 1/4w x 1h x 3 3/4l (in)', so CHM's record is a quarter-inch-rounded catalogue envelope, and it does not separate the publishers' different shells (Atari and Activision shells are known to differ in detail). Treat it as an ENVELOPE ONLY, ±1/8 in (±3.2 mm) per axis; a preset needs measured shells per publisher (measurement queue).",
+    "Axis order is CHM's own labelling (w, h, l) for the cartridge lying flat: width=82.6 (w), height=25.4 (h, the thickness), depth=95.2 (l, the insertion length). CHM's centimetre line is CHM's own conversion; the millimetre values are a ×10 shift (derived source). The CHM masses (0.5 lb, whole/half pounds) are not used.",
+    "edge_contacts, contact_pitch_mm, insertion_edge, shutter (Atari shells have a sliding dust door), card and pass_through_slot: no value-tier source read states them; null."
+  ]
+}

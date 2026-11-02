@@ -1,0 +1,90 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-dock",
+  "kind": "accessory",
+  "family": "console-dock",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch dock",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 173,
+        "height": 104,
+        "depth": 54
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 327,
+  "ports": [
+    {
+      "kind": "usb",
+      "count": 3,
+      "position": "2 side, 1 rear"
+    },
+    {
+      "kind": "system_connector",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "host_console": "nintendo-switch"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/dock.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "104 mm tall x 173 mm wide x 54 mm thick"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "縦104mm×横173mm×厚さ54mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "約327g"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/dock.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "USB端子（側面×２、背面×１）[USB2.0対応] 本体接続端子 ACアダプター接続端子 HDMI端子"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/detail/switch/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "本体接続端子 Nintendo Switch本体をこの中に差し込んで接続します。"
+    }
+  ],
+  "notes": [
+    "The dock sold with the original Nintendo Switch (Nintendo Japan spec modal 'Nintendo Switchドック'; the Singapore English copy of the same modal labels the axes: 104 mm tall x 173 mm wide x 54 mm thick). Axis map: width=173 (横/wide), height=104 (縦/tall), depth=54 (厚さ/thick). Whole millimetres as printed. Neither page says whether projecting parts are excluded: excludes_projections null.",
+    "ports is Nintendo's complete connection list for this dock. Nintendo does not name the USB connector type (only 'USB2.0対応'), so the kind is the generic 'usb'; the AC adapter port is recorded as power_in and the console plug as system_connector (neither has a contract kind). The rear-cover hinge and cable cover are not dimensioned.",
+    "model_numbers not filed: no Nintendo page read prints the dock's model code. host_console is the proposed catalog key for the HAC-001 console; align with the handheld lane's key at landing. The dock with LAN port (OLED-model dock) is its own object, nintendo-switch-dock-with-lan-port."
+  ]
+}
