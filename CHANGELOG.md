@@ -23,6 +23,13 @@ numbered pagination; neither justifies automatically adding four cover pages to
 these records. Booklet pages/binding stay null. Precision is not improved by unit
 conversion. The previous opaque catalog_* strings remain as source evidence.
 
+### GBA SP display coverage
+
+Nintendo UK's complete Screen specification sources the original frontlit AGS-001's
+single listed display and 2.9-inch diagonal. Active area follows the existing
+diagonal/resolution law (61.3 × 40.9 mm); the maker's unlabeled 40.8 × 61.2 mm pair
+and rounded-diagonal discrepancy remain explicit. AGS-101 stays unresolved.
+
 ### Reference objects: controllers, NES pad to DualSense Edge (lane RA3)
 
 Data only: 47 new `kind: controller` objects in `src/hyperobjects_reference/objects/`, no
