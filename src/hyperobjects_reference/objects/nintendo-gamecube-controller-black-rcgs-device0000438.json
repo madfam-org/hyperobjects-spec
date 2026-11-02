@@ -34,6 +34,27 @@
   },
   "sources": [
     {
+      "field": "brand",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000438",
+      "retrieved": "2026-11-02",
+      "quote": "任天堂株式会社"
+    },
+    {
+      "field": "model",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000438",
+      "retrieved": "2026-11-02",
+      "quote": "ニンテンドーゲームキューブコントローラ ブラック"
+    },
+    {
+      "field": "model_numbers",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000438",
+      "retrieved": "2026-11-02",
+      "quote": "型番 DOL-003"
+    },
+    {
       "field": "features.catalog_record",
       "tier": "museum",
       "url": "https://collection.rcgs.jp/page/DEVICE0000438",
