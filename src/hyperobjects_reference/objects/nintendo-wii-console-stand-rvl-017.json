@@ -1,0 +1,73 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-console-stand-rvl-017",
+  "kind": "accessory",
+  "family": "console-stand",
+  "brand": "Nintendo",
+  "model": "Wii console stand",
+  "model_numbers": [
+    "RVL-017"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 55.4,
+        "height": 42,
+        "depth": 225.6
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 137,
+  "features": {
+    "host_console": "nintendo-wii"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/console/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅 55.4mm　　高さ 42mm　　奥行き 225.6mm　（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/console/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "外 形 寸 法 横55.4mm×縦42mm×奥行き225.6mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質 量 約137g"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Wii本体専用スタンド ［RVL-017］"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan's Wii console page labels the stand's axes 幅/高さ/奥行き and says projections are excluded; the Japanese setup manual (仕様 table, PDF text extracted with macOS PDFKit; furigana lines are dropped and adjacent label/value cells joined with one space in the quotes) gives the same envelope as 横55.4mm×縦42mm×奥行き225.6mm and the mass. Axis map: width=55.4, height=42, depth=225.6.",
+    "The stand assist plate RVL-019 (横120mm×縦109mm×厚さ7.7mm, 約24g, same table) is a separate part fitted to the stand for vertical use; not filed as an object."
+  ]
+}

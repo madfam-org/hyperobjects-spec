@@ -1,0 +1,82 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-charging-stand-free-stop",
+  "kind": "accessory",
+  "family": "console-stand",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch Charging Stand (free-stop)",
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2018-07-13",
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 47.9,
+        "height": 44.7,
+        "depth": 28.1
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 28,
+  "ports": [
+    {
+      "kind": "system_connector",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "host_console": "nintendo-switch, nintendo-switch-oled-model, nintendo-switch-lite"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/charging-stand.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "縦44.7mmx横47.9mx厚さ28.1mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/charging-stand.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "約28g"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/charging-stand.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "接続端子 本体接続端子 ACアダプター接続端子"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Switch充電スタンド（フリーストップ式） 希望小売価格：1,848円（税込） 発売日：2018.7.13（金） Nintendo Switch（有機ELモデル） Nintendo Switch Nintendo Switch Lite"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "発売日：2018.7.13（金）"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan accessory spec modal. The printed line reads '縦44.7mmx横47.9mx厚さ28.1mm': the width figure is printed with 'm' (a typo on Nintendo's page, quoted as printed); the value is taken as 47.9 mm, consistent with the other two figures in mm. Axis map: width=47.9 (横), height=44.7 (縦), depth=28.1 (厚さ). Folded/unfolded state not stated.",
+    "host_console: the accessories index lists the three compatible models under the stand's entry; keys are the proposed catalog keys. The stand takes the Nintendo Switch AC adapter (not included, per the same page)."
+  ]
+}

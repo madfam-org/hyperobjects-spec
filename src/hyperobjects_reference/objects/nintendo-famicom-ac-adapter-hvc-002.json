@@ -1,0 +1,66 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-famicom-ac-adapter-hvc-002",
+  "kind": "accessory",
+  "family": "power-adapter",
+  "brand": "Nintendo",
+  "model": "Family Computer AC adapter",
+  "model_numbers": [
+    "HVC-002"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "host_console": "nintendo-famicom",
+    "output_voltage_v": 10,
+    "output_current_a": 0.85
+  },
+  "sources": [
+    {
+      "field": "features.output_voltage_v",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "使用電源 専用ACアダプタ DC10V 850mA"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "使用電源 専用ACアダプタ DC10V 850mA"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "850 mA ÷ 1000 = 0.85 A, from Nintendo Japan's Famicom hardware page '専用ACアダプタ DC10V 850mA' (https://www.nintendo.com/jp/famicom/hardware/index.html)."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "付属品 ACアダプタ（HVC-002）"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan's Famicom hardware page (text 'based on the manual of the time'): the console runs from its dedicated AC adapter at DC10V 850mA, and the adapter HVC-002 is an included accessory. The rating is the console's supply line, which names the dedicated adapter; the adapter's own label is not quoted. Envelope, mass, cord and plug: null (measurement queue). This is NOT the NES adapter NES-002, which is a different (AC-output) unit with no Nintendo source found."
+  ]
+}

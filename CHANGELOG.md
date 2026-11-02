@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Reference objects: game media formats, docks, stands, AC adapters, cables (lane RA4)
+
+Data only: 16 new objects in `src/hyperobjects_reference/objects/`, no schema, checker or
+version change. Facts for the `plug-in-media`, `disc-media`, `console-dock`, `console-stand`,
+`power-adapter` and `cable-assembly` families of the gaming-hardware plan; every value is
+quoted from a maker's page or manual or a museum record, and what no source publishes is
+`null`. Most cartridge shells, memory cards, proprietary discs and game cases are published
+nowhere, so they are not filed: they wait for the `measured` tier.
+
+#### Added
+
+- **console-dock** (4): `nintendo-switch-dock`, `nintendo-switch-dock-with-lan-port`,
+  `nintendo-switch-2-dock` (Nintendo Japan spec pages, labelled axes, mass, complete port
+  lists), `sony-dualsense-charging-station-cfi-zds1` (PlayStation.com).
+- **console-stand** (3): `nintendo-wii-console-stand-rvl-017` (Wii page and setup manual),
+  `nintendo-switch-charging-stand-free-stop`, `sony-ps5-vertical-stand-cfi-zvs1` (instruction
+  manual vs store page, decided in `conflicts[]`).
+- **power-adapter** (5): `nintendo-switch-ac-adapter-hac-002`, `nintendo-switch-2-ac-adapter`
+  (envelope, input, every output rail, cord length), `nintendo-wii-ac-adapter-rvl-002` (Japan
+  unit, from the setup manual's specification table), `nintendo-gamecube-ac-adapter` and
+  `nintendo-famicom-ac-adapter-hvc-002` (output rating only).
+- **cable-assembly** (1): `nintendo-wii-av-cable-rvl-009` (length and mass).
+- **disc-media** (2): `nintendo-wii-disc` (12 cm), `nintendo-gamecube-disc` (8 cm vs
+  Nintendo of Europe's "3 inch", decided in `conflicts[]`).
+- **plug-in-media** (1): `atari-2600-cartridge`, a quarter-inch museum envelope from three
+  Computer History Museum records (envelope only).
+
+#### Changed
+
+- `tests/test_reference_catalog.py::test_cli_check_and_digest` no longer pins the object
+  count to the 84 imported objects: it asserts the count is at least 84, as the family-floor
+  tests already do, so research PRs that add objects stay green.
+
 ### Game editions, container contents and the box ↔ content fit, gate G-X2 (package 0.20.0)
 
 The gaming-hardware plan's title editions (wave W4) need a record that joins a title's

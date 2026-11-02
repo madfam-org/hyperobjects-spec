@@ -1,0 +1,57 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-gamecube-ac-adapter",
+  "kind": "accessory",
+  "family": "power-adapter",
+  "brand": "Nintendo",
+  "model": "Nintendo GameCube AC adapter",
+  "regions": [
+    "EU"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "host_console": "nintendo-gamecube",
+    "output_voltage_v": 12,
+    "output_current_a": 3.25
+  },
+  "sources": [
+    {
+      "field": "features.output_voltage_v",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-GameCube/Technical-Details/Technical-Details-627134.html",
+      "retrieved": "2026-11-01",
+      "quote": "Power Supply AC Adapter DC12V x 3.25A"
+    },
+    {
+      "field": "features.output_current_a",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-GameCube/Technical-Details/Technical-Details-627134.html",
+      "retrieved": "2026-11-01",
+      "quote": "Power Supply AC Adapter DC12V x 3.25A"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-GameCube/Technical-Details/Technical-Details-627134.html",
+      "retrieved": "2026-11-01",
+      "quote": "Power Supply AC Adapter DC12V x 3.25A"
+    }
+  ],
+  "notes": [
+    "Nintendo of Europe 'Nintendo History' GameCube Technical Details: the console's power supply line names the AC adapter's DC output. The adapter's envelope, mass, cord length, input rating, plug and model code are not published there: all null (measurement queue)."
+  ]
+}

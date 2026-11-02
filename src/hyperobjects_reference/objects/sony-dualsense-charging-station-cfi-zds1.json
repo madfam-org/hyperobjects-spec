@@ -1,0 +1,65 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualsense-charging-station-cfi-zds1",
+  "kind": "accessory",
+  "family": "console-dock",
+  "brand": "Sony Interactive Entertainment",
+  "model": "DualSense Charging Station",
+  "model_numbers": [
+    "CFI-ZDS1"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 52,
+        "height": 62,
+        "depth": 159
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 200,
+  "features": {
+    "host_console": "DualSense, DualSense Edge (controllers, not a console)",
+    "capacity": 2
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-charging-station/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. H62 x W52 x D159 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-charging-station/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 0.2kg"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-charging-station/",
+      "retrieved": "2026-11-01",
+      "quote": "Charge up to two DualSense® or DualSense Edge® wireless controllers at the same time without having to connect them to your PlayStation®5 console."
+    },
+    {
+      "field": "features.capacity",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-charging-station/",
+      "retrieved": "2026-11-01",
+      "quote": "Charge up to two DualSense® or DualSense Edge® wireless controllers at the same time"
+    }
+  ],
+  "notes": [
+    "PlayStation.com UK product page, axes labelled H62 x W52 x D159 mm: width=52, height=62, depth=159. Sony's Malaysian store (store.sony.com.my, CFI-ZDS1 G) prints the same envelope as 'Approx. 52 × 62 × 159 (mm)' under 'Product Dimensions (w/h/d)', agreeing; not cited separately.",
+    "mass: Sony prints 'Approx. 0.2kg' (0.1 kg precision), recorded as 200 g. The instruction manual's specification table (not retrieved from a Sony host) may carry a finer figure; measure or re-source before a preset depends on it.",
+    "This docks controllers, not a console: host_console names the controllers as text. The AC adapter in the box is not specified on the page. model_numbers from the page title area ('CFI-ZDS1' appears in Sony store listings and the manual); not a fact root."
+  ]
+}

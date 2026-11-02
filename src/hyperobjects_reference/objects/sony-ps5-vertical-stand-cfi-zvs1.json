@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "key": "sony-ps5-vertical-stand-cfi-zvs1",
+  "kind": "accessory",
+  "family": "console-stand",
+  "brand": "Sony Interactive Entertainment",
+  "model": "Vertical Stand for PS5 consoles",
+  "model_numbers": [
+    "CFI-ZVS1"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {},
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 155,
+        "height": 11,
+        "depth": 155
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 140,
+  "features": {
+    "host_console": "sony-playstation-5-pro-cfi-7000, sony-playstation-5-cfi-1000, sony-playstation-5-cfi-2000"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://manuals.plus/m/a2fc3e15e796adc109c27c6b250b4bce5311696417ff99c0e7dcd08184f1ca2c.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions (excluding projecting parts) Approx. 155 × 11 × 155 mm (w × h × d)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://manuals.plus/m/a2fc3e15e796adc109c27c6b250b4bce5311696417ff99c0e7dcd08184f1ca2c.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 140 g"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/vertical-stand-for-ps5/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. H42 x W190 x D190 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/vertical-stand-for-ps5/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 30g"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/vertical-stand-for-ps5/",
+      "retrieved": "2026-11-01",
+      "quote": "*Compatible Hardware: PS5® Pro consoles, PS5® CFI-1000 model group, PS5® CFI-2000 model group - slim and , CFI-2100 model group – slim."
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://manuals.plus/m/a2fc3e15e796adc109c27c6b250b4bce5311696417ff99c0e7dcd08184f1ca2c.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions (excluding projecting parts)"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 155,
+            "height": 11,
+            "depth": 155
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 190,
+            "height": 42,
+            "depth": 190
+          },
+          "source": 2
+        }
+      ],
+      "chosen": 0,
+      "reason": "The instruction manual's specification table (excluding projecting parts, w × h × d) describes the part; the store page's H42 x W190 x D190 mm with 'Approx. 30g' is not credible for the same part (a 190 mm square at 30 g) and reads as a packaging or listing error. Chosen: the manual."
+    },
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 140,
+          "source": 1
+        },
+        {
+          "value": 30,
+          "source": 3
+        }
+      ],
+      "chosen": 0,
+      "reason": "As for the envelope: the manual's 'Mass Approx. 140 g' over the store page's 'Approx. 30g'."
+    }
+  ],
+  "notes": [
+    "SOURCE HOSTING CAVEAT: the instruction manual is Sony Interactive Entertainment's own PDF (document 5-064-376-11(1), PDF metadata Author 'Sony Interactive Entertainment Inc.', Title 'CFI-ZVS1', created 2024-09-19), fetched from a manual-hosting mirror because no playstation.com URL for it was found. Its content is the maker's; the host is not. Re-cite the playstation.com copy when one is located; until then treat the envelope as primary-by-content.",
+    "Axis map from the manual: width=155, height=11, depth=155 (the stand lying flat). The store page (playstation.com UK) is a value-tier source for the losing conflict candidates only. host_console lists the compatible models as the store page names them, as proposed keys (the CFI-2100 group is folded into cfi-2000)."
+  ]
+}
