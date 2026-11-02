@@ -9,9 +9,9 @@
   "dimensions_mm": {
     "states": {
       "body": {
-        "width": null,
-        "height": null,
-        "depth": null
+        "width": 270,
+        "height": 40,
+        "depth": 105
       }
     }
   },
@@ -37,13 +37,63 @@
       "url": "https://archive.org/details/AtariLynxOwnersManual",
       "retrieved": "2026-11-01",
       "quote": "Battery door Slide open to insert 6 AA batteries."
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "270mm（幅） ×105mm（奥行） ×40mm（高さ）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "3.4インチ"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "160（横）×102（縦）カラーピクセル"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "バックライト付きカラー液晶"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=3.4 in, a:b=160:102; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[4] (https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf); sources[5] (https://archive.org/download/lynx-manuals-jp/Atari%20Lynx%20JP%20manual.pdf)"
     }
   ],
   "notes": [
-    "Atari owner-manual scan archived at archive.org. Mass includes batteries. Japanese OCR suggests 270 mm width × 105 mm depth × 40 mm height, but its depth label is garbled; those body values and the damaged display line are withheld pending inspection of the scan. CHM records include cases/accessories and are not used for the handheld envelope."
+    "Atari Japanese instruction manual, printed page 14 / PDF page 8, visually inspected from the original scan because OCR garbles 奥行 and drops the diagonal. The image clearly prints 3.4 inches, 160 horizontal ×102 vertical colour pixels, and 480×102 subpixel dots. resolution_px uses colour pixels. Width / height / depth are 270 / 40 / 105 mm under the maker labels. Mass includes batteries. CHM case/accessory-set records are not used for the envelope."
   ],
   "features": {
     "cell_kind": "aa",
     "cell_count": 6
-  }
+  },
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.4,
+      "resolution_px": [
+        160,
+        102
+      ],
+      "panel": "LCD",
+      "active_area_mm": {
+        "width": 72.8,
+        "height": 46.4,
+        "derived": true
+      }
+    }
+  ]
 }
