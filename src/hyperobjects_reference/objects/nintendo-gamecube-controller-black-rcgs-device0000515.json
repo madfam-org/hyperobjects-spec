@@ -13,13 +13,7 @@
   "announced": null,
   "released": null,
   "dimensions_mm": {
-    "states": {
-      "catalogued": {
-        "width": 140,
-        "height": 100,
-        "depth": 60
-      }
-    },
+    "states": {},
     "excludes_projections": null
   },
   "mass_g": null,
@@ -30,7 +24,9 @@
     "catalog_device_size": "10 * 14 * 6 cm",
     "catalog_color": "ブラック",
     "measurement_pose": null,
-    "cable_length_mm": null
+    "cable_length_mm": null,
+    "catalog_device_size_unlabelled_mm": "100 * 140 * 60 mm",
+    "measurement_axis_order": null
   },
   "sources": [
     {
@@ -76,16 +72,16 @@
       "quote": "版表示 ブラック"
     },
     {
-      "field": "dimensions_mm.states.catalogued",
+      "field": "features.catalog_device_size_unlabelled_mm",
       "tier": "derived",
-      "method": "RCGS record https://collection.rcgs.jp/page/DEVICE0000515 publishes 10 * 14 * 6 cm. RCGS Game Cataloging Manual v1.00, p.24 (https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf), defines the physical dimension order as height × width × depth in cm. Multiply each recorded axis by 10: height 100 mm, width 140 mm, depth 60 mm. This is the catalogue measurement frame, not an inferred gameplay/body pose or a manufacturing tolerance.",
-      "retrieved": "2026-11-02"
+      "retrieved": "2026-11-02",
+      "method": "Preserve the literal order in RCGS DEVICE0000515 (https://collection.rcgs.jp/page/DEVICE0000515) and multiply each centimetre value by 10. These are unlabelled millimetre values, not assigned width/height/depth axes. The source does not label the device axes. Game Cataloging Manual v1.00 p.24 (https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf) describes package/carrier dimensions; its Device chapter p.49 is under drafting, so it does not establish this device's axis order."
     }
   ],
   "notes": [
     "Exact catalogued physical specimen DEVICE0000515, not a universal DOL-003 model envelope, a retail stock code, manufacturing revision or proof of inclusion with a console. The museum names DOL-003, black and MADE IN JAPAN; its only stated information source is the physical device (装置現物). Market region and manufacture date are unresolved.",
-    "The catalogue size 10 * 14 * 6 cm is preserved verbatim. Only the documented H/W/D axis order and cm-to-mm conversion are derived. Pose/orientation, whether sticks/buttons/cable projections are included and cable arrangement are unpublished; excludes_projections and measurement_pose remain null. The state is catalogued, deliberately not body/shell/closed; normal fit and device-family mappings must not silently consume it.",
-    "Family remains null until a generator explicitly supports this source frame and scope. No traced controller outline, controls, internals, cable length, connector geometry or physical-fit claim is supplied. The generic nintendo-gamecube-controller object is unchanged.",
+    "The catalogue size 10 * 14 * 6 cm is preserved verbatim. Only cm-to-mm conversion in unchanged literal order is derived; the axes remain unknown. The previously assigned catalogued width/height/depth state was withdrawn because the manual's p.24 convention concerns packages/carriers, while its Device chapter p.49 is under drafting. Pose/orientation, projection inclusion and cable arrangement are unpublished. No labelled dimensional state is supplied.",
+    "Family remains null until a generator supports the source identity, verified axes and measurement scope. No traced controller outline, controls, internals, cable length, connector geometry or physical-fit claim is supplied. The generic nintendo-gamecube-controller object is unchanged.",
     "RCGS DEVICE0000438 reports 6.7 × 13.5 × 11 cm, while DEVICE0000515 reports 10 × 14 × 6 cm for another black DOL-003 specimen. The reason for the differing extents/pose/rounding is unresolved; neither is silently preferred or merged into the other. This record retains its own catalogue extent. The modern Wii U/Switch-era DOL-003 manual does not establish the original 2001 pack-in dimensions.",
     "Reported precision is retained: no conversion adds a manufacturing tolerance or a digit absent from the source. No complete bundled/contents relationship is asserted for RCGS DEVICE0000404 or any retail GameCube pack."
   ]

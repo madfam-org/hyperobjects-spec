@@ -9,11 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Reference objects: two catalogued black GameCube controller specimens
 
 Adds two partial museum-specific DOL-003 controller references for RCGS DEVICE0000438
-and DEVICE0000515. Each preserves its own published size literal and a derived
-H/W/D conversion under the museum cataloging manual. The named state is
-`catalogued`, not `body`: pose, projection/cable inclusion and the reason for the
-differing extents remain unknown. Family mapping is unresolved; no generic
-controller dimensions, retail pack-in relationship, new schema or fit claim.
+and DEVICE0000515. Each preserves its own published size literal and unlabelled
+cm-to-mm values in literal order. The earlier labelled `catalogued` dimensional
+states are withdrawn: the manual's p.24 axis convention describes packages/carriers,
+while its Device chapter p.49 is under drafting. Device axes, pose, projection/cable
+inclusion and the reason for differing extents remain unknown. Family stays null;
+no generated family preset, generic controller dimensions, retail pack-in relationship,
+new schema or fit claim.
 
 
 ### Reference editions: documented RCGS dimension semantics for five Japanese issues
