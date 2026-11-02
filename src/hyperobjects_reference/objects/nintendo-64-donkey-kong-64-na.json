@@ -1,0 +1,61 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64-donkey-kong-64-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "Donkey Kong 64 (nintendo-64, NA)",
+  "status": "partial",
+  "edition": {
+    "title": "Donkey Kong 64",
+    "platform": "nintendo-64",
+    "region": "NA",
+    "product_code": null,
+    "released": null,
+    "media": {
+      "key": "nintendo-64-game-pak",
+      "count": 1
+    },
+    "package": null,
+    "booklet": {
+      "pages": null,
+      "page_width_mm": null,
+      "page_height_mm": null,
+      "binding": null
+    }
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://m1.nintendo.net/docvc/NUS/USA/NDOE/NDOE_E.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Donkey Kong"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://m1.nintendo.net/docvc/NUS/USA/NDOE/NDOE_E.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://m1.nintendo.net/docvc/NUS/USA/NDOE/NDOE_E.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "USA"
+    },
+    {
+      "field": "edition.media",
+      "tier": "primary",
+      "url": "https://m1.nintendo.net/docvc/NUS/USA/NDOE/NDOE_E.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Game Pak"
+    }
+  ],
+  "notes": [
+    "Nintendo-hosted raster scan of the maker’s North American instruction booklet, available through the official Virtual Console documentation service. Cover and opening Game Pak/console-identification paragraph were visually checked (PDF leaves 1–2; Mario Kart’s booklet follows a separate operation card). Quotes are transcribed from the scan, not accepted from OCR where it misreads product codes or Game Pak. The USA code establishes the North American issue. The publication’s cover code is a manual reference, so it is not silently assigned as the retail cartridge product_code. No exact original launch day is printed. The source can omit covers or include a separate card; its PDF page count and MediaBox are not a physical booklet count or trim measurement.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64-super-smash-bros-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "Super Smash Bros. (nintendo-64, NA)",
+  "status": "partial",
+  "edition": {
+    "title": "Super Smash Bros.",
+    "platform": "nintendo-64",
+    "region": "NA",
+    "product_code": null,
+    "released": null,
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://press.nintendo.com/CompanyHistory",
+      "retrieved": "2026-11-01",
+      "quote": "Super Smash Bros."
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://press.nintendo.com/CompanyHistory",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo 64 titles"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://press.nintendo.com/CompanyHistory",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo of America"
+    }
+  ],
+  "notes": [
+    "Nintendo of America’s corporate history, 1999 section, explicitly lists Super Smash Bros. among Nintendo 64 titles. This establishes title/platform/NA context, but no exact date, cartridge format, retail code or physical packaging fact is inferred.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-super-paper-mario-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "Super Paper Mario (nintendo-wii, NA)",
+  "status": "partial",
+  "edition": {
+    "title": "Super Paper Mario",
+    "platform": "nintendo-wii",
+    "region": "NA",
+    "product_code": null,
+    "released": null,
+    "media": null,
+    "package": null,
+    "booklet": {
+      "pages": null,
+      "page_width_mm": null,
+      "page_height_mm": null,
+      "binding": null
+    }
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081221102044id_/http://www.nintendo.com/consumer/gameslist/manuals/Wii_Super_Paper_Mario.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "SUPER PAPER MARIO"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081221102044id_/http://www.nintendo.com/consumer/gameslist/manuals/Wii_Super_Paper_Mario.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Wii"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081221102044id_/http://www.nintendo.com/consumer/gameslist/manuals/Wii_Super_Paper_Mario.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "NINTENDO OF AMERICA INC."
+    }
+  ],
+  "notes": [
+    "Archived original Nintendo of America manual PDF, full 2008-12-21 capture. Cover visually checked for title/Wii and Nintendo of America publication context. Its manual reference 63200A is not asserted to be the retail game product_code. This multilingual imposed PDF is not a count or trim measurement for a physical booklet. Release day is unresolved from this source.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-gamecube-the-legend-of-zelda-twilight-princess-jp",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "ゼルダの伝説　トワイライトプリンセス (nintendo-gamecube, JP)",
+  "status": "partial",
+  "edition": {
+    "title": "ゼルダの伝説　トワイライトプリンセス",
+    "platform": "nintendo-gamecube",
+    "region": "JP",
+    "product_code": "GS-DOL-GZ2J-JPN",
+    "released": "2006-12-02",
+    "media": {
+      "key": "nintendo-gamecube-disc",
+      "count": 1
+    },
+    "package": null,
+    "booklet": {
+      "pages": null,
+      "page_width_mm": null,
+      "page_height_mm": null,
+      "binding": null
+    }
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/gz2j/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ゼルダの伝説　トワイライトプリンセス"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/gz2j/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ニンテンドーゲームキューブ"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/gz2j/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2006年12月2日"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/gz2j/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2006年12月2日販売（発送）開始"
+    },
+    {
+      "field": "edition.product_code",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "GS-DOL-GZ2J-JPN"
+    },
+    {
+      "field": "edition.media",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "1 computer disc"
+    },
+    {
+      "field": "features.ean_13",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "4902370515633"
+    },
+    {
+      "field": "features.catalog_record",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "PACKAGE0010369"
+    },
+    {
+      "field": "features.catalog_media_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "8 cm"
+    },
+    {
+      "field": "features.catalog_manual_extent",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "36 pages"
+    },
+    {
+      "field": "features.catalog_manual_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "14.2 cm"
+    },
+    {
+      "field": "features.catalog_package_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
+      "retrieved": "2026-11-01",
+      "quote": "14.7 * 10.4 * 1.5 cm"
+    }
+  ],
+  "notes": [
+    "Japan-market Nintendo comparison table, with separate Wii and Nintendo GameCube columns. The GameCube release was sold through Nintendo’s online store. The two platforms remain separate edition keys.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record.",
+    "Ritsumeikan Center for Game Studies physical-package record PACKAGE0010369 identifies this catalogued Japanese issue by its transcribed 型番 and 商品識別コード. Product code spelling is preserved verbatim; it is not a code inferred from a manual URL, platform, or expected prefix. The catalogue’s own physical metadata is used at museum tier; embedded Wikipedia summaries and externally sourced release dates are not used. Nintendo supplies the release date. A product code/EAN identifies an issue but does not establish every manufacturing revision or universal pack-in contents.",
+    "The catalog_* feature strings retain bibliographic extents exactly as reported. Three-axis package/media measurements have no labelled axes or inside/outside convention here, so they are not converted into a closed envelope or internal fit. The single manual-size value is not a complete trim. The reported page extent does not specify whether covers are counted; edition.booklet.pages therefore remains null. These are evidence for further source research, not print-ready dimensions or verified geometry."
+  ],
+  "features": {
+    "ean_13": "4902370515633",
+    "catalog_record": "PACKAGE0010369",
+    "catalog_media_size": "8 cm",
+    "catalog_manual_extent": "36 pages",
+    "catalog_manual_size": "14.2 cm",
+    "catalog_package_size": "14.7 * 10.4 * 1.5 cm"
+  }
+}

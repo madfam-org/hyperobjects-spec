@@ -1,0 +1,53 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-the-legend-of-zelda-twilight-princess-eu",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "The Legend of Zelda: Twilight Princess (nintendo-wii, EU)",
+  "status": "partial",
+  "edition": {
+    "title": "The Legend of Zelda: Twilight Princess",
+    "platform": "nintendo-wii",
+    "region": "EU",
+    "product_code": null,
+    "released": "2006-12-08",
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/The-Legend-of-Zelda-Twilight-Princess-283542.html",
+      "retrieved": "2026-11-01",
+      "quote": "The Legend of Zelda: Twilight Princess"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/The-Legend-of-Zelda-Twilight-Princess-283542.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/The-Legend-of-Zelda-Twilight-Princess-283542.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo of Europe"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/The-Legend-of-Zelda-Twilight-Princess-283542.html",
+      "retrieved": "2026-11-01",
+      "quote": "08/12/2006"
+    }
+  ],
+  "notes": [
+    "Nintendo UK product page, original GameCube/Wii product section. Release date is taken from that specific platform’s section, never from a Wii U download or HD remaster. EU here identifies Nintendo of Europe’s release; country-specific packaging/language revisions remain unresolved.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}
