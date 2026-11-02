@@ -1,0 +1,150 @@
+{
+  "spec_version": 1,
+  "key": "lenovo-yoga-book-9i-gen9",
+  "kind": "device",
+  "family": "dual-screen-laptop",
+  "brand": "Lenovo",
+  "model": "Yoga Book 9i Gen 9 (13IMU9)",
+  "aliases": [
+    "Yoga Book 9 13IMU9",
+    "Yoga Book 9i (13\", 9)"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 299.1,
+        "height": 203.9,
+        "depth": 15.95
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1340,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 13.3,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 286.5,
+        "height": 179.0,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 13.3,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 286.5,
+        "height": 179.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "dual_screen_360",
+    "axis": "long",
+    "max_angle_deg": 360,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Aluminium (top), aluminium (bottom)",
+    "back": "Aluminium",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "299.1 x 203.9 x 15.95 mm (11.78 x 8.03 x 0.63 inches)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Starting at 1.34 kg (2.95 lbs)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "2x 13.3\" 2.8K WQXGA+ (2880x1800) OLED 400nits 16:10 100% DCI-P3 60Hz"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Laptop, tent, and tablet modes supported by 360 degree sound-bar hinge"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "3x USB-C (Thunderbolt 4 / USB4 40Gbps), with USB PD 3.0 and DisplayPort 2.1, Always On"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Aluminium (top), aluminium (bottom)"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IMU9/Yoga_Book_9_13IMU9_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Aluminium (top), aluminium (bottom)"
+    }
+  ],
+  "notes": [
+    "AXIS MAPPING: Lenovo publishes closed-state Dimensions (WxDxH) = 299.1 x 203.9 x 15.95 mm; manufacturer WIDTH 299.1 -> closed.width, manufacturer DEPTH 203.9 -> closed.height, manufacturer HEIGHT/thickness 15.95 -> closed.depth. closed.width is therefore the LONG axis, opposite to the phone-vendor convention. dimensions_mm.open null - Lenovo publishes no opened dimension. mass_g from 'Starting at 1.34 kg' x 1000 = 1340 g; STARTING weight, varies by configuration. Gen 9 (13IMU9) is chassis-identical to Gen 8 (13IRU8): PSREF lists byte-identical dimensions, weight, panel and case material; the generational change is the CPU (Intel Core Ultra / Meteor Lake) and DisplayPort 2.1 + Always On ports. These numbers were nonetheless read from the Gen 9 PSREF document itself, not carried over from the Gen 8 entry. PSREF doc dated October 21 2025. TWO DISCRETE PANELS, roles primary + secondary, identical. active_area_mm derived from sourced diagonal + resolution assuming square pixels: 13.3 x 2880 / sqrt(2880^2+1800^2) x 25.4 = 286.5 mm wide, 179.0 mm high. hinge.axis 'long' read from the sound-bar hinge geometry, not a quoted axis statement. announced null: no lenovo.com or news.lenovo.com press release for the Gen 9 specifically could be retrieved; CES 2024 (January 2024) is reported only by secondary tech press (Laptop Mag, PCWorld, Notebookcheck), which SPEC forbids as a source, so the field is left null rather than filled from them. released null for the same reason ('April 2024' is secondary-only and not a full date). PORTS: 3x USB-C only, no headphone jack, no HDMI; position null (PSREF overview callouts are image labels). materials.cover_glass null - PSREF names no cover glass product."
+  ]
+}

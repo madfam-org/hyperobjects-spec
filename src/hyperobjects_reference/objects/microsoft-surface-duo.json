@@ -1,0 +1,175 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-surface-duo",
+  "kind": "device",
+  "family": "dual-screen-hinge-phone",
+  "brand": "Microsoft",
+  "model": "Surface Duo",
+  "aliases": [
+    "Surface Duo (1st Gen)",
+    "Model 1930"
+  ],
+  "status": "verified",
+  "announced": "2019-10-02",
+  "released": "2020-09-10",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 93.3,
+        "height": 145.2,
+        "depth": 9.9
+      },
+      "open": {
+        "width": 186.9,
+        "height": 145.2,
+        "depth": 4.8
+      }
+    },
+    "depth_at_hinge": 9.9,
+    "corner_radius": null
+  },
+  "mass_g": 250,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 5.6,
+      "resolution_px": [
+        1800,
+        1350
+      ],
+      "aspect": "4:3",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 113.8,
+        "height": 85.3,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 5.6,
+      "resolution_px": [
+        1800,
+        1350
+      ],
+      "aspect": "4:3",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 113.8,
+        "height": 85.3,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "dual_screen_360",
+    "axis": null,
+    "max_angle_deg": 360,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": "Corning Gorilla Glass"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "Closed: 145.2 mm (H) x 93.3 mm (W) x 9.9 mm (T at hinge)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 145.2 mm (H) x 186.9 mm (W) x 4.8 mm (T)"
+    },
+    {
+      "field": "dimensions_mm.depth_at_hinge",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "9.9 mm (T at hinge)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "250 grams"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "Single screen: 5.6\" AMOLED, 1800x1350 (4:3), 401 PPI"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "Exterior Material: Corning® Gorilla® Glass"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs",
+      "retrieved": "2026-09-13",
+      "quote": "USB-C® 3.1"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://learn.microsoft.com/en-us/dual-screen/android/surface-duo-dimensions",
+      "retrieved": "2026-09-13",
+      "quote": "A 360° hinge provides unique benefits in terms of ergonomics and general adaptability"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://learn.microsoft.com/en-us/previous-versions/surface-duo/surface-lifecycle-android-devices",
+      "retrieved": "2026-09-13",
+      "quote": "Surface Duo | Android 10 | September 10, 2020"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.microsoft.com/october-2-2019/",
+      "retrieved": "2026-09-13",
+      "quote": "Panos Panay introduces Surface Duo at a Microsoft event on Oct. 2, 2019"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 5.6 in, a:b = 1800:1350 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 5.6 in, a:b = 1800:1350 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays' <https://support.microsoft.com/en-us/surface/models/surface-duo-1st-gen-features-and-specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Two separate panels on a 360° hinge, not a folding panel. Microsoft also states the combined open display verbatim as 'Dual screens open: 8.1\" AMOLED, 2700x1800 (3:2), 401 PPI' - that is the two 5.6\" panels side by side (1350x1800 each x2 = 2700x1800), so it is NOT recorded as a third physical display here. Microsoft writes the panel as 'AMOLED'; recorded as OLED per the SPEC enum. Microsoft states 401 PPI for both single and combined. resolution_px preserves Microsoft's own ordering (1800x1350). Refresh rate is not stated by Microsoft for the 1st gen - left null. Cover glass: Microsoft lists 'Corning Gorilla Glass' under 'Exterior Material' (it does not separately name a frame or back material) - frame/back left null. corner_radius, free_stop and crease are not published by Microsoft - null. Microsoft's own product page at microsoft.com/en-us/surface/devices/surface-duo was removed after discontinuation; the equivalent numbers were taken from the live Microsoft Support spec page, so no web.archive.org snapshot was needed. learn.microsoft.com/dual-screen is archived by Microsoft itself (ROBOTS NOINDEX) but still served live; it gives developer geometry (full screen width including hinge mask: Surface Duo 1,114dp / 2,784px) but publishes no physical bezel, corner-radius or hinge-gap millimetre values. hinge.axis is NULL on purpose: no manufacturer page states a hinge/fold axis. It is unambiguous from the OEM's own dimension rows (the height stays constant while the width changes between states, so the hinge line runs along the long edge), but deriving it would breach the SPEC rule that active_area_mm is the only derived field."
+  ]
+}

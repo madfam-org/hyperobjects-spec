@@ -262,6 +262,17 @@ jobs:
         # OTHER tool than the lexicon lane above, so both console scripts are exercised.
         run: .venv/bin/y4d-spec vocab
 
+      - name: Reference-objects lane
+        # The published facts behind commons presets (docs/REFERENCE_OBJECTS.md): every value
+        # covered by a value-tier source, derived areas equal to the law, conflicts decided.
+        # The grep is the read-proof: the lane must have read objects and values and found no
+        # failure. Exact counts are pinned in tests/test_reference_catalog.py, so a data PR
+        # never has to edit this workflow.
+        run: |
+          set -o pipefail
+          .venv/bin/ho-reference check -v | tee reference.out
+          grep -Eq "^ho-reference check: objects=[1-9][0-9]* values=[1-9][0-9]* failures=0$" reference.out
+
       - name: Sheet-behaviour lane
         # The cross-commons sheet-behaviour contract (docs/SHEET_BEHAVIOUR.md). The goldens
         # are every real Pliego stock card (all 28: paper, board, corrugated, foam) and

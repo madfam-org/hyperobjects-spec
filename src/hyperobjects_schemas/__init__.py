@@ -23,9 +23,9 @@ These files are copies of the schemas each platform repo publishes:
                            ← fashion-cabinet/packages/schemas/
   * ``cross-commons-identity``, ``lexicon-term``, ``commons-vocabulary``,
     ``article-frontmatter``, ``generator-output``, ``fabrication-vocabulary``,
-    ``assembly``, ``standard-part``, ``sheet-manifest`` — authored HERE; this package is
-    their home. The lexicon term schema formalizes RFC 0039 §3, the vocabulary schema its
-    G3 controlled vocabularies, and the article schema its G2
+    ``assembly``, ``standard-part``, ``reference-object``, ``sheet-manifest`` — authored
+    HERE; this package is their home. The lexicon term schema formalizes RFC 0039 §3, the
+    vocabulary schema its G3 controlled vocabularies, and the article schema its G2
     elevation of the per-cartridge README; the corpus and the vocabularies they validate
     ship in ``hyperobjects_lexicon``.
     The generator-output schema is GOC-1 (the ``variables.json`` a yantra4d or Fashion
@@ -41,6 +41,9 @@ These files are copies of the schemas each platform repo publishes:
     ``pliego_spec/schemas/`` because Pliego is its home.
     The standard-part schema validates one entry of the ASM-1 §4 standard-parts catalog
     (COTS parts an assembly references), which ships in ``hyperobjects_standard_parts``.
+    The reference-object schema validates one entry of the reference-objects catalog
+    (a real product's published facts, which a commons family turns into a named
+    preset), which ships in ``hyperobjects_reference``.
     The ``sheet-behaviour`` schema is authored here too: the cross-commons thin-sheet
     description (paper, fabric, felt, foam, thin prints, laminates). Its validator, mapping
     rules, ``material_ref`` resolver and laminate calculator live in ``hyperobjects_sheet``.
@@ -78,6 +81,7 @@ SCHEMAS: dict[str, str] = {
     "fabrication-vocabulary": "hyperobjects-spec",
     "assembly": "hyperobjects-spec",
     "standard-part": "hyperobjects-spec",
+    "reference-object": "hyperobjects-spec",
     "sheet-manifest": "hyperobjects-spec",
 }
 

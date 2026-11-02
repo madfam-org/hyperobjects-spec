@@ -1,0 +1,205 @@
+{
+  "spec_version": 1,
+  "key": "google-pixel-9-pro-fold",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Google",
+  "model": "Pixel 9 Pro Fold",
+  "aliases": [
+    "GGH2X"
+  ],
+  "status": "verified",
+  "announced": "2024-08-13",
+  "released": "2024-09-04",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 77.1,
+        "height": 155.2,
+        "depth": 10.5
+      },
+      "open": {
+        "width": 150.2,
+        "height": 155.2,
+        "depth": 5.1
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 257,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.3,
+      "resolution_px": [
+        1080,
+        2424
+      ],
+      "aspect": "20:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 65.1,
+        "height": 146.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.0,
+      "resolution_px": [
+        2076,
+        2152
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 141.1,
+        "height": 146.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": "right"
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Aerospace-grade high-strength aluminum alloy (satin metal frame)",
+    "back": "Corning Gorilla Glass Victus 2 silky matte back",
+    "cover_glass": "Corning Gorilla Glass Victus 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_9_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Folded : 155.2 mm (height) x 77.1 mm (width) x 10.5 mm (depth)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_9_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded : 155.2 mm (height) x 150.2 mm (width) x 5.1 mm (depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://store.google.com/gb/product/pixel_9_pro_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "257 g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "6.3-inch (160 mm) Actua display 20:9 aspect ratio 1080 x 2424 OLED at 422 PPI"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (60-120Hz)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "8-inch (204 mm) Super Actua Flex display (LTPO) 2076 x 2152 OLED at 373 PPI"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (1-120 Hz)"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Scratch-resistant Corning Gorilla Glass Victus 2 cover glass ... silky matte back with satin metal frame"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Aerospace-grade high-strength aluminum alloy"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Buttons and Ports USB Type-C 3.2 Power button Volume controls"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US",
+      "retrieved": "2026-09-13",
+      "quote": "Authentication Fingerprint Unlock Face Unlock Pattern, PIN, password"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://blog.google/products/pixel/google-pixel-9-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "Introducing Pixel 9 Pro Fold: Google's newest foldable phone Aug 13, 2024"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://blog.google/products/pixel/google-pixel-9-pro-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "available for pre-order now, and will be on shelves September 4"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.3 in, a:b = 1080:2424 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.0 in, a:b = 2076:2152 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://store.google.com/product/pixel_9_pro_fold_specs?hl=en-US>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Dimensions taken from the GB locale of the Google Store tech-specs page, which publishes millimetres; the US locale of the SAME page publishes only inches rounded to 0.1 in ('6.1 in x 3 in x 0.4 in') and 9.1 oz, which would have been far less precise -- no conversion was performed. Display diagonals in INCHES come from the US locale ('6.3-inch (160 mm)', '8-inch (204 mm)'); the GB locale prints only the mm figure. Both pages were read via web.archive.org snapshots of the store.google.com URLs (US snapshot 2025-11-17, GB snapshot 2025-11-07) because store.google.com renders its spec table client-side and returned no spec text to curl or WebFetch; archived manufacturer pages count as primary. Google's footnote: 'Dimensions and weight vary by configuration and manufacturing process.' The device is discontinued/out of stock. Refresh: cover 60-120Hz, inner 1-120Hz (LTPO) -- maxima recorded. Hinge is 'Multi-alloy steel with an aerospace-grade high-strength aluminum alloy cover'; Google states no crease shape and no free-stop/hold-at-any-angle claim -> both null. The fingerprint sensor is side-mounted (power button) per Google's Fingerprint Unlock listing; position 'right' is the physical side, not separately stated on the spec page. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

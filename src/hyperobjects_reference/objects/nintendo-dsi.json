@@ -1,0 +1,142 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-dsi",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo DSi",
+  "aliases": [
+    "TWL-001"
+  ],
+  "status": "partial",
+  "announced": "2008-10-02",
+  "released": "2008-11-01",
+  "external_ids": {
+    "igdb_platform": "nintendo-dsi"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74.9,
+        "height": 137.0,
+        "depth": 18.9
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 214,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.25,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3.25,
+      "resolution_px": null,
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": null,
+        "height": null,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/series/dsi/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ 横137.0mm 縦74.9mm 厚さ18.9mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/series/dsi/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "重さ 約214g（バッテリーパック・タッチペン含む）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/series/dsi/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "液晶サイズ 3.25型 液晶画面 透過型TFTカラー液晶（26万色表示可能）"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "２つの液晶画面は3.0インチから3.25インチへと（面積比で約17%）拡大しています"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/series/dsi/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "入出力端子 DSカードスロット ＳＤメモリーカードスロット ACアダプタ接続端子 ステレオヘッドホン／マイク接続端子"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "新型ＤＳ「ニンテンドーＤＳｉ（ディーエスアイ）」、１１月１日発売"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2008/081002.html",
+      "retrieved": "2026-09-13",
+      "quote": "ニュースリリース : 2008年10月2日"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model TWL-001. status=partial ONLY because pixel resolution is missing (see below); dimensions, mass and both diagonals are primary-sourced. RESOLUTION NOT PUBLISHED: Nintendo states the panel size (3.25型) and type but no pixel count for the DSi on any page located — the JP DSi spec page, the JP DSi/DS Lite comparison table in the 2008-10-02 news release, the JP DSi LL three-way comparison page, Nintendo UK's 2008 'Nintendo introduces DSi' news page and Nintendo of America's archived DS systems comparison page all omit it. 256x192 appears only on non-acceptable sources (Wikipedia/spec aggregators), so resolution_px, aspect and active_area_mm are left null per THE RULE. Note Nintendo DOES publish 192×256 for the DS and DS Lite, but carrying that number across models is exactly the inference the spec forbids. Axis mapping: height=横137.0, width=縦74.9, depth=厚さ18.9; Nintendo's own label for the long axis is 'width' (横). Closed/folded state; open state not published. The 2008 news release lists these same figures under 本体サイズ（折りたたみ時）, which is the source for hinge.type=clamshell. controls[] left empty: neither the JP DSi spec page nor the comparison table enumerates the control set. ports: Nintendo lists a DS card slot, a full-size SD memory card slot, an AC adapter connector and a stereo headphone/mic connector — the SD slot is FULL-SIZE SD, NOT microSD, so it is omitted rather than recorded as the enum's 'microsd'; Nintendo does not state the headphone jack's 3.5 mm diameter. announced = date of Nintendo's own announcement release; released = Japan launch (the same release states 国外での「ニンテンドーＤＳｉ」発売は２００９年を予定, i.e. overseas in 2009, without a date). refresh_hz, materials, corner_radius, depth_at_hinge: not published, null. hinge.axis='long' from clamshell geometry, not a quoted line. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: displays[0].panel = 'LCD'; displays[1].panel = 'LCD'."
+  ]
+}

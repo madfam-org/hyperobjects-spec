@@ -1,0 +1,238 @@
+{
+  "spec_version": 1,
+  "key": "oppo-find-n3-flip",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "OPPO",
+  "model": "Find N3 Flip",
+  "status": "verified",
+  "announced": "2023-10-19",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.8,
+        "height": 85.5,
+        "depth": 16.45
+      },
+      "open": {
+        "width": 75.8,
+        "height": 166.4,
+        "depth": 7.79
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 198,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 3.26,
+      "resolution_px": [
+        720,
+        382
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 73.1,
+        "height": 38.8,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 6.8,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 158.8,
+        "height": 68.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": "Main screen: SCHOTT UTG; Cover screen: Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed.height",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: about 85.5mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.width",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: about 75.8mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: about 16.45mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.height",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Expanded: about 166.4mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.width",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Expanded: about 75.8mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Expanded: about 7.79mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Weight about 198g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen: 3.26 inches (diagonal)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen: SD (720×382)"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Cover screen: 60Hz, Min 30Hz"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 6.8 inches (diagonal)"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: FHD (2520×1080)"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 120Hz, LTPO variable-frequency display, Min 1Hz"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Panel AMOLED (flexible)"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: SCHOTT UTG® Cover screen: Corning® Gorilla® Glass Victus™"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "USB Interface USB Type-C; SIM Card Type Nano-SIM card + eSIM"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/",
+      "retrieved": "2026-09-13",
+      "quote": "aircraft-grade steel and an industry-leading waterdrop design, there's a lot packed into this hinge"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/newsroom/press/oppo-find-n3-series-global-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "Find N3 Flip holds its position in FlexForm mode between 45-120 degrees"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/newsroom/press/oppo-find-n3-series-global-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "October 19, 2023, SINGAPORE – OPPO ... today announced the global availability"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.26 in, a:b = 720:382 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.8 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.oppo.com/en/smartphones/series-find-n/find-n3-flip/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "OPPO prefixes every size/weight with 'about'. oppo.com/cn (also a primary domain) prints the same numbers without 约: 高 展开：166.4 毫米，折叠：85.5 毫米 / 宽 展开：75.8 毫米，折叠：75.8 毫米 / 厚 展开：7.79 毫米，折叠：16.45 毫米 / 重量 198 克 — kept OPPO's precision, nothing rounded. Height/width/thickness are three separate spec rows, so each dimension gets its own leaf source entry. announced = the date in OPPO's own global-launch press release; the China debut page https://www.oppo.com/cn/events/find-n3-flip-launch/ says only '8月29日 14:30，与你相见' with NO year printed, so I did not convert it into a date. released left null: the press release states only 'Pre-orders of OPPO Find N3 Series start from October 20, 2023', a pre-order date, not a release date. hinge.crease: OPPO's product page calls it a 'waterdrop design' hinge -> teardrop. free_stop: FlexForm holds between 45-120 degrees; that is a hold range, NOT a maximum hinge angle, so max_angle_deg stays null. panel recorded as OLED to match the SPEC enum; OPPO's literal wording is 'AMOLED (flexible)', stated once for the device rather than per screen. materials.frame/back NOT stated on either OPPO spec page — left null (the press release's 'Champagne Gold (glass back), and Classic Black (vegan leather back)' belongs to the Find N3, a DIFFERENT model, and was deliberately not carried over). 'Screen Ratio 85.9%' is screen-to-body, not display aspect, so aspect is null; the cover screen's 17:9 ratio appears only on secondary sites — left null. controls left empty (not surveyed). || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-fold",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Fold",
+  "aliases": [
+    "Galaxy Fold 5G",
+    "SM-F900"
+  ],
+  "status": "verified",
+  "announced": "2019-02-21",
+  "released": "2019-09-06",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 62.8,
+        "height": 160.9,
+        "depth": 17.1
+      },
+      "open": {
+        "width": 117.9,
+        "height": 160.9,
+        "depth": 7.6
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 276,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 4.6,
+      "resolution_px": [
+        1680,
+        720
+      ],
+      "aspect": "21:9",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 107.4,
+        "height": 46.0,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.3,
+      "resolution_px": [
+        2152,
+        1536
+      ],
+      "aspect": "4.2:3",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 150.9,
+        "height": 107.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 62.8 x 160.9 x 15.7mm ~ 17.1mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 117.9 x 160.9 x 6.9mm ~ 7.6mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "Weight: 276g"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "7.3” QXGA+ Dynamic AMOLED Display (4.2:3) Infinity Flex Display, 2152*1536, 362ppi"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "4.6” HD+ Super AMOLED Display (21:9), 1680*720, 399ppi"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "Bluetooth v5.0, ANT+, USB type-C, NFC, Location (GPS, Galileo, Glonass, BeiDou)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold",
+      "retrieved": "2026-09-13",
+      "quote": "Korea, UK, USA on February 21, 2019"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-fold-now-available",
+      "retrieved": "2026-09-13",
+      "quote": "available in Korea on September 6, followed by select countries"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.6 in, a:b = 1680:720 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.3 in, a:b = 2152:1536 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category-introducing-galaxy-fold>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung's spec table prints Folded/Unfolded as WIDTH x HEIGHT x DEPTH -- the second value is identical folded and unfolded (the hinge-axis dimension), so it is mapped to `height` and the first value to `width`. Folded thickness is published as a RANGE 15.7mm ~ 17.1mm and unfolded as 6.9mm ~ 7.6mm; the larger value of each range is recorded as depth. Samsung does NOT label which end of the range is the hinge side on this 2019 release (unlike Fold2-Fold4, which label '(Hinge)'), so depth_at_hinge is left null. Display refresh rate is not stated in the spec table (the Galaxy Fold predates Samsung's 120Hz foldables) -- left null rather than assumed. Panel labelled 'Dynamic AMOLED' / 'Super AMOLED' -> OLED. No frame/back/cover-glass material is given in this press release; the main screen is a polymer Infinity Flex Display, so materials left null. announced = the date line on the Samsung Newsroom press release itself. Refresh/free-stop/crease: no OEM statement -> null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

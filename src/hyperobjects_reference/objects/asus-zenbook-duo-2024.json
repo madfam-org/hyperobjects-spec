@@ -1,0 +1,162 @@
+{
+  "spec_version": 1,
+  "key": "asus-zenbook-duo-2024",
+  "kind": "device",
+  "family": "dual-screen-laptop",
+  "brand": "ASUS",
+  "model": "Zenbook DUO (2024) UX8406MA",
+  "aliases": [
+    "Zenbook Duo 2024",
+    "UX8406MA",
+    "UX8406"
+  ],
+  "status": "verified",
+  "announced": "2024-01-09",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 313.5,
+        "height": 217.9,
+        "depth": 14.6
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1350,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "90% post-industrial-recycled (PIR) magnesium-aluminum alloy",
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "31.35 x 21.79 x 1.46 ~ 1.99 cm (12.34\" x 8.58\" x 0.57\" ~ 0.78\")"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/zenbook-duo-14-oled-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "31.3 x 21.7 x 1.46 cm (without Bluetooth keyboard)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "1.65 kg (3.64 lbs) Weight of system: 1.35 kg Weight of keyboard: 0.30 kg"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "14.0-inch, 3K (2880 x 1800) OLED 16:10 aspect ratio, 0.2ms response time, 120Hz refresh rate"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/zenbook-duo-14-oled-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "joined by a lay-flat 180 degree hinge to instantly expand the visual workspace"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/techspec/",
+      "retrieved": "2026-09-13",
+      "quote": "2x Thunderbolt 4 ... 1x USB 3.2 Gen 1 Type-A ... 1x HDMI 2.1 TMDS 1x 3.5mm Combo Audio Jack"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/zenbook-duo-14-oled-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "90% post-industrial-recycled (PIR) magnesium-aluminum alloy"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://press.asus.com/news/press-releases/zenbook-duo-14-oled-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "January 09, 2024"
+    }
+  ],
+  "notes": [
+    "AXIS MAPPING: ASUS publishes closed-state Dimensions (W x D x H) = 31.35 x 21.79 x 1.46 ~ 1.99 cm; manufacturer WIDTH 313.5 mm -> closed.width, manufacturer DEPTH 217.9 mm -> closed.height, manufacturer HEIGHT/thickness -> closed.depth. closed.width is the LONG axis, opposite the phone-vendor convention. Values converted cm -> mm (x10) keeping ASUS's precision. THICKNESS RANGE RESOLVED: the tech-spec page gives a range '1.46 ~ 1.99 cm' and does not say what the two ends mean; the ASUS press release resolves it by stating '31.3 x 21.7 x 1.46 cm (without Bluetooth keyboard)', so 14.6 mm is the laptop's own closed thickness and 19.9 mm is the stack with the detachable keyboard attached. 14.6 mm is recorded; 19.9 mm is NOT recorded anywhere as a separate field. mass_g = 1350 g = the 1.35 kg 'Weight of system' (the dual-screen laptop itself); ASUS's headline 1.65 kg is the system PLUS the 0.30 kg detachable Bluetooth keyboard, and 0.30 + 1.35 = 1.65 kg. kg->g conversion is x1000 exactly. dimensions_mm.open null - ASUS publishes no opened/lay-flat dimension for the Duo. TWO DISCRETE PANELS (not a fold), roles primary + secondary, identical. active_area_mm derived from sourced diagonal + resolution assuming square pixels: 14.0 x 2880 / sqrt(2880^2+1800^2) x 25.4 = 301.5 mm wide, 188.5 mm high. HINGE: hinge.type is 'clamshell' with max_angle_deg 180, NOT 'dual_screen_360' - ASUS documents a 'lay-flat 180 degree hinge' and nowhere claims 360 degrees, so dual_screen_360 would be unsupported. free_stop null - not documented. PORTS: ASUS also lists '1x USB 3.2 Gen 1 Type-A', which is OMITTED from ports[] because SPEC's port kind enum (usb_c|headphone_3_5|microsd|hdmi|sim) has no usb_a member. Thunderbolt 4 recorded as usb_c. Port left/right position null - the ASUS tech-spec page states no side for any port. materials.back / cover_glass null - ASUS states no back or cover-glass material. released null - no full release date on an ASUS page. ASUS's tech-spec page also lists an alternative FHD (1920 x 1200) 60Hz OLED panel option for this series; the 3K 120Hz panel recorded here is the one ASUS's own press release headlines for UX8406."
+  ]
+}

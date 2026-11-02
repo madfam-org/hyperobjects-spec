@@ -1,0 +1,170 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-fold7",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Fold7",
+  "aliases": [
+    "SM-F966"
+  ],
+  "status": "verified",
+  "announced": "2025-07-09",
+  "released": "2025-07-25",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 72.8,
+        "height": 158.4,
+        "depth": 8.9
+      },
+      "open": {
+        "width": 143.2,
+        "height": 158.4,
+        "depth": 4.2
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 215,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.5,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": "21:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 151.8,
+        "height": 65.0,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.0,
+      "resolution_px": [
+        2184,
+        1968
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 151.0,
+        "height": 136.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Advanced Armor Aluminum",
+    "back": "Corning Gorilla Glass Victus 2",
+    "cover_glass": "Corning Gorilla Glass Ceramic 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 72.8 x 158.4 x 8.9mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 143.2 x 158.4 x 4.2mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 215g"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "8.0-inch QXGA+ Dynamic AMOLED 2X (2184 x 1968), 368ppi 120Hz adaptive refresh rate (1~120Hz)"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "6.5-inch FHD+ Dynamic AMOLED 2X (2520 x 1080, 21:9), 422ppi 120Hz adaptive refresh rate"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "The Armor FlexHinge is thinner and lighter, thanks to an enhanced water droplet design"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Corning Gorilla Glass Ceramic 2 is applied to the front ... Gorilla Glass Victus 2 is applied to the rear"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "Advanced Armor Aluminum frame does not include volume and side keys, SIM tray or camera lens barrel"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "USA on July 9, 2025"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones",
+      "retrieved": "2026-09-13",
+      "quote": "available for pre-order starting July 9, with general availability beginning July 25"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.5 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.0 in, a:b = 2184:1968 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung's spec table prints Folded/Unfolded as WIDTH x HEIGHT x DEPTH -- the second value is identical folded and unfolded (the hinge-axis dimension), so it is mapped to `height` and the first value to `width`. The ONLY Galaxy Z Fold generation where Samsung explicitly describes the crease shape: 'an enhanced water droplet design' for the Armor FlexHinge -> crease = teardrop. Folded thickness footnote: 'measured from top to bottom of the glasses'; unfolded thickness footnote: 'does not include the frame of the Main Screen' -- so open.depth 4.2mm is the panel-area thickness, not the frame thickness. Single folded thickness -> depth_at_hinge null. free_stop: this press release never mentions Flex Mode -> null rather than assumed. Inner-screen aspect ratio is not printed in the spec table -> null. RESOLUTION ORDERING: recorded verbatim as Samsung prints it. Samsung is NOT consistent across generations -- the 2025 Z Fold7 table prints '(2184 x 1968)' and '(2520 x 1080, 21:9)' (long axis first) while the 2026 Z Fold8 / Fold8 Ultra table prints '(1,848 x 2,448)', '(1,248 x 1,972)' and '(1,080 x 2,520)' (short axis first). Do not assume a common [width,height] order. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: ports[0] = {\"kind\": \"usb_c\", \"position\": null}."
+  ]
+}

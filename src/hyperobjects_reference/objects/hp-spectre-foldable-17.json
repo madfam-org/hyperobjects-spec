@@ -1,0 +1,138 @@
+{
+  "spec_version": 1,
+  "key": "hp-spectre-foldable-17",
+  "kind": "device",
+  "family": "foldable-laptop",
+  "brand": "HP",
+  "model": "Spectre Foldable PC 17",
+  "aliases": [
+    "HP Spectre Foldable PC",
+    "HP Spectre Fold",
+    "Spectre Foldable PC 17-cs0000"
+  ],
+  "status": "verified",
+  "announced": "2023-09-14",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 277.05,
+        "height": 191.31,
+        "depth": 21.4
+      },
+      "open": {
+        "width": 277.05,
+        "height": 376.1,
+        "depth": 8.5
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1354,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 17.0,
+      "resolution_px": [
+        1920,
+        2560
+      ],
+      "aspect": "3:4",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 259.1,
+        "height": 345.4,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Magnesium Alloy",
+    "back": "Magnesium Alloy",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dim: 277.05 x 191.31 x 21.4 mm (Folded)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dim: 277.05 x 376.1 x 8.5 mm (Unfolded)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Wgt: 1354 g (SSD, w/o KB)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "43.2 cm (17\") diagonal, 2.5K (1920 x 2560), foldable OLED, touch ... 3:4"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "2 Thunderbolt 4 with USB Type-C 40Gbps signaling rate"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Material: Magnesium Alloy (A/D with embedded kickstand)"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.hp.com/content/dam/sites/garage-press/press/press-kits/2023/hp-spectre-foldable-pc/Media%20Spec%20Sheet_HP%20Spectre%20Foldable%20PC.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Dim: 277.05 x 191.31 x 21.4 mm (Folded) ... 277.05 x 376.1 x 8.5 mm (Unfolded)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.hp.com/us-en/newsroom/press-releases/2023/hp-spectre-foldable-pc.html",
+      "retrieved": "2026-09-13",
+      "quote": "September 14, 2023"
+    }
+  ],
+  "notes": [
+    "ONE PANEL THAT FOLDS - single display, role primary. Source is HP's own Product Spec Sheet PDF hosted on hp.com (press kit), which is primary and gives exact millimetres; HP QuickSpecs at h20195.www2.hp.com were not needed because this sheet already states both states to 0.01 mm. AXIS MAPPING: HP publishes both states in W x D x H order. Folded 277.05 x 191.31 x 21.4 mm -> closed.width 277.05, closed.height 191.31, closed.depth 21.4. Unfolded 277.05 x 376.1 x 8.5 mm -> open.width 277.05, open.height 376.1, open.depth 8.5. Manufacturer WIDTH -> width, DEPTH -> height, HEIGHT/thickness -> depth. NOTE this machine folds the OTHER WAY from the two ThinkPad X1 Folds: the width 277.05 mm is CONSTANT between states and the DEPTH halves (376.1 -> 191.31) while thickness roughly doubles (8.5 -> 21.4), consistent with a 3:4 portrait panel folding across its long axis; that pair is the evidence for hinge.axis. mass_g 1354 is HP's without-keyboard figure, stated directly in grams so NO conversion was applied; HP separately gives 1624 g with the detachable Bluetooth keyboard. This is a configured weight ('SSD, w/o KB'), not a 'starting at' range. DISPLAY: HP states the diagonal in centimetres first - '43.2 cm (17\")' - and gives resolution in portrait order 1920 x 2560 with aspect 3:4, all internally consistent. active_area_mm derived from the sourced 17in diagonal + sourced resolution assuming square pixels: 1920x2560 is exactly 3:4, so w = 17 x 1920 / 3200 x 25.4 = 259.1 mm and h = 17 x 2560 / 3200 x 25.4 = 345.4 mm. refresh_hz null - HP's spec sheet states brightness (SDR 400 nits, HDR 500 nits) and gamut but NO refresh rate. max_angle_deg and free_stop null - HP describes 'a foldable panel and integrated hinge' but publishes no angle or free-stop rating. PORTS: only 2x Thunderbolt 4 USB-C; there is no headphone jack (HP's own battery-test footnote even says 'or through speaker (if no audio jack port)'), no HDMI, no card reader. Positions null. materials: 'Magnesium Alloy (A/D with embedded kickstand)' - A and D covers are the outer shells, so the same value is recorded for frame and back; cover_glass null, HP names no cover glass. released null - HP says pre-order 2023-09-14 and general availability 'in October', which is not a full date."
+  ]
+}

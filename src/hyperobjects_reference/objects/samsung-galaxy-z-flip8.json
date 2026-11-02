@@ -1,0 +1,169 @@
+{
+  "spec_version": 1,
+  "key": "samsung-galaxy-z-flip8",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Samsung",
+  "model": "Galaxy Z Flip8",
+  "aliases": [
+    "SM-F776B"
+  ],
+  "status": "verified",
+  "announced": "2026-07-22",
+  "released": "2026-08-07",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.4,
+        "height": 85.7,
+        "depth": 13.1
+      },
+      "open": {
+        "width": 75.4,
+        "height": 166.9,
+        "depth": 6.1
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 180,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.9,
+      "resolution_px": [
+        1080,
+        2520
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 69.0,
+        "height": 161.1,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 4.1,
+      "resolution_px": [
+        948,
+        1048
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 69.9,
+        "height": 77.2,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": "Armor Aluminum",
+    "back": null,
+    "cover_glass": "Corning Gorilla Glass Victus 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 75.4 x 85.7 x 13.1 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded 75.4 x 166.9 x 6.1 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 180 g"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Main Screen 6.9-inch FHD+ Dynamic AMOLED 2X 120 Hz Adaptive refresh rate (1–120 Hz) (1080 x 2520) 400ppi"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Screen 4.1-inch Super AMOLED Display 60/120 Hz refresh rate 948 x 1048, 342ppi"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "Flex Mode makes hands-free shooting easy from a wide range of angles"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living",
+      "retrieved": "2026-09-13",
+      "quote": "July 22, 2026"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://www.samsung.com/us/smartphones/galaxy-z-flip8/",
+      "retrieved": "2026-09-13",
+      "quote": "encased in Armor Aluminum and fitted with Corning® Gorilla® Glass Victus 2 on the cover screen"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.samsung.com/us/smartphones/galaxy-z-flip8/",
+      "retrieved": "2026-09-13",
+      "quote": "encased in Armor Aluminum and fitted with Corning® Gorilla® Glass Victus 2 on the cover screen"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://news.samsung.com/global/samsung-officially-launches-galaxy-z-fold8-ultra-fold8-flip8-watch-ultra2-and-watch9",
+      "retrieved": "2026-09-13",
+      "quote": "Starting August 7, Galaxy Z Fold8 Ultra, Fold8 and Flip8 will be available through carriers, retailers"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.9 in, a:b = 1080:2520 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.1 in, a:b = 948:1048 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8foldables-perfected-for-every-way-of-living>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "Samsung prints Dimension & Weight as WIDTH x HEIGHT x DEPTH; mapped to height/width/depth accordingly. Samsung never publishes a crease shape (teardrop/U) for any Flip, so hinge.crease is null throughout. hinge.max_angle_deg left null: Samsung states Flex Mode working angles, not a maximum hinge angle. CURRENT-GENERATION Galaxy Z Flip as of 2026-09-13. Announced at Galaxy Unpacked in London on 2026-07-22 alongside Z Fold8 Ultra and Z Fold8. released 2026-08-07 comes from a SECOND Samsung global newsroom release (the 6 Aug 2026 'Samsung Officially Launches...' article); the Unpacked announcement release itself only mentions pre-orders, so the on-sale date is cited separately. Materials come from the Samsung US product page, not the press release, which mentions neither Armor Aluminum nor Victus. Back material not stated - null. Cover panel printed as '948 x 1048' here vs '1048 x 948' for the Flip7 - each entry keeps its own source's axis order. ports left empty: unlike every earlier Flip release, the Flip8 spec table does not list a Nano SIM/eSIM row. depth_at_hinge null: single folded thickness published. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

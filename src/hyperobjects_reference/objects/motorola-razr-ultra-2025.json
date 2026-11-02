@@ -1,0 +1,283 @@
+{
+  "spec_version": 1,
+  "key": "motorola-razr-ultra-2025",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Motorola",
+  "model": "Razr Ultra (2025)",
+  "aliases": [
+    "Razr 60 Ultra",
+    "motorola razr 60 ultra"
+  ],
+  "status": "verified",
+  "announced": "2025-04-24",
+  "released": "2025-05-15",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.99,
+        "height": 88.12,
+        "depth": 15.69
+      },
+      "open": {
+        "width": 73.99,
+        "height": 171.48,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 199,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 7.0,
+      "resolution_px": [
+        1224,
+        2992
+      ],
+      "aspect": "22:9",
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 67.3,
+        "height": 164.6,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 4.0,
+      "resolution_px": [
+        1272,
+        1080
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 165,
+      "active_area_mm": {
+        "width": 77.4,
+        "height": 65.8,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": null,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "titanium plate in device hinge",
+    "back": "Alcantara/FSC-certified wood/Satin-inpired finish/Leather-inspired finish",
+    "cover_glass": "Corning Gorilla Glass Ceramic"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Closed: 73.99 x 88.12 x 15.69mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-60-ultra/pmipmhn42m1",
+      "retrieved": "2026-09-13",
+      "quote": "Closed: 73.99 x 88.12 x 15.69mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-60-ultra/pmipmhn42m1",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 73.99 x 171.48 x 7.19mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Open: 73.99 x 171.48 x 7.29mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 199g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Main display 7.0\"1224p Super HD display External display 4.0\"\" pOLED display"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Main display 7.0\"1224p Super HD display External display 4.0\"\" pOLED display"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: Super HD (2992 x 1224), 464ppi External display: 1272 x 1080, 417ppi"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Main display: Super HD (2992 x 1224), 464ppi External display: 1272 x 1080, 417ppi"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Main display, LTPO, Foldable AMOLED, HDR10+, 10-bit"
+    },
+    {
+      "field": "displays[1].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "External display, LTPO, Flexible AMOLED, HDR10+, 10-bit"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Up to 165Hz refresh rate, Touch rate: 130Hz/300Hz (game mode only), Peak Brightness: 4500nit20"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Up to 165Hz refresh rate, Touch rate: 120Hz/165Hz (game mode only), Peak Brightness: 3000nit"
+    },
+    {
+      "field": "displays[0].aspect",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Aspect Ratio 22:9"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Rear: Alcantara/FSC-certified wood/Satin-inpired finish/Leather-inspired finish"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Front: Corning® Gorilla Glass Ceramic"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-60-ultra/pmipmhn42m1",
+      "retrieved": "2026-09-13",
+      "quote": "Comparison made between the Titantium plate used in device hinge compared to strength of 316L surgical-grade stainless steel."
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20251213081940/https://motorolanews.com/the-new-generation-of-motorola-razr-is-here-with-the-most-powerful-flip-phone-in-the-world-elevating-every-experience-with-moto-ai/",
+      "retrieved": "2026-09-13",
+      "quote": "its Flex View positions that transform the device into a tripod"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Type-C port (USB 2.0)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-60-ultra/pmipmhn42m1",
+      "retrieved": "2026-09-13",
+      "quote": "eSIM + physical SIM"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms",
+      "retrieved": "2026-09-13",
+      "quote": "Side fingerprint reader Face unlock"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20251213081940/https://motorolanews.com/the-new-generation-of-motorola-razr-is-here-with-the-most-powerful-flip-phone-in-the-world-elevating-every-experience-with-moto-ai/",
+      "retrieved": "2026-09-13",
+      "quote": "April 24, 2025"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20251213081940/https://motorolanews.com/the-new-generation-of-motorola-razr-is-here-with-the-most-powerful-flip-phone-in-the-world-elevating-every-experience-with-moto-ai/",
+      "retrieved": "2026-09-13",
+      "quote": "the new razr ultra will be available ... on-sale universally unlocked on May 15"
+    },
+    {
+      "field": "aliases",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-60-ultra/pmipmhn42m1",
+      "retrieved": "2026-09-13",
+      "quote": "motorola razr 60 ultra"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.0 in, a:b = 1224:2992 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 4.0 in, a:b = 1272:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-ultra/pmipmhn40ms>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "US name 'Razr Ultra (2025)' and global name 'Razr 60 Ultra' are ONE physical device. Proof from the manufacturer on both sides: motorola.com/us .../razr-ultra/pmipmhn40ms and motorola.com/gb .../razr-60-ultra/pmipmhn42m1 publish the same closed dimensions (73.99 x 88.12 x 15.69) and the same 199 g, and Motorola's own launch release is titled with the paired name 'razr 60 ultra/razr ultra' and repeats that pairing six times. OPEN DEPTH LEFT NULL - TWO PRIMARY PAGES DISAGREE: motorola.com/us states 'Open: 73.99 x 171.48 x 7.29mm' while motorola.com/gb states 'Open: 73.99 x 171.48 x 7.19mm' for the same device. Height and width agree, so only depth is null; both sources are listed above rather than picking one. (For reference, Motorola gives 7.19 mm for the 2026 Ultra, but that is a different model and was not carried over.) Dimensions on 2025 pages are printed unlabelled and width-first; mapped as width 73.99 / long-axis height. Main display diagonal is Motorola's '7.0\"'; note Motorola's 2026 Ultra page gives 6.96\" for its own panel - no number was carried between generations. Resolutions recorded [width, height] ('2992 x 1224' is printed height-first); the cover pair '1272 x 1080' is kept in Motorola's order as no orientation is stated. materials.frame quote is a footnote on the GB page. announced/released via a web.archive.org snapshot dated 2025-12-13 of Motorola's April 24, 2025 press release; motorolanews.com returns HTTP 403 to direct fetching. May 15 is the US on-sale date. hinge.crease null - Motorola never names the crease shape. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

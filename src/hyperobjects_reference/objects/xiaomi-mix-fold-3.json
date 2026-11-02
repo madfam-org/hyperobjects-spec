@@ -1,0 +1,171 @@
+{
+  "spec_version": 1,
+  "key": "xiaomi-mix-fold-3",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Xiaomi",
+  "model": "MIX Fold 3",
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.5,
+        "height": 161.2,
+        "depth": 10.96
+      },
+      "open": {
+        "width": 143.28,
+        "height": 161.2,
+        "depth": 5.26
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 259,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.56,
+      "resolution_px": [
+        2520,
+        1080
+      ],
+      "aspect": "21:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 153.2,
+        "height": 65.6,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 8.03,
+      "resolution_px": [
+        2160,
+        1916
+      ],
+      "aspect": null,
+      "panel": null,
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 152.6,
+        "height": 135.3,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "variant-dependent: velvet glass / new-generation leather-grain glass / Xiaomi Dragon Scale Fibre",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "长度：161.2mm 宽度：73.5mm（折叠） 143.28mm（展开）"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "厚度：10.96mm（折叠-月影黑/星耀金） 10.86mm（折叠-小米龙鳞纤维版）"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "宽度：73.5mm（折叠） 143.28mm（展开）"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "5.26mm（展开）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "重量：259g（月影黑/星耀金） 255g（小米龙鳞纤维版）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "6.56英寸21:9标准比例外屏 类型：柔性AMOLED 分辨率： 2520x1080 显示帧率：最高 120Hz"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "8.03英寸 2K+ 超视感屏 类型：Pol-less Plus 分辨率：2160x1916 显示帧率：最高 120Hz"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3",
+      "retrieved": "2026-09-13",
+      "quote": "多角度悬停创作"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3",
+      "retrieved": "2026-09-13",
+      "quote": "小米龙鳞纤维材质 强韧且坚固 / 丝绒玻璃 温润亲肤 / 新一代皮纹玻璃 触感细腻"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.mi.com/xiaomi-mix-fold-3/specs",
+      "retrieved": "2026-09-13",
+      "quote": "USB Type-C 双面充电接口，支持USB 3.2 GEN1"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.56 in, a:b = 2520:1080 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://www.mi.com/xiaomi-mix-fold-3/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 8.03 in, a:b = 2160:1916 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://www.mi.com/xiaomi-mix-fold-3/specs>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "China-only model; mi.com CN page is the only primary source. Spec text is served in the page's own JS bundle (cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/xiaomi-mix-fold-3/specs.11e31cc0.js) referenced by https://www.mi.com/xiaomi-mix-fold-3/specs. TRANSLATIONS: 长度=length, 宽度=width, 折叠=folded, 展开=unfolded, 厚度=thickness, 重量=weight, 外屏=cover/outer screen, 内屏=inner screen, 类型=type, 分辨率=resolution, 显示帧率=display refresh rate, 柔性AMOLED=flexible AMOLED. TRAP (c) per-variant thickness/mass: Xiaomi gives 10.96 mm folded for Moon Shadow Black/Starry Gold at 259 g, and 10.86 mm folded for the Xiaomi Dragon Scale Fibre version at 255 g. Recorded values are the Moon Shadow Black / Starry Gold (glass) variant, which is also the LARGER folded thickness. Xiaomi publishes a single length (161.2 mm) that applies both folded and unfolded, so open.height repeats it. No hinge-side vs non-hinge-side thickness is published, so depth_at_hinge is null. INNER PANEL: Xiaomi states only 类型：Pol-less Plus (a polarizer-less flexible OLED construction) for the inner display and never writes OLED/AMOLED for it on this page, so displays[1].panel is left null rather than inferred; the cover screen is explicitly 柔性AMOLED. CREASE: mi.com never uses 水滴 (water-drop) or any crease-shape wording for the MIX Fold 3 (the hinge is branded 小米龙骨转轴, Xiaomi Dragon Bone hinge), so hinge.crease is null. free_stop is true on the strength of 悬停观影 (hover viewing) and 多角度悬停创作 (multi-angle hover creation) on the mi.com product page. MATERIALS: mi.com has no frame/back/cover-glass spec rows; the back finishes named on the product page (丝绒玻璃 velvet glass, 新一代皮纹玻璃 new-generation leather-grain glass, 小米龙鳞纤维 Dragon Scale Fibre) are recorded as the variant-dependent back, and frame and cover_glass are left null. Announce/release dates are not stated anywhere on mi.com, so both are null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

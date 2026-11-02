@@ -1,0 +1,158 @@
+{
+  "spec_version": 1,
+  "key": "lenovo-yoga-book-9i-gen10",
+  "kind": "device",
+  "family": "dual-screen-laptop",
+  "brand": "Lenovo",
+  "model": "Yoga Book 9i Gen 10 (14IAH10)",
+  "aliases": [
+    "Yoga Book 9 14IAH10",
+    "Yoga Book 9i (14\", 10)",
+    "83KJ"
+  ],
+  "status": "verified",
+  "announced": "2025-01-06",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 315.09,
+        "height": 209.5,
+        "depth": 15.5
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1219,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 14.0,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 301.5,
+        "height": 188.5,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "dual_screen_360",
+    "axis": "long",
+    "max_angle_deg": 360,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Stainless magnesium",
+    "back": "Stainless magnesium",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "315.09 x 209.5 x 15.5 mm (12.41 x 8.25 x 0.61 inches)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Starting at 1.219 kg (2.69 lbs)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "2x 14\" 2.8K WQXGA+ (2880x1800) OLED 16:10 100% DCI-P3 120Hz (Max)"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Laptop, tent, and tablet modes supported by 360 degree sound-bar hinge"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "3x Thunderbolt 4, with USB PD 45-65W and DisplayPort 2.1, Always On"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Stainless magnesium"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_14IAH10/Yoga_Book_9_14IAH10_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Stainless magnesium"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.lenovo.com/press-kits/ces-2025/yoga-book-9i-14in-10/",
+      "retrieved": "2026-09-13",
+      "quote": "6 January 2025"
+    }
+  ],
+  "notes": [
+    "AXIS MAPPING: Lenovo publishes closed-state Dimensions (WxDxH) = 315.09 x 209.5 x 15.5 mm; manufacturer WIDTH 315.09 -> closed.width, manufacturer DEPTH 209.5 -> closed.height, manufacturer HEIGHT/thickness 15.5 -> closed.depth. closed.width is the LONG axis, opposite the phone-vendor convention. dimensions_mm.open null - no opened dimension published. mass_g from 'Starting at 1.219 kg' x 1000 = 1219 g exactly; STARTING weight. THIS IS THE CURRENT / NEWEST Yoga Book 9i generation as of 2026-09-13: the PSREF document itself is dated September 04 2026, and probing PSREF for a Gen 11 (Yoga_Book_9_14IAH11, Yoga_Book_9_14IMH11, Yoga_Book_9_14AHP10) returned HTTP 404 for all, so only Gen 8 / Gen 9 / Gen 10 exist. Screen size grew from 13.3in (Gen 8/9) to 14in and refresh from 60Hz to 120Hz. TWO DISCRETE PANELS, roles primary + secondary, identical. PSREF also states screen-to-body 'B Cover: 94.37% AAR, C Cover: 94.67% AAR' - i.e. the two panels have marginally different active-area ratios, but Lenovo publishes no per-cover active-area millimetres, so active_area_mm is derived identically for both from the sourced diagonal + resolution assuming square pixels: 14.0 x 2880 / sqrt(2880^2+1800^2) x 25.4 = 301.5 mm wide, 188.5 mm high. Brightness is 750nits HDR peak / 500nits SDR typical. hinge.axis 'long' read from the sound-bar hinge geometry. PORTS: 3x Thunderbolt 4 recorded as usb_c per SPEC's port enum; no headphone jack, no HDMI; position null (PSREF callouts are image labels). materials.cover_glass null - PSREF names no cover glass product. released null - Lenovo's CES 2025 press kit gives no full release date."
+  ]
+}

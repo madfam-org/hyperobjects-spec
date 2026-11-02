@@ -1,0 +1,186 @@
+{
+  "spec_version": 1,
+  "key": "oppo-find-n3",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "OPPO",
+  "model": "Find N3",
+  "aliases": [
+    "CPH2499",
+    "PHN110"
+  ],
+  "status": "verified",
+  "announced": "2023-10-19",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.3,
+        "height": 153.4,
+        "depth": 11.7
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": 5.9
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 245,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.31,
+      "resolution_px": [
+        2484,
+        1116
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 146.2,
+        "height": 65.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "glass (Glass edition) / leather (Leather edition)",
+    "cover_glass": "Ultra-Thin Nanocrystal Glass (cover screen); UTG (main screen)"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Height Expanded: about 153.4mm Folded:  about 153.4mm Width Expanded: about 143.1mm Folded:  about 73.3mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: Glass edition: about 11.7mm Leather edition: about 11.9mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Expanded: Glass edition: about 5.8mm (battery side)/5.9mm (cover-screen side)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Weight Glass edition: about 245g Leather edition: about 239g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 7.82 inches (diagonal) Cover screen: 6.31 inches (diagonal)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：2440×2268 像素，426 PPI 外屏：2484×1116 像素，431 PPI"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Panel Main screen: OLED folding screen Cover screen: OLED flat screen"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Main screen: 120Hz, Min 1Hz Cover screen: 120Hz, Min 10Hz"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Cover Glasses Main screen: UTG Cover screen: Ultra-Thin Nanocrystal Glass"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "重量 245 克（玻璃版） 239 克（皮革版）"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n3/",
+      "retrieved": "2026-09-13",
+      "quote": "自由悬停拍摄 解放双手，摆脱支架，随时随地，轻松创作。"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/newsroom/press/oppo-find-n3-series-global-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "October 19, 2023, SINGAPORE – OPPO ... today announced the global availability of its Find N3"
+    },
+    {
+      "field": "aliases",
+      "tier": "primary",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Find N3 入网型号：PHN110"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "USB Interface USB Type-C ... SIM Card Type Nano-SIM card + eSIM"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.31 in, a:b = 2484:1116 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.oppo.com/en/smartphones/series-find-n/find-n3/specs/>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.oppo.com/cn/smartphones/series-find-n/find-n3/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "NAMING: sold under the same 'Find N3' name globally and in China; the only naming difference is the model code — CPH2499 on the global spec page, 入网型号 PHN110 (network-access model) on oppo.com/cn. Both are recorded in aliases. The hardware-identical OnePlus Open is NOT listed as an alias because no OPPO page states that relationship. TRAP (c) per-edition thickness and mass: OPPO publishes a Glass edition (11.7 mm folded, 245 g) and a Leather edition (11.9 mm folded, 239 g). Recorded values are the GLASS edition, which OPPO lists first on both the global and Chinese pages; note the Leather edition is 0.2 mm THICKER folded yet 6 g LIGHTER. TRAP-(b)-adjacent: the split thickness OPPO publishes is on the UNFOLDED state, not the folded one, and it is not a hinge-side measurement — it is the two halves of the opened device, 5.8 mm on one side and 5.9 mm on the other (Glass edition). Per the larger-value rule, open.depth records 5.9 mm; depth_at_hinge stays null because neither figure is a hinge-side value. The two halves are labelled differently in the two locales: the global English page says 'battery side'/'cover-screen side' while oppo.com/cn says 摄像头侧 (camera side)/外屏侧 (cover-screen side) — same numbers, conflicting label for the thinner half, so treat the side attribution as uncertain. Leather edition unfolded is 6.0 mm/5.9 mm. RESOLUTION MAPPING: the global page prints both resolutions on one unlabelled line, 'QXGA+(2440×2268)|FHD+(2484×1116)'. The Chinese spec page labels them explicitly — 内屏 (inner) 2440×2268, 外屏 (outer) 2484×1116 — and OPPO's own PPI figures on the global page corroborate it (2440×2268 over 7.82 in = 426 PPI, 2484×1116 over 6.31 in = 431 PPI, exactly OPPO's stated values), so the mapping is sourced, not inferred. CREASE: OPPO markets an 'industry-leading innovative hinge, crafted from aviation-grade materials' and TÜV crease certifications but never names a teardrop/water-drop or U profile, so hinge.crease is null. free_stop is true on OPPO's 自由悬停拍摄 (free-hover shooting) and the 'Multi-Angle FlexForm Camera'. MATERIALS: OPPO has no frame-material row on either spec page (the 'aviation-grade materials' and zirconium-alloy/aerospace-steel claims describe the hinge, and the carbon fibre is a screen support layer), so materials.frame is null; back is taken from OPPO's own edition names, 玻璃版 (glass) and 皮革版 (leather). RELEASED: the press release announces global availability on 2023-10-19 and says 'Pre-orders of OPPO Find N3 Series start from October 20, 2023' but gives no on-sale date, so released is left null. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: dimensions_mm.open.height = 153.4; dimensions_mm.open.width = 143.1; displays[1].diagonal_in = 7.82; displays[1].resolution_px = [2440, 2268]; displays[1].panel = 'OLED'; displays[1].refresh_hz = 120; hinge.type = 'book'; hinge.axis = 'long'.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: displays[1] = {\"role\": \"inner\", \"diagonal_in\": null, \"resolution_px\": null, \"aspect\": null, \"panel\": null, \"refresh_hz\": null, \"active_area_mm\": {\"width\": null, \"height\": null, \"derived\": true}}."
+  ]
+}

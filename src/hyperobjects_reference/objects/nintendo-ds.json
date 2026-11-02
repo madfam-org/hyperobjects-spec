@@ -1,0 +1,163 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-ds",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo DS",
+  "aliases": [
+    "NTR-001",
+    "NTR-001(JPN)"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2004-12-02",
+  "external_ids": {
+    "igdb_platform": "nds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 84.7,
+        "height": 148.7,
+        "depth": 28.9
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 275,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3,
+      "resolution_px": [
+        256,
+        192
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 3,
+      "resolution_px": [
+        256,
+        192
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 61.44,
+        "height": 46.08,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）(縦)84.7×(横)148.7×(厚さ)28.9mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "重さ（内蔵充電池、タッチペン含む）約275g"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "３インチ（対角）半透過反射型TFTカラー液晶・192×256ピクセル解像度 0.24mmドットピッチ・26万色表示"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "十字ボタン、Ａ/Ｂ/Ｘ/Ｙボタン、Ｌ/Ｒボタン、START/SELECTボタン・タッチスクリーン・内蔵マイク"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "ＤＳカード差し込み口・ゲームボーイアドバンスカートリッジ差し込み口・ステレオヘッドホン/マイク接続端子"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ds/spec/index.html",
+      "retrieved": "2026-09-13",
+      "quote": "本体サイズ（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/corporate/release/2006/060126.html",
+      "retrieved": "2026-09-13",
+      "quote": "２００４年１２月２日に国内販売を開始いたしました「ニンテンドーＤＳ」"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model NTR-001(JPN). AXIS LABEL MAPPING: Nintendo JP lists 縦(tate, short/front-to-back axis) × 横(yoko, long/left-right axis) × 厚さ(thickness). Per SPEC 'height = long axis', so height=横148.7, width=縦84.7, depth=厚さ28.9 — i.e. Nintendo's own label for the long axis is 'width', the reverse of this registry's key. Dimensions are the folded (closed) state as Nintendo states 折りたたみ時; open-state dimensions are not published, left null. RESOLUTION ORDER: Nintendo writes '192×256ピクセル' (height×width); recorded here as [256,192] = [width,height]. active_area_mm IS DERIVED: 256 × 0.24 mm dot pitch = 61.44 mm; 192 × 0.24 mm = 46.08 mm, both inputs quoted from this same page. Cross-check: sqrt(61.44²+46.08²) = 76.80 mm = 3.02 in, matching Nintendo's stated 3インチ（対角）; the identical 61.44×46.08 figure is published verbatim by Nintendo as the 3DS bottom-screen active area, which validates the method. Panel is 半透過反射型TFTカラー液晶 (transflective TFT colour LCD) on the DS — note this differs from the DS Lite's 透過型 (transmissive). Both screens identical; bottom screen adds 抵抗膜方式 透明アナログタッチスクリーン (resistive analogue touchscreen). role primary=top screen, secondary=bottom/touch screen (registry convention, not Nintendo's). refresh_hz, materials, corner_radius, depth_at_hinge: not published by Nintendo, left null. hinge.axis='long' follows from the clamshell geometry (screens stacked across the short axis), not from a quoted line. controls[].position left null — Nintendo's spec text lists the controls but not their placement. ports: Nintendo lists a DS card slot, a Game Boy Advance cartridge slot and a stereo headphone/mic connector; only the headphone jack maps to the SPEC port enum (Nintendo does not state the 3.5 mm diameter), so the two cartridge slots are omitted from ports[] rather than mis-typed. released = Japan launch, quoted from Nintendo's own DS Lite news release; North American launch date not sourced from a Nintendo page, left out. announced: no Nintendo announcement release located, left null."
+  ]
+}

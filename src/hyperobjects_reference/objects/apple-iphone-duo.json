@@ -1,0 +1,170 @@
+{
+  "spec_version": 1,
+  "key": "apple-iphone-duo",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Apple",
+  "model": "iPhone Duo",
+  "aliases": [
+    "iPhone Duo (requester alias: \"iPhone Duo\" - matches Apple's official name)",
+    "foldable iPhone"
+  ],
+  "status": "verified",
+  "announced": "2026-09-09",
+  "released": "2026-10-23",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 84.1,
+        "height": 117.8,
+        "depth": 11.3
+      },
+      "open": {
+        "width": 164.6,
+        "height": 117.8,
+        "depth": 5.2
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 254,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 7.6,
+      "resolution_px": [
+        1878,
+        2670
+      ],
+      "aspect": "313:445",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 110.93,
+        "height": 157.72,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 5.4,
+      "resolution_px": [
+        1398,
+        2034
+      ],
+      "aspect": "233:339",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 77.19,
+        "height": 112.31,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Grade 5 titanium",
+    "back": "Ceramic Shield",
+    "cover_glass": "Ceramic Shield 2"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Open: Width: 6.48 inches (164.6 mm); Height: 4.64 inches (117.8 mm); Depth: 0.21 inch (5.2 mm)"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Closed: Width: 3.31 inches (84.1 mm); Height: 4.64 inches (117.8 mm); Depth: 0.44 inch (11.3 mm)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Weight: 8.96 ounces (254 grams)"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "7.6-inch (diagonal) all-screen OLED folding display; 1878-by-2670-pixel resolution at 430 ppi"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "5.4-inch (diagonal) all-screen OLED display; 1398-by-2034-pixel resolution at 460 ppi"
+    },
+    {
+      "field": "displays[].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/",
+      "retrieved": "2026-09-13",
+      "quote": "ProMotion technology with adaptive refresh rates up to 120Hz"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "Titanium foldable design; Ceramic Shield 2 front; Ceramic Shield back"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.apple.com/iphone-duo/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "USB-C connector"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+      "retrieved": "2026-09-13",
+      "quote": "it supports the center of the display to hold it flat when opened"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+      "retrieved": "2026-09-13",
+      "quote": "Apple unveils iPhone Duo (newsroom release dated September 9, 2026)"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+      "retrieved": "2026-09-13",
+      "quote": "available at apple.com and at select carriers and partner stores starting on October 23, 2026"
+    }
+  ],
+  "notes": [
+    "THE \"iPhone Duo\" DETERMINATION: Apple HAS announced a foldable iPhone, and the requester's name is Apple's OFFICIAL name - no alias translation needed. Announced 2026-09-09 (newsroom), pre-orders 2026-10-16 at 5 a.m. PT, on sale 2026-10-23. `released` holds the FIRST-WAVE date only: Apple states availability begins 2026-10-23 in the launch countries and 2026-10-30 in \"28 other countries and regions\". NOTE: this is a FUTURE date - as of the 2026-09-13 snapshot the device is announced and fully specced but NOT yet shipping, so every number here is Apple's published pre-release specification, not a measured retail unit. All figures below were re-verified against the raw HTML of apple.com/iphone-duo/specs/ by curl, not only via the fetch-and-summarize layer. AXIS WARNING for CAD: Apple labels the LONG axis of this product \"Width\", not \"Height\" - open is 164.6mm wide x 117.8mm tall, closed is 84.1mm wide x 117.8mm tall, so the 117.8mm dimension is common to both states and the hinge runs along it. Mapped literally from Apple's own labels; do not swap. Both states share one mass (254 g). corner_radius is null, and this was checked two ways: (1) developer.apple.com/accessories/dimensional-drawings/ lists iPhone 12 through iPhone 17 Pro Max plus iPhone Air and iPhone 16e/17e but has NO iPhone Duo entry as of 2026-09-13; (2) the full \"Accessory Design Guidelines for Apple Devices\" PDF (Release R30, downloaded 2026-09-13, 39 MB) contains ZERO occurrences of the string \"Duo\" - its newest hardware is iPhone 17 / 17e / 17 Pro / 17 Pro Max / iPhone Air. So no Apple dimensioned drawing exists yet for this device and no radius can be cited. Re-check the drawings index after the 2026-10-23 ship date; that is the source that will eventually carry radii and port-cutout geometry for CAD. depth_at_hinge null: Apple publishes a single closed depth. DERIVED: active_area_mm = (px / ppi) x 25.4 for each axis, using only Apple-sourced resolution and ppi. Inner 1878/430x25.4 = 110.93mm by 2670/430x25.4 = 157.72mm; cover 1398/460x25.4 = 77.19mm by 2034/460x25.4 = 112.31mm. Cross-check: those give diagonals of 7.591in and 5.365in, matching Apple's own statement that the screens are \"7.58 and 5.36 inches diagonally\" when measured as a standard rectangle - so the derivation is validated against a second Apple figure. aspect strings are the reduced integer ratio of the sourced resolution. hinge.axis=long is read directly off Apple's own dimension pair - 117.8mm is common to the open and closed states, so the fold necessarily runs along that edge - rather than from an Apple statement naming the axis. hinge.max_angle_deg/free_stop/crease null: Apple describes \"a precision hinge\" and \"an integrated magnet array\" but publishes no angle, free-stop or crease-geometry figure. Apple also states the inner display has a \"nano-textured cover layer made from a custom polymer\" with \"high-strength glass above and below the folding display panel\" - materials.cover_glass records the outer Ceramic Shield 2 only. Device is eSIM-only (no physical SIM slot), so no sim port entry."
+  ]
+}

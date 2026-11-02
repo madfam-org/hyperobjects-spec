@@ -1,0 +1,283 @@
+{
+  "spec_version": 1,
+  "key": "motorola-razr-2026",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Motorola",
+  "model": "Razr (2026)",
+  "aliases": [
+    "Razr 70",
+    "motorola razr 70"
+  ],
+  "status": "verified",
+  "announced": "2026-04-29",
+  "released": "2026-05-21",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 73.99,
+        "height": 88.08,
+        "depth": 15.85
+      },
+      "open": {
+        "width": 73.99,
+        "height": 171.3,
+        "depth": 7.25
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 188,
+  "displays": [
+    {
+      "role": "inner",
+      "diagonal_in": 6.9,
+      "resolution_px": [
+        1080,
+        2640
+      ],
+      "aspect": "22:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 66.4,
+        "height": 162.2,
+        "derived": true
+      }
+    },
+    {
+      "role": "cover",
+      "diagonal_in": 3.6,
+      "resolution_px": [
+        1056,
+        1066
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 90,
+      "active_area_mm": {
+        "width": 64.4,
+        "height": 65.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": null,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "titanium-reinforced hinge",
+    "back": "woven-inspired finish / leather-inspired finish / Acetate",
+    "cover_glass": "Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Closed: 88.08 x 73.99 x 15.85mm Open: 171.30 x 73.99 x 7.25mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-70/pmipmjl44m6",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions (H x W x D) (Closed) 88.08 x 73.99 x 15.85mm"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-70/pmipmjl44m6",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions (H x W x D) (Open) 171.30 x 73.99 x 7.25mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Weight 188g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 6.9\" LTPO Extreme AMOLED Cover Display: 3.6\" LTPS Extreme AMOLED"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 6.9\" LTPO Extreme AMOLED Cover Display: 3.6\" LTPS Extreme AMOLED"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 6.9\" LTPO Extreme AMOLED Cover Display: 3.6\" LTPS Extreme AMOLED"
+    },
+    {
+      "field": "displays[1].panel",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 6.9\" LTPO Extreme AMOLED Cover Display: 3.6\" LTPS Extreme AMOLED"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 1080 x 2640 | 120Hz Cover Display: 1056 x 1066 | 90Hz"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 1080 x 2640 | 120Hz Cover Display: 1056 x 1066 | 90Hz"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 1080 x 2640 | 120Hz Cover Display: 1056 x 1066 | 90Hz"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Main Display: 1080 x 2640 | 120Hz Cover Display: 1056 x 1066 | 90Hz"
+    },
+    {
+      "field": "displays[0].aspect",
+      "tier": "primary",
+      "url": "https://www.motorola.com/gb/en/p/phones/razr/razr-70/pmipmjl44m6",
+      "retrieved": "2026-09-13",
+      "quote": "Aspect Ratio 22:9"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Titanium-reinforced hinge for flawless flips."
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "PANTONE Hematite in a woven-inspired finish, PANTONE Violet Ice and PANTONE Sporting Green in a leather-inspired finish"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "PANTONE Bright White in Acetate for a sleek, sophisticated look and feel"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "motorola razr+ and razr debut with Corning® Gorilla® Glass Victus® to guard against everyday drops and scratches"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "use the main camera as a selfie cam simply by propping it up in Flex View mode"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Ports USB Type-C (USB 2.0)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "SIM Card Dual SIM (1 Nano SIM + eSIM)"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7",
+      "retrieved": "2026-09-13",
+      "quote": "Side Fingerprint Sensor (FPS), Face Unlock"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "April 29, 2026"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "new motorola razr – 2026 will be available ... on-sale universally unlocked on May 21"
+    },
+    {
+      "field": "aliases",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20260521213253/https://motorolanews.com/power-style-and-flexibility-motorola-introduces-three-new-flip-devices-to-the-razr-family/",
+      "retrieved": "2026-09-13",
+      "quote": "motorola razr 70 will be available for purchase in Europe, Middle East, Africa, and Latin America"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.9 in, a:b = 1080:2640 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 3.6 in, a:b = 1056:1066 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://www.motorola.com/us/en/p/phones/razr/razr-2026/pmipmjl44m7>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "US name 'motorola razr - 2026' and global name 'motorola razr 70' are ONE physical device, stated by Motorola itself: the April 29, 2026 press release's availability section pairs 'the new motorola razr – 2026' (United States) with 'motorola razr 70 ... in Europe, Middle East, Africa, and Latin America'. Corroborated by identical published geometry on both product pages (88.08 x 73.99 x 15.85 closed, 171.30 x 73.99 x 7.25 open, 188 g) and near-identical product codes (pmipmjl44m7 US / pmipmjl44m6 GB). Motorola's 2026 pages label the triples explicitly 'Dimensions (H x W x D) (Closed)/(Open)', so the mapping is the manufacturer's own. Resolutions recorded [width, height] exactly as Motorola prints them ('1080 x 2640', '1056 x 1066'); Motorola states no orientation for the near-square cover panel. Aspect taken from the GB page ('22:9'); the US page prints '22:09'. Panel recorded as OLED - Motorola's words are 'LTPO Extreme AMOLED' (main) and 'LTPS Extreme AMOLED' (cover). announced/released read from Motorola's own press release via a web.archive.org snapshot dated 2026-05-21, because motorolanews.com returns HTTP 403 to both WebFetch and curl; May 21 is the US on-sale date. hinge.crease null - Motorola never states a crease shape. Motorola also states this model meets MIL-STD 810H and IP48, and calls it 'the first flip smartphone in the category that meets military standards for durability' - no field exists for that here. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

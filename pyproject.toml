@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hyperobjects-spec"
-version = "0.18.0"
+version = "0.19.0"
 description = "The MADFAM hyperobject commons spec: validate a Yantra4D, Fashion Cabinet or Pliego cartridge with zero platform code."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -77,6 +77,7 @@ fc-spec = "fc_spec.cli:main"
 y4d-spec = "y4d_spec.cli:main"
 pliego-spec = "pliego_spec.cli:main"
 ho-bridge = "bridge_check.cli:main"
+ho-reference = "hyperobjects_reference.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -100,6 +101,9 @@ hyperobjects_licenses = ["texts/*.txt", "licenses.lock.json", "VENDORED.md"]
 # The standard-parts catalog (ASM-1 §4): one JSON file per COTS part, validated by
 # hyperobjects_schemas' standard-part.schema.json.
 hyperobjects_standard_parts = ["parts/*.json"]
+# The reference-objects catalog: one JSON file per real product, its published facts with
+# their sources, validated by hyperobjects_schemas' reference-object.schema.json.
+hyperobjects_reference = ["objects/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

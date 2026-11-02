@@ -1,0 +1,189 @@
+{
+  "spec_version": 1,
+  "key": "honor-magic-v5",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "HONOR",
+  "model": "Magic V5",
+  "status": "verified",
+  "announced": "2025-07-02",
+  "released": "2025-07-02",
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 74.3,
+        "height": 156.8,
+        "depth": 9.0
+      },
+      "open": {
+        "width": 145.9,
+        "height": 156.8,
+        "depth": 4.2
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 222,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 6.43,
+      "resolution_px": [
+        2376,
+        1060
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 149.2,
+        "height": 66.5,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.95,
+      "resolution_px": [
+        2352,
+        2172
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 148.3,
+        "height": 137.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "Aerospace special fibre on the Ivory White version",
+    "cover_glass": "HONOR Anti-scratch NanoCrystal Shield (external screen); inner screen: HONOR Super Armored Inner Screen"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Height 156.8 mm Width folded: 74.3 mm unfolded: 145.9 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Ivory White Version: folded: 8.8 mm unfolded: 4.1 mm Other Version: folded: 9 mm unfolded: 4.2 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Ivory White Version: Approx. 217 g (including the battery) Other Version: Approx. 222 g (including the battery)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: 7.95 inch External screen: 6.43 inch"
+    },
+    {
+      "field": "displays[].resolution_px",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: 2352×2172 Pixels External screen: 2376×1060 Pixels"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: foldable OLED External screen: OLED"
+    },
+    {
+      "field": "displays[].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/",
+      "retrieved": "2026-09-13",
+      "quote": "7.95-inch Screen 120Hz 8T LTPO Display ... 6.43-inch Screen 120Hz 8T LTPO Display"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "Inner screen: HONOR Super Armored Inner Screen External screen: HONOR Anti-scratch NanoCrystal Shield"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/",
+      "retrieved": "2026-09-13",
+      "quote": "Aerospace special fiber used in ivory white version."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/phones/honor-magic-v5/spec/",
+      "retrieved": "2026-09-13",
+      "quote": "USB: USB Type-C, USB 3.2 GEN1, DP1.2"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/news/honor-magic-v5-china-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "[Shenzhen, China, July 2, 2025] ... HONOR today launched the next-generation foldable smartphone HONOR Magic V5 in China"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.honor.com/global/news/honor-magic-v5-china-launch/",
+      "retrieved": "2026-09-13",
+      "quote": "The HONOR Magic V5 is available beginning today in China, starting from RMB 8,999 online"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.43 in, a:b = 2376:1060 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://www.honor.com/global/phones/honor-magic-v5/spec/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://www.honor.com/global/phones/honor-magic-v5/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.95 in, a:b = 2352:2172 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays' <https://www.honor.com/global/phones/honor-magic-v5/spec/>; resolution_px from the sources[] entry for 'displays[].resolution_px' <https://www.honor.com/global/phones/honor-magic-v5/spec/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "TWO folded thicknesses are published, split by colour variant (not hinge/non-hinge side): Ivory White Version folded 8.8 mm / unfolded 4.1 mm @ approx. 217 g, Other Version folded 9 mm / unfolded 4.2 mm @ approx. 222 g. Per the larger-value rule the Other Version figures are recorded (9 / 4.2 / 222 g); 8.8 mm / 217 g is the figure HONOR markets. HONOR's global page prints \"9 mm\"; HONOR's China spec page prints the same value as \"9.0 mm\" (https://www.honor.com/cn/phones/honor-magic-v5/spec/, \"折叠态：9.0 mm\"), which also independently confirms 156.8 / 74.3 / 145.9 / 4.2 mm and 217 g / 222 g. No hinge-side value is published so depth_at_hinge is null. Height 156.8 mm is published as one value for both states. hinge.crease is null: HONOR calls this the \"HONOR Mortise and Tenon Dampening Hinge\" / \"ultra-durable shield-grade steel hinge\" and makes no water-drop/teardrop or U-crease claim on either the global or the China page. hinge.free_stop is null: unlike the Magic V2 and V3 pages, neither the global nor the China Magic V5 page makes any hover / free-stop / multi-angle claim - not asserted rather than denied. Display aspect ratios are not published for this model - left null. materials.frame null: no frame material is stated on any HONOR page for this model (the China page says only \"8.8mm 超轻薄机身\", \"8.8 mm ultra-thin body\"). resolution_px recorded in HONOR's printed order (long axis first). active_area_mm left null - HONOR states the diagonals are standard-rectangle measurements and the actual viewable area is slightly smaller. || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'book'; hinge.axis = 'long'."
+  ]
+}

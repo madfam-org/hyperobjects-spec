@@ -1,0 +1,180 @@
+{
+  "spec_version": 1,
+  "key": "new-nintendo-2ds-xl",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "New Nintendo 2DS XL",
+  "aliases": [
+    "JAN-001",
+    "Newニンテンドー2DS LL",
+    "New Nintendo 2DS LL"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2017-07-13",
+  "external_ids": {
+    "igdb_platform": "new-nintendo-3ds"
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 86.36,
+        "height": 159.36,
+        "depth": 20.8
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 260,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.88,
+      "resolution_px": [
+        400,
+        240
+      ],
+      "aspect": "5:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 106.2,
+        "height": 63.72,
+        "derived": false
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 4.18,
+      "resolution_px": [
+        320,
+        240
+      ],
+      "aspect": "4:3",
+      "panel": "LCD",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 84.96,
+        "height": 63.72,
+        "derived": false
+      }
+    }
+  ],
+  "hinge": {
+    "type": "clamshell",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "abxy",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "position": null
+    },
+    {
+      "kind": "microsd",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "サイズ 縦86.36mm×横159.36mm×厚さ20.8mm（折りたたみ時）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "質量 約260g（タッチペン・microSDカードを含む）"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "ワイド液晶 4.88型（横106.2mm×縦63.72mm）／ 横400ドット×縦240ドット 約1677万色表示可能"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "タッチ入力機能付き液晶 4.18型（横84.96mm×縦63.72mm）／ 横320ドット×縦240ドット"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "A/B/X/Yボタン、十字ボタン、L/Rボタン、ZL/ZRボタン、START/SELECTボタン、スライドパッド、Cスティック"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "ゲームカードスロット microSDカードスロット ACアダプター接続端子 ヘッドホン接続端子（ステレオ出力）"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "縦86.36mm×横159.36mm×厚さ20.8mm（折りたたみ時）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/new2dsll/spec.html",
+      "retrieved": "2026-09-13",
+      "quote": "発売日 2017年7月13日（木）"
+    }
+  ],
+  "notes": [
+    "Japan-market page (nintendo.co.jp), model JAN-001; 'Newニンテンドー2DS LL' in Japan. Despite the '2DS' name this model DOES fold — Nintendo's サイズ line carries （折りたたみ時）'when folded', so hinge.type=clamshell is sourced; the '2DS' in the name refers to the absence of autostereoscopic 3D, not to the 2DS's slate form factor. Axis mapping: Nintendo lists 縦86.36mm×横159.36mm×厚さ20.8mm; height=横159.36 (long axis), width=縦86.36, depth=厚さ20.8 — Nintendo's own label for the long axis is 'width' (横). Closed/folded state; open state not published, left null. TOP SCREEN IS 400x240, NOT 800x240: no 3D panel, so Nintendo's line reads 横400ドット×縦240ドット (aspect 5:3), while the diagonal (4.88型) and active area (106.2x63.72 mm) match the New 3DS XL's top screen. Quoted, not inferred. ACTIVE AREA IS PUBLISHED, NOT DERIVED: printed in mm inline with each diagonal, so 'derived' is deliberately FALSE. MASS CAVEAT: Nintendo's inclusion list here is 約260g（タッチペン・microSDカードを含む） — stylus and microSD card only. Every other model in this family states バッテリーパック (battery pack) in its inclusion list; this page does not, and its 使用電源 row likewise names a バッテリーパック with no part number. Whether the 260 g figure includes the battery is therefore NOT established by the source; the figure is recorded verbatim and the ambiguity flagged rather than adjusted. CONTROLS: New-generation set with ZL/ZR and the Cスティック, hence bumper count 4 and stick count 2; positions not stated by Nintendo, left null. HOME and power buttons appear under その他入力 with no matching enum kind. ports: microSD explicitly stated; game card slot and AC adapter connector omitted (no matching enum kind); the 3.5 mm diameter is not stated by Nintendo. Speakers are on the LOWER screen (下画面左右のステレオスピーカー), unlike the 3DS/3DS XL/New 3DS XL which place them beside the upper screen. Supports NFC and has no 3D depth slider. released = Japan launch; the North American/European launch (2017) is not sourced from a Nintendo page, left out. announced: not sourced, null. refresh_hz, materials, corner_radius, depth_at_hinge: not published, null."
+  ]
+}

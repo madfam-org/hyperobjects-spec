@@ -1,0 +1,234 @@
+{
+  "spec_version": 1,
+  "key": "huawei-pocket-2",
+  "kind": "device",
+  "family": "flip-fold-phone",
+  "brand": "Huawei",
+  "model": "Pocket 2",
+  "status": "verified",
+  "announced": "2024-02-22",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75.5,
+        "height": 87.8,
+        "depth": 15.3
+      },
+      "open": {
+        "width": 75.5,
+        "height": 170,
+        "depth": 7.25
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 202,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 1.15,
+      "resolution_px": [
+        340,
+        340
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 20.7,
+        "height": 20.7,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 6.94,
+      "resolution_px": [
+        2690,
+        1136
+      ],
+      "aspect": null,
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 162.4,
+        "height": 68.6,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": true,
+    "crease": "teardrop"
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": null,
+    "back": "glass (大溪地灰 / 洛可可白) or vegan leather (芋紫 / 雅黑)",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed.height",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "折叠态：87.8 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.width",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.5 mm"
+    },
+    {
+      "field": "dimensions_mm.states.closed.depth",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "折叠态：15.3 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.height",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "展开态：170 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.width",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "宽度 75.5 mm"
+    },
+    {
+      "field": "dimensions_mm.states.open.depth",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "展开态：7.25 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "玻璃版：约 202 克（含电池）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "外屏：1.15 英寸"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "外屏：340 × 340 像素"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "外屏：OLED，支持 1-60 Hz LTPO 自适应刷新率"
+    },
+    {
+      "field": "displays[1].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：6.94 英寸"
+    },
+    {
+      "field": "displays[1].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：FHD+，2690 × 1136 像素"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：OLED，支持 1-120 Hz LTPO 自适应刷新率"
+    },
+    {
+      "field": "displays[].panel",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "内屏：OLED ... 外屏：OLED"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/",
+      "retrieved": "2026-09-13",
+      "quote": "数据线接口 USB Type-C，USB 2.0"
+    },
+    {
+      "field": "hinge.crease",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240222094815/https://consumer.huawei.com/cn/phones/pocket-2/",
+      "retrieved": "2026-09-13",
+      "quote": "玄武水滴铰链，精密对接，大幅消减缝隙"
+    },
+    {
+      "field": "hinge.free_stop",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240222094815/https://consumer.huawei.com/cn/phones/pocket-2/",
+      "retrieved": "2026-09-13",
+      "quote": "双力臂杠杆齿轮设计，助你轻巧开合，稳稳悬停"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240222094815/https://consumer.huawei.com/cn/phones/pocket-2/",
+      "retrieved": "2026-09-13",
+      "quote": "大溪地灰、洛可可白采用玻璃材质，芋紫、雅黑采用素皮材质。"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://consumer.huawei.com/cn/press/events/2024/huawei-pocket-2-fashion/",
+      "retrieved": "2026-09-13",
+      "quote": "CBG_DREDATE\" content=\"2024-02-22 14:49:00\""
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 1.15 in, a:b = 340:340 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[0].diagonal_in' <https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/>; resolution_px from the sources[] entry for 'displays[0].resolution_px' <https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 6.94 in, a:b = 2690:1136 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in from the sources[] entry for 'displays[1].diagonal_in' <https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/>; resolution_px from the sources[] entry for 'displays[1].resolution_px' <https://web.archive.org/web/20240229090059/https://consumer.huawei.com/cn/phones/pocket-2/specs/>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "DELISTED: as of 2026-09-13 the live https://consumer.huawei.com/cn/phones/pocket-2/ AND .../specs/ both redirect to the generic phones listing page, and https://consumer.huawei.com/en/phones/pocket-2/specs/ returns HTTP 404 (Pocket 2 was China-only). All geometry therefore comes from the OEM URL via web.archive.org: snapshot 2024-02-29 (spec page) and snapshot 2024-02-22 (product page) — primary per SPEC. NOT blocked by robots.txt (consumer.huawei.com/robots.txt does not disallow these paths); both the live page and the archived snapshot are JS shells under WebFetch, so curl + gzip decompression of the id_ archive URL was required. TRANSLATION: 长度 = length/height, 宽度 = width, 厚度 = thickness, 展开态 = unfolded state, 折叠态 = folded state, 约 = approximately, 克 = grams, 英寸 = inches, 内屏 = inner screen, 外屏 = cover screen, 像素 = pixels, 数据线接口 = data-cable interface. Huawei writes the weight with 约 ('approximately') — kept as stated, not rounded away. VARIANTS: 厚度 lists 玻璃版 (glass version) 展开态 7.25 mm / 折叠态 15.3 mm and 素皮版 (vegan-leather version) 展开态 7.35 mm / 折叠态 15.5 mm; 重量 lists 玻璃版：约 202 克（含电池） and 素皮版：约 199 克（含电池）. I recorded the GLASS version consistently for both depth and mass so the entry describes one real configuration; the vegan-leather variant is 7.35 / 15.5 mm at ~199 g. Huawei footnotes that folded thickness excludes the camera module and unfolded thickness excludes the screen bezel and camera module, and that the stated weight includes the battery but excludes the inner screen's surface layer. Refresh rates are published as adaptive RANGES ('支持 1-120 Hz LTPO 自适应刷新率' inner, '支持 1-60 Hz LTPO 自适应刷新率' cover); refresh_hz records the stated maximum. The cover display is the small 1.15-inch round window (340 × 340). panel recorded as OLED per the SPEC enum; Huawei states OLED for both screens. SIM: the spec table has NO SIM-card-type row (only an NFC footnote referring to a 'SIM1 卡槽'), so no sim port entry was added. materials.frame null — a footnote gives only the frame COLOUR for 洛可可白, not a material. materials.back quote translates as 'Tahiti Grey and Rococo White use glass material; Taro Purple and Elegant Black use vegan-leather material'. hinge.crease: '玄武水滴铰链' = 'Xuanwu waterdrop hinge' -> teardrop. hinge.free_stop: '双力臂杠杆齿轮设计，助你轻巧开合，稳稳悬停' = 'dual lever-arm gear design lets you open and close it lightly and hover steadily'. announced: Huawei prints no date in the body of its own press-event page 'HUAWEI Pocket 2 时尚盛典' (description: '华为全新发布 HUAWEI Pocket 2' = 'Huawei newly launches HUAWEI Pocket 2'); the date is that page's own CBG_DREDATE publication-timestamp meta, 2024-02-22 14:49:00. released left null — no on-sale date found on any consumer.huawei.com page. controls left empty (not surveyed). || EVIDENCE SWEEP 2026-09-13: these values were present in the research pass but carried NO sources[] entry covering their field, so they were set to null per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim here so a human can re-source rather than re-research: hinge.type = 'flip'; hinge.axis = 'short'."
+  ]
+}

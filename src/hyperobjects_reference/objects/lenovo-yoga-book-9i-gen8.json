@@ -1,0 +1,158 @@
+{
+  "spec_version": 1,
+  "key": "lenovo-yoga-book-9i-gen8",
+  "kind": "device",
+  "family": "dual-screen-laptop",
+  "brand": "Lenovo",
+  "model": "Yoga Book 9i Gen 8 (13IRU8)",
+  "aliases": [
+    "Yoga Book 9 13IRU8",
+    "Yoga Book 9i (13\", 8)",
+    "83FF"
+  ],
+  "status": "verified",
+  "announced": "2023-01-05",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 299.1,
+        "height": 203.9,
+        "depth": 15.95
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 1340,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 13.3,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 286.5,
+        "height": 179.0,
+        "derived": true
+      }
+    },
+    {
+      "role": "secondary",
+      "diagonal_in": 13.3,
+      "resolution_px": [
+        2880,
+        1800
+      ],
+      "aspect": "16:10",
+      "panel": "OLED",
+      "refresh_hz": 60,
+      "active_area_mm": {
+        "width": 286.5,
+        "height": 179.0,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "dual_screen_360",
+    "axis": "long",
+    "max_angle_deg": 360,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Aluminium (top), aluminium (bottom)",
+    "back": "Aluminium",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "299.1 x 203.9 x 15.95 mm (11.78 x 8.03 x 0.63 inches)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Starting at 1.34 kg (2.95 lbs)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "2x 13.3\" 2.8K WQXGA+ (2880x1800) OLED 400nits 16:10 100% DCI-P3 60Hz"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Laptop, tent, stand, and tablet modes supported by 360 degree sound-bar hinge"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "3x USB-C (Thunderbolt 4 / USB4 40Gbps), with USB PD 3.0 and DisplayPort 1.4"
+    },
+    {
+      "field": "materials.frame",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Aluminium (top), aluminium (bottom)"
+    },
+    {
+      "field": "materials.back",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Book_9_13IRU8/Yoga_Book_9_13IRU8_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Aluminium (top), aluminium (bottom)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.lenovo.com/pressroom/press-releases/dual-screen-yoga-book-9i-premium-consumer-devices-innovation-unexpected/",
+      "retrieved": "2026-09-13",
+      "quote": "5 January 2023"
+    }
+  ],
+  "notes": [
+    "AXIS MAPPING (laptop vendors invert phone-vendor axis names): Lenovo publishes closed-state Dimensions (WxDxH) = 299.1 x 203.9 x 15.95 mm; mapped manufacturer WIDTH 299.1 -> dimensions_mm.closed.width, manufacturer DEPTH 203.9 -> dimensions_mm.closed.height, manufacturer HEIGHT/thickness 15.95 -> dimensions_mm.closed.depth. This means closed.width (299.1) is the LONG axis, contrary to SPEC's default 'height = long axis' convention. dimensions_mm.open left null: Lenovo publishes no opened dimension for this machine. mass_g: PSREF states 'Starting at 1.34 kg' -> 1.34 x 1000 = 1340 g exactly; this is a STARTING weight and varies by configuration. The 2023-01-05 Lenovo press release states 1.38 kg for the same machine - PSREF (the later, model-specific spec database, doc dated February 05 2024) is preferred and the discrepancy is recorded here. TWO DISCRETE PANELS (not a fold): PSREF lists '2x 13.3\"', recorded as roles primary + secondary; they are identical. active_area_mm derived from sourced diagonal + sourced resolution assuming square pixels: w = 13.3 x 2880 / sqrt(2880^2+1800^2) x 25.4 = 286.5 mm, h = 13.3 x 1800 / sqrt(2880^2+1800^2) x 25.4 = 179.0 mm. hinge.free_stop null - Lenovo documents no free-stop/FreeStop behaviour. hinge.axis 'long' is read from the 360-degree sound-bar hinge joining two panels along their long edge, not from a quoted axis statement. PORTS: PSREF lists only '3x USB-C (Thunderbolt 4)'; there is NO headphone jack and no HDMI on this model. Port left/right position left null - the PSREF overview callouts are image labels with no machine-readable side, so side assignment would be a guess. materials.cover_glass null - PSREF's display Key Features row ends with the bare word 'Glass' but names no cover-glass product. released null - the Lenovo press release says only 'expected to be available starting June 2023', which is not a full date."
+  ]
+}

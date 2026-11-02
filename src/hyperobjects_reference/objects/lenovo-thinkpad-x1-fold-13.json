@@ -1,0 +1,143 @@
+{
+  "spec_version": 1,
+  "key": "lenovo-thinkpad-x1-fold-13",
+  "kind": "device",
+  "family": "foldable-laptop",
+  "brand": "Lenovo",
+  "model": "ThinkPad X1 Fold Gen 1",
+  "aliases": [
+    "ThinkPad X1 Fold (2020)",
+    "ThinkPad X1 Fold 13",
+    "20RK",
+    "20RL"
+  ],
+  "status": "verified",
+  "announced": "2020-01-06",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 158.0,
+        "height": 235.6,
+        "depth": 27.8
+      },
+      "open": {
+        "width": 299.0,
+        "height": 235.6,
+        "depth": 11.3
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 999,
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 13.3,
+      "resolution_px": [
+        2048,
+        1536
+      ],
+      "aspect": "4:3",
+      "panel": "OLED",
+      "refresh_hz": null,
+      "active_area_mm": {
+        "width": 270.3,
+        "height": 202.7,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "Magnesium alloy",
+    "back": "Authentic leather",
+    "cover_glass": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 158 x 235.6 x 27.8 mm (6.22 x 9.28 x 1.09 inches)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded: 299 x 235.6 x 11.3 mm (11.77 x 9.28 x 0.44 inches)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Starting at 0.999 kg (2.2 lbs)"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "13.3\" QXGA (2048x1536) Multi-touch Folding OLED 300 nits 4:3 95% DCI-P3"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "2x USB-C 3.2 Gen 2 ... 1x Nano-SIM card slot (WWAN support models)"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Case Material Magnesium alloy + authentic leather"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_X1_Fold_Gen_1/ThinkPad_X1_Fold_Gen_1_Spec.pdf",
+      "retrieved": "2026-09-13",
+      "quote": "Folded: 158 x 235.6 x 27.8 mm ... Unfolded: 299 x 235.6 x 11.3 mm"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://news.lenovo.com/pressroom/press-releases/worlds-first-foldable-pc-thinkpad-x1-fold-ushers-in-a-new-era-of-mobile-computing/",
+      "retrieved": "2026-09-13",
+      "quote": "January 6, 2020"
+    }
+  ],
+  "notes": [
+    "This is the EARLIER 13.3in ThinkPad X1 Fold (announced CES 2020), created as its own entry because Lenovo PSREF publishes full specs for it under the model name 'ThinkPad X1 Fold Gen 1' (note: NOT 'X1 Fold 13' - the '13' in our slug is our label; Lenovo never uses it, and the 16in machine is separately named 'ThinkPad X1 Fold 16 Gen 1'). ONE PANEL THAT FOLDS - single display, role primary. AXIS MAPPING: Lenovo publishes both states as (WxDxH). Folded 158 x 235.6 x 27.8 mm -> closed.width 158.0, closed.height 235.6, closed.depth 27.8. Unfolded 299 x 235.6 x 11.3 mm -> open.width 299.0, open.height 235.6, open.depth 11.3. Manufacturer WIDTH -> width, DEPTH -> height, HEIGHT/thickness -> depth. The fold runs along the 235.6 mm edge so height is constant and width halves (299.0 -> 158.0) while thickness more than doubles (11.3 -> 27.8); that pair is also the evidence for hinge.axis. mass_g 999 = 'Starting at 0.999 kg' x 1000 exactly; STARTING weight, varies by configuration, excludes the separate Lenovo Fold Mini Keyboard. The 2020-01-06 Lenovo press release says only 'less than 2.2 pounds (1kg)', consistent with but less precise than PSREF. active_area_mm derived from sourced diagonal + sourced resolution assuming square pixels: 2048x1536 is exactly 4:3, matching PSREF's stated aspect, so w = 13.3 x 2048 / 2560 x 25.4 = 270.3 mm and h = 13.3 x 1536 / 2560 x 25.4 = 202.7 mm; unlike the 16in model there is NO aspect/resolution conflict here. refresh_hz null - no refresh-rate column. Lenovo states no folded usable diagonal for this generation (unlike the 16in model's '12\" when folded'), so none is recorded. max_angle_deg and free_stop null - the press release describes a 'multi-link torque hinge mechanism' but publishes no angle or free-stop rating. PORTS: 2x USB-C 3.2 Gen 2; the nano-SIM slot is OPTIONAL, WWAN models only. Positions null. materials.cover_glass null. released null - the press release says only 'expected to be available mid-2020'."
+  ]
+}

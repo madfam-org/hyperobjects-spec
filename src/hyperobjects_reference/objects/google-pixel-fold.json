@@ -1,0 +1,202 @@
+{
+  "spec_version": 1,
+  "key": "google-pixel-fold",
+  "kind": "device",
+  "family": "book-fold-phone",
+  "brand": "Google",
+  "model": "Pixel Fold",
+  "status": "verified",
+  "announced": "2023-05-10",
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 79.5,
+        "height": 139.7,
+        "depth": 12.1
+      },
+      "open": {
+        "width": 158.7,
+        "height": 139.7,
+        "depth": 5.8
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": 283,
+  "displays": [
+    {
+      "role": "cover",
+      "diagonal_in": 5.8,
+      "resolution_px": [
+        1080,
+        2092
+      ],
+      "aspect": "17.4:9",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 67.6,
+        "height": 130.9,
+        "derived": true
+      }
+    },
+    {
+      "role": "inner",
+      "diagonal_in": 7.6,
+      "resolution_px": [
+        2208,
+        1840
+      ],
+      "aspect": "6:5",
+      "panel": "OLED",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 148.3,
+        "height": 123.6,
+        "derived": true
+      }
+    }
+  ],
+  "hinge": {
+    "type": "book",
+    "axis": "long",
+    "max_angle_deg": 180,
+    "free_stop": true,
+    "crease": null
+  },
+  "controls": [
+    {
+      "kind": "fingerprint",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "position": null
+    },
+    {
+      "kind": "sim",
+      "position": null
+    }
+  ],
+  "materials": {
+    "frame": "polished aluminium",
+    "back": "Corning Gorilla Glass Victus",
+    "cover_glass": "Corning Gorilla Glass Victus"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Folded 5.5 height x 3.1 width x 0.5 depth (inches) 139.7 height x 79.5 width x 12.1 depth (mm)"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Unfolded ... 139.7 height x 158.7 width x 5.8 depth (mm)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Dimensions and weight 10 oz (283 g)"
+    },
+    {
+      "field": "displays[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Full screen 5.8-inch (146.7 mm) display 17.4:9 aspect ratio FHD+ 1080 x 2092 OLED at 408 PPI"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (up to 120 Hz)"
+    },
+    {
+      "field": "displays[1]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Full screen 7.6-inch (192.3 mm) display 6:5 aspect ratio 2208 x 1840 OLED at 380 PPI"
+    },
+    {
+      "field": "displays[1].refresh_hz",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Smooth Display (up to 120 Hz)"
+    },
+    {
+      "field": "hinge",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Fluid friction across the full 180° range of motion to securely support different postures"
+    },
+    {
+      "field": "materials",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Corning® Gorilla® Glass Victus™ back with polished aluminium frame"
+    },
+    {
+      "field": "materials.cover_glass",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Scratch-resistant Corning® Gorilla® Glass Victus™ cover glass"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "Fingerprint Unlock with power button fingerprint sensor"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB",
+      "retrieved": "2026-09-13",
+      "quote": "USB Type-C® 3.2 Gen 2 ... SIMs Dual SIM (single nano SIM and eSIM)"
+    },
+    {
+      "field": "announced",
+      "tier": "primary",
+      "url": "https://blog.google/products-and-platforms/devices/pixel/google-pixel-fold/",
+      "retrieved": "2026-09-13",
+      "quote": "May 10, 2023 ... Google Pixel Fold is now available for pre-order and will begin shipping next month."
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 5.8 in, a:b = 1080:2092 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[0]' <https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    },
+    {
+      "field": "displays[1].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-09-13",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), rounded half-up to 0.1 mm. D = 7.6 in, a:b = 2208:1840 taken exactly from resolution_px (square pixels assumed); the published diagonal is assumed exact (OEMs round it). Inputs: diagonal_in and resolution_px both from the sources[] entry for 'displays[1]' <https://web.archive.org/web/20240719142602/https://store.google.com/gb/product/pixel_fold_specs?hl=en-GB>. Computed by scripts/device-registry-derive.py; re-run it after editing either input."
+    }
+  ],
+  "notes": [
+    "The live store.google.com Pixel Fold spec page is GONE: https://store.google.com/us/product/pixel_fold_specs?hl=en-US now 301-redirects to the Pixel 10 Pro Fold product page, and the bare /product/ path geo-redirects to a Google Store home page. Values therefore come from a web.archive.org snapshot of the manufacturer's own UK page (store.google.com/gb/product/pixel_fold_specs?hl=en-GB), SNAPSHOT DATE 2024-07-19; the en-GB locale prints BOTH inches and mm side by side, so the mm figures were taken directly and NO conversion was performed. hinge.free_stop=true and max_angle_deg=180 come from Google's own Hinge section: 'Fluid friction across the full 180 degree range of motion to securely support different postures'. Google also states 'Mirror-polished, multi-alloy steel construction' and 'Custom dual-axis, quad-cam synchronised mechanism' for the hinge. hinge.crease left NULL: Google never describes the crease SHAPE on this page - no teardrop/water-drop/U wording anywhere. resolution_px is exactly as Google prints it: cover '1080 x 2092' (width x height), inner '2208 x 1840'. refresh_hz 120 records Google's 'Smooth Display (up to 120 Hz)'. Camera-bar caveat: the 'Dimensions and weight' heading carries a footnote marker whose body was NOT captured in the snapshot; nothing in the captured text says the 12.1 mm folded depth excludes the camera bar, so treat 12.1 mm as Google's stated figure of unknown reference surface. released left NULL: the announcement blog says only 'will begin shipping next month' - no primary page gives an on-sale date, and the widely cited 2023-06-27 appears only on excluded secondary sites. controls[0].position left null: Google says 'power button fingerprint sensor' but does not state which edge. active_area_mm left null (marketing diagonal only)."
+  ]
+}

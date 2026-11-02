@@ -1,0 +1,57 @@
+{
+  "spec_version": 1,
+  "key": "sony-tablet-p",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Sony",
+  "model": "Tablet P",
+  "aliases": [
+    "SGPT211",
+    "SGPT212",
+    "Sony S2",
+    "Sony Tablet P"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "open": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "depth_at_hinge": null,
+    "corner_radius": null
+  },
+  "mass_g": null,
+  "displays": [],
+  "hinge": {
+    "type": null,
+    "axis": null,
+    "max_angle_deg": null,
+    "free_stop": null,
+    "crease": null
+  },
+  "controls": [],
+  "ports": [],
+  "materials": {
+    "frame": null,
+    "back": null,
+    "cover_glass": null
+  },
+  "sources": [],
+  "notes": [
+    "UNVERIFIED - EVERY VALUE NULL BY DESIGN. No Sony-published source for this 2011 device could be reached on 2026-09-13, so nothing is recorded. What was tried and what blocked it: (1) sony.com is BLOCKED TO OUR USER AGENT - a domain-restricted search was refused outright with 'The following domains are not accessible to our user agent: sony.com', which is a crawler/robots-level block, i.e. blocked_by_robots for the manufacturer's main domain. (2) sony.net is live but returns an 'Access Denied ... You don't have permission to access this page' WAF page to curl with a browser user-agent, for every press-release URL tried. (3) The Wayback route was attempted against the Sony URL itself: the CDX index for www.sony.net/SonyInfo/News/Press/201108* yielded only six archived index.html pages, and fetching each and reading its <title> found NO Tablet release among them - the three 2011-08-31 releases archived there are the Full HD 3D Glasses initiative, the small/medium display business MoU, and a 0.7-inch OLED microdisplay, none of them the tablet. A broader CDX query over all 2011 Sony press releases returned zero rows (the endpoint was intermittently 504-ing). store.sony.com and sonytablet.com have no archived product/spec page (sonytablet.com's archived root is a 404). (4) NOT USED, deliberately: a DoCoMo PDF titled 'Main Specifications of Sony Tablet (SGPT211JP/S)' exists at docomo.ne.jp, but DoCoMo is the CARRIER, not the manufacturer - the same exclusion applied to the Sprint press release for the Kyocera Echo - so it is not an acceptable primary source and was not used. Retail listings (B&H, LapStore), kakaku.com, Wikipedia and spec aggregators were likewise not used. SECONDARY-ONLY FIGURES SEEN, recorded here ONLY so a human can decide whether to accept them, and deliberately NOT placed in any field: two 5.5-inch displays at 1024x480 each, approx 180 x 158 x 14 mm folded, approx 372 g, NVIDIA Tegra 2, Android 3.2, announced 2011-08-31 alongside the Tablet S, released November 2011. NONE of that is Sony-sourced. TO RESOLVE: Sony's own Tablet P support pages (esupport.sony.com / sony.co.uk support) and the presscentre.sony.eu launch kit are the places to look; both need a fetch path that is not blocked by Sony's WAF. FAMILY NOTE: this device is a genuine clamshell with two discrete panels on a long-axis hinge, so the family assignment is not in doubt even though every measurement is null.",
+    "EVIDENCE SWEEP 2026-11-01 (keystone import of Telesia's data/registry/device-geometry.json, sha256 ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0): these list items carried NO sources[] entry covering them, so they were removed per the registry rule (a value without a citation is an assertion, not evidence). Preserved verbatim so a human can re-source rather than re-research: displays[0] = {\"role\": \"primary\", \"diagonal_in\": null, \"resolution_px\": null, \"aspect\": null, \"panel\": null, \"refresh_hz\": null, \"active_area_mm\": {\"width\": null, \"height\": null, \"derived\": true}}; displays[1] = {\"role\": \"secondary\", \"diagonal_in\": null, \"resolution_px\": null, \"aspect\": null, \"panel\": null, \"refresh_hz\": null, \"active_area_mm\": {\"width\": null, \"height\": null, \"derived\": true}}."
+  ]
+}
