@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Reference objects: controllers, NES pad to DualSense Edge (lane RA3)
+
+Data only: 47 new `kind: controller` objects in `src/hyperobjects_reference/objects/`, no
+schema, checker or version change. Facts for the `gamepad` (32), `stick-controller` (6) and
+`handset-controller` (9) families; every value is quoted from a maker's page, press release or
+manual, or a museum record; unit changes (HORI's cm/kg, CHM's cm) carry a `derived` source.
+Status: 19 verified, 18 partial, 10 unverified (legacy pads with no published figures stay
+`null`). Face buttons are `face_button`; back/grip buttons are `rear_button`. `host_console`
+uses the home-console lane's keys (launch model where several exist). Legacy manual
+control facts were checked against the page scans. Sony-hosted instruction manuals now
+source the DUALSHOCK 2 controls and wired connection, plus the DUALSHOCK 3 battery,
+Mini-B port and 180 g mass; their unpublished envelopes remain `null`. The left Joy-Con 2
+wireless source quotes its own Bluetooth cell.
+
 ### Reference objects: game media formats, docks, stands, AC adapters, cables (lane RA4)
 
 Data only: 16 new objects in `src/hyperobjects_reference/objects/`, no schema, checker or

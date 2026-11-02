@@ -1,0 +1,143 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualshock-2-scph-10010",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DUALSHOCK 2 Analog Controller",
+  "model_numbers": [
+    "SCPH-10010"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 3,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "cable",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "sony-playstation-2-scph-10000",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "方向キー上下左右"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "左右のスティック"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "L1、R1、L2、R2ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "SELECTボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "STARTボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ANALOGモードスイッチ"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "コードをねじったり引っ張ったりしないでくださ"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "コードをねじったり引っ張ったりしないでくださ"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps2-docs/JA_SCPH-10010_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "本機は“PlayStation 2”規格および“PlayStation”規格のソフトウェアでお使いいただけます。"
+    }
+  ],
+  "notes": [
+    "Sony's official Japanese SCPH-10010 instruction manual (3-059-053-03 (1)), PDF page 2, fetched and visually checked on 2026-11-01. Its labelled analog-mode front/top diagrams provide the complete control list: one directional pad, four shape buttons, two sticks (L3/R3 are their clicks), L1/R1, L2/R2, SELECT, START and ANALOG. Archetype vocabulary maps L1/R1 to bumper 2 and the rear L2/R2 row to trigger 2; this names the row, not an analog-travel claim. SELECT/START/ANALOG are button 3. The cable and console-connector diagram establish a permanently attached cable (ports cable 1, wired true). Compatibility includes PlayStation 2, PS one and PlayStation; host_console is the launch PS2 key rather than an exclusive-compatibility claim. The manual publishes no dimensions, mass or cable length, so those remain null. Japanese text was extracted with PDFKit because pypdf garbles its legacy embedded-font mapping; quotes were checked against that extraction and the rendered page."
+  ],
+  "regions": [
+    "JP"
+  ]
+}

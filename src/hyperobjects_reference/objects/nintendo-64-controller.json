@@ -1,0 +1,40 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "NINTENDO64 コントローラ",
+  "aliases": [
+    "Nintendo 64 Controller",
+    "N64 Controller"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "No value-tier source found (2026-11-01); every fact is null, host_console included (it would be nintendo-64, but a value needs a source). Model codes commonly cited for it (NUS-005) are not filed in model_numbers because no Nintendo page read prints them. No Nintendo-hosted N64 hardware page survives (nintendo.co.jp/n64/ not archived under the probed URLs); Nintendo of Europe's N64 Technical Details URL returned 404. C buttons, when sourced, go in face_button with the A/B (see the family brief)."
+  ]
+}

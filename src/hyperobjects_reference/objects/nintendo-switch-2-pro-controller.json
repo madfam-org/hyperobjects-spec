@@ -1,0 +1,160 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-2-pro-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch 2 Proコントローラー",
+  "aliases": [
+    "Nintendo Switch 2 Pro Controller"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 148,
+        "height": 105,
+        "depth": 60.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 235,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 6,
+      "position": null
+    },
+    {
+      "kind": "rear_button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "nintendo-switch-2",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦105mm×横148mm×厚さ60.2mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "約235g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "A/B/X/Y/L/R/ZL/ZR ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "GL/GRボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタン"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "3.5mmの4極ステレオミニプラグ（CTIA規格）"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch 2 Proコントローラーの充電に使用"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth/NFC（近距離無線通信）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "内蔵バッテリーの取り外しはできません。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/accessories/controller.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch 2 Proコントローラーの主な仕様｜Nintendo Switch 2｜任天堂"
+    }
+  ],
+  "notes": [
+    "Nintendo JP accessory page «Nintendo Switch 2 Proコントローラーの主な仕様». Axis mapping as labelled: 縦105mm = height, 横148mm = width, 厚さ60.2mm = depth (the HTML breaks the line after 横148mm×; the quote is the text with the <br> removed). The page does not say whether projections are excluded: excludes_projections null. ボタン row: L/R stick (+ stick buttons), A/B/X/Y/L/R/ZL/ZR, GL/GR, ＋/－, 十字, HOME, キャプチャー, シンクロ, C → dpad 1, face_button 4 (A/B/X/Y), bumper 2 (L/R), trigger 2 (ZL/ZR), stick 2, button 6 (+, −, HOME, capture, sync, C), and GL/GR as rear_button 2: the page's parts diagram puts them on the back (「好きなボタンを自由に割り当てることができます」); rear_button is borrowed from the slab-handheld vocabulary because the controller contract has no back-paddle kind (FLAG for the coordinator). Ports: ヘッドホンマイク端子 (3.5mm 4-pole CTIA) = headphone_3_5; USB端子 row «USB Type-C® 端子» = usb_c (the USB quote is the row's second line because the first is split by a <sup>). wired=false (Bluetooth); cell_kind built_in (1070mAh, not user-removable). released not on the page (null). host_console from the page title."
+  ]
+}

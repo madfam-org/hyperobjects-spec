@@ -1,0 +1,41 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-snes-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Super Nintendo Entertainment System Controller / スーパーファミコン コントローラ",
+  "aliases": [
+    "SNES Controller",
+    "Super Famicom Controller",
+    "スーパーファミコン コントローラ"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "No value-tier source found (2026-11-01); every fact is null, host_console included (it would be super-nintendo-entertainment-system, but a value needs a source). Model codes commonly cited for it (SNS-005, SHVC-005) are not filed in model_numbers because no Nintendo page read prints them. One object for the SNES and Super Famicom pads (same shell, colourways differ; regions JP/NA/EU). Nintendo of Europe's Super Nintendo Technical Details page has console data only («Two controller ports»). The Super Famicom Classic Mini controller dimensions on nintendo.co.jp/clvs/spec describe a DIFFERENT product and are not used."
+  ]
+}

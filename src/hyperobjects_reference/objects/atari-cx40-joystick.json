@@ -1,0 +1,55 @@
+{
+  "spec_version": 1,
+  "key": "atari-cx40-joystick",
+  "kind": "controller",
+  "family": "stick-controller",
+  "brand": "Atari",
+  "model": "CX40 Joystick Controller",
+  "aliases": [
+    "Atari 2600 joystick",
+    "Joystick Controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "atari-2600-cx2600",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-1982-atari-usrev-1",
+      "retrieved": "2026-11-01",
+      "quote": "controllers by the connecting wires."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-1982-atari-usrev-1",
+      "retrieved": "2026-11-01",
+      "quote": "Joystick Controllers (2)"
+    }
+  ],
+  "notes": [
+    "Source: Atari Video Computer System Owner's Manual (1982, Atari, US, rev 1; archive.org atari-video-computer-system-owners-manual-1982-atari-usrev-1): contents list «Joystick Controllers (2)» and the care line «Do not lift the console unit or the controllers by the connecting wires.» Quotes are verbatim lines of archive.org's OCR text (the item's _djvu.txt) of the maker's scanned manual, OCR errors and spacing included; the scan, not the OCR, is the authority, and a human should re-read each line against the page image. The manual does not describe the joystick's controls in a citable line (one lever and one fire button are expected but NOT filed), so controls stays an uncovered []. DIMENSIONS NOT FILED: Computer History Museum records 102730622 and 102730621 («Controller (Atari 2600)», 1977, Atari) print «4w x 4h x 60l (in)» / «10.16w x 10.16h x 152.4l (cm)», whose 60 in length is the joystick with its cord laid out and whose 4 in figures are whole-inch roundings, so they describe neither the body nor the cable; CHM masses are whole pounds and are not used. Mass, body, cable length: null."
+  ]
+}

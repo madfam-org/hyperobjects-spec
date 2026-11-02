@@ -1,0 +1,103 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-famicom-controller-ii",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "ファミリーコンピュータ IIコントローラー",
+  "aliases": [
+    "Famicom Controller II"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "cable",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "nintendo-famicom-hvc-001",
+    "cable_length_mm": null,
+    "microphone": true
+  },
+  "sources": [
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載。"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載。"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載。"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2人プレイ用のコントローラーです。"
+    },
+    {
+      "field": "features.microphone",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "マイクロホン（MIC.）とVOLUMEが 付いています。"
+    }
+  ],
+  "notes": [
+    "Nintendo JP «ファミコンとは？» hardware page (text based on the original instruction booklet, per the page). The console 「十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載」 (carries two controllers with a cross button and A, B buttons) — the source for dpad 1 + face_button 2 on each, for wired=true and ports [cable 1] (the controllers are built into the console, cords permanently attached; the cord length is not printed), and for host_console. Dimensions and mass: not published; the page's 約620g is the console INCLUDING both controllers (「I ・Ⅱコントローラーを含む」), so no controller mass can be read from it. No battery. released (1983-07-15 per secondary sources) is not on the page: null. Controller II (2人プレイ用): the page adds a microphone (MIC.) and a VOLUME control instead of SELECT/START → controls dpad 1 + face_button 2, and features.microphone=true (a presence flag; the family plan's P2 microphone). The VOLUME control has no contract kind and is not in controls; this makes the controls list complete for contract kinds only — a reader must not treat VOLUME as absent (see this note)."
+  ]
+}

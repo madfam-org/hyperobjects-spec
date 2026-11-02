@@ -1,0 +1,61 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-wireless-controller-series",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Microsoft",
+  "model": "Xbox Wireless Controller (Xbox Series X|S)",
+  "aliases": [
+    "Xbox Series controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "aa",
+    "cell_count": null,
+    "host_console": "microsoft-xbox-series-x",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/accessories/controllers/xbox-wireless-controller",
+      "retrieved": "2026-11-01",
+      "quote": "Includes XBOX Wireless and Bluetooth® technology for wireless gaming on console, PC, mobile phones and tablets."
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/accessories/controllers/xbox-wireless-controller",
+      "retrieved": "2026-11-01",
+      "quote": "AA batteries for up to 40 hours of battery life"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/accessories/controllers/xbox-wireless-controller",
+      "retrieved": "2026-11-01",
+      "quote": "Optimized for XBOX Series X|S"
+    }
+  ],
+  "notes": [
+    "xbox.com's Xbox Wireless Controller page (en-US) publishes no dimensions, no mass and no complete control or port list, so body, mass, controls and ports stay null/[] (uncovered). Sourced: wireless (Xbox Wireless and Bluetooth), AA cells («AA batteries for up to 40 hours of battery life»; the page does not print how many), host «Optimized for XBOX Series X|S» (platform key microsoft-xbox-series-x; it also pairs with Xbox One and PCs). The page also names a «Dedicated share button», a hybrid D-pad and «the 3.5mm stereo headset jack», but not as complete lists. The Computer History Museum and other museums hold no record of this model found; a Microsoft accessory manual or regulatory filing is the next place to look (FCC mirrors refused automated access and were not pursued)."
+  ]
+}

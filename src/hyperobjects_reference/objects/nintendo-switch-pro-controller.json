@@ -1,0 +1,143 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-pro-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch Proコントローラー",
+  "aliases": [
+    "Nintendo Switch Pro Controller"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 152,
+        "height": 106,
+        "depth": 60
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 246,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 5,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "nintendo-switch",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "縦106mm×横152mm×厚さ60mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "約246g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "A/B/X/Y/L/R/ZL/ZR ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "＋ボタン/－ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタン"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch Proコントローラーの充電に使用"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth 3.0／NFC（近距離無線通信）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "※内蔵バッテリーの取り外しはできません。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/accessories/procon.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch Proコントローラーの主な仕様 | 周辺機器 | Nintendo Switch｜任天堂"
+    }
+  ],
+  "notes": [
+    "Nintendo JP «Nintendo Switch Proコントローラーの主な仕様» (accessory modal procon.html). Axis mapping as labelled: 縦106mm = height, 横152mm = width, 厚さ60mm = depth; projections not mentioned (excludes_projections null). ボタン row: L/R stick (+ stick buttons), A/B/X/Y/L/R/ZL/ZR, ＋/－, 十字, HOME, キャプチャー, シンクロ → dpad 1, face_button 4, bumper 2 (L/R), trigger 2 (ZL/ZR), stick 2, button 5 (+, −, HOME, capture, sync). USB端子 row: «USB Type-C™端子» / «Nintendo Switch Proコントローラーの充電に使用» = usb_c 1, the only port row. wired=false (Bluetooth 3.0); built-in battery (CTR-003 pack, 1300mAh, not user-removable). Many special editions exist (same spec). released not on the page (null)."
+  ]
+}

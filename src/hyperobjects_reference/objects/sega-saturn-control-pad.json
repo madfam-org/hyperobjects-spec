@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "key": "sega-saturn-control-pad",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sega",
+  "model": "Sega Saturn Control Pad",
+  "aliases": [
+    "Saturn Control Pad"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 6,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "sega-saturn",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "4. The Directional Pad (D-Pad) moves the cursor up, down, left and right on screen."
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "6. Buttons A and C make selections, and Button B cancels selections."
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "7. Button X cycles through audio playback repeat options. Button Y stops audio playback. Button Z pauses and"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "2. The Left Shift Button (Button L) skips and searches backward through audio CD tracks."
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "3. The Right Shift Button (Button R) skips and searches forward through audio CD tracks."
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "5. The Start Button (Start) starts/pauses games (or audio playback)."
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "1. Connect the Controller to Control Port 1 or 2 on the Sega Saturn unit."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Sega_Saturn_Instruction_Manual_1995_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "1. Connect the Controller to Control Port 1 or 2 on the Sega Saturn unit."
+    }
+  ],
+  "notes": [
+    "Source: Sega Saturn Instruction Manual (1995, Sega, US; archive.org Sega_Saturn_Instruction_Manual_1995_Sega_US), section «The Sega Saturn Control Pad», «Button Controls» items 1–7, read as the pad's complete control list. Quotes retain the maker manual's archive.org OCR text and spacing; the cited control facts were checked against rendered page images (PDF/printed page 12, Button Controls items 1–7) on 2026-11-01. The page image is authoritative where OCR differs. Mapping: D-Pad = dpad 1; A, B, C, X, Y, Z = face_button 6; Left/Right Shift Buttons (L, R) = bumper 2; Start = button 1. wired=true: the pad connects to a Control Port. This is the US-launch pad of that manual; the later Japanese-style pad shares the layout but no source here says it shares the shell. Body dimensions, mass, cord length: no maker or museum figure found, null. Sega's history archive is 403 (not retried)."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualshock-scph-1200",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DUALSHOCK Analog Controller",
+  "model_numbers": [
+    "SCPH-1200"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "No Sony document with this controller's dimensions, mass or complete control list was found: the first DUALSHOCK. Searched: sonyinteractive.com press releases in English and Japanese (the site's wp-json API, queries DUALSHOCK, controller, SIXAXIS), the playstation.com hardware-manual index (PS4/PS5-era only). Wayback snapshots of Sony Japan's old product pages (www.jp.playstation.com peripheral pages) were not reachable (archive.org rate limit) and are the next place to look. Secondary dimension figures seen in search results (retailers, iFixit, The Register's FCC story) locate nothing primary and are not filed. Every value is null; host platform key would be sony-playstation."
+  ]
+}

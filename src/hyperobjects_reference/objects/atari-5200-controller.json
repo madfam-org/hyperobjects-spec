@@ -1,0 +1,54 @@
+{
+  "spec_version": 1,
+  "key": "atari-5200-controller",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Atari",
+  "model": "5200 Controller",
+  "aliases": [
+    "Atari 5200 controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "atari-5200",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/Atari_5200_Owners_Manual_1983_Atari_US_rev_1",
+      "retrieved": "2026-11-01",
+      "quote": "Plug the controllers into the"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Atari_5200_Owners_Manual_1983_Atari_US_rev_1",
+      "retrieved": "2026-11-01",
+      "quote": "The ATARI 5200 includes two"
+    }
+  ],
+  "notes": [
+    "Source: Atari 5200 Owner's Manual (1983, Atari, US, rev 1; archive.org Atari_5200_Owners_Manual_1983_Atari_US_rev_1), section «5. Using the 5200 Controllers». Quotes are verbatim lines of archive.org's OCR text (the item's _djvu.txt) of the maker's scanned manual, OCR errors and spacing included; the scan, not the OCR, is the authority, and a human should re-read each line against the page image. The manual states «Each controller has two fire but-/tons on either side» (four side buttons), «The START, PAUSE, and RESET buttons on the controllers», «keypad buttons» under an overlay, and movement «in any direction», but never gives the keypad's key count or names the stick in a citable line; a covered list would assert completeness, so controls stays an uncovered [] and these lines are recorded here for the builder: side_button 4, button 3, keypad_key (count unstated), one analog stick (unstated). The 1982 edition (archive.org atari-5200-owners-manual-1982) reads the same and adds the # and * buttons. wired=true: the controllers plug into the console's front jacks. Body dimensions, mass, cable length: no maker or museum figure found, null."
+  ]
+}

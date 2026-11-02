@@ -1,0 +1,137 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-joy-con-l",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Joy-Con (L)",
+  "aliases": [
+    "Joy-Con(L)"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 35.9,
+        "height": 102,
+        "depth": 28.4
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 49,
+  "controls": [
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "side_button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": false,
+    "split": "rail_halves",
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "nintendo-switch",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "縦102mm×横35.9mm×厚さ28.4mm"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth 3.0"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "※内蔵バッテリーの取り外しはできません。"
+    },
+    {
+      "field": "features.split",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/feature/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Joy-Conを取り付けるための溝です。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/feature/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo Switch本体には、左右一対のコントローラー 「Joy-Con（ジョイコン）」が付属しています。"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "約49g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Lスティック／Lスティックボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "上／下／左／右／L／ZL／SL／SR／-ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch/modal/specs/joy-con.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "キャプチャーボタン"
+    }
+  ],
+  "notes": [
+    "Nintendo JP Switch spec modal «Joy-Con» (modal/specs/joy-con.html, linked from the Switch 「機能・仕様」 page); one サイズ cell for both halves. Axis mapping as labelled: 縦102mm = height, 横35.9mm = width, 厚さ28.4mm = depth. The modal does not say whether projections are excluded (the console page's footnote that 28.4 mm runs from stick tip to ZL/ZR belongs to the console-with-Joy-Con figure, not to this cell): excludes_projections null. split=rail_halves: the console's レール is 「Joy-Conを取り付けるための溝です。」 and the 取り外しボタン is 「本体からJoy-Conを取り外すときに使用します。」 (feature page). wired=false (Bluetooth 3.0); cell_kind built_in (525mAh, not user-removable); cell_count null. ports [] = unknown (no port row; rail contacts are no contract kind). Control mapping as for the Joy-Con 2: the (L) 上／下／左／右 are four discrete buttons, filed as face_button 4; L/R = bumper 1; ZL/ZR = trigger 1; SL/SR = side_button 2; stick 1; release (取り外し) and sync (シンクロ) counted under button. HD Rumble, NFC and the IR camera (R) have no kind. Runs split by a <br> in the HTML are quoted with the tag removed. released not on the page (null). (L): 約49g; buttons −, capture, release, sync → button 4."
+  ]
+}

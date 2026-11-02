@@ -1,0 +1,168 @@
+{
+  "spec_version": 1,
+  "key": "hori-fighting-stick-alpha",
+  "kind": "controller",
+  "family": "stick-controller",
+  "brand": "HORI",
+  "model": "Fighting Stick α for PlayStation 5, PlayStation 4, PC",
+  "model_numbers": [
+    "SPF-013",
+    "SPF-033"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 410,
+        "height": 120,
+        "depth": 300
+      }
+    },
+    "excludes_projections": false
+  },
+  "mass_g": 2700,
+  "controls": [
+    {
+      "kind": "lever",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 8,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 6,
+      "position": null
+    },
+    {
+      "kind": "touchpad",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "cable",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "sony-playstation-5-cfi-1000",
+    "cable_length_mm": 3000
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "(幅)約41cm×(奥行)約30cm×(高さ)約12cm（スティックレバーを含む）"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "HORI prints centimetres on the SPF-033 page (sources[0]): (幅)約41cm → width 410 mm, (高さ)約12cm → height 120 mm, (奥行)約30cm → depth 300 mm; cm x 10, exact, no rounding added."
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "（スティックレバーを含む）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "質量： 約2.7kg"
+    },
+    {
+      "field": "mass_g",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "HORI's 約2.7kg (sources[3]) x 1000 = 2700 g, exact."
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "ケーブル長： 約3.0m"
+    },
+    {
+      "field": "features.cable_length_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "HORI's 約3.0m (sources[5]) x 1000 = 3000 mm, exact."
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "接続方式： USB接続"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://hori.jp/products/p5/spf-033/",
+      "retrieved": "2026-11-01",
+      "quote": "PlayStation®5, PlayStation®4, PC"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://hori.jp/image/2023/12/%E3%80%90jp%E3%80%91spf-013_manual_20231214.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "オプションボタン △ボタン □ボタン R1ボタン L1ボタン L2ボタン R2ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://hori.jp/image/2023/12/%E3%80%90jp%E3%80%91spf-013_manual_20231214.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "スティックレバー （方向キー） ○ボタン ×ボタン サブパネル タッチパッド/タッチパッドボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://hori.jp/image/2023/12/%E3%80%90jp%E3%80%91spf-013_manual_20231214.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "PSボタン クリエイトボタン L3ボタン FUNCTIONボタン ハードウェア切替スイッチ R3ボタン"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://hori.jp/image/2023/12/%E3%80%90jp%E3%80%91spf-013_manual_20231214.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "USBケーブル USBプラグ"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://hori.jp/image/2023/12/%E3%80%90jp%E3%80%91spf-013_manual_20231214.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ステレオヘッドホン / マイク端子"
+    }
+  ],
+  "notes": [
+    "The current arcade stick whose maker publishes dimensions: HORI's Fighting Stick α for PS5/PS4/PC. The envelope is printed on the product page of its Street Fighter 6 edition SPF-033 (hori.jp/products/p5/spf-033/, released 2023-06-02 per that page); that page's manual link serves the base SPF-013 manual (【JP】spf-013_manual_20231214.pdf), whose spec table prints the same 約2.7kg and 約3.0m and the dimensions in mm (typeset vertically, so the PDF text cannot be quoted byte-exact; the page's centimetre figures are quoted instead). Axis labels are HORI's own: 幅 = width 410, 奥行 = depth 300, 高さ = height 120 (desk footprint 410 x 300, height including the lever). The figures are centimetres and kilograms, so each mm/g value carries a derived source with the exact x10 / x1000 method (brief: a conversion needs tier derived). excludes_projections=false: the page says «（スティックレバーを含む）» (lever included). Controls from the manual's 各部の名称 (PlayStation 5 diagram; PDF lines joined with spaces): lever 1 (スティックレバー（方向キー）); face_button 8 (△ ○ × □ L1 L2 R1 R2, HAYABUSA buttons in the arcade 8-button layout); button 6 = オプション, PS, クリエイト, L3, R3, FUNCTION; touchpad 1 (タッチパッド/タッチパッドボタン). The ハードウェア切替スイッチ and キーロックスイッチ slide switches and the profile/lock LEDs have no controller-contract kind. Ports: the attached USB cable = cable 1 (wired, 3.0 m); ステレオヘッドホン/マイク端子 = headphone_3_5 (diameter not printed; catalog convention). host_console uses the key sony-playstation-5-cfi-1000 (the launch model; any PS5 model hosts it) (also PS4 and PC). Both editions share one shell; SPF-033 differs only in its top artwork, which the catalog never records."
+  ]
+}

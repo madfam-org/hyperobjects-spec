@@ -1,0 +1,140 @@
+{
+  "spec_version": 1,
+  "key": "sega-dreamcast-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sega",
+  "model": "Dreamcast Controller",
+  "aliases": [
+    "Dreamcast controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "expansion_slot",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "cable",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "sega-dreamcast",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "(D-Pad)"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Dreamcast_Controller_Instruction_Manual_1999_U",
+      "retrieved": "2026-11-01",
+      "quote": "Directional Pad and Analog Thumb Pad"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "If the A Button, B Button, X Button, Y Button and Start Button are all pressed at the same time, the game"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Dreamcast_Controller_Instruction_Manual_1999_U",
+      "retrieved": "2026-11-01",
+      "quote": "Do not touch the Analog Thumb Pad, Trigger L, or Trigger R when turning on the"
+    },
+    {
+      "field": "controls[4]",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "If the A Button, B Button, X Button, Y Button and Start Button are all pressed at the same time, the game"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Expansion Socket 1 or 2."
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Dreamcast_Controller_Instruction_Manual_1999_U",
+      "retrieved": "2026-11-01",
+      "quote": "Handle the controller cable and its connector with care. Do not place heavy objects"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/Dreamcast_Controller_Instruction_Manual_1999_U",
+      "retrieved": "2026-11-01",
+      "quote": "Handle the controller cable and its connector with care. Do not place heavy objects"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Dreamcast_Controller_Instruction_Manual_1999_U",
+      "retrieved": "2026-11-01",
+      "quote": "Thank you very much for purchasing this Dreamcast controller. Before using the"
+    }
+  ],
+  "notes": [
+    "Sources: Dreamcast Controller Instruction Manual (Sega of America 1999, part 670-14112B; archive.org Dreamcast_Controller_Instruction_Manual_1999_U) and the Dreamcast console Instruction Manual (Sega, US, 2000; archive.org DreamCast_Instruction_Manual_2000_Sega_US), whose controller diagram labels D-Pad, X/Y/B/A Buttons, Start Button, Trigger R, Trigger L and Expansion Sockets 1 and 2; the controller manual adds the Analog Thumb Pad. Quotes retain the maker manual's archive.org OCR text and spacing; the cited control facts were checked against rendered page images (controller instruction manual PDF leaf 3, Part Names and Functions, plus its leaf 4 operation text) on 2026-11-01. The page image is authoritative where OCR differs. Together they are read as the complete control and port lists: dpad 1; Analog Thumb Pad = stick 1; A/B/X/Y = face_button 4; Trigger L/R = trigger 2 (analog triggers, not bumpers); Start = button 1; Expansion Sockets 1 and 2 = expansion_slot 2 (they take the Visual Memory Unit and other peripherals); the permanently attached controller cable = cable 1. DIMENSIONS NOT FILED: the Science Museum Group record co8912915 (a Dreamcast console set, object 2024-692/1) prints the controller as «overall (excluding cable): 80 mm x 140 mm x 140 mm» with the axes UNLABELLED and rounded to 10 mm, so no axis can be assigned; the record could not be re-fetched (the SMG site returned 403 to this lane after a rate limit) and a human should check whether it labels the axes. Mass and cable length: not published in either manual, null. Sega's history archive (sega.jp/history/hard/dreamcast/) is 403 to automated fetches."
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-remote",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Nintendo",
+  "model": "Wiiリモコン",
+  "model_numbers": [
+    "RVL-003"
+  ],
+  "aliases": [
+    "Wii Remote"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2006-12-02",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 36.2,
+        "height": 148,
+        "depth": 30.8
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "expansion_slot",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "aa",
+    "cell_count": null,
+    "host_console": "nintendo-wii",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 148mm　　横 36.2mm　　厚さ 30.8mm　（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 148mm　　横 36.2mm　　厚さ 30.8mm　（突起部分を除く）"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■ Ａ、Ｂ、十字ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■ −（マイナス）、Home（ホーム）、＋（プラス）ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■ １、２ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■ 本体の電源スイッチ"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■ 拡張ユニット接続可能"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth（短距離無線通信）による無線接続"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20081226231208/http://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "コントローラ - Ｗｉｉ"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemote.html",
+      "retrieved": "2026-11-01",
+      "quote": "※単3アルカリ乾電池（動作確認用）、Wiiリモコン専用ストラップ、Wiiリモコンジャケット付き"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemote.html",
+      "retrieved": "2026-11-01",
+      "quote": "発売日 2006年12月2日（シロ）"
+    }
+  ],
+  "notes": [
+    "Dimensions and controls: archive.org snapshot (2008-12-26) of Nintendo JP's Wii controllers page (nintendo.co.jp/wii/controllers/index.html), section [RVL-003] — the original Wii Remote; today's live page shows the Remote Plus instead. Axis mapping as labelled: 縦 148mm = height, 横 36.2mm = width, 厚さ 30.8mm = depth, 突起部分を除く → excludes_projections true (the spaces are full-width, as printed). 操作部 list: pointer, 3-axis motion sensor, 本体の電源スイッチ, Ａ・Ｂ・十字, −・Home・＋, １・２ → dpad 1, face_button 4 (A, B, 1, 2 — the page does not say where B sits; it is the underside trigger, but a position is not sourced, so all four are filed as face_button), button 4 (power, −, HOME, +). Pointer and motion sensor are not controls. ports: «拡張ユニット接続可能» (expansion unit connectable) = expansion_slot 1, the only connector the spec names. その他の機能 also lists vibration, speaker and player indicator (no kinds). The web spec page publishes no mass. cell_kind aa from the live wiiRemote.html image alt text (AA alkaline cells included for checking operation); cell_count not printed (null). released = the white model's 発売日 on the same live page (alt text). host_console from the 2008 page title."
+  ]
+}

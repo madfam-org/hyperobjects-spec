@@ -1,0 +1,36 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-360-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Microsoft",
+  "model": "Xbox 360 Wireless Controller",
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "Microsoft publishes no dimensions, mass or complete control list for this controller on any page found. The Computer History Museum record 102718656 («Xbox 360 wireless controller», 2005) prints «6w x 2 1/4h x 4 1/2l (in)» / «15.24w x 5.72h x 11.43l (cm)» and «1 (lb)», but it also carries a retail barcode as an identifying number and does not say whether the controller was measured bare or in its packaging, so the envelope is not filed (brief: confirm bare device); the mass is whole pounds (never used). Every value is null; the host platform key would be microsoft-xbox-360."
+  ]
+}

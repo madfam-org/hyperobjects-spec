@@ -1,0 +1,106 @@
+{
+  "spec_version": 1,
+  "key": "sega-genesis-control-pad-3-button",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sega",
+  "model": "Genesis Control Pad (3-button)",
+  "aliases": [
+    "Mega Drive Control Pad",
+    "GENESIS CONTROL PAD"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 3,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "sega-mega-drive",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "(D-Button)"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Button A"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Button B"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Button C"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Start Button"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Plug a Genesis Control Pad into Control Port 1 on the Console."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Plug a Genesis Control Pad into Control Port 1 on the Console."
+    }
+  ],
+  "notes": [
+    "Source: Sega Genesis Instruction Manual (1993, Sega, US; archive.org Genesis_Instruction_Manual_1993_Sega_US), the labelled «GENESIS CONTROL PAD» diagram: «Directional Button (D-Button)», «Start Button», «Button C», «Button B», «Button A». Quotes retain the maker manual's archive.org OCR text and spacing; the cited control facts were checked against rendered page images (PDF leaf 3 (printed page 4), labelled controller diagram) on 2026-11-01. The page image is authoritative where OCR differs. The diagram's labels are taken as the pad's complete control list: D-Button = dpad 1, Buttons A/B/C = face_button 3, Start = button 1. wired=true: the pad plugs into the console's Control Port by its cord. Body dimensions, mass and cord length: no maker or museum figure found, null. Sega's history archive is 403 to automated fetches (not retried)."
+  ]
+}

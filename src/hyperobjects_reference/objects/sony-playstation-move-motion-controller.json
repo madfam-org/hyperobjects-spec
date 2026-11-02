@@ -1,0 +1,131 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-move-motion-controller",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Sony",
+  "model": "PlayStation Move motion controller",
+  "model_numbers": [
+    "CECH-ZCM1",
+    "CECH-ZCM2"
+  ],
+  "aliases": [
+    "PS Move"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": 200,
+        "depth": null
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 145,
+  "controls": [
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "sony-playstation-3-cecha00",
+    "cable_length_mm": null,
+    "diameter_mm": 46
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body.height",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 200 mm × 46 mm"
+    },
+    {
+      "field": "features.diameter_mm",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "(height × diameter)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "(excluding maximum"
+    },
+    {
+      "field": "dimensions_mm.states.body.height",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2010/playstationmove-motion-controller-to-hit-worldwide-market-starting-this-septemberfor-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 200mm × 46mm (height × diameter）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 145 g"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2010/playstationmove-motion-controller-to-hit-worldwide-market-starting-this-septemberfor-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 145 g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "START button*1 Move button (PS) button Status indicator Rear view T button SELECT button*2"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Battery type Built-in lithium-ion battery"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/ps-move-motion-controller-cech-zcm2e/CECH-ZCM2E_PS_Move_Controller_Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Battery type Built-in lithium-ion battery"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2010/playstationmove-motion-controller-to-hit-worldwide-market-starting-this-septemberfor-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "for the PlayStation®3 (PS3®) system on September 15, 2010"
+    }
+  ],
+  "notes": [
+    "One object for both Move revisions: the 2010 launch release (CECH-ZCM1) and the current CECH-ZCM2E instruction manual (playstation.com PDF, text by PDFKit) print the same «Approx. 200 mm × 46 mm» labelled «(height × diameter)» and the same 145 g. Mapping: height = 200 (the long axis); the 46 mm is a DIAMETER (of the sphere-topped wand), filed as features.diameter_mm; width and depth stay null, because a diameter is not a labelled width or depth. The manual's label reads «(excluding maximum / projecting part)» across two PDF lines, which sets excludes_projections. Controls from the manual's «Part names» (front and rear views, quoted with the PDF's lines joined): four action buttons (Sony prints them as glyphs, extracted as bare «button») = face_button 4; Move button, PS button, START, SELECT = button 4; T button (the rear trigger) = trigger 1; the sphere is a light, not a control; the pin-hole reset button is not counted. Ports left [] (uncovered): the manual names a «USB connector» without its type (CECH-ZCM1 and ZCM2 differ, mini- vs micro-USB, per secondary sources only). wired=false and cell_kind from the built-in lithium-ion battery line; Move is a wireless motion controller. host_console: the 2010 release introduces it for PlayStation 3 (PS4 and PS VR use it too); key sony-playstation-3-cecha00 (the launch model). The navigation controller (95 g in the same release) is not filed. Status partial: Sony labels only height and diameter, so body width and depth stay null."
+  ]
+}

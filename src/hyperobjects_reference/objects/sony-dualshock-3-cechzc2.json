@@ -1,0 +1,85 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualshock-3-cechzc2",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DUALSHOCK 3 Wireless Controller",
+  "model_numbers": [
+    "CECHZC2",
+    "CECHZC2E"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 180,
+  "controls": [],
+  "ports": [
+    {
+      "kind": "mini_usb",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "sony-playstation-3-cecha00",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps3-accessories/cechzc2e-ds3/CECHZC2E_DS3_IM%24en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 180 g"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps3-accessories/cechzc2e-ds3/CECHZC2E_DS3_IM%24en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Built-in rechargeable Lithium-Ion battery"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps3-accessories/cechzc2e-ds3/CECHZC2E_DS3_IM%24en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "DUALSHOCK®3 Wireless Controller"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps3-accessories/cechzc2e-ds3/CECHZC2E_DS3_IM%24en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Compatible with PS3™ system software version 2.50 or later"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps3-accessories/cechzc2e-ds3/CECHZC2E_DS3_IM%24en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "USB cable (A – Mini-B type)"
+    }
+  ],
+  "notes": [
+    "Sony's official CECHZC2E instruction manual (2012, English European issue), specifications and supplied-items sections on PDF page 2, fetched and visually checked on 2026-11-01. Mass 180 g and built-in rechargeable battery are printed explicitly. The controller-side connector is Mini-B (mini_usb) as indicated by the A–Mini-B charging cable; the manual names no other external interface. Wireless is explicit in the product name. The host key denotes the launch PS3; the manual supports PS3 systems with software 2.50 or later, not only that chassis. This regional suffix adds evidence for CECHZC2E; no claim of a new shell dimension is made. No body dimensions, complete control list, cable length or exact release day appears here, so those values remain null or uncovered. Sony's 2007-09-20 press release was also inspected, but its announced November launch is not an exact release date. Earlier unsuccessful third-party/Wayback searches have been superseded by this maker-hosted PDF."
+  ],
+  "regions": [
+    "EU"
+  ]
+}
