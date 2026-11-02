@@ -1,0 +1,45 @@
+{
+  "spec_version": 1,
+  "key": "fixture-game-card",
+  "kind": "media",
+  "family": "plug-in-media",
+  "brand": "Fixture Games",
+  "model": "Fixture game card",
+  "status": "verified",
+  "dimensions_mm": {
+    "states": {
+      "shell": {
+        "width": 35.0,
+        "height": 33.0,
+        "depth": 3.8
+      }
+    }
+  },
+  "features": {
+    "card": true,
+    "insertion_edge": "bottom"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.shell",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    },
+    {
+      "field": "features",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    }
+  ],
+  "notes": [
+    "TEST FIXTURE. A fictional object written for the lane's tests (tests/test_reference_editions.py). Every value is invented, describes no product, and must never be copied into the bundled catalog: real editions arrive with measured data."
+  ]
+}

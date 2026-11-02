@@ -1,7 +1,8 @@
 """hyperobjects_reference — the keystone's reference-objects catalog.
 
 A reference object is a real commercial product described by its published facts: a
-console, a handheld, a phone, a controller, a media format, a case, a carton, a booklet.
+console, a handheld, a phone, a controller, a media format, a case, a carton, a booklet, or
+one published edition of a game title (kind ``edition``, which joins those by key).
 A commons family cartridge turns those facts into a named PRESET; the geometry stays the
 family's (an archetype we own), the numbers stay the maker's. The catalog is facts only —
 never CAD, never artwork, never a likeness — validated by ``reference-object.schema.json``.
@@ -16,7 +17,8 @@ never CAD, never artwork, never a likeness — validated by ``reference-object.s
 One JSON file per object under ``objects/``, named ``{key}.json``. Every non-null value is
 covered by a ``sources[]`` entry whose ``field`` is that value's path or an ancestor of it,
 and ``null`` means unresolved, never guessed. The rules that keep that honest are in
-:mod:`hyperobjects_reference.check`.
+:mod:`hyperobjects_reference.check`; whether a container's inside holds a content's envelope
+(gate G-X2) is :func:`hyperobjects_reference.fit.fit`.
 
 The two directions this package fixes (owner ruling, 2026-11-01): geometry and the facts it
 is generated from live on the geometry side (this keystone and the commons); consumers such
@@ -63,7 +65,7 @@ VALUE_TIERS = frozenset({"primary", "museum", "regulatory", "derived", "measured
 #: and are not required to cite a source.
 FACT_ROOTS = (
     "announced", "released", "dimensions_mm", "mass_g", "displays", "hinge", "controls",
-    "ports", "media", "materials", "features",
+    "ports", "media", "materials", "features", "contents", "edition",
 )
 
 _STEP = re.compile(r"([a-z_][a-z0-9_]*)((?:\[[0-9]+\])*)")
@@ -200,11 +202,12 @@ def is_sourced(obj: Mapping, field: str) -> bool:
 def item_path(path: str) -> str | None:
     """For an item's identifying label (``displays[0].role``, ``ports[2].kind``), the item.
 
-    A label names WHICH display or port an item is; it is sourced when anything about the
-    item is (a source on ``displays[0].diagonal_in`` establishes that display), never on
-    its own. ``None`` for every other path.
+    A label names WHICH display, port or held object an item is (``role``, ``kind``, or a
+    ``contents[]`` item's ``key``); it is sourced when anything about the item is (a source on
+    ``displays[0].diagonal_in`` establishes that display), never on its own. ``None`` for
+    every other path.
     """
-    m = re.fullmatch(r"(.+\[[0-9]+\])\.(role|kind)", path)
+    m = re.fullmatch(r"(.+\[[0-9]+\])\.(role|kind|key)", path)
     return m.group(1) if m else None
 
 

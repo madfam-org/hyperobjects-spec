@@ -6,6 +6,66 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Game editions, container contents and the box ↔ content fit, gate G-X2 (package 0.20.0)
+
+The gaming-hardware plan's title editions (wave W4) need a record that joins a title's
+cartridge or disc, its case or carton, its booklet and its inserts, and a rule that says
+whether a box holds what it is meant to hold. Both halves live here because the box comes from
+the sheet commons and the cartridge from the solid commons, and neither pins the other.
+
+**Version.** 0.20.0 is the next free minor after 0.19.0 (#69). #57 still declares 0.11.0 and
+renumbers when it rebases.
+
+#### Added
+
+- **`reference-object.schema.json`**:
+  - kind `edition`, with its `edition` block: `title`, `platform`, `region` (a market region or
+    an ISO 3166-1 alpha-2 country), `product_code`, `released`, `media` `{key, count}`,
+    `package`, `booklet` `{pages, page_width_mm, page_height_mm, binding, cover_stock?}`,
+    `inserts[]` `{kind, width_mm, height_mm, folds?}` and `bundled[]`;
+  - only an edition carries the block, and it is required there; an edition needs no
+    `dimensions_mm`, which every other kind still requires;
+  - a generic top-level `contents[]` (`{key, count}`) for a container that states what it
+    holds;
+  - `features` documents a container's inside: `inside_width_mm` / `inside_height_mm` /
+    `inside_depth_mm`, or the `closed` state less twice `wall_mm`.
+- **`hyperobjects_reference`**: `edition` and `contents` are fact roots, so every value in them
+  is sourced. A `contents[]` item's `key` is a label, sourced when anything about the item is
+  (as a port's `kind`).
+- **`hyperobjects_reference.check`**, three rules, each with a failure test:
+  8. a booklet's pages are positive, and a multiple of 4 when saddle-stitched;
+  9. a container never holds itself, and never lists a key twice;
+  10. over the whole catalog (`check_references`): `edition.platform` names a `device`,
+      `edition.media.key` a `media` object, `edition.package` a `case` or `carton`, and
+      `edition.bundled[]` anything but an edition. A key the catalog does not hold is a
+      **note**, never a failure, so editions can land before their formats; `contents[]` keys
+      resolve the same way, note-only.
+- **`CatalogResult.notes`**. `ho-reference check` prints `note …` lines, and its summary ends
+  `failures=N notes=M`.
+- **`hyperobjects_reference.fit`** and **`ho-reference fit --container KEY --content KEY
+  [--clearance-mm X]`** (gate G-X2, the keystone half that Pliego's `content_ref` and the
+  title-edition kits will call). Per axis, compared as labelled: the container's inside against
+  the content's `shell` / `body` / `closed` envelope plus the clearance per side, in decimal
+  arithmetic. The verdict is `fits` (exit 0), `does not fit` (1, as soon as one known axis is
+  short) or `unknown (null input)` (3, never a pass, with every null path listed); 2 is a key
+  the catalog does not hold or a negative clearance.
+- **Fixtures** (`tests/fixtures/reference/`): two fictional editions (one on the bundled
+  `nintendo-3ds`, one naming N64 formats the catalog lacks), a game card and a keep case. Each
+  says it is fictional in its first note. None is in the bundled catalog: real editions arrive
+  with measured data.
+- **Tests** (`tests/test_reference_editions.py`).
+- **Docs**: `docs/REFERENCE_OBJECTS.md`, "Editions, containers and the fit (gate G-X2)"; the
+  README catalog section and package row; `llms.txt`, `llms-full.txt`.
+
+#### For consumers
+
+- The bundled catalog is unchanged: `ho-reference check: objects=84 values=2231 failures=0
+  notes=0`.
+- A consumer that parsed the old summary line exactly sees ` notes=N` appended. The CI reference
+  lane's grep now accepts it (`failures=0 notes=[0-9]+`).
+- `item_path` now treats `[n].key` as a label, as it does `[n].role` and `[n].kind`. No
+  bundled object has such a path.
+
 ### Console and game-media standard parts: connectors, couplers, cells, cards, discs (lane console-parts)
 
 Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change, and

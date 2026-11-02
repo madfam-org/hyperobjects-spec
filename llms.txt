@@ -39,7 +39,8 @@ names, no runbook content. See the repo-boundary section of `AGENTS.md`.
     python scripts/refresh_assembly_golden.py --check   # projection drift guard: same id + new bytes => bump PROJECTION_VERSION (now 3)
     python scripts/refresh_pose_golden.py --check       # golden pose files = the reference forward kinematics
     ho-bridge check --fc ./fashion-cabinet --y4d ./yantra4d
-    ho-reference check [--objects DIR] [-v]   # reference-objects catalog (published facts behind commons presets); docs/REFERENCE_OBJECTS.md
+    ho-reference check [--objects DIR] [-v]   # reference-objects catalog (published facts behind commons presets, game editions); docs/REFERENCE_OBJECTS.md
+    ho-reference fit --container KEY --content KEY [--clearance-mm X]   # G-X2 box <-> content fit: 0 fits, 1 does not fit, 3 unknown (null input)
 
 `y4d-spec rules` is generated from the code, so prefer running it over trusting
 any prose summary — including this one.

@@ -1,0 +1,59 @@
+{
+  "spec_version": 1,
+  "key": "fixture-rally-64-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Fixture Games",
+  "model": "Fixture Rally 64 (Nintendo 64, NA)",
+  "status": "verified",
+  "edition": {
+    "title": "Fixture Rally 64",
+    "platform": "nintendo-64",
+    "region": "NA",
+    "product_code": "FIX-RLY-USA",
+    "released": "1998-11",
+    "media": {
+      "key": "nintendo-64-game-pak",
+      "count": 1
+    },
+    "package": "nintendo-64-carton",
+    "booklet": {
+      "pages": 24,
+      "page_width_mm": 152.0,
+      "page_height_mm": 101.0,
+      "binding": "saddle_stitch",
+      "cover_stock": null
+    },
+    "inserts": [
+      {
+        "kind": "poster",
+        "width_mm": 420.0,
+        "height_mm": 297.0,
+        "folds": 3
+      },
+      {
+        "kind": "catalog",
+        "width_mm": 150.0,
+        "height_mm": 100.0
+      }
+    ],
+    "bundled": [
+      "nintendo-64-rumble-pak"
+    ]
+  },
+  "sources": [
+    {
+      "field": "edition",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    }
+  ],
+  "notes": [
+    "TEST FIXTURE. A fictional object written for the lane's tests (tests/test_reference_editions.py). Every value is invented, describes no product, and must never be copied into the bundled catalog: real editions arrive with measured data.",
+    "Its platform, media, package and bundled keys name formats the catalog does not hold yet, so the reference rule notes them."
+  ]
+}
