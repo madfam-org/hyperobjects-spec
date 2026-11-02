@@ -1,0 +1,113 @@
+{
+  "spec_version": 1,
+  "key": "analogue-pocket",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Analogue",
+  "model": "Pocket",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "3.5\" LCD"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "1600x1440 resolution"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "LCD"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "micro SD card slot"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "USB-C charging"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "Original-style link port"
+    },
+    {
+      "field": "ports[3]",
+      "tier": "primary",
+      "url": "https://www.analogue.co/pocket",
+      "retrieved": "2026-11-01",
+      "quote": "3.5mm headphone output"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=3.5 in, a:b=1600:1440; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[0] (https://www.analogue.co/pocket); sources[1] (https://www.analogue.co/pocket)"
+    }
+  ],
+  "notes": [
+    "No maker dimensions, mass or complete control list found. Cartridge compatibility does not establish the physical insertion direction."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 3.5,
+      "resolution_px": [
+        1600,
+        1440
+      ],
+      "panel": "LCD",
+      "active_area_mm": {
+        "width": 66.1,
+        "height": 59.5,
+        "derived": true
+      }
+    }
+  ],
+  "ports": [
+    {
+      "kind": "microsd",
+      "count": 1
+    },
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "link_port",
+      "count": 1
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-watch-donkey-kong-dk-52",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Game & Watch Donkey Kong DK-52",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 75,
+        "height": 115,
+        "depth": 25
+      },
+      "open": {
+        "width": 140,
+        "height": 115,
+        "depth": 15
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Length\",\"value\":\"7.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"Closed console\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Width\",\"value\":\"11.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Depth\",\"value\":\"2.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"Closed console\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "V&A https://api.vam.ac.uk/v2/object/O1262873 lists closed Length / Width / Depth in cm. Exact conversion multiplies by 10. For the clamshell-family convention, transverse Length maps to width, hinge-axis Width maps to height, and Depth remains depth. The unqualified Width row is shared by both states. Raw rows are cited at this state."
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Length\",\"value\":\"14\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"Open console\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Width\",\"value\":\"11.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1262873",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Depth\",\"value\":\"1.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"Open console\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.open",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "V&A https://api.vam.ac.uk/v2/object/O1262873 lists open Length / Width / Depth in cm. Exact conversion multiplies by 10. For the clamshell-family convention, transverse Length maps to width, hinge-axis Width maps to height, and Depth remains depth. The unqualified Width row is shared by both states. Raw rows are cited at this state."
+    }
+  ],
+  "notes": [
+    "V&A bare-console record. Clamshell axes follow the established family convention (height is the hinge axis). The museum has no published display area or pixel resolution; no screen count or hinge angle is invented. Coarse museum mass is withheld."
+  ]
+}

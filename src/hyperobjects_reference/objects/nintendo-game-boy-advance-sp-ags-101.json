@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-advance-sp-ags-101",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Advance SP AGS-101",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "No primary or bare-device museum specification found for this distinct backlit model. Dimensions, displays and mass are unresolved; AGS-001 values are not copied."
+  ]
+}

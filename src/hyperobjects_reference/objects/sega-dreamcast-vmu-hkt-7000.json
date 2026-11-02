@@ -1,0 +1,45 @@
+{
+  "spec_version": 1,
+  "key": "sega-dreamcast-vmu-hkt-7000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sega",
+  "model": "Dreamcast VMU HKT-7000",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 48,
+        "height": 18,
+        "depth": 77
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body.width",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1227538",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Width\",\"value\":\"48\",\"unit\":\"mm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"memory card\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.body.height",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1227538",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Height\",\"value\":\"18\",\"unit\":\"mm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"memory card\",\"note\":\"\"}"
+    },
+    {
+      "field": "dimensions_mm.states.body.depth",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1227538",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Depth\",\"value\":\"77\",\"unit\":\"mm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"memory card\",\"note\":\"\"}"
+    }
+  ],
+  "notes": [
+    "V&A record O1227538 includes console, controller and box, but these three rows explicitly name part memory card. Its description identifies that part as the VMU. Museum height is the thin axis. Whole-set rows and OCR-damaged cell claims are withheld."
+  ]
+}

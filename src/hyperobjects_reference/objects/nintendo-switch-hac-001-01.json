@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-hac-001-01",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch HAC-001(-01)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "with_controllers": {
+        "width": 239,
+        "height": 102,
+        "depth": 13.9
+      }
+    }
+  },
+  "mass_g": 297,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.with_controllers",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "102 mm tall x 239 mm wide x 13.9mm thick (with Joy-Con attached*)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 297 g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "6.2 inch"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "1280x720 pixels"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "LCD"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Lithium-ion"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "USB Type-C™"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "3.5 mm 4 pole stereo mini plug"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "Supporting microSD, microSDHC and microSDXC memory cards"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960",
+      "retrieved": "2026-11-01",
+      "quote": "For Nintendo Switch game cards only"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=6.2 in, a:b=1280:720; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[2] (https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960); sources[3] (https://www.nintendo.com/sg/hardware/switch/modal/specs/body.html?width=960)"
+    }
+  ],
+  "notes": [
+    "Published dimensions include attached Joy-Con; tablet-only body remains null. Mass is the tablet-only figure. The maximum projecting thickness is stated separately by Nintendo. No rail geometry or placement is inferred from imagery."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 6.2,
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "panel": "LCD",
+      "active_area_mm": {
+        "width": 137.3,
+        "height": 77.2,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "cell_kind": "built_in"
+  },
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    },
+    {
+      "kind": "microsd",
+      "count": 1
+    }
+  ],
+  "media": [
+    {
+      "kind": "card_slot",
+      "count": 1
+    }
+  ]
+}

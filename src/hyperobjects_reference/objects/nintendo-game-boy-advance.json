@@ -1,0 +1,80 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-advance",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Advance",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 144.5,
+        "height": 82,
+        "depth": 24.5
+      }
+    }
+  },
+  "mass_g": 140,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦82mm×横144.5mm×厚さ24.5mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約140g\n（乾電池含まず）"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "240×160 ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "TFTカラー液晶"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３形アルカリ乾電池２本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３形アルカリ乾電池２本"
+    }
+  ],
+  "notes": [
+    "Body axes: horizontal 横→width; vertical 縦→height; thickness 厚さ→depth. The comparison table publishes screen spans without axis labels; active-area dimensions are not inferred."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        240,
+        160
+      ],
+      "panel": "LCD"
+    }
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 2
+  }
+}

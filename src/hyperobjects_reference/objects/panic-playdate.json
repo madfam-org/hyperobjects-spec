@@ -1,0 +1,94 @@
+{
+  "spec_version": 1,
+  "key": "panic-playdate",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Panic",
+  "model": "Playdate",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://play.date/",
+      "retrieved": "2026-11-01",
+      "quote": "400 × 240"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://help.play.date/developer/designing-for-playdate/",
+      "retrieved": "2026-11-01",
+      "quote": "Sharp Memory LCD screen"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://play.date/",
+      "retrieved": "2026-11-01",
+      "quote": "D-Pad"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://play.date/",
+      "retrieved": "2026-11-01",
+      "quote": "A + B"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://play.date/",
+      "retrieved": "2026-11-01",
+      "quote": "Crank"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://play.date/",
+      "retrieved": "2026-11-01",
+      "quote": "Sleep + Menu"
+    }
+  ],
+  "notes": [
+    "Maker publishes 76 × 74 × 9 mm without axis labels. Body axes, mass and screen diagonal remain unresolved. The supplied USB-C cable alone is not evidence for a particular device connector."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        400,
+        240
+      ],
+      "panel": "LCD"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "abxy",
+      "count": 2
+    },
+    {
+      "kind": "crank",
+      "count": 1
+    },
+    {
+      "kind": "button",
+      "count": 2
+    }
+  ]
+}

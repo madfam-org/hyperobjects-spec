@@ -1,0 +1,172 @@
+{
+  "spec_version": 1,
+  "key": "sony-psp-1000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PSP-1000",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 170,
+        "height": 23,
+        "depth": 74
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 280,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Approximately 170mm (W) x 23mm (H) x 74mm (D)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Approximately 280g (including battery)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/sony-computer-entertainment-inc-announces-product-specifications-of-handheld-video-game-system-playstationportable-psp/",
+      "retrieved": "2026-11-01",
+      "quote": "Weight: Approx. 260 g (including battery)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/041027a.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "（最大突起含まず）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "4.3 inch"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "TFT LCD"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "480 x 272 pixel"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "UMD Drive (Read only)"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Directional buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Analog Stick"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Triangle, Circle, Cross, Square"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/",
+      "retrieved": "2026-11-01",
+      "quote": "Left, Right buttons"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=4.3 in, a:b=480:272; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[4] (https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/); sources[6] (https://sonyinteractive.com/en/press-releases/2004/psp-enters-the-market-on-december-12-2004-at-19800-yen-in-japan/)"
+    }
+  ],
+  "notes": [
+    "Sony labels W / H / D: H is the thin axis and D is the face vertical span. These source labels are preserved, not silently swapped. The family must map the axes. Mass includes battery. Item-level controls/media citations do not assert a complete control or port inventory."
+  ],
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 280,
+          "source": 1
+        },
+        {
+          "value": 260,
+          "source": 2
+        }
+      ],
+      "chosen": 0,
+      "reason": "Use the October 2004 launch specification rather than the May 2004 pre-launch design specification."
+    }
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.3,
+      "panel": "LCD",
+      "resolution_px": [
+        480,
+        272
+      ],
+      "active_area_mm": {
+        "width": 95.0,
+        "height": 53.8,
+        "derived": true
+      }
+    }
+  ],
+  "media": [
+    {
+      "kind": "umd",
+      "count": 1
+    }
+  ],
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "stick",
+      "count": 1
+    },
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "bumper",
+      "count": 2
+    }
+  ]
+}

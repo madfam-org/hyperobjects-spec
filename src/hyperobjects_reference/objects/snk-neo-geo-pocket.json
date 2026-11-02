@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "snk-neo-geo-pocket",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "SNK",
+  "model": "Neo Geo Pocket (monochrome)",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "The monochrome SNK spec page was not recovered from the archive. Neo Geo Pocket Color dimensions are not substituted."
+  ]
+}

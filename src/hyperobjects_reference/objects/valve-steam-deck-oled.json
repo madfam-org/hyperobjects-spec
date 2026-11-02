@@ -1,0 +1,196 @@
+{
+  "spec_version": 1,
+  "key": "valve-steam-deck-oled",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Valve",
+  "model": "Steam Deck OLED",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 640,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 640 grams"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "7.4” diagonal"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "1280 x 800 x RGB"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "HDR OLED"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "up to 90Hz"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "A B X Y buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "D-pad"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "L & R analog triggers"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "L & R bumpers"
+    },
+    {
+      "field": "controls[4]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "4 x assignable grip buttons"
+    },
+    {
+      "field": "controls[5]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "2 x full-size analog sticks"
+    },
+    {
+      "field": "controls[6]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "2 x 32.5mm square trackpads"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "3.5mm stereo headphone / headset jack"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "microSD"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://www.steamdeck.com/en/tech/oled",
+      "retrieved": "2026-11-01",
+      "quote": "Type C"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=7.4 in, a:b=1280:800; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[1] (https://www.steamdeck.com/en/tech/oled); sources[2] (https://www.steamdeck.com/en/tech/oled)"
+    }
+  ],
+  "notes": [
+    "Maker publishes 298mm x 117mm x 49mm without axis labels. This triple is preserved here, with body axes unresolved. Item-level inventory sources are intentionally not complete-list citations. Battery energy does not by itself identify a cell format."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 7.4,
+      "resolution_px": [
+        1280,
+        800
+      ],
+      "panel": "OLED",
+      "refresh_hz": 90,
+      "active_area_mm": {
+        "width": 159.4,
+        "height": 99.6,
+        "derived": true
+      }
+    }
+  ],
+  "controls": [
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "trigger",
+      "count": 2
+    },
+    {
+      "kind": "bumper",
+      "count": 2
+    },
+    {
+      "kind": "rear_button",
+      "count": 4
+    },
+    {
+      "kind": "stick",
+      "count": 2
+    },
+    {
+      "kind": "touchpad",
+      "count": 2
+    }
+  ],
+  "ports": [
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    },
+    {
+      "kind": "microsd",
+      "count": 1
+    },
+    {
+      "kind": "usb_c",
+      "count": 1
+    }
+  ]
+}

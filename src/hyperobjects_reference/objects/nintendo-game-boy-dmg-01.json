@@ -1,0 +1,96 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-dmg-01",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy DMG-01",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 90,
+        "height": 148,
+        "depth": 32
+      }
+    }
+  },
+  "mass_g": 220,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅 90mm X 奥行き 32mm\nX 高さ 148mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約220g（電池含まず）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形マンガン／アルカリ乾電池4本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形マンガン／アルカリ乾電池4本"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy/Game-Boy-627031.html",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 300g with batteries (Game Boy)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/de-de/Support/Fruhere-Konsolen/Technische-Daten-619585.html",
+      "retrieved": "2026-11-01",
+      "quote": "160 x 144 Pixels"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan comparison table labels 幅 / 高さ / 奥行き; body stores width / height / depth in that order. Mass excludes cells. Controls, port positions and the external shape remain unresolved."
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 4
+  },
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 220,
+          "source": 1
+        },
+        {
+          "value": 300,
+          "source": 4
+        }
+      ],
+      "chosen": 0,
+      "reason": "The 220 g value explicitly excludes cells; 300 g is a battery-included weight, retained as a different stated measurement condition."
+    }
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        160,
+        144
+      ]
+    }
+  ]
+}

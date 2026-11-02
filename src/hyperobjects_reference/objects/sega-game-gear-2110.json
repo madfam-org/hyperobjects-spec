@@ -1,0 +1,56 @@
+{
+  "spec_version": 1,
+  "key": "sega-game-gear-2110",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sega",
+  "model": "Game Gear 2110",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 209.6,
+        "height": 31.8,
+        "depth": 114.3
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102711722",
+      "retrieved": "2026-11-01",
+      "quote": "20.96w x 3.18h x 11.43l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "CHM labels w / h / l as (20.96, 3.18, 11.43) centimetres; exact conversion to millimetres multiplies each by 10. The source dimensions_mm.states.body is the museum cm line; l is mapped to depth. This is the bare console record, not an accessories set."
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-game-gear-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "The Game Gear can operate using either 6 AA batteries or an"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-game-gear-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "The Game Gear can operate using either 6 AA batteries or an"
+    }
+  ],
+  "notes": [
+    "CHM mass rounded to one whole pound is withheld. Source w / h / l labels are preserved as width / height / depth; projection inclusion is not stated.",
+    "Sega instruction-manual scan from archive.org supplies the cell statement. Game Gear museum height is the thin axis; the family must translate those labels. No display dimensions are inferred."
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 6
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "spec_version": 1,
+  "key": "bandai-wonderswan-color",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Bandai",
+  "model": "WonderSwan Color",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 95,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20010127072600id_/http://www.swan.channel.or.jp:80/swan/hardware/c_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "約95g（電池含まず）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20010127075200id_/http://www.swan.channel.or.jp:80/swan/hardware/c_r_tech.html",
+      "retrieved": "2026-11-01",
+      "quote": "2.8インチ"
+    }
+  ],
+  "notes": [
+    "Archived Bandai specification. Published body triple has no axis labels and is not mapped: 74.3×128×24,3 mm with AA or 74.3×128×17.5 mm with rechargeable pack. Mass excludes cells."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 2.8
+    }
+  ]
+}

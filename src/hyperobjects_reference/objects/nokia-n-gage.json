@@ -1,0 +1,80 @@
+{
+  "spec_version": 1,
+  "key": "nokia-n-gage",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nokia",
+  "model": "N-Gage",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 69.7,
+        "height": 133.7,
+        "depth": 20.2
+      }
+    }
+  },
+  "mass_g": 137,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20031204102811id_/http://press.nokia.com/PR/200302/890630_5.html",
+      "retrieved": "2026-11-01",
+      "quote": "Dimensions (L x W x D) 133,7 x 69,7 x 20,2 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20040428204511id_/http://www.n-gage.com/en-US/gamedeck/ngage/techspex/",
+      "retrieved": "2026-11-01",
+      "quote": "Weight: 137 g (with standard battery)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20031204102811id_/http://press.nokia.com/PR/200302/890630_5.html",
+      "retrieved": "2026-11-01",
+      "quote": "176x208 pixels"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20031204102811id_/http://press.nokia.com/PR/200302/890630_5.html",
+      "retrieved": "2026-11-01",
+      "quote": "An eight-way directional controller \"Rocker\""
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20031204102811id_/http://press.nokia.com/PR/200302/890630_5.html",
+      "retrieved": "2026-11-01",
+      "quote": "game cards (using the MultiMediaCard standard)"
+    }
+  ],
+  "notes": [
+    "Nokia labels L / W / D; L is mapped to height (longitudinal), W to width, D to depth. This is an explicit axis translation rather than an assumption from an unlabelled triple. Mass includes the standard removable BL-5C battery; no built-in cell format is asserted."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        176,
+        208
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    }
+  ],
+  "media": [
+    {
+      "kind": "card_slot",
+      "count": 1
+    }
+  ]
+}

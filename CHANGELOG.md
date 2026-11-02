@@ -19,6 +19,36 @@ control facts were checked against the page scans. Sony-hosted instruction manua
 source the DUALSHOCK 2 controls and wired connection, plus the DUALSHOCK 3 battery,
 Mini-B port and 180 g mass; their unpublished envelopes remain `null`. The left Joy-Con 2
 wireless source quotes its own Bluetooth cell.
+### Reference objects: handheld and single-screen clamshell devices (lane RA2)
+
+Data only: 48 new reference objects, with no schema or version change: 42
+`slab-handheld` devices and six `clamshell-dual-screen-handheld` devices. All
+41 entries with value-tier evidence remain `partial`; seven are explicitly
+`unverified`. Twenty-six have a complete sourced body or closed envelope.
+Nintendo Switch dimensions that include controllers are kept in
+`with_controllers`, with tablet-only dimensions unresolved.
+
+- Nintendo Game Boy, Pocket, Light, Color, Advance, Micro, SP, Game & Watch,
+  Switch, OLED, Lite and Switch 2; Sony PSP, Vita, PocketStation and Portal;
+  Steam Deck LCD/OLED, ROG Ally, Legion Go, Analogue Pocket, Evercade and
+  Playdate; Microvision, Lynx, Game Gear, Neo Geo Pocket, WonderSwan and N-Gage.
+- Nine explicit conflicts preserve differences in body axes, battery-inclusive
+  masses, resolution, display diagonal and AA/AAA cell format. A second
+  Nintendo primary resolves the Switch Lite specification's repeated `wide`
+  label as `thick`; no dimension is inferred from a photograph.
+- Derived areas use the existing Decimal/half-up law. Centimetre conversions
+  cite their raw museum or maker values and exact multiplication by ten.
+  Maker axis labels and projecting-parts qualifications are preserved in each
+  record; unlabelled triples stay in notes rather than becoming body axes.
+- AGS-101, Lynx II, TurboExpress, monochrome Neo Geo Pocket, Oil Panic, the
+  original 2017 HAC-001 and Snoopy Tennis have no usable value-tier evidence in
+  the examined sources. Their envelopes remain null. Boxed museum records and
+  unresolved OCR-damaged values are withheld; another model's dimensions are never copied.
+- Visual inspection of the original Lynx manual resolves its damaged OCR: the
+  maker prints a 3.4-inch display and 160×102 colour pixels (480×102 subpixel
+  dots), plus labelled 270 / 40 / 105 mm width / height / depth.
+- The family-loader regression now compares its full key set with the catalog
+  instead of assuming that the clamshell family always contains 16 devices.
 
 ### Reference objects: game media formats, docks, stands, AC adapters, cables (lane RA4)
 

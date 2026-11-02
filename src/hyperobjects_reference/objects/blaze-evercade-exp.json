@@ -1,0 +1,83 @@
+{
+  "spec_version": 1,
+  "key": "blaze-evercade-exp",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Blaze",
+  "model": "Evercade EXP",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://evercade.co.uk/exp/",
+      "retrieved": "2026-11-01",
+      "quote": "4.3” IPS Screen (800×480)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://evercade.co.uk/exp/",
+      "retrieved": "2026-11-01",
+      "quote": "800×480"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://evercade.co.uk/exp/",
+      "retrieved": "2026-11-01",
+      "quote": "USB-C Charging Port"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://evercade.co.uk/exp/",
+      "retrieved": "2026-11-01",
+      "quote": "3.5mm Headphone Jack"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=4.3 in, a:b=800:480; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[0] (https://evercade.co.uk/exp/); sources[1] (https://evercade.co.uk/exp/)"
+    }
+  ],
+  "notes": [
+    "Maker publishes 192.7 x 78.5 x 20.7 mm without axis labels; no body mapping is inferred. EXP is a distinct model from the 2020 handheld."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.3,
+      "resolution_px": [
+        800,
+        480
+      ],
+      "active_area_mm": {
+        "width": 93.7,
+        "height": 56.2,
+        "derived": true
+      }
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    }
+  ]
+}

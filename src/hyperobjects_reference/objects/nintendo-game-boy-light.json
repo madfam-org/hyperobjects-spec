@@ -1,0 +1,118 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-light",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Light",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 80,
+        "height": 135,
+        "depth": 29
+      }
+    }
+  },
+  "mass_g": 140,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅 80mm X 奥行き 29mm\nX 高さ 135mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約140g（電池含まず）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形アルカリ乾電池2本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形アルカリ乾電池2本"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/light/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅80mm　奥行き135mm　高さ29mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/light/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約190g（電池含む）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/light/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "1998年4月14日(火) 発売"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan comparison table labels 幅 / 高さ / 奥行き; body stores width / height / depth in that order. Mass excludes cells. Controls, port positions and the external shape remain unresolved."
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 2
+  },
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 80,
+            "height": 135,
+            "depth": 29
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 80,
+            "height": 29,
+            "depth": 135
+          },
+          "source": 4
+        }
+      ],
+      "chosen": 0,
+      "reason": "The dedicated Light page swaps height/depth relative to the labelled comparison table; keep the comparison-table axes and record the disagreement."
+    },
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 140,
+          "source": 1
+        },
+        {
+          "value": 190,
+          "source": 5
+        }
+      ],
+      "chosen": 0,
+      "reason": "140 g explicitly excludes batteries; 190 g includes them. The chosen catalog mass is the cell-excluded measurement."
+    }
+  ],
+  "released": "1998-04-14"
+}

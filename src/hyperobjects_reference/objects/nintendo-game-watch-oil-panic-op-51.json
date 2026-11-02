@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-watch-oil-panic-op-51",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Game & Watch Oil Panic OP-51",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "No primary or bare-device museum measurements found. Donkey Kong dimensions are not borrowed for a different model."
+  ]
+}

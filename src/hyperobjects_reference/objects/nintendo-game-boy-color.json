@@ -1,0 +1,133 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-color",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Color",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 78,
+        "height": 133.5,
+        "depth": 27.4
+      }
+    }
+  },
+  "mass_g": 138,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅 78mm X 奥行き 27.4mm\nX 高さ 133.5mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約138g（電池含まず）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形アルカリ乾電池2本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3形アルカリ乾電池2本"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy-Color/Game-Boy-Color-627137.html",
+      "retrieved": "2026-11-01",
+      "quote": "Width 75mm, Depth 27mm, Height 133mm"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/de-de/Support/Fruhere-Konsolen/Technische-Daten-619585.html",
+      "retrieved": "2026-11-01",
+      "quote": "160 x 144 Pixels"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy-Color/Game-Boy-Color-627137.html",
+      "retrieved": "2026-11-01",
+      "quote": "160x140 resolution"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan comparison table labels 幅 / 高さ / 奥行き; body stores width / height / depth in that order. Mass excludes cells. Controls, port positions and the external shape remain unresolved.",
+    "Screen size also differs: the history page prints 44 x 39 mm; the German support page prints 4.4 x 4 cm. Neither labels the two screen axes, so active_area_mm remains unresolved rather than selecting an axis mapping."
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 2
+  },
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 78,
+            "height": 133.5,
+            "depth": 27.4
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 75,
+            "height": 133,
+            "depth": 27
+          },
+          "source": 4
+        }
+      ],
+      "chosen": 0,
+      "reason": "Choose the labelled Japanese comparison table, corroborated by the German support dimensions. The history page gives different dimensions."
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "candidates": [
+        {
+          "value": [
+            160,
+            144
+          ],
+          "source": 5
+        },
+        {
+          "value": [
+            160,
+            140
+          ],
+          "source": 6
+        }
+      ],
+      "chosen": 0,
+      "reason": "Use the Nintendo support table; the older history page prints 160x140. No active-area axes or diagonal are inferred from unlabeled screen dimensions."
+    }
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        160,
+        144
+      ]
+    }
+  ]
+}

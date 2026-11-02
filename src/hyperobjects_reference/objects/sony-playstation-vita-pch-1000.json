@@ -1,0 +1,147 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-vita-pch-1000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PlayStation Vita PCH-1000 Wi-Fi",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 182,
+        "height": 18.6,
+        "depth": 83.5
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 260,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 182.0 x 18.6 x 83.5mm (width x height x depth) (tentative, excludes largest\nprojection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx 260g (Wi-Fi model)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "excludes largest\nprojection"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "5 inches (16:9), 960 x 544"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "960 x 544"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "OLED"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Built-In Lithium-ion Battery"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Directional buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Triangle, Circle, Cross, Square"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Right stick, Left stick"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/",
+      "retrieved": "2026-11-01",
+      "quote": "Vita card slot"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=5 in, a:b=960:544; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[3] (https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/); sources[4] (https://sonyinteractive.com/en/press-releases/playstationvita-available-in-japan-on-december-17-2011/)"
+    }
+  ],
+  "notes": [
+    "The maker explicitly marks these dimensions tentative. Source W/H/D labels preserved: H=18.6 is the thin axis. Mass is Wi-Fi PCH-1000 only, not the 279 g PCH-1100 3G model."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 5,
+      "resolution_px": [
+        960,
+        544
+      ],
+      "panel": "OLED",
+      "active_area_mm": {
+        "width": 110.5,
+        "height": 62.6,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "cell_kind": "built_in"
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "stick",
+      "count": 2
+    }
+  ],
+  "media": [
+    {
+      "kind": "card_slot",
+      "count": 1
+    }
+  ]
+}
