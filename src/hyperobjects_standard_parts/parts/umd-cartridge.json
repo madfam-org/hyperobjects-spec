@@ -1,0 +1,177 @@
+{
+  "spec_version": 1,
+  "key": "umd-cartridge",
+  "category": "media",
+  "name": {
+    "en": "UMD disc cartridge",
+    "es": "Cartucho de disco UMD",
+    "fr": "Cartouche de disque UMD",
+    "pt": "Cartucho de disco UMD"
+  },
+  "description": {
+    "en": "The UMD optical disc cartridge to ECMA-365: a 60 mm disc in a case 65 mm long, 64 mm wide and at most 4.35 mm thick, its top edge an arc about the disc and its bottom edge a shallower arc. It goes into a handheld's disc bay.",
+    "es": "El cartucho de disco óptico UMD según ECMA-365: un disco de 60 mm en un estuche de 65 mm de largo, 64 mm de ancho y 4.35 mm de espesor como máximo, con el borde superior en arco alrededor del disco y el inferior en un arco más abierto. Entra en el compartimento de disco de una consola portátil.",
+    "fr": "La cartouche de disque optique UMD selon ECMA-365 : un disque de 60 mm dans un boîtier de 65 mm de long, 64 mm de large et 4,35 mm d'épaisseur au plus, son bord supérieur en arc autour du disque et son bord inférieur en arc plus ouvert. Elle se loge dans le logement de disque d'une console portable.",
+    "pt": "O cartucho de disco ótico UMD segundo a ECMA-365: um disco de 60 mm num estojo de 65 mm de comprimento, 64 mm de largura e 4,35 mm de espessura no máximo, com a borda superior em arco em volta do disco e a inferior num arco mais aberto. Entra no compartimento de disco de uma consola portátil."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "ECMA-365, 60 mm read-only ODC (UMD)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "ECMA-365, Data Interchange on 60 mm Read-Only ODC – Capacity: 1,8 Gbytes (UMD™), 1st edition (June 2005)",
+      "url": "https://ecma-international.org/wp-content/uploads/ECMA-365_1st_edition_june_2005.pdf",
+      "publisher": "Ecma International",
+      "accessed": "2026-11-01",
+      "supports": "clause 10.3.1 and Figure 7: case total length L1 = 65,00 mm ±0,15; total width L3 = 64,00 mm ±0,10; top edge arc R1 = 32,00 mm ±0,10; bottom edge arc R2 = 70,00 mm ±0,20; bottom corner radius R3 = 5,00 mm ±0,15; thickness L9 = 4,20 mm ±0,10, and 4,35 mm max inside the D1 = 50,00 mm circle about the disk centre; location hole D2 = 3,60 mm +0,07/−0,00; clause 11: disk diameter d1 = 60,00 mm ±0,30, thickness e1 = 0,840 mm +0,090/−0,075; clause 12.1: disk mass 2,8 g to 3,5 g"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the case's L3 × L1 bounding rectangle, on the main face away from the viewer of ECMA-365 Figure 7's front view. +x points right and +y up in that view (toward the R1 arc about the disc); +z points toward the viewer, so the case occupies z from 0 to at most 4.35.",
+  "dimensions": {
+    "case_length": {
+      "value": 65.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15",
+      "note": "L1, from the top arc to the bottom arc"
+    },
+    "case_width": {
+      "value": 64.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "the standard's L3"
+    },
+    "case_thickness": {
+      "value": 4.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "L9 outside the D1 circle"
+    },
+    "case_thickness_max": {
+      "value": 4.35,
+      "unit": "mm",
+      "source": 0,
+      "note": "L9 inside the D1 = 50 mm circle about the disk centre"
+    },
+    "top_arc_radius": {
+      "value": 32.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.10",
+      "note": "the standard's R1"
+    },
+    "bottom_arc_radius": {
+      "value": 70.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.20",
+      "note": "the standard's R2"
+    },
+    "bottom_corner_radius": {
+      "value": 5.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.15",
+      "note": "the standard's R3"
+    },
+    "location_hole_diameter": {
+      "value": 3.6,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.07/−0.00",
+      "note": "the standard's D2"
+    },
+    "disc_diameter": {
+      "value": 60.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.30",
+      "note": "the disk's d1"
+    },
+    "disc_thickness": {
+      "value": 0.84,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.090/−0.075",
+      "note": "the disk's e1, in the data zone"
+    },
+    "disc_mass_min": {
+      "value": 2.8,
+      "unit": "g",
+      "source": 0,
+      "note": "with clamping plate and label"
+    },
+    "disc_mass_max": {
+      "value": 3.5,
+      "unit": "g",
+      "source": 0,
+      "note": "with clamping plate and label"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "case",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo",
+        "fr": "Corps",
+        "pt": "Corpo"
+      },
+      "geometry_type": "pocket",
+      "size_key": "umd-cartridge",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the case goes into a disc bay face-first. Symmetry 1: the two arcs differ, so the bay's frame fixes which way up it goes."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "ECMA-365 is free from Ecma. The outline's datum positions (planes X and Y), the location and alignment holes and the radii R4–R27 are in its Figure 7 and clause 10 but are not restated here; a disc_bay that needs them reads the standard.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -32,
+          -32.5,
+          0
+        ],
+        "max": [
+          32,
+          32.5,
+          4.35
+        ],
+        "from": [
+          "case_width",
+          "case_length",
+          "case_thickness_max"
+        ],
+        "note": "the case's bounding box at its maximum thickness"
+      }
+    ],
+    "note": "The L3 × L1 bounding box at the maximum thickness; the arcs, the corner radii and the holes are not modelled."
+  }
+}

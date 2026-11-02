@@ -1,0 +1,147 @@
+{
+  "spec_version": 1,
+  "key": "microsd-card",
+  "category": "media",
+  "name": {
+    "en": "microSD memory card",
+    "es": "Tarjeta de memoria microSD",
+    "fr": "Carte mémoire microSD",
+    "pt": "Cartão de memória microSD"
+  },
+  "description": {
+    "en": "A microSD memory card, 15 × 11 × 1.0 mm, with eight contact pads at its narrower end and a stepped notch on one long side. It goes into a card slot contact end first.",
+    "es": "Una tarjeta de memoria microSD, de 15 × 11 × 1.0 mm, con ocho contactos en su extremo más angosto y una muesca escalonada en un lado largo. Entra en una ranura por el extremo de los contactos.",
+    "fr": "Une carte mémoire microSD, de 15 × 11 × 1,0 mm, avec huit plages de contact à son extrémité la plus étroite et une encoche en gradin sur un grand côté. Elle entre dans une fente par l'extrémité des contacts.",
+    "pt": "Um cartão de memória microSD, de 15 × 11 × 1,0 mm, com oito contatos na extremidade mais estreita e um entalhe escalonado num lado longo. Entra numa ranhura pela extremidade dos contatos."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "SD Association microSD Memory Card form factor",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Kingston microSDHC memory card (SDCIT, 8–32 GB) specification sheet, document 4900180-001.A00",
+      "url": "https://www.kingston.com/datasheets/SDCIT-specsheet-8gb-32gb_us.pdf",
+      "publisher": "Kingston Technology",
+      "accessed": "2026-11-01",
+      "supports": "appendix, microSD mechanical dimensions: 15.00 ±0.1 long, 11.00 ±0.1 wide, 1.00 ±0.1 thick (0.70 ±0.1 over the contact area); the contact end narrows to 9.70 ±0.1, flush with one long side, with the step on the other; eight contact pads; weight 0.5 g typical; no mechanical write-protect switch"
+    },
+    {
+      "title": "Transcend industrial-temperature microSDHC10I datasheet (EN_USDC10I_PS_2020)",
+      "url": "https://jp.transcend-info.com/products/images/modelpic/574/EN_USDC10I_PS_2020.pdf",
+      "publisher": "Transcend Information",
+      "accessed": "2026-11-01",
+      "supports": "microSD mechanical dimensions: 11.0 ±0.1 × 15.0 ±0.1 × 1.0 ±0.1 mm"
+    }
+  ],
+  "frame_convention": "Origin on the contact (leading) end's line, at the middle of the card's 11 mm width, on the plane of the contact face. +z points out of the contact face; +y points from the rear end toward the contact end, so the card occupies y from −15 to 0 and z from −1.0 to 0. +x points across the width toward the long side the narrow contact end is flush with; the stepped notch is on the −x side (Kingston appendix, contact-side view).",
+  "dimensions": {
+    "length": {
+      "value": 15.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "Transcend 15.0 ±0.1 (source 1)"
+    },
+    "width": {
+      "value": 11.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "Transcend 11.0 ±0.1 (source 1)"
+    },
+    "thickness": {
+      "value": 1.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "Transcend 1.0 ±0.1 (source 1)"
+    },
+    "contact_area_thickness": {
+      "value": 0.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1"
+    },
+    "contact_end_width": {
+      "value": 9.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1"
+    },
+    "contact_pads": {
+      "value": 8,
+      "unit": "count",
+      "source": 0
+    },
+    "mass": {
+      "value": 0.5,
+      "unit": "g",
+      "source": 0,
+      "note": "typical"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo",
+        "fr": "Corps",
+        "pt": "Corpo"
+      },
+      "geometry_type": "pocket",
+      "size_key": "microsd-card",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          -0.5
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the card goes into a slot contact end first; the frame sits on the contact end's line at the middle of the width, mid-thickness, its normal along the insertion direction. Symmetry 1: the outline is not symmetric."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The SD Association's physical specification is distributed behind a click-through licence, so the numbers cite two card makers' datasheets; they agree on the outline. The notch's own dimensions are drawn by Kingston but not stated here.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -5.5,
+          -15,
+          -1.0
+        ],
+        "max": [
+          5.5,
+          0,
+          0
+        ],
+        "from": [
+          "width",
+          "length",
+          "thickness"
+        ],
+        "note": "the card at its nominal size"
+      }
+    ],
+    "note": "A box at the nominal length, width and thickness; the narrow contact end, the notch and the thinner contact area are not modelled."
+  }
+}

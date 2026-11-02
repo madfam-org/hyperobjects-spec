@@ -1,0 +1,118 @@
+{
+  "spec_version": 1,
+  "key": "hdmi-type-a-receptacle",
+  "category": "connector",
+  "name": {
+    "en": "HDMI Type A receptacle",
+    "es": "Receptáculo HDMI Tipo A",
+    "fr": "Embase HDMI Type A",
+    "pt": "Receptáculo HDMI Tipo A"
+  },
+  "description": {
+    "en": "The HDMI Type A receptacle interface: a 19-contact, 0.5 mm-pitch opening 14.00 × 4.55 mm with two chamfered corners on one long side, taking a Type A plug one way up.",
+    "es": "La interfaz del receptáculo HDMI Tipo A: una abertura de 19 contactos a paso de 0.5 mm, de 14.00 × 4.55 mm, con dos esquinas achaflanadas en un lado largo, que recibe una clavija Tipo A en una sola posición.",
+    "fr": "L'interface de l'embase HDMI Type A : une ouverture à 19 contacts au pas de 0,5 mm, de 14,00 × 4,55 mm, avec deux coins chanfreinés sur un grand côté, qui reçoit une fiche Type A dans un seul sens.",
+    "pt": "A interface do receptáculo HDMI Tipo A: uma abertura de 19 contatos com passo de 0,5 mm, de 14,00 × 4,55 mm, com dois cantos chanfrados num lado longo, que recebe uma ficha Tipo A num só sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "HDMI Type A receptacle, 19 positions",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Kycon KDMIX-NS2-NS-B15TR-2.1 HDMI Type A receptacle, SMT with through-hole shield, catalogue drawing",
+      "url": "https://cloud.kycon.com/Catalog_PDF/KDMIX-NS2-NS-B15TR-2.1.pdf",
+      "publisher": "Kycon",
+      "accessed": "2026-11-01",
+      "supports": "19 positions at 0.50 ±0.05 pitch; opening (inside of the shell) 14.00 × 4.55, +0.05/−0.04; two chamfered corners on one long side of the opening; insertion force 44.1 N max"
+    },
+    {
+      "title": "Same Sky HD12-19-SMT-TR HDMI receptacle datasheet (2024-09-12)",
+      "url": "https://www.sameskydevices.com/product/resource/hd12-19-smt-tr.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "19 positions at 0.50 pitch; opening 14.00 × 4.55, +0.05/−0.04; shell outside at the front 14.80 × 5.35 (general ±0.20)"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the shell opening on the receptacle's front (mating) face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height, pointing from the long side with the two chamfered corners toward the plain long side. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "opening_width": {
+      "value": 14.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.05/−0.04",
+      "note": "inside of the shell; Same Sky the same (source 1)"
+    },
+    "opening_height": {
+      "value": 4.55,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.05/−0.04",
+      "note": "Same Sky the same (source 1)"
+    },
+    "shell_width": {
+      "value": 14.8,
+      "unit": "mm",
+      "source": 1,
+      "tolerance": "±0.20",
+      "note": "outside, at the front; the sheet's general tolerance"
+    },
+    "shell_height": {
+      "value": 5.35,
+      "unit": "mm",
+      "source": 1,
+      "tolerance": "±0.20",
+      "note": "outside, at the front"
+    },
+    "contacts": {
+      "value": 19,
+      "unit": "count",
+      "source": 0
+    },
+    "contact_pitch": {
+      "value": 0.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.05"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "hdmi-type-a",
+      "polarity": "female",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a Type A plug enters the shell opening. Symmetry 1: the two chamfered corners admit it one way up. Framed on the shell's front face; the seated plug's position is not cited, so a mate seats it on this face, a convention."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The HDMI specification is available to adopters only, so the opening cites two receptacle makers' drawings, which agree; the chamfers are drawn but not dimensioned and are not stated. The body, legs and footprint vary by part and are not modelled."
+}

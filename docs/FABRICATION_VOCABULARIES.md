@@ -15,7 +15,10 @@ holds the FPV keys the commons cartridges' size-key maps need (`fpv-camera-mini-
 `u-fl-cable-exit`, `fpv-camera-side-plate-screw`, `vtx-mount-20x20`);
 `interface-sizes.sheet-parts.json` holds the eleven keys of the paper-electronics and
 paper-fastening parts (LEDs, the CR2032 cell, a brad, an eyelet, elastic cord, a disc
-magnet). The sheet commons' processes and material classes ship the same way, as data
+magnet); `interface-sizes.console-parts.json` holds the twenty-five keys of the console
+and game-media parts (USB, HDMI, D-sub, audio, RF and DC connectors, IEC 60320 couplers, AA
+and AAA cells and their contacts, SD cards, optical discs, the UMD cartridge, arcade
+pushbuttons). The sheet commons' processes and material classes ship the same way, as data
 nothing enforces yet: `processes.sheet.json` (`drag_knife`, `die_cut`, `crease`,
 `score`, `perforate`, `emboss_deboss`, `foil_stamp`, `print`; laser-cut paper is the
 existing `laser_2d`) and `material-classes.sheet.json` (`paper`, `board`, `eva-foam`,

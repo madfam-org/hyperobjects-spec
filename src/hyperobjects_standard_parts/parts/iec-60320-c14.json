@@ -1,0 +1,231 @@
+{
+  "spec_version": 1,
+  "key": "iec-60320-c14",
+  "category": "connector",
+  "name": {
+    "en": "IEC 60320 C14 appliance inlet",
+    "es": "Entrada de aparato IEC 60320 C14",
+    "fr": "Socle de connecteur CEI 60320 C14",
+    "pt": "Entrada de aparelho IEC 60320 C14"
+  },
+  "description": {
+    "en": "The IEC 60320 C14 appliance inlet: a three-pin (line, neutral, earth), 10 A, class I mains inlet whose recess (24 × 16 mm inside) takes a C13 connector one way up.",
+    "es": "La entrada de aparato IEC 60320 C14: una entrada de red de tres pines (fase, neutro, tierra), 10 A y clase I, cuyo hueco (24 × 16 mm por dentro) recibe un conector C13 en una sola posición.",
+    "fr": "Le socle de connecteur CEI 60320 C14 : une entrée secteur à trois broches (phase, neutre, terre), 10 A, classe I, dont le logement (24 × 16 mm à l'intérieur) reçoit un connecteur C13 dans un seul sens.",
+    "pt": "A entrada de aparelho IEC 60320 C14: uma entrada de rede de três pinos (fase, neutro, terra), 10 A e classe I, cujo rebaixo (24 × 16 mm por dentro) recebe um conector C13 num só sentido."
+  },
+  "governing": {
+    "kind": "datasheet",
+    "designation": "Qualtek 701W-X2/04, IEC 60320 C14 snap-in inlet",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Qualtek 701W-X2/04 AC receptacle (IEC 60320 C14 snap-in inlet), drawing rev E (2021-06-22)",
+      "url": "https://qualtekusa.com/wp-content/uploads/specsheets/701wx204.pdf",
+      "publisher": "Qualtek Electronics",
+      "accessed": "2026-11-01",
+      "supports": "flange 30.7 × 23.7 ±0.3, 3.2 ±0.2 thick; recess (inside) 24 × 16 +0.5/0; body 26.7 × 19.8 ±0.3, 16 below the flange; three pins (line, neutral, earth above them); panel cut-out 27 × 20.5 +0.3/0; panel 0.8–1.5; UL/CSA 15 A, VDE/CCC 10 A, 250 V AC; 6.3 × 0.8 quick-connect tabs"
+    },
+    {
+      "title": "Qualtek 703W-00/03 AC receptacle (IEC 60320 C14 screw mount), drawing rev C (2008-08-28)",
+      "url": "https://qualtekusa.com/wp-content/uploads/specsheets/703w0003.pdf",
+      "publisher": "Qualtek Electronics",
+      "accessed": "2026-11-01",
+      "supports": "recess (inside) 24 × 16 +0.5/0; front block 30 × 22, R5 corners; screw holes 40 ±0.2 apart, Ø3.4 in the part and Ø3.5 in the panel; panel cut-out 30.5 × 22.5, R5; UL/CSA 15 A, VDE 10 A, 250 V AC"
+    },
+    {
+      "title": "Qualtek product pages 771W-X2/01, 701W-X2/04 and 703W-00/03",
+      "url": "https://www.qualtekusa.com/product/771W-X2-01/",
+      "publisher": "Qualtek Electronics",
+      "accessed": "2026-11-01",
+      "supports": "771W-X2/01: IEC 60320 C8 low-current inlet; 701W-X2/04: IEC 60320 C14 universal snap-in AC power inlet; 703W-00/03: IEC 60320 C14 non-countersunk screw mount"
+    },
+    {
+      "title": "Schurter 6130-56 IEC appliance inlet C14, snap-in, front side, PCB, datasheet (2015-04-22)",
+      "url": "https://docs.rs-online.com/26cb/0900766b8144215a.pdf",
+      "publisher": "Schurter (hosted by RS)",
+      "accessed": "2026-11-01",
+      "supports": "appliance inlet C14 according to IEC 60320; IEC 10 A / 250 VAC; protection class I; front flange 30 × 22, 3 thick, 25.3 deep behind it; cut-out 27.5 × 19.5, R4, +0.2/0, for panels of 1 to 3"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the recess on the inlet's front (mating) face, the flange's face. +z points out of the opening, toward a plug; +x runs along the opening's width; +y = z × x runs along its height, pointing from the line and neutral pins toward the earth pin. The body behind the face lies at z < 0.",
+  "dimensions": {
+    "recess_width": {
+      "value": 24,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.5/0",
+      "note": "inside; the screw-mount 703W the same (source 1)"
+    },
+    "recess_height": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.5/0",
+      "note": "inside; 703W the same (source 1)"
+    },
+    "pins": {
+      "value": 3,
+      "unit": "count",
+      "source": 0,
+      "note": "line, neutral and earth"
+    },
+    "flange_width": {
+      "value": 30.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "Schurter 6130-56: 30 (source 3)"
+    },
+    "flange_height": {
+      "value": 23.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "Schurter 6130-56: 22 (source 3)"
+    },
+    "flange_thickness": {
+      "value": 3.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.2"
+    },
+    "body_width": {
+      "value": 26.7,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "behind the flange"
+    },
+    "body_height": {
+      "value": 19.8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3"
+    },
+    "body_depth": {
+      "value": 16,
+      "unit": "mm",
+      "source": 0,
+      "note": "below the flange"
+    },
+    "panel_cutout_width": {
+      "value": 27,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.3/0",
+      "note": "snap-in; Schurter 6130-56 asks 27.5 × 19.5, R4 (source 3)"
+    },
+    "panel_cutout_height": {
+      "value": 20.5,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.3/0"
+    },
+    "panel_thickness_min": {
+      "value": 0.8,
+      "unit": "mm",
+      "source": 0
+    },
+    "panel_thickness_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "rated_current": {
+      "value": 10,
+      "unit": "A",
+      "source": 0,
+      "note": "VDE/CCC; UL/CSA 15 A; Schurter IEC 10 A (source 3)"
+    },
+    "rated_voltage": {
+      "value": 250,
+      "unit": "V",
+      "source": 0,
+      "note": "the standard's AC"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "iec-60320-c13-c14",
+      "polarity": "female",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a C13 connector's nose enters the recess. Symmetry 1: the earth pin sits off the line of the other two (both makers' drawings), so the C13 goes in one way up."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60320 is not freely published, so the facts are one inlet's drawing (Qualtek 701W, snap-in); Qualtek's screw-mount 703W draws the same 24 × 16 recess and Schurter's 6130-56 confirms the designation, the 10 A rating and class I. The flange, body and cut-out are this part's.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -15.35,
+          -11.85,
+          -3.2
+        ],
+        "max": [
+          15.35,
+          11.85,
+          0
+        ],
+        "from": [
+          "flange_width",
+          "flange_height",
+          "flange_thickness"
+        ],
+        "note": "the flange"
+      },
+      {
+        "shape": "box",
+        "min": [
+          -13.35,
+          -9.9,
+          -19.2
+        ],
+        "max": [
+          13.35,
+          9.9,
+          -3.2
+        ],
+        "from": [
+          "body_width",
+          "body_height",
+          "body_depth",
+          "flange_thickness"
+        ],
+        "note": "the body behind the flange"
+      }
+    ],
+    "note": "The flange and the body as boxes, centred on the recess (a convention: the drawing does not dimension the recess's offset); the tabs are not modelled."
+  }
+}

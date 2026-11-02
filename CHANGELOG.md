@@ -6,6 +6,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Console and game-media standard parts: connectors, couplers, cells, cards, discs (lane console-parts)
+
+Additive catalog, vocabulary and schema-enum data; no grammar, gate or validator change, and
+no package version (the next free minor belongs to the PR that changes code). The console,
+handheld, controller, cable and power-adapter families of the gaming-hardware hyperobjects
+plan size their port cutouts, plugs, battery bays and media pockets from these entries.
+Facts only, every one cited; what no source read publishes is left out, never inferred.
+Sources: the USB-IF document library, MIL-DTL-24308 on ASSIST, the free ECMA-130/267/365,
+and maker datasheets where the standard is paywalled or adopter-only (IEC 60320, IEC 60086,
+HDMI, the SD physical specification).
+
+#### Added
+
+- **28 standard parts** (catalog 44 → 72 parts, 123 → 159 interfaces):
+  - USB `usb-c-receptacle`, `usb-c-plug` (symmetry 2), `usb-a-receptacle`, `usb-a-plug`,
+    `usb-micro-b-receptacle`, `usb-micro-b-plug`; `hdmi-type-a-receptacle`,
+    `hdmi-type-a-plug` (provisional: one discontinued drawing);
+  - `dsub-de9-male`, `dsub-de9-female` (MIL-DTL-24308 shell size 1, inches governing; the
+    socket side's mating frame .265 in ahead of its flange, the standard's mated spacing; a
+    `panel` interface with NorComp's cut-out);
+  - classes `trs-3-5mm-jack`, `trs-3-5mm-plug`, `rca-jack`, `rca-plug`, `f-type-port` (the
+    3/8-32 UNEF thread only, as `sma-bulkhead-jack`), `dc-barrel-jack-5-5x2-1`,
+    `dc-barrel-plug-5-5x2-1`;
+  - datasheets `iec-60320-c8`, `iec-60320-c14`;
+  - classes `arcade-button-24mm`, `arcade-button-30mm` (provisional: one maker);
+  - `cell-aa`, `cell-aaa` (IEC LR6 / LR03 through Energizer and Duracell drawings; separate
+    plus and minus contact keys, as the CR2032);
+  - category `media`: `sd-card`, `microsd-card`, `optical-disc-cd-120mm`,
+    `optical-disc-dvd-120mm`, `umd-cartridge`.
+- **Vocabulary**: `interface-sizes.console-parts.json`, 25 cited size keys (two
+  provisional). A CD and a DVD share `optical-disc-120mm` and
+  `optical-disc-centre-hole-15mm`.
+- **`standard-part.schema.json`**: category `media`.
+- **Conventions** (docs/STANDARD_PARTS.md): a receptacle framed at its opening's front face,
+  a plug at its overmold face, a mate seating one on the other (a convention unless the
+  source states the seated relation); a keyed plug's mating `x_axis` is −x so the mate's
+  half-turn lands its +y on the receptacle's +y.
+- **Tests** (`tests/test_catalog_console_parts.py`): Type-C closes at both rotations with
+  the shell tip 6.65 inside; the keyed USB-A, Micro-B and HDMI plugs land +y on +y; the
+  DE-9 flanges sit .265 in apart, wide side to wide side; an AA cell closes between its two
+  contacts and a reversed one is refused; `test_catalog_v1_1`'s axis audit covers every new
+  socket and thread interface (`f-type-port.coupling` takes the `sma-bulkhead-jack.coupling`
+  exception); a CD and a DVD share a tray's pocket and hub; a
+  UMD, a foreign plug and an SD card in a microSD slot are refused.
+
+#### Not added (no source read publishes the facts)
+
+The 80 mm CD (ECMA-130 covers 120 mm only; IEC 60908 is not free), the C7 and C13
+connectors (no datasheet read dimensions the C7's face or the C13's nose that enters the inlet),
+the male F connector and the SCTE F-port details (not retrievable), a second arcade-button
+maker, mini-USB and Blu-ray.
+
 ### The reference-objects catalog: the facts behind commons presets (package 0.19.0)
 
 A new package, `hyperobjects_reference`, with its schema `reference-object.schema.json` and the

@@ -1,0 +1,254 @@
+{
+  "spec_version": 1,
+  "key": "dsub-de9-female",
+  "category": "connector",
+  "name": {
+    "en": "D-sub DE-9 female connector (sockets)",
+    "es": "Conector D-sub DE-9 hembra (contactos hembra)",
+    "fr": "Connecteur D-sub DE-9 femelle (douilles)",
+    "pt": "Conector D-sub DE-9 fêmea (soquetes)"
+  },
+  "description": {
+    "en": "The 9-contact D-subminiature connector with socket contacts (MIL-DTL-24308 shell size 1, a 'receptacle' in the standard's words, sold as DE-9 female): two rows of 5 and 4 sockets in a keystone-shaped shell, on the same flange as the pin connector. A joystick cable ends in one.",
+    "es": "El conector D-subminiatura de 9 contactos con contactos hembra (MIL-DTL-24308 tamaño de carcasa 1, «receptacle» en palabras de la norma, vendido como DE-9 hembra): dos filas de 5 y 4 contactos hembra en una carcasa trapezoidal, sobre la misma brida que el conector de pines. El cable de un joystick termina en uno.",
+    "fr": "Le connecteur D-subminiature à 9 contacts à douilles (MIL-DTL-24308 taille de boîtier 1, « receptacle » selon la norme, vendu comme DE-9 femelle) : deux rangées de 5 et 4 douilles dans un boîtier trapézoïdal, sur la même collerette que le connecteur à broches. Le câble d'un joystick se termine par l'un d'eux.",
+    "pt": "O conector D-subminiatura de 9 contatos com contatos fêmea (MIL-DTL-24308 tamanho de carcaça 1, «receptacle» nas palavras da norma, vendido como DE-9 fêmea): duas filas de 5 e 4 soquetes numa carcaça trapezoidal, sobre o mesmo flange do conector de pinos. O cabo de um joystick termina num deles."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "MIL-DTL-24308/1, shell size 1 (9 contacts, arrangement 1)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "MIL-DTL-24308/1K with Amendment 5, Connectors, electric, rectangular, receptacle, socket contacts, general purpose, class D and G, solder type (12 June 2020)",
+      "url": "https://quicksearch.dla.mil/qsDocDetails.aspx?ident_number=17162",
+      "publisher": "Defense Logistics Agency (ASSIST)",
+      "accessed": "2026-11-01",
+      "supports": "shell size 1, in inches: flange A 1.198–1.228 wide, E .479–.509 high; mounting holes C .979–.989 apart; D-shell B .638–.648 × D .302–.316, standing G .238–.248 ahead of the flange"
+    },
+    {
+      "title": "MIL-DTL-24308K with Amendment 1, Connectors, electric, rectangular, nonenvironmental, miniature, polarized shell, rack and panel, general specification for (5 December 2022)",
+      "url": "https://quicksearch.dla.mil/qsDocDetails.aspx?ident_number=17161",
+      "publisher": "Defense Logistics Agency (ASSIST)",
+      "accessed": "2026-11-01",
+      "supports": "appendix A, Figure A-1, arrangement 1 (shell size 1): 9 size-20 contacts, 5 over 4, at true position; .108 in pitch along a row, rows .112 apart, the rows offset .054; markings shown for the pin insert front (socket inserts opposite): the wide side up, contact 1 at the upper left; §3.4.3.1: polarized by the keystone shell; Figure 2: mated spacing for shell sizes 1 and 2 .265 ±.015 in, flange to flange"
+    },
+    {
+      "title": "NorComp, Panel cutouts D-sub – single, front or back mounted (drawing rev 13)",
+      "url": "https://content.norcomp.net/rohspdfs/Connectors/PanelCutOuts/Panel_Cutout_D-Sub-Single.pdf",
+      "publisher": "NorComp",
+      "accessed": "2026-11-01",
+      "supports": "row 9 STD: holes 0.984 [24.99] apart, Ø0.120 [3.05]; front-mounted cutout 0.815 [20.70] at the wide edge × 0.460 [11.68], R0.094, +0.010/−0.000 in, no recommended maximum panel; back-mounted cutout 0.806 [20.47] × 0.420 [10.67], R0.099, ±0.005 in, recommended maximum panel 0.065 in; sides 10° +0°/−2°"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the flange's front face (the face toward the mating connector), midway between the mounting holes. +z points toward the mating connector, along the contacts; +y points toward the keystone's wide side; +x = y × z, so seen from +z the socket insert is the mirror of the pin insert front, contact 1 at the upper right. The rear body lies at z < 0.",
+  "dimensions": {
+    "flange_width_max": {
+      "value": 1.228,
+      "unit": "in",
+      "source": 0,
+      "note": "A; min 1.198 (31.19 / 30.43 mm)"
+    },
+    "flange_height_max": {
+      "value": 0.509,
+      "unit": "in",
+      "source": 0,
+      "note": "E; min .479 (12.93 / 12.17 mm)"
+    },
+    "mounting_hole_spacing_min": {
+      "value": 0.979,
+      "unit": "in",
+      "source": 0,
+      "note": "C (24.87 mm)"
+    },
+    "mounting_hole_spacing_max": {
+      "value": 0.989,
+      "unit": "in",
+      "source": 0,
+      "note": "C (25.12 mm)"
+    },
+    "shell_width_min": {
+      "value": 0.638,
+      "unit": "in",
+      "source": 0,
+      "note": "B, the D-shell's wide side"
+    },
+    "shell_width_max": {
+      "value": 0.648,
+      "unit": "in",
+      "source": 0,
+      "note": "the standard's B"
+    },
+    "shell_height_min": {
+      "value": 0.302,
+      "unit": "in",
+      "source": 0,
+      "note": "the standard's D"
+    },
+    "shell_height_max": {
+      "value": 0.316,
+      "unit": "in",
+      "source": 0,
+      "note": "the standard's D"
+    },
+    "shell_protrusion_min": {
+      "value": 0.238,
+      "unit": "in",
+      "source": 0,
+      "note": "G, the D-shell ahead of the flange"
+    },
+    "shell_protrusion_max": {
+      "value": 0.248,
+      "unit": "in",
+      "source": 0,
+      "note": "the standard's G"
+    },
+    "contacts": {
+      "value": 9,
+      "unit": "count",
+      "source": 1,
+      "note": "5 in the wide row over 4"
+    },
+    "contact_pitch": {
+      "value": 0.108,
+      "unit": "in",
+      "source": 1,
+      "note": "true position, along a row"
+    },
+    "row_spacing": {
+      "value": 0.112,
+      "unit": "in",
+      "source": 1,
+      "note": "true position; the rows are offset .054"
+    },
+    "mated_flange_spacing": {
+      "value": 0.265,
+      "unit": "in",
+      "source": 1,
+      "tolerance": "±.015",
+      "note": "shell sizes 1 and 2"
+    },
+    "panel_cutout_back_mount_width": {
+      "value": 0.806,
+      "unit": "in",
+      "source": 2,
+      "tolerance": "±0.005",
+      "note": "at the wide edge, for a connector behind the panel; 20.47 mm"
+    },
+    "panel_cutout_back_mount_height": {
+      "value": 0.42,
+      "unit": "in",
+      "source": 2,
+      "tolerance": "±0.005",
+      "note": "10.67 mm"
+    },
+    "panel_cutout_back_mount_radius": {
+      "value": 0.099,
+      "unit": "in",
+      "source": 2,
+      "note": "2.51 mm"
+    },
+    "panel_thickness_back_mount_max": {
+      "value": 0.065,
+      "unit": "in",
+      "source": 2,
+      "note": "NorComp's recommended maximum"
+    },
+    "panel_cutout_front_mount_width": {
+      "value": 0.815,
+      "unit": "in",
+      "source": 2,
+      "tolerance": "+0.010/−0.000",
+      "note": "at the wide edge, for a connector on the panel's face; 20.70 mm"
+    },
+    "panel_cutout_front_mount_height": {
+      "value": 0.46,
+      "unit": "in",
+      "source": 2,
+      "tolerance": "+0.010/−0.000",
+      "note": "11.68 mm"
+    },
+    "panel_cutout_front_mount_radius": {
+      "value": 0.094,
+      "unit": "in",
+      "source": 2,
+      "note": "2.40 mm"
+    },
+    "panel_hole_diameter": {
+      "value": 0.12,
+      "unit": "in",
+      "source": 2,
+      "note": "3.05 mm, two places"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "dsub-de-9",
+      "polarity": "female",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          6.731
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: its sockets take the pin connector's pins. Framed .265 in (6.731 mm) ahead of the flange's front face, so a mate puts the two flanges the standard's mated spacing apart (Figure 2, ±.015 in). Symmetry 1: the keystone shell admits one orientation. The x_axis is −x so that a mate (a half-turn about the frame's x, ASM-1 §3.4) puts the socket connector's +y side on the pin connector's +y side."
+    },
+    {
+      "id": "panel",
+      "label": {
+        "en": "Panel mount",
+        "es": "Montaje en panel",
+        "fr": "Montage sur panneau",
+        "pt": "Montagem em painel"
+      },
+      "geometry_type": "socket",
+      "size_key": "dsub-shell-1-panel",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: mounted behind a panel, the D-shell goes through the panel's keystone cutout and the flange's front face bears on the panel's back face; screws pass the two holes. The cutout's size depends on front or back mounting (NorComp); the size key is the back-mounted fit."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "MIL-DTL-24308 is public on ASSIST; inches govern, and the millimetre figures in notes are the ones each drawing prints. The standard names shell size 1, not the trade letter E. Which of the two D-shells nests inside the other is not stated in a sentence; the tables (the socket connector's B and D maxima below the pin connector's minima) are consistent with the socket shell entering the pin shell. Whether the pin connector's B and D are inside or outside dimensions is not resolvable from the figure, so no envelope is given. Panel cutouts cite NorComp's drawing; the standard gives none."
+}

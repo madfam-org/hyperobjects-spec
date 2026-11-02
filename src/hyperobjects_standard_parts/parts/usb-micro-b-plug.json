@@ -1,0 +1,136 @@
+{
+  "spec_version": 1,
+  "key": "usb-micro-b-plug",
+  "category": "connector",
+  "name": {
+    "en": "USB Micro-B plug",
+    "es": "Clavija USB Micro-B",
+    "fr": "Fiche USB Micro-B",
+    "pt": "Ficha USB Micro-B"
+  },
+  "description": {
+    "en": "The USB Micro-B plug interface: a chamfered shell 6.85 × 1.8 mm, at least 5.4 mm long ahead of an overmold at most 10.6 × 8.5 mm, mating a Micro-B receptacle one way up.",
+    "es": "La interfaz de la clavija USB Micro-B: una carcasa achaflanada de 6.85 × 1.8 mm, de al menos 5.4 mm de largo delante de un sobremoldeo de 10.6 × 8.5 mm como máximo, que acopla con un receptáculo Micro-B en una sola posición.",
+    "fr": "L'interface de la fiche USB Micro-B : un blindage chanfreiné de 6,85 × 1,8 mm, long d'au moins 5,4 mm devant un surmoulage d'au plus 10,6 × 8,5 mm, qui s'accouple à une embase Micro-B dans un seul sens.",
+    "pt": "A interface da ficha USB Micro-B: uma blindagem chanfrada de 6,85 × 1,8 mm, com pelo menos 5,4 mm de comprimento à frente de um sobremoldado de no máximo 10,6 × 8,5 mm, que acopla num receptáculo Micro-B num só sentido."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "USB Micro-USB Cables and Connectors Specification, Revision 1.01",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Universal Serial Bus Micro-USB Cables and Connectors Specification, Revision 1.01 (April 4, 2007)",
+      "url": "https://www.usb.org/sites/default/files/usb_20_20250603.zip",
+      "publisher": "USB Implementers Forum (in the USB 2.0 specification package)",
+      "accessed": "2026-11-01",
+      "supports": "Figure 4-10 (Micro-B receptacle interface): opening 6.9 +0.06/−0.02 wide and 1.85 +0.08/−0.02 high, 5.4 ±0.05 wide at the bottom where the chamfers meet, 3.5 ±0.1 deep from the shell front to the back wall; tongue 2.7 +0.05/−0.08 long. Figure 4-7 (Micro-B plug): shell 6.85 +0.02/−0.06 wide and 1.8 +0.02/−0.08 high, 5.3 wide at the bottom; Figure 4-8: 5.4 min from the overmold face to the tip; Figure 4-5: overmold 10.6 max wide, 8.5 max high. §4.2: five contacts. §4.5.6: a wrong-way insertion is blocked"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the overmold's front face, on the shell axis. +z runs along the shell to its tip at z = 5.4; +x runs along the shell's width; +y = z × x runs along its height, pointing from the chamfered (narrow) side toward the full-width side. The overmold and cable lie at z < 0.",
+  "dimensions": {
+    "shell_width": {
+      "value": 6.85,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.02/−0.06"
+    },
+    "shell_height": {
+      "value": 1.8,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.02/−0.08"
+    },
+    "shell_bottom_width": {
+      "value": 5.3,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.02/−0.08",
+      "note": "where the chamfers meet the narrow side"
+    },
+    "shell_length_min": {
+      "value": 5.4,
+      "unit": "mm",
+      "source": 0,
+      "note": "from the overmold face to the tip"
+    },
+    "overmold_width_max": {
+      "value": 10.6,
+      "unit": "mm",
+      "source": 0
+    },
+    "overmold_height_max": {
+      "value": 8.5,
+      "unit": "mm",
+      "source": 0
+    },
+    "contacts": {
+      "value": 5,
+      "unit": "count",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "usb-micro-b",
+      "polarity": "male",
+      "symmetry": 1,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the shell goes into a Micro-B receptacle, full-width side to full-width side. A mate seats the overmold face on the receptacle's front face, a convention. The x_axis is −x so that a mate (a half-turn about the frame's x, ASM-1 §3.4) puts the plug's +y side on the receptacle's +y side."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "The Micro-USB specification's licence allows internal reproduction only; the entry states facts and copies no drawing.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "box",
+        "min": [
+          -3.425,
+          -0.9,
+          0
+        ],
+        "max": [
+          3.425,
+          0.9,
+          5.4
+        ],
+        "from": [
+          "shell_width",
+          "shell_height",
+          "shell_length_min"
+        ],
+        "note": "the shell's bounding box, overmold face to tip, at its minimum length"
+      }
+    ],
+    "note": "The shell's bounding box; the chamfers and the overmold are not modelled."
+  }
+}

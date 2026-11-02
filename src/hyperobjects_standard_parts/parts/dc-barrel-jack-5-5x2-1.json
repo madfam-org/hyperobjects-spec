@@ -1,0 +1,103 @@
+{
+  "spec_version": 1,
+  "key": "dc-barrel-jack-5-5x2-1",
+  "category": "connector",
+  "name": {
+    "en": "DC barrel jack 5.5 × 2.1 mm",
+    "es": "Jack de alimentación DC 5.5 × 2.1 mm",
+    "fr": "Jack d'alimentation CC 5,5 × 2,1 mm",
+    "pt": "Jack de alimentação CC 5,5 × 2,1 mm"
+  },
+  "description": {
+    "en": "The DC power jack class for a 5.5 × 2.1 mm barrel plug: a Ø2.0 mm centre pin in a bore that takes a Ø5.5 mm plug 9.5 mm deep. Many consoles' and handhelds' power inlets use it.",
+    "es": "La clase de jack de alimentación DC para un plug de barril de 5.5 × 2.1 mm: un pin central de Ø2.0 mm en un barreno que recibe un plug de Ø5.5 mm a 9.5 mm de profundidad. Las entradas de alimentación de muchas consolas y portátiles lo usan.",
+    "fr": "La classe de jack d'alimentation CC pour une fiche cylindrique 5,5 × 2,1 mm : une broche centrale de Ø2,0 mm dans un alésage qui reçoit une fiche de Ø5,5 mm sur 9,5 mm de profondeur. Les entrées d'alimentation de nombreuses consoles et portables l'utilisent.",
+    "pt": "A classe de jack de alimentação CC para um plugue de barril de 5,5 × 2,1 mm: um pino central de Ø2,0 mm num furo que recebe um plugue de Ø5,5 mm a 9,5 mm de profundidade. As entradas de alimentação de muitas consolas e portáteis usam-no."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "DC power jack for a 5.5 × 2.1 mm barrel plug (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Same Sky PJ-002A DC power jack (rev 1.10) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/pj-002a.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "centre pin Ø2.0; mating plug Ø5.5; bore Ø6.50; jack insertion depth 9.5"
+    },
+    {
+      "title": "Same Sky PJ-102A DC power jack (rev 1.07) datasheet",
+      "url": "https://www.sameskydevices.com/product/resource/pj-102a.pdf",
+      "publisher": "Same Sky (formerly CUI Devices)",
+      "accessed": "2026-11-01",
+      "supports": "centre pin Ø2.0; mating plug Ø5.5; bore Ø6.40; jack insertion depth 9.5"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the bore on the jack's front face. +z points out of the bore, toward a plug; the body lies at z < 0. +x is an arbitrary radial reference: the bore is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "centre_pin_diameter": {
+      "value": 2.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "PJ-102A the same (source 1)"
+    },
+    "plug_diameter": {
+      "value": 5.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "the mating plug the sheet names; PJ-102A the same (source 1)"
+    },
+    "insertion_depth": {
+      "value": 9.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "PJ-102A the same (source 1)"
+    },
+    "bore_diameter": {
+      "value": 6.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "PJ-102A draws Ø6.40 (source 1): it varies by part"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "mating",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "socket",
+      "size_key": "dc-barrel-5.5x2.1",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a 5.5 × 2.1 plug enters the bore over the centre pin, 9.5 deep, so a mate seats the plug's collar on this face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "No source names IEC 60130-10 or an EIAJ designation, so this is a class entry stated by the facts two PCB jacks of one maker share. A panel-mount member (a threaded bushing) varies by part and is not stated; the 2.1 mm plug bore is the plug's fact."
+}

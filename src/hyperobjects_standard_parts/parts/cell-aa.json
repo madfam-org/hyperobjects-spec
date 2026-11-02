@@ -1,0 +1,216 @@
+{
+  "spec_version": 1,
+  "key": "cell-aa",
+  "category": "battery",
+  "name": {
+    "en": "AA cell (IEC R6 size)",
+    "es": "Pila AA (tamaño IEC R6)",
+    "fr": "Pile AA (format CEI R6)",
+    "pt": "Pilha AA (tamanho IEC R6)"
+  },
+  "description": {
+    "en": "A 1.5 V AA-size cylindrical cell, 14.5 mm across and 50.5 mm long at most, to the IEC LR6 (ANSI 15A) designation. The pip end is positive and the flat end negative; it goes into a battery bay or holder between two contacts.",
+    "es": "Una pila cilíndrica de tamaño AA de 1.5 V, de 14.5 mm de diámetro y 50.5 mm de largo como máximo, según la designación IEC LR6 (ANSI 15A). El extremo con botón es el positivo y el plano el negativo; va en un compartimento o portapilas entre dos contactos.",
+    "fr": "Une pile cylindrique au format AA de 1,5 V, de 14,5 mm de diamètre et 50,5 mm de long au plus, selon la désignation CEI LR6 (ANSI 15A). L'extrémité à téton est positive et l'extrémité plate négative ; elle se loge dans un compartiment ou un support entre deux contacts.",
+    "pt": "Uma pilha cilíndrica de tamanho AA de 1,5 V, com 14,5 mm de diâmetro e 50,5 mm de comprimento no máximo, segundo a designação IEC LR6 (ANSI 15A). A extremidade com pino é o polo positivo e a plana o negativo; vai num compartimento ou suporte entre dois contatos."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "IEC 60086 LR6 (ANSI 15A), AA",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "Energizer E91 AA alkaline product datasheet (form E91NA0426)",
+      "url": "https://data.energizer.com/pdfs/E91NA0426.pdf",
+      "publisher": "Energizer",
+      "accessed": "2026-11-01",
+      "supports": "designation ANSI-15A, IEC-LR6; nominal 1.5 V; typical weight 23.0 g; industry-standard dimensions: diameter 14.50 max / 13.70 min; height 50.50 max / 49.50 min; positive pip diameter 5.50 max, pip height 1.00 min; negative flat contact diameter 7.00 min"
+    },
+    {
+      "title": "Duracell Coppertop MN1500 size AA technical datasheet (MN15USCT0122)",
+      "url": "https://cdn.prod.website-files.com/6835fa821f0f20d8b0b5851c/6899e006fd5a5101be9743f8_MN15USCT0122.pdf",
+      "publisher": "Duracell",
+      "accessed": "2026-11-01",
+      "supports": "dimensions shown are ANSI standards: diameter 14.5 / 13.5; height 50.5 / 49.5; pip 5.5 max, pip height 1.0 min; nominal 1.5 V; typical weight 24 g; ANSI 15AP"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the negative (flat) end, on the cell's axis. +z runs along the axis to the tip of the positive pip at z = 50.5, the cited maximum height. +x is an arbitrary radial reference: the cell is round, so every interface has continuous symmetry.",
+  "dimensions": {
+    "diameter_max": {
+      "value": 14.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 14.50 max; Duracell 14.5 (source 1)"
+    },
+    "diameter_min": {
+      "value": 13.7,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 13.70 min; Duracell draws 13.5 (source 1): the makers disagree, so a bay should take the smaller"
+    },
+    "height_max": {
+      "value": 50.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 50.50 max; Duracell 50.5 (source 1)"
+    },
+    "height_min": {
+      "value": 49.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "Energizer 49.50 min; Duracell 49.5 (source 1)"
+    },
+    "pip_diameter_max": {
+      "value": 5.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "the positive terminal's raised pip; Duracell the same (source 1)"
+    },
+    "pip_height_min": {
+      "value": 1.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "how far the pip stands proud; Duracell the same (source 1)"
+    },
+    "negative_contact_diameter_min": {
+      "value": 7.0,
+      "unit": "mm",
+      "source": 0,
+      "note": "the flat negative contact; Duracell does not draw it"
+    },
+    "nominal_voltage": {
+      "value": 1.5,
+      "unit": "V",
+      "source": 0,
+      "note": "Duracell 1.5 V (source 1)"
+    },
+    "mass": {
+      "value": 23.0,
+      "unit": "g",
+      "source": 0,
+      "note": "typical, Energizer; Duracell 24 g (source 1)"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "minus_end",
+      "label": {
+        "en": "Negative end (flat)",
+        "es": "Extremo negativo (plano)",
+        "fr": "Extrémité négative (plate)",
+        "pt": "Extremidade negativa (plana)"
+      },
+      "geometry_type": "surface",
+      "size_key": "cell-aa-minus-contact",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the flat negative end presses on a bay's contact (usually the spring). Its own size key, so a positive contact cannot mate it."
+    },
+    {
+      "id": "plus_end",
+      "label": {
+        "en": "Positive end (pip)",
+        "es": "Extremo positivo (botón)",
+        "fr": "Extrémité positive (téton)",
+        "pt": "Extremidade positiva (pino)"
+      },
+      "geometry_type": "surface",
+      "size_key": "cell-aa-plus-contact",
+      "polarity": "neutral",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          50.5
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Neutral: the pip presses on the bay's positive contact. Framed at the cited maximum height; a cell measures 49.5–50.5."
+    },
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo",
+        "fr": "Corps",
+        "pt": "Corpo"
+      },
+      "geometry_type": "pocket",
+      "size_key": "cell-aa",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the cell goes into a bay or holder, negative end first against the bay's negative contact. Which terminal meets which contact is the end interfaces' job."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "IEC 60086-2, which fixes the LR6 size, is not freely published; the numbers cite two makers' drawings of the alkaline AA (Energizer prints IEC-LR6 and ANSI-15A, Duracell says its dimensions are the ANSI standard's). They agree except for the minimum diameter (13.70 against 13.5). Other chemistries sold in the AA size are not covered by these sources. The battery_bay component of the console families sizes its trough from this entry.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 7.25,
+        "length": 50.5,
+        "from": [
+          "diameter_max",
+          "height_max"
+        ],
+        "note": "the cell at its maximum diameter and height, pip included"
+      }
+    ],
+    "note": "A cylinder at the cited maximum diameter and height; the pip and the shoulder are not modelled separately."
+  }
+}

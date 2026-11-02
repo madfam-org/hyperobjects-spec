@@ -1,0 +1,83 @@
+{
+  "spec_version": 1,
+  "key": "f-type-port",
+  "category": "connector",
+  "name": {
+    "en": "F-type female port",
+    "es": "Puerto F hembra",
+    "fr": "Embase F femelle",
+    "pt": "Porta F fêmea"
+  },
+  "description": {
+    "en": "The 75 Ω F-type female port class: a body with an external 3/8-32 UNEF thread that takes a coaxial F connector's coupling nut. A console's RF (antenna) output uses it.",
+    "es": "La clase de puerto F hembra de 75 Ω: un cuerpo con rosca exterior 3/8-32 UNEF que recibe la tuerca de acoplamiento de un conector coaxial F. La salida de RF (antena) de una consola lo usa.",
+    "fr": "La classe d'embase F femelle 75 Ω : un corps à filetage extérieur 3/8-32 UNEF qui reçoit l'écrou d'accouplement d'un connecteur coaxial F. La sortie RF (antenne) d'une console l'utilise.",
+    "pt": "A classe de porta F fêmea de 75 Ω: um corpo com rosca exterior 3/8-32 UNEF que recebe a porca de acoplamento de um conector coaxial F. A saída de RF (antena) de uma consola usa-a."
+  },
+  "governing": {
+    "kind": "class",
+    "designation": "F-type female port, 75 Ω (COTS class)",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "L-com RFPCB-F-FS-1G-86, 75 Ω F female bulkhead-mount PCB connector, customer drawing (rev A, 2023-03-16)",
+      "url": "https://www.l-com.com/Images/Downloadables/2D/RFPCB-F-FS-1G-86_2D.pdf",
+      "publisher": "L-com (Infinite Electronics)",
+      "accessed": "2026-11-01",
+      "supports": "F female port thread 3/8–32 UNEF–2A; 75 Ω; DC–1 GHz (the sheet marks every dimension as reference only)"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the port's front face, on its axis. +z points out of the port, toward the coupling nut of an F connector; the body and its mounting lie at z < 0. +x is an arbitrary radial reference: the thread is round, so the interface has continuous symmetry.",
+  "dimensions": {
+    "coupling_thread": {
+      "value": "3/8-32 UNEF-2A",
+      "unit": "thread",
+      "source": 0
+    },
+    "thread_major_diameter": {
+      "value": 0.375,
+      "unit": "in",
+      "source": 0,
+      "note": "the 3/8 in nominal size of the coupling thread"
+    }
+  },
+  "interfaces": [
+    {
+      "id": "coupling",
+      "label": {
+        "en": "Mating face",
+        "es": "Cara de acoplamiento",
+        "fr": "Face d'accouplement",
+        "pt": "Face de acoplamento"
+      },
+      "geometry_type": "thread",
+      "size_key": "f-type-3-8-32-unef",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the external thread receives an F connector's coupling nut, as the SMA jack's coupling does. Framed on the port's front face."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "A class entry stating only the shared fact, the coupling thread, as sma-bulkhead-jack does. The SCTE F-port standards (ANSI/SCTE 01 and 02) could not be retrieved, so the centre-conductor acceptance, the reference plane and any D-flat panel cutout are not stated; the one drawing read marks its dimensions as reference only."
+}

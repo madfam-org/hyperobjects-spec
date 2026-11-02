@@ -1,0 +1,192 @@
+{
+  "spec_version": 1,
+  "key": "optical-disc-cd-120mm",
+  "category": "media",
+  "name": {
+    "en": "Compact disc, 120 mm",
+    "es": "Disco compacto de 120 mm",
+    "fr": "Disque compact de 120 mm",
+    "pt": "Disco compacto de 120 mm"
+  },
+  "description": {
+    "en": "A 120 mm compact disc to ECMA-130: 120 mm across, a 15 mm centre hole, a 1.2 mm substrate. It sits on a spindle, tray or case hub by its centre hole and in a pocket by its outline.",
+    "es": "Un disco compacto de 120 mm según ECMA-130: 120 mm de diámetro, un orificio central de 15 mm y un sustrato de 1.2 mm. Se asienta en un eje, una bandeja o el cubo de un estuche por su orificio central y en un hueco por su contorno.",
+    "fr": "Un disque compact de 120 mm selon ECMA-130 : 120 mm de diamètre, un trou central de 15 mm, un substrat de 1,2 mm. Il se pose sur un axe, un tiroir ou le moyeu d'un boîtier par son trou central et dans une cavité par son contour.",
+    "pt": "Um disco compacto de 120 mm segundo a ECMA-130: 120 mm de diâmetro, um furo central de 15 mm e um substrato de 1,2 mm. Assenta num eixo, numa bandeja ou no cubo de um estojo pelo furo central e num rebaixo pelo contorno."
+  },
+  "governing": {
+    "kind": "standard",
+    "designation": "ECMA-130 (ISO/IEC 10149), 120 mm CD-ROM",
+    "source": 0
+  },
+  "sources": [
+    {
+      "title": "ECMA-130, Data interchange on read-only 120 mm optical data disks (CD-ROM), 2nd edition (June 1996)",
+      "url": "https://www.ecma-international.org/wp-content/uploads/ECMA-130_2nd_edition_june_1996.pdf",
+      "publisher": "Ecma International",
+      "accessed": "2026-11-01",
+      "supports": "clause 8: centre hole d1 = 15,0 mm +0,1/−0,0; clamping area from d2 = 26 mm max to d3 = 33 mm min; information area d4 = 44 mm max to d5 = 118 mm max; user data zone from d7 = 50,0 mm +0,0/−0,4 to d8 = 116 mm max; transparent substrate e = 1,2 mm ±0,1; overall diameter d10 = 120,0 mm ±0,3; total height at the rim at most 1,5 mm; clause 7: mass 14 g to 33 g"
+    }
+  ],
+  "frame_convention": "Origin at the centre of the centre hole, on the disc's read-out side (the side the disc rests on in a drive). +z runs through the disc to the label side; +x is an arbitrary radial reference: the disc is round, so both interfaces have continuous symmetry.",
+  "dimensions": {
+    "diameter": {
+      "value": 120.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.3",
+      "note": "the standard's d10"
+    },
+    "centre_hole_diameter": {
+      "value": 15.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.1/−0.0",
+      "note": "the standard's d1"
+    },
+    "substrate_thickness": {
+      "value": 1.2,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "±0.1",
+      "note": "e, the transparent substrate"
+    },
+    "rim_height_max": {
+      "value": 1.5,
+      "unit": "mm",
+      "source": 0,
+      "note": "total height at the rim, label included"
+    },
+    "clamping_area_inner_diameter_max": {
+      "value": 26,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d2"
+    },
+    "clamping_area_outer_diameter_min": {
+      "value": 33,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d3"
+    },
+    "information_area_outer_diameter_max": {
+      "value": 118,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d5"
+    },
+    "user_data_start_diameter": {
+      "value": 50.0,
+      "unit": "mm",
+      "source": 0,
+      "tolerance": "+0.0/−0.4",
+      "note": "the standard's d7"
+    },
+    "user_data_end_diameter_max": {
+      "value": 116,
+      "unit": "mm",
+      "source": 0,
+      "note": "the standard's d8"
+    },
+    "mass_min": {
+      "value": 14,
+      "unit": "g",
+      "source": 0
+    },
+    "mass_max": {
+      "value": 33,
+      "unit": "g",
+      "source": 0
+    }
+  },
+  "interfaces": [
+    {
+      "id": "centre_hole",
+      "label": {
+        "en": "Centre hole",
+        "es": "Orificio central",
+        "fr": "Trou central",
+        "pt": "Furo central"
+      },
+      "geometry_type": "socket",
+      "size_key": "optical-disc-centre-hole-15mm",
+      "polarity": "female",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Female: a spindle, tray or case hub enters the centre hole from the read-out side."
+    },
+    {
+      "id": "outline",
+      "label": {
+        "en": "Disc outline",
+        "es": "Contorno del disco",
+        "fr": "Contour du disque",
+        "pt": "Contorno do disco"
+      },
+      "geometry_type": "pocket",
+      "size_key": "optical-disc-120mm",
+      "polarity": "male",
+      "symmetry": 0,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "note": "Male: the disc lies in a tray or case pocket read-out side down."
+    }
+  ],
+  "review_status": {
+    "state": "generated",
+    "note": "Drafted in one pass by an agent (console-hyperobjects standard-parts lane, 2026-11-01); facts read from the cited sources on the access date; no language facet has had a native review."
+  },
+  "notes": "ECMA-130 is the free Ecma edition of ISO/IEC 10149 (the CD-ROM disk). Its scope is the 120 mm disk only: the 80 mm disc is specified in IEC 60908 (the audio-CD standard), which is not freely published, so it has no entry yet. The outline and centre-hole keys are shared with the 120 mm DVD, whose standard gives the same diameters.",
+  "envelope": {
+    "solids": [
+      {
+        "shape": "cylinder",
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": "z",
+        "radius": 60,
+        "length": 1.5,
+        "from": [
+          "diameter",
+          "rim_height_max"
+        ],
+        "note": "the disc at its nominal diameter and maximum rim height"
+      }
+    ],
+    "note": "A cylinder at the nominal diameter and the maximum total height; the centre hole is not subtracted."
+  }
+}

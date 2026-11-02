@@ -136,6 +136,22 @@ size key's.
 | `eyelet-gs-4-4` | datasheet (category `fastener`) | `barrel` → `eyelet-4-32in-barrel` male, sym 0 | — | Stimpson |
 | `elastic-cord-round` | class (category `cord`) | `end_a`, `end_b` → `elastic-cord-end` male, sym 0 | `diameter_mm`, `length_mm` | Prym, Beadalon (retailer listing) |
 | `magnet-disc-6x2` | datasheet (category `magnet`) | `face_a`, `face_b` → `disc-magnet-6mm-face` neutral, sym 0<br>`body` → `disc-magnet-6x2-pocket` male, sym 0 | — | supermagnete |
+| `usb-c-receptacle`, `usb-c-plug` | standard | `mating` → `usb-type-c` female / male, sym 2 (either way up) | — | USB-IF (Type-C Release 2.5) |
+| `usb-a-receptacle`, `usb-a-plug` | standard | `mating` → `usb-type-a` female / male, sym 1 | — | USB-IF (USB 2.0; USB 3.1 legacy connectors) |
+| `usb-micro-b-receptacle`, `usb-micro-b-plug` | standard | `mating` → `usb-micro-b` female / male, sym 1 | — | USB-IF (Micro-USB 1.01) |
+| `hdmi-type-a-receptacle`, `hdmi-type-a-plug` (provisional) | standard (through makers' drawings) | `mating` → `hdmi-type-a` female / male, sym 1 | — | Kycon, Same Sky; CUI (plug, discontinued) |
+| `dsub-de9-male`, `dsub-de9-female` | standard | `mating` → `dsub-de-9` male (pins) / female (sockets), sym 1; the socket side framed .265 in ahead of its flange<br>`panel` → `dsub-shell-1-panel` male, sym 1 | — | DLA (MIL-DTL-24308, /1, /3), NorComp |
+| `trs-3-5mm-jack`, `trs-3-5mm-plug` | class | `mating` → `trs-3.5mm` female / male, sym 0 | — | Same Sky |
+| `rca-jack`, `rca-plug` | class | `mating` → `rca-phono` female / male, sym 0 | — | Same Sky |
+| `f-type-port` | class | `coupling` → `f-type-3-8-32-unef` male, sym 0 (a thread) | — | L-com |
+| `dc-barrel-jack-5-5x2-1`, `dc-barrel-plug-5-5x2-1` | class | `mating` → `dc-barrel-5.5x2.1` female / male, sym 0 | — | Same Sky |
+| `iec-60320-c8` | datasheet | `mating` → `iec-60320-c7-c8` female, sym 2 | — | Qualtek, Schurter |
+| `iec-60320-c14` | datasheet | `mating` → `iec-60320-c13-c14` female, sym 1 | — | Qualtek, Schurter |
+| `arcade-button-24mm`, `arcade-button-30mm` (provisional) | class (category `switch`) | `panel_mount` → `arcade-button-24mm-snap-in` / `arcade-button-30mm-snap-in` male, sym 0 | — | Sanwa Denshi |
+| `cell-aa`, `cell-aaa` | standard (category `battery`; IEC LR6 / LR03, cited through maker drawings) | `minus_end` → `cell-aa-minus-contact` / `cell-aaa-minus-contact` neutral, sym 0<br>`plus_end` → `cell-aa-plus-contact` / `cell-aaa-plus-contact` neutral, sym 0<br>`body` → `cell-aa` / `cell-aaa` male, sym 0 | — | Energizer, Duracell |
+| `sd-card`, `microsd-card` | standard (category `media`; cited through maker datasheets) | `body` → `sd-card` / `microsd-card` male, sym 1 | — | Transcend, Swissbit; Kingston, Transcend |
+| `optical-disc-cd-120mm`, `optical-disc-dvd-120mm` | standard (category `media`) | `centre_hole` → `optical-disc-centre-hole-15mm` female, sym 0<br>`outline` → `optical-disc-120mm` male, sym 0 | — | Ecma (ECMA-130, ECMA-267) |
+| `umd-cartridge` | standard (category `media`) | `case` → `umd-cartridge` male, sym 1 | — | Ecma (ECMA-365) |
 
 ### Paper electronics and paper fastening (the sheet commons)
 
@@ -151,6 +167,51 @@ catalog key. The eleven size keys they need ship in their own supplement,
 publishes is not written: a brad's shank width (so no hole size and no envelope), an
 eyelet's set diameter, and the electrical ratings of an LED, which vary with the die.
 The two CR2032 faces have separate keys so a reversed cell cannot mate its pads.
+
+### Console, handheld and game-media parts
+
+Twenty-eight parts the console, handheld, controller, cable and power-adapter families size
+their port cutouts, plugs, battery bays and media pockets from: connectors, mains couplers,
+cells, memory cards, optical discs, the UMD cartridge and arcade pushbuttons. Facts only,
+every one cited; what no source read publishes is left out, never inferred.
+
+- **Receptacle and plug frames.** A receptacle (jack, inlet, port) is framed at the centre
+  of its opening on its front face, +z out toward a plug, +x along the opening's width. A
+  plug is framed at its overmold's front face (the shoulder, sleeve rim or collar for round
+  connectors), +z along the shell to its tip. A mate seats one
+  face on the other. That is a **convention** unless the source states the seated
+  relation: the DE-9 socket connector's mating frame sits .265 in ahead of its flange (the
+  MIL-DTL-24308 mated flange spacing), and the DC barrel's 9.5 mm barrel equals the jack's
+  stated 9.5 mm insertion depth. The receptacle entries carry the plug's overmold maxima
+  (USB) or the panel cut-outs (D-sub, the IEC inlets) a port cutout reads.
+- **Keyed connectors.** A keyed receptacle's +y points toward a named feature (the
+  full-width side of a Micro-B opening, the plain side of an HDMI opening, the earth pin of
+  a C14, the wide side of a D-sub). Its plug's mating frame has `x_axis` −x, so the mate's
+  half-turn about x (ASM-1 §3.4) lands the plug's +y on the receptacle's +y.
+  `tests/test_catalog_console_parts.py` checks it for each keyed pair. USB Type-C is
+  symmetry 2; the plain C7/C8 figure-eight is symmetry 2; round connectors are symmetry 0.
+- **Polarity.** The plug is male; the D-sub pair takes the standard's contact gender (pins
+  male, sockets female), since no source states in a sentence which shell nests inside the
+  other.
+- **Kinds.** USB, HDMI, D-sub, the cells, the cards and the discs are `standard` (the
+  cells, cards and HDMI cited through makers' drawings, the CR2032 precedent). The IEC
+  couplers are `datasheet`: IEC 60320 is not free, so each entry is one inlet's drawing
+  with a second maker confirming the designation and rating. TRS, RCA, F-type, DC barrel
+  and the arcade buttons are `class` entries. Several classes cite one maker's series;
+  `hdmi-type-a-plug` (one discontinued drawing) and the arcade buttons (one maker) are
+  `provisional`.
+- **The `media` category** is new, for the cards, the discs and the UMD cartridge.
+- **Not written yet** (no source read publishes the facts): the 80 mm CD (ECMA-130 covers
+  the 120 mm disc only; the 8 cm disc is in IEC 60908, which is not free), the C7 and
+  C13 connectors (no datasheet read dimensions the C7's face or the C13's nose that enters
+  the inlet), the male F connector and the SCTE F-port details (the SCTE documents
+  could not be retrieved), a second arcade-button maker, mini-USB, Blu-ray (licence only).
+
+The twenty-five size keys these parts need ship in their own supplement,
+`interface-sizes.console-parts.json` (table below). The cell contacts have separate keys,
+as the CR2032's do, so a reversed cell cannot mate its bay. A CD and a DVD share
+`optical-disc-120mm` and `optical-disc-centre-hole-15mm`, because both standards give the
+same diameter, hole and maximum rim thickness.
 
 ### The blind joint (2020 frames joined without brackets)
 
@@ -229,6 +290,14 @@ Frame conventions, in brief (each entry's `frame_convention` is the full stateme
 | `gt2-belt-9mm` | the belt laid straight: end A's clamp station on the back face at mid-width; +x along the belt to end B at `length_mm`, +y across the width (±4.5), +z through the belt toward the teeth |
 | `tnut-2020-m5`, `tnut-2020-m3` | on the slotted face over the thread axis; +z out of the extrusion; +x along the slot |
 | `bed-plate-350` | centre of the underside; +z to the build surface at `thickness_mm`; +x across the printer, +y front to back; mounts `standoff_mm` below, at x = ±65 |
+| `usb-c-receptacle`, `usb-a-receptacle`, `usb-micro-b-receptacle`, `hdmi-type-a-receptacle`, `iec-60320-c8`, `iec-60320-c14`, `trs-3-5mm-jack`, `rca-jack`, `dc-barrel-jack-5-5x2-1`, `f-type-port` | centre of the opening (bore, recess) on the front face; +z out toward a plug; +x along the opening's width; a keyed one's +y toward its named feature |
+| `usb-c-plug`, `usb-a-plug`, `usb-micro-b-plug`, `hdmi-type-a-plug`, `trs-3-5mm-plug`, `rca-plug`, `dc-barrel-plug-5-5x2-1` | centre of the overmold's front face (shoulder, sleeve rim, collar); +z along the shell to the tip; a keyed plug's mating `x_axis` −x |
+| `dsub-de9-male`, `dsub-de9-female` | centre of the flange's front face, between the holes; +z toward the mating connector; +y toward the keystone's wide side; the socket side's mating frame at z = 6.731 (.265 in) |
+| `cell-aa`, `cell-aaa` | centre of the negative end; +z along the axis to the pip at the cited maximum height (50.5, 44.5) |
+| `sd-card`, `microsd-card` | the contact edge's line, at mid-width, on the contact face; +y toward the contact edge, +z out of the contact face; the body at y < 0, z < 0 |
+| `optical-disc-cd-120mm`, `optical-disc-dvd-120mm` | centre of the hole on the read-out side; +z through to the label side |
+| `umd-cartridge` | centre of the L3 × L1 bounding rectangle on one main face; ECMA-365 Figure 7's front view looks along −z, +y toward the R1 arc |
+| `arcade-button-24mm`, `arcade-button-30mm` | centre of the bezel's underside; +z up out of the panel |
 
 ### Interface sizes added for the catalog
 
@@ -262,6 +331,34 @@ vocabulary named `{vocabulary}.{label}.json`; only its entries are used):
 | `mgn9-carriage` | MGN9H block top: 4 × M3 on 15 (across) × 16 (along), W 20, H 10; sym 2 | HIWIN MG series |
 | `toolhead-mount-20x20-m3` | a toolhead's (or toolhead stand-in's) clamped face on its X carriage: 4 × M3 on a 20 mm square (the MGN12H's own pattern); male the toolhead, female the carriage face holding the threads; sym 4 | HIWIN MG series |
 
+The console and game-media parts' twenty-five keys ship in
+`interface-sizes.console-parts.json` (the two arcade-hole keys are `provisional`: they
+rest on one maker's figures):
+
+| Key | Facts | Source |
+|---|---|---|
+| `usb-type-c` | receptacle opening 8.34 × 2.56; plug shell 8.25 × 2.40; plug overmold ≤ 12.85 × 7.0; sym 2 | USB-IF Type-C Release 2.5 |
+| `usb-type-a` | receptacle opening 12.50 × 5.12; plug shell 12.00 × 4.50; overmold ≤ 16.0 × 8.0 | USB-IF USB 2.0 |
+| `usb-micro-b` | receptacle opening 6.9 × 1.85; plug shell 6.85 × 1.8; overmold ≤ 10.6 × 8.5 | USB-IF Micro-USB 1.01 |
+| `hdmi-type-a` | receptacle opening 14.00 × 4.55; plug shell 13.90 × 4.45 | Kycon; CUI |
+| `dsub-de-9` | 9 contacts at 2.7432 (.108 in), rows 2.8448 apart; flanges 6.731 ± 0.381 apart mated | MIL-DTL-24308 |
+| `dsub-shell-1-panel` | back-mounted keystone cutout 20.47 × 10.67, R2.51; holes Ø3.05, 24.99 apart; panel ≤ 1.651 | NorComp |
+| `trs-3.5mm` | plug Ø3.5 × 14 (shoulder to tip); jack bore Ø3.6 | Same Sky |
+| `rca-phono` | plug pin Ø3.25; jack outer contact Ø8.3 | Same Sky |
+| `f-type-3-8-32-unef` | the port's 3/8-32 UNEF-2A thread | L-com |
+| `dc-barrel-5.5x2.1` | plug Ø5.5 / Ø2.1; jack pin Ø2.0; insertion 9.5 | Same Sky |
+| `iec-60320-c7-c8` | C8 recess 16.5 × 8.2; pins Ø2.36 at 8.6 | Qualtek |
+| `iec-60320-c13-c14` | C14 recess 24 × 16 | Qualtek (two parts) |
+| `arcade-button-24mm-snap-in`, `arcade-button-30mm-snap-in` (provisional) | hole φ24 / φ30 ±0.1; panel ≤ 3.9 | Sanwa Denshi |
+| `cell-aa`, `cell-aaa` | Ø14.5 × 50.5 / Ø10.5 × 44.5 at most | Energizer, Duracell |
+| `cell-aa-plus-contact`, `cell-aaa-plus-contact` | pip Ø5.5 / Ø3.8 max, 1.0 / 0.8 min high | Energizer, Duracell |
+| `cell-aa-minus-contact`, `cell-aaa-minus-contact` | flat contact Ø7.0 / Ø4.3 min | Energizer |
+| `sd-card` | 32 × 24 × 2.1, 4 mm corner chamfer | Transcend, Swissbit |
+| `microsd-card` | 15 × 11 × 1.0 | Kingston, Transcend |
+| `optical-disc-120mm` | Ø120 ±0.3, rim ≤ 1.5 thick | ECMA-130, ECMA-267 |
+| `optical-disc-centre-hole-15mm` | Ø15.0 (+0.1 CD, +0.15 DVD) | ECMA-130, ECMA-267 |
+| `umd-cartridge` | case 65 × 64 × 4.35 max | ECMA-365 |
+
 ## What the lane checks
 
 `hyperobjects_standard_parts.check` runs as the third verdict of the existing `vocab`
@@ -270,8 +367,8 @@ command, so CI's Vocabulary step covers it with no workflow change:
 ```
 $ y4d-spec vocab
 …
-y4d-spec vocab standard-parts: parts=44 interfaces=123 failures=0
-standard_parts_status: parts=44 interfaces=123 dimensions=291 parameters=40 classes=17 review: signed=0 draft=44
+y4d-spec vocab standard-parts: parts=72 interfaces=159 failures=0
+standard_parts_status: parts=72 interfaces=159 dimensions=518 parameters=40 classes=26 review: signed=0 draft=72
 ```
 
 1. Schema-valid; the file is named for its `key`.
@@ -356,6 +453,12 @@ no cited dimension bounds is left out and `note` says so — never guessed.
 | `mgn9-rail` | the 9 × 6.5 section (WR × HR) over `length_mm` | counterbores |
 | `mgn9h-carriage` | a top slab and two skirts down to H1 = 2 that leave the 9 mm rail channel open (`rail_width` now cited on the entry, HIWIN WR), as `mgn12h-carriage` | end seals, grease nipple |
 | `gt2-idler-20t-6mm` | a cylinder at the OD 18 over `width_mm` | the bore |
+| `usb-c-plug`, `usb-a-plug`, `usb-micro-b-plug` | the shell, overmold face to tip (the Micro-B's bounding box) | the overmold (no cited length), chamfers |
+| `trs-3-5mm-plug`, `dc-barrel-plug-5-5x2-1`, `rca-plug` | the shaft or barrel; the RCA's sleeve and protruding pin | the bodies (no cited size), bores |
+| `iec-60320-c14` | the flange and the body behind it | the tabs |
+| `cell-aa`, `cell-aaa` | a cylinder at the maximum diameter and height | the pip and shoulder as separate steps |
+| `sd-card`, `microsd-card`, `umd-cartridge` | a box at the nominal (the UMD's bounding, maximum-thickness) size | chamfers, notches, the slider, the UMD's arcs and holes |
+| `optical-disc-cd-120mm`, `optical-disc-dvd-120mm` | a cylinder at Ø120 and the 1.5 maximum rim height | the centre hole |
 
 **No envelope yet** (no source the entry cites bounds the body): `microswitch-d2f` (no
 body height), `tnut-2020-m5` and `tnut-2020-m3` (no nut height under the face), `motor-2207` (whether
@@ -363,7 +466,7 @@ body height), `tnut-2020-m5` and `tnut-2020-m3` (no nut height under the face), 
 class: arm shape varies), `fpv-camera-micro-19mm` (the body's position along the
 optical axis from the screw axis), `sma-bulkhead-jack`, `gt2-pulley-16t-5mm` and `gt2-pulley-20t-9mm` (their entries cite
 the tooth O.D. but no flange diameter), `gt2-belt-6mm`, `gt2-belt-9mm` and `gt2-belt-loop-188mm` (a belt
-is a declared path, not a rigid body). A component of one of these
+is a declared path, not a rigid body), and the console receptacles, jacks and inlets (`usb-*-receptacle`, `hdmi-type-a-receptacle`, `trs-3-5mm-jack`, `rca-jack`, `dc-barrel-jack-5-5x2-1`, `f-type-port`, `iec-60320-c8`: no normative body), `hdmi-type-a-plug` (no cited shell length), the DE-9 pair (whether B and D are inside or outside dimensions is not resolvable) and the arcade buttons (no published body). A component of one of these
 reads `collision-unchecked`.
 
 ## Interface travel (ASM-1 §9, v1.4)
