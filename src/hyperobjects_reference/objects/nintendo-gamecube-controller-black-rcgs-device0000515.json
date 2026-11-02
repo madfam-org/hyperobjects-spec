@@ -1,0 +1,92 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-gamecube-controller-black-rcgs-device0000515",
+  "kind": "controller",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "GAMECUBE用コントローラ ブラック",
+  "model_numbers": [
+    "DOL-003"
+  ],
+  "regions": [],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "catalogued": {
+        "width": 140,
+        "height": 100,
+        "depth": 60
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "catalog_record": "DEVICE0000515",
+    "catalog_device_size": "10 * 14 * 6 cm",
+    "catalog_color": "ブラック",
+    "measurement_pose": null,
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "brand",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "任天堂株式会社"
+    },
+    {
+      "field": "model",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "GAMECUBE用コントローラ ブラック"
+    },
+    {
+      "field": "model_numbers",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "型番 DOL-003"
+    },
+    {
+      "field": "features.catalog_record",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "レコードID DEVICE0000515"
+    },
+    {
+      "field": "features.catalog_device_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "大きさ 10 * 14 * 6 cm"
+    },
+    {
+      "field": "features.catalog_color",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/DEVICE0000515",
+      "retrieved": "2026-11-02",
+      "quote": "版表示 ブラック"
+    },
+    {
+      "field": "dimensions_mm.states.catalogued",
+      "tier": "derived",
+      "method": "RCGS record https://collection.rcgs.jp/page/DEVICE0000515 publishes 10 * 14 * 6 cm. RCGS Game Cataloging Manual v1.00, p.24 (https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf), defines the physical dimension order as height × width × depth in cm. Multiply each recorded axis by 10: height 100 mm, width 140 mm, depth 60 mm. This is the catalogue measurement frame, not an inferred gameplay/body pose or a manufacturing tolerance.",
+      "retrieved": "2026-11-02"
+    }
+  ],
+  "notes": [
+    "Exact catalogued physical specimen DEVICE0000515, not a universal DOL-003 model envelope, a retail stock code, manufacturing revision or proof of inclusion with a console. The museum names DOL-003, black and MADE IN JAPAN; its only stated information source is the physical device (装置現物). Market region and manufacture date are unresolved.",
+    "The catalogue size 10 * 14 * 6 cm is preserved verbatim. Only the documented H/W/D axis order and cm-to-mm conversion are derived. Pose/orientation, whether sticks/buttons/cable projections are included and cable arrangement are unpublished; excludes_projections and measurement_pose remain null. The state is catalogued, deliberately not body/shell/closed; normal fit and device-family mappings must not silently consume it.",
+    "Family remains null until a generator explicitly supports this source frame and scope. No traced controller outline, controls, internals, cable length, connector geometry or physical-fit claim is supplied. The generic nintendo-gamecube-controller object is unchanged.",
+    "RCGS DEVICE0000438 reports 6.7 × 13.5 × 11 cm, while DEVICE0000515 reports 10 × 14 × 6 cm for another black DOL-003 specimen. The reason for the differing extents/pose/rounding is unresolved; neither is silently preferred or merged into the other. This record retains its own catalogue extent. The modern Wii U/Switch-era DOL-003 manual does not establish the original 2001 pack-in dimensions.",
+    "Reported precision is retained: no conversion adds a manufacturing tolerance or a digit absent from the source. No complete bundled/contents relationship is asserted for RCGS DEVICE0000404 or any retail GameCube pack."
+  ]
+}
