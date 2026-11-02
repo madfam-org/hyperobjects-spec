@@ -108,13 +108,45 @@
       "url": "https://collection.rcgs.jp/page/PACKAGE0010369",
       "retrieved": "2026-11-01",
       "quote": "14.7 * 10.4 * 1.5 cm"
+    },
+    {
+      "field": "features.package_height_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-02",
+      "method": "RCGS physical-package record https://collection.rcgs.jp/page/PACKAGE0010369 reports package size '14.7 * 10.4 * 1.5 cm' (retained in features.catalog_package_size). Game Cataloging Manual v1.00 (2019-03-28), printed/PDF p.24, https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf, section 大きさ: The three dimensions are explicitly ordered height * width * depth in centimetres. Select value 1, 14.7 cm, and multiply by 10 to obtain 147 mm. This assigns a documented axis and changes units only; it establishes no interior clearance or manufacturing tolerance."
+    },
+    {
+      "field": "features.package_width_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-02",
+      "method": "RCGS physical-package record https://collection.rcgs.jp/page/PACKAGE0010369 reports package size '14.7 * 10.4 * 1.5 cm' (retained in features.catalog_package_size). Game Cataloging Manual v1.00 (2019-03-28), printed/PDF p.24, https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf, section 大きさ: The three dimensions are explicitly ordered height * width * depth in centimetres. Select value 2, 10.4 cm, and multiply by 10 to obtain 104 mm. This assigns a documented axis and changes units only; it establishes no interior clearance or manufacturing tolerance."
+    },
+    {
+      "field": "features.package_depth_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-02",
+      "method": "RCGS physical-package record https://collection.rcgs.jp/page/PACKAGE0010369 reports package size '14.7 * 10.4 * 1.5 cm' (retained in features.catalog_package_size). Game Cataloging Manual v1.00 (2019-03-28), printed/PDF p.24, https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf, section 大きさ: The three dimensions are explicitly ordered height * width * depth in centimetres. Select value 3, 1.5 cm, and multiply by 10 to obtain 15 mm. This assigns a documented axis and changes units only; it establishes no interior clearance or manufacturing tolerance."
+    },
+    {
+      "field": "features.media_diameter_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-02",
+      "method": "RCGS physical-package record https://collection.rcgs.jp/page/PACKAGE0010369 reports media size '8 cm' (retained in features.catalog_media_size). Game Cataloging Manual v1.00 (2019-03-28), printed/PDF p.24, https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf, section 大きさ: For a circular carrier, the single dimension denotes diameter. Select value 1, 8 cm, and multiply by 10 to obtain 80 mm. This assigns a documented axis and changes units only; it establishes no interior clearance or manufacturing tolerance."
+    },
+    {
+      "field": "features.booklet_height_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-02",
+      "method": "RCGS physical-package record https://collection.rcgs.jp/page/PACKAGE0010369 reports booklet size '14.2 cm' (retained in features.catalog_manual_size). Game Cataloging Manual v1.00 (2019-03-28), printed/PDF p.24, https://www.rcgs.jp/wp-content/uploads/2019/06/manual_ver100.pdf, section 大きさ: For a booklet, one dimension denotes height; width is recorded only when greater than height or at most half the height. Select value 1, 14.2 cm, and multiply by 10 to obtain 142 mm. This assigns a documented axis and changes units only; it establishes no interior clearance or manufacturing tolerance."
     }
   ],
   "notes": [
     "Japan-market Nintendo comparison table, with separate Wii and Nintendo GameCube columns. The GameCube release was sold through Nintendo’s online store. The two platforms remain separate edition keys.",
     "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record.",
     "Ritsumeikan Center for Game Studies physical-package record PACKAGE0010369 identifies this catalogued Japanese issue by its transcribed 型番 and 商品識別コード. Product code spelling is preserved verbatim; it is not a code inferred from a manual URL, platform, or expected prefix. The catalogue’s own physical metadata is used at museum tier; embedded Wikipedia summaries and externally sourced release dates are not used. Nintendo supplies the release date. A product code/EAN identifies an issue but does not establish every manufacturing revision or universal pack-in contents.",
-    "The catalog_* feature strings retain bibliographic extents exactly as reported. Three-axis package/media measurements have no labelled axes or inside/outside convention here, so they are not converted into a closed envelope or internal fit. The single manual-size value is not a complete trim. The reported page extent does not specify whether covers are counted; edition.booklet.pages therefore remains null. These are evidence for further source research, not print-ready dimensions or verified geometry."
+    "Raw catalog_* extents remain exactly as reported. The catalogue’s own Game Cataloging Manual v1.00, p.24, resolves their dimension semantics: three values are height × width × depth in cm; a circular carrier’s single value is diameter; a booklet’s single value is height. Derived features convert only the source’s reported values to mm. Package measurements describe the physical package, not an inside cavity, tray, wall or retention profile. Booklet height is not asserted to be complete leaf trim; page_width_mm and page_height_mm remain null. No dimensions are copied into a universal media-format object.",
+    "Measurement precision is retained, not improved: a reported 0.1 cm digit corresponds to 1 mm, while integer-cm literals publish no subcentimetre digit. Unit conversion does not assert a manufacturing tolerance. Each SKU keeps its own carrier measurements, including the Majora’s Mask Expansion Pak bundle’s 7.6 × 11.5 × 1.8 cm versus 7.5 × 11.5 × 1.9 cm for the other two N64 issues. The resulting rectangular envelope is a size fact, not a detailed likeness or fabrication/fit verification.",
+    "Game Cataloging Manual v1.00 p.23 distinguishes analysed numbered pagination from unnumbered page counts that explicitly omit front/back cover faces. The record’s numbered page extent does not establish covers-inclusive total by itself; no automatic +4 is applied. edition.booklet.pages and binding remain null."
   ],
   "features": {
     "ean_13": "4902370515633",
@@ -122,6 +154,11 @@
     "catalog_media_size": "8 cm",
     "catalog_manual_extent": "36 pages",
     "catalog_manual_size": "14.2 cm",
-    "catalog_package_size": "14.7 * 10.4 * 1.5 cm"
+    "catalog_package_size": "14.7 * 10.4 * 1.5 cm",
+    "package_height_mm": 147,
+    "package_width_mm": 104,
+    "package_depth_mm": 15,
+    "media_diameter_mm": 80,
+    "booklet_height_mm": 142
   }
 }
