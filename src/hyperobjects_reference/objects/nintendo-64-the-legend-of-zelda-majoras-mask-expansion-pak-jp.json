@@ -1,0 +1,140 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64-the-legend-of-zelda-majoras-mask-expansion-pak-jp",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "ゼルダの伝説 ムジュラの仮面 — メモリー拡張パック同梱版 (nintendo-64, JP)",
+  "status": "partial",
+  "edition": {
+    "title": "ゼルダの伝説　ムジュラの仮面",
+    "platform": "nintendo-64",
+    "region": "JP",
+    "product_code": "NUS-R-NZSJ(JPN)",
+    "released": "2000-04-27",
+    "media": {
+      "key": "nintendo-64-game-pak",
+      "count": 1
+    },
+    "package": null,
+    "booklet": {
+      "pages": null,
+      "page_width_mm": null,
+      "page_height_mm": null,
+      "binding": null
+    },
+    "bundled": [
+      "nintendo-64-expansion-pak",
+      "nintendo-64-jumper-pak-ejector"
+    ]
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/software/nus_p_nzsj/normal/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ゼルダの伝説　ムジュラの仮面"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/software/nus_p_nzsj/normal/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ゼルダの伝説　ムジュラの仮面"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/software/nus_p_nzsj/normal/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ゼルダの伝説　ムジュラの仮面"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/software/nus_p_nzsj/normal/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "２０００年４月２７日"
+    },
+    {
+      "field": "edition.product_code",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "NUS-R-NZSJ(JPN)"
+    },
+    {
+      "field": "edition.media",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "1 computer chip cartridge"
+    },
+    {
+      "field": "features.ean_13",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "4902370504651"
+    },
+    {
+      "field": "features.catalog_record",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "PACKAGE0010625"
+    },
+    {
+      "field": "features.catalog_media_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "7.6 * 11.5 * 1.8 cm"
+    },
+    {
+      "field": "features.catalog_manual_extent",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "39 pages"
+    },
+    {
+      "field": "features.catalog_manual_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "18.5 cm"
+    },
+    {
+      "field": "features.catalog_package_size",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "19.7 * 14.2 * 6.6 cm"
+    },
+    {
+      "field": "edition.bundled",
+      "tier": "museum",
+      "url": "https://collection.rcgs.jp/page/PACKAGE0010625",
+      "retrieved": "2026-11-01",
+      "quote": "メモリー拡張パック 1個\nターミネータパックイジェクタ 1個"
+    }
+  ],
+  "notes": [
+    "Japan edition, from Nintendo’s Japanese original NINTENDO64 software pages (or the official Super Mario 64 history panel naming its 1996 NINTENDO 64 release). The publisher site’s Japanese-market context establishes JP and its N64 software namespace establishes the platform; numeric date spelling is normalized to ISO. The Japanese title is retained as printed. A later Virtual Console release date is never substituted for the cartridge release.",
+    "This record uses the normal cartridge edition. The page advertises both a cartridge-only purchase and an Expansion Pak bundle; no complete bundled[] is assigned across those packages. Gold/other cartridge colors do not justify a new shell geometry.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record.",
+    "Ritsumeikan Center for Game Studies physical-package record PACKAGE0010625 identifies this catalogued Japanese issue by its transcribed 型番 and 商品識別コード. Product code spelling is preserved verbatim; it is not a code inferred from a manual URL, platform, or expected prefix. The catalogue’s own physical metadata is used at museum tier; embedded Wikipedia summaries and externally sourced release dates are not used. Nintendo supplies the release date. A product code/EAN identifies an issue but does not establish every manufacturing revision or universal pack-in contents.",
+    "The catalog_* feature strings retain bibliographic extents exactly as reported. Three-axis package/media measurements have no labelled axes or inside/outside convention here, so they are not converted into a closed envelope or internal fit. The single manual-size value is not a complete trim. The reported page extent does not specify whether covers are counted; edition.booklet.pages therefore remains null. These are evidence for further source research, not print-ready dimensions or verified geometry.",
+    "Separate Expansion Pak bundle, not a revision inferred from the cartridge-only issue. The catalogued specimen lists an operation table, Expansion Pak, Jumper Pak ejector and instruction material. bundled covers its two hardware accessories; loose printed inserts remain unresolved. Reserved accessory keys may produce unresolved-reference notes. This specimen’s 39-page extent differs from the other issue’s 40 pages; neither is silently normalized."
+  ],
+  "features": {
+    "ean_13": "4902370504651",
+    "catalog_record": "PACKAGE0010625",
+    "catalog_media_size": "7.6 * 11.5 * 1.8 cm",
+    "catalog_manual_extent": "39 pages",
+    "catalog_manual_size": "18.5 cm",
+    "catalog_package_size": "19.7 * 14.2 * 6.6 cm"
+  }
+}

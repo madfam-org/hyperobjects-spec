@@ -1,0 +1,53 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-3-cecha00-sonic-unleashed-jp",
+  "kind": "edition",
+  "family": null,
+  "brand": "Sega",
+  "model": "ソニック ワールドアドベンチャー (sony-playstation-3-cecha00, JP)",
+  "status": "partial",
+  "edition": {
+    "title": "ソニック ワールドアドベンチャー",
+    "platform": "sony-playstation-3-cecha00",
+    "region": "JP",
+    "product_code": null,
+    "released": "2009-02-19",
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicWorldAdventure/information/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ソニック ワールドアドベンチャー"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicWorldAdventure/information/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "PLAYSTATION3"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicWorldAdventure/information/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "日本国内"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicWorldAdventure/information/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "変更後の発売日：2009年2月19日"
+    }
+  ],
+  "notes": [
+    "Sega’s Japanese original software site, 2008-12-03 corrected launch announcement. Earlier 2008-12-18 and then spring-2009 dates were superseded; they are plans, not competing actual releases. The PS3 key names the catalog launch chassis as a platform representative, not exclusive compatibility. The JP title is printed in Japanese; Sonic Unleashed is its western title.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

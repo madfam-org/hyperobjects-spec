@@ -1,0 +1,46 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-360-sonic-unleashed-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Sega",
+  "model": "Sonic Unleashed (microsoft-xbox-360, NA)",
+  "status": "partial",
+  "edition": {
+    "title": "Sonic Unleashed",
+    "platform": "microsoft-xbox-360",
+    "region": "NA",
+    "product_code": null,
+    "released": null,
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicChannelOld/chara/history/2008/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Sonic Unleashed"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicChannelOld/chara/history/2008/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Xbox360"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://sonic.sega.jp/SonicChannelOld/chara/history/2008/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "北米"
+    }
+  ],
+  "notes": [
+    "Sega Sonic Channel’s 2008 history table, read by row: Xbox 360 North America/Europe are November, PlayStation 3 North America/Europe are December. The page gives months only, so released remains null rather than inventing a day. Each region/platform has its own edition record. Physical disc type, count, retail code, case and printed contents are not stated in this row.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

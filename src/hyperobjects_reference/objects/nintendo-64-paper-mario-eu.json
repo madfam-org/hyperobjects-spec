@@ -1,0 +1,61 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64-paper-mario-eu",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "PAPER MARIO (nintendo-64, EU)",
+  "status": "partial",
+  "edition": {
+    "title": "PAPER MARIO",
+    "platform": "nintendo-64",
+    "region": "EU",
+    "product_code": null,
+    "released": null,
+    "media": {
+      "key": "nintendo-64-game-pak",
+      "count": 1
+    },
+    "package": null,
+    "booklet": {
+      "pages": null,
+      "page_width_mm": null,
+      "page_height_mm": null,
+      "binding": null
+    }
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_PaperMario_EN.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "PAPER MARIO"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_PaperMario_EN.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_PaperMario_EN.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "NUS-P-NMQP-NEU6"
+    },
+    {
+      "field": "edition.media",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_PaperMario_EN.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Game Pak"
+    }
+  ],
+  "notes": [
+    "Nintendo of Europe’s official English manual download of the original Nintendo 64 title. The regional manual reference NUS-P-NMQP-NEU6 is retained as evidence for the European issue; it is not asserted to be the retail cartridge’s product_code. The downloaded file may be an English-only excerpt of the multilingual printed manual, and contains imposed pages. Therefore PDF page count/MediaBox are not physical booklet pages/trim. Original N64 release day remains unresolved; Virtual Console re-release dates on surrounding store pages are not copied.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

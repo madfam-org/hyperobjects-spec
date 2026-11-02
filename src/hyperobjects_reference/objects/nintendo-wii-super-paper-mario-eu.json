@@ -1,0 +1,53 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-super-paper-mario-eu",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "Super Paper Mario (nintendo-wii, EU)",
+  "status": "partial",
+  "edition": {
+    "title": "Super Paper Mario",
+    "platform": "nintendo-wii",
+    "region": "EU",
+    "product_code": null,
+    "released": "2007-09-14",
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/Super-Paper-Mario-283355.html",
+      "retrieved": "2026-11-01",
+      "quote": "Super Paper Mario"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/Super-Paper-Mario-283355.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/Super-Paper-Mario-283355.html",
+      "retrieved": "2026-11-01",
+      "quote": "Nintendo of Europe"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Games/Wii/Super-Paper-Mario-283355.html",
+      "retrieved": "2026-11-01",
+      "quote": "14/09/2007"
+    }
+  ],
+  "notes": [
+    "Nintendo UK product page, original GameCube/Wii product section. Release date is taken from that specific platform’s section, never from a Wii U download or HD remaster. EU here identifies Nintendo of Europe’s release; country-specific packaging/language revisions remain unresolved.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

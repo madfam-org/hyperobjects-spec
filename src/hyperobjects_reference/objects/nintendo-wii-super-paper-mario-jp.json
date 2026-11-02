@@ -1,0 +1,53 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-super-paper-mario-jp",
+  "kind": "edition",
+  "family": null,
+  "brand": "Nintendo",
+  "model": "スーパーペーパーマリオ (nintendo-wii, JP)",
+  "status": "partial",
+  "edition": {
+    "title": "スーパーペーパーマリオ",
+    "platform": "nintendo-wii",
+    "region": "JP",
+    "product_code": null,
+    "released": "2007-04-19",
+    "media": null,
+    "package": null,
+    "booklet": null
+  },
+  "sources": [
+    {
+      "field": "edition.title",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/r8pj/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "スーパーペーパーマリオ"
+    },
+    {
+      "field": "edition.platform",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/r8pj/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "スーパーペーパーマリオ"
+    },
+    {
+      "field": "edition.region",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/r8pj/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "スーパーペーパーマリオ"
+    },
+    {
+      "field": "edition.released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/r8pj/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2007年4月19日"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan’s original Wii software page; title and release date are its image alt text, extracted from raw HTML. The /wii software namespace and Japanese retail pricing establish the Wii/JP context.",
+    "Edition metadata only. Package dimensions, the exact retail package revision/product code, booklet page count including covers, trim and binding, loose inserts and complete bundled contents are unresolved unless explicitly sourced below. Omitted inserts/bundled lists mean unknown, not none. No box/manual geometry or artwork is supplied. No claim of physical fit follows from this record."
+  ]
+}

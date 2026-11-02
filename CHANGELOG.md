@@ -50,6 +50,36 @@ Nintendo Switch dimensions that include controllers are kept in
 - The family-loader regression now compares its full key set with the catalog
   instead of assuming that the clamshell family always contains 16 devices.
 
+### Reference editions: 40 regional game issues, five exact Japanese SKUs (lane R5)
+
+Data only: 40 `kind: edition` records across Nintendo 64 (eight titles plus the
+separate Japanese Majora’s Mask Expansion Pak bundle), GameCube/Wii Twilight
+Princess, Wii Super Paper Mario and Xbox 360/PlayStation 3 Sonic Unleashed,
+covering JP, NA and EU. Every record remains `partial`: unresolved product codes,
+release days, manufacturing revisions, package keys and physical booklet facts
+stay null. There is no schema, checker or version change.
+
+- Maker software pages, original manuals and a post-launch Nintendo release table
+  establish regional title/platform/release metadata. Virtual Console, HD remake,
+  future schedule and archive capture dates are never substituted for retail dates.
+- Five Japanese issues have verbatim RCGS physical-package catalogue product codes
+  and EANs: Ocarina of Time, cartridge-only and Expansion Pak Majora’s Mask, and
+  both Twilight Princess platforms. The bundle is a separate issue, not a cartridge
+  revision. Museum catalogue facts are distinct from the pages’ embedded secondary
+  summaries; manufacturer pages supply release dates.
+- RCGS bibliographic extents are retained as labelled `catalog_*` strings. Unlabelled
+  three-axis sizes do not become an envelope or an inside measurement; single manual
+  sizes do not become complete trims; page extents with an unknown cover convention
+  do not populate `booklet.pages`. No PDF page-box, scan count, manual publication
+  code, cover art or image scale is promoted into a retail SKU or physical dimension.
+- Nintendo’s Europe-hosted Ocarina English PDF reproduces a USA manual; European
+  metadata uses the publisher’s product page instead. Hosting region is not issue
+  identity. Missing N64 cartridge/accessory reference keys are explicit catalog notes,
+  not verified geometry or fit.
+
+Validation: `ho-reference check` and the reference-catalog/edition tests; all records
+pass source coverage. No geometry or packaging-fit claim is made.
+
 ### Reference objects: game media formats, docks, stands, AC adapters, cables (lane RA4)
 
 Data only: 16 new objects in `src/hyperobjects_reference/objects/`, no schema, checker or
