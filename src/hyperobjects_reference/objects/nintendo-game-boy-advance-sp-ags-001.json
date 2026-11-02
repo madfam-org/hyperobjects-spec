@@ -58,10 +58,24 @@
       "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
       "retrieved": "2026-11-01",
       "quote": "内蔵リチウムイオン充電池"
+    },
+    {
+      "field": "displays",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy-Advance-SP/Game-Boy-Advance-SP-627141.html",
+      "retrieved": "2026-11-01",
+      "quote": "2.9\" TFT reflective screen with integrated screen light, 240x160 resolution, 40.8mm x 61.2mm screen size"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "method": "width = 25.4*D*a/sqrt(a^2+b^2), height = 25.4*D*b/sqrt(a^2+b^2), Decimal half-up to 0.1 mm, using D=2.9 in and resolution_px=240:160 from Nintendo UK Technical Details Screen row <https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy-Advance-SP/Game-Boy-Advance-SP-627141.html>. Square pixels and exact published diagonal assumed, although the maker rounds the diagonal. Existing hyperobjects_reference.check.active_area law gives 61.3 x 40.9 mm. Nintendo separately prints an unlabeled 40.8mm x 61.2mm screen-size pair; that raw pair is preserved in notes rather than assigned axes or forced to equal the rounded-diagonal derivation.",
+      "retrieved": "2026-11-01"
     }
   ],
   "notes": [
-    "Single-screen clamshell: secondary display absent. Closed.width is Nintendo 縦84.6 and closed.height is the hinge axis 横82, matching the existing clamshell family convention. Open dimensions are unresolved."
+    "Single-screen clamshell: secondary display absent. Closed.width is Nintendo 縦84.6 and closed.height is the hinge axis 横82, matching the existing clamshell family convention. Open dimensions are unresolved.",
+    "Display coverage: Nintendo UK Technical Details enumerates one Screen entry; the displays list is covered as complete by that row, so no secondary display is listed. This sources the original frontlit SP only; no AGS-101 fact is borrowed. The page prints 40.8mm x 61.2mm without axis labels. That pair stays raw here; active_area_mm instead follows the existing diagonal-plus-resolution law with stated square-pixel/rounded-diagonal assumptions, giving 61.3 x 40.9 mm. The difference is precision, not silently reconciled."
   ],
   "displays": [
     {
@@ -70,7 +84,13 @@
         240,
         160
       ],
-      "panel": "LCD"
+      "panel": "LCD",
+      "diagonal_in": 2.9,
+      "active_area_mm": {
+        "width": 61.3,
+        "height": 40.9,
+        "derived": true
+      }
     }
   ],
   "hinge": {
