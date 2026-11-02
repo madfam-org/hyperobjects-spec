@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-2-scph-50000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 2",
+  "model_numbers": [
+    "SCPH-50000"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2003-05-15",
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 301,
+        "height": 78,
+        "depth": 182
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 2000,
+  "media": [
+    {
+      "kind": "disc_tray",
+      "count": 1
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2
+    },
+    {
+      "kind": "memory_card",
+      "count": 2
+    },
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "expansion",
+      "count": 1
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "Dimensions: 301 mm (W) x 182 mm (D) x 78 mm (H)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "Weight: Approximately 2kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "Release Date: May 15th, 2003 (Thursday)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "Interfaces: Controller Port x 2 MEMORY CARD slot x 2 USB connector x 2 (*) EXPANSION BAY x 1 AV MULTI OUT connector x 1 DIGITAL OUT (OPTICAL) connector x 1 (This model does not include i.LINK (IEEE 1394) connector)"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "opening and closing of disk tray"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2003/sony-computer-entertainment-launches-playstation2-new-model-scph-50000/",
+      "retrieved": "2026-11-01",
+      "quote": "a new model of its PlayStation®2 computer entertainment system"
+    }
+  ],
+  "notes": [
+    "Sony's 2003-04-14 release (English, sonyinteractive.com press-release archive). Axes labelled (W/D/H): width 301, depth 182, height 78; 'Approximately 2kg' recorded as 2000 g.",
+    "ports = the release's Interfaces row, complete (and it states the i.LINK connector was dropped). The controller connector is Sony's own (Sony names it 'Controller port' / コントローラ端子 and no standard); it is filed as controller_proprietary. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. Sony's input/output row does not list the AC inlet, so ports has no power_in item; that absence is Sony's table, not a statement that the console has no inlet. features.power_inlet stays null.",
+    "media: the release's own wording names the console's disk tray (the new DVD remote can open and close it); one media interface.",
+    "Wikidata has no model-level item for SCPH-50000; external_ids left null."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-one-x",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox One X",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q30700179",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 3810,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://download.microsoft.com/download/4/8/d/48d50344-33cd-4d9a-ba11-0c7dca1a3948/Ecoprofile_Xbox_OneX.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Weight1 3810 g"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20180102052100/https://www.xbox.com/en-US/xbox-one-x",
+      "retrieved": "2026-11-01",
+      "quote": "The world's most powerful console"
+    }
+  ],
+  "notes": [
+    "Mass: Microsoft Xbox One X Ecoprofile (September 2020), page 2 'Physical features > DEVICE' (pypdf text); footnote 1 = device only, no power supply or accessories.",
+    "Envelope NOT filed: the same table prints 'Dimensions 30 cm x 24 cm x 6 cm' with no axis labels.",
+    "Role: archive.org snapshot (20180102052100) of Microsoft's own xbox.com/en-US/xbox-one-x page, which counts as primary.",
+    "Ports uncovered: that page's 'Connectivity' list reads 'Power Port', '2 HDMI Ports (1 HDMI 1.4b in, 1 HDMI 2.0b out)', '3 USB 3.0 Ports', 'IR Out', 'S/PDIF', 'Ethernet Port'; IR out has no contract kind and neither the USB connector type nor whether S/PDIF is optical is stated, so no complete list can be filed. Media uncovered: '4K UHD Blu-ray Optical Disc Drive' without tray/slot.",
+    "external_ids: Wikidata Q30700179 confirmed through the Wikidata API; igdb_platform not set: the item has no P5795."
+  ]
+}

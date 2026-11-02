@@ -1,0 +1,147 @@
+{
+  "spec_version": 1,
+  "key": "sega-mega-drive-2",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Mega Drive 2 / Genesis (model 2)",
+  "aliases": [
+    "Sega Genesis (model 2)"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Cartridge Slot"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Power Button"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Reset Button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "SEGA GENESIS SYSTEM"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Control Port 2"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Control Port 1"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "AC Adaptor Jack"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Extension Compartment"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "A/V OUT Jack"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega's 'Genesis Instruction Manual' (1993, US), page 4 'Identifying Parts' (the model 2 shell, confirmed in the page image); quotes are clean lines of the OCR text layer.",
+    "media: 'Cartridge Slot' on the top face in the parts drawing: cartridge_top. controls: 'Power Button', 'Reset Button' (plus a 'Power-On Indicator', not a control).",
+    "Envelope and mass: no maker or museum figure found.",
+    "ports: page 4 'Identifying Parts' plus page 5 'BACK VIEW OF CONSOLE', filed as the complete list. Our mappings of the maker's wording: 'Control Port 1/2' -> controller_proprietary 2 (no connector standard named; coordinator ruling 2026-11-01); 'A/V OUT Jack' -> multi_av_out; 'AC Adaptor Jack' -> power_in; 'Extension Compartment' -> expansion. 'A/V OUT Jack' is transcribed from the page image; the others are clean OCR lines."
+  ]
+}

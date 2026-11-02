@@ -1,0 +1,99 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-4-cuh-1000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 4",
+  "model_numbers": [
+    "CUH-1000A"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2013-11-15",
+  "external_ids": {
+    "wikidata": "Q106360845",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 275,
+        "height": 53,
+        "depth": 305
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 2800,
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions Approx. 275×53×305 mm (width × height × length) (excludes largest projection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 2.8 kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "North America November 15, 2013"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "Input/ Output Super-Speed USBx (USB 3.0) port × 2 AUX port × 1 Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T) ×1"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "AV output HDMI out port DIGITAL OUT (OPTICAL) port"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-announces-a-variety-of-features-available-on-playstation4ps4-system-at-launch/",
+      "retrieved": "2026-11-01",
+      "quote": "PlayStation®4 system × 1"
+    }
+  ],
+  "notes": [
+    "Sony's 2013-09-25 release, CUH-1000A series. Sony labels the third axis 'length' (width × height × length); it is recorded as depth, the front-to-back axis of a console standing on its feet. Excludes the largest projection.",
+    "ports = the release's Input/Output, Networking and AV output rows. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. The AUX port (the PlayStation Camera connector) has no §3 kind and is not filed. HDMI and optical counts are not printed; each is filed as 1 (Sony names a single 'HDMI out port' and 'DIGITAL OUT (OPTICAL) port'). The table's Power row is 'AC 100-240V' (internal supply) and an AC power cord is included, but the inlet is not named: features.power_inlet null, no power_in item.",
+    "The later CUH-1200 revision is a different model and is not covered here. media: loading mechanism not stated, uncovered. external_ids: Wikidata Q106360845 ('original version of the PS4')."
+  ]
+}

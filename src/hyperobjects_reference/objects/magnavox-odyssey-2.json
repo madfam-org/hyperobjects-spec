@@ -1,0 +1,71 @@
+{
+  "spec_version": 1,
+  "key": "magnavox-odyssey-2",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Magnavox",
+  "model": "Odyssey 2",
+  "model_numbers": [
+    "BJ7600GY02"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q576932",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 355.6,
+        "height": 114.3,
+        "depth": 330.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102718239",
+      "retrieved": "2026-11-01",
+      "quote": "35.56w x 11.43h x 33.02l (cm)"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://archive.org/download/odyssey2ownersmanual1980/odyssey%202%20owner%27s%20manual%20(1980).pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the CARTRIDGE carefully in the car¬ tridge slot on the top of the CONSOLE."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/odyssey2ownersmanual1980/odyssey%202%20owner%27s%20manual%20(1980).pdf",
+      "retrieved": "2026-11-01",
+      "quote": "You have just acquired the ultimate video game system!"
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalog record: CHM labels its dimensions 'w x h x l' and prints inches and cm; mapped w->width, h->height, l->depth, and the museum's own cm figure is recorded x10 in mm (a decimal shift, no conversion of ours). Record 102718239, 'Magnavox Odyssey 2', 1978 (Made), model BJ7600GY02, category Game Console. The record has no description and no packaging is listed (CHM records that include a box say so), so it is taken as the bare console; flag for a human check of the record image. Weight '5 (lb)' is whole pounds: mass_g null.",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: Magnavox Odyssey 2 Owner's Manual, '1980 North American Philips Consumer Electronics Corp.' (archive.org item odyssey2ownersmanual1980). The ¬ in the media quote is the scan's own line-break hyphen.",
+    "Partial facts not filed: the console has a POWER SWITCH ('UP is OFF. DOWN is ON.'), a RESET key on the CONSOLE keyboard, an AC ADAPTOR jack receptacle, and the GAME CORD comes from the console; the manual gives no complete control or port list. The box contents list '2 HAND CONTROLS' without saying whether they are hard-wired: hardwired_controllers null.",
+    "external_ids: Wikidata Q576932 via the Wikidata API. igdb_platform left null: that item carries two P5795 values ('philips-videopac-g7000', 'odyssey-2-slash-videopac-g7000')."
+  ]
+}

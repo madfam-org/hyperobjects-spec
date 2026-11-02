@@ -1,0 +1,77 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-nes-classic-edition",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "NES Classic Edition / Nintendo Classic Mini: Nintendo Entertainment System",
+  "regions": [
+    "EU",
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q26706777",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "mini"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-Classic-Mini-Nintendo-Entertainment-System/Nintendo-Classic-Mini-Nintendo-Entertainment-System-1171104.html",
+      "retrieved": "2026-11-01",
+      "quote": "The classic NES is back in a familiar-yet-new form as a mini replica of Nintendo’s original home console."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-Classic-Mini-Nintendo-Entertainment-System/Nintendo-Classic-Mini-Nintendo-Entertainment-System-1171104.html",
+      "retrieved": "2026-11-01",
+      "quote": "the console comes complete with 30 NES games built-in"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20230128093116/https://www.nintendo.com/consumer/downloads/manual-start-up-instructions-nes-classic-edition.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "POWER / RESET / If you press RESET while playing the game, the game is saved and the system returns to the HOME Menu."
+    }
+  ],
+  "notes": [
+    "Nintendo of Europe 'Nintendo History' page for the Nintendo Classic Mini: Nintendo Entertainment System (EU) and Nintendo of America's NES Classic Edition start-up instructions (archived copy of nintendo.com/consumer/downloads/manual-start-up-instructions-nes-classic-edition.pdf, print code MAA-CLV-S-NESA-USZ-C0, © 2016; born-digital text via pypdf). Model CLV-001 per the Wikidata item and support pages; not printed in either quote, so model_numbers is omitted.",
+    "No Nintendo page or document read prints dimensions or mass for the Western NES Classic; body null. Retail and wiki figures found by search disagree and are secondary (not used). The Japanese Famicom mini (ニンテンドークラシックミニ ファミリーコンピュータ) is a different shell; Nintendo JP's release says it is about 60 % of the Famicom's size, not a dimension.",
+    "media: games are built in ('30 NES games built-in') → a covered empty media list (no cartridge slot).",
+    "controls: the start-up sheet labels POWER and RESET on the console; it says 'press the power switch OFF and then ON again' in English while the Spanish column calls it 'Botón de encendido', so the form is ambiguous → filed as power_switch (the English wording) with this flag, and reset_button.",
+    "ports: the sheet shows the controller connector, an HDMI cable and a USB power cable but gives no list or counts for the console's own sockets; ports stay uncovered.",
+    "role 'mini'. external_ids: Wikidata Q26706777 ('NES Classic Edition'); no P5795 on it, igdb_platform null."
+  ]
+}

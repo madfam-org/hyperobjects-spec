@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-gamecube",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Nintendo GameCube (DOL-001)",
+  "model_numbers": [
+    "DOL-001"
+  ],
+  "regions": [
+    "JP",
+    "EU",
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q182172",
+    "igdb_platform": "ngc"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 150,
+        "height": 110,
+        "depth": 161
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "disc_lid",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "memory_card",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 3,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console",
+    "handle": true
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/thisis/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "本体寸法 150mm(W)×110mm(H)×161mm(D) （突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-GameCube/Technical-Details/Technical-Details-627134.html",
+      "retrieved": "2026-11-01",
+      "quote": "Main Unit Dimensions 11.4cm (Height) x 15cm (Width) x 16cm (Depth)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/thisis/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "入出力 コントローラポート ｘ４ メモリカード スロット ｘ２ アナログAV出力 ×１ デジタルAV出力 ×１ シリアルポート ×２ ハイスピード パラレルポート ×１"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20211231080704/https://www.nintendo.com/consumer/downloads/gcn_manual_english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "DC Input Connector (DC 12V IN) Connects the DC Jack of the AC Adapter"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20211231080704/https://www.nintendo.com/consumer/downloads/gcn_manual_english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Disc Cover / Open Button / Opens disc cover"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20211231080704/https://www.nintendo.com/consumer/downloads/gcn_manual_english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Power Button / Reset Button / Open Button"
+    },
+    {
+      "field": "features.handle",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20211231080704/https://www.nintendo.com/consumer/downloads/gcn_manual_english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Handle"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20211231080704/https://www.nintendo.com/consumer/downloads/gcn_manual_english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Connector on the back of the console."
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 150,
+            "height": 110,
+            "depth": 161
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 150,
+            "height": 114,
+            "depth": 160
+          },
+          "source": 1
+        }
+      ],
+      "chosen": 0,
+      "reason": "Nintendo JP gives millimetre precision and states that projecting parts are excluded; Nintendo of Europe rounds to centimetres (16 cm) and its 11.4 cm height likely includes the feet. Nothing on either page says so; recorded for a human check."
+    }
+  ],
+  "notes": [
+    "BODY: Nintendo JP 'This is NINTENDO GAMECUBE' page (also on the spec page https://www.nintendo.co.jp/ngc/specific/index.html), labelled W/H/D and '（突起部分を除く）' (excluding projecting parts) → excludes_projections true. Nintendo of Europe's Technical Details page labels '11.4cm (Height) x 15cm (Width) x 16cm (Depth)' (cm, shifted to mm 114/150/160). The two disagree on height and depth; both in conflicts[], Nintendo JP chosen.",
+    "ports: Nintendo JP 入出力 row (the original model with digital AV): controller ports ×4 → controller_proprietary 4; memory card slots ×2 → memory_card 2; analogue AV out ×1 → multi_av_out 1 (the manual calls it 'ANALOG AV OUT (Multi Out Connector)'); serial ports ×2 + high-speed parallel port ×1 → expansion 3; power from the US manual's 'DC Input Connector (DC 12V IN)' → power_in 1. 'デジタルAV出力 ×1' (Digital AV out) has no §3 kind and is not filed; the spec page notes that units shipped from July 2004 may lack it (DOL-101 in NA). Nintendo of Europe's I/O row agrees: 'Controller Port x4, Memory Card Slot x2, Analogue AV Output x1, Digital AV Output x1, High-Speed Serial Port x2, High-speed Parallel Port x1'.",
+    "media/controls/handle: Nintendo of America's GameCube instruction manual (archived copy of nintendo.com/consumer/downloads/gcn_manual_english.pdf, PDF title '45979E-DOLmanRevE', © 2001-2004), section '1• COMPONENTS': Disc Cover (top view) opened by the Open Button → disc_lid 1; Power Button → power_button; Reset Button → reset_button; Open Button ('Opens disc cover') → eject_button; Handle → features.handle true. Quotes extracted with pypdf from the archived PDF (born-digital, not OCR).",
+    "The AC adapter is external ('AC Adapter DC12V x 3.25A'); the inlet's connector form is not named, so features.power_inlet stays null. Mass: no Nintendo page or manual read prints it; null.",
+    "external_ids: Wikidata Q182172 ('Nintendo GameCube'); igdb_platform 'ngc' is P5795 on that item."
+  ]
+}

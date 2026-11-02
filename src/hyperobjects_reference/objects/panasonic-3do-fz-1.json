@@ -1,0 +1,181 @@
+{
+  "spec_version": 1,
+  "key": "panasonic-3do-fz-1",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Panasonic",
+  "model": "R·E·A·L 3DO Interactive Multiplayer FZ-1",
+  "model_numbers": [
+    "FZ-1"
+  ],
+  "regions": [
+    "EU"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q229429",
+    "igdb_platform": "3do"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 284,
+        "height": 88,
+        "depth": 268
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 2900,
+  "media": [
+    {
+      "kind": "disc_tray",
+      "count": 1,
+      "position": "front"
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_de9",
+      "count": 1,
+      "position": "front"
+    },
+    {
+      "kind": "expansion",
+      "count": 2,
+      "position": "front (EXPANSION, AV-EXPANSION)"
+    },
+    {
+      "kind": "composite_out",
+      "count": 1,
+      "position": "rear"
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": "rear"
+    },
+    {
+      "kind": "s_video_out",
+      "count": 1,
+      "position": "rear"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": "front"
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": "front (OPEN/CLOSE)"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "System dimensions (WXDXH) 284x268x88 mm ( 11. 2 x 10.6x3.5 inch)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Weight 2.9 kg (6.4 lbs.)"
+    },
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102674797",
+      "retrieved": "2026-11-01",
+      "quote": "REAL 3DO Interactive Multiplayer video game system"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Disc tray Extended and retracted using the OPEN/CLOSE button."
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Control port (CONTROLLER) Dedicated port for the 3DO control pad."
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Low speed I/O: Dsub-9 pin xl"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Expansion port (EXPANSION)"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "AV expansion slot (AV-EXPANSION)"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "Video output socket (VIDEO OUT)"
+    },
+    {
+      "field": "ports[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "RF output socket (RF OUT)"
+    },
+    {
+      "field": "ports[4]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-3do-fz-1",
+      "retrieved": "2026-11-01",
+      "quote": "S-video output socket (S- VIDEO OUT)"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-fz1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Power switch (POWER/0)"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/panasonic-fz1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Disc tray open/close button (OPEN/CLOSE)"
+    }
+  ],
+  "notes": [
+    "Panasonic FZ-1 Operating Instructions, European PAL model (230-240 V AC, '© Matsushita Electric Industrial Co.. Ltd. 1994'), read from two archive.org scans of the same document: 'panasonic-3do-fz-1' (specifications, sockets) and 'panasonic-fz1-manual' (cleaner OCR for the power switch and OPEN/CLOSE lines); OCR text layer, primary. The manual adds 'Weight and dimensions are approximate.'",
+    "Axes labelled by Panasonic '(WXDXH)': body.width=284, body.depth=268, body.height=88. excludes_projections not stated: null. Mass 2.9 kg printed, recorded as 2900 g (a decimal shift).",
+    "ports and controls are the manual's 'Controls and Sockets Layout' (front and rear views). Not filed for want of a contract kind: 'Right/Left audio output socket (AUDIO OUT R/L)', the READY and ACCESS indicators. The layout shows no power socket and the power form is not stated: features.power_inlet null. The control port is a D-sub 9 ('Low speed I/O: Dsub-9 pin x1', OCR 'xl'), dedicated to the 3DO pad and daisy-chained: filed controller_de9 for its connector shape.",
+    "This is the PAL FZ-1. The North American FZ-1 (120 V) was not read; Computer History Museum 102674797 (FZ-1, 'Object consists of console, 5 control pads, antenna cable, and outer box') prints 11w x 3 1/4h x 10 1/2l (in) / 27.94w x 8.26h x 26.67l (cm) without saying which item was measured, so it is not filed and is not a conflict candidate; its weight '6 (lb)' is whole-pound. The record is used only for the role (museum tier).",
+    "external_ids: Wikidata Q229429 '3DO' (the platform item, API), igdb_platform from its P5795."
+  ]
+}

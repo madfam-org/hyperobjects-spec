@@ -1,0 +1,118 @@
+{
+  "spec_version": 1,
+  "key": "atari-2600-cx2600-light-sixer",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari Video Computer System (CX2600, six-switch, Taiwan-made)",
+  "model_numbers": [
+    "CX2600"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q206261",
+    "igdb_platform": "atari2600"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 346,
+        "height": 89,
+        "depth": 232
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "centre of the switch panel"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "slide_switch",
+      "count": 6,
+      "position": "front switch panel"
+    },
+    {
+      "kind": "slide_switch",
+      "count": 1,
+      "position": "bottom edge (channel switch)"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body.height",
+      "tier": "museum",
+      "url": "https://collections.vam.ac.uk/item/O1509988/",
+      "retrieved": "2026-11-01",
+      "quote": "Main console height: 89mm"
+    },
+    {
+      "field": "dimensions_mm.states.body.width",
+      "tier": "museum",
+      "url": "https://collections.vam.ac.uk/item/O1509988/",
+      "retrieved": "2026-11-01",
+      "quote": "Main console width: 346mm"
+    },
+    {
+      "field": "dimensions_mm.states.body.depth",
+      "tier": "museum",
+      "url": "https://collections.vam.ac.uk/item/O1509988/",
+      "retrieved": "2026-11-01",
+      "quote": "Main console depth: 232mm"
+    },
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://collections.vam.ac.uk/item/O1509988/",
+      "retrieved": "2026-11-01",
+      "quote": "Atari 2600 videogames console, Atari, designed USA, 1977; manufactured Taiwan, 1978-1982"
+    },
+    {
+      "field": "media",
+      "tier": "museum",
+      "url": "https://collections.vam.ac.uk/item/O1509988/",
+      "retrieved": "2026-11-01",
+      "quote": "six metal cylindrical switches on top, with a slot for a videogame cartridge."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the Game Program CAREFULLY into the slot in the center of the Console unit switch panel."
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "Power Switch Game Program Slot Game Reset Switch TV Type Switch Game Select Switch Left and Right Difficulty Switches"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "1- Find the Channel Switch ‘on the bottom edge of the console."
+    }
+  ],
+  "notes": [
+    "Envelope: Victoria and Albert Museum B.15-2022 (O1509988), 'Atari 2600', object type 'Videogames console', measured 17/12/2021 with the part named 'main console' (the record also holds joysticks, controllers, a cartridge and packaging, measured separately or not at all). V&A labels each axis: height 89 mm, width 346 mm, depth 232 mm, filed as printed. Whether projections (switch levers) are included is not stated: excludes_projections null. No mass is published.",
+    "Why this is the light sixer: the record describes 'six metal cylindrical switches on top' and dates the unit 'manufactured Taiwan, 1978-1982', and its production note says 'Initially manufactured in Sunnyvale, California, from September 1977, production was moved to Taiwan in 1978'. A six-switch Taiwan-made CX2600 is the shell collectors call the light sixer; the V&A does not use that name, and the key is our reading of the record. atari-2600-cx2600 (the 1977 Sunnyvale heavy sixer) keeps body null.",
+    "controls and media also cite Atari's 1977 'Model CX2600' owner's manual (archive.org scan, OCR text layer, primary), which covers the six-switch CX2600 without separating the two shells; see atari-2600-cx2600 for the reading of its panel caption (all seven switches filed as slide_switch, the contract's VCS-panel kind). ports not filed (no connector types named).",
+    "external_ids are the platform's: Wikidata Q206261 'Atari 2600' (API), igdb_platform from its P5795."
+  ]
+}

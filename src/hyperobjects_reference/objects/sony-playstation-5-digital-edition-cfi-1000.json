@@ -1,0 +1,129 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-5-digital-edition-cfi-1000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 5 Digital Edition",
+  "model_numbers": [
+    "CFI-1016B"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2020-11-12",
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 390,
+        "height": 92,
+        "depth": 260
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 3900,
+  "media": [],
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 3
+    },
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console",
+    "stand_included": true
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps5-docs/1000b-digital-edition/ENG_PS5_Digital_Web_Safety_Guide_7033929.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions (excluding projecting parts) Approx. 390 × 92 × 260 mm (width × height × depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps5-docs/1000b-digital-edition/ENG_PS5_Digital_Web_Safety_Guide_7033929.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.9 kg"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS5 Digital Edition: Approx. 390mm x 92mm x 260mm (width x height x depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS5 Digital Edition: 3.9kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "On November 12, PS5 will launch in seven key markets"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps5-docs/1000b-digital-edition/ENG_PS5_Digital_Web_Safety_Guide_7033929.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Input/output*2 USB Type-A port (Hi-Speed USB) USB Type-A port (SuperSpeed USB 10Gbps) ×2 USB Type-C® port (SuperSpeed USB 10Gbps) Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps5-docs/1000b-digital-edition/ENG_PS5_Digital_Web_Safety_Guide_7033929.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "AV output HDMI™ OUT port*3"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2020/11/09/ps5-the-ultimate-faq/",
+      "retrieved": "2026-11-01",
+      "quote": "The PS5 Digital Edition console does not feature a disc drive."
+    },
+    {
+      "field": "features.stand_included",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2020/11/09/ps5-the-ultimate-faq/",
+      "retrieved": "2026-11-01",
+      "quote": "Yes, both PS5 models include a Base that allows users to adjust the console for vertical or horizontal placement."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS5 Digital Edition will be available for a recommended retail price"
+    }
+  ],
+  "notes": [
+    "Primary: Sony's CFI-1016B (Digital Edition) safety guide PDF, specifications page (text via macOS PDFKit); axes labelled (width × height × depth), excluding projecting parts. Sony's 2020 launch release prints the same 390 x 92 x 260 mm and 3.9 kg (sources 2 and 3).",
+    "media = [] is Sony's statement that the Digital Edition has no disc drive (blog FAQ, 2020-11-09). ports = the safety guide's Input/output, Networking and AV output rows: one Hi-Speed and two SuperSpeed Type-A (3 usb_a), one Type-C. The inlet is not named in the table; no power_in item, features.power_inlet null.",
+    "features.role is the launch release's own naming of the PS5 Digital Edition as a console model on sale. external_ids: Wikidata has no separate item for the CFI-1000 Digital Edition; left null."
+  ]
+}

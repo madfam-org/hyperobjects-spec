@@ -1,0 +1,47 @@
+{
+  "spec_version": 1,
+  "key": "fairchild-channel-f-system-ii",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Fairchild",
+  "model": "Channel F System II",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q61827727",
+    "igdb_platform": "fairchild-channel-f"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/fairchild-channel-f-system-ii-built-in-games-instructions/Fairchild%20Channel%20F%20System%20II%20built%20in%20games%20Instructions.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "System II for the time and motion options you desire (via the five Selector Control buttons on the Game Console), then (2) playing the"
+    }
+  ],
+  "notes": [
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Document: 'Channel F System II' built-in games (Tennis, Hockey) instruction sheet, Fairchild Video Products (archive.org item fairchild-channel-f-system-ii-built-in-games-instructions). No System II owner's manual scan was found.",
+    "Partial facts not filed: the sheet names 'the five Selector Control buttons on the Game Console' and 'the two Hand-Controller units', and a 'Reset' button; whether Reset is one of the five is not stated, so no controls list.",
+    "Envelope: none found. The Strong National Museum of Play record (Google Arts & Culture asset dAGl7Qu8aSGkmQ, 'Type: Console Hardware', 'Date Created: 1979', medium includes printed cardboard, i.e. boxed) publishes no dimensions. No CHM System II record found.",
+    "external_ids: Wikidata Q61827727 via the Wikidata API (no P5795 on it); igdb_platform 'fairchild-channel-f' is the P5795 of the Channel F platform item Q1053294, which the System II plays."
+  ]
+}

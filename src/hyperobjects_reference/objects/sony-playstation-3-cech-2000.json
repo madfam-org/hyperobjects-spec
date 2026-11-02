@@ -1,0 +1,112 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-3-cech-2000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 3",
+  "model_numbers": [
+    "CECH-2000A",
+    "CECH-2000B"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2009-09-01",
+  "external_ids": {
+    "wikidata": "Q89924544",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 290,
+        "height": 65,
+        "depth": 290
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 3200,
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/sony-computer-entertainment-japan-to-introduce----playstation3-ps3-with-250gb-hard-disk-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions (excluding maximum projecting part ) Approx. 290 × 65 × 290 mm (width × height × length)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/sony-computer-entertainment-japan-to-introduce----playstation3-ps3-with-250gb-hard-disk-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.2kg"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sony.mediaroom.com/2009-08-18-New-Slimmer-and-Lighter-PlayStation-3-to-Hit-Worldwide-Market-This-September",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.2kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sony.mediaroom.com/2009-08-18-New-Slimmer-and-Lighter-PlayStation-3-to-Hit-Worldwide-Market-This-September",
+      "retrieved": "2026-11-01",
+      "quote": "will become available in stores from September 1, 2009, in North America, Europe/ PAL territories and Asian countries and regions"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/sony-computer-entertainment-japan-to-introduce----playstation3-ps3-with-250gb-hard-disk-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Hi-Speed USB (USB 2.0) 2 Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T) × 1"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/sony-computer-entertainment-japan-to-introduce----playstation3-ps3-with-250gb-hard-disk-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "HDMI OUT connector*3 1 AV MULTI OUT connector 1 Digital out (optical) connector 1"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sony.mediaroom.com/2009-08-18-New-Slimmer-and-Lighter-PlayStation-3-to-Hit-Worldwide-Market-This-September",
+      "retrieved": "2026-11-01",
+      "quote": "the new PlayStation 3 (CECH-2000A) (body color: charcoal black) computer entertainment system"
+    }
+  ],
+  "notes": [
+    "Dimensions from Sony's 2010-01-14 CECH-2000B release (sonyinteractive.com; the old corporate/release/2010/100114a.html URL redirects there); the 2009-08-18 CECH-2000A release (sony.mediaroom.com) prints the same 290 x 65 x 290 mm and 3.2 kg but splits the line across table cells. Sony labels the third axis 'length' (width × height × length); it is recorded as depth, the front-to-back axis of a console standing on its feet. Excluding the maximum projecting part, so the source covers dimensions_mm.",
+    "ports = the release's Inputs/Outputs, Networking and AV output rows. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. Sony's input/output row does not list the AC inlet, so ports has no power_in item; that absence is Sony's table, not a statement that the console has no inlet. features.power_inlet stays null.",
+    "Sony's PS3 model-differences page groups CECH-2100/2000 at '約3.0～3.2kg' (a range over two series); the CECH-2000 releases both say 3.2 kg. A vertical stand (CECH-ZS1) is sold separately; features.stand_included is not filed because no included-items list says it explicitly for the stand.",
+    "media: the drive's loading mechanism is not stated; media stays uncovered. released = NA/EU/Asia date (Japan 2009-09-03). external_ids: Wikidata Q89924544 ('PlayStation 3 Slim')."
+  ]
+}

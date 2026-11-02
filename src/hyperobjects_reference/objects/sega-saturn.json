@@ -1,0 +1,91 @@
+{
+  "spec_version": 1,
+  "key": "sega-saturn",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Sega Saturn (HST-3200)",
+  "model_numbers": [
+    "HST-3200"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q200912",
+    "igdb_platform": "saturn"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 260,
+        "height": 83,
+        "depth": 230
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-saturn-instruction-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "外形寸法 260mm（幅）×230mm（奥行き）×83mm（高さ）"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102674790",
+      "retrieved": "2026-11-01",
+      "quote": "25.4w x 7.62h x 22.86l (cm)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-saturn-instruction-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "セット内容：セガサターン本体／セガサターン コントロールパッド1個／ステレオAVケーブル／"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 260,
+            "height": 83,
+            "depth": 230
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 254,
+            "height": 76.2,
+            "depth": 228.6
+          },
+          "source": 1
+        }
+      ],
+      "chosen": 0,
+      "reason": "Maker's own manual in millimetres beats a museum record rounded to whole inches; the CHM unit is also the NA build (MK-80000)."
+    }
+  ],
+  "notes": [
+    "Primary: Sega Enterprises' 1994 Japanese instruction manual for the HST-3200 (取扱説明書 セガサターン, part 672-2541A), scanned on archive.org item 'sega-saturn-instruction-manuals', file '(1994) Sega Saturn Instruction Manual (Sega)(JP).pdf', PDF page 1 (定格 block). The scan's OCR text layer is garbled on this line ('2bOmm ( 宮 xeomm (St) x 3mm'), so the quote is our transcription of the printed line from the page image, checked at 4x zoom; axes as Sega labels them: 幅 width 260, 奥行き depth 230, 高さ height 83.",
+    "Conflict: CHM 102674790 (NA Saturn, model numbers MK-80000 / MK-80100, 1994; the record is the unit with pad and cables, no box) prints '10w x 3h x 9l (in)' / '25.4w x 7.62h x 22.86l (cm)', whole-inch figures. The maker's millimetre figure is chosen.",
+    "Mass: none in the manual; CHM '3 (lb)' is whole-pound and not used.",
+    "Uncovered: media (the manual's drawings show a CD door and a cartridge slot but no labelled complete list was transcribed); ports (the rear figure on PDF page 3 labels 拡張スロット, 電源端子, AV出力端子, 拡張通信端子; front controller ports are not in that figure). Controls not transcribed.",
+    "Sega's own hardware archive (www.sega.jp/fb/segahard/...) refuses automated fetches (403) and was not used; it needs a human browser visit.",
+    "external_ids: Wikidata Q200912 confirmed through the Wikidata API; igdb_platform 'saturn' is Wikidata's P5795 on that item."
+  ]
+}

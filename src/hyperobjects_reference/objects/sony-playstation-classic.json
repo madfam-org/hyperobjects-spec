@@ -1,0 +1,85 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-classic",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation Classic",
+  "model_numbers": [
+    "SCPH-1000R"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2018-12-03",
+  "external_ids": {
+    "wikidata": "Q56668812",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 149,
+        "height": 33,
+        "depth": 105
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 170,
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1
+    },
+    {
+      "kind": "reset_button",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "mini"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2018/sony-interactive-entertainment-announces-playstationclassic-available-globally-from-december-3/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 149 x 33 x 105mm (5.8 x 1.3 x 4.1 in) (width x height x depth) (excluding controllers)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2018/sony-interactive-entertainment-announces-playstationclassic-available-globally-from-december-3/",
+      "retrieved": "2026-11-01",
+      "quote": "Console Approx. 170g (6.0 oz)"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2018/sony-interactive-entertainment-announces-playstationclassic-available-globally-from-december-3/",
+      "retrieved": "2026-11-01",
+      "quote": "will launch in limited quantities on December 3, 2018, in Japan, North America and Europe"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/ps-classic/SCPH-1000R_PS%20Classic_IM$en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "USB port HDMI output port RESET button POWER button POWER indicator OPEN button Controller ports"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2018/sony-interactive-entertainment-announces-playstationclassic-available-globally-from-december-3/",
+      "retrieved": "2026-11-01",
+      "quote": "a miniature games console that mirrors the look of the original PlayStation®"
+    }
+  ],
+  "notes": [
+    "Sony's 2018-09-19 release. Axes labelled (width x height x depth), '(excluding controllers)' — not a statement about projecting parts, so excludes_projections is null. The console mass is printed separately from the controller's 'Approx. 140g'.",
+    "controls = the instruction manual's console part names (SCPH-1000R manual PDF on playstation.com, page 1): RESET button, POWER button, POWER indicator, OPEN button. The OPEN button 'activates the switching of virtual discs and does not open the console' (manual), so it is not an eject_button and has no §3 kind; the indicator is not a control.",
+    "ports not filed: the release's Input/output row is 'HDMI™ output port', 'USB port (Micro-B)' (power input, DC 5V/1.0A from a commercially sold USB AC adaptor) and 'Controller port x 2', but Sony does not name the controller connector and §3 has no kind for the Micro-B power port, so a filed list would misstate kinds.",
+    "media: none in practice (games are preloaded), but no Sony line says 'no media drive'; media stays uncovered. external_ids: Wikidata Q56668812 ('dedicated video game console')."
+  ]
+}

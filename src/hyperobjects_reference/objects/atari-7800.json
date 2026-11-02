@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "atari-7800",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari 7800 ProSystem",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q753600",
+    "igdb_platform": "atari7800"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "centre of the console"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": "front left side"
+    },
+    {
+      "kind": "pause_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "select_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "slide_switch",
+      "count": 2,
+      "position": "difficulty switches"
+    },
+    {
+      "kind": "slide_switch",
+      "count": 1,
+      "position": "back of the console (channel selector)"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "7800 ProSystem Console"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "Press the POWER ON/OFF button on the front left side of the con- sole to ON,"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "Press PAUSE on the console to"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "press SELECT on your console to display the menu."
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "press RESET on the con- sole to start a game with the"
+    },
+    {
+      "field": "controls[4]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "the-LEFT and-RIGHT-DIFFICULTY switches, When a difficulty switch is moved-to the left,"
+    },
+    {
+      "field": "controls[5]",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "Check the channel selector switch on the back of the con- sole"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the game cartridge into the slot at the center of the con- sole."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/manual-atari-7800",
+      "retrieved": "2026-11-01",
+      "quote": "Hold the game cartridge so the name on the label faces away from you and the game title reads right-side-up."
+    }
+  ],
+  "notes": [
+    "Atari 'Your ATARI 7800 ProSystem' owner's guide (©1984 Atari Inc.), archive.org scan 'manual-atari-7800', OCR text layer (stray characters kept as read, e.g. 'the-LEFT and-RIGHT'); primary. The scan's cover page OCR is unreadable; the operating text is clean.",
+    "controls: assembled from the guide's operating text, which names every console control it uses: POWER ON/OFF button (front left), PAUSE, SELECT and RESET (pressed), LEFT and RIGHT DIFFICULTY switches ('moved to the left') and the channel selector switch on the back. Treat the list as the guide's, not as a parts diagram.",
+    "media: cartridge_top from the guide's two lines (held upright, label away from the player, into the slot at the centre).",
+    "ports not filed: the controllers plug 'into the jacks at the front of the console' (two: left and both), the Power Adapter into 'the POWER connector at the back', and a TV Connector Cable attaches to the console; no connector types are named.",
+    "dimensions: CHM Revolution page https://www.computerhistory.org/revolution/computer-games/16/210/898 prints 'overall: 3 x 11 x 8 1/2 in' with no axis labels; not filed.",
+    "external_ids: Wikidata Q753600 (API), igdb_platform from its P5795."
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "spec_version": 1,
+  "key": "atari-2600-cx2600a",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari Video Computer System (CX2600A, four-switch)",
+  "model_numbers": [
+    "CX2600A"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q206261",
+    "igdb_platform": "atari2600"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 336.6,
+        "height": 108,
+        "depth": 241.3
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "centre of the front switch panel"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "slide_switch",
+      "count": 4,
+      "position": "front panel"
+    },
+    {
+      "kind": "slide_switch",
+      "count": 2,
+      "position": "back panel (difficulty)"
+    },
+    {
+      "kind": "slide_switch",
+      "count": 1,
+      "position": "back panel (channel switch)"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730637",
+      "retrieved": "2026-11-01",
+      "quote": "13 1/4w x 4 1/4h x 9 1/2l (in) 33.66w x 10.8h x 24.13l (cm)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "° ATARI Video Computer System Console Unit"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "Front Panel Power Game Program Game Reset Switch Slot Switch TV Type Switch Game Select Switch"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "Right Right Left Left Controller Difficulty Difficulty Controller"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "The Channel Switch is located on the back panel of the Console unit."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the ATARI Game Program CAREFULLY into the slot in the center of the Console unit switch panel."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-model-cx-2600a-co15394-rev.-1usblue",
+      "retrieved": "2026-11-01",
+      "quote": "Hold the ATARI Game Program so that the name on the end is towards you and reads right side up."
+    }
+  ],
+  "notes": [
+    "Envelope: Computer History Museum catalog 102730637, 'Atari 2600 Game Console', described by the record as 'an Atari 2600 video game console, four-switch wood veneer version, dating from ca. 1980-1982' (a bare console; no packaging named). The record does not print a model number; the four-switch wood-veneer console is the CX2600A the manual names, which is how the record is attached here. CHM labels the axes w, h, l: mapped w→width, h→height, l→depth. Values are the record's own centimetres ×10 (a decimal shift, no rounding of ours): 33.66 cm → 336.6, 10.8 cm → 108, 24.13 cm → 241.3. The record does not say whether projections (switch levers, feet) are included: excludes_projections null.",
+    "mass_g null: the record's weight is '4 (lb)', a whole-pound figure, which the lane never uses.",
+    "Manual: Atari 'Video Computer System Owner's Manual, Model CX2600A' (CO15394 Rev. 1, 1980, US), archive.org scan, OCR text layer; primary. A Rev. 2 scan (archive.org atari-video-computer-system-owners-manual-model-cx-2600-a-co-15394-rev.-2-1980-us-brown) shows the same FRONT PANEL / BACK PANEL captions with a back-panel 'POWER IN' and 'CHANNEL SELECTOR' legible.",
+    "controls: front panel per the manual's caption: Power, TV Type, Game Select, Game Reset (the last two momentary, 'Depress'); back panel: Right and Left Difficulty switches (caption 'Right Right Left Left / Controller Difficulty Difficulty Controller') and the Channel Switch. All filed as slide_switch, the contract's VCS-panel kind.",
+    "ports not filed: the back panel carries the Right and Left Controller jacks and the power jack, but the manual never names the connector types.",
+    "external_ids are the platform's: Wikidata Q206261 'Atari 2600' (API), igdb_platform from its P5795."
+  ]
+}

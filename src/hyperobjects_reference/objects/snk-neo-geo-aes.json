@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "snk-neo-geo-aes",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "SNK",
+  "model": "NEO-GEO Advanced Entertainment System",
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q64428080",
+    "igdb_platform": "neogeoaes"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 325,
+        "height": 60,
+        "depth": 237
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "top"
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": "rear"
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": "rear"
+    },
+    {
+      "kind": "memory_card",
+      "count": 1,
+      "position": "front"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": "top"
+    },
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Main unit / 325mm (width) x 237mm (depth) x 60mm (height)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "ADVANCED ENTERTAINMENT SYSTEM INSTRUCTION MANUAL"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "TOP VIEW RESET BUTTON Use this button when you want to resume from the beginning or when you made a mistake in the mode setting. Insert game cartridge into this slot."
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "TOP VIEW RESET BUTTON Use this button when you want to resume from the beginning"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "When you turn the power switch"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "CONTROLLER 1 CONTROLLER 2 For 1 player, connect the controller included."
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "output terminal (A/V OUT)"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Connect to AC INPUT terminal (DC IN) of the NEO-GEO hardware."
+    },
+    {
+      "field": "ports[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/neo-geo-aes-us-manual",
+      "retrieved": "2026-11-01",
+      "quote": "MEMORY CARD SLOT Insert Memory Card into the slot."
+    }
+  ],
+  "notes": [
+    "SNK 'NEO-GEO ADVANCED ENTERTAINMENT SYSTEM INSTRUCTION MANUAL' (US), archive.org scan 'neo-geo-aes-us-manual', OCR text layer; primary. A second scan of the same US manual (archive.org Neo_Geo_AES_Manual_1990_SNK_US, dated 1990) reads the same dimension line with OCR noise ('325mfn ( width)x237mni( depth )x 60mm (height)'); the Japanese manual scan (Neo_Geo_AES_Manual_1990_SNK_JP) shows the same 325/237/60 figures in garbled OCR. No conflict.",
+    "Axes labelled by SNK (width, depth, height): body.width=325, body.depth=237, body.height=60. The manual does not say whether projections are excluded: excludes_projections null. No mass is printed.",
+    "ports and controls are read from the manual's 'PART NAME & FUNCTION (NEO-GEO unit)' pages (TOP, REAR and FRONT views). Not filed for want of a contract kind: the HEADPHONES jack ('1 piece (Exclusive for stereo headphone)') and the VOLUME slide control. The two control terminals are filed controller_proprietary (the manual names no connector standard). The A/V OUT terminal takes the supplied DIN plug cord (spec: 'A/V output (to be connected through attached din plug cord)', with RGB through a separately sold 21-pin cable), filed multi_av_out. DC IN takes the 'Exclusive AC adapter ... DC9V'; the plug form is not stated, features.power_inlet null.",
+    "external_ids: Wikidata Q64428080 'Neo Geo AES' (API), igdb_platform from its P5795."
+  ]
+}

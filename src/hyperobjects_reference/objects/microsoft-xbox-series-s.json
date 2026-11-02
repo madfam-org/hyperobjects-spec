@@ -1,0 +1,115 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-series-s",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox Series S",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q98967383",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "vertical": {
+        "width": 151,
+        "height": 275,
+        "depth": 65
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 1928,
+  "media": [],
+  "ports": [
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "usb_a",
+      "count": 3,
+      "position": null
+    },
+    {
+      "kind": "ethernet",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.vertical",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "A diagram of the XBOX Series S showing the dimensions of the XBOX Series S: Height is 27.5 centimeters, width is 15.1 centimeters, and depth is 6.5 centimeters"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "Weight. 4.25 lbs."
+    },
+    {
+      "field": "mass_g",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "4.25 lb (sources[1], xbox.com 'Weight. 4.25 lbs.') x 453.59237 g/lb = 1927.8 g, rounded to the gram: 1928"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "No. XBOX Series S consoles are all-digital gaming consoles for disc-free gaming. Disc-based games are not compatible with the 512GB or 1TB XBOX Series S consoles."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "No. XBOX Series S consoles are all-digital gaming consoles for disc-free gaming."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "HDMI. 1x HDMI 2.1 port"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "USB. 3x USB 3.1 Gen 1 ports"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "Ethernet. 802.3 10/100/1000"
+    }
+  ],
+  "notes": [
+    "xbox.com Series S page (raw HTML, 2026-11-01). Axis labels from the diagram alt text: height 27.5 cm, width 15.1 cm, depth 6.5 cm, i.e. the console standing up, so the state is 'vertical'. cm to mm is a decimal shift (275, 151, 65). Visible line: 'Dimensions. 6.5cm x 15.1cm x 27.5cm'. excludes_projections null (not stated).",
+    "media is a covered empty list (maker: 'all-digital gaming consoles for disc-free gaming').",
+    "Mass derived from the maker's pounds (453.59237 g/lb).",
+    "Microsoft's EcoProfile_XboxSeries_S.pdf (download.microsoft.com, id=55974) carries carbon figures only, no weight or dimensions.",
+    "external_ids: Wikidata Q98967383 confirmed through the Wikidata API; igdb_platform not set: the item has no P5795.",
+    "ports: the maker's 'PORTS & CONNECTIVITY' block, filed as its complete list: hdmi 1, usb_a 3, ethernet 1. usb_a is our mapping of the maker's 'USB 3.1 Gen 1 ports' (no plug type named), per the coordinator ruling of 2026-11-01. Not in that block and therefore not filed: the power inlet (a 'power cord' is in the box contents) and the Storage Expansion Card slot (FAQ: 'expand available custom storage via the Storage Expansion Card')."
+  ]
+}

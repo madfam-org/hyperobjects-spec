@@ -1,0 +1,103 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64dd",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "64DD",
+  "model_numbers": [
+    "NUS-010"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q253044",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": 78.7,
+        "depth": 190
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 1600,
+  "media": [
+    {
+      "kind": "disc_slot",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "addon",
+    "host_console": "nintendo-64"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body.height",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "外 形 寸 法 : 幅 60mm X 奥行 き 190mm x 高 さ 78.7mm"
+    },
+    {
+      "field": "dimensions_mm.states.body.depth",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "外 形 寸 法 : 幅 60mm X 奥行 き 190mm x 高 さ 78.7mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "重 量 :1.6kg"
+    },
+    {
+      "field": "features",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "64DD を NINTENDO 64 以 外 に 接続 し な いで くだ さい 。"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "ディ スク の 挿入 口 で す 。"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/64dd-manuals",
+      "retrieved": "2026-11-01",
+      "quote": "イジ ェクト ボタ ン (EJECT) / ボタ ン を 押す と ディ スク が 取り 出せ ます 。"
+    }
+  ],
+  "notes": [
+    "Scan of Nintendo's Japanese 64DD (NUS-010(JPN)) 取扱説明書, file 'Nintendo 64DD (Japanese)' in archive.org item 64dd-manuals; every quote is that scan's Japanese OCR text layer, which inserts spaces between characters. The item's English file is a fan translation and is not used.",
+    "DIMENSIONS: the 仕様 line reads '外 形 寸 法 : 幅 60mm X 奥行 き 190mm x 高 さ 78.7mm'. Depth 190 and height 78.7 read cleanly and are filed; the WIDTH is OCR-damaged (the 64DD sits under a 260 mm-wide console, and the same OCR misreads the N64's 260 as 'e60'), so width stays null pending a human read of the scan. Excludes-projections not stated: null.",
+    "mass 1.6 kg → 1600 g (decimal shift).",
+    "features: role 'addon' and host_console 'nintendo-64' from '64DD を NINTENDO 64 以外に接続しないでください' (do not connect the 64DD to anything but the NINTENDO 64); the manual also says it is powered from the NINTENDO 64 (使用電源 ... NUS-001(JPN) より供給), so no power inlet of its own (power_inlet left null rather than inventing a value).",
+    "media: the front-panel 'ディスク挿入口' (disk insertion slot) → disc_slot 1. The 64DD disk is a magnetic disk in a cartridge-like shell, not an optical disc; the §3 vocabulary has no closer kind.",
+    "controls: the 各部の名称 front panel lists ACCESS lamp, disk slot and EJECT button → eject_button 1. The rear/underside connector to the NINTENDO 64 has no §3 port kind; ports stay uncovered.",
+    "external_ids: Wikidata Q253044 ('64DD', Nintendo 64 add-on); that item carries two P5795 values ('nintendo-64dd', '64dd'), so igdb_platform is left null rather than picking one."
+  ]
+}

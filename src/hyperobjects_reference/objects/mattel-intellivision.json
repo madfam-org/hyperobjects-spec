@@ -1,0 +1,106 @@
+{
+  "spec_version": 1,
+  "key": "mattel-intellivision",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Mattel Electronics",
+  "model": "Intellivision Master Component",
+  "model_numbers": [
+    "2609"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "1979",
+  "external_ids": {
+    "wikidata": "Q1061441",
+    "igdb_platform": "intellivision"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 393.7,
+        "height": 69.85,
+        "depth": 228.6
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console",
+    "hardwired_controllers": 2
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://finding-aids.library.gatech.edu/repositories/2/archival_objects/89997",
+      "retrieved": "2026-11-01",
+      "quote": "1 retroTECH Item(s) ; 2.75 x 15.5 x 9 inches (height x width x depth)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "25.4 mm per inch x the inch figures of sources[0] (Georgia Tech retroTECH record, labelled height x width x depth): width 15.5 in = 393.7, height 2.75 in = 69.85, depth 9 in = 228.6 mm; exact products, no rounding."
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/download/Intellivision_Master_Component_1978_Mattel_US/Intellivision_Master_Component_1978_Mattel_US.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Slide the POWER switch on the Master Component to OFF."
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/download/Intellivision_Master_Component_1978_Mattel_US/Intellivision_Master_Component_1978_Mattel_US.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "If at any point in the game you wish to start over, simply press the RESET button."
+    },
+    {
+      "field": "features.hardwired_controllers",
+      "tier": "primary",
+      "url": "https://archive.org/download/Intellivision_Master_Component_1978_Mattel_US/Intellivision_Master_Component_1978_Mattel_US.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The Master Component contains two Hand Controllers which are attached to the video console coil cables."
+    },
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://finding-aids.library.gatech.edu/repositories/2/archival_objects/89997",
+      "retrieved": "2026-11-01",
+      "quote": "The Intellivision is a home video game console released by Mattel Electronics in 1979."
+    },
+    {
+      "field": "released",
+      "tier": "museum",
+      "url": "https://finding-aids.library.gatech.edu/repositories/2/archival_objects/89997",
+      "retrieved": "2026-11-01",
+      "quote": "The Intellivision is a home video game console released by Mattel Electronics in 1979."
+    }
+  ],
+  "notes": [
+    "Envelope: Georgia Tech Archives, Digital Media Lab retroTECH Collection (RT00033), item 'Mattel Intellivision console, 1979', model number '2609 A', serial 933540 - an archival collection record publishing the object's measurements with labelled axes (museum tier); the bare console (the extent line counts '1 retroTECH Item(s)'). Inches only, hence the derived source.",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: Intellivision Master Component owner's manual, bilingual English/French, '© Mattel, Inc. 1978' (archive.org item Intellivision_Master_Component_1978_Mattel_US).",
+    "controls filed as POWER switch and RESET button; the 'CH3-CH4' channel switch on the underside has no §3 kind and is omitted. The original manual's text 'the AC power cord ma[y] be pushed inside of Master Component' indicates a captive cord, but the OCR line is not clean: features.power_inlet left null.",
+    "media NOT filed: 'Insert the cartridge into the slot on the right side of the Master Component' - a side-loading slot has no §3 media kind (vocabulary gap). controller_bays not filed: the manual says the cable coils 'beneath it in the cradle' without a count.",
+    "Not used: CHM 102674783 is the boxed set ('Dimensions are of box only'); Science Museum Group co8094234 (earlier read: 'overall: 230 mm x 380 mm x 65 mm', axes unlabelled) now refuses automated fetches (403) - human visit, and unlabelled anyway. The 1979-04-09 'Instruction Manual' item on archive.org is a Mattel service-department letter, not the manual.",
+    "external_ids: Wikidata Q1061441 via the Wikidata API; igdb_platform from its P5795."
+  ]
+}

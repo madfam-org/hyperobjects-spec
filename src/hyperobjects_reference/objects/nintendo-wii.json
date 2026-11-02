@@ -1,0 +1,156 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Wii (RVL-001)",
+  "model_numbers": [
+    "RVL-001"
+  ],
+  "regions": [
+    "JP",
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2006-12-02",
+  "external_ids": {
+    "wikidata": "Q8079",
+    "igdb_platform": "wii"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "vertical": {
+        "width": 44,
+        "height": 157,
+        "depth": 215.4
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "disc_slot",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "sd_card",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "controller_proprietary",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "memory_card",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/console/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "[本体] 幅 44mm　　高さ 157mm　　奥行き 215.4mm　（突起部分を除く）"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/console/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii（シロ）　発売日：2006年12月2日"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/console/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "入出力端子 ■USB2.0 × ２ ■SDカードスロット × １ ■ゲームキューブコントローラポート × ４ ■ゲームキューブメモリカードスロット × ２ ■AVマルチ出力端子 × １（新ＡＶケーブル採用） ■センサーバー接続端子 × １"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20160102064120/http://www.nintendo.com/consumer/downloads/WiiOpMn_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "DC Input Connector Connects to the Wii AC Adapter."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20160102064120/http://www.nintendo.com/consumer/downloads/WiiOpMn_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Game Disc slot For inserting a Wii or Nintendo GameCube Disc."
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20160102064120/http://www.nintendo.com/consumer/downloads/WiiOpMn_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "POWER Button / RESET / SYNCHRO Button (SYNC.) / EJECT Button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20160102064120/http://www.nintendo.com/consumer/downloads/WiiOpMn_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Press to turn the console ON or OFF."
+    }
+  ],
+  "notes": [
+    "ORIENTATION: Nintendo JP publishes the console standing up: [本体] 幅 (width) 44, 高さ (height) 157, 奥行き (depth) 215.4 mm, '（突起部分を除く）' → excludes_projections true. Per the §3 contract this is the 'vertical' state; the horizontal body is not published, so 'body' stays null (a generator may rotate the vertical state, but that is its rule, not a fact here).",
+    "STAND: the same page gives the stand alone, [本体スタンド] 幅 55.4mm 高さ 42mm 奥行き 225.6mm （突起部分を除く）; the combined console-on-stand envelope is not published, so no with_stand state. The stand ships in the set ('Wii本体専用スタンド × 1') but features.stand_included is left unset because the set contents changed over time (Wii Sports Resort bundle notes on the same page).",
+    "ports: Nintendo JP 入出力端子 list: USB2.0 ×2 → usb_a 2 (the page says USB 2.0, not the connector type; Type A is our reading of the kind, flagged); SDカードスロット ×1 → sd_card 1; GameCube controller ports ×4 → controller_proprietary 4; GameCube memory card slots ×2 → memory_card 2; AVマルチ出力端子 ×1 → multi_av_out 1; センサーバー接続端子 (sensor bar connector) ×1 has no §3 kind, not filed. power_in from the US setup manual's 'DC Input Connector'.",
+    "media/controls: Nintendo of America's Wii Operations Manual (setup), archived copy of nintendo.com/consumer/downloads/WiiOpMn_setup.pdf (print code RVL-S-GL-USZ), 'Components': Game Disc slot → disc_slot 1; POWER Button → power_button; RESET → reset_button; EJECT Button → eject_button; SYNCHRO Button has no §3 kind (noted). Born-digital PDF text via pypdf.",
+    "mass: not on Nintendo JP's page; the JP setup manual PDF (https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf) does not text-extract (custom font encoding), so mass_g stays null; a human read of that PDF may find 質量.",
+    "released: JP launch of the white model. external_ids: Wikidata Q8079 ('Wii'); igdb_platform 'wii' is P5795 on that item."
+  ]
+}

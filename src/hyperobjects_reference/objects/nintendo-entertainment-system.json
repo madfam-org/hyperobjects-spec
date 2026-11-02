@@ -1,0 +1,139 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-entertainment-system",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Nintendo Entertainment System (NES-001)",
+  "model_numbers": [
+    "NES-001"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q34468618",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 257.2,
+        "height": 95.2,
+        "depth": 203.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "composite_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102673389",
+      "retrieved": "2026-11-01",
+      "quote": "25.72w x 9.52h x 20.32l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102752124",
+      "retrieved": "2026-11-01",
+      "quote": "26.04w x 8.89h x 20.32l (cm)"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Nintendo_Control_Deck_Manual_1988",
+      "retrieved": "2026-11-01",
+      "quote": "CONTROLLER SOCKET 1 / CONTROLLER SOCKET 2 / VIDEO-OUT JACK / AUDIO-OUT JACK / RF SWITCH JACK / AC ADAPTER JACK"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Nintendo_Control_Deck_Manual_1988",
+      "retrieved": "2026-11-01",
+      "quote": "POWER SWITCH / RESET SWITCH"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Nintendo_Control_Deck_Manual_1988",
+      "retrieved": "2026-11-01",
+      "quote": "5. Turn on the power switch of the NES Control Deck and push the reset button."
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 257.2,
+            "height": 95.2,
+            "depth": 203.2
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 260.4,
+            "height": 88.9,
+            "depth": 203.2
+          },
+          "source": 1
+        }
+      ],
+      "chosen": 0,
+      "reason": "Two CHM specimens. 102673389 is catalogued as the NES-001 console (with its power supply) and names the model correctly; 102752124 misprints the model as NEW-001. Neither is a maker figure."
+    }
+  ],
+  "notes": [
+    "BODY (museum tier): Computer History Museum 102673389, 'Nintendo Entertainment System console', model NES-001, 'Object consists of console and power supply.' The record prints '10 1/8w x 3 3/4h x 8l (in)' and '25.72w x 9.52h x 20.32l (cm)'; CHM labels w/h/l, mapped w→width, h→height, l→depth (CHM cataloguing convention, not Nintendo's own labels). The box is the record's centimetre line shifted to millimetres (no conversion of ours). CHM's mass '2 (lb)' is a whole-pound figure and is not used.",
+    "A second CHM record, 102752124 (NES console; its model field misprints 'NEW-001'), prints '10 1/4w x 3 1/2h x 8l (in)' / '26.04w x 8.89h x 20.32l (cm)'. Both are recorded in conflicts[]; 102673389 is chosen because it is catalogued as the console (plus its separate power supply) with the correct model number.",
+    "Nintendo of Europe's History page (https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-Entertainment-System/Technical-Details/Technical-Details-627027.html) prints 'Size 255mm x 85mm x 202mm' with NO axis labels; under the lane rule it is not filed in the box (the order cannot be assumed). It describes the PAL NES, an NES-001 body. It disagrees with both CHM specimens on height (85 vs 95.2 / 88.9 mm); a maker figure with labelled axes would supersede the museum one.",
+    "ports/controls: from the scan of Nintendo of America's 1988 Control Deck instruction manual (archive.org item Nintendo_Control_Deck_Manual_1988), section '1. NES COMPONENTS'; quotes are that scan's OCR text layer, clean lines only. CONTROLLER SOCKET 1/2 → controller_proprietary 2; VIDEO-OUT JACK → composite_out 1; RF SWITCH JACK → rf_out 1; AC ADAPTER JACK → power_in 1. AUDIO-OUT JACK has no §3 kind (noted, not filed). The components page does not show the bottom expansion connector; it is therefore not filed. Labels POWER SWITCH → power_switch and RESET SWITCH → reset_button (the manual's own words 'push the reset button'). The 'Ch. 3/Ch. 4 SWITCH' is in the list but its form is not printed, so it is not mapped to slide_switch.",
+    "media: the manual says 'Open the Chamber Lid', insert the Game Pak into the Chamber and press it down until it locks; the insertion face (front) is not printed as a word, so media stays uncovered.",
+    "external_ids: Wikidata Q34468618 ('Western version of Nintendo Entertainment System'); that item has no P5795. The platform item Q172742 carries IGDB 'nes'; igdb_platform is left null here because it is not on this object's item."
+  ]
+}

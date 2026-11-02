@@ -1,0 +1,72 @@
+{
+  "spec_version": 1,
+  "key": "mattel-intellivision-ii",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Mattel Electronics",
+  "model": "Intellivision II Master Component",
+  "model_numbers": [
+    "5872"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": "intellivision"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 254,
+        "height": 63.5,
+        "depth": 171.45
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console",
+    "hardwired_controllers": 0
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://finding-aids.library.gatech.edu/repositories/2/archival_objects/89998",
+      "retrieved": "2026-11-01",
+      "quote": "1 retroTECH Item(s) ; 2.5 x 10 x 6.75 inches (height x width x depth)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "25.4 mm per inch x the inch figures of sources[0] (Georgia Tech retroTECH record, labelled height x width x depth): width 10 in = 254, height 2.5 in = 63.5, depth 6.75 in = 171.45 mm; exact products, no rounding."
+    },
+    {
+      "field": "features.hardwired_controllers",
+      "tier": "primary",
+      "url": "https://archive.org/download/intellivision-ii-master-component-owners-manual-1982/Intellivision-II-Master-Component-Owner%27s-Manual-1982.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The Component includes two Hand Controllers which are connected with coil cables. They are detachable just by gently pulling out these"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/intellivision-ii-master-component-owners-manual-1982/Intellivision-II-Master-Component-Owner%27s-Manual-1982.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The INTELLIVISION® II Master Component should bring you many years of video game entertainment"
+    }
+  ],
+  "notes": [
+    "Envelope: Georgia Tech Archives, Digital Media Lab retroTECH Collection (RT00033), item 'Mattel Intellivision II console, 1982', model number 5872, serial P20047695 (museum tier, labelled axes, inches only, hence the derived source).",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: Intellivision II Master Component Owner's Manual, model 5872, '© Mattel, Inc. 1982', 5872-0920 (archive.org item intellivision-ii-master-component-owners-manual-1982).",
+    "Partial facts not filed: one 'RESET ON/OFF button' with a red indicator light (a combined control with no single §3 kind), a Channel Selector Switch at the right rear, the connector cable 'at left rear of Component', the transformer's 'power cord in socket at rear of console'; 'Insert cartridge in slot on right side of Component' (side slot: no §3 media kind).",
+    "released: Georgia Tech gives 'Creation: 1982' and a narrative 'In the spring of 1983, Mattel introduced the Intellivision II'; neither is a maker date, null.",
+    "external_ids: Wikidata has no separate Intellivision II item (search returns Q1061441, the platform), so wikidata null; igdb_platform 'intellivision' is Q1061441's P5795, the platform this model plays."
+  ]
+}

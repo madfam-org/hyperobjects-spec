@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Nintendo 64",
+  "regions": [
+    "JP",
+    "EU",
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "1996-06-23",
+  "external_ids": {
+    "wikidata": "Q184839",
+    "igdb_platform": "n64"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 260,
+        "height": 73,
+        "depth": 190
+      }
+    },
+    "excludes_projections": false
+  },
+  "mass_g": 880,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Technical-Details/Technical-Details-627050.html",
+      "retrieved": "2026-11-01",
+      "quote": "Size Width 260mm, Depth 190mm, Height 73mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Technical-Details/Technical-Details-627050.html",
+      "retrieved": "2026-11-01",
+      "quote": "Weight 1.1kg (2.42 lb.)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Nintendo-64-625959.html",
+      "retrieved": "2026-11-01",
+      "quote": "this console's collection of over 300 games"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "5. Load a Nintendo 64 Game Pak into the top"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Memory Expansion / Controller Sockets 1-4 / Expansion Connector (on bottom) / AC Power Supply Connection Port / Multi Out Connector"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "6. Slide the N64 Power Switch to the ON / Reset button and release."
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo-64-manual-japan-600dpi-ozidual",
+      "retrieved": "2026-11-01",
+      "quote": "約 880g"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■本体最大寸法 ： 幅260mm　奥行き190mm　高さ73mm"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■本体最大寸法"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■本体重量 ： 約880g"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n01/n64/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "■発売日：１９９６年６月２３日"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 1100,
+          "source": 1
+        },
+        {
+          "value": 880,
+          "source": 9
+        }
+      ],
+      "chosen": 1,
+      "reason": "Nintendo Co., Ltd.'s own Japanese hardware page labels its figure 本体重量 (main-unit weight), 約880g, and the scan of the Japanese instruction manual prints the same 約 880g (sources[6]); Nintendo of Europe's 'Weight 1.1kg' does not say what it includes. Two Nintendo documents agree on 880 g for the bare unit, so 880 g is chosen; the 220 g gap is unexplained by either source and is kept here for review."
+    }
+  ],
+  "notes": [
+    "Nintendo of Europe 'Nintendo History' Technical Details page; axes labelled by Nintendo (Width, Depth, Height), so body.width=260, body.depth=190, body.height=73 as printed. Nintendo of Europe does not say whether projecting parts are excluded; Nintendo JP's hardware page gives the same 260/190/73 mm under 本体最大寸法 ('main-unit MAXIMUM dimensions'), read as an envelope that includes projections, so excludes_projections is false. Mass 1.1 kg as printed, recorded as 1100 g (decimal shift; the page's 2.42 lb is its own conversion).",
+    "MASS CONFLICT (see conflicts[0]): Nintendo JP's hardware page (nintendo.co.jp/n01/n64/hardware/index.html, served as Shift_JIS without a charset declaration and decoded as cp932 before extraction) prints '■本体重量 ： 約880g'; the scan of the Japanese NINTENDO64 (NUS-001(JPN)) instruction manual (archive.org item nintendo-64-manual-japan-600dpi-ozidual, OCR text layer) prints the same '約 880g', its width OCR-garbled ('幅 e60mmx'). Nintendo of Europe prints 'Weight 1.1kg (2.42 lb.)'. 880 g chosen; flagged by lane RA4 and re-read byte-exact by RA1.",
+    "media/ports/controls: scan of Nintendo of America's Nintendo 64 Control Deck instruction booklet (archive.org item nintendo64-manual, print code NUS-S-HB-USA-4); quotes are the scan's OCR text layer, clean lines. 'Nintendo 64 Components': Game Pak Slot; 'Load a Nintendo 64 Game Pak into the top of the Control Deck' → cartridge_top 1. Ports: Controller Sockets 1-4 → controller_proprietary 4; Memory Expansion (top, Jumper Pak) and Expansion Connector (on bottom) → expansion 2; AC Power Supply Connection Port → power_in 1; Multi Out Connector → multi_av_out 1. The components list as OCR'd does not show the power switch or reset labels; they are sourced from the booklet's operating steps ('Slide the N64 Power Switch', 'Reset button') → power_switch 1, reset_button 1.",
+    "The AC Power Supply plugs into the rear port 'with the triangle on top'; its connector form is not named, so features.power_inlet stays null.",
+    "external_ids: Wikidata Q184839 confirmed through the Wikidata API (label 'Nintendo 64'); igdb_platform 'n64' is Wikidata's P5795 (Internet Game Database platform ID) on that item, IGDB itself refuses automated fetches (403).",
+    "released: Japan launch, from Nintendo JP's hardware page ('■発売日：１９９６年６月２３日'); other regions not sourced from a Nintendo page."
+  ]
+}

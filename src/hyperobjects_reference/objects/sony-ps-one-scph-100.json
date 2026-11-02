@@ -1,0 +1,103 @@
+{
+  "spec_version": 1,
+  "key": "sony-ps-one-scph-100",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PS one",
+  "model_numbers": [
+    "SCPH-100"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2000-07-07",
+  "external_ids": {
+    "wikidata": "Q8017670",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 193,
+        "height": 38,
+        "depth": 144
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 550,
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2
+    },
+    {
+      "kind": "memory_card",
+      "count": 2
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "power_in",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "１９３×３８×１４４ｍｍ（幅/高さ/奥行き）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質量 約５５０ｇ"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "発売日 ２０００年７月７日"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "入出力端子 コントローラ端子 ×２ メモリーカード差込口 ×２ ＡＶ ＭＵＬＴＩ ＯＵＴ（ＡＶマルチ出力）端子 ×１"
+    },
+    {
+      "field": "ports[3]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ＤＣ ＩＮ７．５Ｖ"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "新型「プレイステーション」 （ＳＣＰＨ－１００）新発売"
+    }
+  ],
+  "notes": [
+    "Sony's 2000-06-08 Japanese release (PDF, text extracted with macOS PDFKit; full-width digits kept). Axes labelled by Sony (幅/高さ/奥行き): width 193, height 38, depth 144. The release does not say whether projections are excluded.",
+    "ports = the release's 入出力端子 row (controller ×2, memory card ×2, AV MULTI OUT ×1) plus the DC IN 7.5V terminal from its 電源 row. The controller connector is Sony's own (Sony names it 'Controller port' / コントローラ端子 and no standard); it is filed as controller_proprietary. The DC inlet is 'DC IN 7.5V' with an AC adaptor in the box; Sony does not name the plug, so features.power_inlet stays null.",
+    "media: the release says it plays 「プレイステーション」規格ＣＤ－ＲＯＭ and 音楽ＣＤ but not how the disc loads; media stays uncovered.",
+    "external_ids: Wikidata Q8017670 ('smaller model of the PlayStation video game console'); Wikidata gives no IGDB platform id for it."
+  ]
+}

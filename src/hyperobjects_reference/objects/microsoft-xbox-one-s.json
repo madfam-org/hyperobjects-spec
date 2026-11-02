@@ -1,0 +1,51 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-one-s",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox One S",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q66712869",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 3340,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://download.microsoft.com/download/4/8/d/48d50344-33cd-4d9a-ba11-0c7dca1a3948/Ecoprofile_Xbox_OneS.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Weight1 3340 g"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://download.microsoft.com/download/4/8/d/48d50344-33cd-4d9a-ba11-0c7dca1a3948/Ecoprofile_Xbox_OneS.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The calculations are based on the 500 GB Console and include the main device, cables,"
+    }
+  ],
+  "notes": [
+    "Microsoft Xbox One S Ecoprofile (September 2020), page 2 'Physical features > DEVICE', text extracted with pypdf. The '1' after 'Weight' is footnote 1: 'Weight of device only, not including power supply unit or any accessories. Weight and dimensions might vary depending on product variant.'",
+    "Envelope NOT filed: the same table prints 'Dimensions 29.50 cm x 23.00 cm x 3.65 cm' with no axis labels, so body stays null (no axis assumed).",
+    "Archived xbox.com One S page (web.archive.org 20180102073834) has no size, weight or port table.",
+    "external_ids: Wikidata Q66712869 confirmed through the Wikidata API; igdb_platform not set: the item has no P5795."
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "spec_version": 1,
+  "key": "nec-turbografx-16",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "NEC",
+  "model": "TurboGrafx-16 Entertainment SuperSystem",
+  "model_numbers": [
+    "HES-TGX-01"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q1057377",
+    "igdb_platform": "turbografx16--1"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "ports": [
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "controller_proprietary",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 1,
+      "position": "under the expansion port cover"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "slide_switch",
+      "count": 1,
+      "position": "channel selector"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102674774",
+      "retrieved": "2026-11-01",
+      "quote": "Turbo Grafx 16 Video Game System"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the power adapter plug into the power adapter port on the TurboGrafx-16 unit."
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Carefully insert the TurboPad con- troller plug into the controller port on the TurboGrafx-16 unit."
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the antenna switch plug from the antenna switch box into the"
+    },
+    {
+      "field": "ports[3]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Remove the expansion port cover."
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Slide the TurboGrafx-16 unit power switch to the ON position."
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Using a ballpoint pen, slide the Channel Selector on the Turbo- Grafx-16 unit to 3 or 4 to match your TV setting."
+    }
+  ],
+  "notes": [
+    "NEC 'TurboGrafx-16 Entertainment SuperSystem' instructions (US), archive.org scan, OCR text layer; primary. Its 'What's in the Box?' diagram labels the unit's parts: Power Adapter Port, Channel Selector, Port for TurboPad Controller, Port for TurboChip Game Card, Antenna Port, ON/OFF Switch, TurboChip Game Card Lock, Expansion Port Cover (several labels OCR-garbled: 'Cranne Selector', 'Aritenna Port', 'OFFION Swatch'), so each filed item is quoted from the clean operating text instead. That diagram is the complete list ports and controls are read from.",
+    "Kinds: the TurboPad port is a dedicated controller port (the manual says to hold the plug 'so that the arrow is on top'; it names no standard), filed controller_proprietary. The Antenna Port, which takes the antenna switch box plug, is filed rf_out. The game card lock is a mechanism, not a control.",
+    "role: Computer History Museum 102674774 'Turbo Grafx 16 Video Game System' (model HES-TGX-01, category 'Game Console'), museum tier. Its dimensions '14 1/4w x 10h x 6 1/2l (in)' are explicitly 'Size is of box only' and its weight '5 (lb)' is whole-pound: neither is filed. CHM 102641946 (HES-CDR-01) is the CD player, not this unit. Body null.",
+    "A PAL 'TURBOGRAFX' manual (archive.org turbografx-16-manual, product code HES-TGX-11) is a different regional model and was not used.",
+    "external_ids: Wikidata Q1057377 'TurboGrafx-16' (API; the item also covers the PC Engine), igdb_platform from its P5795.",
+    "RA1 coordinator: media withdrawn. The manual says the TurboChip game card slides into 'the TurboChip game card port' but never names the face it is on; card_front would be our inference, so media stays uncovered."
+  ]
+}
