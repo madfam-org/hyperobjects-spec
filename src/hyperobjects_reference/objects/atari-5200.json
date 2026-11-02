@@ -1,0 +1,69 @@
+{
+  "spec_version": 1,
+  "key": "atari-5200",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari 5200 SuperSystem",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q743222",
+    "igdb_platform": "atari5200"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "centre of the console"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Atari_5200_Owners_Manual_rev_1_1983_U",
+      "retrieved": "2026-11-01",
+      "quote": "• 5200 Console Unit"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Atari_5200_Owners_Manual_rev_1_1983_U",
+      "retrieved": "2026-11-01",
+      "quote": "Carefully insert the game car- tridge into the slot at the center of the console."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Atari_5200_Owners_Manual_rev_1_1983_U",
+      "retrieved": "2026-11-01",
+      "quote": "Hold the game cartridge so the name on the label faces you and reads rIght-sIde-up."
+    }
+  ],
+  "notes": [
+    "Atari 'Owner's Manual' for the ATARI 5200, rev. 1 (1983, US), archive.org scan, OCR text layer (its OCR misreads some letters, e.g. 'rIght-sIde-up', 'PCWER'); primary.",
+    "media: cartridge_top from the manual's two lines (cartridge held upright, label facing the player, into the slot at the centre of the console).",
+    "Partial facts not filed: this revision's manual describes TWO numbered controller jacks at the front ('Use jack 1 for one-player games; use jacks 1 and 2 for two-player games'), a channel selector switch at the back left side, a Game Cable, and the power adapter plugging into the TV Switch Box (not the console). The four-port first model is not described by this document. The POWER switch line is OCR-garbled ('PCWER CNfCFF switch at the lower right side'), so controls are not filed. No storage-bay statement read, features.controller_bays null.",
+    "dimensions: CHM Revolution page https://www.computerhistory.org/revolution/artifact/185/764 ('Atari 5200 console', Object ID 102618776, 102618764) prints 'Dimensions 4 1/4 x 15 1/4 x 13 1/4 in.' with no axis labels, so it is not filed; the catalog record 102618776 has no dimension line and a whole-pound weight '5 (lb)'.",
+    "external_ids: Wikidata Q743222 (API), igdb_platform from its P5795."
+  ]
+}

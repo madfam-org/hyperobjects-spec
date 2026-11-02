@@ -1,0 +1,65 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-scph-1000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation",
+  "model_numbers": [
+    "SCPH-1000"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "1994-12-03",
+  "external_ids": {
+    "wikidata": "Q10677",
+    "igdb_platform": "ps"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 1500,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/download/scph-1000-jp/SCPH-1000_JP_djvu.txt",
+      "retrieved": "2026-11-01",
+      "quote": "質量 約 1.5kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2018/sony-interactive-entertainment-announces-playstationclassic-available-globally-from-december-3/",
+      "retrieved": "2026-11-01",
+      "quote": "The original PlayStation made its debut in Japan on December 3, 1994"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/000608_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "世界で最も普及したゲーム機となりました"
+    }
+  ],
+  "notes": [
+    "Mass from Sony's SCPH-1000 instruction manual (主な仕様, page 12), read as the archive.org scan's OCR text layer (item scph-1000-jp, file SCPH-1000_JP_djvu.txt); the quote is that layer's clean line. 1.5 kg recorded as 1500 g (a decimal shift, no conversion).",
+    "ENVELOPE NOT FILED: the same scan prints the external dimensions, but both the archive.org OCR layer ('法 70 x60 x 188 mm') and a macOS Vision re-read ('外特法270x60x188 mm 薩高さ／行き）') garble the line and its axis label, so no clean verbatim quote exists. Body stays null; a human should read page 12 of https://archive.org/details/scph-1000-jp and quote the line.",
+    "Partial list not filed: the manual's 主な仕様 (OCR) lists コントローラ端子（2）, memory-card slots (2), an expansion connector (外部拡張端子（1）), RCA video and audio outputs, S-video (ミニDIN4ピン), AV MULTI OUT and a DC output, but several OCR lines are garbled, so ports stays uncovered.",
+    "SCPH-1001 (North America) is not covered: no Sony document for it was found, and the CHM record 102711362 is an SCPH-7501, a later model. features.role is quoted from Sony's 2000 PS one release, which calls the 1994 PlayStation 世界で最も普及したゲーム機 (the most widespread game console in the world).",
+    "external_ids: Wikidata Q10677 ('1994 5th generation video game console by Sony Interactive Entertainment') via the Wikidata API; igdb_platform 'ps' is Wikidata P5795 on that item."
+  ]
+}

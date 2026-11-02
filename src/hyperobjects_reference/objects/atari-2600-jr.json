@@ -1,0 +1,46 @@
+{
+  "spec_version": 1,
+  "key": "atari-2600-jr",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari 2600 (\"2600 Jr.\", 1986 shell)",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q206261",
+    "igdb_platform": "atari2600"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-jr.-manual-1986-hiresscans",
+      "retrieved": "2026-11-01",
+      "quote": "@ ATARI 2600 console unit"
+    }
+  ],
+  "notes": [
+    "Atari Corp.'s own 1986 instruction leaflet for the 2600 'Jr.' shell (©1986 Atari Corp., C026260-001), archive.org scan, OCR text layer; primary. The leaflet calls the product 'ATARI 2600'; 'Jr.' is the scan's title.",
+    "Partial facts not filed: 'Insert a game cartridge into the cartridge slot in the center of the console' (no orientation stated, so media stays uncovered); 'Set the CHANNEL SELECTOR on the back of the game console'; the 'TV TYPE' switch; the AC adaptor's round end into 'the power jack on the game console'; the fluted end of a detachable VIDEO CABLE into the console; the joystick into the 'Left Controller' port. The leaflet names no difficulty, select or reset controls and no connector types, so controls and ports are not complete lists.",
+    "No dimensions or mass found (no museum record of this shell read). external_ids are the platform's (Wikidata Q206261, igdb from its P5795)."
+  ]
+}

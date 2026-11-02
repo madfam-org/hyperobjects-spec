@@ -1,0 +1,66 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-5-cfi-2000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 5",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q140736915",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 358,
+        "height": 96,
+        "depth": 216
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 3200,
+  "features": {
+    "role": "console",
+    "stand_included": true
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2023/10/10/new-look-for-ps5-console-this-holiday-season/",
+      "retrieved": "2026-11-01",
+      "quote": "PlayStation 5 specifications External dimensions(excluding projecting parts) Approx. 358 × 96 × 216 mm(width × height × depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2023/10/10/new-look-for-ps5-console-this-holiday-season/",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.2 kg"
+    },
+    {
+      "field": "features.stand_included",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2023/10/10/new-look-for-ps5-console-this-holiday-season/",
+      "retrieved": "2026-11-01",
+      "quote": "A horizontal stand will be included with the new PS5 model."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2023/10/10/new-look-for-ps5-console-this-holiday-season/",
+      "retrieved": "2026-11-01",
+      "quote": "we are excited to share that we have a new PS5 model launching"
+    }
+  ],
+  "notes": [
+    "Sony's PlayStation Blog post of 2023-10-10 announcing the smaller PS5 (the model that became CFI-2000; the post prints no model number). Axes labelled (width × height × depth), excluding projecting parts. The later CFI-21XX instruction manual (CFI-2116, en-gb) prints the same 358 × 96 × 216 / 358 × 80 × 216 mm but 'Approx. 3.1 kg' / 'Approx. 2.5 kg': that is the CFI-2100 revision, a different model, so its masses are not candidates here.",
+    "ports not filed: the post's Input/Output rows list two Type-C at the front, two SuperSpeed Type-A at the back and Ethernet, but its Video Out row names no HDMI port, so the list as printed is not the complete connector list. The CFI-21XX manual (later revision) lists 'USB Type-A port (SuperSpeed USB 10Gbps) ×2', two Type-C ports, an 'M.2 SSD expansion connector (Key M)', a 'Disc drive port', Ethernet and 'HDMI™ OUT port'.",
+    "This is the console with the attachable Ultra HD Blu-ray drive fitted; the post does not say how a disc loads, so media stays uncovered. A Vertical Stand is sold separately; the included stand is the horizontal one.",
+    "released: the post says 'available starting this November in the U.S.' without a day; null. external_ids: Wikidata Q140736915 ('revised model of the PlayStation 5 video game console released in 2023')."
+  ]
+}

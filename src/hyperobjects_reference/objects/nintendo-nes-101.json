@@ -1,0 +1,108 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-nes-101",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Nintendo Entertainment System Control Deck (NES-101)",
+  "model_numbers": [
+    "NES-101"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q2457408",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/toploaderinstructionbooklet",
+      "retrieved": "2026-11-01",
+      "quote": "Load a Game Pak into the top of the Control Deck as shown. Push it down all the way."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/toploaderinstructionbooklet",
+      "retrieved": "2026-11-01",
+      "quote": "AC ADAPTER JACK / RF SWITCH JACK / Plug the NES controller(s) into the sockets on the front of the Control Deck as shown. / SOCKET #2 / SOCKET #1"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/toploaderinstructionbooklet",
+      "retrieved": "2026-11-01",
+      "quote": "Slide the power switch to the on position. / Push the reset button and release."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/toploaderinstructionbooklet",
+      "retrieved": "2026-11-01",
+      "quote": "Make sure the power switch of the Control Deck is in the off position."
+    }
+  ],
+  "notes": [
+    "Scan of Nintendo of America's 1993 NES (top-loading Control Deck) instruction booklet, archive.org item toploaderinstructionbooklet ('© 1993 Nintendo of America Inc.'); every quote is that scan's OCR text layer, clean lines only. The booklet prints no dimensions or mass: body null.",
+    "media: 'Load a Game Pak into the top of the Control Deck' → cartridge_top 1.",
+    "ports: NES COMPONENTS (rear) lists AC ADAPTER JACK → power_in 1 and RF SWITCH JACK → rf_out 1; the controller section shows SOCKET #1 and SOCKET #2 on the front → controller_proprietary 2. No audio/video jack appears anywhere in the booklet. The 'CH 3- CH 4 SWITCH' is listed; its form is not printed, so it is not mapped to slide_switch.",
+    "controls: 'Slide the power switch' → power_switch; 'Push the reset button' → reset_button.",
+    "external_ids: Wikidata Q2457408 ('NES-101'); no P5795 on that item, igdb_platform null."
+  ]
+}

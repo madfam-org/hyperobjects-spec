@@ -1,0 +1,92 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-4-pro-cuh-7000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 4 Pro",
+  "model_numbers": [
+    "CUH-7000"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q26906780",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 295,
+        "height": 55,
+        "depth": 327
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 3300,
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 3
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions Approx. 295×55×327 mm (width × height × length) (excludes largest projection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.3 kg"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Input/ Output Super-Speed USB (USB 3.1 Gen.1) port × 3 AUX port × 1 Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)×1"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "AV output HDMI™ out port (supports 4K/HDR) DIGITAL OUT (OPTICAL) port"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Product name PlayStation®4 Pro Product code CUH-7000 series"
+    }
+  ],
+  "notes": [
+    "playstation.com/en-au PS4 tech-specs page, CUH-7000 series. Sony labels the third axis 'length' (width × height × length); it is recorded as depth, the front-to-back axis of a console standing on its feet. Excludes the largest projection.",
+    "ports = the page's Input/Output, Networking and AV output rows. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. The AUX port has no §3 kind. Power 'AC 100-240V' (internal); inlet not named, no power_in item.",
+    "released: not on the page; null. media uncovered. external_ids: Wikidata Q26906780 ('upgraded version of the PlayStation 4')."
+  ]
+}

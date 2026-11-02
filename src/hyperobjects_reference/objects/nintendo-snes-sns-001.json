@@ -1,0 +1,125 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-snes-sns-001",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Super Nintendo Entertainment System (SNS-001)",
+  "model_numbers": [
+    "SNS-001"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q85867581",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 196.8,
+        "height": 76.2,
+        "depth": 238.1
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102618771",
+      "retrieved": "2026-11-01",
+      "quote": "19.68w x 7.62h x 23.81l (cm)"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Super_Nintendo_Instruction_Booklet_1991_Nintendo_US",
+      "retrieved": "2026-11-01",
+      "quote": "Load a Game Pak into the top of the Control Deck as shown."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Super_Nintendo_Instruction_Booklet_1991_Nintendo_US",
+      "retrieved": "2026-11-01",
+      "quote": "AC ADAPTER JACK / RF SWITCH JACK / MULTI OUT JACK / Plug the Super NES Controllers into the sockets on the front of the Control / The two (2) Super NES Controllers are identical and can be plugged into"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Super_Nintendo_Instruction_Booklet_1991_Nintendo_US",
+      "retrieved": "2026-11-01",
+      "quote": "Slide the power switch to the on position. / Push the reset button and / Push the eject button."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Super_Nintendo_Instruction_Booklet_1991_Nintendo_US",
+      "retrieved": "2026-11-01",
+      "quote": "before .attempting to load a Game Pak into the Control Deck."
+    }
+  ],
+  "notes": [
+    "BODY (museum tier): Computer History Museum 102618771, 'Super Nintendo Entertainment System control deck', model SNS-001, 1990. The record prints '7 3/4w x 3h x 9 3/8l (in)' and '19.68w x 7.62h x 23.81l (cm)'; CHM's w/h/l mapped w→width, h→height, l→depth (CHM cataloguing convention); the box is the centimetre line shifted to millimetres. The record's object also lists controller, AC adapter, RF modulator and multi-out cable; the dimension line is read as the control deck's (a set would not fit 7 3/4 x 3 x 9 3/8 in), stated here as a reading, not a record label. Mass '3 (lb)' is whole-pound and not used. excludes_projections null.",
+    "Nintendo of Europe's 'Super Nintendo' Technical Details page (PAL SNES, SNSP-001A, a different shell) prints 'Size 200mm x 72mm x 242mm' without axis labels; not filed (and not this model).",
+    "media/ports/controls: scan of Nintendo of America's Super NES Control Deck instruction booklet (archive.org item Super_Nintendo_Instruction_Booklet_1991_Nintendo_US, print code HW(B)-SNS-USA-2); quotes are the scan's OCR text layer, cut to clean spans (the OCR reads 'P ush', '.attempting'). 'SUPER NES COMPONENTS' rear view: AC ADAPTER JACK → power_in 1, RF SWITCH JACK → rf_out 1, MULTI OUT JACK → multi_av_out 1; front sockets for 'The two (2) Super NES Controllers' → controller_proprietary 2. The bottom expansion connector does not appear in the booklet and is not filed. CH3-CH4 SWITCH listed, form not printed, not mapped. Controls: 'Slide the power switch' → power_switch; reset button → reset_button; eject button → eject_button.",
+    "status 'verified' here means envelope (museum tier) + media + role are sourced; a maker envelope with labelled axes is still wanted.",
+    "external_ids: Wikidata Q85867581 ('SNES', international version of the Super Famicom); no P5795 on it (the platform item Q183259 carries 'snes' and 'sfam'), igdb_platform null."
+  ]
+}

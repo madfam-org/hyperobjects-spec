@@ -6,9 +6,10 @@
   "brand": "Nintendo",
   "model": "Nintendo 64",
   "regions": [
-    "EU"
+    "EU",
+    "NA"
   ],
-  "status": "partial",
+  "status": "verified",
   "announced": null,
   "released": null,
   "external_ids": {
@@ -26,6 +27,47 @@
     "excludes_projections": null
   },
   "mass_g": 1100,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
   "features": {
     "role": "console"
   },
@@ -50,11 +92,58 @@
       "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Nintendo-64-625959.html",
       "retrieved": "2026-11-01",
       "quote": "this console's collection of over 300 games"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "5. Load a Nintendo 64 Game Pak into the top"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Memory Expansion / Controller Sockets 1-4 / Expansion Connector (on bottom) / AC Power Supply Connection Port / Multi Out Connector"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo64-manual",
+      "retrieved": "2026-11-01",
+      "quote": "6. Slide the N64 Power Switch to the ON / Reset button and release."
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/details/nintendo-64-manual-japan-600dpi-ozidual",
+      "retrieved": "2026-11-01",
+      "quote": "約 880g"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 1100,
+          "source": 1
+        },
+        {
+          "value": 880,
+          "source": 6
+        }
+      ],
+      "chosen": 0,
+      "reason": "Nintendo of Europe's born-digital spec page (1.1 kg) over an OCR reading of the Japanese manual scan (約 880g) whose neighbouring width figure is visibly mis-read; the gap may also be a regional or included-part difference neither source explains."
     }
   ],
   "notes": [
-    "Nintendo of Europe 'Nintendo History' Technical Details page; axes labelled by Nintendo (Width, Depth, Height), so body.width=260, body.depth=190, body.height=73 as printed. The page does not say whether projecting parts are excluded: excludes_projections null. Mass 1.1 kg as printed (the page's own 2.42 lb is its conversion; the gram value is the kilogram figure, no conversion of ours).",
-    "Partial facts not filed as lists (a covered list must be the source's complete list): the History main page says the console has 'four controller ports'; the Expansion Pak is mentioned. media, ports, controls stay uncovered until a maker manual enumerates them.",
+    "Nintendo of Europe 'Nintendo History' Technical Details page; axes labelled by Nintendo (Width, Depth, Height), so body.width=260, body.depth=190, body.height=73 as printed. The page does not say whether projecting parts are excluded: excludes_projections null. Mass 1.1 kg as printed, recorded as 1100 g (decimal shift; the page's 2.42 lb is its own conversion).",
+    "MASS CONFLICT: the scan of the Japanese NINTENDO64 (NUS-001(JPN)) instruction manual (archive.org item nintendo-64-manual-japan-600dpi-ozidual, Japanese OCR text layer) prints '約 880g' in its 仕様 block; the same block's width is OCR-garbled ('幅 e60mmx 奥 行き 190mmx 高 さ 73mm'), which agrees with Nintendo of Europe on depth and height. Both masses are in conflicts[]; Nintendo of Europe's born-digital 1.1 kg is kept, the 880 g OCR figure is flagged for a human check of the scan.",
+    "media/ports/controls: scan of Nintendo of America's Nintendo 64 Control Deck instruction booklet (archive.org item nintendo64-manual, print code NUS-S-HB-USA-4); quotes are the scan's OCR text layer, clean lines. 'Nintendo 64 Components': Game Pak Slot; 'Load a Nintendo 64 Game Pak into the top of the Control Deck' → cartridge_top 1. Ports: Controller Sockets 1-4 → controller_proprietary 4; Memory Expansion (top, Jumper Pak) and Expansion Connector (on bottom) → expansion 2; AC Power Supply Connection Port → power_in 1; Multi Out Connector → multi_av_out 1. The components list as OCR'd does not show the power switch or reset labels; they are sourced from the booklet's operating steps ('Slide the N64 Power Switch', 'Reset button') → power_switch 1, reset_button 1.",
+    "The AC Power Supply plugs into the rear port 'with the triangle on top'; its connector form is not named, so features.power_inlet stays null.",
     "external_ids: Wikidata Q184839 confirmed through the Wikidata API (label 'Nintendo 64'); igdb_platform 'n64' is Wikidata's P5795 (Internet Game Database platform ID) on that item, IGDB itself refuses automated fetches (403).",
     "released: no Nintendo page fetched states a launch date; null."
   ]

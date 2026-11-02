@@ -1,0 +1,92 @@
+{
+  "spec_version": 1,
+  "key": "magnavox-odyssey",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Magnavox",
+  "model": "Odyssey",
+  "model_numbers": [
+    "1TL200"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q744987",
+    "igdb_platform": "odyssey--1"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://archive.org/download/magnavox-odyssey-manual/Magnavox_Odyssey-Manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The two Player Control Units are identical; however, the Player Control Unit connected to the PLAYER 1 socket will"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://archive.org/download/magnavox-odyssey-manual/Magnavox_Odyssey-Manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Insert one end of the GAME CORD into the socket marked GAME CORD on the Master Control Unit."
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://archive.org/download/magnavox-odyssey-manual/Magnavox_Odyssey-Manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The external power jack . . . may be used to connect an optional"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/magnavox-odyssey-manual/Magnavox_Odyssey-Manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ODYSSEY is an electronic game simulator that easily attaches to any 18 to 25 inch"
+    }
+  ],
+  "notes": [
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: Magnavox Odyssey owner's manual, '© The Magnavox Company 1972' (archive.org item magnavox-odyssey-manual).",
+    "ports: the manual's 'Getting to know your Odyssey' / 'Connecting the player control cables and the game cord' pages name the PLAYER 1 and PLAYER 2 sockets, the GAME CORD socket and the external power jack on the Master Control Unit; that is filed as the complete list. The GAME CORD socket is filed as rf_out: the cord carries the unit's signal to the antenna-game switch on the TV ('It performs much like a television station sending signals to your television receiver'). The player sockets' connector type is not named, so they are controller_proprietary only in the sense of 'not a named standard'.",
+    "Power: six C cells in a battery compartment, or the optional 9-volt adapter through the external power jack; features.power_inlet left null (the jack's connector is not named).",
+    "media NOT filed: the manual says 'Insert Game Card No. 1 ... in the GAME CARD SLOT on the Master Control Unit and press down firmly until it is completely plugged in' and 'The GAME CARD is also the power switch for the Master Control Unit'. A downward card insertion has no §3 media kind (only card_front exists): vocabulary gap for the coordinator.",
+    "controls NOT filed: the game card doubles as the power switch, and a Channel 3/4 switch sits inside the battery compartment (no §3 kind); the manual does not give a console control list to call complete.",
+    "Envelope: none found. CHM 102674784 (17 1/2w x 6h x 17 1/2l in, 7 lb) includes 'original packaging' and the CHM Revolution page carries the same boxed figure; CHM X808.87A (model 1TL200) has a weight only ('2 (lb)', whole pounds) and includes the box. Neither is the bare unit, so body stays null. Smithsonian NMAH nmah_1302004 and Tempe eMuseum 91485 refuse automated fetches (403): human visit. Science Museum Group co8094422 also 403.",
+    "model_numbers 1TL200 is from CHM record X808.87A ('1TL200 (MODEL NUMBER)'); identifier only.",
+    "external_ids: Wikidata Q744987 ('Odyssey', first commercial home video game console) via the Wikidata API; igdb_platform 'odyssey--1' is that item's P5795."
+  ]
+}

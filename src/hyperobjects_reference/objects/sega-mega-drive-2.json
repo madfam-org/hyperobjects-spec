@@ -1,0 +1,90 @@
+{
+  "spec_version": 1,
+  "key": "sega-mega-drive-2",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Mega Drive 2 / Genesis (model 2)",
+  "aliases": [
+    "Sega Genesis (model 2)"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Cartridge Slot"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Power Button"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Reset Button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1993_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "SEGA GENESIS SYSTEM"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega's 'Genesis Instruction Manual' (1993, US), page 4 'Identifying Parts' (the model 2 shell, confirmed in the page image); quotes are clean lines of the OCR text layer.",
+    "media: 'Cartridge Slot' on the top face in the parts drawing: cartridge_top. controls: 'Power Button', 'Reset Button' (plus a 'Power-On Indicator', not a control).",
+    "Ports not filed: 'Control Port 1', 'Control Port 2' (connector type not stated); back view: 'A/V OUT Jack', 'AC Adaptor Jack', and the 'Extension Compartment' on the reverse side.",
+    "Envelope and mass: no maker or museum figure found."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q132020",
+    "igdb_platform": "xbox"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "disc_tray",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/XBOX_Console_Instruction_Manual_2001_Microsoft",
+      "retrieved": "2026-11-01",
+      "quote": "1. Press the eject button to open the disc tray."
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/XBOX_Console_Instruction_Manual_2001_Microsoft",
+      "retrieved": "2026-11-01",
+      "quote": "Eject button Power/reset button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/XBOX_Console_Instruction_Manual_2001_Microsoft",
+      "retrieved": "2026-11-01",
+      "quote": "Turn on the Xbox console by pressing the power button."
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Microsoft's 'XBOX Console Instruction Manual' (2001); quotes are clean lines of the scan's OCR text layer (_djvu.txt). Counts as primary (the maker's own manual).",
+    "controls: the manual's console-front figure labels exactly two controls, 'Eject button' and 'Power/reset button'. The combined power/reset button is filed once as power_button (no separate reset_button exists on the unit per this figure).",
+    "media: the console's one media interface is the disc tray ('Press the eject button to open the disc tray').",
+    "Partial facts not filed as a list: 'insert the Xbox controller connecter into any controller port on the front of the Xbox console'; 'the AV port'; 'the Ethernet port on the back'. No complete port enumeration is printed.",
+    "Envelope: none found. CHM 102662816 is a sealed boxed unit with two unlabelled dimension pairs and is not used.",
+    "external_ids: Wikidata Q132020 confirmed through the Wikidata API; igdb_platform 'xbox' is Wikidata's P5795 on that item."
+  ]
+}

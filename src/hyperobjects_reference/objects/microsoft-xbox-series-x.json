@@ -1,0 +1,68 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-series-x",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox Series X",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q64513817",
+    "igdb_platform": "series-x"
+  },
+  "dimensions_mm": {
+    "states": {
+      "vertical": {
+        "width": 151,
+        "height": 301,
+        "depth": 151
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 4445,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.vertical",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-x",
+      "retrieved": "2026-11-01",
+      "quote": "Console sketch showing the dimensions of the XBOX Series X with disc drive: Height is 301 mm, depth is 151mm and breadth is 151mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-x",
+      "retrieved": "2026-11-01",
+      "quote": "Weight 9.8 lbs."
+    },
+    {
+      "field": "mass_g",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "9.8 lb (sources[1], xbox.com 'Weight 9.8 lbs.') x 453.59237 g/lb = 4445.2 g, rounded to the gram: 4445"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-x",
+      "retrieved": "2026-11-01",
+      "quote": "With XBOX Series X, an XBOX Series X console, controller, Ultra High Speed HDMI cable, and power cord are included."
+    }
+  ],
+  "notes": [
+    "xbox.com Series X page, 'DESIGN > Disc' block, read from the raw HTML on 2026-11-01. The axis labels come from the sketch's alt text (Height 301 mm, depth 151 mm, breadth 151 mm), which is the console standing up, so the figure is filed as the 'vertical' state per the home-console contract; 'breadth' is recorded as width. The visible line beside it reads 'Dimensions 15.1cm x 15.1cm x 30.1cm' (unlabelled, consistent). No 'body' (lying-down) state is published; it is left out rather than rotated by us. The page does not say whether projections are excluded: excludes_projections null.",
+    "Mass: xbox.com publishes pounds only; mass_g is a derived conversion (factor 453.59237 g/lb), not a maker gram figure.",
+    "Uncovered on purpose: media (the spec table says 'Optical Drive. XBOX Series X Carbon Black: 4K UHD Blu-Ray' but not whether it is a slot or a tray); ports (the 'PORTS & CONNECTIVITY' block lists 'HDMI. 1x HDMI 2.1 port', 'USB. 3x USB 3.1 Gen 1 ports', 'Ethernet. 802.3 10/100/1000' without the USB connector type, and the storage-expansion port is mentioned elsewhere on the page, so no complete §3 list can be written).",
+    "The same page also lists 'XBOX Series X – 1TB Digital Edition' and '2TB Galaxy Black Special Edition'; the digital edition is its own object (microsoft-xbox-series-x-all-digital).",
+    "external_ids: Wikidata Q64513817 confirmed through the Wikidata API; igdb_platform 'series-x' is Wikidata's P5795 on that item."
+  ]
+}

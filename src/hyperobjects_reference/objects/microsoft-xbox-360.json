@@ -1,0 +1,52 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-360",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Microsoft",
+  "model": "Xbox 360 (original model)",
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q48263",
+    "igdb_platform": "xbox360"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 292.1,
+        "height": 82.6,
+        "depth": 257.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102718654",
+      "retrieved": "2026-11-01",
+      "quote": "29.21w x 8.26h x 25.72l (cm)"
+    },
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102718654",
+      "retrieved": "2026-11-01",
+      "quote": "Xbox 360 console"
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalogue 102718654, 'Xbox 360 console', '2005 (Made)', Microsoft Corporation (Manufacturer), category Game Console; the record describes the console itself, no box. The record does not name the SKU; a 2005 build predates the 2010 Xbox 360 S, so it is the original shell.",
+    "Axes as CHM labels them: w, h, l; l is recorded as depth. The record prints inches ('11 1/2w x 3 1/4h x 10 1/8l (in)') and its own centimetres; the mm values are the CHM centimetres shifted one decimal (no conversion of ours). CHM's centimetres are themselves rounded from fractional inches, so treat the envelope as about 1/8 in precision.",
+    "Mass not filed: CHM gives '6 (lb)', a whole-pound figure.",
+    "No Microsoft page with the original 360's dimensions was reachable (archived xbox.com 360 pages fetched had none; Microsoft eco profiles start at the One S).",
+    "external_ids: Wikidata Q48263 (Xbox 360, the platform) confirmed through the Wikidata API; igdb_platform 'xbox360' is Wikidata's P5795 on that item."
+  ]
+}

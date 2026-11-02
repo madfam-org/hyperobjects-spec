@@ -1,0 +1,100 @@
+{
+  "spec_version": 1,
+  "key": "atari-2600-cx2600",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari Video Computer System (CX2600, six-switch, 1977)",
+  "model_numbers": [
+    "CX2600"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q206261",
+    "igdb_platform": "atari2600"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": "centre of the switch panel"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "slide_switch",
+      "count": 6,
+      "position": "front switch panel"
+    },
+    {
+      "kind": "slide_switch",
+      "count": 1,
+      "position": "bottom edge (channel switch)"
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "* Atari Video Computer System Console Unit"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "Power Switch Game Program Slot Game Reset Switch TV Type Switch Game Select Switch Left and Right Difficulty Switches"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "1- Find the Channel Switch ‘on the bottom edge of the console."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "Insert the Game Program CAREFULLY into the slot in the center of the Console unit switch panel."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-2600-manual-video-computer-system-owners-manual-1977-atari-can",
+      "retrieved": "2026-11-01",
+      "quote": "Hold the Game Program so the name on the end is towards you and reads right side up."
+    }
+  ],
+  "notes": [
+    "Atari's own owner's manual 'Video Computer System Owner's Manual, Model CX2600' (©1977 Atari Inc., Canadian distribution by Irwin Electronics), read from the archive.org scan's OCR text layer; archive.org scans of the maker's own manual count as primary. Quotes are the OCR text as it reads, including its stray characters (‘on).",
+    "The manual covers the six-switch CX2600 and does not distinguish the 1977 'heavy sixer' from the later 'light sixer' shell; this object is the 1977 CX2600 (the Sunnyvale-made 'heavy sixer') the manual first shipped with. Its Taiwan-made successor has its own object, atari-2600-cx2600-light-sixer, whose envelope comes from a V&A record; no source read gives a heavy-sixer envelope, so body stays null here.",
+    "controls: the manual's 'TO START PLAY' panel caption names six front-panel switches (Power, TV Type, Left and Right Difficulty: slid; Game Select and Game Reset: 'Depress', momentary) and the text names a Channel Switch on the bottom edge. All are filed as slide_switch, the home-console contract's kind for the VCS panel; the two momentary ones are not filed separately as buttons.",
+    "media: cartridge_top is read from the manual's two lines: the Game Program is held upright with its end label facing the player and inserted into the slot in the centre of the switch panel.",
+    "ports not filed: the manual says the controllers plug into 'terminals on the back of the console', the AC Power Supply jack goes into the back, and the Game Cable runs to the TV/Game Switch Box, but it never names the connector types (no DE-9 statement). POWER REQUIREMENT: 9-volts DC, 500ma (adapter), features.power_inlet not stated.",
+    "dimensions: Computer History Museum 102630310 (model CX-2600 A per the record, 1977) prints 13 1/2w x 3 3/4h x 9 1/8l (in) / 34.29w x 9.52h x 23.18l (cm), but the record says the object 'comes in original packaging with 2 joysticks, 1 manual, and 1 catalogue' and does not say which was measured, so it is not filed (bare device not confirmed); its mass '3 (lb)' is whole-pound. Body null.",
+    "external_ids are the platform's: Wikidata Q206261 'Atari 2600' (API), igdb_platform from its P5795."
+  ]
+}

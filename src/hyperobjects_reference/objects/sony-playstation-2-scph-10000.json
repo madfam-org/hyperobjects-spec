@@ -1,0 +1,172 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-2-scph-10000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 2",
+  "model_numbers": [
+    "SCPH-10000"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2000-03-04",
+  "external_ids": {
+    "wikidata": "Q10680",
+    "igdb_platform": "ps2"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 301,
+        "height": 78,
+        "depth": 182
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 2400,
+  "media": [
+    {
+      "kind": "disc_tray",
+      "count": 1
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2
+    },
+    {
+      "kind": "memory_card",
+      "count": 2
+    },
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "expansion",
+      "count": 1
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-10000-web/JA_SCPH-10000_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "約301 x 78 x 182 mm （幅/高さ/奥行き）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-10000-web/JA_SCPH-10000_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質量 約2.4 kg"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/990913_5.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "外形寸法 ３０１ｍｍ（Ｗ）×１７８ｍｍ（Ｈ）×７８ｍｍ（Ｄ）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/990913_5.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質 量 ２.１ｋｇ"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/990913_5.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "発売日 ２０００年３月４日（土）"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-10000-web/JA_SCPH-10000_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "コントローラ端子（2） MEMORY CARD差込口（2） （USB）端子（2） S400 （i.LINK）端子（1） PC CARD 差込口（Type III） （1） AV MULTI OUT （AVマルチ出力）端子（1） DIGITAL OUT （OPTICAL） （光デジタル出力）端子 （1）"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-10000-web/JA_SCPH-10000_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ディスクトレイ"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/990913_5.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "新世代コンピュータエンタテインメント・システム 「プレイステーション２」ＳＣＰＨ‐１００００"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 301,
+            "height": 78,
+            "depth": 182
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 301,
+            "height": 178,
+            "depth": 78
+          },
+          "source": 2
+        }
+      ],
+      "chosen": 0,
+      "reason": "The instruction manual is the shipped product's own document; the 1999-09-13 release is a pre-launch announcement whose H and D labels are inconsistent with every later PS2 table (78 mm is the height of the horizontal console, which Sony's 2004 release also states as 'thickness of current model is 7.8 cm')."
+    },
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 2400,
+          "source": 1
+        },
+        {
+          "value": 2100,
+          "source": 3
+        }
+      ],
+      "chosen": 0,
+      "reason": "The instruction manual describes the shipped console; the 2.1 kg is from the pre-launch 1999 announcement."
+    }
+  ],
+  "notes": [
+    "Primary: Sony Computer Entertainment's own SCPH-10000 instruction-manual PDF (PDF metadata Author 'Sony Computer Entertainment Inc.', title 'SCPH-10000', the web-distributed manual), retrieved as the archive.org copy (item ja-scph-10000-web). Text extracted with macOS PDFKit; the furigana (ruby) lines PDFKit emits between the base text are omitted from the quotes. Axes labelled by Sony (幅/高さ/奥行き): width 301, height 78, depth 182; 2.4 kg recorded as 2400 g.",
+    "ports = the manual's 主な仕様 input/output rows, complete. The controller connector is Sony's own (Sony names it 'Controller port' / コントローラ端子 and no standard); it is filed as controller_proprietary. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. The PC CARD slot (Type III) is filed as expansion: Sony's 2001 SCPH-30000 release says the old models extended their functions through it (従来型のＰＳ２ではＰＣ－ＣＡＲＤインターフェース経由). The S400 i.LINK (IEEE 1394) terminal has no §3 kind and is not filed. Sony's input/output row does not list the AC inlet, so ports has no power_in item; that absence is Sony's table, not a statement that the console has no inlet. features.power_inlet stays null.",
+    "media: the manual's 各部のなまえ (part names) page lists one media interface, the ディスクトレイ (disc tray).",
+    "controls not filed: the front has a combined (on/standby)/RESET button and an OPEN (eject) button, the rear a MAIN POWER switch, and the PC CARD slot its own eject button (イジェクトボタン); no single page lists them together as a complete control list.",
+    "external_ids: Wikidata Q10680 ('Sony's second home video game console'); igdb_platform 'ps2' is Wikidata P5795 on that item."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "spec_version": 1,
+  "key": "atari-jaguar",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Atari",
+  "model": "Atari Jaguar",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q650601",
+    "igdb_platform": "jaguar"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "features.role",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102674795",
+      "retrieved": "2026-11-01",
+      "quote": "Jaguar video game system"
+    }
+  ],
+  "notes": [
+    "role: Computer History Museum catalog 102674795, 'Jaguar video game system' (Atari, 1993, category 'Game Console'), museum tier.",
+    "Envelope candidate NOT filed (needs a human ruling): the same record prints 'Dimension 9 1/2w x 1 3/4h x 10l (in) / 24.13w x 4.44h x 25.4l (cm)', but it describes the object as 'main unit, 1 control pad, AC adapter, extra label for control pad, and outer box' and does not say which item was measured. The CHM Revolution exhibit page for the same gift (https://www.computerhistory.org/revolution/computer-games/16/210/893) prints 'overall: 1 3/4 in x 9 1/2 in x 10 in' (unlabelled). The figures are the main unit's in all likelihood (1.75 in is too thin for the boxed set), but the lane rule is that the record must say so. Weight '5 (lb)' is whole-pound.",
+    "No Atari Jaguar console owner's guide scan was found on archive.org (only game manuals, the Jaguar CD guide and a developer technical reference, which is not used). media, ports, controls uncovered.",
+    "external_ids: Wikidata Q650601 (API), igdb_platform from its P5795."
+  ]
+}

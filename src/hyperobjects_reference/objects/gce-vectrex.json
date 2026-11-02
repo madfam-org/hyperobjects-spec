@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "key": "gce-vectrex",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "GCE",
+  "model": "Vectrex Arcade System",
+  "model_numbers": [
+    "HP-3000"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q767631",
+    "igdb_platform": "vectrex"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 241.3,
+        "height": 381,
+        "depth": 292.1
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "displays": [
+    {
+      "role": "integrated",
+      "diagonal_in": 9,
+      "panel": "CRT"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console",
+    "hardwired_controllers": 0,
+    "controller_bays": 1
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102662782",
+      "retrieved": "2026-11-01",
+      "quote": "24.13w x 38.1h x 29.21l (cm)"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The system includes its own 9\" B&W monitor screen and 3\" permanent magnet speaker."
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "CRT: SAMSUNG 240RB40 90 DEG. DEF. B&W VECTOR DEFLECTION"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "There is a consumer power switch/volume control on the front panel as well as a game reset button,"
+    },
+    {
+      "field": "features.hardwired_controllers",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Note: Control panels are detachable."
+    },
+    {
+      "field": "features.controller_bays",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "To remove control panel from the storage area at the bottom of the console, press the release tab"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/vectrex_instruction_manual_collection/Hardware/vectrex_service_manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The VECTREX is a self-contained, microprocessor based, Vector Display, portable home video game arcade with external game cartridge program capability."
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalog record: CHM labels its dimensions 'w x h x l' and prints inches and cm; mapped w->width, h->height, l->depth, and the museum's own cm figure is recorded x10 in mm (a decimal shift, no conversion of ours). Record 102662782, 'Vectrex game console', 1982, General Consumer Electronics, Inc., model HP 3000; the record image shows the bare upright console (no box). Weight '14 (lb)' is whole pounds: mass_g null.",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Document: G.C.E. Vectrex Service Manual HP-3000, 'ALL RIGHTS RESERVED 1982' (archive.org item vectrex_instruction_manual_collection, Hardware/vectrex_service_manual.pdf); it is not marked confidential and reprints the consumer operating instructions. No scan of the console owner's manual itself was found.",
+    "Service manual 'SPECIFICATIONS' also prints 'DIMENSIONS:' and 'WEIGHT: 15 Lbs.', but the dimension line is garbled in the OCR ('9% X 11% X 14%', fractions lost, axes unlabelled) and the weight is whole pounds, so neither is used. CHM's 14 lb vs the manual's 15 lb is not a filed conflict because neither enters mass_g.",
+    "displays[0]: '9\"' is taken as the screen diagonal (a CRT size); the panel is the Samsung 240RB40 B&W vector-deflection CRT. resolution/active area: not applicable/not published.",
+    "controls: the front-panel 'power switch/volume control' (one rotary control) and the game reset button; the rear brightness control has no §3 kind and is omitted. hardwired_controllers 0: the control panel plugs in ('The plugs fit into outlets one way only'); controller_bays 1: the one control panel stores in the storage area at the bottom of the console.",
+    "Partial facts not filed: 'Insert cartridge carefully into the slot on the right side of the console' (side slot: no §3 media kind); two controller outlets ('Both controllers attach to the main game console through nine wire coiled telephone style cables'; connector not named as DE-9); a polarized 120 V AC plug (captive cord not stated).",
+    "Not used: Science Museum Group co8088631 is a boxed set.",
+    "external_ids: Wikidata Q767631 via the Wikidata API; igdb_platform from its P5795."
+  ]
+}

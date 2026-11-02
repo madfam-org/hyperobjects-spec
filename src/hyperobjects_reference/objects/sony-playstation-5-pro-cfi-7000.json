@@ -1,0 +1,120 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-5-pro-cfi-7000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 5 Pro",
+  "model_numbers": [
+    "CFI-7021"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2024-11-07",
+  "external_ids": {
+    "wikidata": "Q124983919",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 388,
+        "height": 89,
+        "depth": 216
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 3100,
+  "media": [],
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "usb_c",
+      "count": 2
+    },
+    {
+      "kind": "expansion",
+      "count": 1
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console",
+    "stand_included": false
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/ps5-docs/7000/CFI-7021_PS5_Safety_Guide_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions (excluding projecting parts) Approx. 388 × 89 × 216 mm (width × height × depth)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/ps5-docs/7000/CFI-7021_PS5_Safety_Guide_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 3.1 kg"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/ps5-docs/7000/CFI-7021_PS5_Safety_Guide_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Input/output*2 USB Type-A port (SuperSpeed USB 10Gbps) ×2 USB Type-C® port (Hi-Speed USB) USB Type-C® port (SuperSpeed USB 10Gbps) M.2 SSD expansion connector (Key M) Disc drive port Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/ps5-docs/7000/CFI-7021_PS5_Safety_Guide_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "AV output HDMI™ OUT port*3"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2024/sony-interactive-entertainment-reveals-playstation-5-pro-the-most-visually-compelling-way-to-play-games-on-playstation/",
+      "retrieved": "2026-11-01",
+      "quote": "It also provides an option for players to add an Ultra HD Blu-ray Disc Drive (sold separately)."
+    },
+    {
+      "field": "features.stand_included",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/ps5-docs/7000/CFI-7021_PS5_Safety_Guide_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "the vertical stand (sold separately)."
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2024/sony-interactive-entertainment-reveals-playstation-5-pro-the-most-visually-compelling-way-to-play-games-on-playstation/",
+      "retrieved": "2026-11-01",
+      "quote": "The PS5 Pro console launches on November 7, 2024"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2024/sony-interactive-entertainment-reveals-playstation-5-pro-the-most-visually-compelling-way-to-play-games-on-playstation/",
+      "retrieved": "2026-11-01",
+      "quote": "The PlayStation®5 Pro (PS5®Pro) console is the latest hardware innovation"
+    }
+  ],
+  "notes": [
+    "Primary: Sony's CFI-7021 safety guide (en-gb) PDF, specifications page, text via macOS PDFKit (pypdf extracts nothing from it). Axes labelled (width × height × depth), excluding projecting parts. The safety guide's 'Mass Approx. 280 g' further down is the DualSense controller, not the console.",
+    "ports = the guide's Input/output, Networking and AV output rows. The 'M.2 SSD expansion connector (Key M)' is filed as expansion (count 1); the 'Disc drive port' (where the separately sold drive attaches) has no §3 kind and is not filed. The inlet is not named in the table; no power_in item.",
+    "media = []: the Pro ships without a disc drive (reveal release, 2024-09-10). stand_included false: the guide calls the vertical stand 'sold separately' (it ships with feet for horizontal placement).",
+    "external_ids: Wikidata Q124983919 ('upgraded version of the PlayStation 5'); no IGDB id on it."
+  ]
+}

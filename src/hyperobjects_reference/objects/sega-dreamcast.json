@@ -1,0 +1,100 @@
+{
+  "spec_version": 1,
+  "key": "sega-dreamcast",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Dreamcast (HKT-3020)",
+  "model_numbers": [
+    "HKT-3020"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q184198",
+    "igdb_platform": "dc"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 190.5,
+        "height": 76.2,
+        "depth": 196.85
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "disc_lid",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "External dimensions Approximately 7 1/2 x 7 3/4 x 3 inches (W x D x H)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "25.4 mm/in x the inch figures of sources[0] (Sega of America manual, W 7 1/2, D 7 3/4, H 3 in): width 190.5, depth 196.85, height 76.2 mm, exact products, not rounded"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Disc door"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "POWER button OPEN button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/DreamCast_Instruction_Manual_2000_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Model HKT-3020 (main unit)"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega of America's 'DreamCast Instruction Manual' (2000, US), page 30 'RATINGS AND SPECIFICATIONS'; quotes are clean lines of the scan's OCR text layer. Counts as primary.",
+    "Envelope: Sega prints approximate fractional inches labelled W x D x H; the mm values are a derived conversion (tier derived), so their real precision is about 1/4 in.",
+    "Mass not filed: the manual says 'Weight Approximately 3 pounds', a whole-pound figure, too coarse to convert.",
+    "media: the 'PART NAMES' front view labels the 'Disc door', opened by the 'OPEN button' (a top-opening disc lid): disc_lid.",
+    "controls: the front view labels 'POWER button' and 'OPEN button' (and a 'Power indicator', not a control). The OPEN button is filed as eject_button (it releases the disc door); no reset button is labelled.",
+    "Ports not filed: front 'Control ports A to D' (connector type not stated), back 'Power terminal', 'AV terminal', 'Serial terminal (for possible future expandability)', and the 'Modem' with its 'Phone jack'.",
+    "Science Museum Group co8912915 reportedly gives 'overall: 75 mm x 190 mm x 195 mm' (axes unlabelled; SMG returned 429 to this pass, not re-read). CHM 102674794 includes the outer box and is not used. Sega's archive page (www.sega.jp/fb/segahard/dc/data.html, URL per earlier research) returns 403.",
+    "external_ids: Wikidata Q184198 confirmed through the Wikidata API; igdb_platform 'dc' is Wikidata's P5795 on that item."
+  ]
+}

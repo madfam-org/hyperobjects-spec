@@ -1,0 +1,122 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-famicom-hvc-001",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Family Computer",
+  "model_numbers": [
+    "HVC-001"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "1983-07-15",
+  "external_ids": {
+    "wikidata": "Q491640",
+    "igdb_platform": "famicom"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 150,
+        "height": 60,
+        "depth": 220
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "ports": [
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console",
+    "hardwired_controllers": 2
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "本体寸法 巾150m/m、奧行220m/m、高さ60m/m"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "発売日：1983年7月15日(金)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "また、カートリッジ交換型ゲーム機で、"
+    },
+    {
+      "field": "features.hardwired_controllers",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "十字ボタンとA、Bボタンを配置したコントローラーを2つ搭載。"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "RF SWITCH（アールエフ スイッチ）端子 / AC ADAPTER（エイシー アダプタ端子） / EXPAND CONNECTOR（エキスパンド コネクタ）"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/famicom/hardware/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "POWER（パワー） 前方にスライドさせると電源が入ります。 / EJECT（イジェクト） スライドさせるとゲームカセットを / RESET（リセット） 誤動作したときに押してください。"
+    }
+  ],
+  "notes": [
+    "Nintendo JP 'ファミコンとは？' page, PARTS / TECH SPECS (主な仕様, 形名 HVC-001); the page says its text is based on the original manual (※当時の説明書に記載された文章をもとにしています). Axes labelled by Nintendo: 巾 (width) 150, 奧行 (depth) 220, 高さ (height) 60 mm. The page does not say whether projections are excluded: excludes_projections null.",
+    "MASS: the page prints '重量 約620g（I ・Ⅱコントローラーを含む）', i.e. about 620 g INCLUDING the two hardwired controllers I and II. That is not the body's mass, so mass_g stays null; the figure is kept here for a family that models the console with its cords.",
+    "ports: the 各部機能 (parts) list is complete for the body: RF SWITCH 端子 → rf_out, AC ADAPTER 端子 → power_in, EXPAND CONNECTOR (front, 本体正面のエキスパンドコネクタ) → expansion. The controllers are hardwired (no controller ports). The adapter is a separate 専用ACアダプタ HVC-002 (DC10V 850mA); the inlet's connector form is not printed, so features.power_inlet stays null.",
+    "controls: POWER is a slide switch (前方にスライド) → power_switch; RESET → reset_button; EJECT is a slide lever that releases the cassette → filed as eject_button (the §3 eject control), noted here as a slide. Two more switches are in the parts list, the channel switch 'CH1 ◁▷ CH２' (チャンネル切替えスイッチ) and the mode switch 'TV ◁▷ GAME' (モード切替えスイッチ); the page does not say they are slide switches, so they are not mapped to slide_switch and the generator should treat them as absent until a source states their form.",
+    "media: the page names the CASSETTE CONNECTOR (カセットの端子部と本体を接続する部分) but not the insertion face; media stays uncovered (a cartridge_top kind would be read off the photograph, which is forbidden).",
+    "external_ids: Wikidata Q491640 ('Family Computer', home video game console); igdb_platform 'famicom' is P5795 on that item."
+  ]
+}

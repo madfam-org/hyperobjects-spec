@@ -1,0 +1,103 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-2-scph-30000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 2",
+  "model_numbers": [
+    "SCPH-30000"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": "2001-04-18",
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 301,
+        "height": 78,
+        "depth": 182
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 2200,
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2
+    },
+    {
+      "kind": "memory_card",
+      "count": 2
+    },
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "expansion",
+      "count": 1
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/010409.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "外形寸法 約３０１ｍｍ（Ｗ）×７８ｍｍ（Ｈ）×１８２ｍｍ（Ｄ）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/010409.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質 量 約２.２ｋｇ"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/010409.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "発売日 ２００１年４月１８日（水）"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/010409.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "入出力 コントローラ端子 ×２ メモリーカード差込口 ×２ （ＵＳＢ）端子 ×２ Ｓ４００（ｉ.ＬＩＮＫ）端子 ×１ (新規) エクスパンション ベイ（拡張ベイ） ×１ ＡＶマルチアウト（ＡＶマルチ出力）端子 ×１ デジタルアウト（オプティカル）（光デジタル出力）端子×１"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/010409.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "新型「プレイステーション ２」『ＳＣＰＨ－３００００』"
+    }
+  ],
+  "notes": [
+    "Sony's 2001-04-09 Japanese release (PDF; pypdf cannot decode its 90msp-RKSJ-H font, text extracted with macOS PDFKit). Axes labelled (Ｗ/Ｈ/Ｄ): width 301, height 78, depth 182; 2.2 kg recorded as 2200 g.",
+    "ports = the release's 入出力 row, complete. The expansion bay (エクスパンション ベイ（拡張ベイ）) is filed as expansion; S400 i.LINK has no §3 kind and is not filed. The controller connector is Sony's own (Sony names it 'Controller port' / コントローラ端子 and no standard); it is filed as controller_proprietary. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. Sony's input/output row does not list the AC inlet, so ports has no power_in item; that absence is Sony's table, not a statement that the console has no inlet. features.power_inlet stays null.",
+    "media: the release does not say how discs load; media stays uncovered. Wikidata has no model-level item for SCPH-30000; external_ids left null."
+  ]
+}

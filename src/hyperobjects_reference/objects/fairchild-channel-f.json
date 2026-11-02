@@ -1,0 +1,83 @@
+{
+  "spec_version": 1,
+  "key": "fairchild-channel-f",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Fairchild",
+  "model": "Channel F Video Entertainment System",
+  "model_numbers": [
+    "FVE100"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q1053294",
+    "igdb_platform": "fairchild-channel-f"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 304.8,
+        "height": 88.9,
+        "depth": 330.2
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "features": {
+    "role": "console",
+    "hardwired_controllers": 2,
+    "controller_bays": 1,
+    "power_inlet": "hardwired_cord"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102662898",
+      "retrieved": "2026-11-01",
+      "quote": "30.48w x 8.89h x 33.02l (cm)"
+    },
+    {
+      "field": "features.hardwired_controllers",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102662898",
+      "retrieved": "2026-11-01",
+      "quote": "Object consists of video entertainment computer with two attached controllers, attached ac power adapter and attached TV connector cable."
+    },
+    {
+      "field": "features.power_inlet",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102662898",
+      "retrieved": "2026-11-01",
+      "quote": "Object consists of video entertainment computer with two attached controllers, attached ac power adapter and attached TV connector cable."
+    },
+    {
+      "field": "features.controller_bays",
+      "tier": "primary",
+      "url": "https://archive.org/download/Fairchild-Channel-F-Manual/Fairchild%20Channel%20F%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "When not in use, the Hand-Controllers are designed to \"nest\" in the well"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/Fairchild-Channel-F-Manual/Fairchild%20Channel%20F%20manual.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "You have purchased the finest video game system on the market today."
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalog record: CHM labels its dimensions 'w x h x l' and prints inches and cm; mapped w->width, h->height, l->depth, and the museum's own cm figure is recorded x10 in mm (a decimal shift, no conversion of ours). Record 102662898, 'Fairchild “Channel F” Video Entertainment Computer', 1976 (Made), model FVE100; its description names the console with its permanently attached controllers, AC adapter and TV cable (the bare device, not a boxed set). The record's weight '8 (lb)' is whole pounds: mass_g null.",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: 'The Fairchild Video Entertainment System' owner's booklet (archive.org item Fairchild-Channel-F-Manual). The manual also says: 'Do not pick up the Game Console by any of the wires that are permanently attached to it.'",
+    "controller_bays = 1: the manual describes ONE storage well under the dust cover in which both Hand-Controllers nest ('nest' the Hand-Controllers in their compartment).",
+    "Partial facts not filed as lists: the console has an 'On/Off' switch on the back, a 'Reset' button and the TIME / MODE / HOLD / START selector buttons, plus a 'Press To Eject' bar for the Videocart; the manual gives no complete console control list. Videocarts are inserted 'in much the same way as an 8-track audio cartridge' with 'the edge label facing towards you'; the face the slot is on is not stated, so media is not filed.",
+    "released: CHM gives '1976 (Made)', a manufacture date, not a launch date; null.",
+    "external_ids: Wikidata Q1053294 via the Wikidata API; igdb_platform from its P5795."
+  ]
+}

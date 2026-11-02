@@ -1,0 +1,99 @@
+{
+  "spec_version": 1,
+  "key": "coleco-colecovision",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Coleco",
+  "model": "ColecoVision",
+  "model_numbers": [
+    "2400"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q1046862",
+    "igdb_platform": "colecovision"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 381,
+        "height": 101.6,
+        "depth": 241.3
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102626599",
+      "retrieved": "2026-11-01",
+      "quote": "38.1w x 10.16h x 24.13l (cm)"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://archive.org/download/Colecovision_Owners_Manual_1982_Coleco/Colecovision_Owners_Manual_1982_Coleco.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "When removing the GAME CARTRIDGE, simply pull it straight up and out of the"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/download/Colecovision_Owners_Manual_1982_Coleco/Colecovision_Owners_Manual_1982_Coleco.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "When returning to regular TV programming, slide the POWER SWITCH on"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/download/Colecovision_Owners_Manual_1982_Coleco/Colecovision_Owners_Manual_1982_Coleco.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Press the RESET BUTTON. The title"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/download/Colecovision_Owners_Manual_1982_Coleco/Colecovision_Owners_Manual_1982_Coleco.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "The Arcade Quality Video Game System"
+    }
+  ],
+  "notes": [
+    "Computer History Museum catalog record: CHM labels its dimensions 'w x h x l' and prints inches and cm; mapped w->width, h->height, l->depth, and the museum's own cm figure is recorded x10 in mm (a decimal shift, no conversion of ours). Record 102626599, 'ColecoVision video game system', 1982, model 2400; the record image shows the bare console with both hand controllers docked and a cartridge inserted ('Donkey Kong cartridge inside'), no packaging. Weight '4 (lb)' is whole pounds: mass_g null.",
+    "Quotes from an archive.org scan of the maker's own printed manual are taken from the scan's OCR text layer (the item's _djvu.txt), byte for byte; where a quoted sentence wraps in the scan, the two OCR lines are joined with one space. The archive.org scan of the maker's document counts as primary. Manual: ColecoVision Owner's Manual, '1982, Coleco Industries, Inc.' (archive.org item Colecovision_Owners_Manual_1982_Coleco). Its OCR layer is noisy; only clean lines are quoted.",
+    "media cartridge_top: the cartridge goes 'into the slot on the right side of the CONSOLE unit' (OCR noisy) and is removed by pulling it 'straight up and out of the slot', i.e. a top-loading slot on the right of the top face.",
+    "controls: POWER SWITCH (slide) and RESET BUTTON; the CHANNEL SELECTOR switch at the rear has no §3 kind and is omitted.",
+    "Partial facts not filed: GAME CABLE socket in the rear, POWER SUPPLY jack socket in the back, HAND CONTROLLER JACKS #1/#2 'inside the HAND CONTROLLER storage compartments' (connector type and bay count not legible in the OCR), and the front 'EXPANSION MODULE INTERFACE' (visible on the CHM image label). ports and controller_bays stay uncovered.",
+    "external_ids: Wikidata Q1046862 via the Wikidata API; igdb_platform from its P5795."
+  ]
+}

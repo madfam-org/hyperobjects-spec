@@ -1,0 +1,94 @@
+{
+  "spec_version": 1,
+  "key": "sega-mega-cd",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Mega-CD / Sega CD (model 1)",
+  "aliases": [
+    "Sega CD (model 1)"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q1047516",
+    "igdb_platform": "segacd"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "disc_tray",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "expansion",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "addon",
+    "host_console": "sega-mega-drive"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/segacd-model1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "Disc Tray for 8cm or 12cm Discs"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/segacd-model1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "SEGA-CD/Genesis Connector Terminal / AC Adapter Jack / Audio Line Out Jacks for Stereo Sound Connection to Other Components / Mixing Jack for Stereo Sound Connection to Genesis"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/segacd-model1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "It connects to your Sega Genesis™ to play sharp, clean sound and brilliant graphics"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/segacd-model1-manual",
+      "retrieved": "2026-11-01",
+      "quote": "It connects to your Sega Genesis™ to play sharp, clean sound and brilliant graphics"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega's 'SEGA CD Model 1 Manual' (US), page 2 'INTRODUCTION' and page 3 'UNPACKING YOUR SEGA-CD' (front, back and left-side views). The OCR text layer is unusable, so the quotes are our transcription from the page images.",
+    "role addon, host_console sega-mega-drive (the Genesis model 1 object; the manual's page 3 also instructs sliding 'the Genesis sideways ... into place on top of the SEGA CD').",
+    "media: the front view labels the 'Disc Tray for 8cm or 12cm Discs': disc_tray.",
+    "ports: the views label the 'SEGA-CD/Genesis Connector Terminal' (filed as expansion), the 'AC Adapter Jack' (power_in), and two audio jacks with no contract kind ('Audio Line Out Jacks', 'Mixing Jack'), noted not filed.",
+    "controls uncovered: the parts views label no buttons (only 'Indicator LEDs').",
+    "Envelope and mass: no maker or museum figure found; Sega's archive returns 403.",
+    "external_ids: Wikidata Q1047516 confirmed through the Wikidata API; igdb_platform 'segacd' is Wikidata's P5795 on that item."
+  ]
+}

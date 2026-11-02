@@ -1,0 +1,105 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-5-cfi-1000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 5",
+  "status": "partial",
+  "announced": null,
+  "released": "2020-11-12",
+  "external_ids": {
+    "wikidata": "Q63184502",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 390,
+        "height": 104,
+        "depth": 260
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 4500,
+  "ports": [
+    {
+      "kind": "usb_a",
+      "count": 3
+    },
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "hdmi",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console",
+    "stand_included": true
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS5: Approx. 390mm x 104mm x 260mm (width x height x depth) (excludes largest projection, excludes Base)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS5: 4.5kg"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "On November 12, PS5 will launch in seven key markets"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Input/Output USB Type-A port (Hi-Speed USB) USB Type-A port (Super-Speed USB 10Gbps) x2 USB Type-C® port (Super-Speed USB 10Gbps) Networking Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)"
+    },
+    {
+      "field": "ports[]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Video Out HDMI™ OUT port"
+    },
+    {
+      "field": "features.stand_included",
+      "tier": "primary",
+      "url": "https://blog.playstation.com/2020/11/09/ps5-the-ultimate-faq/",
+      "retrieved": "2026-11-01",
+      "quote": "Yes, both PS5 models include a Base that allows users to adjust the console for vertical or horizontal placement."
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Now we are just a couple of months away from launching PS5, which will offer a new generation of experiences"
+    }
+  ],
+  "notes": [
+    "Sony's 2020-09-17 launch release (sonyinteractive.com). Axes labelled (width x height x depth); excludes the largest projection and the Base. The Sony blog FAQ of 2020-11-09 gives the same 390 x 104 x 260 mm and 'around 4.5kg'. The values are the console lying horizontally; Sony publishes no separate vertical figure, so no vertical state is filed.",
+    "ports = the release's Input/Output and Networking rows plus the Video Out row's HDMI OUT port. USB counts as printed: one Hi-Speed Type-A plus two SuperSpeed Type-A = 3 usb_a, one Type-C. The blog FAQ says the console has an internal power supply ('No, PS5 is designed with an internal power supply.') and ships with an 'AC power cord', but the inlet type is not named: no power_in item, features.power_inlet null.",
+    "media: the release names the Ultra HD Blu-ray drive but not how a disc loads; media stays uncovered. No model number is printed in the cited sources, so model_numbers is omitted.",
+    "external_ids: Wikidata Q63184502 (the platform; this is its launch disc model). Wikidata P5795 on it holds two IGDB values ('ps5', 'playstation-5'), so igdb_platform is left null rather than picked."
+  ]
+}

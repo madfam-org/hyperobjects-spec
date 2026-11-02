@@ -1,0 +1,159 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-2-scph-70000",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sony",
+  "model": "PlayStation 2",
+  "model_numbers": [
+    "SCPH-70000"
+  ],
+  "aliases": [
+    "SCPH-70011",
+    "SCPH-70012",
+    "SCPH-70002",
+    "SCPH-70003",
+    "SCPH-70004"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2004-11-03",
+  "external_ids": {
+    "wikidata": "Q6078262",
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 230,
+        "height": 28,
+        "depth": 152
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 900,
+  "media": [
+    {
+      "kind": "disc_lid",
+      "count": 1
+    }
+  ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2
+    },
+    {
+      "kind": "memory_card",
+      "count": 2
+    },
+    {
+      "kind": "usb_a",
+      "count": 2
+    },
+    {
+      "kind": "ethernet",
+      "count": 1
+    },
+    {
+      "kind": "power_in",
+      "count": 1
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1
+    },
+    {
+      "kind": "optical_audio_out",
+      "count": 1
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1
+    },
+    {
+      "kind": "eject_button",
+      "count": 1
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-70000-cb-web/JA_SCPH-70000CB_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "外形寸法 約230×28×152mm（幅×高さ×奥行き）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-70000-cb-web/JA_SCPH-70000CB_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "質量 約900g"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-70000-cb-web/JA_SCPH-70000CB_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "前面入出力端子 コントローラ端子×2 MEMORY CARD差込口×2 （USB）端子×2 背面入出力端子 NETWORK（ネットワーク）接続端子 ! DC IN 8.5V端子 AV MULTI OUT（AVマルチ出力）端子* DIGITAL OUT（OPTICAL） （光デジタル出力）端子"
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-70000-cb-web/JA_SCPH-70000CB_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "各部のなまえ \"PlayStation 2\"本体前面 ディスクカバー"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/download/ja-scph-70000-cb-web/JA_SCPH-70000CB_WEB.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "A （オープン）ボタン :/1（オン／スタンバイ）／ RESETボタン"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/playstation2-gets-stunning-new-look/",
+      "retrieved": "2026-11-01",
+      "quote": "on November 3rd in Japan"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/playstation2-gets-stunning-new-look/",
+      "retrieved": "2026-11-01",
+      "quote": "a completely new look for the PlayStation®2 computer entertainment system (SCPH-70000)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/playstation2-gets-stunning-new-look/",
+      "retrieved": "2026-11-01",
+      "quote": "Approximately 230 mm (W) ×28 mm (H) ×152 mm (D)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2004/playstation2-gets-stunning-new-look/",
+      "retrieved": "2026-11-01",
+      "quote": "Approximately 900g"
+    }
+  ],
+  "notes": [
+    "Primary: Sony Computer Entertainment's own SCPH-70000 instruction-manual PDF (PDF metadata Author 'Sony Computer Entertainment Inc.', title 'SCPH-70000'), retrieved as the archive.org copy (item ja-scph-70000-cb-web); text extracted with macOS PDFKit. Axes labelled (幅×高さ×奥行き): width 230, height 28, depth 152. Sony's 2004-09-21 release gives the same 230 (W) × 28 (H) × 152 (D) mm and 900 g for every region (sources 7 and 8).",
+    "ports = the manual's 主な仕様 front and rear input/output rows, complete for the Japanese model. The North American SCPH-70011/70012 add a modem LINE connector (RJ-11), which has no §3 kind (the release: 'come with built-in modem port in addition to Ethernet port'). The controller connector is Sony's own (Sony names it 'Controller port' / コントローラ端子 and no standard); it is filed as controller_proprietary. Sony's table says 'USB' without naming the receptacle; it is filed as usb_a, the only USB receptacle in the §3 vocabulary before USB-C, and the reader should treat the A as Sony-unstated. The DC inlet is 'DC IN 8.5V' fed by an external AC adaptor; Sony does not name the plug, so features.power_inlet stays null.",
+    "media and controls = the manual's 各部のなまえ (part names, front and rear): one ディスクカバー (disc cover, filed disc_lid), one OPEN button (filed eject_button) and one combined (on/standby)/RESET button, filed as one power_button (it is also the reset; no separate reset_button exists).",
+    "released = the Japanese date in Sony's release; North America and Europe were November 1, 2004. external_ids: Wikidata Q6078262 ('slim model of the PlayStation 2'); no IGDB id on it."
+  ]
+}

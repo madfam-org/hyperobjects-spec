@@ -1,0 +1,166 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-u",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Wii U (WUP-101)",
+  "model_numbers": [
+    "WUP-101"
+  ],
+  "regions": [
+    "JP",
+    "EU",
+    "NA"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q56942",
+    "igdb_platform": "wiiu"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 172,
+        "height": 46,
+        "depth": 268.5
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 1550,
+  "media": [
+    {
+      "kind": "disc_slot",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "sd_card",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "usb_a",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "eject_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "サイズ 縦46mm×横172mm×奥行き268.5mm（突起部を除く）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "質量 約1.55kg"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Wii-U/Hardware-Features/Specifications/Specifications-664742.html",
+      "retrieved": "2026-11-01",
+      "quote": "Approximately 3.5 pounds (1.6 kg)."
+    },
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii U用光ディスクおよびWii用光ディスクをプレイ可能なスロットローディング方式のドライブ"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20230912231804/https://www.nintendo.com/consumer/downloads/manual-nintendo-wiiu-operations-english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "SD Card Slot / USB Ports / AC Adapter Connector / AV Multi Out Connector / Sensor Bar Connector / HDMI™ Port"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB端子 USB 2.0端子×4 (前面 2、背面 2)"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20230912231804/https://www.nintendo.com/consumer/downloads/manual-nintendo-wiiu-operations-english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "POWER Button / EJECT Button / SYNC Button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20230912231804/https://www.nintendo.com/consumer/downloads/manual-nintendo-wiiu-operations-english.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Press to turn the Wii U console on or off."
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 1550,
+          "source": 1
+        },
+        {
+          "value": 1600,
+          "source": 2
+        }
+      ],
+      "chosen": 0,
+      "reason": "Nintendo JP prints 約1.55kg; Nintendo UK's (1.6 kg) is a coarser figure beside its 3.5-pound value."
+    }
+  ],
+  "notes": [
+    "BODY: Nintendo JP 主な仕様: 縦 (vertical, i.e. height) 46, 横 (horizontal, i.e. width) 172, 奥行き (depth) 268.5 mm, '（突起部を除く）' → excludes_projections true. The console as it lies flat. Nintendo UK gives the same body in inches ('Approximately 1.8 inches high, 10.6 inches deep and 6.75 inches long.'); not a conflict after reading, not converted.",
+    "MASS CONFLICT: Nintendo JP '約1.55kg' (1550 g) vs Nintendo UK '(1.6 kg)' (with 'Approximately 3.5 pounds'). JP chosen: finer precision; the UK figure reads as a rounding of its own pound value.",
+    "media: slot-loading drive (スロットローディング方式) → disc_slot 1; the US manual's 'Disc Slot' agrees.",
+    "ports: Nintendo of America's Wii U Operations Manual (archived copy of nintendo.com/consumer/downloads/manual-nintendo-wiiu-operations-english.pdf, born-digital text via pypdf), 'System Components' front/side/back: SD Card Slot → sd_card 1; USB Ports → usb_a 4 (count from Nintendo JP 'USB 2.0端子×4 (前面 2、背面 2)'; the connector type is our reading of the kind, flagged); AC Adapter Connector → power_in 1; AV Multi Out Connector → multi_av_out 1; HDMI Port → hdmi 1; Sensor Bar Connector has no §3 kind (not filed). No controller ports (wireless controllers).",
+    "controls: POWER Button → power_button; EJECT Button → eject_button; SYNC Button has no §3 kind; no reset button in the components list.",
+    "Premium (32 GB) and Basic (8 GB) sets share this body per the same JP page. external_ids: Wikidata Q56942 ('Wii U'); igdb_platform 'wiiu' is P5795 on that item."
+  ]
+}

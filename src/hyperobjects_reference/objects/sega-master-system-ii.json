@@ -1,0 +1,81 @@
+{
+  "spec_version": 1,
+  "key": "sega-master-system-ii",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Master System II",
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": null,
+    "igdb_platform": null
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "pause_button",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
+      "retrieved": "2026-11-01",
+      "quote": "Cartridge Slot Cover"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
+      "retrieved": "2026-11-01",
+      "quote": "Pause Button / Power Switch"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
+      "retrieved": "2026-11-01",
+      "quote": "SEGA MASTER SYSTEM II COMPONENT"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega's 'Sega Master System II Instruction Manual' (1990, US), page 3 'Parts Identification' and page 4 'BACK VIEW OF POWER BASE'; transcribed from the page images (the OCR layer drops the slot label).",
+    "media: the drawing labels the 'Cartridge Slot Cover' on the top face (marked 'CARTRIDGE INPUT'): cartridge_top.",
+    "controls: the power base labels 'Pause Button' and 'Power Switch'; the back view adds 'Channel Switch CH 3 - CH 4' (no contract kind). No reset button is labelled.",
+    "Ports not filed: 'Control Port 1', 'Control Port 2' (connector type not stated), 'RF Jack', 'AC Adaptor Jack'.",
+    "Envelope and mass: no maker or museum figure found."
+  ]
+}

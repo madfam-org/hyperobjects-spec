@@ -1,0 +1,86 @@
+{
+  "spec_version": 1,
+  "key": "sega-mega-drive",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Sega",
+  "model": "Mega Drive / Genesis (model 1)",
+  "aliases": [
+    "Sega Genesis (model 1)"
+  ],
+  "regions": [
+    "NA"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q10676",
+    "igdb_platform": "genesis-slash-megadrive"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "media": [
+    {
+      "kind": "cartridge_top",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "controls": [
+    {
+      "kind": "power_switch",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "reset_button",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "media",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Cartridge Slot"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Power Switch / Headphone Volume Control / Reset Button"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "SEGA GENESIS SYSTEM CONSOLE"
+    }
+  ],
+  "notes": [
+    "Source: archive.org scan of Sega's 'Genesis Instruction Manual' (1991, US), page 3 'Parts Identification' (Genesis model 1, with headphone jack and volume slider). The OCR text layer is garbled here ('Power S«iuh', 'Conirol Port 2'), so the quotes are our transcription of the printed labels from the page image.",
+    "media: the parts drawing labels the 'Cartridge Slot' on the top face of the console: cartridge_top.",
+    "controls: the console labels are 'Power Switch' (a slide switch: power_switch), 'Headphone Volume Control' (no contract kind, noted not filed) and 'Reset Button'. Page 4's back view adds a 'Channel Switch CH 3-CH 4' (no contract kind).",
+    "Ports not filed: front 'Control Port 1', 'Control Port 2' (connector type not stated) and 'Stereo Headphone Jack'; back view (OCR): 'Extension Compartment', 'RF Jack', 'Video Jack (RGB Output)', 'AC Adaptor Jack'.",
+    "Envelope: none from a maker source reached. Science Museum Group co8413238 reportedly prints 'console: 60 mm x 210 mm x 280 mm' with unlabelled axes (SMG 429 this pass). Sega's archive page (www.sega.jp/fb/segahard/md/data.html) returns 403.",
+    "Mega Drive (JP/EU) and Genesis model 1 share the shell; the facts here are from the US Genesis manual.",
+    "external_ids: Wikidata Q10676 confirmed through the Wikidata API; igdb_platform 'genesis-slash-megadrive' is one of Wikidata's two P5795 values on that item (the other is 'smd')."
+  ]
+}
