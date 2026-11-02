@@ -1735,7 +1735,8 @@ convention and how to add a part.
 A commons **family** cartridge (an archetype we own) turns a real product's published facts
 into a named **preset**. Those facts live in `src/hyperobjects_reference/objects/`: one JSON
 file per object (a console, a handheld, a phone, a controller, a media format, a case, a
-carton, a booklet), validated by `reference-object.schema.json`. Facts only — never CAD,
+carton, a booklet, or one published **edition** of a game title), validated by
+`reference-object.schema.json`. Facts only — never CAD,
 artwork or a likeness. `null` means unresolved, never guessed. Every non-null value is covered
 by a source of a value tier (`primary`, `museum`, `regulatory`, `derived`, `measured`;
 `secondary` only locates one). A covered `controls` / `ports` / `media` list is complete, so a
@@ -1748,7 +1749,13 @@ objs = load_family("clamshell-dual-screen-handheld")       # presets of one fami
 family_digest("clamshell-dual-screen-handheld")             # recorded in _generated_from
 ```
 
-The lane is `ho-reference check` (at 0.19.0: `ho-reference check: objects=84 values=2231 failures=0`).
+The lane is `ho-reference check` (at 0.20.0: `ho-reference check: objects=84 values=2231 failures=0 notes=0`).
+An `edition` (one release of a title on one platform in one region) joins its platform, media,
+package, booklet, inserts and bundled objects by key; a key the catalog does not hold yet is a
+note, never a failure. Gate G-X2's keystone half is `ho-reference fit --container KEY --content
+KEY [--clearance-mm X]`: a container's inside (`features.inside_*_mm`, else `closed` less two
+walls) against the content's `shell`/`body`/`closed` envelope plus the clearance per side, with
+the verdict `fits` (exit 0), `does not fit` (1) or `unknown (null input)` (3, never a pass).
 The catalog opened with the 84 devices of Telesia's device-geometry registry, moved to the
 geometry side under the owner's separation ruling of 2026-11-01.
 [`docs/REFERENCE_OBJECTS.md`](docs/REFERENCE_OBJECTS.md) has the rules, the tiers, the
@@ -1880,7 +1887,7 @@ Every count above, and in the two transcripts earlier on this page, is emitted b
 | `hyperobjects_aas` | the AAS v3.1 projection (SEM-1): cartridges, material cards and checked assemblies (ASM-1 §5: BoM, Mates, placement, Kinematics (§9), capability, requirement roll-up) → AAS Environments, the resolver that reads stored type shells back for re-validation (`hyperobjects_aas.resolver`), the IDTA conformance-claim rule, and `aas check`, with the official `aas.json` v3.1.2 **vendored** under CC-BY-4.0 — see `hyperobjects_aas/schemas/VENDORED.md` |
 | `hyperobjects_licenses` | the shipped-LICENSE body check (`license-body`, note-first) against canonical licence texts **vendored** byte-identical from SPDX license-list-data and pinned by `licenses.lock.json` — see its `VENDORED.md` |
 | `hyperobjects_standard_parts` | the standard-parts catalog (ASM-1 §4): one cited JSON entry per COTS part, the loader, parameter resolution, interface frames, the part digest, and the catalog lane |
-| `hyperobjects_reference` | the reference-objects catalog: one cited JSON entry per real product (the facts a commons family turns into a named preset), the path and coverage helpers, the family digest, and the catalog lane (`ho-reference`) |
+| `hyperobjects_reference` | the reference-objects catalog: one cited JSON entry per real product or game edition (the facts a commons family turns into a named preset), the path and coverage helpers, the family digest, the catalog lane (`ho-reference check`, with edition references resolved note-first), and the box ↔ content fit, gate G-X2 (`hyperobjects_reference.fit`, `ho-reference fit`) |
 
 ```python
 import hyperobjects_schemas as hs

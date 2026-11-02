@@ -271,7 +271,7 @@ jobs:
         run: |
           set -o pipefail
           .venv/bin/ho-reference check -v | tee reference.out
-          grep -Eq "^ho-reference check: objects=[1-9][0-9]* values=[1-9][0-9]* failures=0$" reference.out
+          grep -Eq "^ho-reference check: objects=[1-9][0-9]* values=[1-9][0-9]* failures=0 notes=[0-9]+$" reference.out
 
       - name: Sheet-behaviour lane
         # The cross-commons sheet-behaviour contract (docs/SHEET_BEHAVIOUR.md). The goldens
