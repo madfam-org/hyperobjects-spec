@@ -1,0 +1,52 @@
+{
+  "spec_version": 1,
+  "key": "fixture-quest-3ds-na",
+  "kind": "edition",
+  "family": null,
+  "brand": "Fixture Games",
+  "model": "Fixture Quest (Nintendo 3DS, NA)",
+  "status": "partial",
+  "edition": {
+    "title": "Fixture Quest",
+    "platform": "nintendo-3ds",
+    "region": "NA",
+    "product_code": "FIX-QST-USA",
+    "released": null,
+    "media": {
+      "key": "fixture-game-card",
+      "count": 1
+    },
+    "package": "fixture-keep-case",
+    "booklet": {
+      "pages": 16,
+      "page_width_mm": 120.0,
+      "page_height_mm": 118.0,
+      "binding": "saddle_stitch",
+      "cover_stock": "gloss-coated card"
+    },
+    "inserts": [
+      {
+        "kind": "registration_card",
+        "width_mm": 118.0,
+        "height_mm": 80.0,
+        "folds": 0
+      }
+    ],
+    "bundled": []
+  },
+  "sources": [
+    {
+      "field": "edition",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    }
+  ],
+  "notes": [
+    "TEST FIXTURE. A fictional object written for the lane's tests (tests/test_reference_editions.py). Every value is invented, describes no product, and must never be copied into the bundled catalog: real editions arrive with measured data.",
+    "edition.released is null: unresolved, as a real edition's would be until a source dates it."
+  ]
+}

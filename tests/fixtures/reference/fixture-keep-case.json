@@ -1,0 +1,64 @@
+{
+  "spec_version": 1,
+  "key": "fixture-keep-case",
+  "kind": "case",
+  "family": "keep-case",
+  "brand": "Fixture Games",
+  "model": "Fixture keep case",
+  "status": "verified",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 125.0,
+        "height": 137.0,
+        "depth": 14.0
+      }
+    }
+  },
+  "features": {
+    "inside_width_mm": 121.0,
+    "inside_height_mm": 133.0,
+    "inside_depth_mm": 11.0,
+    "wall_mm": 1.5,
+    "capacity": 1,
+    "retention": "card_slots"
+  },
+  "contents": [
+    {
+      "key": "fixture-game-card",
+      "count": 1
+    }
+  ],
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    },
+    {
+      "field": "features",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    },
+    {
+      "field": "contents",
+      "tier": "measured",
+      "retrieved": "2026-11-01",
+      "instrument": "digital calipers, 0.01 mm resolution; steel rule over 150 mm",
+      "resolution_mm": 0.01,
+      "specimen": "TEST FIXTURE: fictional, no physical specimen exists",
+      "measurer_role": "fixture"
+    }
+  ],
+  "notes": [
+    "TEST FIXTURE. A fictional object written for the lane's tests (tests/test_reference_editions.py). Every value is invented, describes no product, and must never be copied into the bundled catalog: real editions arrive with measured data."
+  ]
+}

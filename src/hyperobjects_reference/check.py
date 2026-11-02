@@ -21,6 +21,19 @@ What the lane checks (each failure class has a test)
 6. **Conflicts are decided** — every candidate cites a source that covers the field, the
    candidates differ, and the object's value equals the chosen one.
 7. **Status is honest** — ``unverified`` exactly when no value-tier source exists.
+8. **A booklet's page count is printable** — positive, and a multiple of 4 when its
+   ``binding`` is ``saddle_stitch`` (folded sheets of four pages each).
+9. **A container holds other objects, once each** — no ``contents[]`` key is the object's
+   own, and no key appears twice (one item carries the count).
+
+One rule reads the whole catalog, so :func:`check_catalog` runs it and :func:`check_object`
+does not:
+
+10. **An edition's keys resolve to the right kind** — ``edition.platform`` to a ``device``,
+    ``edition.media.key`` to a ``media`` object, ``edition.package`` to a ``case`` or a
+    ``carton``, and each ``edition.bundled[]`` key to anything but an edition. A key the
+    catalog does not hold is a **note**, never a failure, so an edition can land before its
+    formats do; ``contents[]`` keys are resolved the same way, note-only.
 """
 
 from __future__ import annotations
@@ -45,14 +58,23 @@ from . import (
 )
 
 __all__ = [
+    "EDITION_REFERENCE_KINDS",
     "CatalogResult",
     "active_area",
     "catalog_status",
     "check_catalog",
     "check_object",
+    "check_references",
 ]
 
 _MM_PER_INCH = Decimal("25.4")
+
+#: The kinds an edition's keys must resolve to. ``bundled`` takes any kind but ``edition``.
+EDITION_REFERENCE_KINDS = {
+    "edition.platform": frozenset({"device"}),
+    "edition.media.key": frozenset({"media"}),
+    "edition.package": frozenset({"case", "carton"}),
+}
 _QUANTUM = Decimal("0.1")
 
 #: What each tier must carry, beyond ``field``, ``tier`` and ``retrieved``.
@@ -74,6 +96,8 @@ class CatalogResult:
     values: int
     ok: bool
     problems: list[str] = field(default_factory=list)
+    #: True and worth saying, never a failure: an edition key the catalog does not hold yet.
+    notes: list[str] = field(default_factory=list)
 
     def __bool__(self) -> bool:
         return self.ok
@@ -229,6 +253,85 @@ def _status_problems(obj: Mapping) -> list[str]:
     return []
 
 
+def _booklet_problems(obj: Mapping) -> list[str]:
+    booklet = (obj.get("edition") or {}).get("booklet")
+    if not isinstance(booklet, Mapping) or booklet.get("pages") is None:
+        return []
+    pages = booklet["pages"]
+    if pages <= 0:
+        return [f"edition.booklet.pages: {pages} — a booklet has at least one page"]
+    if booklet.get("binding") == "saddle_stitch" and pages % 4:
+        return [
+            f"edition.booklet.pages: {pages} saddle-stitched — a saddle-stitched booklet is "
+            f"nested sheets of four pages each, so its count is a multiple of 4"
+        ]
+    return []
+
+
+def _contents_problems(obj: Mapping) -> list[str]:
+    out = []
+    seen: set[str] = set()
+    for i, item in enumerate(obj.get("contents") or []):
+        key = item.get("key")
+        if key == obj.get("key"):
+            out.append(f"contents[{i}].key: {key!r} is the object itself — a container cannot "
+                       f"hold itself")
+        if key in seen:
+            out.append(f"contents[{i}].key: {key!r} is listed twice — one item carries the count")
+        seen.add(key)
+    return out
+
+
+def _references(obj: Mapping) -> list[tuple[str, str, frozenset[str] | None]]:
+    """``(path, key, allowed kinds)`` for every key an object names; ``None`` = any but edition,
+    and an empty set = any kind at all (``contents[]``)."""
+    refs: list[tuple[str, str, frozenset[str] | None]] = []
+    edition = obj.get("edition")
+    if isinstance(edition, Mapping):
+        media = edition.get("media")
+        named = {
+            "edition.platform": edition.get("platform"),
+            "edition.media.key": media.get("key") if isinstance(media, Mapping) else None,
+            "edition.package": edition.get("package"),
+        }
+        refs += [(path, key, EDITION_REFERENCE_KINDS[path])
+                 for path, key in named.items() if isinstance(key, str)]
+        refs += [(f"edition.bundled[{i}]", key, None)
+                 for i, key in enumerate(edition.get("bundled") or []) if isinstance(key, str)]
+    refs += [(f"contents[{i}].key", item.get("key"), frozenset())
+             for i, item in enumerate(obj.get("contents") or [])
+             if isinstance(item, Mapping) and isinstance(item.get("key"), str)]
+    return refs
+
+
+def check_references(catalog: Mapping[str, object]) -> tuple[list[str], list[str]]:
+    """Rule 10, over a whole catalog: ``(problems, notes)``, each line prefixed by its stem.
+
+    A key the catalog does not hold is a note ("not checked"), never a failure. A key it does
+    hold must name an object of the kind the path requires.
+    """
+    problems: list[str] = []
+    notes: list[str] = []
+    for stem in sorted(catalog):
+        obj = catalog[stem]
+        if not isinstance(obj, Mapping):
+            continue
+        for path, key, allowed in _references(obj):
+            target = catalog.get(key)
+            if not isinstance(target, Mapping):
+                notes.append(f"{stem}: {path} names {key!r}, which this catalog does not hold "
+                             f"yet — its kind is not checked")
+                continue
+            kind = target.get("kind")
+            if allowed is None and kind == "edition":
+                problems.append(f"{stem}: {path} names {key!r}, an edition — what an edition "
+                                f"bundles is a physical object, not another edition")
+            elif allowed and kind not in allowed:
+                problems.append(f"{stem}: {path} names {key!r}, a {kind!r} — it must be "
+                                f"{' or '.join(repr(k) for k in sorted(allowed))}")
+    return problems, notes
+
+
 def check_object(obj: object, *, name: str | None = None) -> list[str]:
     """Every problem with one object. ``name`` is the file stem it was read from."""
     problems = _schema_errors(obj)
@@ -244,11 +347,17 @@ def check_object(obj: object, *, name: str | None = None) -> list[str]:
     problems += _derived_area_problems(obj)
     problems += _conflict_problems(obj)
     problems += _status_problems(obj)
+    problems += _booklet_problems(obj)
+    problems += _contents_problems(obj)
     return problems
 
 
 def check_catalog(catalog: dict[str, dict] | None = None) -> CatalogResult:
-    """Check every object (bundled unless ``catalog`` is given, keyed by file stem)."""
+    """Check every object (bundled unless ``catalog`` is given, keyed by file stem).
+
+    Rules 1–9 run per object; rule 10 (:func:`check_references`) over the catalog, and its
+    notes ride in :attr:`CatalogResult.notes` without failing the result.
+    """
     if catalog is None:
         catalog = load_catalog()
     problems: list[str] = []
@@ -258,7 +367,10 @@ def check_catalog(catalog: dict[str, dict] | None = None) -> CatalogResult:
         if isinstance(obj, Mapping):
             values += sum(1 for _ in leaves(obj))
         problems.extend(f"{stem}: {p}" for p in check_object(obj, name=stem))
-    return CatalogResult(objects=len(catalog), values=values, ok=not problems, problems=problems)
+    ref_problems, notes = check_references(catalog)
+    problems += ref_problems
+    return CatalogResult(objects=len(catalog), values=values, ok=not problems,
+                         problems=problems, notes=notes)
 
 
 def catalog_status(catalog: dict[str, dict] | None = None) -> list[str]:
