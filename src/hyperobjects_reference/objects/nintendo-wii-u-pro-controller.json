@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-u-pro-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Wii U PRO コントローラー",
+  "aliases": [
+    "Wii U Pro Controller"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2012-12-08",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 161,
+        "height": 104.4,
+        "depth": 48.1
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 203,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 5,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "nintendo-wii-u",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦104.4mm×横161mm×厚さ48.1mm（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦104.4mm×横161mm×厚さ48.1mm（突起部分を除く）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約203g（バッテリーを含む）"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "L・Rスティック、L・Rスティックボタン、十字ボタン、"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "A・B・X・Yボタン、L・Rボタン、ZL・ZRボタン、"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "+/STARTボタン、-/SELECTボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "電源ボタン、HOMEボタン、シンクロボタン（SYNC）、"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/controller/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth Ver2.0"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/specs/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wiiリモコンプラス（もしくはWiiリモコン）とWii U PROコントローラーを同時接続可能。"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/wiiu/accessories/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "発売日：2012年12月8日"
+    }
+  ],
+  "notes": [
+    "Nintendo JP Wii U accessory spec modal (hardware/wiiu/accessories/controller/). Axis mapping as labelled: 縦104.4mm = height, 横161mm = width, 厚さ48.1mm = depth, 突起部分を除く → excludes_projections true. Mass 約203g includes the battery. 入力(操作系) + その他入力 rows: L/R sticks (+ stick buttons), 十字, A/B/X/Y, L/R, ZL/ZR, +/START, −/SELECT, 電源, HOME, SYNC → dpad 1, face_button 4, bumper 2 (L/R), trigger 2 (ZL/ZR), stick 2, button 5 (+, −, power, HOME, sync). ports [] = unknown: the only connector Nintendo lists is «USB端子（充電用）» with no connector type, so no contract kind (usb_c / micro_usb / mini_usb) can be chosen from this page. cell_kind null: Nintendo says the mass includes «バッテリー» but not whether it is built in. wired=false (Bluetooth Ver2.0). released = 発売日 on the Wii U accessories page's PRO section (the same date string appears for other accessories on that page). host_console from the Wii U spec page's connection line."
+  ]
+}

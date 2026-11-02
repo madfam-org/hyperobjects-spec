@@ -1,0 +1,199 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualshock-4",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DUALSHOCK 4 Wireless Controller",
+  "model_numbers": [
+    "CUH-ZCT1",
+    "CUH-ZCT2"
+  ],
+  "aliases": [
+    "DualShock 4",
+    "DUALSHOCK®4"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 161,
+        "height": 57,
+        "depth": 100
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 210,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 3,
+      "position": null
+    },
+    {
+      "kind": "touchpad",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "micro_usb",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "expansion_slot",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "sony-playstation-4-cuh-1000",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx.161mm x 57mm x 100mm (width x height x depth)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "(excludes largest projection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx.210g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "PS button, SHARE button, OPTIONS button, Directional buttons (Up/Down/Left/Right), Action buttons (Triangle, Circle, Cross, Square), R1/L1/R2/L2 buttons, Left stick / L3 button, Right stick / R3 button, Touch Pad Button"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "USB (Micro B), Extension Port, Stereo Headset Jack"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth® v2.1+EDR"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Built-in Lithium-ion Rechargeable Battery"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-au/ps4/tech-specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Wireless Controller (DUALSHOCK®4)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-introduces-color-variations-for-dualshock4-wireless-controller/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 161mm × 57mm × 100mm (width × height × depth) (excludes largest projection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps4-accessories/dualshock4-wireless-controller-cuh-zct2/CUH-ZCT2X_PS4_Wireless_Controller__Instruction_Manual_Web$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 210 g"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2013/sony-computer-entertainment-introduces-wireless-controller-for-playstation4-dualshock4-and-playstation4-eye/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 162mm x 52mm x 98mm (width x height x depth)"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "dimensions_mm.states.body",
+      "candidates": [
+        {
+          "value": {
+            "width": 161,
+            "height": 57,
+            "depth": 100
+          },
+          "source": 0
+        },
+        {
+          "value": {
+            "width": 162,
+            "height": 52,
+            "depth": 98
+          },
+          "source": 10
+        }
+      ],
+      "chosen": 0,
+      "reason": "Sony's February 2013 announcement printed 162 x 52 x 98 mm marked «(tentative, excludes largest projection)»; the August 2013 launch-colour release (CUH-ZCT1) and the current PS4 tech-spec page (CUH-ZCT2) both print 161 x 57 x 100 mm, so the shipped figure wins."
+    }
+  ],
+  "notes": [
+    "One object for both DUALSHOCK 4 revisions: Sony prints the same envelope and mass for the launch CUH-ZCT1 (2013 colour-variation release) and the CUH-ZCT2 series (PS4 tech-spec page, en-au), so under the catalog's one-object-per-distinct-dimensions rule they share a key. Axes as Sony labels them: width x height x depth; «(excludes largest projection)» sets excludes_projections. Mass 210 g is confirmed by the CUH-ZCT2 instruction manual (playstation.com PDF, text extracted with PDFKit). Conflict: the February 2013 announcement's tentative 162 x 52 x 98 mm (pre-production) is recorded and not chosen. Control mapping (from the tech-spec page's «Keys / Switches» line, the complete list): Directional buttons = dpad 1; Action buttons Triangle/Circle/Cross/Square = face_button 4; L1/R1 = bumper 2; L2/R2 = trigger 2; left and right sticks = stick 2 (L3/R3 are their clicks); PS, SHARE, OPTIONS = button 3; the Touch Pad (with its click) = touchpad 1. Ports (the «Ports» line, complete): USB (Micro B) = micro_usb; Extension Port = expansion_slot; «Stereo Headset Jack» = headphone_3_5 (Sony does not print the diameter; the catalog's 3DS entry uses the same convention). wired=false: Bluetooth; USB is for charging and wired play. cell_count null for a built-in pack. Light bar, vibration, speaker and motion sensor have no contract kind. host_console uses the key sony-playstation-4-cuh-1000 (the launch model; any PS4 model hosts it) (align with the home-console lane's key). The CUH-ZCT2 light bar also shows through the touch pad; the shell difference is not in any Sony dimension."
+  ]
+}

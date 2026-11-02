@@ -1,0 +1,39 @@
+{
+  "spec_version": 1,
+  "key": "snk-neo-geo-aes-controller",
+  "kind": "controller",
+  "family": "stick-controller",
+  "brand": "SNK",
+  "model": "NEO-GEO AES controller",
+  "aliases": [
+    "Neo Geo AES joystick controller"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "Unverified: no SNK specification, owner's-manual OCR or museum record with this controller's dimensions or control list was found (archive.org has AES game manuals but no console or controller manual with OCR; a Digital Game Museum record lists the console's size only). Expected from the product, NOT filed: one lever, four buttons A–D, Start and Select. All values null; a human should look for SNK's own AES owner's manual."
+  ]
+}

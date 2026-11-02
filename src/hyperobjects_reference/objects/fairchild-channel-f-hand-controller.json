@@ -1,0 +1,47 @@
+{
+  "spec_version": 1,
+  "key": "fairchild-channel-f-hand-controller",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Fairchild",
+  "model": "Channel F Hand-Controller",
+  "aliases": [
+    "Fairchild Video Entertainment System hand controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "fairchild-channel-f",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Fairchild-Channel-F-Manual",
+      "retrieved": "2026-11-01",
+      "quote": "(via the two Hand-Controller units)."
+    }
+  ],
+  "notes": [
+    "Source: Fairchild Channel F (Video Entertainment System) manual, archive.org Fairchild-Channel-F-Manual. Quotes are verbatim lines of archive.org's OCR text (the item's _djvu.txt) of the maker's scanned manual, OCR errors and spacing included; the scan, not the OCR, is the authority, and a human should re-read each line against the page image. The manual describes the Hand-Controller's motions (Forward and Backward, Left and Right, «Rotates Right and Left», «Pulls Up and Plunges Down», and 45° diagonals) and its knob with «the recessed triangle on the knob», but gives no counted control list, so controls is an uncovered [] (the single knob is the plan's cap_handle, which has no contract kind yet). Whether the controllers are hardwired is not stated in a citable line: wired null. Body dimensions, mass, cord length: no maker or museum figure found, null."
+  ]
+}

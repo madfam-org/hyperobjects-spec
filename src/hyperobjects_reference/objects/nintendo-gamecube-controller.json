@@ -1,0 +1,53 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-gamecube-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "ニンテンドー ゲームキューブ コントローラ",
+  "model_numbers": [
+    "DOL-003"
+  ],
+  "aliases": [
+    "Nintendo GameCube Controller"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "nintendo-gamecube",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/ngc/control/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "ニンテンドー ゲームキューブ／スペック - コントローラ"
+    }
+  ],
+  "notes": [
+    "Nintendo JP GameCube «スペック - コントローラ» page (still live at nintendo.co.jp/ngc/control/) is design prose only: it names one analogue stick added and analogue triggers left and right («アナログスティックを１本、本格的なアナログトリガーを左右に１つずつ») and built-in rumble, but gives no dimensions, no mass and no complete control list, so controls stays [] (a partial list would read as complete). The Wii controllers page lists the white DOL-003(-01) as connecting to the Wii's GameCube controller ports (alt text), the source of the model number. Nintendo of Europe's GameCube Technical Details page has console data only. Dimensions, mass, wired and cable_length_mm: null. A human could check the GameCube instruction booklet (not located as a Nintendo-hosted PDF)."
+  ]
+}

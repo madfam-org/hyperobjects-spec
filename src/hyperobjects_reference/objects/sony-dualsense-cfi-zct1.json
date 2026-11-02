@@ -1,0 +1,167 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualsense-cfi-zct1",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DualSense Wireless Controller",
+  "model_numbers": [
+    "CFI-ZCT1"
+  ],
+  "aliases": [
+    "DualSense"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 160,
+        "height": 66,
+        "depth": 106
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 280,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "touchpad",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "sony-playstation-5-cfi-1000",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 160mm x 66mm x 106mm (excludes largest projection)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 160mm x 66mm x 106mm (excludes largest projection)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-wireless-controller/buy-now/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. H66 x W160 x D106 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 280g"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-cfi-zct1w/CFI-ZCT1W_PS5_Wireless%20Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 280 g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Left stick / L3 button, Right stick / R3 button, Touch Pad button, MUTE button"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "PS button, Create button, Options button,"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "USB Type-C® port (Hi-Speed USB), Stereo Headset Jack, Charging Terminals"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth® 5.1"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "Built-in rechargeable lithium-ion battery"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2020/playstation-5-launches-this-november-at-399-for-ps5-digital-edition-and-499-for-ps5-with-ultra-hd-blu-ray-disc-drive/",
+      "retrieved": "2026-11-01",
+      "quote": "DualSense™ Wireless Controller Specifications"
+    }
+  ],
+  "notes": [
+    "Sony's PS5 launch release (2020-09-17, «DualSense™ Wireless Controller Specifications» table; read through sonyinteractive.com's own wp-json press-release API, which serves the page's content) prints «Approx. 160mm x 66mm x 106mm (excludes largest projection)» with «(width x height x depth)» on the next line; the en-gb store page agrees with labelled «Approx. H66 x W160 x D106 mm». Mass: the release's «Approx. 280g» and the CFI-ZCT1W instruction manual's «Mass Approx. 280 g» agree; the store page's «Approx. 0.3kg» is the same mass rounded to 0.1 kg, not a disagreement, so no conflict is filed. Controls (the release's «Buttons» rows, quoted in two parts because the table breaks the line; the middle rows read «Directional buttons (Up/Down/Left/Right), Action buttons (Triangle, Circle, Cross, Square), R1/L1 button, R2/L2 button (with Trigger Effect)»): dpad 1; face_button 4; bumper 2 (L1/R1); trigger 2 (L2/R2, adaptive); stick 2 (L3/R3 are clicks); button 4 = PS, Create, Options, MUTE; touchpad 1 (with its click). The CFI-ZCT1W manual's «Hardware part names» list (directional buttons, create, light bar, touch pad, player indicator, options, action buttons, two sticks, speaker, PS, headset jack, microphone, mute; top: R1, R2, USB port, L1, L2) matches. Ports: USB Type-C = usb_c 1; Stereo Headset Jack = headphone_3_5 1 (the store page says «the 3.5mm jack»); the «Charging Terminals» (contacts for the charging station) have no contract kind. wired=false: Bluetooth 5.1, USB for wired play and charging. The later CFI-ZCT2 revision has its own manual (mass also 280 g) but no Sony dimension line was found, so it is not filed. host_console uses the key sony-playstation-5-cfi-1000 (the launch model; any PS5 model hosts it)."
+  ]
+}

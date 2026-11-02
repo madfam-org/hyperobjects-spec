@@ -1,0 +1,159 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-wii-remote-plus",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Nintendo",
+  "model": "Wiiリモコンプラス",
+  "model_numbers": [
+    "RVL-036"
+  ],
+  "aliases": [
+    "Wii Remote Plus"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2010-11-11",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 36.2,
+        "height": 148,
+        "depth": 30.8
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 133,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "expansion_slot",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "aa",
+    "cell_count": 2,
+    "host_console": "nintendo-wii",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 148mm　　横 36.2mm　　厚さ 30.8mm　（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 148mm　　横 36.2mm　　厚さ 30.8mm　（突起部分を除く）"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "Ａ、Ｂ、十字ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "−（マイナス）、Home（ホーム）、＋（プラス）ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "１、２ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "本体の電源スイッチ"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "拡張ユニット接続可能"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/wiiRemoteDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth（短距離無線通信）による無線接続"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "※単3アルカリ乾電池（動作確認用）、Wiiリモコン専用ストラップ、Wiiリモコンジャケット付き"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii | コントローラ"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "発売日 2010年11月11日"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "約133g（ストラップ、 Wiiリモコンジャケット付き、 乾電池含まず ）"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "単3形アルカリ乾電池（LR6） 2本"
+    }
+  ],
+  "notes": [
+    "Nintendo JP Wii controllers page, spec modal wiiRemoteDetail.html linked from the Wiiリモコンプラス section, product code [RVL-036] (the modal's text header reads only «Wiiリモコン»; the code identifies the Plus). Same envelope as the RVL-003 Wii Remote. Axis mapping as labelled: 縦 148mm = height, 横 36.2mm = width, 厚さ 30.8mm = depth, 突起部分を除く → excludes_projections true. 操作部 list: pointer, 3-axis motion sensor, 本体の電源スイッチ, Ａ・Ｂ・十字, −・Home・＋, １・２ → dpad 1, face_button 4 (A, B, 1, 2 — the page does not say where B sits; it is the underside trigger, but a position is not sourced, so all four are filed as face_button), button 4 (power, −, HOME, +). Pointer and motion sensor are not controls. ports: «拡張ユニット接続可能» (expansion unit connectable) = expansion_slot 1, the only connector the spec names. その他の機能 also lists vibration, speaker and player indicator (no kinds). The web spec page publishes no mass. Wii MotionPlus is built in (no kind). cell_kind aa and released from the controllers page's image alt text for the Plus (white launch 2010-11-11). host_console from the page title. Mass and cell count: Nintendo JP Wii setup manual (wiimanual_setup.pdf, 取扱説明書 セットアップ編), spec table for Wiiリモコンプラス [RVL-036], text extracted with PDFKit (the PDF interleaves furigana lines, which are not part of the quotes): 使用電源 «単3形アルカリ乾電池（LR6） 2本» → cell_count 2; 質量 «約133g（ストラップ、 Wiiリモコンジャケット付き、 乾電池含まず ）» — the 133 g INCLUDES the wrist strap and the silicone Wii Remote jacket and EXCLUDES the two AA cells. The manual's 外形寸法 «横36.2mm×縦148mm×厚さ30.8mm» agrees with the web modal (same three labelled values; the manual omits the 突起部分を除く qualifier), so no conflict."
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-joy-con-2-r",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Joy-Con 2 (R)",
+  "aliases": [
+    "Joy-Con 2 (R)"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 41.4,
+        "height": 116,
+        "depth": 30.7
+      }
+    },
+    "excludes_projections": false
+  },
+  "mass_g": 67,
+  "controls": [
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 5,
+      "position": null
+    },
+    {
+      "kind": "side_button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": false,
+    "split": "magnetic_halves",
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "nintendo-switch-2",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "縦116mm×横41.4mm×厚さ30.7mm"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "アナログスティック先端からZL/ZR突起部分までの最大の厚さ"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "約67g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Rスティック／Rスティックボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "A／B／X／Y／R／ZR／SL／SR／+ボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Cボタン"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth/NFC（近距離無線通信）"
+    },
+    {
+      "field": "features.split",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "磁石を使った、Joy-Con 2 を本体に取り付けるための機構です。"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "内蔵バッテリーの取り外しはできません。"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "磁石を使った、Joy-Con 2 を本体に取り付けるための機構です。"
+    }
+  ],
+  "notes": [
+    "Nintendo JP Switch 2 「機能・仕様」 page, Joy-Con 2 spec table (one サイズ cell spans the (L) and (R) columns). Axis mapping as Nintendo labels it: 縦116mm = height, 横41.4mm = width, 厚さ30.7mm = depth. The ※ footnote under the size says the 30.7 mm thickness is the maximum from the analogue stick tip to the ZL/ZR projection, so the envelope INCLUDES projections at least in depth: excludes_projections=false. CONFLICT NOT FILED: Nintendo's AU tech-specs page prints «Approx. 116mm x 14.4mm x 30.7mm» with unlabelled axes; 14.4 vs the JP page's labelled 横41.4mm looks like a digit transposition on the AU page, but since the AU triple carries no axis labels it cannot be a candidate for width, so it is recorded here only (a human should compare the en-gb page). Mass: the JP page gives the standard model only; the UK page also lists a user-replaceable-battery variant (68 g / 69 g), not filed. split=magnetic_halves from 「磁石を使った、Joy-Con 2 を本体に取り付けるための機構です。」 (the console's attach mechanism) — also the source for host_console. wired=false (Bluetooth row); cell_kind=built_in (内蔵バッテリー row, 500mAh, not user-removable); cell_count null. ports [] = unknown: the spec table has no 端子 (port) row for the Joy-Con 2; the charging contacts on the rail are not a contract kind. Mouse sensor, NFC (R), HD振動2 have no kind. Control mapping: 上／下／左／右 on the (L) are four discrete directional buttons, filed as face_button 4 (they are laid out like a face-button diamond; a cross dpad would misstate the part); L/R = bumper 1; ZL/ZR = trigger 1; SL/SR = side_button 2 (on the rail face); stick 1 (the stick button is its click, not a separate control); 取り外しボタン (release) and シンクロボタン (sync) counted under button with the system buttons, as Nintendo lists them in its ボタン row. released not on this page (null). (R) column: mass 約67g; ボタン: Rスティック／Rスティックボタン; A／B／X／Y／R／ZR／SL／SR／+ボタン; HOMEボタン; Cボタン; 取り外しボタン; シンクロボタン → face_button 4 = A/B/X/Y, button 5 = +, HOME, C, release, sync. The A／B／X／Y… run is split by a <br> in the HTML; the quote is its text with the tag removed."
+  ]
+}

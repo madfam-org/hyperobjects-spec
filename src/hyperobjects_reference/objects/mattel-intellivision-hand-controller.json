@@ -1,0 +1,104 @@
+{
+  "spec_version": 1,
+  "key": "mattel-intellivision-hand-controller",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Mattel",
+  "model": "Intellivision Master Component Hand Controller",
+  "aliases": [
+    "Intellivision hand controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [
+    {
+      "kind": "keypad_key",
+      "count": 12,
+      "position": null
+    },
+    {
+      "kind": "side_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "disc",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "cable",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "mattel-intellivision",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "Each Hand Controller has 12 keys on its keypad. These are"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "There are 2 action keys on each side of the Hand Controller."
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "The disc at the base of the Hand Controller allows you to"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "attached to it by coiled cables."
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "attached to it by coiled cables."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/Master_Component_Owners_Manual_1978_Mattel_AU",
+      "retrieved": "2026-11-01",
+      "quote": "The Master Component contains 2 Hand Controllers which are"
+    }
+  ],
+  "notes": [
+    "Source: Mattel Intellivision Master Component Owner's Manual (1978, Mattel, AU; archive.org Master_Component_Owners_Manual_1978_Mattel_AU), section «THE HAND CONTROLLERS». Quotes are verbatim lines of archive.org's OCR text (the item's _djvu.txt) of the maker's scanned manual, OCR errors and spacing included; the scan, not the OCR, is the authority, and a human should re-read each line against the page image. Mapping: «12 keys on its keypad» = keypad_key 12; «2 action keys on each side» = side_button 4 (two per side; the manual adds that the two top keys share one function); the 16-point direction disc = disc 1 (the manual: «underneath it are 16 points — 16 points on a compass»); the overlay slot at the top of the keypad is noted, not a control. The section is read as the hand controller's complete control list. ports: the coiled cable that attaches the controller to the Master Component = cable 1 (hardwired, so wired=true); no other connector. Body dimensions, mass, cable length: no maker or museum figure found (the Computer History Museum record 102674783 measures the boxed console set only), null."
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-nunchuk",
+  "kind": "controller",
+  "family": "handset-controller",
+  "brand": "Nintendo",
+  "model": "ヌンチャク",
+  "model_numbers": [
+    "RVL-004"
+  ],
+  "aliases": [
+    "Nunchuk"
+  ],
+  "regions": [
+    "JP"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": "2006-12-02",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 38.2,
+        "height": 113,
+        "depth": 37.5
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 73,
+  "controls": [
+    {
+      "kind": "face_button",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "nintendo-wii",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/nunchukDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 113mm　　横 38.2mm　　厚さ 37.5mm　（突起部分を除く）"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/nunchukDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦 113mm　　横 38.2mm　　厚さ 37.5mm　（突起部分を除く）"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/nunchukDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "Ｃ、Ｚボタン"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/nunchukDetail.html",
+      "retrieved": "2026-11-01",
+      "quote": "コントロールスティック"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "Wii | コントローラ"
+    },
+    {
+      "field": "released",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/controllers/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2006年12月2日（シロ）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/wii/support/pdf/wiimanual_setup.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "約73g"
+    }
+  ],
+  "notes": [
+    "Nintendo JP Wii controllers page, spec modal nunchukDetail.html, product code [RVL-004]. Axis mapping as labelled: 縦 113mm = height, 横 38.2mm = width, 厚さ 37.5mm = depth, 突起部分を除く → excludes_projections true. 操作部: 3-axis motion sensor, Ｃ・Ｚ buttons, control stick → face_button 2 (C and Z; the page gives no placement — Z is the front trigger, but that is not sourced here), stick 1. The Nunchuk is an extension controller: «Wiiリモコン、Wiiリモコンプラスの外部拡張コネクタにつなげて使用します» (controllers page) and it uses the Remote's communication. It connects to the REMOTE, not the console, by a cord — Nintendo's text says «つなげて» (connect) without naming a cable, so wired, ports and cable_length_mm are left null/[] (wired here would mean a cord to the console). No battery (none mentioned; cell_kind null). released = white model 発売日 from the controllers page alt text; host_console from its title. Mass and cord: Nintendo JP Wii setup manual (wiimanual_setup.pdf), spec table for ヌンチャク [RVL-004], PDFKit text: 外形寸法 «横38.2mm×縦113mm×厚さ37.5mm» (agrees with the web modal; no conflict), then the labels コードの長さ and 質量 followed by the values «90cm» and «約73g» in that order → mass_g 73 (the manual does not say what the mass includes; the cord is part of the unit). The cord length is printed as 90cm, in centimetres, so cable_length_mm stays null (no conversions); the cord runs to the Wii Remote's extension connector, not to the console, which is why wired stays null too."
+  ]
+}

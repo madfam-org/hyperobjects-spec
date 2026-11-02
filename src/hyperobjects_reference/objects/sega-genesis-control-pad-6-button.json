@@ -1,0 +1,40 @@
+{
+  "spec_version": 1,
+  "key": "sega-genesis-control-pad-6-button",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sega",
+  "model": "Genesis 6 Button Control Pad",
+  "aliases": [
+    "Six Button Arcade Pad",
+    "Mega Drive 6 Button Control Pad"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "Unverified: no maker page, manual OCR or museum record with this pad's dimensions or a citable control list was found (archive.org searches for a Sega 6-button pad manual returned only third-party reproductions; the 1993 Genesis console manual shows the 3-button pad). Expected from the product name only, NOT filed: six face buttons A/B/C/X/Y/Z, Start and a Mode button; these need a primary source. Sega's history archive (sega.jp/history/hard/megadrive/) returns 403 to automated fetches; a human browser visit is listed in the lane report. All values null."
+  ]
+}

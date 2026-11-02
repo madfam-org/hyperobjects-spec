@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "key": "sony-dualsense-edge-cfi-zcp1",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Sony",
+  "model": "DualSense Edge Wireless Controller",
+  "model_numbers": [
+    "CFI-ZCP1"
+  ],
+  "aliases": [
+    "DualSense Edge"
+  ],
+  "status": "verified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 160,
+        "height": 66,
+        "depth": 106
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 325,
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 6,
+      "position": null
+    },
+    {
+      "kind": "touchpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "rear_button",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": "sony-playstation-5-cfi-1000",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-gb/accessories/dualsense-edge-wireless-controller/buy-now/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. H66 x W160 x D106 mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 325 g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "A Directional buttons B (create) button C Light bar D Touch pad/touch pad button E Player indicator F (options) button"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "H Right stick/R3 button* I Fn button"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "C Left back button slot*1 D Reset button*2 E RELEASE latch F Right back button slot*1"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-us/accessories/dualsense-edge-wireless-controller/",
+      "retrieved": "2026-11-01",
+      "quote": "2 Half Dome Back Buttons"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "C USB port"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "J Speaker K (PS) button L Headset jack M Microphone N (mute) button"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.playstation.com/ja-jp/accessories/dualsense-edge-wireless-controller/",
+      "retrieved": "2026-11-01",
+      "quote": "USB 編み込みケーブル（Type-C）"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://www.playstation.com/en-us/accessories/dualsense-edge-wireless-controller/",
+      "retrieved": "2026-11-01",
+      "quote": "Connect the controller to your computer using the included USB cable or Bluetooth® technology to enjoy high-performance play on PC."
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Battery type Built-in lithium-ion battery"
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en-gb/corporate/support/manuals/accessories/ps5-accessories/dualsense-wireless-controller-edge/CFI-ZCP1_PS5_Wireless_Controller_Instruction_Manual$en-gb.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "If using a controller that is connected to the PS5 console"
+    }
+  ],
+  "notes": [
+    "Envelope from the en-gb DualSense Edge buy-now page's «Product Specifications» (canonical URL confirmed as the Edge page), labelled «Approx. H66 x W160 x D106 mm» — the same figure Sony prints for the DualSense; the page does not say whether projections are excluded, so excludes_projections is null. Mass from the CFI-ZCP1 instruction manual (playstation.com PDF, AES-encrypted, text extracted with PDFKit): «Mass Approx. 325 g» (the controller; the stick module is listed separately at 15 g with its own «Approx. 30 × 31 × 40mm (width × height × depth)»). The buy page's «Approx. 0.3kg» is the same mass rounded. Controls from the manual's «Part names» (front, top, rear; PDF lines joined with single spaces in the quotes): dpad 1; face_button 4 (action buttons); bumper 2 (R1/L1) and trigger 2 (R2/L2, with stop sliders, which have no contract kind); stick 2 (changeable modules and caps; R3/L3 clicks); button 6 = create, options, PS, mute and two Fn buttons (the front diagram labels I twice; Sony's page says «Function buttons»); touchpad 1; rear_button 2 = the two back-button slots (each takes a half-dome or a lever back button; two of each ship). rear_button is not in the controller contract's list; it is the slab-handheld kind, used here and for the Switch 2 Pro GL/GR so builders read one name. The pin-hole reset button is not counted. Ports (manual: «USB port», «Headset jack»): usb_c, because Sony Japan's page lists the bundled cable as «USB 編み込みケーブル（Type-C）» (its controller end is Type-C; the release does not name the port type), and headphone_3_5 by the catalog convention (no diameter printed). The connector housing that locks the cable is an accessory. host_console uses the key sony-playstation-5-cfi-1000 (the launch model; any PS5 model hosts it). wired=false: USB cable or Bluetooth."
+  ]
+}

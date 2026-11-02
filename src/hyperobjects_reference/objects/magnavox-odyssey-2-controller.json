@@ -1,0 +1,61 @@
+{
+  "spec_version": 1,
+  "key": "magnavox-odyssey-2-controller",
+  "kind": "controller",
+  "family": "stick-controller",
+  "brand": "Magnavox",
+  "model": "Odyssey² joystick",
+  "aliases": [
+    "Odyssey 2 joystick",
+    "Odyssey2 controller"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 92.1,
+        "height": 88.9,
+        "depth": 117.5
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "magnavox-odyssey-2",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102718237",
+      "retrieved": "2026-11-01",
+      "quote": "9.21w x 8.89h x 11.75l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "The Computer History Museum's printed centimetre triple (sources[0], «9.21w x 8.89h x 11.75l (cm)») x 10: width 92.1, height 88.9, depth 117.5 mm; exact decimal shift, no rounding added."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102718237",
+      "retrieved": "2026-11-01",
+      "quote": "Odyssey 2 joystick"
+    }
+  ],
+  "notes": [
+    "Source: Computer History Museum record 102718237, «Odyssey 2 joystick», 1978, Magnavox Consumer Electronics Company, a single joystick (not a boxed set). The record prints «3 5/8w x 3 1/2h x 4 5/8l (in)» and «9.21w x 8.89h x 11.75l (cm)»: the inch triple is the museum's measurement at 1/8 in resolution and the cm triple is the museum's own printed metric figure; the mm values restate that printed cm triple ×10, filed with a derived source naming the method (the brief treats any unit change as a derivation). Axes as CHM labels them: w → width, h → height, l (length) → depth; the record does not say whether the lever is included in h (it most likely is) or whether the cord is excluded, so excludes_projections is null. The CHM weight «1 (lb)» is a whole-pound rounding and is not used. Controls: the Odyssey² owner's manual (archive.org odyssey2ownersmanual1980) does not describe the joystick, so controls is an uncovered []. Whether a unit is hardwired (early consoles) or plugged is not stated by either source: wired null."
+  ]
+}

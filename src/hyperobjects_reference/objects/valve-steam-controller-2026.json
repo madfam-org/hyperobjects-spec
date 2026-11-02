@@ -1,0 +1,150 @@
+{
+  "spec_version": 1,
+  "key": "valve-steam-controller-2026",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Valve",
+  "model": "Steam Controller (2026)",
+  "aliases": [
+    "Steam Controller (2nd generation)"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 292,
+  "controls": [
+    {
+      "kind": "face_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "dpad",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "trigger",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "bumper",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "rear_button",
+      "count": 4,
+      "position": null
+    },
+    {
+      "kind": "stick",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "touchpad",
+      "count": 2,
+      "position": null
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1,
+      "position": null
+    }
+  ],
+  "features": {
+    "wired": false,
+    "split": null,
+    "cell_kind": "built_in",
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "Steam Controller: 292 g"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "A B X Y buttons"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "4x assignable grip buttons"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "2x full-size magnetic thumbsticks (TMR) with capacitive touch"
+    },
+    {
+      "field": "controls",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "square trackpads with haptic feedback"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "USB-C tethered play"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "USB-C connector"
+    },
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "Bluetooth 4.2 minimum, 5.0 or higher recommended"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://store.steampowered.com/sale/steamcontroller",
+      "retrieved": "2026-11-01",
+      "quote": "8.39 Wh Li-ion battery"
+    }
+  ],
+  "notes": [
+    "Valve's Steam store page for the Steam Controller (the 2026 model; https://store.steampowered.com/sale/steamcontroller, whose tech-spec Q&A is embedded as escaped JSON in the page; quotes are the decoded English text with HTML entities unescaped and the no-break spaces read as spaces). SIZE: Valve prints «Steam Controller: 111mm x 159mm x 57mm» with NO axis labels, so dimensions_mm.states.body stays null under the brief's rule (do not assume axis order; secondary sources label it height x width x depth). Mass «Steam Controller: 292 g» (the Puck: 16 g, 50mm x 28mm x 9mm, not filed). Controls (the «Gamepad controls», «Thumbsticks» and «Trackpads» answers together are the complete list: «A B X Y buttons | D-pad | L & R analog triggers | L & R bumpers | View & Menu buttons | Steam & QAM buttons | 4x assignable grip buttons»; «2x full-size magnetic thumbsticks»; «2x 34.5mm square trackpads»): face_button 4, dpad 1, trigger 2, bumper 2, button 4 (View, Menu, Steam, QAM), rear_button 4 (the grip buttons on the back of the handles; slab-handheld vocabulary, see the DualSense Edge note), stick 2, touchpad 2. Ports: one USB-C connector (charging and tethered play) = usb_c 1; the «Steam Controller Puck charging interface» (contacts for the Puck dock) has no contract kind; no headphone jack is listed. wired=false (2.4 GHz via the Puck, or Bluetooth). host_console null: it is a PC/Steam Deck/Steam Machine controller with no single host console. released: not on the page, null. The 2015 Steam Controller is not filed."
+  ]
+}

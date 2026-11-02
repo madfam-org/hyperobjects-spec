@@ -1,0 +1,39 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-nes-controller",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Nintendo",
+  "model": "Nintendo Entertainment System Controller",
+  "aliases": [
+    "NES Controller"
+  ],
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "No value-tier source found (2026-11-01); every fact is null, host_console included (it would be nintendo-entertainment-system, but a value needs a source). Model codes commonly cited for it (NES-004) are not filed in model_numbers because no Nintendo page read prints them. Nintendo of Europe's NES Technical Details page has console data only; no Nintendo page with controller dimensions, mass or a button list was found. A human could read the NES Control Deck instruction booklet (Nintendo of America, 1985) for the button list."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "spec_version": 1,
+  "key": "atari-cx30-paddle-controllers",
+  "kind": "controller",
+  "family": "stick-controller",
+  "brand": "Atari",
+  "model": "CX30 Paddle Controllers (set of 2)",
+  "aliases": [
+    "Atari 2600 paddles",
+    "Paddle Controllers"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": true,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": "atari-2600-cx2600",
+    "cable_length_mm": null
+  },
+  "sources": [
+    {
+      "field": "features.wired",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-1982-atari-usrev-1",
+      "retrieved": "2026-11-01",
+      "quote": "controllers by the connecting wires."
+    },
+    {
+      "field": "features.host_console",
+      "tier": "primary",
+      "url": "https://archive.org/details/atari-video-computer-system-owners-manual-1982-atari-usrev-1",
+      "retrieved": "2026-11-01",
+      "quote": "Paddle Controllers (Set of 2)"
+    }
+  ],
+  "notes": [
+    "One object for the pair as sold (two paddles on one plug). Source: Atari Video Computer System Owner's Manual (1982, Atari, US, rev 1; archive.org atari-video-computer-system-owners-manual-1982-atari-usrev-1), contents line «| Paddle Controllers (Set of 2)» and «Do not lift the console unit or the controllers by the connecting wires.» Quotes are verbatim lines of archive.org's OCR text (the item's _djvu.txt) of the maker's scanned manual, OCR errors and spacing included; the scan, not the OCR, is the authority, and a human should re-read each line against the page image. Controls (one rotary knob and one button per paddle) are not described in a citable line, so controls is an uncovered []. DIMENSIONS NOT FILED: Computer History Museum records 102642375 and 102642379 («Dual paddle game controller», 1977, Atari) print «2 1/2w x 2 3/4h x 4 1/2l (in)» / «6.35w x 6.98h x 11.43l (cm)», and record 102747276 («Atari dual game controller», 1977) prints «5 1/2w x 2 7/8h x 4 1/4l (in)» / «13.97w x 7.3h x 10.8l (cm)»; the records do not say whether they measure one paddle or the pair, and they disagree, so neither is filed as the pair's body (a human should look at the record photos' context before choosing). Masses are whole pounds (not used). Mass, body, cable length: null."
+  ]
+}

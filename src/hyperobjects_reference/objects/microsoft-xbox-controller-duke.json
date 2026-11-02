@@ -1,0 +1,36 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-controller-duke",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Microsoft",
+  "model": "Xbox Controller (original, «Duke»)",
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "Microsoft publishes no dimensions, mass or complete control list for this controller on any page found. The Computer History Museum's Xbox record 102662816 is a sealed boxed console set (unusable). The Digital Game Museum's record (digitalgamemuseum.org items/show/419) prints «6.5\" x 5.5\" x 3\"» without axis labels or a statement that the item is unboxed, so it is not filed. Every value is null; the host platform key would be microsoft-xbox."
+  ]
+}

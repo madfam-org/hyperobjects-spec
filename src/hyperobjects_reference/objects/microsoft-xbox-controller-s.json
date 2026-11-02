@@ -1,0 +1,36 @@
+{
+  "spec_version": 1,
+  "key": "microsoft-xbox-controller-s",
+  "kind": "controller",
+  "family": "gamepad",
+  "brand": "Microsoft",
+  "model": "Xbox Controller S",
+  "status": "unverified",
+  "announced": null,
+  "released": null,
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": null,
+  "controls": [],
+  "ports": [],
+  "features": {
+    "wired": null,
+    "split": null,
+    "cell_kind": null,
+    "cell_count": null,
+    "host_console": null,
+    "cable_length_mm": null
+  },
+  "sources": [],
+  "notes": [
+    "Microsoft publishes no dimensions, mass or complete control list for this controller on any page found. No museum or Microsoft record found. Every value is null; the host platform key would be microsoft-xbox."
+  ]
+}
