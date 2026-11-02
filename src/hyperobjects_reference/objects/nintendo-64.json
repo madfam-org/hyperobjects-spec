@@ -1,0 +1,61 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-64",
+  "kind": "device",
+  "family": "home-console",
+  "brand": "Nintendo",
+  "model": "Nintendo 64",
+  "regions": [
+    "EU"
+  ],
+  "status": "partial",
+  "announced": null,
+  "released": null,
+  "external_ids": {
+    "wikidata": "Q184839",
+    "igdb_platform": "n64"
+  },
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 260,
+        "height": 73,
+        "depth": 190
+      }
+    },
+    "excludes_projections": null
+  },
+  "mass_g": 1100,
+  "features": {
+    "role": "console"
+  },
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Technical-Details/Technical-Details-627050.html",
+      "retrieved": "2026-11-01",
+      "quote": "Size Width 260mm, Depth 190mm, Height 73mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Technical-Details/Technical-Details-627050.html",
+      "retrieved": "2026-11-01",
+      "quote": "Weight 1.1kg (2.42 lb.)"
+    },
+    {
+      "field": "features.role",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Nintendo-64/Nintendo-64-625959.html",
+      "retrieved": "2026-11-01",
+      "quote": "this console's collection of over 300 games"
+    }
+  ],
+  "notes": [
+    "Nintendo of Europe 'Nintendo History' Technical Details page; axes labelled by Nintendo (Width, Depth, Height), so body.width=260, body.depth=190, body.height=73 as printed. The page does not say whether projecting parts are excluded: excludes_projections null. Mass 1.1 kg as printed (the page's own 2.42 lb is its conversion; the gram value is the kilogram figure, no conversion of ours).",
+    "Partial facts not filed as lists (a covered list must be the source's complete list): the History main page says the console has 'four controller ports'; the Expansion Pak is mentioned. media, ports, controls stay uncovered until a maker manual enumerates them.",
+    "external_ids: Wikidata Q184839 confirmed through the Wikidata API (label 'Nintendo 64'); igdb_platform 'n64' is Wikidata's P5795 (Internet Game Database platform ID) on that item, IGDB itself refuses automated fetches (403).",
+    "released: no Nintendo page fetched states a launch date; null."
+  ]
+}
