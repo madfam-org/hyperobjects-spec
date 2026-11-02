@@ -27,6 +27,23 @@
   },
   "mass_g": 1928,
   "media": [],
+  "ports": [
+    {
+      "kind": "hdmi",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "usb_a",
+      "count": 3,
+      "position": null
+    },
+    {
+      "kind": "ethernet",
+      "count": 1,
+      "position": null
+    }
+  ],
   "features": {
     "role": "console"
   },
@@ -64,14 +81,35 @@
       "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
       "retrieved": "2026-11-01",
       "quote": "No. XBOX Series S consoles are all-digital gaming consoles for disc-free gaming."
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "HDMI. 1x HDMI 2.1 port"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "USB. 3x USB 3.1 Gen 1 ports"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+      "retrieved": "2026-11-01",
+      "quote": "Ethernet. 802.3 10/100/1000"
     }
   ],
   "notes": [
     "xbox.com Series S page (raw HTML, 2026-11-01). Axis labels from the diagram alt text: height 27.5 cm, width 15.1 cm, depth 6.5 cm, i.e. the console standing up, so the state is 'vertical'. cm to mm is a decimal shift (275, 151, 65). Visible line: 'Dimensions. 6.5cm x 15.1cm x 27.5cm'. excludes_projections null (not stated).",
     "media is a covered empty list (maker: 'all-digital gaming consoles for disc-free gaming').",
     "Mass derived from the maker's pounds (453.59237 g/lb).",
-    "Ports uncovered: 'HDMI. 1x HDMI 2.1 port', 'USB. 3x USB 3.1 Gen 1 ports', 'Ethernet. 802.3 10/100/1000' without the USB connector type.",
     "Microsoft's EcoProfile_XboxSeries_S.pdf (download.microsoft.com, id=55974) carries carbon figures only, no weight or dimensions.",
-    "external_ids: Wikidata Q98967383 confirmed through the Wikidata API; igdb_platform not set: the item has no P5795."
+    "external_ids: Wikidata Q98967383 confirmed through the Wikidata API; igdb_platform not set: the item has no P5795.",
+    "ports: the maker's 'PORTS & CONNECTIVITY' block, filed as its complete list: hdmi 1, usb_a 3, ethernet 1. usb_a is our mapping of the maker's 'USB 3.1 Gen 1 ports' (no plug type named), per the coordinator ruling of 2026-11-01. Not in that block and therefore not filed: the power inlet (a 'power cord' is in the box contents) and the Storage Expansion Card slot (FAQ: 'expand available custom storage via the Storage Expansion Card')."
   ]
 }

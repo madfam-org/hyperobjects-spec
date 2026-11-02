@@ -36,8 +36,45 @@ nowhere, so they are not filed: they wait for the `measured` tier.
 #### Changed
 
 - `tests/test_reference_catalog.py::test_cli_check_and_digest` no longer pins the object
-  count to the 84 imported objects: it asserts the count is at least 84, as the family-floor
-  tests already do, so research PRs that add objects stay green.
+  count to the 84 imported objects. The later console lane compares it to the catalog
+  loader’s exact key count, so research PRs that add objects stay green.
+
+
+### Reference objects: 59 home consoles, Magnavox Odyssey to PlayStation 5 Pro (lane RA1)
+
+Data only: no schema, checker or package-version change. The `home-console` family of the
+gaming-hardware hyperobjects plan reads these objects (`kind: device`, `family: home-console`)
+for its presets, under the fact contract of the gaming lanes (`states.body`, optional
+`states.vertical`; `media[]`, `ports[]`, `controls[]` kinds; `features.role`,
+`hardwired_controllers`, `controller_bays`, `host_console`, …).
+
+#### Added
+
+- **59 objects** (catalog 100 → 159), 2 add-ons (`nintendo-64dd`, `sega-mega-cd`) and 2 minis
+  (`nintendo-nes-classic-edition`, `sony-playstation-classic`); 18 `verified`, 41 `partial`.
+  - Generation 1–2: Odyssey, Channel F and System II, Atari 2600 (heavy sixer, light sixer,
+    CX2600A, Jr.), Odyssey², Intellivision and II, ColecoVision, Atari 5200, Vectrex.
+  - Generation 3–4: Famicom HVC-001, NES-001, NES-101, Atari 7800, Master System II,
+    TurboGrafx-16, Mega Drive / Genesis 1 and 2, Mega-CD, SNES SNS-001, Neo Geo AES.
+  - Generation 5–6: 3DO FZ-1, Jaguar, Saturn, PlayStation SCPH-1000, PS one, Nintendo 64 and
+    64DD, Dreamcast, PS2 SCPH-10000/30000/50000/70000, GameCube, Xbox.
+  - Generation 7–9: Xbox 360, PS3 CECHA00/CECH-2000/CECH-4000, Wii, Wii U, PS4
+    CUH-1000/2000/7000, Xbox One S and X, Xbox Series X (disc and all-digital) and S, PS5
+    CFI-1000 (disc and digital), CFI-2000 (disc and digital), Pro CFI-7000.
+- **36 sourced `body` envelopes** (25 primary, 11 museum); the Wii and the three Xbox Series
+  consoles are published standing up and carry `states.vertical` instead.
+- Sources: Sony's press-release archive, JP release PDFs and PS5 safety guides; Nintendo JP and
+  Nintendo of Europe pages; xbox.com and Microsoft Ecoprofile PDFs; the makers' own manuals as
+  archive.org scans (quoted from the OCR text layer, each object's notes say where a line was
+  read from the page image instead); Computer History Museum, V&A and Georgia Tech retroTECH
+  records (bare devices only, axes as labelled, no whole-pound masses).
+- Inch and pound figures enter only through a `derived` source that names the factor and the
+  quoted line; unlabelled triples and partial port mentions stay in `notes`.
+
+#### Changed
+
+- `tests/test_reference_catalog.py::test_cli_check_and_digest` counts the catalog's keys instead
+  of the literal 84 the import shipped with.
 
 ### Game editions, container contents and the box ↔ content fit, gate G-X2 (package 0.20.0)
 

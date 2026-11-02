@@ -29,13 +29,6 @@
     "excludes_projections": null
   },
   "mass_g": null,
-  "media": [
-    {
-      "kind": "card_front",
-      "count": 1,
-      "position": null
-    }
-  ],
   "ports": [
     {
       "kind": "power_in",
@@ -80,13 +73,6 @@
       "url": "https://www.computerhistory.org/collections/catalog/102674774",
       "retrieved": "2026-11-01",
       "quote": "Turbo Grafx 16 Video Game System"
-    },
-    {
-      "field": "media",
-      "tier": "primary",
-      "url": "https://archive.org/details/turbo-grafx-16-entertainment-super-system-instruction-manual",
-      "retrieved": "2026-11-01",
-      "quote": "Hold it with the title side up and gently slide the end with the metal contacts into the TurboChip game card port until you feel a firm click."
     },
     {
       "field": "ports[0]",
@@ -134,9 +120,9 @@
   "notes": [
     "NEC 'TurboGrafx-16 Entertainment SuperSystem' instructions (US), archive.org scan, OCR text layer; primary. Its 'What's in the Box?' diagram labels the unit's parts: Power Adapter Port, Channel Selector, Port for TurboPad Controller, Port for TurboChip Game Card, Antenna Port, ON/OFF Switch, TurboChip Game Card Lock, Expansion Port Cover (several labels OCR-garbled: 'Cranne Selector', 'Aritenna Port', 'OFFION Swatch'), so each filed item is quoted from the clean operating text instead. That diagram is the complete list ports and controls are read from.",
     "Kinds: the TurboPad port is a dedicated controller port (the manual says to hold the plug 'so that the arrow is on top'; it names no standard), filed controller_proprietary. The Antenna Port, which takes the antenna switch box plug, is filed rf_out. The game card lock is a mechanism, not a control.",
-    "media: card_front, from the operating text (card held title side up and slid, contacts first, into the TurboChip game card port, a horizontal insertion). The manual does not name the face the port is on.",
     "role: Computer History Museum 102674774 'Turbo Grafx 16 Video Game System' (model HES-TGX-01, category 'Game Console'), museum tier. Its dimensions '14 1/4w x 10h x 6 1/2l (in)' are explicitly 'Size is of box only' and its weight '5 (lb)' is whole-pound: neither is filed. CHM 102641946 (HES-CDR-01) is the CD player, not this unit. Body null.",
     "A PAL 'TURBOGRAFX' manual (archive.org turbografx-16-manual, product code HES-TGX-11) is a different regional model and was not used.",
-    "external_ids: Wikidata Q1057377 'TurboGrafx-16' (API; the item also covers the PC Engine), igdb_platform from its P5795."
+    "external_ids: Wikidata Q1057377 'TurboGrafx-16' (API; the item also covers the PC Engine), igdb_platform from its P5795.",
+    "RA1 coordinator: media withdrawn. The manual says the TurboChip game card slides into 'the TurboChip game card port' but never names the face it is on; card_front would be our inference, so media stays uncovered."
   ]
 }

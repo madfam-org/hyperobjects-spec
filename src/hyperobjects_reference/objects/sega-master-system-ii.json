@@ -45,6 +45,23 @@
       "position": null
     }
   ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
   "features": {
     "role": "console"
   },
@@ -69,13 +86,27 @@
       "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
       "retrieved": "2026-11-01",
       "quote": "SEGA MASTER SYSTEM II COMPONENT"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
+      "retrieved": "2026-11-01",
+      "quote": "Control Port 1 / Control Port 2"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/sega-master-system-ii-instruction-manual-us",
+      "retrieved": "2026-11-01",
+      "quote": "Channel Switch CH 3 - CH 4 / RF Jack / AC Adaptor Jack"
     }
   ],
   "notes": [
     "Source: archive.org scan of Sega's 'Sega Master System II Instruction Manual' (1990, US), page 3 'Parts Identification' and page 4 'BACK VIEW OF POWER BASE'; transcribed from the page images (the OCR layer drops the slot label).",
     "media: the drawing labels the 'Cartridge Slot Cover' on the top face (marked 'CARTRIDGE INPUT'): cartridge_top.",
     "controls: the power base labels 'Pause Button' and 'Power Switch'; the back view adds 'Channel Switch CH 3 - CH 4' (no contract kind). No reset button is labelled.",
-    "Ports not filed: 'Control Port 1', 'Control Port 2' (connector type not stated), 'RF Jack', 'AC Adaptor Jack'.",
-    "Envelope and mass: no maker or museum figure found."
+    "Envelope and mass: no maker or museum figure found.",
+    "ports: page 3 'Parts Identification' plus page 4 'BACK VIEW OF POWER BASE' (transcribed from the page images), filed as the complete list. Our mappings of the maker's wording: 'Control Port 1/2' -> controller_proprietary 2 (no connector standard named; coordinator ruling 2026-11-01); 'RF Jack' -> rf_out; 'AC Adaptor Jack' -> power_in."
   ]
 }

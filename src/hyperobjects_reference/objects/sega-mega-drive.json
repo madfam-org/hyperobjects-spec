@@ -48,6 +48,33 @@
       "position": null
     }
   ],
+  "ports": [
+    {
+      "kind": "controller_proprietary",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "expansion",
+      "count": 2,
+      "position": null
+    },
+    {
+      "kind": "rf_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "multi_av_out",
+      "count": 1,
+      "position": null
+    },
+    {
+      "kind": "power_in",
+      "count": 1,
+      "position": null
+    }
+  ],
   "features": {
     "role": "console"
   },
@@ -72,15 +99,29 @@
       "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
       "retrieved": "2026-11-01",
       "quote": "SEGA GENESIS SYSTEM CONSOLE"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Control Port 2 / Control Port 1"
+    },
+    {
+      "field": "ports",
+      "tier": "primary",
+      "url": "https://archive.org/details/Genesis_Instruction_Manual_1991_Sega_US",
+      "retrieved": "2026-11-01",
+      "quote": "Extension Compartment / Ext. / Channel Switch CH 3-CH 4 / RF Jack / Video Jack (RGB Output) / AC Adaptor Jack"
     }
   ],
   "notes": [
     "Source: archive.org scan of Sega's 'Genesis Instruction Manual' (1991, US), page 3 'Parts Identification' (Genesis model 1, with headphone jack and volume slider). The OCR text layer is garbled here ('Power S«iuh', 'Conirol Port 2'), so the quotes are our transcription of the printed labels from the page image.",
     "media: the parts drawing labels the 'Cartridge Slot' on the top face of the console: cartridge_top.",
     "controls: the console labels are 'Power Switch' (a slide switch: power_switch), 'Headphone Volume Control' (no contract kind, noted not filed) and 'Reset Button'. Page 4's back view adds a 'Channel Switch CH 3-CH 4' (no contract kind).",
-    "Ports not filed: front 'Control Port 1', 'Control Port 2' (connector type not stated) and 'Stereo Headphone Jack'; back view (OCR): 'Extension Compartment', 'RF Jack', 'Video Jack (RGB Output)', 'AC Adaptor Jack'.",
     "Envelope: none from a maker source reached. Science Museum Group co8413238 reportedly prints 'console: 60 mm x 210 mm x 280 mm' with unlabelled axes (SMG 429 this pass). Sega's archive page (www.sega.jp/fb/segahard/md/data.html) returns 403.",
     "Mega Drive (JP/EU) and Genesis model 1 share the shell; the facts here are from the US Genesis manual.",
-    "external_ids: Wikidata Q10676 confirmed through the Wikidata API; igdb_platform 'genesis-slash-megadrive' is one of Wikidata's two P5795 values on that item (the other is 'smd')."
+    "external_ids: Wikidata Q10676 confirmed through the Wikidata API; igdb_platform 'genesis-slash-megadrive' is one of Wikidata's two P5795 values on that item (the other is 'smd').",
+    "ports: page 3 'Parts Identification' plus page 4 'BACK VIEW OF CONSOLE' (transcribed from the page images), filed as the complete list. Our mappings of the maker's wording: 'Control Port 1/2' -> controller_proprietary 2 (the manual names no connector standard; coordinator ruling 2026-11-01); 'Extension Compartment' and 'Ext.' -> expansion 2; 'RF Jack' -> rf_out; 'Video Jack (RGB Output)' (printed 'A/V OUT' on the panel) -> multi_av_out; 'AC Adaptor Jack' -> power_in. 'Stereo Headphone Jack' has no contract kind (noted, not filed)."
   ]
 }
