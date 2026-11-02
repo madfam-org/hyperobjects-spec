@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "atari-lynx-ii",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Atari",
+  "model": "Lynx II",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "No primary dimensions located. Museum records found bundle cases or accessories and do not identify I versus II; the original Lynx envelope is not copied."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-watch-super-mario-bros",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game & Watch: Super Mario Bros. (2020)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 112,
+        "height": 67,
+        "depth": 12.5
+      }
+    }
+  },
+  "mass_g": 68,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦67mm × 横112mm × 厚さ12.5mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約68g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "2.36インチ"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "液晶"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "リチウムイオンバッテリー"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/hardware/gamewatch/mario/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "USB Type-C™端子"
+    }
+  ],
+  "notes": [
+    "Body axes follow Nintendo 横 / 縦 / 厚さ. Screen resolution and button counts not inferred from photographs."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 2.36,
+      "panel": "LCD"
+    }
+  ],
+  "features": {
+    "cell_kind": "built_in"
+  },
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1
+    }
+  ]
+}

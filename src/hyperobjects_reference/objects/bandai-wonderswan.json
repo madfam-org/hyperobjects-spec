@@ -1,0 +1,116 @@
+{
+  "spec_version": 1,
+  "key": "bandai-wonderswan",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Bandai",
+  "model": "WonderSwan",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 110,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "約110g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "2.49インチ"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "224×144ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "LCD"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３型アルカリ乾電池　使用本数１本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３型アルカリ乾電池　使用本数１本"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20010127072600id_/http://www.swan.channel.or.jp:80/swan/hardware/c_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "従来の2.5インチ"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=2.49 in, a:b=224:144; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[1] (https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html); sources[2] (https://web.archive.org/web/19990508061255id_/http://www.swan.channel.or.jp:80/swan/hardware/r_spec.html); sources[6] (https://web.archive.org/web/20010127072600id_/http://www.swan.channel.or.jp:80/swan/hardware/c_r_spec.html)"
+    }
+  ],
+  "notes": [
+    "Archived Bandai specification. Published body triple has no axis labels and is not mapped: 74.3×121×24.3 mm with AA or 74.3×121×17.5 mm with the rechargeable pack. The 110 g mass does not specify battery inclusion."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 2.49,
+      "resolution_px": [
+        224,
+        144
+      ],
+      "panel": "LCD",
+      "active_area_mm": {
+        "width": 53.2,
+        "height": 34.2,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 1
+  },
+  "conflicts": [
+    {
+      "field": "displays[0].diagonal_in",
+      "candidates": [
+        {
+          "value": 2.49,
+          "source": 1
+        },
+        {
+          "value": 2.5,
+          "source": 6
+        }
+      ],
+      "chosen": 0,
+      "reason": "Use the original WonderSwan specification rather than the rounded retrospective comparison on the Color page."
+    }
+  ]
+}

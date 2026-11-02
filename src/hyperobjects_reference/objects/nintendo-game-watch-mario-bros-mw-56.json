@@ -1,0 +1,35 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-watch-mario-bros-mw-56",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Game & Watch Mario Bros. MW-56",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "features.published_length_cm",
+      "tier": "museum",
+      "url": "https://api.vam.ac.uk/v2/object/O1386779",
+      "retrieved": "2026-11-01",
+      "quote": "{\"dimension\":\"Length\",\"value\":\"9.5\",\"unit\":\"cm\",\"qualifier\":\"\",\"date\":{\"text\":\"\",\"earliest\":null,\"latest\":null},\"part\":\"console\",\"note\":\"\"}"
+    }
+  ],
+  "notes": [
+    "V&A O1386779 is a boxed five-part set. Only Length 9.5 cm explicitly names the console; the closed/open width/thickness rows do not name a part. No complete body envelope is filed until those rows can be associated with the device unambiguously.",
+    "The explicitly labelled console length is retained as features.published_length_cm; it is not mapped to a hinge axis because the record does not label that axis."
+  ],
+  "features": {
+    "published_length_cm": 9.5
+  }
+}

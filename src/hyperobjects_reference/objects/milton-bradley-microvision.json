@@ -1,0 +1,38 @@
+{
+  "spec_version": 1,
+  "key": "milton-bradley-microvision",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Milton Bradley",
+  "model": "Microvision",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 88.9,
+        "height": 244.5,
+        "depth": 38.1
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "museum",
+      "url": "https://www.computerhistory.org/collections/catalog/102730320",
+      "retrieved": "2026-11-01",
+      "quote": "8.89w x 24.45h x 3.81l (cm)"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "CHM labels w / h / l as (8.89, 24.45, 3.81) centimetres; exact conversion to millimetres multiplies each by 10. The source dimensions_mm.states.body is the museum cm line; l is mapped to depth. This is the bare console record, not an accessories set."
+    }
+  ],
+  "notes": [
+    "CHM mass rounded to one whole pound is withheld. Source w / h / l labels are preserved as width / height / depth; projection inclusion is not stated.",
+    "The Microvision manual calls for a 9 V battery, but no battery measurement or media-slot direction is inferred from its diagram."
+  ]
+}

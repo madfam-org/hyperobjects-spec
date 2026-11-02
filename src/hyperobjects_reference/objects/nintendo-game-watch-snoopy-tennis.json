@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-watch-snoopy-tennis",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game & Watch Snoopy Tennis (Wide Screen)",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "V&A O1386780 is a five-part boxed set. Its 6.7 / 11.1 / 1.4 cm rows have no part labels; they are not evidence for the bare handheld envelope."
+  ]
+}

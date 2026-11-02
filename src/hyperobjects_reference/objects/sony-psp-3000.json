@@ -1,0 +1,148 @@
+{
+  "spec_version": 1,
+  "key": "sony-psp-3000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PSP-3000",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 169.4,
+        "height": 18.6,
+        "depth": 71.4
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 189,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 169.4 x 18.6 x 71.4 mm / 6 ¾ x ¾ x 2 ¾ in (width × height × depth) (excludes largest projection)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "Approx. 189g / 6.7 oz (including battery pack)"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "(excludes largest projection)"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "4.3 inches"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "TFT drive"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "480 x 272 pixel"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "Read-only UMD™ drive"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "Directional buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "analog stick"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "triangle, circle, cross, square"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/",
+      "retrieved": "2026-11-01",
+      "quote": "L/R buttons"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=4.3 in, a:b=480:272; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[3] (https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/); sources[5] (https://sonyinteractive.com/en/press-releases/2008/new-psp-playstationportable-comes-with-advanced-high-contrast-lcd-screen-and-built-in-microphone/)"
+    }
+  ],
+  "notes": [
+    "Sony labels W / H / D: H is the thin axis and D is the face vertical span. These source labels are preserved, not silently swapped. The family must map the axes. Mass includes battery. Item-level controls/media citations do not assert a complete control or port inventory."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.3,
+      "panel": "LCD",
+      "resolution_px": [
+        480,
+        272
+      ],
+      "active_area_mm": {
+        "width": 95.0,
+        "height": 53.8,
+        "derived": true
+      }
+    }
+  ],
+  "media": [
+    {
+      "kind": "umd",
+      "count": 1
+    }
+  ],
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "stick",
+      "count": 1
+    },
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "bumper",
+      "count": 2
+    }
+  ]
+}

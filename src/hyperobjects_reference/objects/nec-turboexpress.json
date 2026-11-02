@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "nec-turboexpress",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "NEC",
+  "model": "TurboExpress / PC Engine GT",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "No usable maker or bare-device museum specification located. Search hits for TurboGrafx CD and TurboStick concern different products."
+  ]
+}

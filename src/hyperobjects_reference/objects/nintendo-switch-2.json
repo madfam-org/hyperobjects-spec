@@ -1,0 +1,125 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-2",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch 2 (JP)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      },
+      "with_controllers": {
+        "width": 272,
+        "height": 116,
+        "depth": 13.9
+      }
+    }
+  },
+  "mass_g": 401,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.with_controllers",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "縦116mm×横272mm×\n厚さ13.9mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "約401g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "7.9インチ"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "1920 x 1080ピクセル"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "液晶ディスプレイ"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "最大120HzのVRR"
+    },
+    {
+      "field": "features.controller_attach",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "マグネットコネクター"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "リチウムイオンバッテリー"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/jp/hardware/switch2/specs/",
+      "retrieved": "2026-11-01",
+      "quote": "USB Type-CⓇ端子 2ポート"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=7.9 in, a:b=1920:1080; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[2] (https://www.nintendo.com/jp/hardware/switch2/specs/); sources[3] (https://www.nintendo.com/jp/hardware/switch2/specs/)"
+    }
+  ],
+  "notes": [
+    "Japan specification; body is the tablet-only state and remains unresolved. with_controllers includes Joy-Con 2. JP tablet mass is 401 g. UK replaceable-battery hardware has different published masses and is a separate variant, not a conflicting measurement of this JP model."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 7.9,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "panel": "LCD",
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 174.9,
+        "height": 98.4,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "controller_attach": "magnetic",
+    "cell_kind": "built_in"
+  },
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "spec_version": 1,
+  "key": "sony-pocketstation-scph-4000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PocketStation SCPH-4000",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 42,
+        "height": 64,
+        "depth": 13.5
+      }
+    }
+  },
+  "mass_g": 30,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "６４×４２×１３．５㎜（縦×横×厚さ）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "約３０ｇ（電池含む）"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "３２×３２ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "モノクロ液晶表示"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "入力ボタン×５個"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ボタン電池（ＣＲ２０３２）× 1個"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/uploads/sites/5/2023/02/981008_1.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "ボタン電池（ＣＲ２０３２）× 1個"
+    }
+  ],
+  "notes": [
+    "Maximum outside dimensions (最大外形寸法), with vertical / horizontal / thickness labels mapped to height / width / depth. Mass includes cell. Planned 1998-12-23 release in this pre-launch release is not asserted as the actual launch date."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        32,
+        32
+      ],
+      "panel": "LCD"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "button",
+      "count": 5
+    }
+  ],
+  "features": {
+    "cell_kind": "cr2032",
+    "cell_count": 1
+  }
+}

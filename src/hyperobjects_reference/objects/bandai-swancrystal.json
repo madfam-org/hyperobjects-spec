@@ -1,0 +1,108 @@
+{
+  "spec_version": 1,
+  "key": "bandai-swancrystal",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Bandai",
+  "model": "SwanCrystal",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 98,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "約98ｇ（電池含まず）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "2.8インチ"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "224×144ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "LCD"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3乾電池×１"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "単3乾電池×１"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "75.47Hz"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html",
+      "retrieved": "2026-11-01",
+      "quote": "（突起部含まず）"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=2.8 in, a:b=224:144; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[1] (https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html); sources[2] (https://web.archive.org/web/20020713141335id_/http://www.swan.channel.or.jp:80/swan/hardware/sc_r_spec.html)"
+    }
+  ],
+  "notes": [
+    "Archived Bandai specification. Published body triple has no axis labels and is not mapped: 77.5×127.7×17.5 mm, excluding projecting parts; mass excludes cells."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 2.8,
+      "resolution_px": [
+        224,
+        144
+      ],
+      "panel": "LCD",
+      "refresh_hz": 75.47,
+      "active_area_mm": {
+        "width": 59.8,
+        "height": 38.5,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 1
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "spec_version": 1,
+  "key": "nokia-n-gage-qd",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nokia",
+  "model": "N-Gage QD",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 143,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20041218041701id_/http://www.n-gage.com/en-GB/gamedeck/ngage_qd/techspex/",
+      "retrieved": "2026-11-01",
+      "quote": "Weight: 143 g (with standard battery)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20041218041701id_/http://www.n-gage.com/en-GB/gamedeck/ngage_qd/techspex/",
+      "retrieved": "2026-11-01",
+      "quote": "176 x 208 pixels"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20041218041701id_/http://www.n-gage.com/en-GB/gamedeck/ngage_qd/techspex/",
+      "retrieved": "2026-11-01",
+      "quote": "Hot swap MMC-card slot"
+    }
+  ],
+  "notes": [
+    "Archived Nokia tech specifications publish 118 x 68 x 22 mm without axis labels, so body axes remain unresolved. Mass includes the standard battery."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        176,
+        208
+      ]
+    }
+  ],
+  "media": [
+    {
+      "kind": "card_slot",
+      "count": 1
+    }
+  ]
+}

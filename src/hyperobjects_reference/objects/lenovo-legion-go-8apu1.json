@@ -1,0 +1,121 @@
+{
+  "spec_version": 1,
+  "key": "lenovo-legion-go-8apu1",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Lenovo",
+  "model": "Legion Go 8APU1",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 210,
+        "height": 20.1,
+        "depth": 131
+      },
+      "with_controllers": {
+        "width": 298.83,
+        "height": 40.7,
+        "depth": 131
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Gamepad 210 x 131 x 20.1 mm"
+    },
+    {
+      "field": "dimensions_mm.states.with_controllers",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Gamepad with controllers 298.83 x 131 x 40.7 mm"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "8.8\" WQXGA (2560x1600)"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "2560x1600"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "144Hz"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "2x USB4® 40Gbps"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "1x Headphone / microphone combo jack (3.5mm)"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "microSD card reader"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=8.8 in, a:b=2560:1600; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[2] (https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf); sources[3] (https://psref.lenovo.com/syspool/Sys/PDF/Legion/Legion_Go_8APU1/Legion_Go_8APU1_Spec.pdf)"
+    }
+  ],
+  "notes": [
+    "PSREF labels dimensions WxDxH. body is the tablet (called Gamepad by Lenovo), with_controllers is the attached-controller state. H is the thickness axis and D the face vertical axis. Published masses are bounds (Less than 640 g / Less than 854 g), so mass_g remains null. Pogo pins and release buttons do not identify rail versus magnetic attachment; controller_attach stays unresolved."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 8.8,
+      "resolution_px": [
+        2560,
+        1600
+      ],
+      "refresh_hz": 144,
+      "active_area_mm": {
+        "width": 189.5,
+        "height": 118.5,
+        "derived": true
+      }
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 2
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    },
+    {
+      "kind": "microsd",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-switch-hac-001",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Nintendo Switch HAC-001 (2017)",
+  "status": "unverified",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [],
+  "notes": [
+    "The fetched Singapore specification describes HAC-001(-01), the revised battery model. A readable original 2017 maker specification was not recovered. Tablet-only and with-controller dimensions remain unresolved here."
+  ]
+}

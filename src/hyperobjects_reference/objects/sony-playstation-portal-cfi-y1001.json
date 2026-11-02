@@ -1,0 +1,86 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-portal-cfi-y1001",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PlayStation Portal CFI-Y1001",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 510,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps5-accessories/playstation-portal-remote-player/CFI-Y10XX_PS_Portal_Remote_Player_Instruction_Manual_Web$en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 510 g (18.0 oz)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps5-accessories/playstation-portal-remote-player/EN_FR_AMER_PS_Portal_Remote_Player_Instruction_Man_Web.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Mass Approx. 529 g (18.7 oz)"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps5-accessories/playstation-portal-remote-player/CFI-Y10XX_PS_Portal_Remote_Player_Instruction_Manual_Web$en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Screen 8-inch Full HD LCD touchscreen"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps5-accessories/playstation-portal-remote-player/CFI-Y10XX_PS_Portal_Remote_Player_Instruction_Manual_Web$en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "LCD touchscreen"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.playstation.com/content/dam/global_pdc/en/corporate/support/manuals/accessories/ps5-accessories/playstation-portal-remote-player/CFI-Y10XX_PS_Portal_Remote_Player_Instruction_Manual_Web$en.pdf",
+      "retrieved": "2026-11-01",
+      "quote": "Battery type Built-in lithium-ion battery"
+    }
+  ],
+  "notes": [
+    "No dimensions published in the examined primary manuals or product pages. Full HD and 1080p are retained in the source quote; pixel resolution and refresh_hz are unresolved because the source states fps rather than panel Hz."
+  ],
+  "conflicts": [
+    {
+      "field": "mass_g",
+      "candidates": [
+        {
+          "value": 510,
+          "source": 0
+        },
+        {
+          "value": 529,
+          "source": 1
+        }
+      ],
+      "chosen": 0,
+      "reason": "Choose the current manual linked from Sony hardware support. Both English manuals identify CFI-Y1001; the older regional manual says 529 g, with no explanation for the difference."
+    }
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 8,
+      "panel": "LCD"
+    }
+  ],
+  "features": {
+    "cell_kind": "built_in"
+  }
+}

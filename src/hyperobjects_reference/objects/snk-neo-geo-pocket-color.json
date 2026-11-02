@@ -1,0 +1,128 @@
+{
+  "spec_version": 1,
+  "key": "snk-neo-geo-pocket-color",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "SNK",
+  "model": "Neo Geo Pocket Color",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 130,
+        "height": 80,
+        "depth": 30.5
+      }
+    }
+  },
+  "mass_g": 145,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "130*80*30.5(幅*高さ*奥行き 単位mm)"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "約145g（電池含む約195g）"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "160*152ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "液晶　専用反射型カラーTFT"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３形電池2本使用"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "単３形電池2本使用"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/2000id_/http://www2.neogeo.co.jp/en/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "Two AAA batteries or AC adapter"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "有線通信ケーブル用5ピンコネクター"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/19990508224112id_/http://www2.neogeo.co.jp/hard2/under2.html",
+      "retrieved": "2026-11-01",
+      "quote": "ACアダプタ端子"
+    }
+  ],
+  "notes": [
+    "Archived maker page. Mass is the stated 145 g without cells; 195 g is explicitly with cells. The 45mm*48mm screen spans are unlabelled and are not assigned active-area axes. Projecting-parts convention is unresolved because the manual OCR is damaged."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        160,
+        152
+      ],
+      "panel": "LCD"
+    }
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 2
+  },
+  "conflicts": [
+    {
+      "field": "features.cell_kind",
+      "candidates": [
+        {
+          "value": "aa",
+          "source": 4
+        },
+        {
+          "value": "aaa",
+          "source": 6
+        }
+      ],
+      "chosen": 0,
+      "reason": "The Japanese SNK specification names AA (単3形); the English SNK page names AAA. Use the original Japanese specification; retain the English disagreement."
+    }
+  ],
+  "ports": [
+    {
+      "kind": "link_port",
+      "count": 1
+    },
+    {
+      "kind": "dc_in",
+      "count": 1
+    }
+  ]
+}

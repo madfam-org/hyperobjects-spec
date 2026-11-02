@@ -106,7 +106,11 @@ def test_status_line_counts_what_it_read():
 def test_load_family_is_sorted_and_complete():
     objs = load_family("clamshell-dual-screen-handheld")
     assert [o["key"] for o in objs] == sorted(o["key"] for o in objs)
-    assert len(objs) == 16
+    expected = {
+        key for key in list_keys()
+        if load_object(key)["family"] == "clamshell-dual-screen-handheld"
+    }
+    assert {o["key"] for o in objs} == expected
 
 
 # ── paths and coverage ─────────────────────────────────────────────────────────────

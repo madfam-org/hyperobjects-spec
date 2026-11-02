@@ -1,0 +1,190 @@
+{
+  "spec_version": 1,
+  "key": "asus-rog-ally-rc71l",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "ASUS",
+  "model": "ROG Ally RC71L (2023)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 280,
+        "height": 32.4,
+        "depth": 111
+      }
+    }
+  },
+  "mass_g": 608,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "Dimensions (W x D x H)\n28.0 x 11.1 x 2.12 ~ 3.24 cm"
+    },
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "ASUS labels W x D x H as 28.0 x 11.1 x 2.12 ~ 3.24 cm (source dimensions_mm.states.body). Exact centimetre-to-millimetre conversion: multiply by 10; choose the stated maximum H=3.24 cm for the envelope. No source axes are swapped."
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "608 g"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "7-inch"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "FHD (1920 x 1080)"
+    },
+    {
+      "field": "displays[0].refresh_hz",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "Refresh Rate: 120Hz"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "A B X Y buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "D-pad"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "L & R Hall Effect analog triggers"
+    },
+    {
+      "field": "controls[3]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "L & R bumpers"
+    },
+    {
+      "field": "controls[4]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "2 x full-size analog sticks"
+    },
+    {
+      "field": "controls[5]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "2 x assignable grip buttons"
+    },
+    {
+      "field": "ports[0]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "1x ROG XG Mobile Interface and USB Type-C combo port"
+    },
+    {
+      "field": "ports[1]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "1x 3.5mm Combo Audio Jack"
+    },
+    {
+      "field": "ports[2]",
+      "tier": "primary",
+      "url": "https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/",
+      "retrieved": "2026-11-01",
+      "quote": "1x UHS-II microSD card reader"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=7 in, a:b=1920:1080; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[3] (https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/); sources[4] (https://rog.asus.com/gaming-handhelds/rog-ally/rog-ally-2023/spec/)"
+    }
+  ],
+  "notes": [
+    "W / D / H are the maker labels; H is the thickness range. 32.4 mm is the published maximum. IPS-level is not silently relabelled as an LCD panel technology; panel remains unresolved."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 7,
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "refresh_hz": 120,
+      "active_area_mm": {
+        "width": 155.0,
+        "height": 87.2,
+        "derived": true
+      }
+    }
+  ],
+  "controls": [
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "trigger",
+      "count": 2
+    },
+    {
+      "kind": "bumper",
+      "count": 2
+    },
+    {
+      "kind": "stick",
+      "count": 2
+    },
+    {
+      "kind": "rear_button",
+      "count": 2
+    }
+  ],
+  "ports": [
+    {
+      "kind": "usb_c",
+      "count": 1
+    },
+    {
+      "kind": "headphone_3_5",
+      "count": 1
+    },
+    {
+      "kind": "microsd",
+      "count": 1
+    }
+  ]
+}

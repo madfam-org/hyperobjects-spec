@@ -1,0 +1,72 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-pocket",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Pocket",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 77.6,
+        "height": 127.6,
+        "depth": 25.3
+      }
+    }
+  },
+  "mass_g": 125,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "幅77.6mm X 奥行き 25.3mm\nX 高さ 127.6mm"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約125g（電池含まず）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単4形アルカリ乾電池2本"
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n02/dmg/hardware/gbtaihi/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "単4形アルカリ乾電池2本"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.com/de-de/Support/Fruhere-Konsolen/Technische-Daten-619585.html",
+      "retrieved": "2026-11-01",
+      "quote": "160 x 144 Pixels"
+    }
+  ],
+  "notes": [
+    "Nintendo Japan comparison table labels 幅 / 高さ / 奥行き; body stores width / height / depth in that order. Mass excludes cells. Controls, port positions and the external shape remain unresolved."
+  ],
+  "features": {
+    "cell_kind": "aaa",
+    "cell_count": 2
+  },
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        160,
+        144
+      ]
+    }
+  ]
+}

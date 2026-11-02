@@ -1,0 +1,82 @@
+{
+  "spec_version": 1,
+  "key": "nintendo-game-boy-advance-sp-ags-001",
+  "kind": "device",
+  "family": "clamshell-dual-screen-handheld",
+  "brand": "Nintendo",
+  "model": "Game Boy Advance SP AGS-001",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "closed": {
+        "width": 84.6,
+        "height": 82,
+        "depth": 24.3
+      }
+    }
+  },
+  "mass_g": 143,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.closed",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦84.6mm×横82mm×厚さ24.3mm\n（折りたたみ時）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "約143g\n（バッテリーパックを含む）"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "240×160 ドット"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "TFTカラー液晶"
+    },
+    {
+      "field": "hinge.type",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "縦84.6mm×横82mm×厚さ24.3mm\n（折りたたみ時）"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://www.nintendo.co.jp/n08/hardware/spec/index.html",
+      "retrieved": "2026-11-01",
+      "quote": "内蔵リチウムイオン充電池"
+    }
+  ],
+  "notes": [
+    "Single-screen clamshell: secondary display absent. Closed.width is Nintendo 縦84.6 and closed.height is the hinge axis 横82, matching the existing clamshell family convention. Open dimensions are unresolved."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "resolution_px": [
+        240,
+        160
+      ],
+      "panel": "LCD"
+    }
+  ],
+  "hinge": {
+    "type": "clamshell"
+  },
+  "features": {
+    "cell_kind": "built_in"
+  }
+}

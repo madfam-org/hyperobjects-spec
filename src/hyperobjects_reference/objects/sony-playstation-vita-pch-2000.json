@@ -1,0 +1,147 @@
+{
+  "spec_version": 1,
+  "key": "sony-playstation-vita-pch-2000",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Sony",
+  "model": "PlayStation Vita PCH-2000",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": 183.6,
+        "height": 85.1,
+        "depth": 15
+      }
+    },
+    "excludes_projections": true
+  },
+  "mass_g": 219,
+  "sources": [
+    {
+      "field": "dimensions_mm.states.body",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "約 183.6 x 85.1 x 15.0 mm　（横幅×縦幅×厚さ）　（最大突起部除く）"
+    },
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "約 219g"
+    },
+    {
+      "field": "dimensions_mm.excludes_projections",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "（最大突起部除く）"
+    },
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "5インチ（16:9）"
+    },
+    {
+      "field": "displays[0].resolution_px",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "960 x 544"
+    },
+    {
+      "field": "displays[0].panel",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/jp/press-releases/2013/130909b/",
+      "retrieved": "2026-11-01",
+      "quote": "液晶ディスプレイ"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/wp-json/wp/v2/press-release/3005750",
+      "retrieved": "2026-11-01",
+      "quote": "Built-In Lithium-ion Battery"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/wp-json/wp/v2/press-release/3005750",
+      "retrieved": "2026-11-01",
+      "quote": "Directional buttons"
+    },
+    {
+      "field": "controls[1]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/wp-json/wp/v2/press-release/3005750",
+      "retrieved": "2026-11-01",
+      "quote": "Triangle, Circle, Cross, Square"
+    },
+    {
+      "field": "controls[2]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/wp-json/wp/v2/press-release/3005750",
+      "retrieved": "2026-11-01",
+      "quote": "Right stick, Left stick"
+    },
+    {
+      "field": "media[0]",
+      "tier": "primary",
+      "url": "https://sonyinteractive.com/en/wp-json/wp/v2/press-release/3005750",
+      "retrieved": "2026-11-01",
+      "quote": "Vita card slot"
+    },
+    {
+      "field": "displays[0].active_area_mm",
+      "tier": "derived",
+      "retrieved": "2026-11-01",
+      "method": "width=25.4*D*a/sqrt(a*a+b*b), height=25.4*D*b/sqrt(a*a+b*b), D=5 in, a:b=960:544; Decimal half-up to 0.1 mm, hyperobjects_reference.check.active_area. Inputs: sources[3] (https://sonyinteractive.com/jp/press-releases/2013/130909b/); sources[4] (https://sonyinteractive.com/jp/press-releases/2013/130909b/)"
+    }
+  ],
+  "notes": [
+    "Japanese labels 横幅 / 縦幅 / 厚さ settle body width / height / depth. The physical axis labels differ from the PCH-1000 press release. Mass inclusion is not stated."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 5,
+      "resolution_px": [
+        960,
+        544
+      ],
+      "panel": "LCD",
+      "active_area_mm": {
+        "width": 110.5,
+        "height": 62.6,
+        "derived": true
+      }
+    }
+  ],
+  "features": {
+    "cell_kind": "built_in"
+  },
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    },
+    {
+      "kind": "abxy",
+      "count": 4
+    },
+    {
+      "kind": "stick",
+      "count": 2
+    }
+  ],
+  "media": [
+    {
+      "kind": "card_slot",
+      "count": 1
+    }
+  ]
+}

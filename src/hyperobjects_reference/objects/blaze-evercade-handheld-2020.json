@@ -1,0 +1,50 @@
+{
+  "spec_version": 1,
+  "key": "blaze-evercade-handheld-2020",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Blaze",
+  "model": "Evercade Handheld (2020)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": null,
+  "sources": [
+    {
+      "field": "displays[0].diagonal_in",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20210501065133id_/https://evercade.co.uk/handheld",
+      "retrieved": "2026-11-01",
+      "quote": "4.3” screen"
+    },
+    {
+      "field": "controls[0]",
+      "tier": "primary",
+      "url": "https://web.archive.org/web/20210501065133id_/https://evercade.co.uk/handheld",
+      "retrieved": "2026-11-01",
+      "quote": "Responsive D-Pad"
+    }
+  ],
+  "notes": [
+    "Archived maker page (2021 capture) of the original 2020 handheld. Body, mass, pixel resolution and control counts remain unresolved. EXP dimensions are not substituted for the original model."
+  ],
+  "displays": [
+    {
+      "role": "primary",
+      "diagonal_in": 4.3
+    }
+  ],
+  "controls": [
+    {
+      "kind": "dpad",
+      "count": 1
+    }
+  ]
+}

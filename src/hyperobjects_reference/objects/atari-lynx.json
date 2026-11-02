@@ -1,0 +1,49 @@
+{
+  "spec_version": 1,
+  "key": "atari-lynx",
+  "kind": "device",
+  "family": "slab-handheld",
+  "brand": "Atari",
+  "model": "Lynx (original)",
+  "status": "partial",
+  "dimensions_mm": {
+    "states": {
+      "body": {
+        "width": null,
+        "height": null,
+        "depth": null
+      }
+    }
+  },
+  "mass_g": 700,
+  "sources": [
+    {
+      "field": "mass_g",
+      "tier": "primary",
+      "url": "https://archive.org/details/lynx-manuals-jp",
+      "retrieved": "2026-11-01",
+      "quote": "約 700g (電池 を 含む )"
+    },
+    {
+      "field": "features.cell_kind",
+      "tier": "primary",
+      "url": "https://archive.org/details/AtariLynxOwnersManual",
+      "retrieved": "2026-11-01",
+      "quote": "Battery door Slide open to insert 6 AA batteries."
+    },
+    {
+      "field": "features.cell_count",
+      "tier": "primary",
+      "url": "https://archive.org/details/AtariLynxOwnersManual",
+      "retrieved": "2026-11-01",
+      "quote": "Battery door Slide open to insert 6 AA batteries."
+    }
+  ],
+  "notes": [
+    "Atari owner-manual scan archived at archive.org. Mass includes batteries. Japanese OCR suggests 270 mm width × 105 mm depth × 40 mm height, but its depth label is garbled; those body values and the damaged display line are withheld pending inspection of the scan. CHM records include cases/accessories and are not used for the handheld envelope."
+  ],
+  "features": {
+    "cell_kind": "aa",
+    "cell_count": 6
+  }
+}
