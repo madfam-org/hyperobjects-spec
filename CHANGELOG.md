@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Reference editions: documented RCGS dimension semantics for five Japanese issues
+
+Adds 31 derived numeric features to the five exact Japanese SKU records from R5:
+package width/height/depth, each issue’s media width/height/depth or disc diameter,
+and booklet height. RCGS’s own Game Cataloging Manual v1.00 (2019-03-28), p.24,
+explicitly defines height × width × depth in cm, circular diameter, and height-only
+booklet size. Each derivation cites both the record’s unchanged raw literal and
+this documented convention, then converts cm to mm. Data only; no schema, checker,
+package keys, version change or universal N64 cartridge dimensions.
+
+The three N64 issues retain their differing reported carrier heights/depths. No
+interior cavity, tray, wall, manufacturing tolerance, full booklet trim or geometry
+is inferred. Manual p.23 excludes covers for unnumbered pagination and analyses
+numbered pagination; neither justifies automatically adding four cover pages to
+these records. Booklet pages/binding stay null. Precision is not improved by unit
+conversion. The previous opaque catalog_* strings remain as source evidence.
+
 ### Reference objects: controllers, NES pad to DualSense Edge (lane RA3)
 
 Data only: 47 new `kind: controller` objects in `src/hyperobjects_reference/objects/`, no
