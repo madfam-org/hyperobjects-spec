@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "vocabulary": "interface-sizes",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "review": {
+    "state": "generated",
+    "note": "Keys, labels and definitions drafted in one pass by an agent (machine-elements lane, 2026-11-17). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
+  },
+  "entries": [
+    {
+      "key": "square-tube-80mm",
+      "label": {
+        "en": "Square hollow section, 80 mm",
+        "es": "Perfil tubular cuadrado de 80 mm",
+        "fr": "Profil creux carré de 80 mm",
+        "pt": "Perfil tubular quadrado de 80 mm"
+      },
+      "definition": {
+        "en": "A square hollow section 80 × 80 mm across the outside, and the socket, cap or sliding sleeve that takes that outside. The wall thickness is not part of the key: it changes the bore, not what fits around the section.",
+        "es": "Un perfil tubular cuadrado de 80 × 80 mm por fuera, y el alojamiento, la tapa o la camisa deslizante que recibe ese exterior. El espesor de pared no forma parte de la clave: cambia el hueco interior, no lo que ajusta alrededor del perfil.",
+        "fr": "Un profil creux carré de 80 × 80 mm à l'extérieur, et le logement, le chapeau ou le manchon coulissant qui reçoit cet extérieur. L'épaisseur de paroi ne fait pas partie de la clé : elle change le vide intérieur, pas ce qui s'ajuste autour du profil.",
+        "pt": "Um perfil tubular quadrado de 80 × 80 mm por fora, e o encaixe, a tampa ou a luva deslizante que recebe esse exterior. A espessura da parede não faz parte da chave: muda o vão interior, não o que se ajusta à volta do perfil."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "profile",
+      "dimensions": {
+        "outside_square": {
+          "value": 80,
+          "unit": "mm",
+          "source": 0,
+          "note": "listed as 80x80 at 5 mm and 6 mm wall; the key fixes the outside only"
+        }
+      },
+      "sources": [
+        {
+          "title": "Cold Formed Square Hollow Sections, dimensions table (associated standard BS EN 10219)",
+          "url": "https://murraysteelproducts.com/offers/structural/cold-formed-square-hollow-sections",
+          "publisher": "Murray Structural",
+          "accessed": "2026-11-17",
+          "supports": "80x80 square hollow section listed at 5 mm (11.3 kg/m) and 6 mm (13.2 kg/m) wall"
+        }
+      ],
+      "term": "profile",
+      "notes": "Added for an indexed column and the sleeve, socket and cap that fit it (commons cartridges indexed-column and index-carriage). The fit between the section and its partner (sliding clearance, press, weld prep) is the partner's design choice and not a fact of the key. A rectangular section would need its own key: this one says both sides are the 80 mm square."
+    },
+    {
+      "key": "shaft-19mm-key-6mm",
+      "label": {
+        "en": "19 mm shaft with a 6 mm parallel key",
+        "es": "Flecha de 19 mm con cuña paralela de 6 mm",
+        "fr": "Arbre de 19 mm à clavette parallèle de 6 mm",
+        "pt": "Eixo de 19 mm com chaveta paralela de 6 mm"
+      },
+      "definition": {
+        "en": "A round shaft end of 19 mm diameter carrying a 6 × 6 mm parallel key, and the keyed bore of the hub that takes it. 19 mm lies in the 17 to 22 mm shaft range that the 6 × 6 key is assigned to.",
+        "es": "Un extremo de flecha redonda de 19 mm de diámetro con una cuña paralela de 6 × 6 mm, y el barreno con cuñero de la maza que lo recibe. 19 mm queda dentro del intervalo de flechas de 17 a 22 mm al que se asigna la cuña de 6 × 6.",
+        "fr": "Un bout d'arbre rond de 19 mm de diamètre portant une clavette parallèle de 6 × 6 mm, et l'alésage claveté du moyeu qui le reçoit. 19 mm se situe dans la plage d'arbres de 17 à 22 mm à laquelle la clavette de 6 × 6 est attribuée.",
+        "pt": "Uma ponta de eixo redondo de 19 mm de diâmetro com uma chaveta paralela de 6 × 6 mm, e o furo com rasgo de chaveta do cubo que a recebe. 19 mm fica dentro da gama de eixos de 17 a 22 mm a que se atribui a chaveta de 6 × 6."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "shaft_diameter": {
+          "value": 19,
+          "unit": "mm",
+          "source": 0,
+          "note": "inside the 17 to 22 mm range the 6 x 6 key is listed for"
+        },
+        "key_width": {
+          "value": 6,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "h9"
+        },
+        "key_height": {
+          "value": 6,
+          "unit": "mm",
+          "source": 0
+        },
+        "shaft_keyway_depth": {
+          "value": 3.5,
+          "unit": "mm",
+          "source": 1,
+          "note": "t1, from the 1968 edition of the standard, which is withdrawn"
+        },
+        "hub_keyway_depth": {
+          "value": 2.8,
+          "unit": "mm",
+          "source": 1,
+          "note": "t2, from the 1968 edition of the standard, which is withdrawn"
+        }
+      },
+      "sources": [
+        {
+          "title": "Parallel Keys DIN 6885, steel: product table with the shaft diameter each key is for",
+          "url": "https://www.jwwinco.com/en-us/products/3.2-Mounting-positioning-levelling-with-screws-clamping-and-supporting-elements/Positioning-elements-Clamping-pads/DIN-6885-Steel-Parallel-Keys",
+          "publisher": "JW Winco",
+          "accessed": "2026-11-17",
+          "supports": "6 x 6 key: width 6 mm h9, height 6 mm, for shaft diameters 17 to 22 mm"
+        },
+        {
+          "title": "DIN 6885-1 parallel keys, dimensions (edition 08/1968, withdrawn)",
+          "url": "https://fasten.it/en/norms/norm/din_6885-1",
+          "publisher": "Fasten.it",
+          "accessed": "2026-11-17",
+          "supports": "6 x 6 key on shafts over 17 up to 22 mm: shaft keyway depth t1 3.5 mm, hub keyway depth t2 2.8 mm"
+        }
+      ],
+      "term": "socket",
+      "notes": "Added for a winding drum on a motor shaft (commons cartridge cable-spool, bore 19 mm with a 6 mm keyway). The key names the shaft end only: it is not a motor frame size, and a motor with this shaft end may carry any flange. The diameter tolerance of the shaft and the fit of the bore are the two parts' design choices and not facts of the key. The keyway depths are from a withdrawn edition: check the current standard before cutting to them."
+    }
+  ]
+}

@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Interface sizes: a square hollow section and a keyed shaft end
+
+Adds the supplement `interface-sizes.machine-elements.json` with two size keys the
+solid commons needs before three cartridges can declare mating frames:
+
+- `square-tube-80mm`: a square hollow section 80 mm across the outside, and the
+  socket, cap or sliding sleeve that takes it. The wall thickness is not part of the
+  key. Cited from a stockist's BS EN 10219 dimensions table.
+- `shaft-19mm-key-6mm`: a 19 mm shaft end with a 6 x 6 mm parallel key, and the keyed
+  bore that takes it. The key assignment (6 x 6 for shafts of 17 to 22 mm) is cited
+  from a manufacturer's DIN 6885 product table; the two keyway depths are cited from a
+  reproduction of the 1968 edition, which is withdrawn, and each says so in its note.
+
+No schema, validator or catalog change. `y4d-spec vocab`: interface-sizes goes from 86
+to 88 entries and from 275 to 281 cited dimensions.
+
 ### Reference objects: two catalogued black GameCube controller specimens
 
 Adds two partial museum-specific DOL-003 controller references for RCGS DEVICE0000438
