@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interface-sizes",
-  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it; a 10 mm plain pin and the hole that takes it; an M8 screw joint). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
   "review": {
     "state": "generated",
     "note": "Keys, labels and definitions drafted in one pass by an agent (machine-elements lane, 2026-11-17). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
@@ -112,6 +112,107 @@
       ],
       "term": "socket",
       "notes": "Added for a winding drum on a motor shaft (commons cartridge cable-spool, bore 19 mm with a 6 mm keyway). The key names the shaft end only: it is not a motor frame size, and a motor with this shaft end may carry any flange. The diameter tolerance of the shaft and the fit of the bore are the two parts' design choices and not facts of the key. The keyway depths are from a withdrawn edition: check the current standard before cutting to them."
+    },
+    {
+      "key": "pin-10mm",
+      "label": {
+        "en": "10 mm plain pin in a hole",
+        "es": "Perno liso de 10 mm en un barreno",
+        "fr": "Goupille lisse de 10 mm dans un trou",
+        "pt": "Pino liso de 10 mm num furo"
+      },
+      "definition": {
+        "en": "A plain cylindrical pin of 10 mm nominal diameter, and the 10 mm hole or guide bore that takes it: the pin of a pin-and-hole adjustment, a locating pin, a hitch pin. The pin is the male side and the hole the female side. Head, grip and length are the pin's own design and not part of the key.",
+        "es": "Un perno cilíndrico liso de 10 mm de diámetro nominal, y el barreno o la guía de 10 mm que lo recibe: el perno de un ajuste de perno y barreno, un perno localizador, un perno de enganche. El perno es el lado macho y el barreno el lado hembra. La cabeza, la empuñadura y el largo son diseño del propio perno y no forman parte de la clave.",
+        "fr": "Une goupille cylindrique lisse de 10 mm de diamètre nominal, et le trou ou l'alésage de guidage de 10 mm qui la reçoit : la goupille d'un réglage à goupille et trous, une goupille de positionnement, une goupille d'attelage. La goupille est le côté mâle et le trou le côté femelle. La tête, la prise et la longueur relèvent de la conception de la goupille et ne font pas partie de la clé.",
+        "pt": "Um pino cilíndrico liso de 10 mm de diâmetro nominal, e o furo ou a guia de 10 mm que o recebe: o pino de um ajuste de pino e furos, um pino de posicionamento, um pino de engate. O pino é o lado macho e o furo o lado fêmea. A cabeça, a pega e o comprimento são projeto do próprio pino e não fazem parte da chave."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "socket",
+      "dimensions": {
+        "pin_diameter": {
+          "value": 10,
+          "unit": "mm",
+          "source": 0,
+          "tolerance": "m6 or h8",
+          "note": "d, the nominal diameter; the standard offers tolerance class m6 or h8 and allows others by agreement"
+        },
+        "end_chamfer": {
+          "value": 2,
+          "unit": "mm",
+          "source": 0,
+          "note": "c, stated as approximate for d = 10"
+        }
+      },
+      "sources": [
+        {
+          "title": "ISO 2338:1997, Parallel pins, of unhardened steel and austenitic stainless steel (preview of the standard, Table 1 — Dimensions)",
+          "url": "https://cdn.standards.iteh.ai/samples/20001/5b26cece48c448b782c0de1eccb5b16c/ISO-2338-1997.pdf",
+          "publisher": "ISO (preview hosted by iTeh Standards)",
+          "accessed": "2026-11-17",
+          "supports": "Table 1 lists nominal diameter d = 10 mm with tolerance class m6/h8 and chamfer c approximately 2 mm; footnote 1 allows other tolerances as agreed"
+        }
+      ],
+      "term": "socket",
+      "notes": "Added for a pull pin and the two parts it locks (commons cartridges index-pin, index-carriage and indexed-column). The key says only that both sides are the 10 mm pin: the clearance between pin and hole is each part's design choice (a pull pin that must drop in by hand is made smaller than the hole on purpose), and a pin made to this key need not be an ISO 2338 pin. The standard is cited for the nominal diameter and its tolerance classes."
+    },
+    {
+      "key": "m8-screw-joint",
+      "label": {
+        "en": "M8 screw joint",
+        "es": "Unión atornillada M8",
+        "fr": "Assemblage vissé M8",
+        "pt": "Junta aparafusada M8"
+      },
+      "definition": {
+        "en": "The bolt pattern of one M8 screw: the clamped part's clearance-hole side (male) into an M8 thread under its face (female), a tapped hole, a nut or an insert. Both are framed on the clamped face. As m5-screw-joint, at M8.",
+        "es": "El patrón de un tornillo M8: el lado del barreno de paso de la pieza sujeta (macho) hacia una rosca M8 bajo su cara (hembra), un barreno roscado, una tuerca o un inserto. Ambos se enmarcan en la cara sujeta. Como m5-screw-joint, en M8.",
+        "fr": "Le motif d'une vis M8 : le côté trou de passage de la pièce serrée (mâle) vers un taraudage M8 sous sa face (femelle), un trou taraudé, un écrou ou un insert. Les deux sont repérés sur la face serrée. Comme m5-screw-joint, en M8.",
+        "pt": "O padrão de um parafuso M8: o lado do furo de passagem da peça apertada (macho) para uma rosca M8 sob a sua face (fêmea), um furo roscado, uma porca ou um inserto. Ambos são referenciados na face apertada. Como m5-screw-joint, em M8."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "thread": {
+          "value": "M8",
+          "unit": "thread",
+          "source": 0
+        },
+        "thread_pitch": {
+          "value": 1.25,
+          "unit": "mm",
+          "source": 0,
+          "note": "P, coarse pitch"
+        },
+        "screw_diameter": {
+          "value": 8,
+          "unit": "mm",
+          "source": 0,
+          "note": "d, the M8 nominal"
+        }
+      },
+      "sources": [
+        {
+          "title": "DIN EN ISO 4762, hexagon socket head cap screws: standard dimensions table (edition 06-2004)",
+          "url": "https://fasten.it/norms/norm/din_en_iso_4762",
+          "publisher": "Fasten.it",
+          "accessed": "2026-11-17",
+          "supports": "M8 row: pitch P 1.25 mm; head diameter dk max 13 mm (plain); head height k max 8 mm; hexagon socket s 6 mm"
+        },
+        {
+          "title": "DIN 912 / ISO 4762 socket head cap screws, dimensions table",
+          "url": "https://westfieldfasteners.co.uk/Standards/ScrewBolt-SHCap-M.html",
+          "publisher": "Westfield Fasteners",
+          "accessed": "2026-11-17",
+          "supports": "M8 row: pitch P 1.25 mm; head height k max 8.00 mm; hexagon socket s nominal 6 mm"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the bolted joints of machine structure in the solid commons (a display arm hung from a beam, a mounting plate, a foot), where an M5 joint is too small to be honest. Polarity follows m5-screw-joint: the clearance-hole side is male, the thread female. The screw's length, head and property class, and the diameter of the clearance hole, are the joint's own choice and not part of the key."
     }
   ]
 }

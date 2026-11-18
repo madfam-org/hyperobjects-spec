@@ -18,9 +18,9 @@ paper-fastening parts (LEDs, the CR2032 cell, a brad, an eyelet, elastic cord, a
 magnet); `interface-sizes.console-parts.json` holds the twenty-five keys of the console
 and game-media parts (USB, HDMI, D-sub, audio, RF and DC connectors, IEC 60320 couplers, AA
 and AAA cells and their contacts, SD cards, optical discs, the UMD cartridge, arcade
-pushbuttons); `interface-sizes.machine-elements.json` holds the two keys of machine structure
+pushbuttons); `interface-sizes.machine-elements.json` holds the four keys of machine structure
 and drives the commons cartridges' size-key maps need (`square-tube-80mm`,
-`shaft-19mm-key-6mm`). The sheet commons' processes and material classes ship the same way, as data
+`shaft-19mm-key-6mm`, `pin-10mm`, `m8-screw-joint`). The sheet commons' processes and material classes ship the same way, as data
 nothing enforces yet: `processes.sheet.json` (`drag_knife`, `die_cut`, `crease`,
 `score`, `perforate`, `emboss_deboss`, `foil_stamp`, `print`; laser-cut paper is the
 existing `laser_2d`) and `material-classes.sheet.json` (`paper`, `board`, `eva-foam`,

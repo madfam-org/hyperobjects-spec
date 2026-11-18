@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Interface sizes: a 10 mm plain pin and an M8 screw joint
+
+Adds two size keys to the supplement `interface-sizes.machine-elements.json`. The
+solid commons needs them before a pull pin can mate the sleeve and the column it locks,
+and before a structural bolted joint can carry an honest key (until now the only screw
+joints were M3 and M5):
+
+- `pin-10mm`: a plain cylindrical pin of 10 mm nominal diameter, and the hole or guide
+  bore that takes it. Cited from Table 1 of ISO 2338:1997 (the standard's public
+  preview): d = 10 mm, tolerance class m6 or h8, chamfer about 2 mm. The key fixes the
+  nominal diameter only; the clearance is each part's design choice.
+- `m8-screw-joint`: one M8 screw through a clearance hole into an M8 thread, with the
+  polarity of `m5-screw-joint`. Thread, pitch and nominal diameter are cited from a
+  DIN EN ISO 4762 dimensions table, with a second table that agrees.
+
+No schema, validator or catalog change. `y4d-spec vocab`: fabrication entries go from
+159 to 161, interface-sizes from 88 to 90 entries and from 281 to 286 cited dimensions.
+
 ### Interface sizes: a square hollow section and a keyed shaft end
 
 Adds the supplement `interface-sizes.machine-elements.json` with two size keys the
