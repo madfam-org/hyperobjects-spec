@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interface-sizes",
-  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it; a 10 mm plain pin and the hole that takes it; an M8 screw joint). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it; a 10 mm plain pin and the hole that takes it; M6, M8 and M10 screw joints). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
   "review": {
     "state": "generated",
     "note": "Keys, labels and definitions drafted in one pass by an agent (machine-elements lane, 2026-11-17). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
@@ -213,6 +213,118 @@
       ],
       "term": "bolt-pattern",
       "notes": "Added for the bolted joints of machine structure in the solid commons (a display arm hung from a beam, a mounting plate, a foot), where an M5 joint is too small to be honest. Polarity follows m5-screw-joint: the clearance-hole side is male, the thread female. The screw's length, head and property class, and the diameter of the clearance hole, are the joint's own choice and not part of the key."
+    },
+    {
+      "key": "m6-screw-joint",
+      "label": {
+        "en": "M6 screw joint",
+        "es": "Unión atornillada M6",
+        "fr": "Assemblage vissé M6",
+        "pt": "Junta aparafusada M6"
+      },
+      "definition": {
+        "en": "The bolt pattern of one M6 screw: the clamped part's clearance-hole side (male) into an M6 thread under its face (female), a tapped hole, a nut or an insert. Both are framed on the clamped face. As m5-screw-joint, at M6.",
+        "es": "El patrón de un tornillo M6: el lado del barreno de paso de la pieza sujeta (macho) hacia una rosca M6 bajo su cara (hembra), un barreno roscado, una tuerca o un inserto. Ambos se enmarcan en la cara sujeta. Como m5-screw-joint, en M6.",
+        "fr": "Le motif d'une vis M6 : le côté trou de passage de la pièce serrée (mâle) vers un taraudage M6 sous sa face (femelle), un trou taraudé, un écrou ou un insert. Les deux sont repérés sur la face serrée. Comme m5-screw-joint, en M6.",
+        "pt": "O padrão de um parafuso M6: o lado do furo de passagem da peça apertada (macho) para uma rosca M6 sob a sua face (fêmea), um furo roscado, uma porca ou um inserto. Ambos são referenciados na face apertada. Como m5-screw-joint, em M6."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "thread": {
+          "value": "M6",
+          "unit": "thread",
+          "source": 0
+        },
+        "thread_pitch": {
+          "value": 1,
+          "unit": "mm",
+          "source": 0,
+          "note": "P, coarse pitch"
+        },
+        "screw_diameter": {
+          "value": 6,
+          "unit": "mm",
+          "source": 0,
+          "note": "d, the M6 nominal"
+        }
+      },
+      "sources": [
+        {
+          "title": "DIN EN ISO 4762, hexagon socket head cap screws: standard dimensions table (edition 06-2004)",
+          "url": "https://fasten.it/norms/norm/din_en_iso_4762",
+          "publisher": "Fasten.it",
+          "accessed": "2026-11-18",
+          "supports": "M6 row: pitch P 1 mm; head diameter dk max 10 mm (plain); head height k max 6 mm; hexagon socket s nom 5 mm"
+        },
+        {
+          "title": "DIN 912 / ISO 4762 socket head cap screws, dimensions table",
+          "url": "https://westfieldfasteners.co.uk/Standards/ScrewBolt-SHCap-M.html",
+          "publisher": "Westfield Fasteners",
+          "accessed": "2026-11-18",
+          "supports": "M6 column: pitch p 1 mm; head height k max 6.00 mm; hexagon socket s nom 5 mm"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the bolted joints of machine structure in the solid commons (a hinge block or a small bracket on a frame), so each joint carries the key of the screw it is drawn for. Polarity follows m5-screw-joint: the clearance-hole side is male, the thread female. The screw's length, head and property class, and the diameter of the clearance hole, are the joint's own choice and not part of the key."
+    },
+    {
+      "key": "m10-screw-joint",
+      "label": {
+        "en": "M10 screw joint",
+        "es": "Unión atornillada M10",
+        "fr": "Assemblage vissé M10",
+        "pt": "Junta aparafusada M10"
+      },
+      "definition": {
+        "en": "The bolt pattern of one M10 screw: the clamped part's clearance-hole side (male) into an M10 thread under its face (female), a tapped hole, a nut or an insert. Both are framed on the clamped face. As m5-screw-joint, at M10.",
+        "es": "El patrón de un tornillo M10: el lado del barreno de paso de la pieza sujeta (macho) hacia una rosca M10 bajo su cara (hembra), un barreno roscado, una tuerca o un inserto. Ambos se enmarcan en la cara sujeta. Como m5-screw-joint, en M10.",
+        "fr": "Le motif d'une vis M10 : le côté trou de passage de la pièce serrée (mâle) vers un taraudage M10 sous sa face (femelle), un trou taraudé, un écrou ou un insert. Les deux sont repérés sur la face serrée. Comme m5-screw-joint, en M10.",
+        "pt": "O padrão de um parafuso M10: o lado do furo de passagem da peça apertada (macho) para uma rosca M10 sob a sua face (fêmea), um furo roscado, uma porca ou um inserto. Ambos são referenciados na face apertada. Como m5-screw-joint, em M10."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "thread": {
+          "value": "M10",
+          "unit": "thread",
+          "source": 0
+        },
+        "thread_pitch": {
+          "value": 1.5,
+          "unit": "mm",
+          "source": 0,
+          "note": "P, coarse pitch"
+        },
+        "screw_diameter": {
+          "value": 10,
+          "unit": "mm",
+          "source": 0,
+          "note": "d, the M10 nominal"
+        }
+      },
+      "sources": [
+        {
+          "title": "DIN EN ISO 4762, hexagon socket head cap screws: standard dimensions table (edition 06-2004)",
+          "url": "https://fasten.it/norms/norm/din_en_iso_4762",
+          "publisher": "Fasten.it",
+          "accessed": "2026-11-18",
+          "supports": "M10 row: pitch P 1.5 mm; head diameter dk max 16 mm (plain); head height k max 10 mm; hexagon socket s nom 8 mm"
+        },
+        {
+          "title": "DIN 912 / ISO 4762 socket head cap screws, dimensions table",
+          "url": "https://westfieldfasteners.co.uk/Standards/ScrewBolt-SHCap-M.html",
+          "publisher": "Westfield Fasteners",
+          "accessed": "2026-11-18",
+          "supports": "M10 column: pitch p 1.5 mm; head height k max 10.00 mm; hexagon socket s nom 8 mm"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the bolted joints of machine structure in the solid commons (a post bolted to its base or to a beam), so each joint carries the key of the screw it is drawn for. Polarity follows m5-screw-joint: the clearance-hole side is male, the thread female. The screw's length, head and property class, and the diameter of the clearance hole, are the joint's own choice and not part of the key."
     }
   ]
 }
