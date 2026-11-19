@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Interface sizes: M6 and M10 screw joints
+
+Adds two size keys to the supplement `interface-sizes.machine-elements.json`, beside
+`m8-screw-joint` and with its definition and polarity: `m6-screw-joint` and
+`m10-screw-joint`. The solid commons needs them so a hinge block bolted to a frame and
+a post bolted to its base each carry the key of the screw the joint is drawn for.
+Thread, pitch and nominal diameter are cited from the same DIN EN ISO 4762 dimensions
+table as M8 (M6: P 1 mm; M10: P 1.5 mm), with the second table that agrees, both read
+on 2026-11-18.
+
+No schema, validator or catalog change. `y4d-spec vocab`: fabrication entries go from
+161 to 163, interface-sizes from 90 to 92 entries and from 286 to 292 cited dimensions.
+
 ### Interface sizes: a 10 mm plain pin and an M8 screw joint
 
 Adds two size keys to the supplement `interface-sizes.machine-elements.json`. The
