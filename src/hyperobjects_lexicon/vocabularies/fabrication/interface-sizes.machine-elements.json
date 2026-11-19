@@ -1,7 +1,7 @@
 {
   "spec_version": 1,
   "vocabulary": "interface-sizes",
-  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it; a 10 mm plain pin and the hole that takes it; M6, M8 and M10 screw joints). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
+  "description": "Supplement of the interface-sizes vocabulary: the size keys the commons cartridges' size_key maps need for machine structure and drives and the base file did not define (a square hollow section and the socket or sleeve that takes it; a keyed shaft end and the keyed bore that takes it; a 10 mm plain pin and the hole that takes it; M6, M8 and M10 screw joints; the 75 mm and 100 mm square display mounting patterns). Same rules as the base: two interfaces mate only when their resolved size keys are EQUAL, and every dimension cites a public standard or manufacturer source. Merged into interface-sizes when the vocabulary is loaded.",
   "review": {
     "state": "generated",
     "note": "Keys, labels and definitions drafted in one pass by an agent (machine-elements lane, 2026-11-17). No language facet has had a native review; Spanish is the bar a reviewer should read first. Facts were read from the cited sources on the access date."
@@ -325,6 +325,116 @@
       ],
       "term": "bolt-pattern",
       "notes": "Added for the bolted joints of machine structure in the solid commons (a post bolted to its base or to a beam), so each joint carries the key of the screw it is drawn for. Polarity follows m5-screw-joint: the clearance-hole side is male, the thread female. The screw's length, head and property class, and the diameter of the clearance hole, are the joint's own choice and not part of the key."
+    },
+    {
+      "key": "vesa-mis-d-75",
+      "label": {
+        "en": "Display mounting pattern 75 × 75 M4 (VESA MIS-D 75)",
+        "es": "Patrón de montaje de pantalla 75 × 75 M4 (VESA MIS-D 75)",
+        "fr": "Motif de fixation d'écran 75 × 75 M4 (VESA MIS-D 75)",
+        "pt": "Padrão de fixação de ecrã 75 × 75 M4 (VESA MIS-D 75)"
+      },
+      "definition": {
+        "en": "Four M4 screws on a 75 mm square, hole centre to hole centre: the back of a flat display with its four M4 threads (female) and the plate of an arm, bracket or adapter with its four clearance holes (male). Both are framed on the clamped face at the centre of the square. The pattern the VESA Flat Display Mounting Interface names MIS-D 75.",
+        "es": "Cuatro tornillos M4 en un cuadrado de 75 mm, de centro a centro de barreno: el dorso de una pantalla plana con sus cuatro roscas M4 (hembra) y la placa de un brazo, soporte o adaptador con sus cuatro barrenos de paso (macho). Ambos se enmarcan en la cara sujeta, en el centro del cuadrado. El patrón que la interfaz VESA de montaje de pantallas planas (FDMI) llama MIS-D 75.",
+        "fr": "Quatre vis M4 sur un carré de 75 mm, d'axe en axe : le dos d'un écran plat avec ses quatre taraudages M4 (femelle) et la platine d'un bras, d'un support ou d'un adaptateur avec ses quatre trous de passage (mâle). Les deux sont repérés sur la face serrée, au centre du carré. Le motif que l'interface VESA de fixation des écrans plats (FDMI) nomme MIS-D 75.",
+        "pt": "Quatro parafusos M4 num quadrado de 75 mm, de centro a centro de furo: a traseira de um ecrã plano com as suas quatro roscas M4 (fêmea) e a placa de um braço, suporte ou adaptador com os seus quatro furos de passagem (macho). Ambos são referenciados na face apertada, no centro do quadrado. O padrão a que a interface VESA de fixação de ecrãs planos (FDMI) chama MIS-D 75."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {
+          "value": 4,
+          "unit": "count",
+          "source": 0
+        },
+        "hole_spacing": {
+          "value": 75,
+          "unit": "mm",
+          "source": 0,
+          "note": "centre to centre, the same horizontally and vertically"
+        },
+        "thread": {
+          "value": "M4",
+          "unit": "thread",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "VESA Mount Sizes and Types Guide",
+          "url": "https://www.mount-it.com/blogs/articles/vesa-mounting-guide",
+          "publisher": "Mount-It!",
+          "accessed": "2026-11-19",
+          "supports": "a VESA mount size is the distance in millimetres between the four mounting holes, measured centre to centre, width first; size chart row 75 x 75: type MIS-D 75, screws M4"
+        },
+        {
+          "title": "VESA Mounts for Monitors and TVs (the page was served in Spanish)",
+          "url": "https://tripplite.eaton.com/pages/vesa-pattern-for-monitors-and-tvs",
+          "publisher": "Eaton (Tripp Lite)",
+          "accessed": "2026-11-19",
+          "supports": "table of common patterns lists 75 x 75 mm; table of types: MIS-D covers 75 x 75 mm and 100 x 100 mm. The page states no screw size"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the display faces of the solid commons' display arms, plates and adapters, so a display and what carries it mate by key. Polarity follows the screw joints: the clearance-hole side (the mount) is male, the threaded side (the display) female. A square pattern, so symmetry 4. The 100 mm square is a different key (vesa-mis-d-100); a plate drilled for both declares one interface per square. The sources read are a mount maker's guide and a manufacturer's summary; the VESA FDMI document itself was not read, so weight limits, screw length and the larger patterns (MIS-E 200 x 100, MIS-F 200 x 200 and up, which the guides give as M6 or M8) are not part of this key."
+    },
+    {
+      "key": "vesa-mis-d-100",
+      "label": {
+        "en": "Display mounting pattern 100 × 100 M4 (VESA MIS-D 100)",
+        "es": "Patrón de montaje de pantalla 100 × 100 M4 (VESA MIS-D 100)",
+        "fr": "Motif de fixation d'écran 100 × 100 M4 (VESA MIS-D 100)",
+        "pt": "Padrão de fixação de ecrã 100 × 100 M4 (VESA MIS-D 100)"
+      },
+      "definition": {
+        "en": "Four M4 screws on a 100 mm square, hole centre to hole centre: the back of a flat display with its four M4 threads (female) and the plate of an arm, bracket or adapter with its four clearance holes (male). Both are framed on the clamped face at the centre of the square. The pattern the VESA Flat Display Mounting Interface names MIS-D 100.",
+        "es": "Cuatro tornillos M4 en un cuadrado de 100 mm, de centro a centro de barreno: el dorso de una pantalla plana con sus cuatro roscas M4 (hembra) y la placa de un brazo, soporte o adaptador con sus cuatro barrenos de paso (macho). Ambos se enmarcan en la cara sujeta, en el centro del cuadrado. El patrón que la interfaz VESA de montaje de pantallas planas (FDMI) llama MIS-D 100.",
+        "fr": "Quatre vis M4 sur un carré de 100 mm, d'axe en axe : le dos d'un écran plat avec ses quatre taraudages M4 (femelle) et la platine d'un bras, d'un support ou d'un adaptateur avec ses quatre trous de passage (mâle). Les deux sont repérés sur la face serrée, au centre du carré. Le motif que l'interface VESA de fixation des écrans plats (FDMI) nomme MIS-D 100.",
+        "pt": "Quatro parafusos M4 num quadrado de 100 mm, de centro a centro de furo: a traseira de um ecrã plano com as suas quatro roscas M4 (fêmea) e a placa de um braço, suporte ou adaptador com os seus quatro furos de passagem (macho). Ambos são referenciados na face apertada, no centro do quadrado. O padrão a que a interface VESA de fixação de ecrãs planos (FDMI) chama MIS-D 100."
+      },
+      "review_status": {
+        "state": "generated"
+      },
+      "geometry_type": "bolt_pattern",
+      "dimensions": {
+        "hole_count": {
+          "value": 4,
+          "unit": "count",
+          "source": 0
+        },
+        "hole_spacing": {
+          "value": 100,
+          "unit": "mm",
+          "source": 0,
+          "note": "centre to centre, the same horizontally and vertically"
+        },
+        "thread": {
+          "value": "M4",
+          "unit": "thread",
+          "source": 0
+        }
+      },
+      "sources": [
+        {
+          "title": "VESA Mount Sizes and Types Guide",
+          "url": "https://www.mount-it.com/blogs/articles/vesa-mounting-guide",
+          "publisher": "Mount-It!",
+          "accessed": "2026-11-19",
+          "supports": "a VESA mount size is the distance in millimetres between the four mounting holes, measured centre to centre, width first; size chart row 100 x 100: type MIS-D 100, screws M4"
+        },
+        {
+          "title": "VESA Mounts for Monitors and TVs (the page was served in Spanish)",
+          "url": "https://tripplite.eaton.com/pages/vesa-pattern-for-monitors-and-tvs",
+          "publisher": "Eaton (Tripp Lite)",
+          "accessed": "2026-11-19",
+          "supports": "table of common patterns lists 100 x 100 mm; table of types: MIS-D covers 75 x 75 mm and 100 x 100 mm. The page states no screw size"
+        }
+      ],
+      "term": "bolt-pattern",
+      "notes": "Added for the display faces of the solid commons' display arms, plates and adapters, so a display and what carries it mate by key. Polarity follows the screw joints: the clearance-hole side (the mount) is male, the threaded side (the display) female. A square pattern, so symmetry 4. The 75 mm square is a different key (vesa-mis-d-75); a plate drilled for both declares one interface per square. The sources read are a mount maker's guide and a manufacturer's summary; the VESA FDMI document itself was not read, so weight limits, screw length and the larger patterns (MIS-E 200 x 100, MIS-F 200 x 200 and up, which the guides give as M6 or M8) are not part of this key."
     }
   ]
 }

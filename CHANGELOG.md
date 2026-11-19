@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Interface sizes: the 75 mm and 100 mm square display mounting patterns
+
+Adds two size keys to the supplement `interface-sizes.machine-elements.json`:
+`vesa-mis-d-75` and `vesa-mis-d-100`, four M4 screws on a 75 mm or a 100 mm square, the
+patterns the VESA Flat Display Mounting Interface names MIS-D 75 and MIS-D 100. The solid
+commons needs them so the display face of a display arm, plate or adapter carries a key
+and a display can mate to it; until now those faces could only declare the standard's
+name as text. The mount's clearance-hole side is male and the display's threads female,
+as on the screw joints. Hole count, spacing and thread are cited from a mount maker's
+size chart, with a manufacturer's summary that agrees on the spacing and the MIS-D type,
+both read on 2026-11-19. The VESA document itself was not read: the keys state no weight
+limit and no screw length, and the larger patterns (MIS-E, MIS-F) are not added.
+
+No schema, validator or catalog change. `y4d-spec vocab`: fabrication entries go from
+163 to 165, interface-sizes from 92 to 94 entries and from 292 to 298 cited dimensions.
+
 ### Interface sizes: M6 and M10 screw joints
 
 Adds two size keys to the supplement `interface-sizes.machine-elements.json`, beside
