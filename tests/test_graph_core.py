@@ -650,3 +650,39 @@ def test_visible_when_is_a_checked_expression():
     assert any("visible_when" in p.where for p in core.validate(doc, SHEET))
     doc["declarations"]["parameters"][1]["visible_when"] = "max(width, 1)"
     assert "expression" in codes(core.validate(doc, SHEET))
+
+
+# ── P1 pre-check fixes (core 1.0.1) ────────────────────────────────────────────
+
+
+def test_a_declared_part_parameter_is_wired_and_presets_may_set_it():
+    """Six solid cartridges declare `target_part` as a part picker, and presets set it.
+    The script node passes it through by contract and may not bind it, so it is wired."""
+    doc = wrapper_doc()
+    doc["declarations"]["parameters"].append({
+        "id": "target_part", "type": "select", "default": "card", "label": {"en": "Part"},
+        "options": [{"value": "card", "label": {"en": "Card"}}],
+    })
+    doc["declarations"]["presets"].append(
+        {"id": "sleeve", "label": {"en": "Sleeve"}, "values": {"target_part": "sleeve"}})
+    assert core.validate(doc, SHEET) == []
+    # A preset may set the part parameter even when the graph does not declare it.
+    undeclared = wrapper_doc()
+    undeclared["declarations"]["presets"].append(
+        {"id": "sleeve", "label": {"en": "Sleeve"}, "values": {"target_part": "sleeve"}})
+    assert core.validate(undeclared, SHEET) == []
+    # ...but it is still never a script binding.
+    bound = wrapper_doc(target_part={"param": "width"})
+    assert any("part parameter" in p.message for p in core.validate(bound, SHEET))
+
+
+def test_a_pure_wrapper_ignores_bindings_meant_for_another_graph():
+    """A cartridge with a native graph mode beside script modes binds its parameters
+    into the native graph's nodes; the wrapper copies those parameters byte-equal."""
+    doc = wrapper_doc()
+    doc["declarations"]["parameters"][1]["binding"] = ["native_plate.w", "native_lid.w"]
+    assert core.validate(doc, SHEET) == []
+    # A native 1.2 graph still resolves its own bindings: a missing node is dangling.
+    native = declared_doc()
+    native["declarations"]["parameters"][1]["binding"] = "ghost.w"
+    assert "dangling-ref" in codes(core.validate(native, SHEET))

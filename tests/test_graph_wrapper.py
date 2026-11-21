@@ -286,3 +286,27 @@ def test_wrapper_identity_fails_on_any_byte(tmp_path):
     assert not check.ok and not check.exempt
     assert "wrapper differs from its script" in check.reason
     assert hashlib.sha256(a.read_bytes()).hexdigest()[:12] in check.reason
+
+
+def test_a_part_picker_parameter_and_foreign_bindings_pass_the_wrapper_rules(scratch):
+    """The two shapes the P1 pre-check found in the commons, end to end through the
+    no-render rules: `target_part` declared as a manifest parameter (and set by a
+    preset), and a parameter bound into another graph of the cartridge."""
+    picker = {"id": "target_part", "type": "select", "default": "block",
+              "label": {"en": "Part"},
+              "options": [{"value": "block", "label": {"en": "Block"}}]}
+
+    def manifest(m):
+        m["parameters"].append(picker)
+        m["parameters"][0]["binding"] = "native_block.w"
+
+    def graph(doc):
+        doc["declarations"]["parameters"].append(picker)
+        for p in doc["declarations"]["parameters"]:
+            if p["id"] == "block_size":
+                p["binding"] = "native_block.w"
+
+    rewrite(scratch / "project.json", manifest)
+    rewrite(scratch / "block.graph.json", graph)
+    rewrite(scratch / "plate.graph.json", graph)
+    assert graph_core_rules(scratch, manifest_of(scratch)) == ([], [])
