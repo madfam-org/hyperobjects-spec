@@ -85,20 +85,79 @@ from __future__ import annotations
 import types
 from pathlib import Path
 
+import hyperobject_graph as core
+
 from .graph.graph_engine import (
     GRAPH_FILE_SUFFIX,
     GraphError,
     load_graph_document,
     prepare_graph_script,
 )
+from .solid_pack import SOLID_PACK
 
 __all__ = [
     "GRAPH_FILE_SUFFIX",
     "GraphError",
+    "core_problems",
     "graph_script_path",
     "is_graph_source",
     "transpile_graph",
+    "wrapper_for",
 ]
+
+
+# ── The shared core (RFC 0067) ─────────────────────────────────────────────────
+#
+# Every graph now passes through `hyperobject_graph` with the solid pack before the
+# engine sees it. For a 1.0/1.1 graph — every graph in the commons today — the core hands
+# the engine the file's own document, key for key, so the script is byte-identical to the
+# engine called directly (tests/test_graph_core_solid.py, over all 15 commons graphs), and
+# the engine stays the ENFORCING validator: the core's findings on such a graph are
+# reported as notes by `structure.graph_core_rules`, never as a render failure, until a
+# whole-commons pass says they are safe to enforce. A 1.2 graph exists only under the
+# core's contract, so for it the core is enforcing from birth.
+
+
+def core_problems(doc: object, manifest: dict | None) -> list:
+    """The core's findings on a graph document, under the solid pack."""
+    from hyperobject_graph.errors import Problem
+
+    try:
+        return core.validate(
+            doc, SOLID_PACK, parameters=(manifest or {}).get("parameters") or []
+        )
+    except Exception as exc:  # noqa: BLE001 - a validator bug must not stop a whole check
+        return [Problem("internal", "/", f"the graph core failed on this document: "
+                                         f"{type(exc).__name__}: {exc}")]
+
+
+def _enforce_core(doc: object, manifest: dict | None, source_name: str) -> None:
+    """Raise `GraphError` for a 1.2 graph the core refuses; a 1.0/1.1 graph is left to
+    the engine (see above)."""
+    if (core.format_minor(doc) or 0) < 2:
+        return
+    problems = core_problems(doc, manifest)
+    if problems:
+        raise GraphError(f"{source_name}: " + "; ".join(str(p) for p in problems))
+
+
+def wrapper_for(graph_path: Path | str, manifest: dict | None) -> core.WrapperPlan | None:
+    """The lowering of a WRAPPER graph (one `script` node, RFC 0067 G-1), or None.
+
+    A wrapper is not transpiled. Its `script` node calls the cartridge's own source in
+    the same sandbox, so the keystone renders that source on its own path with
+    `plan.script_params(...)` as the parameters — the call the mode itself makes — and
+    the wrapper's verdict is the script's verdict by construction. The parity pass then
+    checks that construction rather than trusting it: the two meshes must be identical
+    byte for byte (parity.py, wrapper identity).
+
+    Raises `GraphError` when the document is a 1.2 graph the core refuses.
+    """
+    doc, _raw = load_graph_document(str(graph_path))
+    _enforce_core(doc, manifest, Path(graph_path).name)
+    if (core.format_minor(doc) or 0) < 2:
+        return None
+    return core.wrapper_plan(doc, SOLID_PACK)
 
 
 def is_graph_source(candidate: object) -> bool:
@@ -122,8 +181,20 @@ def transpile_graph(graph_path: Path | str, manifest: dict | None = None) -> str
     from .graph.graph_engine import extract_bindings, transpile
 
     doc, _raw = load_graph_document(str(graph_path))
+    name = Path(graph_path).name
+    if (core.format_minor(doc) or 0) >= 2:
+        # Through the core: validation, then the pack (the engine) on the document with
+        # the core-only keys removed. A wrapper or an embedded script node is refused
+        # with the core's own message.
+        try:
+            return core.transpile(
+                doc, SOLID_PACK, parameters=(manifest or {}).get("parameters") or [],
+                source_name=name,
+            )
+        except core.GraphCoreError as exc:
+            raise GraphError(str(exc)) from exc
     bindings = extract_bindings((manifest or {}).get("parameters") or [])
-    return transpile(doc, bindings, source_name=Path(graph_path).name)
+    return transpile(doc, bindings, source_name=name)
 
 
 def graph_script_path(graph_path: Path | str, manifest: dict | None = None) -> str:
@@ -139,5 +210,30 @@ def graph_script_path(graph_path: Path | str, manifest: dict | None = None) -> s
     an OBJECT (the platform's parsed manifest model), and the keystone carries manifests
     as plain dicts. A `SimpleNamespace` bridges the two without touching the engine.
     """
+    doc, _raw = load_graph_document(str(graph_path))
+    if (core.format_minor(doc) or 0) >= 2:
+        # A 1.2 graph: the core validates first and refuses a wrapper (rendered through
+        # `wrapper_for`, never transpiled) or an embedded script node. What remains is a
+        # native graph, transpiled by the engine from the pack document (the file minus
+        # the core-only keys, which the engine would refuse), and written to a
+        # content-addressed `.py` beside the engine's own, keyed by the script text.
+        return _materialise(transpile_graph(graph_path, manifest))
     shim = types.SimpleNamespace(parameters=(manifest or {}).get("parameters") or [])
     return prepare_graph_script(str(graph_path), shim)
+
+
+def _materialise(script: str) -> str:
+    """Write a transpiled script to the engine's temp dir under its own digest."""
+    import hashlib
+    import os
+    import tempfile
+
+    out_dir = Path(tempfile.gettempdir()) / "yantra4d_graphgen"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    digest = hashlib.sha256(script.encode()).hexdigest()
+    out_path = out_dir / f"graph_core_{digest[:24]}.py"
+    if not out_path.is_file():
+        tmp = out_path.with_suffix(f".{os.getpid()}.tmp")
+        tmp.write_text(script)
+        os.replace(tmp, out_path)
+    return str(out_path)

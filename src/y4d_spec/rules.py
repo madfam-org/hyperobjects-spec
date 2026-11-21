@@ -752,6 +752,30 @@ def graph_expression_parameters(text: str) -> set[str]:
     return {pid for pid in declared if isinstance(pid, str)}
 
 
+def graph_script_parameters(text: str) -> set[str]:
+    """The parameter ids a graph's `script` nodes pass through (format 1.2, RFC 0067).
+
+    NOT a G-DEADPARAM door (see `dead_parameter_problems`): a pass-through hands the
+    source a global whether or not the source reads it, so it proves nothing about the
+    geometry. `graph_core_rules` uses it to check that a wrapper passes every parameter
+    of its mode through.
+    """
+    try:
+        doc = json.loads(text)
+    except ValueError:
+        return set()
+    out: set[str] = set()
+    for node in (doc.get("nodes") if isinstance(doc, dict) else None) or []:
+        if not isinstance(node, dict) or node.get("type") != "script":
+            continue
+        params = node.get("params")
+        bind = params.get("bind") if isinstance(params, dict) else None
+        for value in (bind.values() if isinstance(bind, dict) else []):
+            if isinstance(value, dict) and isinstance(value.get("param"), str):
+                out.add(value["param"])
+    return out
+
+
 def parameter_mode_listings(doc: dict) -> dict:
     """`{parameter id: [the mode dicts that list it]}` — the sources it must reach.
 
@@ -855,6 +879,10 @@ def dead_parameter_problems(doc: dict, sources: dict) -> list[str]:
                     continue
                 checked.append(name)
                 if name.endswith(GRAPH_SUFFIX):
+                    # A wrapper's `script` pass-through is deliberately NOT a door: a
+                    # generated wrapper passes every parameter through, so counting it
+                    # would switch this rule off. The wrapped source is the mode's own
+                    # script (graph_core_rules enforces that), and its door decides.
                     if pid in bound_in_graph or pid in graph_expression_parameters(text):
                         break
                 elif name.endswith(SCRIPT_SUFFIXES):

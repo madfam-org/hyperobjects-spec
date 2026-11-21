@@ -1,0 +1,122 @@
+{
+  "version": "1.2.0",
+  "kernel": "solid",
+  "units": "mm",
+  "meta": {
+    "note": "A wrapper graph (RFC 0067 G-1): one script node running the mode's own source."
+  },
+  "declarations": {
+    "parameters": [
+      {
+        "id": "block_size",
+        "type": "slider",
+        "default": 10.0,
+        "min": 4.0,
+        "max": 40.0,
+        "step": 0.5,
+        "group": "size",
+        "label": {
+          "en": "Block size (mm)",
+          "es": "Tamaño del bloque (mm)"
+        },
+        "tooltip": {
+          "en": "Edge length of the cube.",
+          "es": "Longitud de la arista del cubo."
+        }
+      },
+      {
+        "id": "hole_d",
+        "type": "slider",
+        "default": 3.0,
+        "min": 1.0,
+        "max": 8.0,
+        "step": 0.5,
+        "group": "size",
+        "modes": [
+          "drilled"
+        ],
+        "label": {
+          "en": "Hole diameter (mm)",
+          "es": "Diámetro del agujero (mm)"
+        },
+        "tooltip": {
+          "en": "Diameter of the through hole.",
+          "es": "Diámetro del agujero pasante."
+        }
+      }
+    ],
+    "interfaces": [
+      {
+        "id": "through_hole",
+        "label": {
+          "en": "Through hole",
+          "es": "Agujero pasante"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "hole_d",
+          "block_size"
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "id": "big_block",
+        "mode": "block",
+        "label": {
+          "en": "Big block",
+          "es": "Bloque grande"
+        },
+        "values": {
+          "block_size": 20.0
+        }
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "body",
+      "type": "script",
+      "params": {
+        "source": "block.scad",
+        "language": "openscad",
+        "output": "solid",
+        "bind": {
+          "block_size": {
+            "param": "block_size"
+          },
+          "hole_d": {
+            "param": "hole_d"
+          }
+        }
+      },
+      "inputs": {},
+      "meta": {
+        "label": {
+          "en": "Script",
+          "es": "Guion",
+          "fr": "Script",
+          "pt": "Script"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "block": "body",
+    "drilled": "body"
+  },
+  "licence": {
+    "spdx": "CC0-1.0"
+  },
+  "provenance": {
+    "authored": "hand",
+    "sources": [
+      {
+        "path": "block.scad",
+        "role": "script",
+        "sha256": "bcb533da76107b476322c2f1a33f31f2bcfbc99aa2022661afdd9f6cd2a8f7f8"
+      }
+    ]
+  }
+}

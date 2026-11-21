@@ -611,6 +611,28 @@ exist is a rule the twins were never checked by. `(openscad, graph)` is delibera
 compared: on a cartridge with all three, the graph is pinned to its CadQuery script and
 that script to the OpenSCAD one, so a third edge only reports one of the other two twice.
 
+**Wrapper graphs and the graph core (RFC 0067).** Graph format 1.2 is shared by the solid,
+soft and sheet commons through `hyperobject_graph`, a stdlib-only package canonical in this
+repo and vendored by hash into each kernel (contract: [`docs/GRAPH_CORE.md`](docs/GRAPH_CORE.md)).
+The solid vocabulary is the vendored engine behind the core's node-pack interface, and
+moving it there changed no byte of any commons graph's program. Format 1.2 adds the
+`script` node: a **wrapper graph** is one script node running the mode's own source, with
+every parameter, preset, constraint and interface declared by the graph. A wrapper is not
+transpiled — it renders its source on the source's own path — and `--parity` pairs it with
+that source and requires the two meshes **identical byte for byte**, at the defaults and
+every preset; there is no tolerance and no exemption, because nothing differs but the route:
+
+```text
+  ok graph-wrapper (…, 10 render(s) verified (6 preset), 5 parity pair(s) agree)
+       parity (block, block, cadquery vs graph): ok — wrapper identical — the graph's mesh is the script's, byte for byte (sha256 …)
+```
+
+Without `--render`, a 1.2 graph must pass the core, its declared source digests must match
+the files (`source-drift` otherwise), its declarations must equal the manifest's entries,
+and a wrapper must wrap its own mode's script and parts and pass every parameter the mode
+lists through under its own name. A pass-through is not a G-DEADPARAM reference. On a
+1.0/1.1 graph the core's findings are `graph-core:` notes.
+
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A
 preset is the parameter point a user actually clicks, and the defaults render says

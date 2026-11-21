@@ -71,6 +71,17 @@ Golden-twin rule: a mode declaring BOTH a script and a graph has the two compare
 by `--parity` at the same bar as the cross-kernel comparison; the graph must agree
 with its script before the script may be retired.
 
+## The graph core — CANONICAL here (`src/hyperobject_graph/`, RFC 0067)
+
+Kernel-neutral graph format 1.2 (typed sockets, expressions, validation, declarations,
+i18n keys, licence, provenance), the node-pack interface, and the `script` node contract.
+Kernels vendor the directory by `core.lock.json`; re-pin with
+`scripts/qa/check_graph_core_lock.py --update` on any edit. The solid pack
+(`y4d_spec.solid_pack`) is the vendored engine behind the interface, byte-identical for
+every commons graph (`scripts/qa/check_graph_core_solid.py`). A wrapper graph (one script
+node) renders its own source and must match it byte for byte under `--parity`.
+Contract: `docs/GRAPH_CORE.md`.
+
 ## Doctrine
 
 New rules land as notes. A rule that fires on healthy cartridges is wrong;

@@ -1,0 +1,114 @@
+{
+  "project": {
+    "name": "Graph Wrapper",
+    "slug": "graph-wrapper",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A WRAPPER-graph test cartridge (RFC 0067): a CadQuery script and a graph with one script node that runs it, every parameter, preset, constraint and interface declared by the graph. --parity requires the two meshes to be identical byte for byte.",
+      "es": "Un cartucho de prueba de GRAFO ENVOLVENTE (RFC 0067): un guion CadQuery y un grafo con un nodo de guion que lo ejecuta, con cada parametro, preset, restriccion e interfaz declarados por el grafo. --parity exige que las dos mallas sean identicas byte a byte."
+    },
+    "thumbnail": "/projects/dual-block.webp",
+    "difficulty": "beginner",
+    "tags": ["test", "fixture", "graph", "wrapper", "parity", "hyperobject", "commons"],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {"en": "Block", "es": "Bloque"},
+      "scad_file": "block.py",
+      "cq_file": "block.py",
+      "graph_file": "block.graph.json",
+      "parts": ["block"],
+      "estimate": {"base_time": 5, "per_unit": 1, "per_part": 3}
+    },
+    {
+      "id": "plate",
+      "label": {"en": "Plate", "es": "Placa"},
+      "scad_file": "block.py",
+      "cq_file": "block.py",
+      "graph_file": "plate.graph.json",
+      "parts": ["plate"],
+      "estimate": {"base_time": 5, "per_unit": 1, "per_part": 3}
+    }
+  ],
+  "parts": [
+    {"id": "block", "label": {"en": "Block", "es": "Bloque"}, "render_mode": 0, "color": "#8899aa"},
+    {"id": "plate", "label": {"en": "Plate", "es": "Placa"}, "render_mode": 2, "color": "#aa8899"}
+  ],
+  "parameter_groups": [
+    {"id": "size", "label": {"en": "Size", "es": "Tamaño"}},
+    {"id": "finish", "label": {"en": "Finish", "es": "Acabado"}}
+  ],
+  "parameters": [
+    {
+      "id": "block_size", "type": "slider", "default": 10.0, "min": 4.0, "max": 40.0, "step": 0.5,
+      "group": "size",
+      "label": {"en": "Block size (mm)", "es": "Tamaño del bloque (mm)"},
+      "tooltip": {"en": "Edge length of the cube.", "es": "Longitud de la arista del cubo."}
+    },
+    {
+      "id": "plate_h", "type": "slider", "default": 2.0, "min": 1.0, "max": 8.0, "step": 0.5,
+      "group": "size",
+      "label": {"en": "Plate thickness (mm)", "es": "Espesor de la placa (mm)"},
+      "tooltip": {"en": "Thickness of the plate.", "es": "Espesor de la placa."}
+    },
+    {
+      "id": "finish", "type": "select", "default": "square", "group": "finish",
+      "options": [
+        {"value": "square", "label": {"en": "Square", "es": "Recto"}},
+        {"value": "chamfer", "label": {"en": "Chamfered", "es": "Biselado"}}
+      ],
+      "label": {"en": "Edge finish", "es": "Acabado de aristas"},
+      "tooltip": {"en": "Square or chamfered vertical edges.", "es": "Aristas verticales rectas o biseladas."}
+    },
+    {
+      "id": "hollow", "type": "checkbox", "default": false, "group": "finish",
+      "modes": ["block"],
+      "label": {"en": "Hollow", "es": "Hueco"},
+      "tooltip": {"en": "Shell the block, open at the top.", "es": "Vaciar el bloque, abierto arriba."}
+    }
+  ],
+  "presets": [
+    {"id": "big_block", "mode": "block", "label": {"en": "Big block", "es": "Bloque grande"},
+     "values": {"block_size": 20.0}},
+    {"id": "chamfered_hollow", "mode": "block",
+     "label": {"en": "Chamfered, hollow", "es": "Biselado y hueco"},
+     "values": {"finish": "chamfer", "hollow": true, "block_size": 16.0}},
+    {"id": "thick_plate", "mode": "plate", "label": {"en": "Thick plate", "es": "Placa gruesa"},
+     "values": {"plate_h": 6.0, "finish": "chamfer"}}
+  ],
+  "constraints": [
+    {
+      "expression": "plate_h < block_size",
+      "severity": "error",
+      "message": {"en": "The plate must be thinner than the block.", "es": "La placa debe ser más delgada que el bloque."}
+    }
+  ],
+  "export_formats": ["stl", "3mf"],
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "block_face",
+        "label": {"en": "Block face", "es": "Cara del bloque"},
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": ["block_size"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None - this is a test fixture, not a design. It exists so the wrapper-graph path is exercised in CI.",
+      "es": "Ninguno - es un accesorio de prueba, no un diseno. Existe para ejercitar la ruta de grafos envolventes en CI."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

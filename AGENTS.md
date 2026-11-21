@@ -283,6 +283,35 @@ cross-kernel comparison, and the graph must agree before the script may be retir
 line names the pairing (`parity (block, block, cadquery vs graph)`) whenever it is not
 the cross-kernel one. `(openscad, graph)` is deliberately not compared — it is a
 redundant edge that would report one of the other two failures twice.
+## The graph core (`hyperobject_graph`, RFC 0067) — read before touching `src/hyperobject_graph/`
+
+- **Canonical here, vendored elsewhere.** The opposite direction from `y4d_spec/graph/`:
+  Yantra4D, Fashion Cabinet and Pliego copy `src/hyperobject_graph/` and pin it by
+  `core.lock.json`. Any edit to the package needs `scripts/qa/check_graph_core_lock.py
+  --update` in the same commit (CI blocks otherwise), a `CORE_VERSION` bump when what a
+  valid document is moves, and a PR note that the kernels must re-vendor. Keep it
+  **stdlib-only and self-contained** (a test enforces it): a kernel vendors the directory
+  and nothing else. Contract: `docs/GRAPH_CORE.md`.
+- **Kernel-neutral.** The core never names a kernel's nodes, sockets or runner. Anything
+  geometric belongs to a pack (`y4d_spec.solid_pack` for solid). The tests run the core
+  against a toy sheet pack for exactly this reason; a rule that only works for solid
+  fails there first.
+- **The expression parser is a port** of the vendored engine's. Change it only with
+  `tests/test_graph_core_expression.py` green: the differential run against the engine is
+  what makes the port the same dialect.
+- **Byte-identity of the solid pack.** `scripts/qa/check_graph_core_solid.py` (blocking)
+  proves every solid-commons graph transpiles through the core to the engine's own bytes,
+  against digests pinned at the engine lock. After a re-vendor of the engine, run it with
+  `--update-golden` and review which graphs moved.
+- **Wrappers.** A pure wrapper (one `script` node) is never transpiled: it is lowered to
+  its source's own render path, and `--parity` requires the two meshes byte for byte
+  (`parity.wrapper_identity`, not exemptable). Pass-through bindings must keep the
+  injected value's type and leave an absent one absent; that is what makes a wrapper
+  identical at the defaults render, which injects nothing.
+- **Two postures.** On a 1.2 graph the core's rules are failures (none existed before the
+  core); on a 1.0/1.1 graph they are `graph-core:` notes and the engine is the enforcing
+  validator. Do not promote the notes without a whole-commons pass written down.
+
 ## Every declared parameter must be referenced (G-DEADPARAM)
 
 A `parameters[]` entry no source reads is a **conformance failure**: the UI offers a

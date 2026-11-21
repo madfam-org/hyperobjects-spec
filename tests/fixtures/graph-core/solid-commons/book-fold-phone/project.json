@@ -1,0 +1,4771 @@
+{
+  "project": {
+    "name": "Book-Fold Phone",
+    "thumbnail": "/projects/book-fold-phone.webp",
+    "slug": "book-fold-phone",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "The book-fold phone as a parametric archetype: two rigid half-frames on a fold axis along the long edge, one continuous display folded inward across both of them, a cover display outside, a teardrop crease relief, and one continuous fold angle from closed to open. Named devices ride as presets whose every millimetre is a published dimension with a provenance line — the half thickness is the manufacturer's own open depth and the gap is what their closed depth leaves over. No logos, no trade dress. Dual-engine: a CadQuery reference and a node-graph twin.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "El teléfono plegable de libro como arquetipo paramétrico: dos medios marcos rígidos sobre un eje de plegado en el borde largo, una pantalla continua plegada hacia dentro sobre ambos, una pantalla de portada por fuera, un alojamiento de pliegue en gota y un ángulo de apertura continuo de cerrado a abierto. Los dispositivos con nombre viajan como preajustes cuyos milímetros son todos dimensiones publicadas con su procedencia — el espesor de cada mitad es la profundidad abierta del propio fabricante y la holgura es lo que sobra de su profundidad cerrada. Sin logotipos ni imagen comercial. Doble motor: una referencia en CadQuery y un gemelo en grafo de nodos."
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "device",
+      "phone",
+      "foldable",
+      "book-fold",
+      "dual-screen",
+      "hinge",
+      "enclosure",
+      "archetype",
+      "cradle",
+      "graph",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    },
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Device Envelope",
+          "es": "Envolvente del dispositivo"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the closed outline — hinge_axis_length x cover_half_width x (2 x half_thickness + the hinge gap), with the opening edge rounded by corner_radius. An accessory that takes a device envelope mates here. The OPEN outline is hinge_axis_length x (cover_half_width + camera_half_width) x half_thickness.",
+        "parameters": [
+          "hinge_axis_length",
+          "cover_half_width",
+          "camera_half_width",
+          "half_thickness",
+          "corner_radius"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "wall-device-mount"
+        ]
+      },
+      {
+        "id": "fold_axis",
+        "label": {
+          "en": "Fold Axis",
+          "es": "Eje de plegado"
+        },
+        "geometry_type": "hinge",
+        "standard": "internal: the X axis through the origin, in the MIDDLE of the gap between the two half-frames. The gap is the published closed depth less twice the published open depth; it exists only when the device is closed, because a turn about this axis lands both halves in one z band. fold_angle 0 closed, 180 open.",
+        "parameters": [
+          "cover_half_center_z",
+          "camera_half_center_z",
+          "half_thickness",
+          "hinge_cavity_radius",
+          "hinge_cavity_span",
+          "hinge_leaf_radius",
+          "fold_angle"
+        ],
+        "compatible_with": [
+          "hinge-hyperobject",
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "crease_region",
+        "label": {
+          "en": "Crease Region",
+          "es": "Región de pliegue"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: the strip of the folding panel that bends, centred on the fold axis and running the display's full width along it. What the hinge's relief is sized to give room to.",
+        "parameters": [
+          "inner_display_width",
+          "inner_display_cover_span",
+          "inner_display_camera_span",
+          "hinge_cavity_radius"
+        ]
+      },
+      {
+        "id": "display_recess",
+        "label": {
+          "en": "Display Recess",
+          "es": "Rebaje de pantalla"
+        },
+        "geometry_type": "screen",
+        "standard": "internal: a rectangular aperture of the cover display's active area, sunk display_recess_depth into the cover half's outer face. The same id the clamshell cartridge's display_panel component exposes.",
+        "parameters": [
+          "cover_display_width",
+          "cover_display_height",
+          "cover_display_center_y",
+          "display_recess_depth"
+        ]
+      },
+      {
+        "id": "lens_aperture",
+        "label": {
+          "en": "Lens Aperture",
+          "es": "Apertura de lente"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal: a recessed camera island with a row of circular apertures sunk through its floor, in the camera half's outer face. A RECESS, not a raised bump — every depth published in this family excludes the camera bump and none publishes its height.",
+        "parameters": [
+          "lens_island_width",
+          "lens_island_height",
+          "lens_island_depth",
+          "lens_count",
+          "lens_radius",
+          "lens_depth"
+        ]
+      },
+      {
+        "id": "button_seat",
+        "label": {
+          "en": "Button Seat",
+          "es": "Asiento de botón"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal: a rectangular pocket in the cover half's opening edge, for a power or volume key. The same id the clamshell cartridge's face_button and button_row components expose, in a third arrangement.",
+        "parameters": [
+          "button_count",
+          "button_width",
+          "button_seat_depth",
+          "button_height",
+          "button_pitch_x"
+        ]
+      },
+      {
+        "id": "port_cutout",
+        "label": {
+          "en": "USB-C Port Opening",
+          "es": "Boca del puerto USB-C"
+        },
+        "geometry_type": "port",
+        "standard": "internal: a rectangular opening in the cover half's end face, sized to clear a USB-C receptacle. Present only where the registry lists the port.",
+        "parameters": [
+          "usb_c_present",
+          "usb_c_width",
+          "usb_c_height",
+          "usb_c_center_x",
+          "usb_c_center_z"
+        ]
+      },
+      {
+        "id": "card_slot",
+        "label": {
+          "en": "Card Tray Slot",
+          "es": "Ranura de bandeja"
+        },
+        "geometry_type": "socket",
+        "standard": "internal: a SIM-tray mouth in the cover half's end face. Present only where the registry lists a `sim` port; an eSIM-only device has a SOURCED absence, not an unknown.",
+        "parameters": [
+          "card_slot_present",
+          "card_slot_width",
+          "card_slot_height",
+          "card_slot_depth"
+        ]
+      },
+      {
+        "id": "cradle_seat",
+        "label": {
+          "en": "Cradle Seat",
+          "es": "Asiento de base"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: the cover half's outer face and its footprint — the surface a dock, stand or cradle registers against when the device is closed.",
+        "parameters": [
+          "hinge_axis_length",
+          "cover_half_width",
+          "half_thickness",
+          "corner_radius"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "sbc-case"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A dimensioned, parametric model of the book-fold phones people actually own lets anyone fabricate a cradle, a dock, a travel shell, a screen-protector jig or a repair fixture that fits — for hardware whose manufacturer publishes an outline and nothing else. It also makes the family's own arithmetic legible: the gap between the two halves, the dimension that separates a 2019 fold from a 2026 one, is not a styling claim but the difference between two published numbers, and this cartridge is where you can see it.",
+      "es": "Un modelo paramétrico y acotado de los plegables de libro que la gente tiene permite fabricar una base, un dock, una funda de viaje, una plantilla de protector o un útil de reparación que encaje — para equipos cuyo fabricante publica un contorno y nada más. Además hace legible la aritmética de la familia: la holgura entre las dos mitades, la dimensión que separa un plegable de 2019 de uno de 2026, no es una afirmación de estilo sino la diferencia entre dos cifras publicadas."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "Telesia docs/DEVICE_GEOMETRY.md §3.1 (components are hyperobjects too); gate H8 there rules how a component cartridge will feed an assembly cartridge.",
+    "note": "A device is a hyperobject of hyperobjects: a display, a hinge, a lens window, a button, a port and a card tray are each one in their own right and feed into this one. main.py builds each through its own function taking its own parameter dict, so any of them can be lifted into its own cartridge without a rewrite; bookfold.graph.json groups each one's nodes under the same slug as a node-id prefix. `component:<slug>` cannot be spelled literally in a node id — the transpiler's grammar is ^[A-Za-z][A-Za-z0-9_]*$ — so the prefix is the slug plus an underscore. Sub-graph reuse (yantra4d lane G-CLUSTERS) is what would let the twin REFERENCE a component cartridge instead of duplicating its nodes. Three of these components — display_panel, port_receptacle and the button seat — already exist in the clamshell-dual-screen-handheld cartridge under the same interface ids, which is the concrete duplication G-CLUSTERS and gate H8 would remove.",
+    "components": [
+      {
+        "slug": "frame_half",
+        "function": "frame_half",
+        "graph_prefix": "framehalf_",
+        "exposes": [
+          "device_envelope",
+          "cradle_seat"
+        ],
+        "consumes": [],
+        "instances": [
+          "cover_half",
+          "camera_half"
+        ]
+      },
+      {
+        "slug": "foldable_display",
+        "function": "foldable_display",
+        "graph_prefix": "foldabledisplay_",
+        "exposes": [
+          "crease_region"
+        ],
+        "consumes": [
+          "fold_axis"
+        ],
+        "instances": [
+          "cover_half",
+          "camera_half"
+        ],
+        "note": "one panel across both halves; the component builds one half's portion, from the fold axis outward"
+      },
+      {
+        "slug": "display_panel",
+        "function": "display_panel",
+        "graph_prefix": "displaypanel_",
+        "exposes": [
+          "display_recess"
+        ],
+        "consumes": [],
+        "upstream_cartridge": "clamshell-dual-screen-handheld"
+      },
+      {
+        "slug": "hinge_foldable",
+        "function": "hinge_foldable",
+        "graph_prefix": "hingefold_",
+        "exposes": [
+          "fold_axis"
+        ],
+        "consumes": [
+          "crease_region"
+        ],
+        "roles": [
+          "relief",
+          "leaf"
+        ]
+      },
+      {
+        "slug": "lens_window",
+        "function": "lens_window",
+        "graph_prefix": "lenswindow_",
+        "exposes": [
+          "lens_aperture"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "system_button_cluster",
+        "function": "system_button_cluster",
+        "graph_prefix": "systembuttons_",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "arrangement": "row"
+      },
+      {
+        "slug": "port_receptacle",
+        "function": "port_receptacle",
+        "graph_prefix": "port_",
+        "exposes": [
+          "port_cutout"
+        ],
+        "consumes": [],
+        "upstream_cartridge": "clamshell-dual-screen-handheld"
+      },
+      {
+        "slug": "card_slot",
+        "function": "card_slot",
+        "graph_prefix": "cardslot_",
+        "exposes": [
+          "card_slot"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "speaker_grille",
+        "function": "speaker_grille",
+        "graph_prefix": "speaker_",
+        "exposes": [],
+        "consumes": [],
+        "note": "no upstream CDG id; a vented face is not a mating feature"
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "device",
+      "label": {
+        "en": "Device (assembled)",
+        "es": "Dispositivo (ensamblado)"
+      },
+      "description": {
+        "en": "All three parts in world coordinates at the current fold angle. Not a print target — the parts are separate bodies held apart by the fold.",
+        "es": "Las tres piezas en coordenadas de mundo al ángulo de plegado actual. No es un objetivo de impresión — las piezas son cuerpos separados."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "cover_half",
+        "camera_half",
+        "hinge"
+      ],
+      "part_quantities": {
+        "cover_half": 1,
+        "camera_half": 1,
+        "hinge": 1
+      },
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "cover_half",
+      "label": {
+        "en": "Cover Half",
+        "es": "Mitad de portada"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "cover_half"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_part": 8
+      }
+    },
+    {
+      "id": "camera_half",
+      "label": {
+        "en": "Camera Half",
+        "es": "Mitad de cámara"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "camera_half"
+      ],
+      "estimate": {
+        "base_time": 9,
+        "per_part": 7
+      }
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge Leaf",
+        "es": "Hoja de bisagra"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "hinge"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "graph_device",
+      "label": {
+        "en": "Device (graph twin)",
+        "es": "Dispositivo (gemelo en grafo)"
+      },
+      "description": {
+        "en": "The same three parts built from the node graph. Server-only, and gated to pro and premium like every graph cartridge.",
+        "es": "Las mismas tres piezas construidas desde el grafo de nodos. Sólo en servidor, y limitado a pro y premium como todo cartucho de grafo."
+      },
+      "scad_file": "bookfold.graph.json",
+      "engine": "graph",
+      "parts": [
+        "cover_half",
+        "camera_half",
+        "hinge"
+      ],
+      "estimate": {
+        "base_units": 3,
+        "formula": "per_part"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "cover_half",
+      "label": {
+        "en": "Cover Half",
+        "es": "Mitad de portada"
+      },
+      "render_mode": 0,
+      "color": "#3f5d7d"
+    },
+    {
+      "id": "camera_half",
+      "label": {
+        "en": "Camera Half",
+        "es": "Mitad de cámara"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge Leaf",
+        "es": "Hoja de bisagra"
+      },
+      "render_mode": 0,
+      "color": "#b08d57"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope & Fold",
+        "es": "Envolvente y plegado"
+      }
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge & Crease",
+        "es": "Bisagra y pliegue"
+      }
+    },
+    {
+      "id": "displays",
+      "label": {
+        "en": "Displays",
+        "es": "Pantallas"
+      }
+    },
+    {
+      "id": "camera",
+      "label": {
+        "en": "Camera Island",
+        "es": "Isla de cámara"
+      }
+    },
+    {
+      "id": "buttons",
+      "label": {
+        "en": "Side Buttons",
+        "es": "Botones laterales"
+      }
+    },
+    {
+      "id": "ports",
+      "label": {
+        "en": "Ports & Grille",
+        "es": "Puertos y rejilla"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hinge_axis_length",
+      "type": "slider",
+      "default": 156,
+      "min": 60,
+      "max": 260,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "framehalf_cover_box.w",
+        "framehalf_camera_box.w",
+        "hingefold_band_box.w"
+      ],
+      "label": {
+        "en": "Hinge-axis length (mm)",
+        "es": "Largo del eje de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The long axis, X. Both halves share it, and the fold axis runs along it. In a preset this is the registry's closed height — which equals the published OPEN height on every device in this family that gives both.",
+        "es": "El eje largo, X. Ambas mitades lo comparten y el eje de plegado corre por él. En un preajuste es la altura cerrada del registro — igual a la altura ABIERTA publicada en todos los dispositivos de esta familia que dan ambas."
+      }
+    },
+    {
+      "id": "cover_half_width",
+      "type": "slider",
+      "default": 74,
+      "min": 30,
+      "max": 140,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "framehalf_cover_box.d",
+      "label": {
+        "en": "Cover-half width (mm)",
+        "es": "Ancho de la mitad de portada (mm)"
+      },
+      "tooltip": {
+        "en": "The folding axis, Y, for the half that carries the cover display. It runs from the fold at y=0 to its opening edge. In a preset this is the registry's closed width — the closed device is exactly this wide.",
+        "es": "El eje de plegado, Y, para la mitad que lleva la pantalla de portada. Va del pliegue en y=0 a su borde de apertura. En un preajuste es el ancho cerrado del registro."
+      }
+    },
+    {
+      "id": "camera_half_width",
+      "type": "slider",
+      "default": 72,
+      "min": 30,
+      "max": 140,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "framehalf_camera_box.d",
+      "label": {
+        "en": "Camera-half width (mm)",
+        "es": "Ancho de la mitad de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "The other half, which is NARROWER — that is why a book fold closes. In a preset it is the published open width less the published closed width, so both ends of the subtraction are the manufacturer's.",
+        "es": "La otra mitad, MÁS ESTRECHA — por eso cierra un plegable de libro. En un preajuste es el ancho abierto publicado menos el ancho cerrado publicado, así que ambos extremos de la resta son del fabricante."
+      }
+    },
+    {
+      "id": "half_thickness",
+      "type": "slider",
+      "default": 4.7,
+      "min": 1.5,
+      "max": 20,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "framehalf_cover_box.h",
+        "framehalf_camera_box.h",
+        "hingefold_band_box.h"
+      ],
+      "label": {
+        "en": "Half-frame thickness (mm)",
+        "es": "Espesor de cada mitad (mm)"
+      },
+      "tooltip": {
+        "en": "One half's thickness, Z. In a preset this is the registry's published OPEN depth: the open body is one half. The closed depth is twice this plus the hinge gap, and that is what the closed envelope is verified against.",
+        "es": "El espesor de una mitad, Z. En un preajuste es la profundidad ABIERTA publicada del registro: el cuerpo abierto es una mitad. La profundidad cerrada es el doble más la holgura de bisagra."
+      }
+    },
+    {
+      "id": "corner_radius",
+      "type": "slider",
+      "default": 6,
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "framehalf_cover_round.radius",
+        "framehalf_camera_round.radius"
+      ],
+      "label": {
+        "en": "Corner radius (mm)",
+        "es": "Radio de esquina (mm)"
+      },
+      "tooltip": {
+        "en": "Rounding on the two vertical edges of the OPENING edge only; the spine stays square in plan. ARCHETYPE DEFAULT: no manufacturer in this family publishes a corner radius (0 of 84 devices in the registry), so this is ours at every preset.",
+        "es": "Redondeo sólo en las dos aristas verticales del borde de apertura; el lomo queda recto en planta. VALOR DEL ARQUETIPO: ningún fabricante de esta familia publica un radio de esquina (0 de 84 dispositivos), así que es nuestro en todos los preajustes."
+      }
+    },
+    {
+      "id": "fold_angle",
+      "type": "slider",
+      "default": 135,
+      "min": 0,
+      "max": 180,
+      "step": 1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "asm_camera_half.angle",
+      "label": {
+        "en": "Fold angle (degrees)",
+        "es": "Ángulo de plegado (grados)"
+      },
+      "tooltip": {
+        "en": "0 closed, 180 open. The camera half turns about the fold axis, which is the X axis through the origin in the middle of the gap — which is why the gap closes itself as the device opens.",
+        "es": "0 cerrado, 180 abierto. La mitad de cámara gira sobre el eje de plegado, el eje X por el origen en medio de la holgura — por eso la holgura se cierra sola al abrir."
+      }
+    },
+    {
+      "id": "cover_half_center_y",
+      "type": "slider",
+      "default": 37,
+      "min": 15,
+      "max": 70,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "framehalf_cover_place.y",
+      "label": {
+        "en": "Cover-half centre Y (mm)",
+        "es": "Centro Y de la mitad de portada (mm)"
+      },
+      "tooltip": {
+        "en": "Half of the cover-half width. Its own parameter because the graph format has no arithmetic (lane G-EXPR); the generator emits it with the width so the two cannot drift.",
+        "es": "La mitad del ancho de la mitad de portada. Es su propio parámetro porque el formato de grafo no tiene aritmética (lane G-EXPR)."
+      }
+    },
+    {
+      "id": "cover_half_center_z",
+      "type": "slider",
+      "default": -2.65,
+      "min": -20,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "framehalf_cover_place.z",
+        "hingefold_band_place.z"
+      ],
+      "label": {
+        "en": "Cover-half centre Z (mm)",
+        "es": "Centro Z de la mitad de portada (mm)"
+      },
+      "tooltip": {
+        "en": "Negative half the gap, less half the thickness. THE HINGE GAP LIVES HERE: with no expressions, the gap — this family's defining dimension — cannot be a control of its own, only the two centres that carry it. Each preset records the gap in millimetres under its `registry` block.",
+        "es": "Menos media holgura, menos medio espesor. AQUÍ VIVE LA HOLGURA DE BISAGRA: sin expresiones, la holgura no puede ser un control propio. Cada preajuste la anota en milímetros en su bloque `registry`."
+      }
+    },
+    {
+      "id": "camera_half_center_y",
+      "type": "slider",
+      "default": 36,
+      "min": 15,
+      "max": 70,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "framehalf_camera_place.y",
+      "label": {
+        "en": "Camera-half centre Y (mm)",
+        "es": "Centro Y de la mitad de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "Half of the camera-half width, before the fold.",
+        "es": "La mitad del ancho de la mitad de cámara, antes del plegado."
+      }
+    },
+    {
+      "id": "camera_half_center_z",
+      "type": "slider",
+      "default": 2.65,
+      "min": 0.5,
+      "max": 20,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "framehalf_camera_place.z",
+      "label": {
+        "en": "Camera-half centre Z (mm)",
+        "es": "Centro Z de la mitad de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "Half the gap plus half the thickness — the mirror of the cover half's, which is what makes a 180° turn land the two halves coplanar.",
+        "es": "Media holgura más medio espesor — el espejo del de la mitad de portada, que es lo que hace que un giro de 180° deje ambas mitades coplanares."
+      }
+    },
+    {
+      "id": "hinge_cavity_radius",
+      "type": "slider",
+      "default": 2.415,
+      "min": 0.3,
+      "max": 12,
+      "step": 0.005,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingefold_relief_cyl.r",
+      "label": {
+        "en": "Crease relief radius (mm)",
+        "es": "Radio del alojamiento del pliegue (mm)"
+      },
+      "tooltip": {
+        "en": "The relief both halves give up along the fold so the folding panel's bend has room. A cylinder ON the fold axis, so it is invariant under the fold. ARCHETYPE: capped by the wall it must leave against the outer face.",
+        "es": "El alojamiento que ambas mitades ceden a lo largo del pliegue para que la curvatura del panel tenga sitio. Un cilindro SOBRE el eje, invariante al plegado. ARQUETIPO."
+      }
+    },
+    {
+      "id": "hinge_cavity_span",
+      "type": "slider",
+      "default": 146.64,
+      "min": 20,
+      "max": 260,
+      "step": 0.01,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingefold_relief_cyl.h",
+      "label": {
+        "en": "Crease relief span (mm)",
+        "es": "Longitud del alojamiento (mm)"
+      },
+      "tooltip": {
+        "en": "How far the relief runs along the fold axis — 94 % of the hinge-axis length, so the two ends stay solid.",
+        "es": "Cuánto recorre el alojamiento el eje de plegado — 94 % del largo del eje, de modo que los dos extremos quedan macizos."
+      }
+    },
+    {
+      "id": "hinge_leaf_radius",
+      "type": "slider",
+      "default": 2.115,
+      "min": 0.2,
+      "max": 12,
+      "step": 0.005,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingefold_leaf_cyl.r",
+      "label": {
+        "en": "Hinge leaf radius (mm)",
+        "es": "Radio de la hoja de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The relief radius less the archetype's 0.3 mm running clearance. Its own parameter because the graph engine has no expressions; the generator keeps the two in step.",
+        "es": "El radio del alojamiento menos la holgura de giro de 0.3 mm del arquetipo. Parámetro propio porque el motor de grafo no tiene expresiones."
+      }
+    },
+    {
+      "id": "hinge_leaf_span",
+      "type": "slider",
+      "default": 146.04,
+      "min": 20,
+      "max": 260,
+      "step": 0.01,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingefold_leaf_cyl.h",
+      "label": {
+        "en": "Hinge leaf span (mm)",
+        "es": "Longitud de la hoja (mm)"
+      },
+      "tooltip": {
+        "en": "The relief span less twice the running clearance, so the leaf is inset at both ends.",
+        "es": "La longitud del alojamiento menos dos veces la holgura, de modo que la hoja queda embutida en ambos extremos."
+      }
+    },
+    {
+      "id": "hinge_clip_span",
+      "type": "slider",
+      "default": 400,
+      "min": 100,
+      "max": 800,
+      "step": 1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "hingefold_clip_box.w",
+        "hingefold_clip_box.d",
+        "hingefold_clip_box.h",
+        "hingefold_band_box.d"
+      ],
+      "label": {
+        "en": "Clip solid span (mm)",
+        "es": "Tamaño del sólido de recorte (mm)"
+      },
+      "tooltip": {
+        "en": "A cut solid deliberately larger than the part — the through-bore idiom the commons graph cartridges already use. It removes everything at y < 0 so the closed width is exactly the published figure.",
+        "es": "Un sólido de corte deliberadamente mayor que la pieza. Elimina todo en y < 0 para que el ancho cerrado sea exactamente la cifra publicada."
+      }
+    },
+    {
+      "id": "hinge_clip_center_y",
+      "type": "slider",
+      "default": -200,
+      "min": -400,
+      "max": -50,
+      "step": 1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingefold_clip_place.y",
+      "label": {
+        "en": "Clip solid centre Y (mm)",
+        "es": "Centro Y del sólido de recorte (mm)"
+      },
+      "tooltip": {
+        "en": "Negative half the clip span, so the clip's near face sits on the fold axis.",
+        "es": "Menos la mitad del tamaño de recorte, para que la cara del recorte quede sobre el eje de plegado."
+      }
+    },
+    {
+      "id": "inner_display_width",
+      "type": "slider",
+      "default": 151,
+      "min": 40,
+      "max": 250,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "foldabledisplay_cover_box.w",
+        "foldabledisplay_camera_box.w"
+      ],
+      "label": {
+        "en": "Inner display width — along the hinge (mm)",
+        "es": "Ancho de la pantalla interior — eje de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The folding panel's extent along X. Sourced where the registry resolves an active area; otherwise the published envelope inset by the archetype bezel, and the preset names it as a fallback.",
+        "es": "La extensión del panel plegable en X. De fuente cuando el registro resuelve el área activa; si no, la envolvente publicada menos el bisel del arquetipo, y el preajuste lo nombra como respaldo."
+      }
+    },
+    {
+      "id": "inner_display_cover_span",
+      "type": "slider",
+      "default": 71.5,
+      "min": 10,
+      "max": 130,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_cover_box.d",
+      "label": {
+        "en": "Inner display span on the cover half (mm)",
+        "es": "Tramo interior en la mitad de portada (mm)"
+      },
+      "tooltip": {
+        "en": "How much of the folding panel sits on the cover half, measured from the fold axis. The panel is centred on the OPEN envelope, so the two spans differ by exactly the difference between the two half widths.",
+        "es": "Cuánto del panel plegable queda en la mitad de portada, desde el eje. El panel se centra en la envolvente ABIERTA, así que los dos tramos difieren en la diferencia de anchos."
+      }
+    },
+    {
+      "id": "inner_display_camera_span",
+      "type": "slider",
+      "default": 69.5,
+      "min": 10,
+      "max": 130,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_camera_box.d",
+      "label": {
+        "en": "Inner display span on the camera half (mm)",
+        "es": "Tramo interior en la mitad de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "The other side of the same panel, from the fold axis outward.",
+        "es": "El otro lado del mismo panel, desde el eje hacia afuera."
+      }
+    },
+    {
+      "id": "inner_display_cover_center_y",
+      "type": "slider",
+      "default": 35.75,
+      "min": 5,
+      "max": 70,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_cover_place.y",
+      "label": {
+        "en": "Inner display cover-side centre Y (mm)",
+        "es": "Centro Y interior, lado portada (mm)"
+      },
+      "tooltip": {
+        "en": "Half of the cover-side span: the recess starts at the fold axis.",
+        "es": "La mitad del tramo del lado portada: el rebaje empieza en el eje de plegado."
+      }
+    },
+    {
+      "id": "inner_display_camera_center_y",
+      "type": "slider",
+      "default": 34.75,
+      "min": 5,
+      "max": 70,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_camera_place.y",
+      "label": {
+        "en": "Inner display camera-side centre Y (mm)",
+        "es": "Centro Y interior, lado cámara (mm)"
+      },
+      "tooltip": {
+        "en": "Half of the camera-side span.",
+        "es": "La mitad del tramo del lado cámara."
+      }
+    },
+    {
+      "id": "inner_display_cover_cut_center_z",
+      "type": "slider",
+      "default": -0.7,
+      "min": -12,
+      "max": 0,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_cover_place.z",
+      "label": {
+        "en": "Inner display cover-side cut centre Z (mm)",
+        "es": "Centro Z del corte interior, lado portada (mm)"
+      },
+      "tooltip": {
+        "en": "Sinks the recess into the cover half's inner face, which is half the gap below the fold axis.",
+        "es": "Hunde el rebaje en la cara interior de la mitad de portada, a media holgura bajo el eje."
+      }
+    },
+    {
+      "id": "inner_display_camera_cut_center_z",
+      "type": "slider",
+      "default": 0.7,
+      "min": 0,
+      "max": 12,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "foldabledisplay_camera_place.z",
+      "label": {
+        "en": "Inner display camera-side cut centre Z (mm)",
+        "es": "Centro Z del corte interior, lado cámara (mm)"
+      },
+      "tooltip": {
+        "en": "The mirror of the cover side, on the camera half's inner face.",
+        "es": "El espejo del lado portada, en la cara interior de la mitad de cámara."
+      }
+    },
+    {
+      "id": "cover_display_width",
+      "type": "slider",
+      "default": 151,
+      "min": 30,
+      "max": 250,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "displaypanel_box.w",
+      "label": {
+        "en": "Cover display width — along the hinge (mm)",
+        "es": "Ancho de la pantalla de portada — eje de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The outer display's extent along X. On the one device in this family that publishes an active area, the panel's HEIGHT runs along this axis — a phone held portrait, with the hinge vertical.",
+        "es": "La extensión de la pantalla exterior en X. En el único dispositivo de la familia que publica área activa, la ALTURA del panel corre por este eje."
+      }
+    },
+    {
+      "id": "cover_display_height",
+      "type": "slider",
+      "default": 69,
+      "min": 20,
+      "max": 140,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "displaypanel_box.d",
+      "label": {
+        "en": "Cover display height — across the fold (mm)",
+        "es": "Alto de la pantalla de portada — eje de plegado (mm)"
+      },
+      "tooltip": {
+        "en": "The outer display's extent along Y, within the cover half.",
+        "es": "La extensión de la pantalla exterior en Y, dentro de la mitad de portada."
+      }
+    },
+    {
+      "id": "cover_display_center_y",
+      "type": "slider",
+      "default": 37,
+      "min": 10,
+      "max": 70,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "displaypanel_place.y",
+      "label": {
+        "en": "Cover display centre Y (mm)",
+        "es": "Centro Y de la pantalla de portada (mm)"
+      },
+      "tooltip": {
+        "en": "Centred in the cover half: no manufacturer publishes how a display sits within its frame, so the archetype centres it.",
+        "es": "Centrada en la mitad de portada: ningún fabricante publica cómo se sitúa una pantalla dentro de su marco, así que el arquetipo la centra."
+      }
+    },
+    {
+      "id": "cover_display_cut_center_z",
+      "type": "slider",
+      "default": -4.6,
+      "min": -22,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "displaypanel_place.z",
+      "label": {
+        "en": "Cover display cut centre Z (mm)",
+        "es": "Centro Z del corte de portada (mm)"
+      },
+      "tooltip": {
+        "en": "Sinks the recess into the cover half's OUTER face — the face you see when the device is closed.",
+        "es": "Hunde el rebaje en la cara EXTERIOR de la mitad de portada — la que se ve con el aparato cerrado."
+      }
+    },
+    {
+      "id": "display_recess_depth",
+      "type": "slider",
+      "default": 0.8,
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "group": "displays",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "foldabledisplay_cover_box.h",
+        "foldabledisplay_camera_box.h",
+        "displaypanel_box.h"
+      ],
+      "label": {
+        "en": "Display recess depth (mm)",
+        "es": "Profundidad de rebaje (mm)"
+      },
+      "tooltip": {
+        "en": "How deep every display window is sunk. ARCHETYPE DEFAULT: no manufacturer publishes one.",
+        "es": "Cuánto se hunde cada ventana de pantalla. VALOR DEL ARQUETIPO: ningún fabricante lo publica."
+      }
+    },
+    {
+      "id": "lens_island_width",
+      "type": "slider",
+      "default": 30.24,
+      "min": 8,
+      "max": 70,
+      "step": 0.01,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_box.w",
+      "label": {
+        "en": "Camera island width (mm)",
+        "es": "Ancho de la isla de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "The island's extent along X. ARCHETYPE: sized from the published envelope; the registry describes no camera geometry for any device in this family.",
+        "es": "La extensión de la isla en X. ARQUETIPO: dimensionada a partir de la envolvente publicada."
+      }
+    },
+    {
+      "id": "lens_island_height",
+      "type": "slider",
+      "default": 30.24,
+      "min": 8,
+      "max": 70,
+      "step": 0.01,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_box.d",
+      "label": {
+        "en": "Camera island height (mm)",
+        "es": "Alto de la isla de cámara (mm)"
+      },
+      "tooltip": {
+        "en": "The island's extent along Y.",
+        "es": "La extensión de la isla en Y."
+      }
+    },
+    {
+      "id": "lens_island_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.2,
+      "max": 4,
+      "step": 0.05,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_box.h",
+      "label": {
+        "en": "Camera island depth (mm)",
+        "es": "Profundidad de la isla (mm)"
+      },
+      "tooltip": {
+        "en": "How deep the island is SUNK. It is a recess, never a raised bump: every depth published in this family excludes the camera bump and none publishes its height, so raising one would invent a dimension and break the envelope this cartridge is verified against.",
+        "es": "Cuánto se HUNDE la isla. Es un rebaje, nunca un saliente: toda profundidad publicada en esta familia excluye el saliente de cámara y ninguna publica su altura."
+      }
+    },
+    {
+      "id": "lens_island_center_x",
+      "type": "slider",
+      "default": 56.88,
+      "min": -120,
+      "max": 120,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_place.x",
+      "label": {
+        "en": "Camera island centre X (mm)",
+        "es": "Centro X de la isla (mm)"
+      },
+      "tooltip": {
+        "en": "Toward one end of the camera half, an archetype edge margin in from the corner.",
+        "es": "Hacia un extremo de la mitad de cámara, a un margen de borde del arquetipo de la esquina."
+      }
+    },
+    {
+      "id": "lens_island_center_y",
+      "type": "slider",
+      "default": 21.12,
+      "min": 2,
+      "max": 70,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_place.y",
+      "label": {
+        "en": "Camera island centre Y (mm)",
+        "es": "Centro Y de la isla (mm)"
+      },
+      "tooltip": {
+        "en": "Near the fold edge, an archetype edge margin in.",
+        "es": "Cerca del borde de pliegue, a un margen de borde del arquetipo."
+      }
+    },
+    {
+      "id": "lens_island_cut_center_z",
+      "type": "slider",
+      "default": 4.7,
+      "min": 0.5,
+      "max": 22,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_island_place.z",
+      "label": {
+        "en": "Camera island cut centre Z (mm)",
+        "es": "Centro Z del corte de isla (mm)"
+      },
+      "tooltip": {
+        "en": "Places the island recess flush with the camera half's outer face.",
+        "es": "Sitúa el rebaje de la isla a ras de la cara exterior de la mitad de cámara."
+      }
+    },
+    {
+      "id": "lens_count",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_row.count",
+      "label": {
+        "en": "Lens aperture count",
+        "es": "Número de aperturas de lente"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE THROUGHOUT: the registry records no camera count, kind or position for any device in this family, so no preset sources this.",
+        "es": "ARQUETIPO EN TODO: el registro no anota número, tipo ni posición de cámara para ningún dispositivo de esta familia."
+      }
+    },
+    {
+      "id": "lens_radius",
+      "type": "slider",
+      "default": 3.9312,
+      "min": 1,
+      "max": 12,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_lens_cyl.r",
+      "label": {
+        "en": "Lens aperture radius (mm)",
+        "es": "Radio de apertura (mm)"
+      },
+      "tooltip": {
+        "en": "A fraction of the island, kept below half the pitch so the apertures never overlap.",
+        "es": "Una fracción de la isla, por debajo de medio paso para que las aperturas nunca se solapen."
+      }
+    },
+    {
+      "id": "lens_depth",
+      "type": "slider",
+      "default": 1.8,
+      "min": 0.5,
+      "max": 6,
+      "step": 0.05,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_lens_cyl.h",
+      "label": {
+        "en": "Lens aperture depth (mm)",
+        "es": "Profundidad de apertura (mm)"
+      },
+      "tooltip": {
+        "en": "Measured from the outer face, so it passes through the island floor in one cut.",
+        "es": "Medida desde la cara exterior, de modo que atraviesa el fondo de la isla en un solo corte."
+      }
+    },
+    {
+      "id": "lens_first_center_x",
+      "type": "slider",
+      "default": 47.808,
+      "min": -120,
+      "max": 120,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_lens_place.x",
+      "label": {
+        "en": "First lens centre X (mm)",
+        "es": "Centro X de la primera lente (mm)"
+      },
+      "tooltip": {
+        "en": "The row is centred on the island; this is where it starts.",
+        "es": "La fila se centra en la isla; aquí empieza."
+      }
+    },
+    {
+      "id": "lens_pitch_x",
+      "type": "slider",
+      "default": 9.072,
+      "min": 2,
+      "max": 30,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_row.dx",
+      "label": {
+        "en": "Lens pitch (mm)",
+        "es": "Paso entre lentes (mm)"
+      },
+      "tooltip": {
+        "en": "Step between apertures along X.",
+        "es": "Separación entre aperturas en X."
+      }
+    },
+    {
+      "id": "lens_center_y",
+      "type": "slider",
+      "default": 21.12,
+      "min": 2,
+      "max": 70,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_lens_place.y",
+      "label": {
+        "en": "Lens centre Y (mm)",
+        "es": "Centro Y de las lentes (mm)"
+      },
+      "tooltip": {
+        "en": "The row sits on the island's own centre line.",
+        "es": "La fila va sobre la línea central de la isla."
+      }
+    },
+    {
+      "id": "lens_cut_center_z",
+      "type": "slider",
+      "default": 4.1,
+      "min": 0.5,
+      "max": 22,
+      "step": 0.005,
+      "group": "camera",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "lenswindow_lens_place.z",
+      "label": {
+        "en": "Lens cut centre Z (mm)",
+        "es": "Centro Z del corte de lente (mm)"
+      },
+      "tooltip": {
+        "en": "Places the aperture cut flush with the outer face and deeper than the island.",
+        "es": "Sitúa el corte de apertura a ras de la cara exterior y más hondo que la isla."
+      }
+    },
+    {
+      "id": "button_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_row.count",
+      "label": {
+        "en": "Side button count",
+        "es": "Número de botones laterales"
+      },
+      "tooltip": {
+        "en": "Power and volume. ARCHETYPE: the registry's only control kind in this family is `fingerprint`, on 4 of 28 devices, and it records no button geometry, so no preset sources this.",
+        "es": "Encendido y volumen. ARQUETIPO: el único tipo de control del registro en esta familia es `fingerprint`, en 4 de 28 dispositivos, y no anota geometría de botones."
+      }
+    },
+    {
+      "id": "button_width",
+      "type": "slider",
+      "default": 14,
+      "min": 4,
+      "max": 40,
+      "step": 0.1,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_seat.w",
+      "label": {
+        "en": "Button seat length (mm)",
+        "es": "Largo del asiento de botón (mm)"
+      },
+      "tooltip": {
+        "en": "Along the hinge axis. ARCHETYPE DEFAULT.",
+        "es": "A lo largo del eje de bisagra. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "button_seat_depth",
+      "type": "slider",
+      "default": 2,
+      "min": 0.5,
+      "max": 8,
+      "step": 0.1,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_seat.d",
+      "label": {
+        "en": "Button seat cut depth (mm)",
+        "es": "Profundidad del corte de botón (mm)"
+      },
+      "tooltip": {
+        "en": "The tool straddles the opening edge rather than sitting flush against it, so it bites exactly HALF of this into real material and never presents a face coincident with the frame's.",
+        "es": "La herramienta monta a caballo sobre el borde de apertura, así que muerde exactamente LA MITAD de esto en material real."
+      }
+    },
+    {
+      "id": "button_height",
+      "type": "slider",
+      "default": 2,
+      "min": 0.5,
+      "max": 8,
+      "step": 0.1,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_seat.h",
+      "label": {
+        "en": "Button seat height (mm)",
+        "es": "Alto del asiento de botón (mm)"
+      },
+      "tooltip": {
+        "en": "Across the frame's thickness. ARCHETYPE DEFAULT.",
+        "es": "A través del espesor del marco. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "button_first_center_x",
+      "type": "slider",
+      "default": 7.72,
+      "min": -120,
+      "max": 120,
+      "step": 0.005,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_place.x",
+      "label": {
+        "en": "First button centre X (mm)",
+        "es": "Centro X del primer botón (mm)"
+      },
+      "tooltip": {
+        "en": "Where the row starts along the hinge axis, clear of the corner radius at both ends.",
+        "es": "Dónde empieza la fila en el eje de bisagra, libre del radio de esquina en ambos extremos."
+      }
+    },
+    {
+      "id": "button_pitch_x",
+      "type": "slider",
+      "default": 22,
+      "min": 5,
+      "max": 60,
+      "step": 0.1,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_row.dx",
+      "label": {
+        "en": "Button pitch (mm)",
+        "es": "Paso entre botones (mm)"
+      },
+      "tooltip": {
+        "en": "Step between seats. ARCHETYPE DEFAULT.",
+        "es": "Separación entre asientos. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "button_center_y",
+      "type": "slider",
+      "default": 74,
+      "min": 10,
+      "max": 140,
+      "step": 0.005,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_place.y",
+      "label": {
+        "en": "Button row centre Y (mm)",
+        "es": "Centro Y de la fila de botones (mm)"
+      },
+      "tooltip": {
+        "en": "The cover half's opening edge — the side you press when the device is closed.",
+        "es": "El borde de apertura de la mitad de portada — el lado que se pulsa con el aparato cerrado."
+      }
+    },
+    {
+      "id": "button_center_z",
+      "type": "slider",
+      "default": -2.65,
+      "min": -20,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "buttons",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "systembuttons_place.z",
+      "label": {
+        "en": "Button row centre Z (mm)",
+        "es": "Centro Z de la fila de botones (mm)"
+      },
+      "tooltip": {
+        "en": "The cover half's own mid-plane.",
+        "es": "El plano medio de la mitad de portada."
+      }
+    },
+    {
+      "id": "usb_c_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "label": {
+        "en": "USB-C port present",
+        "es": "Puerto USB-C presente"
+      },
+      "tooltip": {
+        "en": "SOURCED where the registry lists the device's ports: 27 of the 28 devices in this family list USB-C. The graph twin cannot read this — it has no branching — so it always cuts the opening.",
+        "es": "DE FUENTE donde el registro lista los puertos: 27 de los 28 dispositivos de esta familia listan USB-C. El gemelo en grafo no puede leerlo — no tiene ramificación."
+      }
+    },
+    {
+      "id": "usb_c_width",
+      "type": "slider",
+      "default": 8.6,
+      "min": 4,
+      "max": 20,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.d",
+      "label": {
+        "en": "USB-C opening width (mm)",
+        "es": "Ancho de la boca USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "Across the end face. 8.6 mm clears a USB-C receptacle, whose plug is 8.34 mm nominal; the rest of the opening geometry is archetype.",
+        "es": "A lo ancho de la cara de extremo. 8.6 mm libra un receptáculo USB-C, cuyo conector es de 8.34 mm nominales."
+      }
+    },
+    {
+      "id": "usb_c_height",
+      "type": "slider",
+      "default": 2.8,
+      "min": 1,
+      "max": 8,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.h",
+      "label": {
+        "en": "USB-C opening height (mm)",
+        "es": "Alto de la boca USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "Across the frame's thickness. The tightest fit in this family: a 4.1 mm half leaves 0.65 mm of wall each side.",
+        "es": "A través del espesor del marco. El ajuste más apretado de esta familia: una mitad de 4.1 mm deja 0.65 mm de pared por lado."
+      }
+    },
+    {
+      "id": "usb_c_depth",
+      "type": "slider",
+      "default": 10,
+      "min": 2,
+      "max": 30,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.w",
+      "label": {
+        "en": "USB-C opening cut depth (mm)",
+        "es": "Profundidad del corte USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "The tool straddles the end face, so it bites half of this.",
+        "es": "La herramienta monta a caballo sobre la cara de extremo, así que muerde la mitad de esto."
+      }
+    },
+    {
+      "id": "usb_c_center_x",
+      "type": "slider",
+      "default": -78,
+      "min": -140,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.x",
+      "label": {
+        "en": "USB-C centre X (mm)",
+        "es": "Centro X del USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "The end face of the cover half.",
+        "es": "La cara de extremo de la mitad de portada."
+      }
+    },
+    {
+      "id": "usb_c_center_y",
+      "type": "slider",
+      "default": 37,
+      "min": 0,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.y",
+      "label": {
+        "en": "USB-C centre Y (mm)",
+        "es": "Centro Y del USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "Centred across the closed footprint. ARCHETYPE: the registry records which ports a device has, never where they sit.",
+        "es": "Centrado en la huella cerrada. ARQUETIPO: el registro anota qué puertos tiene un dispositivo, nunca dónde están."
+      }
+    },
+    {
+      "id": "usb_c_center_z",
+      "type": "slider",
+      "default": -2.65,
+      "min": -20,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.z",
+      "label": {
+        "en": "USB-C centre Z (mm)",
+        "es": "Centro Z del USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "The cover half's mid-plane.",
+        "es": "El plano medio de la mitad de portada."
+      }
+    },
+    {
+      "id": "card_slot_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "label": {
+        "en": "SIM card tray present",
+        "es": "Bandeja SIM presente"
+      },
+      "tooltip": {
+        "en": "SOURCED: 16 of the 28 devices list a `sim` port and the rest are an eSIM-only absence the manufacturer's own port list states — the iPhone Duo says so outright. A sourced NO is a zero here, not an unknown.",
+        "es": "DE FUENTE: 16 de los 28 dispositivos listan un puerto `sim` y el resto son una ausencia de sólo eSIM que la propia lista del fabricante declara. Un NO de fuente es un cero, no un desconocido."
+      }
+    },
+    {
+      "id": "card_slot_width",
+      "type": "slider",
+      "default": 12.5,
+      "min": 5,
+      "max": 25,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_box.d",
+      "label": {
+        "en": "Card tray width (mm)",
+        "es": "Ancho de la bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "Across the end face. ARCHETYPE THROUGHOUT: no manufacturer publishes tray dimensions.",
+        "es": "A lo ancho de la cara de extremo. ARQUETIPO EN TODO: ningún fabricante publica dimensiones de bandeja."
+      }
+    },
+    {
+      "id": "card_slot_height",
+      "type": "slider",
+      "default": 2,
+      "min": 0.8,
+      "max": 6,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_box.h",
+      "label": {
+        "en": "Card tray height (mm)",
+        "es": "Alto de la bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "Across the frame's thickness. ARCHETYPE DEFAULT.",
+        "es": "A través del espesor del marco. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "card_slot_depth",
+      "type": "slider",
+      "default": 8,
+      "min": 2,
+      "max": 25,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_box.w",
+      "label": {
+        "en": "Card tray cut depth (mm)",
+        "es": "Profundidad del corte de bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "The tool straddles the end face, so it bites half of this.",
+        "es": "La herramienta monta a caballo sobre la cara de extremo, así que muerde la mitad de esto."
+      }
+    },
+    {
+      "id": "card_slot_center_x",
+      "type": "slider",
+      "default": -78,
+      "min": -140,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_place.x",
+      "label": {
+        "en": "Card tray centre X (mm)",
+        "es": "Centro X de la bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "The same end face as the USB-C opening.",
+        "es": "La misma cara de extremo que la boca USB-C."
+      }
+    },
+    {
+      "id": "card_slot_center_y",
+      "type": "slider",
+      "default": 16.28,
+      "min": 0,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_place.y",
+      "label": {
+        "en": "Card tray centre Y (mm)",
+        "es": "Centro Y de la bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "To one side of the USB-C opening, with a checked clearance between them.",
+        "es": "A un lado de la boca USB-C, con holgura comprobada entre ambas."
+      }
+    },
+    {
+      "id": "card_slot_center_z",
+      "type": "slider",
+      "default": -2.65,
+      "min": -20,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "cardslot_place.z",
+      "label": {
+        "en": "Card tray centre Z (mm)",
+        "es": "Centro Z de la bandeja (mm)"
+      },
+      "tooltip": {
+        "en": "The cover half's mid-plane.",
+        "es": "El plano medio de la mitad de portada."
+      }
+    },
+    {
+      "id": "speaker_hole_count",
+      "type": "slider",
+      "default": 5,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_run.count",
+      "label": {
+        "en": "Speaker hole count",
+        "es": "Número de agujeros de altavoz"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE THROUGHOUT — the registry does not describe grilles.",
+        "es": "ARQUETIPO EN TODO — el registro no describe rejillas."
+      }
+    },
+    {
+      "id": "speaker_hole_radius",
+      "type": "slider",
+      "default": 0.7,
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_hole_cyl.r",
+      "label": {
+        "en": "Speaker hole radius (mm)",
+        "es": "Radio de agujero (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "speaker_hole_depth",
+      "type": "slider",
+      "default": 6,
+      "min": 1,
+      "max": 20,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_hole_cyl.h",
+      "label": {
+        "en": "Speaker hole cut depth (mm)",
+        "es": "Profundidad del corte de agujero (mm)"
+      },
+      "tooltip": {
+        "en": "Along the hinge axis, straddling the end face.",
+        "es": "A lo largo del eje de bisagra, a caballo sobre la cara de extremo."
+      }
+    },
+    {
+      "id": "speaker_center_x",
+      "type": "slider",
+      "default": -78,
+      "min": -140,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_place.x",
+      "label": {
+        "en": "Speaker row centre X (mm)",
+        "es": "Centro X de la fila de altavoz (mm)"
+      },
+      "tooltip": {
+        "en": "The same end face as the USB-C opening.",
+        "es": "La misma cara de extremo que la boca USB-C."
+      }
+    },
+    {
+      "id": "speaker_first_center_y",
+      "type": "slider",
+      "default": 54.3,
+      "min": 0,
+      "max": 140,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_place.y",
+      "label": {
+        "en": "First speaker hole centre Y (mm)",
+        "es": "Centro Y del primer agujero (mm)"
+      },
+      "tooltip": {
+        "en": "The row runs toward the opening edge and stops clear of the corner radius.",
+        "es": "La fila corre hacia el borde de apertura y se detiene libre del radio de esquina."
+      }
+    },
+    {
+      "id": "speaker_pitch_y",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 12,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_run.dy",
+      "label": {
+        "en": "Speaker hole pitch (mm)",
+        "es": "Paso entre agujeros (mm)"
+      },
+      "tooltip": {
+        "en": "Step between holes along Y. ARCHETYPE DEFAULT.",
+        "es": "Separación entre agujeros en Y. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "speaker_center_z",
+      "type": "slider",
+      "default": -2.65,
+      "min": -20,
+      "max": -0.5,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "cover_half",
+        "camera_half",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_place.z",
+      "label": {
+        "en": "Speaker row centre Z (mm)",
+        "es": "Centro Z de la fila de altavoz (mm)"
+      },
+      "tooltip": {
+        "en": "The cover half's mid-plane.",
+        "es": "El plano medio de la mitad de portada."
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "hinge_cavity_radius > hinge_leaf_radius",
+      "severity": "error",
+      "message": {
+        "en": "The crease relief must be larger than the leaf that turns in it, or the frames and the hinge occupy the same space. Set hinge_leaf_radius = hinge_cavity_radius - running clearance (archetype: 0.3 mm).",
+        "es": "El alojamiento del pliegue debe ser mayor que la hoja que gira en él, o los marcos y la bisagra ocupan el mismo espacio. Ajusta hinge_leaf_radius = hinge_cavity_radius - holgura de giro (arquetipo: 0.3 mm)."
+      }
+    },
+    {
+      "expression": "hinge_cavity_radius < camera_half_center_z + half_thickness / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "The crease relief is deeper than a half-frame is thick: it would cut straight through the outer face. Reduce hinge_cavity_radius, or make the halves thicker.",
+        "es": "El alojamiento del pliegue es más profundo que el espesor de una mitad: atravesaría la cara exterior. Reduce hinge_cavity_radius o engrosa las mitades."
+      }
+    },
+    {
+      "expression": "camera_half_width <= cover_half_width",
+      "severity": "warning",
+      "message": {
+        "en": "The camera half is wider than the cover half. A book fold closes because one half is narrower; with this the closed width is set by the wrong half and no longer matches the published closed envelope.",
+        "es": "La mitad de cámara es más ancha que la de portada. Un plegable de libro cierra porque una mitad es más estrecha; así el ancho cerrado lo fija la mitad equivocada."
+      }
+    },
+    {
+      "expression": "inner_display_width < hinge_axis_length && cover_display_width < hinge_axis_length && inner_display_cover_span < cover_half_width && inner_display_camera_span < camera_half_width && cover_display_height < cover_half_width",
+      "severity": "error",
+      "message": {
+        "en": "A display window is larger than the half-frame that carries it.",
+        "es": "Una ventana de pantalla es mayor que el medio marco que la lleva."
+      }
+    },
+    {
+      "expression": "2.0 * display_recess_depth < half_thickness",
+      "severity": "error",
+      "message": {
+        "en": "The inner and outer display recesses together are deeper than a half-frame is thick: they would meet and open a hole.",
+        "es": "Los rebajes interior y exterior juntos son más profundos que el espesor de una mitad: se encontrarían y abrirían un agujero."
+      }
+    },
+    {
+      "expression": "usb_c_height < half_thickness && card_slot_height < half_thickness",
+      "severity": "error",
+      "message": {
+        "en": "An opening in the end face is taller than the half-frame it opens.",
+        "es": "Una boca en la cara de extremo es más alta que el medio marco que abre."
+      }
+    },
+    {
+      "expression": "2.0 * corner_radius < cover_half_width && 2.0 * corner_radius < hinge_axis_length",
+      "severity": "error",
+      "message": {
+        "en": "The corner radius is more than half the frame: the fillet has no edge left to round.",
+        "es": "El radio de esquina supera la mitad del marco: el redondeo se queda sin arista."
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        -220,
+        180
+      ],
+      "target": [
+        0,
+        20,
+        0
+      ]
+    },
+    {
+      "id": "cover",
+      "label": {
+        "en": "Cover Face",
+        "es": "Cara de portada"
+      },
+      "position": [
+        0,
+        20,
+        -320
+      ],
+      "target": [
+        0,
+        20,
+        0
+      ]
+    },
+    {
+      "id": "camera_face",
+      "label": {
+        "en": "Camera Face",
+        "es": "Cara de cámara"
+      },
+      "position": [
+        0,
+        20,
+        320
+      ],
+      "target": [
+        0,
+        20,
+        0
+      ]
+    },
+    {
+      "id": "spine",
+      "label": {
+        "en": "Spine End",
+        "es": "Extremo del lomo"
+      },
+      "position": [
+        320,
+        0,
+        0
+      ],
+      "target": [
+        0,
+        20,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 14,
+    "per_unit": 3,
+    "per_part": 10,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from Telesia's device-geometry registry or derived from it by the archetype rules recorded in the generator and in docs/README.md. Re-run the generator to change them.",
+    "generator": "telesia:scripts/device-presets.py",
+    "command": "python3 scripts/device-presets.py --family book-fold-phone --write <manifest>",
+    "registry": {
+      "repository": "madfam-org/telesia",
+      "path": "data/registry/device-geometry.json",
+      "schema": "telesia.device_geometry.v1",
+      "snapshot": "2026-09-13",
+      "sha256": "ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0",
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "book-fold-phone",
+    "axis_mapping": {
+      "hinge_axis_length": "registry dimensions_mm.closed.height (the long axis, the hinge axis; equal to dimensions_mm.open.height on every device that publishes both)",
+      "cover_half_width": "registry dimensions_mm.closed.width (the folding axis, closed)",
+      "cover_half_width + camera_half_width": "registry dimensions_mm.open.width",
+      "half_thickness": "registry dimensions_mm.open.depth (the open body is ONE half)",
+      "2 x half_thickness + the hinge gap": "registry dimensions_mm.closed.depth"
+    },
+    "awaiting_a_source": [
+      {
+        "slug": "samsung-galaxy-z-fold-special-edition",
+        "brand": "Samsung",
+        "model": "Galaxy Z Fold Special Edition",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the registry (null)"
+      }
+    ]
+  },
+  "presets": [
+    {
+      "slug": "xiaomi-mix-fold-3",
+      "label": {
+        "en": "MIX Fold 3",
+        "es": "MIX Fold 3"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `xiaomi-mix-fold-3` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "xiaomi-mix-fold-3",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.44,
+        "published_open_mm": {
+          "height": 161.2,
+          "width": 143.28,
+          "depth": 5.26
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 161.2,
+        "cover_half_width": 73.5,
+        "camera_half_width": 69.78,
+        "half_thickness": 5.26,
+        "cover_half_center_y": 36.75,
+        "cover_half_center_z": -2.85,
+        "camera_half_center_y": 34.89,
+        "camera_half_center_z": 2.85,
+        "hinge_cavity_radius": 2.587,
+        "hinge_cavity_span": 151.528,
+        "hinge_leaf_radius": 2.287,
+        "hinge_leaf_span": 150.928,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.51,
+        "inner_display_camera_span": 65.79,
+        "inner_display_cover_center_y": 34.755,
+        "inner_display_camera_center_y": 32.895,
+        "inner_display_cover_cut_center_z": -0.62,
+        "inner_display_camera_cut_center_z": 0.62,
+        "cover_display_width": 153.2,
+        "cover_display_height": 65.6,
+        "cover_display_center_y": 36.75,
+        "cover_display_cut_center_z": -5.08,
+        "lens_island_width": 29.3076,
+        "lens_island_height": 29.3076,
+        "lens_island_center_x": 59.9462,
+        "lens_island_center_y": 20.6538,
+        "lens_island_cut_center_z": 5.18,
+        "lens_radius": 3.81,
+        "lens_pitch_x": 8.7923,
+        "lens_first_center_x": 51.1539,
+        "lens_center_y": 20.6538,
+        "lens_cut_center_z": 4.58,
+        "button_first_center_x": 8.344,
+        "button_center_y": 73.5,
+        "button_center_z": -2.85,
+        "usb_c_center_x": -80.6,
+        "usb_c_center_y": 36.75,
+        "usb_c_center_z": -2.85,
+        "card_slot_center_x": -80.6,
+        "card_slot_center_y": 16.17,
+        "card_slot_center_z": -2.85,
+        "speaker_center_x": -80.6,
+        "speaker_first_center_y": 53.8,
+        "speaker_center_z": -2.85,
+        "usb_c_present": true,
+        "card_slot_present": false
+      }
+    },
+    {
+      "slug": "xiaomi-mix-fold-4",
+      "label": {
+        "en": "MIX Fold 4",
+        "es": "MIX Fold 4"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `xiaomi-mix-fold-4` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "xiaomi-mix-fold-4",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.29,
+        "published_open_mm": {
+          "height": 159.37,
+          "width": 143.3,
+          "depth": 4.59
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 159.37,
+        "cover_half_width": 73.1,
+        "camera_half_width": 70.2,
+        "half_thickness": 4.59,
+        "cover_half_center_y": 36.55,
+        "cover_half_center_z": -2.44,
+        "camera_half_center_y": 35.1,
+        "camera_half_center_z": 2.44,
+        "hinge_cavity_radius": 2.2105,
+        "hinge_cavity_span": 149.8078,
+        "hinge_leaf_radius": 1.9105,
+        "hinge_leaf_span": 149.2078,
+        "inner_display_width": 151.1,
+        "inner_display_cover_span": 69,
+        "inner_display_camera_span": 66.1,
+        "inner_display_cover_center_y": 34.5,
+        "inner_display_camera_center_y": 33.05,
+        "inner_display_cover_cut_center_z": -0.545,
+        "inner_display_camera_cut_center_z": 0.545,
+        "cover_display_width": 153.2,
+        "cover_display_height": 65.6,
+        "cover_display_center_y": 36.55,
+        "cover_display_cut_center_z": -4.335,
+        "lens_island_width": 29.484,
+        "lens_island_height": 29.484,
+        "lens_island_center_x": 58.943,
+        "lens_island_center_y": 20.742,
+        "lens_island_cut_center_z": 4.435,
+        "lens_radius": 3.8329,
+        "lens_pitch_x": 8.8452,
+        "lens_first_center_x": 50.0978,
+        "lens_center_y": 20.742,
+        "lens_cut_center_z": 3.835,
+        "button_first_center_x": 8.1244,
+        "button_center_y": 73.1,
+        "button_center_z": -2.44,
+        "usb_c_center_x": -79.685,
+        "usb_c_center_y": 36.55,
+        "usb_c_center_z": -2.44,
+        "card_slot_center_x": -79.685,
+        "card_slot_center_y": 16.082,
+        "card_slot_center_z": -2.44,
+        "speaker_center_x": -79.685,
+        "speaker_first_center_y": 53.4,
+        "speaker_center_z": -2.44,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "vivo-x-fold-3-pro",
+      "label": {
+        "en": "X Fold3 Pro",
+        "es": "X Fold3 Pro"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `vivo-x-fold-3-pro` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "vivo-x-fold-3-pro",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.8,
+        "published_open_mm": {
+          "height": 159.96,
+          "width": 142.4,
+          "depth": 5.2
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 159.96,
+        "cover_half_width": 72.55,
+        "camera_half_width": 69.85,
+        "half_thickness": 5.2,
+        "cover_half_center_y": 36.275,
+        "cover_half_center_z": -3,
+        "camera_half_center_y": 34.925,
+        "camera_half_center_z": 3,
+        "hinge_cavity_radius": 2.74,
+        "hinge_cavity_span": 150.3624,
+        "hinge_leaf_radius": 2.44,
+        "hinge_leaf_span": 149.7624,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.05,
+        "inner_display_camera_span": 66.35,
+        "inner_display_cover_center_y": 34.525,
+        "inner_display_camera_center_y": 33.175,
+        "inner_display_cover_cut_center_z": -0.8,
+        "inner_display_camera_cut_center_z": 0.8,
+        "cover_display_width": 152.6,
+        "cover_display_height": 65.1,
+        "cover_display_center_y": 36.275,
+        "cover_display_cut_center_z": -5.2,
+        "lens_island_width": 29.337,
+        "lens_island_height": 29.337,
+        "lens_island_center_x": 59.3115,
+        "lens_island_center_y": 20.6685,
+        "lens_island_cut_center_z": 5.3,
+        "lens_radius": 3.8138,
+        "lens_pitch_x": 8.8011,
+        "lens_first_center_x": 50.5104,
+        "lens_center_y": 20.6685,
+        "lens_cut_center_z": 4.7,
+        "button_first_center_x": 8.1952,
+        "button_center_y": 72.55,
+        "button_center_z": -3,
+        "usb_c_center_x": -79.98,
+        "usb_c_center_y": 36.275,
+        "usb_c_center_z": -3,
+        "card_slot_center_x": -79.98,
+        "card_slot_center_y": 15.961,
+        "card_slot_center_z": -3,
+        "speaker_center_x": -79.98,
+        "speaker_first_center_y": 52.85,
+        "speaker_center_z": -3,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "vivo-x-fold-5",
+      "label": {
+        "en": "X Fold5",
+        "es": "X Fold5"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `vivo-x-fold-5` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "vivo-x-fold-5",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.6,
+        "published_open_mm": {
+          "height": 159.68,
+          "width": 142.29,
+          "depth": 4.3
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 159.68,
+        "cover_half_width": 72.6,
+        "camera_half_width": 69.69,
+        "half_thickness": 4.3,
+        "cover_half_center_y": 36.3,
+        "cover_half_center_z": -2.45,
+        "camera_half_center_y": 34.845,
+        "camera_half_center_z": 2.45,
+        "hinge_cavity_radius": 2.235,
+        "hinge_cavity_span": 150.0992,
+        "hinge_leaf_radius": 1.935,
+        "hinge_leaf_span": 149.4992,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.155,
+        "inner_display_camera_span": 66.245,
+        "inner_display_cover_center_y": 34.5775,
+        "inner_display_camera_center_y": 33.1225,
+        "inner_display_cover_cut_center_z": -0.7,
+        "inner_display_camera_cut_center_z": 0.7,
+        "cover_display_width": 152.6,
+        "cover_display_height": 65.1,
+        "cover_display_center_y": 36.3,
+        "cover_display_cut_center_z": -4.2,
+        "lens_island_width": 29.2698,
+        "lens_island_height": 29.2698,
+        "lens_island_center_x": 59.2051,
+        "lens_island_center_y": 20.6349,
+        "lens_island_cut_center_z": 4.3,
+        "lens_radius": 3.8051,
+        "lens_pitch_x": 8.7809,
+        "lens_first_center_x": 50.4242,
+        "lens_center_y": 20.6349,
+        "lens_cut_center_z": 3.7,
+        "button_first_center_x": 8.1616,
+        "button_center_y": 72.6,
+        "button_center_z": -2.45,
+        "usb_c_center_x": -79.84,
+        "usb_c_center_y": 36.3,
+        "usb_c_center_z": -2.45,
+        "card_slot_center_x": -79.84,
+        "card_slot_center_y": 15.972,
+        "card_slot_center_z": -2.45,
+        "speaker_center_x": -79.84,
+        "speaker_first_center_y": 52.9,
+        "speaker_center_z": -2.45,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "oppo-find-n3",
+      "label": {
+        "en": "Find N3",
+        "es": "Find N3"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `oppo-find-n3` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "oppo-find-n3",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "aliases",
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "half thickness (the published open depth and closed depth cannot both hold with two equal halves)",
+          "camera-half width (no published open width)",
+          "inner display active area"
+        ],
+        "hinge_gap_mm": 0.05,
+        "published_open_mm": {
+          "height": null,
+          "width": null,
+          "depth": 5.9
+        },
+        "derived_active_areas": [
+          "cover"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 153.4,
+        "cover_half_width": 73.3,
+        "camera_half_width": 73.3,
+        "half_thickness": 5.825,
+        "cover_half_center_y": 36.65,
+        "cover_half_center_z": -2.9375,
+        "camera_half_center_y": 36.65,
+        "camera_half_center_z": 2.9375,
+        "hinge_cavity_radius": 2.6463,
+        "hinge_cavity_span": 144.196,
+        "hinge_leaf_radius": 2.3463,
+        "hinge_leaf_span": 143.596,
+        "inner_display_width": 148.4,
+        "inner_display_cover_span": 70.8,
+        "inner_display_camera_span": 70.8,
+        "inner_display_cover_center_y": 35.4,
+        "inner_display_camera_center_y": 35.4,
+        "inner_display_cover_cut_center_z": -0.425,
+        "inner_display_camera_cut_center_z": 0.425,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.7,
+        "cover_display_center_y": 36.65,
+        "cover_display_cut_center_z": -5.45,
+        "lens_island_width": 30.68,
+        "lens_island_height": 30.68,
+        "lens_island_center_x": 55.36,
+        "lens_island_center_y": 21.34,
+        "lens_island_cut_center_z": 5.55,
+        "lens_radius": 3.9884,
+        "lens_pitch_x": 9.204,
+        "lens_first_center_x": 46.156,
+        "lens_center_y": 21.34,
+        "lens_cut_center_z": 4.95,
+        "button_first_center_x": 7.408,
+        "button_center_y": 73.3,
+        "button_center_z": -2.9375,
+        "usb_c_center_x": -76.7,
+        "usb_c_center_y": 36.65,
+        "usb_c_center_z": -2.9375,
+        "card_slot_center_x": -76.7,
+        "card_slot_center_y": 16.126,
+        "card_slot_center_z": -2.9375,
+        "speaker_center_x": -76.7,
+        "speaker_first_center_y": 53.6,
+        "speaker_center_z": -2.9375,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "oppo-find-n5",
+      "label": {
+        "en": "Find N5",
+        "es": "Find N5"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `oppo-find-n5` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "oppo-find-n5",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "aliases",
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "inner display active area"
+        ],
+        "hinge_gap_mm": 0.51,
+        "published_open_mm": {
+          "height": 160.87,
+          "width": 146.58,
+          "depth": 4.21
+        },
+        "derived_active_areas": [
+          "cover"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 160.87,
+        "cover_half_width": 74.42,
+        "camera_half_width": 72.16,
+        "half_thickness": 4.21,
+        "cover_half_center_y": 37.21,
+        "cover_half_center_z": -2.36,
+        "camera_half_center_y": 36.08,
+        "camera_half_center_z": 2.36,
+        "hinge_cavity_radius": 2.1495,
+        "hinge_cavity_span": 151.2178,
+        "hinge_leaf_radius": 1.8495,
+        "hinge_leaf_span": 150.6178,
+        "inner_display_width": 155.87,
+        "inner_display_cover_span": 71.92,
+        "inner_display_camera_span": 69.66,
+        "inner_display_cover_center_y": 35.96,
+        "inner_display_camera_center_y": 34.83,
+        "inner_display_cover_cut_center_z": -0.655,
+        "inner_display_camera_cut_center_z": 0.655,
+        "cover_display_width": 154.1,
+        "cover_display_height": 67.2,
+        "cover_display_center_y": 37.21,
+        "cover_display_cut_center_z": -4.065,
+        "lens_island_width": 30.3072,
+        "lens_island_height": 30.3072,
+        "lens_island_center_x": 59.2814,
+        "lens_island_center_y": 21.1536,
+        "lens_island_cut_center_z": 4.165,
+        "lens_radius": 3.9399,
+        "lens_pitch_x": 9.0922,
+        "lens_first_center_x": 50.1892,
+        "lens_center_y": 21.1536,
+        "lens_cut_center_z": 3.565,
+        "button_first_center_x": 8.3044,
+        "button_center_y": 74.42,
+        "button_center_z": -2.36,
+        "usb_c_center_x": -80.435,
+        "usb_c_center_y": 37.21,
+        "usb_c_center_z": -2.36,
+        "card_slot_center_x": -80.435,
+        "card_slot_center_y": 16.3724,
+        "card_slot_center_z": -2.36,
+        "speaker_center_x": -80.435,
+        "speaker_first_center_y": 54.72,
+        "speaker_center_z": -2.36,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "honor-magic-v2",
+      "label": {
+        "en": "Magic V2",
+        "es": "Magic V2"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `honor-magic-v2` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "honor-magic-v2",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.5,
+        "published_open_mm": {
+          "height": 156.7,
+          "width": 145.4,
+          "depth": 4.8
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 156.7,
+        "cover_half_width": 74,
+        "camera_half_width": 71.4,
+        "half_thickness": 4.8,
+        "cover_half_center_y": 37,
+        "cover_half_center_z": -2.65,
+        "camera_half_center_y": 35.7,
+        "camera_half_center_z": 2.65,
+        "hinge_cavity_radius": 2.41,
+        "hinge_cavity_span": 147.298,
+        "hinge_leaf_radius": 2.11,
+        "hinge_leaf_span": 146.698,
+        "inner_display_width": 148.1,
+        "inner_display_cover_span": 69.4,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.7,
+        "inner_display_camera_center_y": 33.4,
+        "inner_display_cover_cut_center_z": -0.65,
+        "inner_display_camera_cut_center_z": 0.65,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
+        "cover_display_center_y": 37,
+        "cover_display_cut_center_z": -4.65,
+        "lens_island_width": 29.988,
+        "lens_island_height": 29.988,
+        "lens_island_center_x": 57.356,
+        "lens_island_center_y": 20.994,
+        "lens_island_cut_center_z": 4.75,
+        "lens_radius": 3.8984,
+        "lens_pitch_x": 8.9964,
+        "lens_first_center_x": 48.3596,
+        "lens_center_y": 20.994,
+        "lens_cut_center_z": 4.15,
+        "button_first_center_x": 7.804,
+        "button_center_y": 74,
+        "button_center_z": -2.65,
+        "usb_c_center_x": -78.35,
+        "usb_c_center_y": 37,
+        "usb_c_center_z": -2.65,
+        "card_slot_center_x": -78.35,
+        "card_slot_center_y": 16.28,
+        "card_slot_center_z": -2.65,
+        "speaker_center_x": -78.35,
+        "speaker_first_center_y": 54.3,
+        "speaker_center_z": -2.65,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "honor-magic-v3",
+      "label": {
+        "en": "Magic V3",
+        "es": "Magic V3"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `honor-magic-v3` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "honor-magic-v3",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.5,
+        "published_open_mm": {
+          "height": 156.6,
+          "width": 145.3,
+          "depth": 4.4
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 156.6,
+        "cover_half_width": 74,
+        "camera_half_width": 71.3,
+        "half_thickness": 4.4,
+        "cover_half_center_y": 37,
+        "cover_half_center_z": -2.45,
+        "camera_half_center_y": 35.65,
+        "camera_half_center_z": 2.45,
+        "hinge_cavity_radius": 2.23,
+        "hinge_cavity_span": 147.204,
+        "hinge_leaf_radius": 1.93,
+        "hinge_leaf_span": 146.604,
+        "inner_display_width": 148.1,
+        "inner_display_cover_span": 69.45,
+        "inner_display_camera_span": 66.75,
+        "inner_display_cover_center_y": 34.725,
+        "inner_display_camera_center_y": 33.375,
+        "inner_display_cover_cut_center_z": -0.65,
+        "inner_display_camera_cut_center_z": 0.65,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
+        "cover_display_center_y": 37,
+        "cover_display_cut_center_z": -4.25,
+        "lens_island_width": 29.946,
+        "lens_island_height": 29.946,
+        "lens_island_center_x": 57.327,
+        "lens_island_center_y": 20.973,
+        "lens_island_cut_center_z": 4.35,
+        "lens_radius": 3.893,
+        "lens_pitch_x": 8.9838,
+        "lens_first_center_x": 48.3432,
+        "lens_center_y": 20.973,
+        "lens_cut_center_z": 3.75,
+        "button_first_center_x": 7.792,
+        "button_center_y": 74,
+        "button_center_z": -2.45,
+        "usb_c_center_x": -78.3,
+        "usb_c_center_y": 37,
+        "usb_c_center_z": -2.45,
+        "card_slot_center_x": -78.3,
+        "card_slot_center_y": 16.28,
+        "card_slot_center_z": -2.45,
+        "speaker_center_x": -78.3,
+        "speaker_first_center_y": 54.3,
+        "speaker_center_z": -2.45,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "honor-magic-v5",
+      "label": {
+        "en": "Magic V5",
+        "es": "Magic V5"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `honor-magic-v5` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "honor-magic-v5",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.6,
+        "published_open_mm": {
+          "height": 156.8,
+          "width": 145.9,
+          "depth": 4.2
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 156.8,
+        "cover_half_width": 74.3,
+        "camera_half_width": 71.6,
+        "half_thickness": 4.2,
+        "cover_half_center_y": 37.15,
+        "cover_half_center_z": -2.4,
+        "camera_half_center_y": 35.8,
+        "camera_half_center_z": 2.4,
+        "hinge_cavity_radius": 2.19,
+        "hinge_cavity_span": 147.392,
+        "hinge_leaf_radius": 1.89,
+        "hinge_leaf_span": 146.792,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 69.85,
+        "inner_display_camera_span": 67.15,
+        "inner_display_cover_center_y": 34.925,
+        "inner_display_camera_center_y": 33.575,
+        "inner_display_cover_cut_center_z": -0.7,
+        "inner_display_camera_cut_center_z": 0.7,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
+        "cover_display_center_y": 37.15,
+        "cover_display_cut_center_z": -4.1,
+        "lens_island_width": 30.072,
+        "lens_island_height": 30.072,
+        "lens_island_center_x": 57.364,
+        "lens_island_center_y": 21.036,
+        "lens_island_cut_center_z": 4.2,
+        "lens_radius": 3.9094,
+        "lens_pitch_x": 9.0216,
+        "lens_first_center_x": 48.3424,
+        "lens_center_y": 21.036,
+        "lens_cut_center_z": 3.6,
+        "button_first_center_x": 7.816,
+        "button_center_y": 74.3,
+        "button_center_z": -2.4,
+        "usb_c_center_x": -78.4,
+        "usb_c_center_y": 37.15,
+        "usb_c_center_z": -2.4,
+        "card_slot_center_x": -78.4,
+        "card_slot_center_y": 16.346,
+        "card_slot_center_z": -2.4,
+        "speaker_center_x": -78.4,
+        "speaker_first_center_y": 54.6,
+        "speaker_center_z": -2.4,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "huawei-mate-x3",
+      "label": {
+        "en": "Mate X3",
+        "es": "Mate X3"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `huawei-mate-x3` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "huawei-mate-x3",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.48,
+        "published_open_mm": {
+          "height": 156.9,
+          "width": 141.5,
+          "depth": 5.3
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 156.9,
+        "cover_half_width": 72.4,
+        "camera_half_width": 69.1,
+        "half_thickness": 5.3,
+        "cover_half_center_y": 36.2,
+        "cover_half_center_z": -2.89,
+        "camera_half_center_y": 34.55,
+        "camera_half_center_z": 2.89,
+        "hinge_cavity_radius": 2.625,
+        "hinge_cavity_span": 147.486,
+        "hinge_leaf_radius": 2.325,
+        "hinge_leaf_span": 146.886,
+        "inner_display_width": 148.9,
+        "inner_display_cover_span": 67.95,
+        "inner_display_camera_span": 64.65,
+        "inner_display_cover_center_y": 33.975,
+        "inner_display_camera_center_y": 32.325,
+        "inner_display_cover_cut_center_z": -0.64,
+        "inner_display_camera_cut_center_z": 0.64,
+        "cover_display_width": 149.3,
+        "cover_display_height": 64.4,
+        "cover_display_center_y": 36.2,
+        "cover_display_cut_center_z": -5.14,
+        "lens_island_width": 29.022,
+        "lens_island_height": 29.022,
+        "lens_island_center_x": 57.939,
+        "lens_island_center_y": 20.511,
+        "lens_island_cut_center_z": 5.24,
+        "lens_radius": 3.7729,
+        "lens_pitch_x": 8.7066,
+        "lens_first_center_x": 49.2324,
+        "lens_center_y": 20.511,
+        "lens_cut_center_z": 4.64,
+        "button_first_center_x": 7.828,
+        "button_center_y": 72.4,
+        "button_center_z": -2.89,
+        "usb_c_center_x": -78.45,
+        "usb_c_center_y": 36.2,
+        "usb_c_center_z": -2.89,
+        "card_slot_center_x": -78.45,
+        "card_slot_center_y": 15.928,
+        "card_slot_center_z": -2.89,
+        "speaker_center_x": -78.45,
+        "speaker_first_center_y": 52.7,
+        "speaker_center_z": -2.89,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "huawei-mate-x5",
+      "label": {
+        "en": "Mate X5",
+        "es": "Mate X5"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `huawei-mate-x5` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "huawei-mate-x5",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.48,
+        "published_open_mm": {
+          "height": 156.9,
+          "width": 141.5,
+          "depth": 5.3
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 156.9,
+        "cover_half_width": 72.4,
+        "camera_half_width": 69.1,
+        "half_thickness": 5.3,
+        "cover_half_center_y": 36.2,
+        "cover_half_center_z": -2.89,
+        "camera_half_center_y": 34.55,
+        "camera_half_center_z": 2.89,
+        "hinge_cavity_radius": 2.625,
+        "hinge_cavity_span": 147.486,
+        "hinge_leaf_radius": 2.325,
+        "hinge_leaf_span": 146.886,
+        "inner_display_width": 148.9,
+        "inner_display_cover_span": 67.95,
+        "inner_display_camera_span": 64.65,
+        "inner_display_cover_center_y": 33.975,
+        "inner_display_camera_center_y": 32.325,
+        "inner_display_cover_cut_center_z": -0.64,
+        "inner_display_camera_cut_center_z": 0.64,
+        "cover_display_width": 149.3,
+        "cover_display_height": 64.4,
+        "cover_display_center_y": 36.2,
+        "cover_display_cut_center_z": -5.14,
+        "lens_island_width": 29.022,
+        "lens_island_height": 29.022,
+        "lens_island_center_x": 57.939,
+        "lens_island_center_y": 20.511,
+        "lens_island_cut_center_z": 5.24,
+        "lens_radius": 3.7729,
+        "lens_pitch_x": 8.7066,
+        "lens_first_center_x": 49.2324,
+        "lens_center_y": 20.511,
+        "lens_cut_center_z": 4.64,
+        "button_first_center_x": 7.828,
+        "button_center_y": 72.4,
+        "button_center_z": -2.89,
+        "usb_c_center_x": -78.45,
+        "usb_c_center_y": 36.2,
+        "usb_c_center_z": -2.89,
+        "card_slot_center_x": -78.45,
+        "card_slot_center_y": 15.928,
+        "card_slot_center_z": -2.89,
+        "speaker_center_x": -78.45,
+        "speaker_first_center_y": 52.7,
+        "speaker_center_z": -2.89,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "huawei-mate-x6",
+      "label": {
+        "en": "Mate X6",
+        "es": "Mate X6"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `huawei-mate-x6` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "huawei-mate-x6",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.7,
+        "published_open_mm": {
+          "height": 156.6,
+          "width": 144.04,
+          "depth": 4.6
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 156.6,
+        "cover_half_width": 73.78,
+        "camera_half_width": 70.26,
+        "half_thickness": 4.6,
+        "cover_half_center_y": 36.89,
+        "cover_half_center_z": -2.65,
+        "camera_half_center_y": 35.13,
+        "camera_half_center_z": 2.65,
+        "hinge_cavity_radius": 2.42,
+        "hinge_cavity_span": 147.204,
+        "hinge_leaf_radius": 2.12,
+        "hinge_leaf_span": 146.604,
+        "inner_display_width": 148.4,
+        "inner_display_cover_span": 69.86,
+        "inner_display_camera_span": 66.34,
+        "inner_display_cover_center_y": 34.93,
+        "inner_display_camera_center_y": 33.17,
+        "inner_display_cover_cut_center_z": -0.75,
+        "inner_display_camera_cut_center_z": 0.75,
+        "cover_display_width": 149.8,
+        "cover_display_height": 66.3,
+        "cover_display_center_y": 36.89,
+        "cover_display_cut_center_z": -4.55,
+        "lens_island_width": 29.5092,
+        "lens_island_height": 29.5092,
+        "lens_island_center_x": 57.5454,
+        "lens_island_center_y": 20.7546,
+        "lens_island_cut_center_z": 4.65,
+        "lens_radius": 3.8362,
+        "lens_pitch_x": 8.8528,
+        "lens_first_center_x": 48.6926,
+        "lens_center_y": 20.7546,
+        "lens_cut_center_z": 4.05,
+        "button_first_center_x": 7.792,
+        "button_center_y": 73.78,
+        "button_center_z": -2.65,
+        "usb_c_center_x": -78.3,
+        "usb_c_center_y": 36.89,
+        "usb_c_center_z": -2.65,
+        "card_slot_center_x": -78.3,
+        "card_slot_center_y": 16.2316,
+        "card_slot_center_z": -2.65,
+        "speaker_center_x": -78.3,
+        "speaker_first_center_y": 54.08,
+        "speaker_center_z": -2.65,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "oneplus-open",
+      "label": {
+        "en": "Open",
+        "es": "Open"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `oneplus-open` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "oneplus-open",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.1,
+        "published_open_mm": {
+          "height": 153.4,
+          "width": 143.1,
+          "depth": 5.9
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 153.4,
+        "cover_half_width": 73.3,
+        "camera_half_width": 69.8,
+        "half_thickness": 5.9,
+        "cover_half_center_y": 36.65,
+        "cover_half_center_z": -3,
+        "camera_half_center_y": 34.9,
+        "camera_half_center_z": 3,
+        "hinge_cavity_radius": 2.705,
+        "hinge_cavity_span": 144.196,
+        "hinge_leaf_radius": 2.405,
+        "hinge_leaf_span": 143.596,
+        "inner_display_width": 145.5,
+        "inner_display_cover_span": 69.35,
+        "inner_display_camera_span": 65.85,
+        "inner_display_cover_center_y": 34.675,
+        "inner_display_camera_center_y": 32.925,
+        "inner_display_cover_cut_center_z": -0.45,
+        "inner_display_camera_cut_center_z": 0.45,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.7,
+        "cover_display_center_y": 36.65,
+        "cover_display_cut_center_z": -5.55,
+        "lens_island_width": 29.316,
+        "lens_island_height": 29.316,
+        "lens_island_center_x": 56.042,
+        "lens_island_center_y": 20.658,
+        "lens_island_cut_center_z": 5.65,
+        "lens_radius": 3.8111,
+        "lens_pitch_x": 8.7948,
+        "lens_first_center_x": 47.2472,
+        "lens_center_y": 20.658,
+        "lens_cut_center_z": 5.05,
+        "button_first_center_x": 7.408,
+        "button_center_y": 73.3,
+        "button_center_z": -3,
+        "usb_c_center_x": -76.7,
+        "usb_c_center_y": 36.65,
+        "usb_c_center_z": -3,
+        "card_slot_center_x": -76.7,
+        "card_slot_center_y": 16.126,
+        "card_slot_center_z": -3,
+        "speaker_center_x": -76.7,
+        "speaker_first_center_y": 53.6,
+        "speaker_center_z": -3,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "google-pixel-fold",
+      "label": {
+        "en": "Pixel Fold",
+        "es": "Pixel Fold"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `google-pixel-fold` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "google-pixel-fold",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.5,
+        "published_open_mm": {
+          "height": 139.7,
+          "width": 158.7,
+          "depth": 5.8
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 139.7,
+        "cover_half_width": 79.5,
+        "camera_half_width": 79.2,
+        "half_thickness": 5.8,
+        "cover_half_center_y": 39.75,
+        "cover_half_center_z": -3.15,
+        "camera_half_center_y": 39.6,
+        "camera_half_center_z": 3.15,
+        "hinge_cavity_radius": 2.86,
+        "hinge_cavity_span": 131.318,
+        "hinge_leaf_radius": 2.56,
+        "hinge_leaf_span": 130.718,
+        "inner_display_width": 123.6,
+        "inner_display_cover_span": 74.3,
+        "inner_display_camera_span": 74,
+        "inner_display_cover_center_y": 37.15,
+        "inner_display_camera_center_y": 37,
+        "inner_display_cover_cut_center_z": -0.65,
+        "inner_display_camera_cut_center_z": 0.65,
+        "cover_display_width": 130.9,
+        "cover_display_height": 67.6,
+        "cover_display_center_y": 39.75,
+        "cover_display_cut_center_z": -5.65,
+        "lens_island_width": 27.94,
+        "lens_island_height": 27.94,
+        "lens_island_center_x": 49.88,
+        "lens_island_center_y": 19.97,
+        "lens_island_cut_center_z": 5.75,
+        "lens_radius": 3.6322,
+        "lens_pitch_x": 8.382,
+        "lens_first_center_x": 41.498,
+        "lens_center_y": 19.97,
+        "lens_cut_center_z": 5.15,
+        "button_first_center_x": 5.764,
+        "button_center_y": 79.5,
+        "button_center_z": -3.15,
+        "usb_c_center_x": -69.85,
+        "usb_c_center_y": 39.75,
+        "usb_c_center_z": -3.15,
+        "card_slot_center_x": -69.85,
+        "card_slot_center_y": 17.49,
+        "card_slot_center_z": -3.15,
+        "speaker_center_x": -69.85,
+        "speaker_first_center_y": 59.8,
+        "speaker_center_z": -3.15,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "google-pixel-10-pro-fold",
+      "label": {
+        "en": "Pixel 10 Pro Fold",
+        "es": "Pixel 10 Pro Fold"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `google-pixel-10-pro-fold` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "google-pixel-10-pro-fold",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.4,
+        "published_open_mm": {
+          "height": 155.2,
+          "width": 150.4,
+          "depth": 5.2
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 155.2,
+        "cover_half_width": 76.3,
+        "camera_half_width": 74.1,
+        "half_thickness": 5.2,
+        "cover_half_center_y": 38.15,
+        "cover_half_center_z": -2.8,
+        "camera_half_center_y": 37.05,
+        "camera_half_center_z": 2.8,
+        "hinge_cavity_radius": 2.54,
+        "hinge_cavity_span": 145.888,
+        "hinge_leaf_radius": 2.24,
+        "hinge_leaf_span": 145.288,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 71.65,
+        "inner_display_camera_span": 69.45,
+        "inner_display_cover_center_y": 35.825,
+        "inner_display_camera_center_y": 34.725,
+        "inner_display_cover_cut_center_z": -0.6,
+        "inner_display_camera_cut_center_z": 0.6,
+        "cover_display_width": 147.9,
+        "cover_display_height": 67.6,
+        "cover_display_center_y": 38.15,
+        "cover_display_cut_center_z": -5,
+        "lens_island_width": 31.04,
+        "lens_island_height": 31.04,
+        "lens_island_center_x": 56.08,
+        "lens_island_center_y": 21.52,
+        "lens_island_cut_center_z": 5.1,
+        "lens_radius": 4.0352,
+        "lens_pitch_x": 9.312,
+        "lens_first_center_x": 46.768,
+        "lens_center_y": 21.52,
+        "lens_cut_center_z": 4.5,
+        "button_first_center_x": 7.624,
+        "button_center_y": 76.3,
+        "button_center_z": -2.8,
+        "usb_c_center_x": -77.6,
+        "usb_c_center_y": 38.15,
+        "usb_c_center_z": -2.8,
+        "card_slot_center_x": -77.6,
+        "card_slot_center_y": 16.786,
+        "card_slot_center_z": -2.8,
+        "speaker_center_x": -77.6,
+        "speaker_first_center_y": 56.6,
+        "speaker_center_z": -2.8,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-fold",
+      "label": {
+        "en": "Galaxy Fold",
+        "es": "Galaxy Fold"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-fold` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-fold",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 1.9,
+        "published_open_mm": {
+          "height": 160.9,
+          "width": 117.9,
+          "depth": 7.6
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 160.9,
+        "cover_half_width": 62.8,
+        "camera_half_width": 55.1,
+        "half_thickness": 7.6,
+        "cover_half_center_y": 31.4,
+        "cover_half_center_z": -4.75,
+        "camera_half_center_y": 27.55,
+        "camera_half_center_z": 4.75,
+        "hinge_cavity_radius": 4.37,
+        "hinge_cavity_span": 151.246,
+        "hinge_leaf_radius": 4.07,
+        "hinge_leaf_span": 150.646,
+        "inner_display_width": 150.9,
+        "inner_display_cover_span": 57.7,
+        "inner_display_camera_span": 50,
+        "inner_display_cover_center_y": 28.85,
+        "inner_display_camera_center_y": 25,
+        "inner_display_cover_cut_center_z": -1.35,
+        "inner_display_camera_cut_center_z": 1.35,
+        "cover_display_width": 107.4,
+        "cover_display_height": 46,
+        "cover_display_center_y": 31.4,
+        "cover_display_cut_center_z": -8.15,
+        "lens_island_width": 23.142,
+        "lens_island_height": 23.142,
+        "lens_island_center_x": 62.879,
+        "lens_island_center_y": 17.571,
+        "lens_island_cut_center_z": 8.25,
+        "lens_radius": 3.0085,
+        "lens_pitch_x": 6.9426,
+        "lens_first_center_x": 55.9364,
+        "lens_center_y": 17.571,
+        "lens_cut_center_z": 7.65,
+        "button_first_center_x": 8.308,
+        "button_center_y": 62.8,
+        "button_center_z": -4.75,
+        "usb_c_center_x": -80.45,
+        "usb_c_center_y": 31.4,
+        "usb_c_center_z": -4.75,
+        "card_slot_center_x": -80.45,
+        "card_slot_center_y": 13.816,
+        "card_slot_center_z": -4.75,
+        "speaker_center_x": -80.45,
+        "speaker_first_center_y": 43.1,
+        "speaker_center_z": -4.75,
+        "usb_c_present": true,
+        "card_slot_present": false
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold2",
+      "label": {
+        "en": "Galaxy Z Fold2",
+        "es": "Galaxy Z Fold2"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold2` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold2",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 3,
+        "published_open_mm": {
+          "height": 159.2,
+          "width": 128.2,
+          "depth": 6.9
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 159.2,
+        "cover_half_width": 68,
+        "camera_half_width": 60.2,
+        "half_thickness": 6.9,
+        "cover_half_center_y": 34,
+        "cover_half_center_z": -4.95,
+        "camera_half_center_y": 30.1,
+        "camera_half_center_z": 4.95,
+        "hinge_cavity_radius": 4.605,
+        "hinge_cavity_span": 149.648,
+        "hinge_leaf_radius": 4.305,
+        "hinge_leaf_span": 149.048,
+        "inner_display_width": 150.7,
+        "inner_display_cover_span": 64.25,
+        "inner_display_camera_span": 56.45,
+        "inner_display_cover_center_y": 32.125,
+        "inner_display_camera_center_y": 28.225,
+        "inner_display_cover_cut_center_z": -1.9,
+        "inner_display_camera_cut_center_z": 1.9,
+        "cover_display_width": 148.1,
+        "cover_display_height": 53.5,
+        "cover_display_center_y": 34,
+        "cover_display_cut_center_z": -8,
+        "lens_island_width": 25.284,
+        "lens_island_height": 25.284,
+        "lens_island_center_x": 60.958,
+        "lens_island_center_y": 18.642,
+        "lens_island_cut_center_z": 8.1,
+        "lens_radius": 3.2869,
+        "lens_pitch_x": 7.5852,
+        "lens_first_center_x": 53.3728,
+        "lens_center_y": 18.642,
+        "lens_cut_center_z": 7.5,
+        "button_first_center_x": 8.104,
+        "button_center_y": 68,
+        "button_center_z": -4.95,
+        "usb_c_center_x": -79.6,
+        "usb_c_center_y": 34,
+        "usb_c_center_z": -4.95,
+        "card_slot_center_x": -79.6,
+        "card_slot_center_y": 14.96,
+        "card_slot_center_z": -4.95,
+        "speaker_center_x": -79.6,
+        "speaker_first_center_y": 48.3,
+        "speaker_center_z": -4.95,
+        "usb_c_present": true,
+        "card_slot_present": false
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold3",
+      "label": {
+        "en": "Galaxy Z Fold3 5G",
+        "es": "Galaxy Z Fold3 5G"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold3` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold3",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 3.2,
+        "published_open_mm": {
+          "height": 158.2,
+          "width": 128.1,
+          "depth": 6.4
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 158.2,
+        "cover_half_width": 67.1,
+        "camera_half_width": 61,
+        "half_thickness": 6.4,
+        "cover_half_center_y": 33.55,
+        "cover_half_center_z": -4.8,
+        "camera_half_center_y": 30.5,
+        "camera_half_center_z": 4.8,
+        "hinge_cavity_radius": 4.48,
+        "hinge_cavity_span": 148.708,
+        "hinge_leaf_radius": 4.18,
+        "hinge_leaf_span": 148.108,
+        "inner_display_width": 150.7,
+        "inner_display_cover_span": 63.4,
+        "inner_display_camera_span": 57.3,
+        "inner_display_cover_center_y": 31.7,
+        "inner_display_camera_center_y": 28.65,
+        "inner_display_cover_cut_center_z": -2,
+        "inner_display_camera_cut_center_z": 2,
+        "cover_display_width": 147.8,
+        "cover_display_height": 54.2,
+        "cover_display_center_y": 33.55,
+        "cover_display_cut_center_z": -7.6,
+        "lens_island_width": 25.62,
+        "lens_island_height": 25.62,
+        "lens_island_center_x": 60.29,
+        "lens_island_center_y": 18.81,
+        "lens_island_cut_center_z": 7.7,
+        "lens_radius": 3.3306,
+        "lens_pitch_x": 7.686,
+        "lens_first_center_x": 52.604,
+        "lens_center_y": 18.81,
+        "lens_cut_center_z": 7.1,
+        "button_first_center_x": 7.984,
+        "button_center_y": 67.1,
+        "button_center_z": -4.8,
+        "usb_c_center_x": -79.1,
+        "usb_c_center_y": 33.55,
+        "usb_c_center_z": -4.8,
+        "card_slot_center_x": -79.1,
+        "card_slot_center_y": 14.762,
+        "card_slot_center_z": -4.8,
+        "speaker_center_x": -79.1,
+        "speaker_first_center_y": 47.4,
+        "speaker_center_z": -4.8,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold4",
+      "label": {
+        "en": "Galaxy Z Fold4",
+        "es": "Galaxy Z Fold4"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold4` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold4",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 3.2,
+        "published_open_mm": {
+          "height": 155.1,
+          "width": 130.1,
+          "depth": 6.3
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 155.1,
+        "cover_half_width": 67.1,
+        "camera_half_width": 63,
+        "half_thickness": 6.3,
+        "cover_half_center_y": 33.55,
+        "cover_half_center_z": -4.75,
+        "camera_half_center_y": 31.5,
+        "camera_half_center_z": 4.75,
+        "hinge_cavity_radius": 4.435,
+        "hinge_cavity_span": 145.794,
+        "hinge_leaf_radius": 4.135,
+        "hinge_leaf_span": 145.194,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 63.8,
+        "inner_display_camera_span": 59.7,
+        "inner_display_cover_center_y": 31.9,
+        "inner_display_camera_center_y": 29.85,
+        "inner_display_cover_cut_center_z": -2,
+        "inner_display_camera_cut_center_z": 2,
+        "cover_display_width": 146.7,
+        "cover_display_height": 57.3,
+        "cover_display_center_y": 33.55,
+        "cover_display_cut_center_z": -7.5,
+        "lens_island_width": 26.46,
+        "lens_island_height": 26.46,
+        "lens_island_center_x": 58.32,
+        "lens_island_center_y": 19.23,
+        "lens_island_cut_center_z": 7.6,
+        "lens_radius": 3.4398,
+        "lens_pitch_x": 7.938,
+        "lens_first_center_x": 50.382,
+        "lens_center_y": 19.23,
+        "lens_cut_center_z": 7,
+        "button_first_center_x": 7.612,
+        "button_center_y": 67.1,
+        "button_center_z": -4.75,
+        "usb_c_center_x": -77.55,
+        "usb_c_center_y": 33.55,
+        "usb_c_center_z": -4.75,
+        "card_slot_center_x": -77.55,
+        "card_slot_center_y": 14.762,
+        "card_slot_center_z": -4.75,
+        "speaker_center_x": -77.55,
+        "speaker_first_center_y": 47.4,
+        "speaker_center_z": -4.75,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold5",
+      "label": {
+        "en": "Galaxy Z Fold5",
+        "es": "Galaxy Z Fold5"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold5` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold5",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 1.2,
+        "published_open_mm": {
+          "height": 154.9,
+          "width": 129.9,
+          "depth": 6.1
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 154.9,
+        "cover_half_width": 67.1,
+        "camera_half_width": 62.8,
+        "half_thickness": 6.1,
+        "cover_half_center_y": 33.55,
+        "cover_half_center_z": -3.65,
+        "camera_half_center_y": 31.4,
+        "camera_half_center_z": 3.65,
+        "hinge_cavity_radius": 3.345,
+        "hinge_cavity_span": 145.606,
+        "hinge_leaf_radius": 3.045,
+        "hinge_leaf_span": 145.006,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 63.9,
+        "inner_display_camera_span": 59.6,
+        "inner_display_cover_center_y": 31.95,
+        "inner_display_camera_center_y": 29.8,
+        "inner_display_cover_cut_center_z": -1,
+        "inner_display_camera_cut_center_z": 1,
+        "cover_display_width": 146.7,
+        "cover_display_height": 57.3,
+        "cover_display_center_y": 33.55,
+        "cover_display_cut_center_z": -6.3,
+        "lens_island_width": 26.376,
+        "lens_island_height": 26.376,
+        "lens_island_center_x": 58.262,
+        "lens_island_center_y": 19.188,
+        "lens_island_cut_center_z": 6.4,
+        "lens_radius": 3.4289,
+        "lens_pitch_x": 7.9128,
+        "lens_first_center_x": 50.3492,
+        "lens_center_y": 19.188,
+        "lens_cut_center_z": 5.8,
+        "button_first_center_x": 7.588,
+        "button_center_y": 67.1,
+        "button_center_z": -3.65,
+        "usb_c_center_x": -77.45,
+        "usb_c_center_y": 33.55,
+        "usb_c_center_z": -3.65,
+        "card_slot_center_x": -77.45,
+        "card_slot_center_y": 14.762,
+        "card_slot_center_z": -3.65,
+        "speaker_center_x": -77.45,
+        "speaker_first_center_y": 47.4,
+        "speaker_center_z": -3.65,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold6",
+      "label": {
+        "en": "Galaxy Z Fold6",
+        "es": "Galaxy Z Fold6"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold6` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold6",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 0.9,
+        "published_open_mm": {
+          "height": 153.5,
+          "width": 132.6,
+          "depth": 5.6
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 153.5,
+        "cover_half_width": 68.1,
+        "camera_half_width": 64.5,
+        "half_thickness": 5.6,
+        "cover_half_center_y": 34.05,
+        "cover_half_center_z": -3.25,
+        "camera_half_center_y": 32.25,
+        "camera_half_center_z": 3.25,
+        "hinge_cavity_radius": 2.97,
+        "hinge_cavity_span": 144.29,
+        "hinge_leaf_radius": 2.67,
+        "hinge_leaf_span": 143.69,
+        "inner_display_width": 146.4,
+        "inner_display_cover_span": 64.7,
+        "inner_display_camera_span": 61.1,
+        "inner_display_cover_center_y": 32.35,
+        "inner_display_camera_center_y": 30.55,
+        "inner_display_cover_cut_center_z": -0.85,
+        "inner_display_camera_cut_center_z": 0.85,
+        "cover_display_width": 148.2,
+        "cover_display_height": 60.4,
+        "cover_display_center_y": 34.05,
+        "cover_display_cut_center_z": -5.65,
+        "lens_island_width": 27.09,
+        "lens_island_height": 27.09,
+        "lens_island_center_x": 57.205,
+        "lens_island_center_y": 19.545,
+        "lens_island_cut_center_z": 5.75,
+        "lens_radius": 3.5217,
+        "lens_pitch_x": 8.127,
+        "lens_first_center_x": 49.078,
+        "lens_center_y": 19.545,
+        "lens_cut_center_z": 5.15,
+        "button_first_center_x": 7.42,
+        "button_center_y": 68.1,
+        "button_center_z": -3.25,
+        "usb_c_center_x": -76.75,
+        "usb_c_center_y": 34.05,
+        "usb_c_center_z": -3.25,
+        "card_slot_center_x": -76.75,
+        "card_slot_center_y": 14.982,
+        "card_slot_center_z": -3.25,
+        "speaker_center_x": -76.75,
+        "speaker_first_center_y": 48.4,
+        "speaker_center_z": -3.25,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold7",
+      "label": {
+        "en": "Galaxy Z Fold7",
+        "es": "Galaxy Z Fold7"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold7` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold7",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 0.5,
+        "published_open_mm": {
+          "height": 158.4,
+          "width": 143.2,
+          "depth": 4.2
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": "teardrop"
+      },
+      "values": {
+        "hinge_axis_length": 158.4,
+        "cover_half_width": 72.8,
+        "camera_half_width": 70.4,
+        "half_thickness": 4.2,
+        "cover_half_center_y": 36.4,
+        "cover_half_center_z": -2.35,
+        "camera_half_center_y": 35.2,
+        "camera_half_center_z": 2.35,
+        "hinge_cavity_radius": 2.14,
+        "hinge_cavity_span": 148.896,
+        "hinge_leaf_radius": 1.84,
+        "hinge_leaf_span": 148.296,
+        "inner_display_width": 151,
+        "inner_display_cover_span": 69.2,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.6,
+        "inner_display_camera_center_y": 33.4,
+        "inner_display_cover_cut_center_z": -0.65,
+        "inner_display_camera_cut_center_z": 0.65,
+        "cover_display_width": 151.8,
+        "cover_display_height": 65,
+        "cover_display_center_y": 36.4,
+        "cover_display_cut_center_z": -4.05,
+        "lens_island_width": 29.568,
+        "lens_island_height": 29.568,
+        "lens_island_center_x": 58.416,
+        "lens_island_center_y": 20.784,
+        "lens_island_cut_center_z": 4.15,
+        "lens_radius": 3.8438,
+        "lens_pitch_x": 8.8704,
+        "lens_first_center_x": 49.5456,
+        "lens_center_y": 20.784,
+        "lens_cut_center_z": 3.55,
+        "button_first_center_x": 8.008,
+        "button_center_y": 72.8,
+        "button_center_z": -2.35,
+        "usb_c_center_x": -79.2,
+        "usb_c_center_y": 36.4,
+        "usb_c_center_z": -2.35,
+        "card_slot_center_x": -79.2,
+        "card_slot_center_y": 16.016,
+        "card_slot_center_z": -2.35,
+        "speaker_center_x": -79.2,
+        "speaker_first_center_y": 53.1,
+        "speaker_center_z": -2.35,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold8",
+      "label": {
+        "en": "Galaxy Z Fold8",
+        "es": "Galaxy Z Fold8"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold8` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold8",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.7,
+        "published_open_mm": {
+          "height": 123.9,
+          "width": 161.4,
+          "depth": 4.5
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 123.9,
+        "cover_half_width": 81.9,
+        "camera_half_width": 79.5,
+        "half_thickness": 4.5,
+        "cover_half_center_y": 40.95,
+        "cover_half_center_z": -2.6,
+        "camera_half_center_y": 39.75,
+        "camera_half_center_z": 2.6,
+        "hinge_cavity_radius": 2.375,
+        "hinge_cavity_span": 116.466,
+        "hinge_leaf_radius": 2.075,
+        "hinge_leaf_span": 115.866,
+        "inner_display_width": 116.3,
+        "inner_display_cover_span": 78.25,
+        "inner_display_camera_span": 75.85,
+        "inner_display_cover_center_y": 39.125,
+        "inner_display_camera_center_y": 37.925,
+        "inner_display_cover_cut_center_z": -0.75,
+        "inner_display_camera_cut_center_z": 0.75,
+        "cover_display_width": 118,
+        "cover_display_height": 74.7,
+        "cover_display_center_y": 40.95,
+        "cover_display_cut_center_z": -4.45,
+        "lens_island_width": 24.78,
+        "lens_island_height": 24.78,
+        "lens_island_center_x": 43.56,
+        "lens_island_center_y": 18.39,
+        "lens_island_cut_center_z": 4.55,
+        "lens_radius": 3.2214,
+        "lens_pitch_x": 7.434,
+        "lens_first_center_x": 36.126,
+        "lens_center_y": 18.39,
+        "lens_cut_center_z": 3.95,
+        "button_first_center_x": 3.868,
+        "button_center_y": 81.9,
+        "button_center_z": -2.6,
+        "usb_c_center_x": -61.95,
+        "usb_c_center_y": 40.95,
+        "usb_c_center_z": -2.6,
+        "card_slot_center_x": -61.95,
+        "card_slot_center_y": 18.018,
+        "card_slot_center_z": -2.6,
+        "speaker_center_x": -61.95,
+        "speaker_first_center_y": 62.2,
+        "speaker_center_z": -2.6,
+        "usb_c_present": true,
+        "card_slot_present": false
+      }
+    },
+    {
+      "slug": "samsung-galaxy-z-fold8-ultra",
+      "label": {
+        "en": "Galaxy Z Fold8 Ultra",
+        "es": "Galaxy Z Fold8 Ultra"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `samsung-galaxy-z-fold8-ultra` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "samsung-galaxy-z-fold8-ultra",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "sim card slot"
+        ],
+        "hinge_gap_mm": 0.7,
+        "published_open_mm": {
+          "height": 158.4,
+          "width": 143.2,
+          "depth": 4.1
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 158.4,
+        "cover_half_width": 72.8,
+        "camera_half_width": 70.4,
+        "half_thickness": 4.1,
+        "cover_half_center_y": 36.4,
+        "cover_half_center_z": -2.4,
+        "camera_half_center_y": 35.2,
+        "camera_half_center_z": 2.4,
+        "hinge_cavity_radius": 2.195,
+        "hinge_cavity_span": 148.896,
+        "hinge_leaf_radius": 1.895,
+        "hinge_leaf_span": 148.296,
+        "inner_display_width": 151,
+        "inner_display_cover_span": 69.2,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.6,
+        "inner_display_camera_center_y": 33.4,
+        "inner_display_cover_cut_center_z": -0.75,
+        "inner_display_camera_cut_center_z": 0.75,
+        "cover_display_width": 151.8,
+        "cover_display_height": 65,
+        "cover_display_center_y": 36.4,
+        "cover_display_cut_center_z": -4.05,
+        "lens_island_width": 29.568,
+        "lens_island_height": 29.568,
+        "lens_island_center_x": 58.416,
+        "lens_island_center_y": 20.784,
+        "lens_island_cut_center_z": 4.15,
+        "lens_radius": 3.8438,
+        "lens_pitch_x": 8.8704,
+        "lens_first_center_x": 49.5456,
+        "lens_center_y": 20.784,
+        "lens_cut_center_z": 3.55,
+        "button_first_center_x": 8.008,
+        "button_center_y": 72.8,
+        "button_center_z": -2.4,
+        "usb_c_center_x": -79.2,
+        "usb_c_center_y": 36.4,
+        "usb_c_center_z": -2.4,
+        "card_slot_center_x": -79.2,
+        "card_slot_center_y": 16.016,
+        "card_slot_center_z": -2.4,
+        "speaker_center_x": -79.2,
+        "speaker_first_center_y": 53.1,
+        "speaker_center_z": -2.4,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "google-pixel-9-pro-fold",
+      "label": {
+        "en": "Pixel 9 Pro Fold",
+        "es": "Pixel 9 Pro Fold"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `google-pixel-9-pro-fold` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "google-pixel-9-pro-fold",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.3,
+        "published_open_mm": {
+          "height": 155.2,
+          "width": 150.2,
+          "depth": 5.1
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 155.2,
+        "cover_half_width": 77.1,
+        "camera_half_width": 73.1,
+        "half_thickness": 5.1,
+        "cover_half_center_y": 38.55,
+        "cover_half_center_z": -2.7,
+        "camera_half_center_y": 36.55,
+        "camera_half_center_z": 2.7,
+        "hinge_cavity_radius": 2.445,
+        "hinge_cavity_span": 145.888,
+        "hinge_leaf_radius": 2.145,
+        "hinge_leaf_span": 145.288,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 72.55,
+        "inner_display_camera_span": 68.55,
+        "inner_display_cover_center_y": 36.275,
+        "inner_display_camera_center_y": 34.275,
+        "inner_display_cover_cut_center_z": -0.55,
+        "inner_display_camera_cut_center_z": 0.55,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.1,
+        "cover_display_center_y": 38.55,
+        "cover_display_cut_center_z": -4.85,
+        "lens_island_width": 30.702,
+        "lens_island_height": 30.702,
+        "lens_island_center_x": 56.249,
+        "lens_island_center_y": 21.351,
+        "lens_island_cut_center_z": 4.95,
+        "lens_radius": 3.9913,
+        "lens_pitch_x": 9.2106,
+        "lens_first_center_x": 47.0384,
+        "lens_center_y": 21.351,
+        "lens_cut_center_z": 4.35,
+        "button_first_center_x": 7.624,
+        "button_center_y": 77.1,
+        "button_center_z": -2.7,
+        "usb_c_center_x": -77.6,
+        "usb_c_center_y": 38.55,
+        "usb_c_center_z": -2.7,
+        "card_slot_center_x": -77.6,
+        "card_slot_center_y": 16.962,
+        "card_slot_center_z": -2.7,
+        "speaker_center_x": -77.6,
+        "speaker_first_center_y": 57.4,
+        "speaker_center_z": -2.7,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "google-pixel-11-pro-fold",
+      "label": {
+        "en": "Pixel 11 Pro Fold",
+        "es": "Pixel 11 Pro Fold"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `google-pixel-11-pro-fold` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "google-pixel-11-pro-fold",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.1,
+        "published_open_mm": {
+          "height": 155.2,
+          "width": 150.4,
+          "depth": 5
+        },
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 155.2,
+        "cover_half_width": 76,
+        "camera_half_width": 74.4,
+        "half_thickness": 5,
+        "cover_half_center_y": 38,
+        "cover_half_center_z": -2.55,
+        "camera_half_center_y": 37.2,
+        "camera_half_center_z": 2.55,
+        "hinge_cavity_radius": 2.3,
+        "hinge_cavity_span": 145.888,
+        "hinge_leaf_radius": 2,
+        "hinge_leaf_span": 145.288,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 71.35,
+        "inner_display_camera_span": 69.75,
+        "inner_display_cover_center_y": 35.675,
+        "inner_display_camera_center_y": 34.875,
+        "inner_display_cover_cut_center_z": -0.45,
+        "inner_display_camera_cut_center_z": 0.45,
+        "cover_display_width": 149.9,
+        "cover_display_height": 69.1,
+        "cover_display_center_y": 38,
+        "cover_display_cut_center_z": -4.65,
+        "lens_island_width": 31.04,
+        "lens_island_height": 31.04,
+        "lens_island_center_x": 56.08,
+        "lens_island_center_y": 21.52,
+        "lens_island_cut_center_z": 4.75,
+        "lens_radius": 4.0352,
+        "lens_pitch_x": 9.312,
+        "lens_first_center_x": 46.768,
+        "lens_center_y": 21.52,
+        "lens_cut_center_z": 4.15,
+        "button_first_center_x": 7.624,
+        "button_center_y": 76,
+        "button_center_z": -2.55,
+        "usb_c_center_x": -77.6,
+        "usb_c_center_y": 38,
+        "usb_c_center_z": -2.55,
+        "card_slot_center_x": -77.6,
+        "card_slot_center_y": 16.72,
+        "card_slot_center_z": -2.55,
+        "speaker_center_x": -77.6,
+        "speaker_first_center_y": 56.3,
+        "speaker_center_z": -2.55,
+        "usb_c_present": true,
+        "card_slot_present": true
+      }
+    },
+    {
+      "slug": "apple-iphone-duo",
+      "label": {
+        "en": "iPhone Duo",
+        "es": "iPhone Duo"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `apple-iphone-duo` (status: verified); envelope closed AND open height x width x depth as published; the half thickness is the published open depth and the hinge gap is the closed depth less twice it. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "apple-iphone-duo",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "hinge_gap_mm": 0.9,
+        "published_open_mm": {
+          "height": 117.8,
+          "width": 164.6,
+          "depth": 5.2
+        },
+        "derived_active_areas": [
+          "inner",
+          "cover"
+        ],
+        "hinge_crease": null
+      },
+      "values": {
+        "hinge_axis_length": 117.8,
+        "cover_half_width": 84.1,
+        "camera_half_width": 80.5,
+        "half_thickness": 5.2,
+        "cover_half_center_y": 42.05,
+        "cover_half_center_z": -3.05,
+        "camera_half_center_y": 40.25,
+        "camera_half_center_z": 3.05,
+        "hinge_cavity_radius": 2.79,
+        "hinge_cavity_span": 110.732,
+        "hinge_leaf_radius": 2.49,
+        "hinge_leaf_span": 110.132,
+        "inner_display_width": 110.93,
+        "inner_display_cover_span": 80.66,
+        "inner_display_camera_span": 77.06,
+        "inner_display_cover_center_y": 40.33,
+        "inner_display_camera_center_y": 38.53,
+        "inner_display_cover_cut_center_z": -0.85,
+        "inner_display_camera_cut_center_z": 0.85,
+        "cover_display_width": 112.31,
+        "cover_display_height": 77.19,
+        "cover_display_center_y": 42.05,
+        "cover_display_cut_center_z": -5.25,
+        "lens_island_width": 23.56,
+        "lens_island_height": 23.56,
+        "lens_island_center_x": 41.12,
+        "lens_island_center_y": 17.78,
+        "lens_island_cut_center_z": 5.35,
+        "lens_radius": 3.0628,
+        "lens_pitch_x": 7.068,
+        "lens_first_center_x": 34.052,
+        "lens_center_y": 17.78,
+        "lens_cut_center_z": 4.75,
+        "button_first_center_x": 3.136,
+        "button_center_y": 84.1,
+        "button_center_z": -3.05,
+        "usb_c_center_x": -58.9,
+        "usb_c_center_y": 42.05,
+        "usb_c_center_z": -3.05,
+        "card_slot_center_x": -58.9,
+        "card_slot_center_y": 18.502,
+        "card_slot_center_z": -3.05,
+        "speaker_center_x": -58.9,
+        "speaker_first_center_y": 64.4,
+        "speaker_center_z": -3.05,
+        "usb_c_present": true,
+        "card_slot_present": false
+      }
+    },
+    {
+      "slug": "fold-state-closed",
+      "label": {
+        "en": "Fold state — closed",
+        "es": "Estado — cerrado"
+      },
+      "kind": "fold_state",
+      "source": "Archetype fold state, not a device. Closed: the two half-frames face each other across the hinge gap, and the bounding box is the closed envelope a preset asserts against.",
+      "values": {
+        "fold_angle": 0
+      }
+    },
+    {
+      "slug": "fold-state-half-open",
+      "label": {
+        "en": "Fold state — half open",
+        "es": "Estado — medio abierto"
+      },
+      "kind": "fold_state",
+      "source": "Archetype fold state, not a device. 90 degrees: the fold's mid-travel, where the two halves and the hinge leaf are furthest from interfering.",
+      "values": {
+        "fold_angle": 90
+      }
+    },
+    {
+      "slug": "fold-state-open",
+      "label": {
+        "en": "Fold state — open",
+        "es": "Estado — abierto"
+      },
+      "kind": "fold_state",
+      "source": "Archetype fold state, not a device. 180 degrees: the halves are coplanar, the gap has closed itself, and the bounding box is the open envelope a preset asserts against.",
+      "values": {
+        "fold_angle": 180
+      }
+    }
+  ]
+}

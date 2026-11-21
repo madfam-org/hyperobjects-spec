@@ -203,10 +203,12 @@ __all__ = [
     "ParityPolicy",
     "check_mesh_parity",
     "compare_meshes",
+    "is_wrapper_pair",
     "placement_offset",
     "pair_renders",
     "parity_checks",
     "resolve_parity_policy",
+    "wrapper_identity",
 ]
 
 #: The platform's default AABB tolerance (verify_parity.check_mesh_parity).
@@ -653,10 +655,62 @@ def pair_renders(renders) -> list[tuple[object, object]]:
     pairs = []
     for key in sorted(by_key, key=lambda k: (k[0], k[1], k[2] or "")):
         sides = by_key[key]
+        wraps = getattr(sides.get("graph"), "wraps", None)
         for a, b in COMPARABLE_PAIRS:
+            # A WRAPPER graph (RFC 0067) is paired with the engine it wraps, below, and
+            # with nothing else: against the other kernel it would only repeat the
+            # cross-kernel comparison under a second name.
+            if b == "graph" and wraps:
+                continue
             if a in sides and b in sides:
                 pairs.append((sides[a], sides[b]))
+        if wraps in sides:
+            pairs.append((sides[wraps], sides["graph"]))
     return pairs
+
+
+def is_wrapper_pair(a_check, b_check) -> bool:
+    """Is this the pair (wrapped script, its wrapper graph)?"""
+    wraps = getattr(b_check, "wraps", None)
+    return (
+        getattr(b_check, "engine", None) == "graph"
+        and wraps is not None
+        and getattr(a_check, "engine", None) == wraps
+    )
+
+
+def wrapper_identity(a_check, b_check) -> ParityCheck:
+    """THE WRAPPER RULE (RFC 0067 G-1): a wrapper graph reproduces its script exactly.
+
+    A wrapper's `script` node calls the same source in the same sandbox with the same
+    parameters, so its mesh is not "close to" the script's — it is the script's. The two
+    retained STLs are compared byte for byte (sha256). Not exemptable and not subject to a
+    tolerance: there is no kernel idiom to differ, so any difference is a lowering bug.
+    """
+    import hashlib
+
+    def _digest(path):
+        with open(path, "rb") as fh:
+            return hashlib.sha256(fh.read()).hexdigest()
+
+    left, right = _digest(a_check.stl_path), _digest(b_check.stl_path)
+    same = left == right
+    return ParityCheck(
+        mode=a_check.mode,
+        part=a_check.part,
+        preset=getattr(a_check, "preset", None),
+        ok=same,
+        reason=(
+            f"wrapper identical — the graph's mesh is the script's, byte for byte "
+            f"(sha256 {left[:12]}…)"
+            if same
+            else f"wrapper differs from its script — sha256 {left[:12]}… vs {right[:12]}…; "
+            f"a wrapper calls the same source with the same parameters, so this is a "
+            f"lowering bug, not a modelling difference"
+        ),
+        report={"wrapper_identity": same, "sha256": [left, right]},
+        pairing=(a_check.engine, "graph"),
+    )
 
 
 @dataclass(frozen=True)
@@ -779,6 +833,11 @@ def parity_checks(
         # The pairing is read off the renders rather than assumed, because a cartridge
         # with a script AND a graph yields both (openscad, cadquery) and
         # (cadquery, graph) on the same target — see COMPARABLE_PAIRS.
+        if is_wrapper_pair(a_check, b_check):
+            # Before the policy: a declared exemption is about two kernels modelling a
+            # part differently, and a wrapper does not model anything.
+            out.append(wrapper_identity(a_check, b_check))
+            continue
         pairing = (
             getattr(a_check, "engine", None) or "openscad",
             getattr(b_check, "engine", None) or "cadquery",

@@ -1,0 +1,21 @@
+{
+  "_comment": "sha256 of the CadQuery script the vendored solid engine emits for each solid-commons graph with its manifest's bindings. Moves only on a re-vendor; see tests/fixtures/graph-core/NOTICE.md.",
+  "engine_sha256": "4f720a18206a3a04ad3e4e94068794758e0db31b22d66cf5ff5f25d35dd3f309",
+  "programs": {
+    "ab-drive/ab-drive.graph.json": "173ff6497080c3765c1d72a8658d25b2a497e5fb3448694b593393730a0261ff",
+    "ab-front-idler/front-idler.graph.json": "0644aa345084821c55d16b19b85ea949fca13cde5c307dfc1e6d88b3a9bfe3bf",
+    "bed-extrusion-mount/bed-mount.graph.json": "ac5e1804d2ec44f1bfd7de19fb77c46b0a96ad644a3f612537e399f6574d941f",
+    "book-fold-phone/bookfold.graph.json": "fb6b7fbc00ad9ead00ec6f3f86d69d861c227b793283bc18ac04d46499b50242",
+    "clamshell-dual-screen-handheld/clamshell.graph.json": "13f64805703a18582cff53147a772a69982d02a98e8f465ea532394ee8cba296",
+    "corner-idler-bracket/corner-idler.graph.json": "5cf1715df505b1b29de36eedd9358feb2766cde1872083acd60da8bc0350f254",
+    "flange-plate/flange.graph.json": "a9ba141dff970656d4c56a29809a7755a50dfa0c19bccb7e7c34470ac9a9d5f3",
+    "idler-608/idler.graph.json": "35d00c37630ce1ffd5d54e31b23ce0cd05815f25e379f122cbfbc8352a7aa03a",
+    "spacer-block/spacer.graph.json": "3e19da90017fbc4f88ee52858abccb54001db96d3508f9dbcbd9afc571b08d45",
+    "toolhead-proxy/toolhead.graph.json": "965685cfc0085e2fc6a6c0c6befb253f57b88c9095f7c97125e5e8c74730cb53",
+    "x-carriage/x-carriage.graph.json": "df09ec0ef17f63a9c4813b8c5e3491985bf5414b171a00c699b43eefed217a6e",
+    "xy-joint/xy-joint.graph.json": "c16b68a63148ea6522606a1badd0e7dd81de572ad06e0484cf031e504bca100c",
+    "z-belt-clamp/z-belt-clamp.graph.json": "4ad8afb8f6012b2df5bab5c3b4048f26c556b4405f6e96772f03a059294d0ea4",
+    "z-drive-housing/z-drive.graph.json": "ac090d84a7d045c6b9a91592e887f6a3fef0c6f0a2f07a836f49ed67df8ef103",
+    "z-joint/z-joint.graph.json": "b0c78f107933430af8ebd421c58dafec22b28d1484c465c57e940ce6276f5a9d"
+  }
+}

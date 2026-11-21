@@ -101,7 +101,7 @@ from .brep import check_result as brep_check_result
 # transpiler is vendored platform code that must not be re-implemented here. Importing
 # only the two entry points keeps the vendored surface at arm's length; nothing in this
 # module reaches into y4d_spec.graph directly.
-from .graph_render import GRAPH_FILE_SUFFIX, GraphError, graph_script_path
+from .graph_render import GRAPH_FILE_SUFFIX, GraphError, graph_script_path, wrapper_for
 
 __all__ = [
     "GRAPH_FILE_SUFFIX",
@@ -232,6 +232,10 @@ class RenderCheck:
     #: caller that needs the mesh AFTERWARDS is the cross-kernel parity pass
     #: (parity.py), which has nothing to compare unless both sides survive.
     stl_path: str | None = None
+    #: For a WRAPPER graph render (RFC 0067, one `script` node): the engine of the source
+    #: it wraps, "cadquery" or "openscad". The parity pass pairs the wrapper with that
+    #: engine's render of the same target and requires the two meshes byte for byte.
+    wraps: str | None = None
 
     def __bool__(self) -> bool:
         return self.ok
@@ -732,6 +736,10 @@ def render_part_graph(
     preset: str | None = None,
     printability: bool = False,
     stl_dir: Path | None = None,
+    library_paths: list[Path] | None = None,
+    openscad_timeout: int | None = None,
+    binary: str | None = None,
+    require_openscad: bool = False,
 ) -> RenderCheck:
     """Render one (mode, part) of a node-graph mode and judge the mesh.
 
@@ -757,7 +765,27 @@ def render_part_graph(
     skip. `transpile()` is the enforcing validator for cycles, unknown node types,
     socket-type mismatches, dangling refs and bindings onto params a node has not got,
     and all of it happens before a CAD kernel is touched.
+
+    A WRAPPER graph (RFC 0067 G-1: one `script` node calling the cartridge's own source)
+    is not transpiled. It is lowered: the wrapped source renders on its own path — the
+    CadQuery sandbox or the OpenSCAD command — with the parameters the script node hands
+    it, and the mesh is filed as `graph`. The `library_paths` … `require_openscad`
+    keywords are the OpenSCAD path's, used only when a wrapper wraps a `.scad`.
     """
+    try:
+        plan = wrapper_for(cartridge_dir / graph_file, manifest)
+    except Exception as exc:  # a refused 1.2 document, unreadable file, bad JSON
+        return RenderCheck(
+            mode=mode, part=part, ok=False, preset=preset, engine="graph",
+            problems=[f"graph did not transpile: {exc}"],
+        )
+    if plan is not None:
+        return _render_wrapper(
+            cartridge_dir, plan, mode, part, manifest=manifest, params=params,
+            preset=preset, printability=printability, stl_dir=stl_dir,
+            library_paths=library_paths, openscad_timeout=openscad_timeout,
+            binary=binary, require_openscad=require_openscad,
+        )
     try:
         script_path = graph_script_path(cartridge_dir / graph_file, manifest)
     except GraphError as exc:
@@ -801,6 +829,76 @@ def render_part_graph(
         stl_engine="graph",
     )
     check.engine = "graph"
+    return check
+
+
+def _render_wrapper(
+    cartridge_dir: Path,
+    plan,
+    mode: str,
+    part: str,
+    *,
+    manifest: dict | None,
+    params: dict | None,
+    preset: str | None,
+    printability: bool,
+    stl_dir: Path | None,
+    library_paths: list[Path] | None,
+    openscad_timeout: int | None,
+    binary: str | None,
+    require_openscad: bool,
+) -> RenderCheck:
+    """Render a wrapper graph by invoking the source its `script` node names.
+
+    The parameters are the script node's (`WrapperPlan.script_params`): a pass-through
+    binding hands the source the injected value unchanged and leaves an absent one
+    absent, so the defaults render (no params) and every preset render reach the source
+    exactly as they reach it from the mode. The part a wrapper does not output is refused
+    the way a native graph refuses it — it has no else-branch to fall into.
+    """
+    from .openscad import OPENSCAD_TIMEOUT_S, openscad_binary, render_part_openscad
+
+    def _fail(message: str) -> RenderCheck:
+        return RenderCheck(mode=mode, part=part, ok=False, preset=preset, engine="graph",
+                           problems=[message], wraps=plan.language)
+
+    if part not in plan.parts:
+        return _fail(f"graph did not render: Unknown target_part: {part} (the wrapper "
+                     f"outputs {list(plan.parts)})")
+    injected = dict(params or {})
+    injected[plan.part_parameter] = part
+    try:
+        script_params = plan.script_params(injected)
+    except Exception as exc:  # an expression binding that does not evaluate
+        return _fail(f"graph did not render: script binding failed: {exc}")
+    # Both render paths add the part themselves, from `part`.
+    script_params.pop(plan.part_parameter, None)
+
+    if plan.language == "openscad":
+        found = binary or openscad_binary()
+        if found is None:
+            return RenderCheck(
+                mode=mode, part=part, ok=not require_openscad, preset=preset,
+                engine="graph", wraps="openscad",
+                problems=(["--require-openscad: no OpenSCAD binary found, so the wrapper's "
+                           f"'{plan.source}' was not rendered"] if require_openscad else []),
+                skipped=None if require_openscad else _no_binary_skip(plan.source),
+            )
+        check = render_part_openscad(
+            cartridge_dir, plan.source, mode, part,
+            render_mode=part_render_modes(manifest or {}).get(part, 0),
+            params=script_params, preset=preset, printability=printability,
+            library_paths=library_paths,
+            timeout=openscad_timeout or OPENSCAD_TIMEOUT_S,
+            binary=found, stl_dir=stl_dir, stl_engine="graph",
+        )
+    else:
+        check = render_part(
+            cartridge_dir, plan.source, mode, part, params=script_params, preset=preset,
+            printability=printability, stl_dir=stl_dir, stl_engine="graph",
+        )
+    check.engine = "graph"
+    check.wraps = plan.language
     return check
 
 
@@ -1019,6 +1117,11 @@ def check_geometry(
                 preset=preset,
                 printability=printability,
                 stl_dir=target_stl_dir,
+                # Used only when the graph is a wrapper around a .scad (RFC 0067).
+                library_paths=library_paths,
+                openscad_timeout=openscad_timeout,
+                binary=binary,
+                require_openscad=require_openscad,
             )
         else:
             check = render_part(
