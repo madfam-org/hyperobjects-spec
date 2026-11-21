@@ -327,3 +327,26 @@ def test_a_part_picker_parameter_and_foreign_bindings_pass_the_wrapper_rules(scr
 
     rewrite(scratch / "project.json", native_mode)
     assert graph_core_rules(scratch, manifest_of(scratch)) == ([], [])
+
+
+@pytest.mark.parametrize("native", ["[]", '{"version": "1.0.0", "nodes": 5}', "{ broken"])
+def test_a_malformed_native_graph_beside_a_wrapper_never_crashes_the_check(scratch, native):
+    (scratch / "native.graph.json").write_text(native)
+
+    def native_mode(m):
+        m["modes"].append({"id": "native", "label": {"en": "Native"},
+                           "scad_file": "native.graph.json", "engine": "graph",
+                           "parts": ["native"]})
+
+    rewrite(scratch / "project.json", native_mode)
+    problems, notes = graph_core_rules(scratch, manifest_of(scratch))
+    assert isinstance(problems, list) and isinstance(notes, list)
+
+
+def test_existing_graph_cartridges_with_malformed_files_never_crash(tmp_path):
+    target = tmp_path / "graph-block"
+    shutil.copytree(FIXTURES / "graph-block", target)
+    for graph in target.glob("*.graph.json"):
+        graph.write_text("[]")
+    problems, notes = graph_core_rules(target, manifest_of(target))
+    assert problems == []

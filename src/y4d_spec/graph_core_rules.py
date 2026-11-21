@@ -192,11 +192,15 @@ def _foreign_binding_rules(docs: dict[str, dict], wrappers: dict) -> list[str]:
     looking alive. So every binding a wrapper ignores must resolve to a node of a native
     graph this cartridge's modes name.
     """
+    if not wrappers:
+        return []
     native_nodes: set[str] = set()
     for name, doc in docs.items():
-        if name in wrappers:
+        # Any graph file may be malformed; the render lane and the notes report that.
+        if name in wrappers or not isinstance(doc, dict) \
+                or not isinstance(doc.get("nodes"), list):
             continue
-        for node in doc.get("nodes") or []:
+        for node in doc["nodes"]:
             if isinstance(node, dict) and isinstance(node.get("id"), str) \
                     and node.get("type") != "script":
                 native_nodes.add(node["id"])
