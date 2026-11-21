@@ -120,7 +120,15 @@ __all__ = [
 
 def core_problems(doc: object, manifest: dict | None) -> list:
     """The core's findings on a graph document, under the solid pack."""
-    return core.validate(doc, SOLID_PACK, parameters=(manifest or {}).get("parameters") or [])
+    from hyperobject_graph.errors import Problem
+
+    try:
+        return core.validate(
+            doc, SOLID_PACK, parameters=(manifest or {}).get("parameters") or []
+        )
+    except Exception as exc:  # noqa: BLE001 - a validator bug must not stop a whole check
+        return [Problem("internal", "/", f"the graph core failed on this document: "
+                                         f"{type(exc).__name__}: {exc}")]
 
 
 def _enforce_core(doc: object, manifest: dict | None, source_name: str) -> None:

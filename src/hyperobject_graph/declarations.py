@@ -31,7 +31,7 @@ from __future__ import annotations
 
 import copy
 
-from .errors import GraphCoreError, Problem
+from .errors import GraphCoreError, Problem, as_list, is_hashable_in
 from .expression import expression_names, parse_expression
 from .script_node import IDENT_RE
 
@@ -78,7 +78,7 @@ def declared_parameter_ids(doc: dict) -> set[str] | None:
     if not isinstance(block, dict):
         return None
     return {
-        p["id"] for p in block.get("parameters") or []
+        p["id"] for p in as_list(block.get("parameters"))
         if isinstance(p, dict) and isinstance(p.get("id"), str)
     }
 
@@ -117,7 +117,7 @@ def declaration_problems(
 
     # Groups first: parameters name them.
     groups: set[str] = set()
-    for idx, group in enumerate(block.get("parameter_groups") or []):
+    for idx, group in enumerate(as_list(block.get("parameter_groups"))):
         loc = f"{where}/parameter_groups/{idx}"
         gid = _entry_id(group, ("id", "key", "slug")) if isinstance(group, dict) else None
         if not isinstance(gid, str) or not gid:
@@ -130,7 +130,11 @@ def declaration_problems(
             problems.append(Problem("i18n", loc, "a group needs a label (an 'en' string)"))
 
     params: dict[str, dict] = {}
-    for idx, param in enumerate(block.get("parameters") or []):
+    declared_ids = {
+        p["id"] for p in as_list(block.get("parameters"))
+        if isinstance(p, dict) and isinstance(p.get("id"), str)
+    }
+    for idx, param in enumerate(as_list(block.get("parameters"))):
         loc = f"{where}/parameters/{idx}"
         if not isinstance(param, dict):
             problems.append(Problem("declarations", loc, "must be an object"))
@@ -143,7 +147,7 @@ def declaration_problems(
         if pid in params:
             problems.append(Problem("declarations", loc, "duplicate parameter id"))
         params[pid] = param
-        if param.get("type") not in PARAMETER_TYPES:
+        if not is_hashable_in(param.get("type"), PARAMETER_TYPES):
             problems.append(Problem(
                 "declarations", loc,
                 f"type {param.get('type')!r} is not one of {sorted(PARAMETER_TYPES)}",
@@ -152,8 +156,23 @@ def declaration_problems(
             problems.append(Problem("declarations", loc, "needs a 'default'"))
         if not _i18n_ok(param.get("label")):
             problems.append(Problem("i18n", loc, "needs a label (an 'en' string)"))
+        visible = param.get("visible_when")
+        if visible is not None:
+            # A surface shows or hides this control by a 1.1 expression over the
+            # declared parameters (the generated configurator reads it).
+            try:
+                tree = parse_expression(visible, f"{loc}/visible_when")
+            except GraphCoreError as exc:
+                problems.append(Problem("expression", f"{loc}/visible_when", str(exc)))
+            else:
+                late = sorted(expression_names(tree) - declared_ids)
+                if late:
+                    problems.append(Problem(
+                        "expression", f"{loc}/visible_when",
+                        f"reads {late}, which are not declared parameters",
+                    ))
         group = param.get("group")
-        if group is not None and groups and group not in groups:
+        if group is not None and groups and not is_hashable_in(group, groups):
             problems.append(Problem(
                 "declarations", loc, f"group {group!r} is not a declared parameter group"
             ))
@@ -172,7 +191,7 @@ def declaration_problems(
             ))
 
     presets: set[str] = set()
-    for idx, preset in enumerate(block.get("presets") or []):
+    for idx, preset in enumerate(as_list(block.get("presets"))):
         loc = f"{where}/presets/{idx}"
         if not isinstance(preset, dict):
             problems.append(Problem("declarations", loc, "must be an object"))
@@ -195,7 +214,7 @@ def declaration_problems(
                 f"sets {stray}, which are not declared parameters",
             ))
 
-    for idx, constraint in enumerate(block.get("constraints") or []):
+    for idx, constraint in enumerate(as_list(block.get("constraints"))):
         loc = f"{where}/constraints/{idx}"
         if not isinstance(constraint, dict):
             problems.append(Problem("declarations", loc, "must be an object"))
@@ -215,13 +234,13 @@ def declaration_problems(
                     ))
         if "message" in constraint and not _i18n_ok(constraint["message"]):
             problems.append(Problem("i18n", loc, "the message needs an 'en' string"))
-        if constraint.get("severity", "warning") not in SEVERITIES:
+        if not is_hashable_in(constraint.get("severity", "warning"), SEVERITIES):
             problems.append(Problem(
                 "declarations", loc, f"severity must be one of {sorted(SEVERITIES)}"
             ))
 
     interfaces: set[str] = set()
-    for idx, iface in enumerate(block.get("interfaces") or []):
+    for idx, iface in enumerate(as_list(block.get("interfaces"))):
         loc = f"{where}/interfaces/{idx}"
         if not isinstance(iface, dict) or not isinstance(iface.get("id"), str):
             problems.append(Problem("declarations", loc, "an interface needs an 'id'"))
@@ -232,13 +251,15 @@ def declaration_problems(
         interfaces.add(iid)
         if not _i18n_ok(iface.get("label")):
             problems.append(Problem("i18n", loc, "an interface needs a label (an 'en' string)"))
-        stray = sorted(set(iface.get("parameters") or []) - set(params))
+        stray = sorted(
+            str(x) for x in as_list(iface.get("parameters")) if not is_hashable_in(x, params)
+        )
         if stray:
             problems.append(Problem(
                 "declarations", loc, f"names {stray}, which are not declared parameters"
             ))
         node = iface.get("node")
-        if node is not None and node not in node_ids:
+        if node is not None and not is_hashable_in(node, node_ids):
             problems.append(Problem(
                 "dangling-ref", loc, f"node {node!r} is not a node of this graph"
             ))
@@ -254,7 +275,10 @@ def manifest_projection(doc: dict) -> dict:
     block = doc.get("declarations")
     if not isinstance(block, dict):
         return {}
-    return {key: copy.deepcopy(block[key]) for key in DECLARATION_KEYS if key in block}
+    return {
+        key: copy.deepcopy(block[key]) for key in DECLARATION_KEYS
+        if isinstance(block.get(key), list)
+    }
 
 
 def _label_pairs(prefix: str, entry: dict, fields: tuple[str, ...]):
@@ -273,31 +297,31 @@ def label_keys(doc: dict) -> dict[str, object]:
     """
     out: dict[str, object] = {}
     block = doc.get("declarations") if isinstance(doc.get("declarations"), dict) else {}
-    for param in block.get("parameters") or []:
+    for param in as_list(block.get("parameters")):
         if not isinstance(param, dict) or not isinstance(param.get("id"), str):
             continue
         prefix = f"parameters.{param['id']}"
         out.update(_label_pairs(prefix, param, ("label", "tooltip")))
-        for option in param.get("options") or []:
+        for option in as_list(param.get("options")):
             if isinstance(option, dict) and "value" in option and "label" in option:
                 out[f"{prefix}.options.{option['value']}.label"] = option["label"]
-    for group in block.get("parameter_groups") or []:
+    for group in as_list(block.get("parameter_groups")):
         if isinstance(group, dict):
             gid = _entry_id(group, ("id", "key", "slug"))
             if isinstance(gid, str):
                 out.update(_label_pairs(f"parameter_groups.{gid}", group, ("label",)))
-    for preset in block.get("presets") or []:
+    for preset in as_list(block.get("presets")):
         if isinstance(preset, dict):
             pid = _entry_id(preset, ("id", "slug"))
             if isinstance(pid, str):
                 out.update(_label_pairs(f"presets.{pid}", preset, ("label",)))
-    for idx, constraint in enumerate(block.get("constraints") or []):
+    for idx, constraint in enumerate(as_list(block.get("constraints"))):
         if isinstance(constraint, dict):
             out.update(_label_pairs(f"constraints.{idx}", constraint, ("message",)))
-    for iface in block.get("interfaces") or []:
+    for iface in as_list(block.get("interfaces")):
         if isinstance(iface, dict) and isinstance(iface.get("id"), str):
             out.update(_label_pairs(f"interfaces.{iface['id']}", iface, ("label",)))
-    for node in doc.get("nodes") or []:
+    for node in as_list(doc.get("nodes")):
         meta = node.get("meta") if isinstance(node, dict) else None
         if isinstance(meta, dict) and "label" in meta and isinstance(node.get("id"), str):
             out[f"nodes.{node['id']}.label"] = meta["label"]

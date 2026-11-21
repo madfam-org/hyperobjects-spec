@@ -589,3 +589,64 @@ def test_the_core_lock_is_current():
     script = Path(__file__).resolve().parents[1] / "scripts" / "qa" / "check_graph_core_lock.py"
     run = subprocess.run([sys.executable, str(script)], capture_output=True, text=True)
     assert run.returncode == 0, run.stdout
+
+
+# ── Review fixes ───────────────────────────────────────────────────────────────
+
+
+def test_the_validator_never_raises_on_a_malformed_document():
+    """Every field of four documents swapped for each JSON type: a list of problems,
+    never an exception (a crash here stops a whole `y4d-spec check`)."""
+    graph = FIXTURES / "graph-core" / "solid-commons" / "idler-608" / "idler.graph.json"
+    wrapper = FIXTURES / "y4d" / "graph-wrapper" / "block.graph.json"
+    cases = [(wrapper_doc(), SHEET), (declared_doc(), SHEET),
+             (json.loads(wrapper.read_text()), SOLID_PACK),
+             (json.loads(graph.read_text()), SOLID_PACK)]
+
+    def paths(value, prefix=()):
+        yield prefix
+        children = value.items() if isinstance(value, dict) else enumerate(value) \
+            if isinstance(value, list) else ()
+        for key, child in children:
+            yield from paths(child, prefix + (key,))
+
+    swapped = 0
+    for doc, pack in cases:
+        for path in list(paths(doc))[1:]:
+            for value in (None, 1, "x", [], {}, [1], {"a": 1}, True):
+                mutated = copy.deepcopy(doc)
+                target = mutated
+                for key in path[:-1]:
+                    target = target[key]
+                target[path[-1]] = value
+                assert isinstance(core.validate(mutated, pack), list)
+                core.label_keys(mutated)
+                core.i18n_gaps(mutated)
+                core.manifest_projection(mutated)
+                swapped += 1
+    assert swapped > 1000
+
+
+def test_a_newer_format_is_refused():
+    assert "version" in codes(core.validate(sheet_doc(version="1.3.0"), SHEET))
+
+
+def test_a_script_node_the_pack_cannot_lower_is_a_problem_not_a_pass():
+    doc = wrapper_doc()
+    doc["nodes"][0]["params"]["part"] = "card"
+    doc["outputs"] = {"card": "body"}
+    messages = [p.message for p in core.validate(doc, SHEET)]
+    assert any("only as a pure wrapper" in m for m in messages)
+    lowering = SheetPack()
+    lowering.embedded_scripts = True
+    assert core.validate(doc, lowering) == []
+
+
+def test_visible_when_is_a_checked_expression():
+    doc = declared_doc()
+    doc["declarations"]["parameters"][1]["visible_when"] = {"expr": "width > 100"}
+    assert core.validate(doc, SHEET) == []
+    doc["declarations"]["parameters"][1]["visible_when"] = "height > 1"
+    assert any("visible_when" in p.where for p in core.validate(doc, SHEET))
+    doc["declarations"]["parameters"][1]["visible_when"] = "max(width, 1)"
+    assert "expression" in codes(core.validate(doc, SHEET))

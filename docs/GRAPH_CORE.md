@@ -200,8 +200,12 @@ node type.
   declarations equal the manifest's entries of the same identity, and when every mode has
   a 1.2 graph every manifest entry is declared by one; the wrapper's source is its mode's
   script, it outputs every part the mode renders, and every part it outputs is rendered by
-  some mode naming it (`y4d_spec.graph_core_rules`). Failures from birth: no 1.2 graph
-  existed before the core.
+  some mode naming it; and it passes **every parameter its mode lists through under its
+  own name and binds nothing else** — the shape under which it renders as its script at
+  every parameter point, not only at the ones parity samples (`y4d_spec.graph_core_rules`).
+  Failures from birth: no 1.2 graph existed before the core. A pass-through is not a
+  G-DEADPARAM reference: a generated wrapper passes everything through, so the wrapped
+  script's own reads decide whether a parameter is alive.
 - with `--render --parity`: the wrapper renders its source with its script parameters,
   filed as `graph` with `wraps` naming the source's engine; the parity pass pairs it with
   that engine's render of the same target and requires the two STLs to be **identical byte
@@ -232,7 +236,8 @@ inequality. The core checks only what the graph's meaning depends on, and leaves
 ranges and widget details to the manifest's own checker:
 
 - parameters: plain unique ids, a known `type` (`slider`, `checkbox`, `select`, `text`), a
-  `default`, an i18n `label`, a `group` that is declared; and every parameter **drives
+  `default`, an i18n `label`, a `group` that is declared (when the graph declares groups),
+  a `visible_when` that is a 1.1 expression over declared parameters; and every parameter **drives
   something** — a script pass-through, a `binding`, or the expression scope — unless it is
   `intentionally_unused` with a reason (`dead-parameter`);
 - groups: an id, key or slug, and a label; presets: unique ids, a label, `values` naming
@@ -241,6 +246,12 @@ ranges and widget details to the manifest's own checker:
   `parameters`, and an optional `node` that exists;
 - in a graph with declarations, every `parameters` (expression-scope) id is a declared
   parameter.
+
+Other keys an entry carries (`unit`, `min`/`max`/`step`, `options`, `order`, `advanced`,
+`widget`, `preview_hint`, `applies_to`, …) pass through untouched: they are the surface's
+and the manifest's. Surface data that is not a manifest list today — sweeps, export
+formats, a hero still — is not a declaration in format 1.2; adding it is an additive
+minor of the core when the generated surfaces (RFC 0067 P2) need it.
 
 **i18n.** A label is a plain string (English only) or `{"en", "es", "fr", "pt"}` with
 `en` required (RFC 0039). `label_keys(doc)` gives every surface string a stable key —

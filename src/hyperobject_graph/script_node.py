@@ -57,7 +57,7 @@ import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 
-from .errors import GraphCoreError, Problem
+from .errors import GraphCoreError, Problem, as_dict, is_hashable_in
 from .expression import evaluate, expression_names, parse_expression
 
 SCRIPT_NODE_TYPE = "script"
@@ -165,7 +165,7 @@ def script_node_problems(
 
     language = params.get("language")
     source = params.get("source")
-    if "language" in params and language not in contract.languages:
+    if "language" in params and not is_hashable_in(language, contract.languages):
         problems.append(Problem(
             "script-node", where,
             f"language {language!r} is not one the {pack.name} pack runs "
@@ -177,7 +177,7 @@ def script_node_problems(
                 "script-node", where,
                 f"source {source!r} must be a plain relative path inside the cartridge",
             ))
-        elif language in contract.languages and not any(
+        elif is_hashable_in(language, contract.languages) and not any(
             source.endswith(sfx) for sfx in contract.languages[language]
         ):
             problems.append(Problem(
@@ -186,7 +186,7 @@ def script_node_problems(
                 f"{list(contract.languages[language])}",
             ))
     output = params.get("output")
-    if "output" in params and output not in contract.outputs:
+    if "output" in params and not is_hashable_in(output, contract.outputs):
         problems.append(Problem(
             "script-node", where,
             f"output {output!r} is not a type the {pack.name} pack lets a script yield "
@@ -228,7 +228,7 @@ def script_node_problems(
                     "script-node", loc,
                     "a pass-through binding needs a 'declarations' block to name",
                 ))
-            elif pid not in declared_parameters:
+            elif not is_hashable_in(pid, declared_parameters):
                 problems.append(Problem(
                     "script-node", loc,
                     f"passes through {pid!r}, which 'declarations.parameters' does not declare",
@@ -344,22 +344,25 @@ def wrapper_plan(doc: dict, pack) -> WrapperPlan | None:
     Call it on a document ``validate`` accepted. A pure wrapper has exactly one node, a
     ``script`` node with no fixed ``part``, and every output names it.
     """
-    nodes = doc.get("nodes") or []
-    if len(nodes) != 1 or nodes[0].get("type") != SCRIPT_NODE_TYPE:
+    nodes = doc.get("nodes") if isinstance(doc, dict) else None
+    if not isinstance(nodes, list) or len(nodes) != 1 or not isinstance(nodes[0], dict) \
+            or nodes[0].get("type") != SCRIPT_NODE_TYPE:
         return None
     node = nodes[0]
-    params = node.get("params") or {}
-    if "part" in params:
+    params = as_dict(node.get("params"))
+    if "part" in params or getattr(pack, "script", None) is None:
         return None
-    outputs = doc.get("outputs") or {}
-    if not outputs or any(ref != node["id"] for ref in outputs.values()):
+    if not all(isinstance(params.get(k), str) for k in ("source", "language", "output")):
+        return None  # not a well-formed script node; validate says why
+    outputs = as_dict(doc.get("outputs"))
+    if not outputs or any(ref != node.get("id") for ref in outputs.values()):
         return None
     return WrapperPlan(
         node_id=node["id"],
         source=params["source"],
         language=params["language"],
         output=params["output"],
-        bind=dict(params.get("bind") or {}),
+        bind=dict(as_dict(params.get("bind"))),
         parts=tuple(outputs),
         part_parameter=pack.script.part_parameter,
         doc=doc,

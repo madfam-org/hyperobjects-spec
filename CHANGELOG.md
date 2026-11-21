@@ -42,8 +42,11 @@ as ruling G-2 placed it. Contract: `docs/GRAPH_CORE.md`.
   are **notes** and the engine stays the enforcing validator. The whole-commons pass found
   none. With `--render --parity`: a wrapper renders its source on its own path (CadQuery
   or OpenSCAD), filed as `graph` with `wraps`, and the parity pass requires the two STLs
-  **identical byte for byte** — not exemptable, no tolerance. The dead-parameter rule reads
-  a script node's pass-throughs as references.
+  **identical byte for byte** — not exemptable, no tolerance. A wrapper passes every
+  parameter its mode lists through under its own name and binds nothing else, so
+  "identical" holds at every parameter point, not only those parity samples. A
+  pass-through is **not** a G-DEADPARAM reference (a generated wrapper passes everything
+  through); the wrapped script's own door decides.
 - Fixtures `graph-wrapper` (CadQuery; slider, string select, boolean checkbox; one graph per
   mode) and `graph-wrapper-scad` (OpenSCAD; one graph for two modes): 16 renders, 8 parity
   pairs, all identical. A self-check step in CI counts them.
@@ -51,6 +54,10 @@ as ruling G-2 placed it. Contract: `docs/GRAPH_CORE.md`.
   `scripts/qa/check_graph_core_lock.py` (blocking) keeps it true. A kernel copies the
   directory, guards its copy against the lock, and guards the lock against the keystone
   installed at its `SPEC_PIN` — the mirror of the engine's guard pair.
+- The core never raises on a malformed document (a type-mutation sweep over every field of
+  four documents found 0 crashes), refuses a format newer than 1.2, refuses a script node
+  its pack cannot lower (anything but a pure wrapper, for solid), and checks a
+  parameter's `visible_when` as a 1.1 expression.
 - `render_part_openscad` gains `stl_engine` (the retained file's name only) and
   `RenderCheck` gains `wraps`. Nothing else in the render or parity path changes for a
   cartridge without a 1.2 graph.

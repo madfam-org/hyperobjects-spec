@@ -37,10 +37,12 @@ LOCK = PKG / "core.lock.json"
 
 
 def core_files() -> list[str]:
-    """The files a kernel vendors: every module and the schema, never caches or the lock."""
+    """Every file a kernel vendors, as paths relative to the package, at any depth:
+    everything but the lock itself and bytecode caches. A file of any kind added to the
+    core is vendored with it, so it must be locked with it."""
     return sorted(
-        p.name for p in PKG.iterdir()
-        if p.is_file() and p.suffix in (".py", ".json") and p.name != LOCK.name
+        p.relative_to(PKG).as_posix() for p in PKG.rglob("*")
+        if p.is_file() and p != LOCK and "__pycache__" not in p.parts and p.suffix != ".pyc"
     )
 
 

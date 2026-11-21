@@ -33,7 +33,7 @@ from .declarations import (
     declared_bindings,
     declared_parameter_ids,
 )
-from .errors import GraphCoreError, Problem
+from .errors import GraphCoreError, Problem, as_dict, is_hashable_in
 from .expression import expression_names, is_expression, parse_expression
 from .pack import KERNELS
 from .provenance import provenance_problems
@@ -49,6 +49,7 @@ from .script_node import (
 #: declarations, licence, provenance, the script node).
 VERSION_RE = re.compile(r"^1\.(\d+)(\.\d+)?$")
 FORMAT_VERSION = "1.2"
+FORMAT_MINOR = 2
 PACK_KEYS = frozenset({"version", "units", "nodes", "outputs", "meta", "parameters", "derived"})
 CORE_KEYS = frozenset({"kernel", "declarations", "licence", "provenance"})
 NODE_KEYS = frozenset({"id", "type", "params", "inputs", "meta"})
@@ -140,6 +141,11 @@ def pack_document(doc: dict) -> dict:
     return {k: v for k, v in doc.items() if k not in CORE_KEYS}
 
 
+def _spec_of(catalogue, node: dict):
+    ntype = node.get("type")
+    return catalogue.get(ntype) if isinstance(ntype, str) else None
+
+
 def _identifier_problem(name: object, where: str, reserved: frozenset[str]) -> Problem | None:
     if not isinstance(name, str) or not IDENT_RE.match(name) or keyword.iskeyword(name):
         return Problem("identifier", where, f"{name!r} is not a plain identifier")
@@ -181,6 +187,12 @@ def validate(
         problems.append(Problem("version", "/version",
                                 f"'version' must match 1.x (got {doc.get('version')!r})"))
         minor = 0
+    if minor > FORMAT_MINOR:
+        problems.append(Problem(
+            "version", "/version",
+            f"format 1.{minor} is newer than this core reads (1.{FORMAT_MINOR}); update the "
+            f"vendored core",
+        ))
     allowed = PACK_KEYS | (CORE_KEYS if minor >= 2 else frozenset())
     unknown = set(doc) - allowed
     if unknown:
@@ -199,7 +211,7 @@ def validate(
     elif kernel != pack.kernel:
         problems.append(Problem("kernel", "/kernel",
                                 f"a {kernel} graph cannot be checked by the {pack.kernel} pack"))
-    if doc.get("units", "mm") not in UNITS:
+    if not is_hashable_in(doc.get("units", "mm"), UNITS):
         problems.append(Problem("units", "/units", f"units must be one of {sorted(UNITS)}"))
 
     reserved = frozenset(pack.reserved_identifiers)
@@ -248,10 +260,10 @@ def validate(
                 ))
                 out_type[nid] = None
             else:
-                output = (node.get("params") or {}).get("output")
+                output = as_dict(node.get("params")).get("output")
                 out_type[nid] = output if isinstance(output, str) else None
             continue
-        spec = catalogue.get(ntype)
+        spec = catalogue.get(ntype) if isinstance(ntype, str) else None
         if spec is None:
             problems.append(Problem("node", loc, f"unknown node type {ntype!r}"))
             out_type[nid] = None
@@ -277,7 +289,7 @@ def validate(
     # ── Edges: dangling refs, socket types, fan-out ─────────────────────────────
     consumers: dict[str, list[str]] = {}
     for nid, node in by_id.items():
-        spec = catalogue.get(node.get("type"))
+        spec = _spec_of(catalogue, node)
         inputs = node.get("inputs", {}) if isinstance(node.get("inputs", {}), dict) else {}
         for socket, ref in inputs.items():
             loc = f"/nodes/{nid}/inputs/{socket}"
@@ -450,7 +462,7 @@ def validate(
         if node is None:
             problems.append(Problem("dangling-ref", loc, f"binds unknown node '{nid}'"))
             continue
-        spec = catalogue.get(node.get("type"))
+        spec = _spec_of(catalogue, node)
         if spec is None:
             if node.get("type") == SCRIPT_NODE_TYPE:
                 problems.append(Problem("binding", loc,
@@ -466,7 +478,7 @@ def validate(
             problems.append(Problem(
                 "binding", loc, f"{kind.name} params cannot be bound to parameters"
             ))
-        if any(True for _ in _walk_exprs((node.get("params") or {}).get(pname))):
+        if any(True for _ in _walk_exprs(as_dict(node.get("params")).get(pname))):
             problems.append(Problem(
                 "binding", loc,
                 "bound to a parameter and also carries an expression; a node param takes "
@@ -488,17 +500,17 @@ def validate(
             problems.extend(sp)
             passed |= sp_passed
             read |= sp_read
-            source = (node.get("params") or {}).get("source")
+            source = as_dict(node.get("params")).get("source")
             if isinstance(source, str):
                 script_sources.add(source)
-            if "part" not in (node.get("params") or {}) and consumers.get(nid):
+            if "part" not in as_dict(node.get("params")) and consumers.get(nid):
                 problems.append(Problem(
                     "script-node", loc,
                     "a script node without a fixed 'part' renders whichever part is "
                     f"requested, so it may feed only 'outputs', not {sorted(consumers[nid])}",
                 ))
             continue
-        spec = catalogue.get(node.get("type"))
+        spec = _spec_of(catalogue, node)
         if spec is None or not isinstance(node.get("params", {}), dict):
             continue
         for pname, value in node.get("params", {}).items():
@@ -529,6 +541,16 @@ def validate(
                         f"'parameters' or 'derived'",
                     ))
                 read |= names
+
+    script_nodes = [n for n in by_id.values() if n.get("type") == SCRIPT_NODE_TYPE]
+    if scripts_allowed and script_nodes and not getattr(pack, "embedded_scripts", False) \
+            and wrapper_plan(doc, pack) is None:
+        problems.append(Problem(
+            "script-node", "/nodes",
+            f"the {pack.name} pack runs a script node only as a pure wrapper (one script "
+            f"node without 'part', named by every output); a script node inside a native "
+            f"graph waits for the pack to lower it (RFC 0067 P5)",
+        ))
 
     unread = sorted(scope - read)
     if unread:

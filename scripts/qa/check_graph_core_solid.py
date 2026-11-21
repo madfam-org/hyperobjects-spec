@@ -79,11 +79,22 @@ def main() -> int:
     if not graphs:
         print("check_graph_core_solid: FAIL — no graphs found")
         return 1
+    failures = 0
+    if not args.commons and not args.update_golden and GOLDEN.exists():
+        pinned = json.loads(GOLDEN.read_text(encoding="utf-8"))
+        engine = json.loads((ROOT / "src/y4d_spec/graph/graph.lock.json").read_text())
+        if pinned.get("engine_sha256") != engine["hashes"]["graph_engine.py"]:
+            print("  FAIL the digests were pinned at another engine: the engine was "
+                  "re-vendored — run --update-golden and review which graphs moved")
+            failures += 1
+        found = {f"{g.parent.name}/{g.name}" for g in graphs}
+        for stale in sorted(set(pinned.get("programs", {})) - found):
+            print(f"  FAIL {stale}: pinned but its fixture is gone")
+            failures += 1
     golden = {}
     if not args.update_golden and GOLDEN.exists():
         golden = json.loads(GOLDEN.read_text(encoding="utf-8"))["programs"]
     digests: dict[str, str] = {}
-    failures = 0
     for graph in graphs:
         key, digest, problems = judge(graph)
         if digest is not None:

@@ -28,3 +28,21 @@ class Problem:
 
     def __str__(self) -> str:
         return f"{self.where}: {self.message} [{self.code}]"
+
+
+def is_hashable_in(value: object, collection) -> bool:
+    """``value in collection`` that is False, not a crash, for an unhashable value."""
+    try:
+        return value in collection
+    except TypeError:
+        return False
+
+
+def as_list(value: object) -> list:
+    """``value`` if it is a list, else an empty one (the shape check reports it)."""
+    return value if isinstance(value, list) else []
+
+
+def as_dict(value: object) -> dict:
+    """``value`` if it is a dict, else an empty one (the shape check reports it)."""
+    return value if isinstance(value, dict) else {}

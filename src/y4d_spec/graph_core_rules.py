@@ -24,8 +24,11 @@ For a 1.2 graph, in order:
    difference is drift), and when every mode has a 1.2 graph, every manifest entry is
    declared by one of them;
 4. a **wrapper** wraps its own mode: its source is the mode's script (``cq_file`` or
-   ``scad_file``), it outputs every part the mode renders, and every part it outputs
-   is rendered by some mode that names it (one graph may serve several modes).
+   ``scad_file``), it outputs every part the mode renders, every part it outputs is
+   rendered by some mode that names it (one graph may serve several modes), and it
+   passes every parameter the mode lists through under its own name and binds nothing
+   else — the shape under which "renders as its script" holds at every parameter point,
+   not only at the defaults and presets parity samples.
 """
 
 from __future__ import annotations
@@ -101,6 +104,7 @@ def graph_core_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], li
     modes = [m for m in manifest.get("modes") or [] if isinstance(m, dict)]
     docs: dict[str, dict] = {}
     checked: set[str] = set()
+    listed = _mode_parameters(manifest)
     rendered_by: dict[str, set[str]] = {}
     wrappers: dict = {}
     modes_with_core_graph = 0
@@ -113,15 +117,22 @@ def graph_core_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], li
                 path = cartridge_dir / name
                 try:
                     doc = json.loads(path.read_text(encoding="utf-8"))
-                except (OSError, ValueError):
-                    continue  # unreadable: the render lane reports it as itself
+                except (OSError, ValueError) as exc:
+                    # Unknown format, so a note; the render lane fails it as itself.
+                    if name not in checked:
+                        checked.add(name)
+                        notes.append(f"graph-core: {name}: could not be read "
+                                     f"({type(exc).__name__}); not checked")
+                    continue
                 docs[name] = doc
             doc = docs[name]
             minor = core.format_minor(doc) or 0
             if minor < 2:
-                for p in core_problems(doc, manifest):
-                    notes.append(f"graph-core: {name}: {p} (a note on a 1.{minor} graph; the "
-                                 f"engine is the enforcing validator)")
+                if name not in checked:
+                    checked.add(name)
+                    for p in core_problems(doc, manifest):
+                        notes.append(f"graph-core: {name}: {p} (a note on a 1.{minor} graph; "
+                                     f"the engine is the enforcing validator)")
                 continue
             mode_has_core_graph = mode_has_core_graph or isinstance(
                 doc.get("declarations"), dict
@@ -153,6 +164,7 @@ def graph_core_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], li
                     )
                 rendered_by.setdefault(name, set()).update(parts)
                 wrappers[name] = plan
+                problems.extend(_pass_through_rules(name, mid, plan, listed.get(mid, set())))
         modes_with_core_graph += mode_has_core_graph
 
     # One graph may serve several modes (idler-608's does). Every output it declares must
@@ -166,6 +178,42 @@ def graph_core_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], li
     if modes and modes_with_core_graph == len(modes):
         problems.extend(_coverage(docs, manifest))
     return problems, notes
+
+
+def _mode_parameters(manifest: dict) -> dict[str, set[str]]:
+    """mode id → the parameter ids that mode lists (the scoping G-DEADPARAM uses)."""
+    from .rules import parameter_mode_listings
+
+    out: dict[str, set[str]] = {}
+    for pid, modes in parameter_mode_listings(manifest).items():
+        for mode in modes:
+            if isinstance(mode.get("id"), str):
+                out.setdefault(mode["id"], set()).add(pid)
+    return out
+
+
+def _pass_through_rules(name: str, mid: object, plan, mode_params: set[str]) -> list[str]:
+    """A wrapper verifies AS its script only if it hands the script exactly what the
+    mode would: every parameter the mode lists, passed through under its own name, and
+    nothing else. Parity compares the defaults and the presets; a renamed, missing or
+    added binding would differ at a parameter point no preset sets, and parity would
+    report the pair identical anyway. So the shape is required here, where it is total.
+    """
+    out: list[str] = []
+    for key, value in sorted(plan.bind.items()):
+        if not (isinstance(value, dict) and value == {"param": key}):
+            out.append(
+                f"graph {name}: mode '{mid}': the wrapper binds '{key}' to {value!r}; a "
+                f"wrapper passes each parameter through under its own name "
+                f'({{"{key}": {{"param": "{key}"}}}}) and binds nothing else'
+            )
+    missing = sorted(mode_params - set(plan.bind) - {"target_part"})
+    if missing:
+        out.append(
+            f"graph {name}: mode '{mid}': the wrapper does not pass {missing} through, which "
+            f"the mode lists — the script would receive them alone and not through the graph"
+        )
+    return out
 
 
 def _declaration_drift(name: str, doc: dict, manifest: dict) -> list[str]:

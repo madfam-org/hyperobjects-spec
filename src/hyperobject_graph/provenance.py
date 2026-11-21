@@ -25,7 +25,7 @@ import hashlib
 import re
 from collections.abc import Callable
 
-from .errors import Problem
+from .errors import Problem, is_hashable_in
 from .script_node import is_relative_source
 
 #: An SPDX licence expression, shape only (ids, ``WITH``, ``AND``/``OR``, parentheses).
@@ -58,7 +58,7 @@ def provenance_problems(doc: dict, script_sources: set[str]) -> list[Problem]:
                 "must be an object with 'authored', 'generator' and 'sources'",
             ))
             prov = {}
-        if prov.get("authored", "hand") not in AUTHORED:
+        if not is_hashable_in(prov.get("authored", "hand"), AUTHORED):
             problems.append(Problem("provenance", "/provenance/authored",
                                     f"must be one of {sorted(AUTHORED)}"))
         gen = prov.get("generator")
@@ -86,7 +86,7 @@ def provenance_problems(doc: dict, script_sources: set[str]) -> list[Problem]:
                                         "path must be relative and inside the cartridge"))
             if not isinstance(src.get("sha256"), str) or not _SHA256_RE.match(src["sha256"]):
                 problems.append(Problem("provenance", loc, "sha256 must be 64 lowercase hex"))
-            if src.get("role") not in SOURCE_ROLES:
+            if not is_hashable_in(src.get("role"), SOURCE_ROLES):
                 problems.append(Problem("provenance", loc,
                                         f"role must be one of {sorted(SOURCE_ROLES)}"))
             if src.get("role") == "script" and isinstance(src.get("path"), str):

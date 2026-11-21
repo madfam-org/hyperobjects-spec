@@ -629,8 +629,9 @@ every preset; there is no tolerance and no exemption, because nothing differs bu
 
 Without `--render`, a 1.2 graph must pass the core, its declared source digests must match
 the files (`source-drift` otherwise), its declarations must equal the manifest's entries,
-and a wrapper must wrap its own mode's script and parts. On a 1.0/1.1 graph the core's
-findings are `graph-core:` notes.
+and a wrapper must wrap its own mode's script and parts and pass every parameter the mode
+lists through under its own name. A pass-through is not a G-DEADPARAM reference. On a
+1.0/1.1 graph the core's findings are `graph-core:` notes.
 
 **The preset matrix.** `--render` applies that same bar a second time: once at your
 cartridge's own defaults, and again at **every preset your manifest declares**. A

@@ -91,7 +91,7 @@ def test_a_wrapper_that_wraps_another_source(scratch):
 
 def test_a_wrapper_missing_a_part_or_outputting_a_stray_one(scratch):
     rewrite(scratch / "plate.graph.json",
-            lambda d: d.update(outputs={"block": "body", "lid": "body"}))
+            lambda d: d.update(outputs={"lid": "body"}))
     problems, _ = graph_core_rules(scratch, manifest_of(scratch))
     assert any("renders ['plate'], which the wrapper does not output" in p for p in problems)
     assert any("outputs ['lid'], which no mode" in p for p in problems)
@@ -114,12 +114,67 @@ def test_a_core_finding_on_a_1_1_graph_is_only_a_note(tmp_path):
     assert any(n.startswith("graph-core:") and "unread" in n for n in notes)
 
 
-def test_the_dead_parameter_rule_reads_the_script_door(scratch):
-    """A mode whose only source is the wrapper still counts its pass-throughs."""
-    from y4d_spec.rules import graph_script_parameters
+def test_a_pass_through_does_not_keep_a_dead_parameter_alive(scratch):
+    """G-DEADPARAM must still fire when a wrapper passes a parameter the script never
+    reads: a generated wrapper passes everything through, so counting the pass-through
+    as a reference would switch the rule off across the commons."""
+    from y4d_spec.structure import dead_parameter_rules
 
-    text = (scratch / "block.graph.json").read_text()
-    assert graph_script_parameters(text) == {"block_size", "plate_h", "finish", "hollow"}
+    ghost = {"id": "ghost", "type": "slider", "default": 1.0, "min": 0.0, "max": 2.0,
+             "step": 0.1, "label": {"en": "Ghost"}}
+
+    def add_ghost(doc):
+        doc["declarations"]["parameters"].append(ghost)
+        doc["nodes"][0]["params"]["bind"]["ghost"] = {"param": "ghost"}
+
+    rewrite(scratch / "block.graph.json", add_ghost)
+    rewrite(scratch / "plate.graph.json", add_ghost)
+    rewrite(scratch / "project.json", lambda m: m["parameters"].append(ghost))
+    assert any("'ghost'" in p for p in dead_parameter_rules(scratch, manifest_of(scratch)))
+
+
+@pytest.mark.parametrize("bind, needle", [
+    ({"block_size": {"param": "plate_h"}}, "binds 'block_size'"),       # renamed
+    ({"extra": 3.0}, "binds 'extra'"),                                   # added literal
+    ({"half": {"expr": "1 / 2"}}, "binds 'half'"),                       # added expression
+])
+def test_a_wrapper_binds_only_pass_throughs_under_their_own_names(scratch, bind, needle):
+    rewrite(scratch / "block.graph.json",
+            lambda d: d["nodes"][0]["params"]["bind"].update(bind))
+    problems, _ = graph_core_rules(scratch, manifest_of(scratch))
+    assert any(needle in p for p in problems), problems
+
+
+def test_a_wrapper_must_pass_every_mode_parameter(scratch):
+    def drop(doc):
+        doc["nodes"][0]["params"]["bind"].pop("finish")
+        doc["declarations"]["parameters"] = [
+            p for p in doc["declarations"]["parameters"] if p["id"] != "finish"]
+        doc["declarations"]["parameter_groups"] = [
+            g for g in doc["declarations"]["parameter_groups"] if g["id"] != "finish"] or None
+        if doc["declarations"]["parameter_groups"] is None:
+            del doc["declarations"]["parameter_groups"]
+        doc["declarations"]["presets"] = [
+            p for p in doc["declarations"]["presets"] if "finish" not in p["values"]]
+
+    rewrite(scratch / "block.graph.json", drop)
+    problems, _ = graph_core_rules(scratch, manifest_of(scratch))
+    assert any("does not pass ['finish'] through" in p for p in problems), problems
+
+
+def test_unreadable_graph_is_a_note_and_notes_are_not_repeated_per_mode(tmp_path):
+    from y4d_spec.graph_core_rules import graph_core_rules as rules
+
+    src = Path(__file__).parent / "fixtures" / "graph-core" / "solid-commons" / "idler-608"
+    target = tmp_path / "idler-608"
+    shutil.copytree(src, target)
+    rewrite(target / "idler.graph.json",
+            lambda d: d["parameters"].update(unread={"default": 1}))
+    problems, notes = rules(target, manifest_of(target))
+    assert problems == [] and len(notes) == 1  # three modes share the graph
+    (target / "idler.graph.json").write_text("{ not json")
+    problems, notes = rules(target, manifest_of(target))
+    assert problems == [] and len(notes) == 1 and "could not be read" in notes[0]
 
 
 def test_a_wrapper_is_never_transpiled():
