@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### `y4d-spec check` no longer stops on a graph whose `nodes` is not a list
+
+`default_drift.graph_binding_literals` iterated `graph["nodes"]` without checking its type,
+so a `.graph.json` with `"nodes": 5` raised a TypeError out of `all_structure_rules`: no
+verdict, just a traceback. That graph now contributes no drift note, and the render lane
+reports the malformed document as itself. A type-mutation sweep of every top-level key and
+the first node of three graph fixtures, through `all_structure_rules` and `check_cartridge`,
+found no other crash site. No rule changes.
+
 ### Graph core 1.0.1: the part parameter and a wrapper's foreign bindings (0.21.1)
 
 The RFC 0067 P1 pre-check ran the keystone's 1.2 rules over a mechanical wrapper for every

@@ -354,9 +354,12 @@ def _scad_effective_literals(
 # ── graph: the literal a manifest binding targets ────────────────────────────
 def graph_binding_literals(graph: dict, manifest: dict) -> list[tuple[str, object, str]]:
     """`(param id, node literal, "node.param")` for every manifest binding into `graph`."""
+    # A malformed document (`"nodes": 5`) is the render lane's failure to report, not a
+    # reason to stop the whole structural check with a traceback.
+    raw_nodes = graph.get("nodes")
     nodes = {
         n["id"]: n
-        for n in graph.get("nodes") or []
+        for n in (raw_nodes if isinstance(raw_nodes, list) else [])
         if isinstance(n, dict) and isinstance(n.get("id"), str)
     }
     out: list[tuple[str, object, str]] = []
