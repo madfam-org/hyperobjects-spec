@@ -28,7 +28,10 @@ For a 1.2 graph, in order:
    rendered by some mode that names it (one graph may serve several modes), and it
    passes every parameter the mode lists through under its own name and binds nothing
    else — the shape under which "renders as its script" holds at every parameter point,
-   not only at the defaults and presets parity samples.
+   not only at the defaults and presets parity samples;
+5. a `binding` a wrapper's declarations carry (and the core ignores, since a wrapper has no
+   node to bind) resolves to a node of a native graph the cartridge's modes name — or it is
+   a stale binding that would hide a dead control from G-DEADPARAM.
 """
 
 from __future__ import annotations
@@ -175,9 +178,52 @@ def graph_core_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str], li
             problems.append(
                 f"graph {name}: outputs {stray}, which no mode naming this graph renders"
             )
+    problems.extend(_foreign_binding_rules(docs, wrappers))
     if modes and modes_with_core_graph == len(modes):
         problems.extend(_coverage(docs, manifest))
     return problems, notes
+
+
+def _foreign_binding_rules(docs: dict[str, dict], wrappers: dict) -> list[str]:
+    """A wrapper ignores the `binding`s its declarations copy from the manifest, because
+    they belong to a native graph of the same cartridge (core 1.0.1). That is only true if
+    such a graph has the node: otherwise the binding is stale, and since G-DEADPARAM counts
+    a manifest binding as a reference, it would keep a control the script never reads
+    looking alive. So every binding a wrapper ignores must resolve to a node of a native
+    graph this cartridge's modes name.
+    """
+    if not wrappers:
+        return []
+    native_nodes: set[str] = set()
+    for name, doc in docs.items():
+        # Any graph file may be malformed; the render lane and the notes report that.
+        if name in wrappers or not isinstance(doc, dict) \
+                or not isinstance(doc.get("nodes"), list):
+            continue
+        for node in doc["nodes"]:
+            if isinstance(node, dict) and isinstance(node.get("id"), str) \
+                    and node.get("type") != "script":
+                native_nodes.add(node["id"])
+    out: list[str] = []
+    for name in sorted(wrappers):
+        decl = docs[name].get("declarations")
+        params = decl.get("parameters") if isinstance(decl, dict) else None
+        for p in params if isinstance(params, list) else []:
+            if not isinstance(p, dict):
+                continue
+            binding = p.get("binding")
+            for target in binding if isinstance(binding, list) else [binding]:
+                if not isinstance(target, str) or not target:
+                    continue
+                node = target.split(".", 1)[0]
+                if node not in native_nodes:
+                    out.append(
+                        f"graph {name}: parameter '{p.get('id')}' binds '{target}', and no "
+                        f"native graph of this cartridge has node '{node}' — a stale binding "
+                        f"would hide a dead control from G-DEADPARAM; remove it from the "
+                        f"manifest"
+                    )
+    return out
 
 
 def _mode_parameters(manifest: dict) -> dict[str, set[str]]:

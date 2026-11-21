@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Graph core 1.0.1: the part parameter and a wrapper's foreign bindings (0.21.1)
+
+The RFC 0067 P1 pre-check ran the keystone's 1.2 rules over a mechanical wrapper for every
+manifest in the solid commons (612 at solid main `8b41d7b7`). Two rule gaps refused healthy
+cartridges; with them closed and the recommended generator shape, 610 of 612 pass with no
+problem, and the other two are already native graphs.
+
+- **The part parameter.** A declared parameter named after the pack's part parameter
+  (`target_part` on solid) counts as wired, and a preset may set it without declaring it.
+  The runner passes it and a script node passes it through by contract (it still may not be
+  bound). Six cartridges declare it as a part picker; one preset sets it undeclared.
+- **Foreign bindings in a pure wrapper.** A wrapper's declarations copy the manifest's
+  parameters byte-equal, including a `binding` into a native graph of the same cartridge.
+  A pure wrapper has no node to bind, so it ignores them; a native 1.2 graph still resolves
+  its own. Two cartridges mix a native graph mode with script modes (177 false
+  dangling references). The keystone makes up for what the core no longer checks: in
+  `graph_core_rules`, every binding a wrapper ignores must resolve to a node of a native
+  graph that the cartridge's modes name. A stale binding fails, because G-DEADPARAM counts
+  a manifest binding as a reference and would otherwise keep a dead control alive. The
+  re-run pre-check still gives 610/612.
+
+`CORE_VERSION` 1.0.0 → 1.0.1; `core.lock.json` re-pinned. Both changes only accept more
+documents. A kernel that vendors the core re-vendors with its next `SPEC_PIN` move, in the
+same change (Yantra4D's `--spec` guard compares the copy with the keystone at its pin).
+
 ### The graph core and the `script` node (RFC 0067 P0, 0.21.0)
 
 RFC 0067 (owner rulings G-1 to G-8, 2026-11-20): every hyperobject in the solid, soft and

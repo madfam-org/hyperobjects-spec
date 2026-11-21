@@ -286,3 +286,67 @@ def test_wrapper_identity_fails_on_any_byte(tmp_path):
     assert not check.ok and not check.exempt
     assert "wrapper differs from its script" in check.reason
     assert hashlib.sha256(a.read_bytes()).hexdigest()[:12] in check.reason
+
+
+def test_a_part_picker_parameter_and_foreign_bindings_pass_the_wrapper_rules(scratch):
+    """The two shapes the P1 pre-check found in the commons, end to end through the
+    no-render rules: `target_part` declared as a manifest parameter (and set by a
+    preset), and a parameter bound into another graph of the cartridge."""
+    picker = {"id": "target_part", "type": "select", "default": "block",
+              "label": {"en": "Part"},
+              "options": [{"value": "block", "label": {"en": "Block"}}]}
+
+    def manifest(m):
+        m["parameters"].append(picker)
+        m["parameters"][0]["binding"] = "native_block.w"
+
+    def graph(doc):
+        doc["declarations"]["parameters"].append(picker)
+        for p in doc["declarations"]["parameters"]:
+            if p["id"] == "block_size":
+                p["binding"] = "native_block.w"
+
+    rewrite(scratch / "project.json", manifest)
+    rewrite(scratch / "block.graph.json", graph)
+    rewrite(scratch / "plate.graph.json", graph)
+    # With no native graph holding `native_block`, the binding is stale: refused (review
+    # M1 on core 1.0.1 — G-DEADPARAM would otherwise read it as a reference).
+    problems, _ = graph_core_rules(scratch, manifest_of(scratch))
+    assert any("no native graph of this cartridge has node 'native_block'" in p
+               for p in problems), problems
+    # Add a native graph mode that has the node: the same wrapper is clean.
+    (scratch / "native.graph.json").write_text(json.dumps({
+        "version": "1.0.0", "nodes": [{"id": "native_block", "type": "box"}],
+        "outputs": {"native": "native_block"}}))
+
+    def native_mode(m):
+        m["modes"].append({"id": "native", "label": {"en": "Native"},
+                           "scad_file": "native.graph.json", "engine": "graph",
+                           "parts": ["native"]})
+        m["parts"].append({"id": "native", "label": {"en": "Native"}})
+
+    rewrite(scratch / "project.json", native_mode)
+    assert graph_core_rules(scratch, manifest_of(scratch)) == ([], [])
+
+
+@pytest.mark.parametrize("native", ["[]", '{"version": "1.0.0", "nodes": 5}', "{ broken"])
+def test_a_malformed_native_graph_beside_a_wrapper_never_crashes_the_check(scratch, native):
+    (scratch / "native.graph.json").write_text(native)
+
+    def native_mode(m):
+        m["modes"].append({"id": "native", "label": {"en": "Native"},
+                           "scad_file": "native.graph.json", "engine": "graph",
+                           "parts": ["native"]})
+
+    rewrite(scratch / "project.json", native_mode)
+    problems, notes = graph_core_rules(scratch, manifest_of(scratch))
+    assert isinstance(problems, list) and isinstance(notes, list)
+
+
+def test_existing_graph_cartridges_with_malformed_files_never_crash(tmp_path):
+    target = tmp_path / "graph-block"
+    shutil.copytree(FIXTURES / "graph-block", target)
+    for graph in target.glob("*.graph.json"):
+        graph.write_text("[]")
+    problems, notes = graph_core_rules(target, manifest_of(target))
+    assert problems == []

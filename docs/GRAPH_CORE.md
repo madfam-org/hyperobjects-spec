@@ -1,6 +1,6 @@
 # The hyperobject graph core
 
-> Package `hyperobject_graph` (core 1.0.0, graph format 1.2, script-node contract 1.0).
+> Package `hyperobject_graph` (core 1.0.1, graph format 1.2, script-node contract 1.0).
 > Canonical here, in `src/hyperobject_graph/`; vendored by hash into each kernel.
 
 Every hyperobject in the solid, soft and sheet commons is to have a **configurable graph**:
@@ -185,15 +185,17 @@ Semantics every kernel implements identically:
 3. **The part.** Without `part`, the node passes the render's selected part through (the
    pack's `part_parameter`), so one node serves every output that names it, and it may
    feed only `outputs`. With `part`, it renders that part and may feed other nodes.
-4. **No capability is added.** The source runs in the kernel's existing render sandbox,
+4. **The part parameter is the runner's.** A graph may declare it as a parameter (a part
+   picker); it counts as wired, and a preset may set it whether or not it is declared.
+5. **No capability is added.** The source runs in the kernel's existing render sandbox,
    behind its suffix gate, exactly as the cartridge's mode runs it. A binding may not
    name the part parameter or a name the runner defines for every source (solid: `cq`,
    `math`).
-5. **Provenance.** Every script source is listed in `provenance.sources` with its sha256
+6. **Provenance.** Every script source is listed in `provenance.sources` with its sha256
    and role `script`. A kernel that can read the cartridge compares the digest
    (`source_digest_problems`), so an edit to the source without regenerating its graph is
    `source-drift`, not silence.
-6. **Inputs are empty** in contract 1.0: the node takes parameters, not sockets.
+7. **Inputs are empty** in contract 1.0: the node takes parameters, not sockets.
 
 **Lowering.** A *pure wrapper* (one script node, no `part`, every output naming it) is
 not transpiled: `wrapper_plan(doc, pack)` returns the source, language, parts and
@@ -254,7 +256,10 @@ ranges and widget details to the manifest's own checker:
   declared parameters only, a valid severity; interfaces: unique ids, a label, declared
   `parameters`, and an optional `node` that exists;
 - in a graph with declarations, every `parameters` (expression-scope) id is a declared
-  parameter.
+  parameter;
+- a pure wrapper ignores `binding` in its declarations: it has no node to bind, and a
+  binding there belongs to a native graph of the same cartridge (copied because the
+  declarations equal the manifest's entries). A native graph resolves its own.
 
 Other keys an entry carries (`unit`, `min`/`max`/`step`, `options`, `order`, `advanced`,
 `widget`, `preview_hint`, `applies_to`, …) pass through untouched: they are the surface's
