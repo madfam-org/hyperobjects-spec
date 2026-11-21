@@ -309,4 +309,21 @@ def test_a_part_picker_parameter_and_foreign_bindings_pass_the_wrapper_rules(scr
     rewrite(scratch / "project.json", manifest)
     rewrite(scratch / "block.graph.json", graph)
     rewrite(scratch / "plate.graph.json", graph)
+    # With no native graph holding `native_block`, the binding is stale: refused (review
+    # M1 on core 1.0.1 — G-DEADPARAM would otherwise read it as a reference).
+    problems, _ = graph_core_rules(scratch, manifest_of(scratch))
+    assert any("no native graph of this cartridge has node 'native_block'" in p
+               for p in problems), problems
+    # Add a native graph mode that has the node: the same wrapper is clean.
+    (scratch / "native.graph.json").write_text(json.dumps({
+        "version": "1.0.0", "nodes": [{"id": "native_block", "type": "box"}],
+        "outputs": {"native": "native_block"}}))
+
+    def native_mode(m):
+        m["modes"].append({"id": "native", "label": {"en": "Native"},
+                           "scad_file": "native.graph.json", "engine": "graph",
+                           "parts": ["native"]})
+        m["parts"].append({"id": "native", "label": {"en": "Native"}})
+
+    rewrite(scratch / "project.json", native_mode)
     assert graph_core_rules(scratch, manifest_of(scratch)) == ([], [])

@@ -21,7 +21,11 @@ problem, and the other two are already native graphs.
   parameters byte-equal, including a `binding` into a native graph of the same cartridge.
   A pure wrapper has no node to bind, so it ignores them; a native 1.2 graph still resolves
   its own. Two cartridges mix a native graph mode with script modes (177 false
-  dangling references).
+  dangling references). The keystone makes up for what the core no longer checks: in
+  `graph_core_rules`, every binding a wrapper ignores must resolve to a node of a native
+  graph that the cartridge's modes name. A stale binding fails, because G-DEADPARAM counts
+  a manifest binding as a reference and would otherwise keep a dead control alive. The
+  re-run pre-check still gives 610/612.
 
 `CORE_VERSION` 1.0.0 → 1.0.1; `core.lock.json` re-pinned. Both changes only accept more
 documents. A kernel that vendors the core re-vendors with its next `SPEC_PIN` move, in the
