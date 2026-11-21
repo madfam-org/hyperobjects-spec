@@ -256,3 +256,13 @@ def test_rules_listing_names_the_rule(capsys):
     assert main(["rules"]) == 0
     out = capsys.readouterr().out
     assert "default_drift_rules" in out and "NOTE ONLY" in out
+
+
+@pytest.mark.parametrize("nodes", [5, "x", {"a": 1}, None, [None, 3, {"id": 4}]])
+def test_a_malformed_graph_never_crashes_the_drift_scan(nodes):
+    """`"nodes": 5` used to raise TypeError out of all_structure_rules and stop a whole
+    `y4d-spec check`; a malformed graph is the render lane's failure, not a crash here."""
+    from y4d_spec.default_drift import graph_binding_literals
+
+    manifest = {"parameters": [{"id": "w", "binding": "box.w"}]}
+    assert graph_binding_literals({"nodes": nodes}, manifest) == []
