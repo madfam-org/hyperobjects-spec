@@ -35,6 +35,15 @@ def main() -> None:
                 raise SystemExit(f"graph wheel hash mismatch: {name}")
         print(f"graph wheel: verified {len(lock['hashes'])} locked files")
 
+        # The graph core (RFC 0067) is what kernels vendor by hash, from the INSTALLED
+        # package at their SPEC_PIN: every locked file must be in the wheel, unchanged.
+        core = "hyperobject_graph/"
+        core_lock = json.loads(wheel.read(core + "core.lock.json"))
+        for name, expected in core_lock["hashes"].items():
+            if hashlib.sha256(wheel.read(core + name)).hexdigest() != expected:
+                raise SystemExit(f"graph-core wheel hash mismatch: {name}")
+        print(f"graph-core wheel: verified {len(core_lock['hashes'])} locked files")
+
         names = set(wheel.namelist())
         schemas = _declared_schemas()
         for name in schemas:

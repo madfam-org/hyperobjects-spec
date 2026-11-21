@@ -308,6 +308,7 @@ def render_part_openscad(
     timeout: int = OPENSCAD_TIMEOUT_S,
     binary: str | None = None,
     stl_dir: Path | None = None,
+    stl_engine: str = "openscad",
 ) -> RenderCheck:
     """Render one (mode, part) with OpenSCAD and judge the mesh at the same bar.
 
@@ -338,7 +339,9 @@ def render_part_openscad(
     call_params = dict(params or {})
     call_params["target_part"] = part
 
-    with _stl_target(stl_dir, "openscad", mode, part, preset) as out:
+    # `stl_engine` names the retained file only; a wrapper graph renders its .scad here
+    # and files the mesh as "graph" so it does not overwrite the script's own render.
+    with _stl_target(stl_dir, stl_engine, mode, part, preset) as out:
         cmd = build_openscad_command(
             binary,
             out,

@@ -6,6 +6,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The graph core and the `script` node (RFC 0067 P0, 0.21.0)
+
+RFC 0067 (owner rulings G-1 to G-8, 2026-11-20): every hyperobject in the solid, soft and
+sheet commons is to have a configurable graph. This lands the shared half, in this repo
+as ruling G-2 placed it. Contract: `docs/GRAPH_CORE.md`.
+
+- **`hyperobject_graph`**, a new stdlib-only package and graph format **1.2**: the
+  document, typed sockets, `parameters`/`derived` and the 1.1 expression dialect (a port
+  of the solid engine's parser, held to it by a differential test over every formula in
+  the solid commons and 2,500 generated ones, plus an evaluator with the same JavaScript
+  semantics), validation that returns every problem with a code (cycles, socket types,
+  dangling references, unbound inputs, fan-out, expressions, bindings, unread names),
+  `declarations` (parameters, groups, presets, constraints, interfaces in the manifest's
+  own shapes, projected back with `manifest_projection`), i18n label keys and gaps
+  (en/es/fr/pt), `licence` and `provenance`, the **node-pack interface** a kernel
+  implements, and `graph-core.schema.json`.
+- **The `script` node, contract 1.0** (G-1): a typed node that runs a cartridge's existing
+  source in the kernel's sandbox. Pass-through bindings hand the source the injected value
+  with its type unchanged and leave an absent one absent, so a **wrapper graph** (one
+  script node, everything declared by the graph) renders exactly as its script at the
+  defaults and every preset. Specified for the soft and sheet kernels to implement.
+- **The solid pack** (`y4d_spec.solid_pack`): the vendored Yantra4D engine behind the
+  interface. Its output did not move: all **15** graphs in the solid commons validate with
+  zero problems and transpile byte-identically to the engine called directly
+  (`scripts/qa/check_graph_core_solid.py`, blocking in CI, with the 15 program digests
+  pinned; `--commons` run against solid-hyperobjects main `8317c177`: 15/15 identical).
+  The five commons graph cartridges not already under `tests/fixtures/assembly-golden`
+  are copied byte-identically to `tests/fixtures/graph-core/` (CERN-OHL-W-2.0, NOTICE.md).
+- **Wrappers in `y4d-spec check`.** With no render (`y4d_spec.graph_core_rules`): a 1.2
+  graph is validated by the core, its source digests must match (`source-drift`), its
+  declarations must equal the manifest's entries (and cover them when every mode has a
+  1.2 graph), and a wrapper must wrap its own mode's script and parts. These are
+  **failures from birth** (no 1.2 graph existed); on a 1.0/1.1 graph the core's findings
+  are **notes** and the engine stays the enforcing validator. The whole-commons pass found
+  none. With `--render --parity`: a wrapper renders its source on its own path (CadQuery
+  or OpenSCAD), filed as `graph` with `wraps`, and the parity pass requires the two STLs
+  **identical byte for byte** — not exemptable, no tolerance. The dead-parameter rule reads
+  a script node's pass-throughs as references.
+- Fixtures `graph-wrapper` (CadQuery; slider, string select, boolean checkbox; one graph per
+  mode) and `graph-wrapper-scad` (OpenSCAD; one graph for two modes): 16 renders, 8 parity
+  pairs, all identical. A self-check step in CI counts them.
+- **Vendoring the core** (G-2): `src/hyperobject_graph/core.lock.json` pins every file;
+  `scripts/qa/check_graph_core_lock.py` (blocking) keeps it true. A kernel copies the
+  directory, guards its copy against the lock, and guards the lock against the keystone
+  installed at its `SPEC_PIN` — the mirror of the engine's guard pair.
+- `render_part_openscad` gains `stl_engine` (the retained file's name only) and
+  `RenderCheck` gains `wraps`. Nothing else in the render or parity path changes for a
+  cartridge without a 1.2 graph.
+
+Not in this change (RFC 0067 P1 and later): the wrapper generator, any surface or editor,
+the soft and sheet packs, a script node inside a native solid graph.
+
 ### Interface sizes: the 75 mm and 100 mm square display mounting patterns
 
 Adds two size keys to the supplement `interface-sizes.machine-elements.json`:

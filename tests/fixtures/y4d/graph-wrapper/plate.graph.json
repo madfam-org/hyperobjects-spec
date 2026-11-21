@@ -1,0 +1,177 @@
+{
+  "version": "1.2.0",
+  "kernel": "solid",
+  "units": "mm",
+  "meta": {
+    "note": "A wrapper graph (RFC 0067 G-1): one script node running the mode's own source."
+  },
+  "declarations": {
+    "parameters": [
+      {
+        "id": "block_size",
+        "type": "slider",
+        "default": 10.0,
+        "min": 4.0,
+        "max": 40.0,
+        "step": 0.5,
+        "group": "size",
+        "label": {
+          "en": "Block size (mm)",
+          "es": "Tamaño del bloque (mm)"
+        },
+        "tooltip": {
+          "en": "Edge length of the cube.",
+          "es": "Longitud de la arista del cubo."
+        }
+      },
+      {
+        "id": "plate_h",
+        "type": "slider",
+        "default": 2.0,
+        "min": 1.0,
+        "max": 8.0,
+        "step": 0.5,
+        "group": "size",
+        "label": {
+          "en": "Plate thickness (mm)",
+          "es": "Espesor de la placa (mm)"
+        },
+        "tooltip": {
+          "en": "Thickness of the plate.",
+          "es": "Espesor de la placa."
+        }
+      },
+      {
+        "id": "finish",
+        "type": "select",
+        "default": "square",
+        "group": "finish",
+        "options": [
+          {
+            "value": "square",
+            "label": {
+              "en": "Square",
+              "es": "Recto"
+            }
+          },
+          {
+            "value": "chamfer",
+            "label": {
+              "en": "Chamfered",
+              "es": "Biselado"
+            }
+          }
+        ],
+        "label": {
+          "en": "Edge finish",
+          "es": "Acabado de aristas"
+        },
+        "tooltip": {
+          "en": "Square or chamfered vertical edges.",
+          "es": "Aristas verticales rectas o biseladas."
+        }
+      }
+    ],
+    "parameter_groups": [
+      {
+        "id": "size",
+        "label": {
+          "en": "Size",
+          "es": "Tamaño"
+        }
+      },
+      {
+        "id": "finish",
+        "label": {
+          "en": "Finish",
+          "es": "Acabado"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "id": "thick_plate",
+        "mode": "plate",
+        "label": {
+          "en": "Thick plate",
+          "es": "Placa gruesa"
+        },
+        "values": {
+          "plate_h": 6.0,
+          "finish": "chamfer"
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "expression": "plate_h < block_size",
+        "severity": "error",
+        "message": {
+          "en": "The plate must be thinner than the block.",
+          "es": "La placa debe ser más delgada que el bloque."
+        }
+      }
+    ],
+    "interfaces": [
+      {
+        "id": "block_face",
+        "label": {
+          "en": "Block face",
+          "es": "Cara del bloque"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "block_size"
+        ]
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "body",
+      "type": "script",
+      "params": {
+        "source": "block.py",
+        "language": "cadquery",
+        "output": "solid",
+        "bind": {
+          "block_size": {
+            "param": "block_size"
+          },
+          "finish": {
+            "param": "finish"
+          },
+          "plate_h": {
+            "param": "plate_h"
+          }
+        }
+      },
+      "inputs": {},
+      "meta": {
+        "label": {
+          "en": "Script",
+          "es": "Guion",
+          "fr": "Script",
+          "pt": "Script"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "plate": "body"
+  },
+  "licence": {
+    "spdx": "CC0-1.0"
+  },
+  "provenance": {
+    "authored": "hand",
+    "sources": [
+      {
+        "path": "block.py",
+        "role": "script",
+        "sha256": "10242c5bb20fcfee8aaedc468262d0a742ce508ce5ed6cae79f87eed4a60597a"
+      }
+    ]
+  }
+}

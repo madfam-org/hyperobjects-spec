@@ -752,6 +752,28 @@ def graph_expression_parameters(text: str) -> set[str]:
     return {pid for pid in declared if isinstance(pid, str)}
 
 
+def graph_script_parameters(text: str) -> set[str]:
+    """The parameter ids a graph's `script` nodes pass through (format 1.2, RFC 0067).
+
+    The third door into a graph: a wrapper's `script` node hands the source a declared
+    parameter as `"bind": {"width": {"param": "width"}}`. A pass-through names a
+    parameter the core has already checked is declared, so the id IS a reference.
+    """
+    try:
+        doc = json.loads(text)
+    except ValueError:
+        return set()
+    out: set[str] = set()
+    for node in (doc.get("nodes") if isinstance(doc, dict) else None) or []:
+        if not isinstance(node, dict) or node.get("type") != "script":
+            continue
+        bind = (node.get("params") or {}).get("bind")
+        for value in (bind.values() if isinstance(bind, dict) else []):
+            if isinstance(value, dict) and isinstance(value.get("param"), str):
+                out.add(value["param"])
+    return out
+
+
 def parameter_mode_listings(doc: dict) -> dict:
     """`{parameter id: [the mode dicts that list it]}` — the sources it must reach.
 
@@ -855,7 +877,11 @@ def dead_parameter_problems(doc: dict, sources: dict) -> list[str]:
                     continue
                 checked.append(name)
                 if name.endswith(GRAPH_SUFFIX):
-                    if pid in bound_in_graph or pid in graph_expression_parameters(text):
+                    if (
+                        pid in bound_in_graph
+                        or pid in graph_expression_parameters(text)
+                        or pid in graph_script_parameters(text)
+                    ):
                         break
                 elif name.endswith(SCRIPT_SUFFIXES):
                     if script_references(text, pid):

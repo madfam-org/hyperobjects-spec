@@ -1,0 +1,3768 @@
+{
+  "project": {
+    "name": "Clamshell Dual-Screen Handheld",
+    "thumbnail": "/projects/clamshell-dual-screen-handheld.webp",
+    "slug": "clamshell-dual-screen-handheld",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "The clamshell dual-screen handheld as a parametric archetype: two rigid decks on a knuckle hinge along the long edge, a display recess in each, the controls and the ports on the lower deck, and one continuous fold angle from closed to flat. Named devices ride as presets whose every millimetre is a published dimension with a provenance line — no logos, no trade dress. Dual-engine: a CadQuery reference and a node-graph twin.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "La consola de concha con dos pantallas como arquetipo paramétrico: dos cubiertas rígidas sobre una bisagra de nudillos en el borde largo, un rebaje de pantalla en cada una, los controles y los puertos en la cubierta inferior, y un ángulo de apertura continuo de cerrado a plano. Los dispositivos con nombre viajan como preajustes cuyos milímetros son todos dimensiones publicadas con su procedencia — sin logotipos ni imagen comercial. Doble motor: una referencia en CadQuery y un gemelo en grafo de nodos.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "device",
+      "handheld",
+      "clamshell",
+      "dual-screen",
+      "hinge",
+      "enclosure",
+      "archetype",
+      "cradle",
+      "graph",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    },
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Device Envelope",
+          "es": "Envolvente del dispositivo"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the closed outline — deck_length x deck_depth x (upper + lower deck thickness), corners rounded by corner_radius. An accessory that takes a device envelope mates here.",
+        "parameters": [
+          "deck_length",
+          "deck_depth",
+          "upper_deck_thickness",
+          "lower_deck_thickness",
+          "corner_radius"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "wall-device-mount"
+        ]
+      },
+      {
+        "id": "hinge_axis",
+        "label": {
+          "en": "Hinge Axis",
+          "es": "Eje de bisagra"
+        },
+        "geometry_type": "hinge",
+        "standard": "internal: the X axis through the origin, in the seam plane at the rear face. Barrel radius hinge_barrel_radius against a hinge_relief_radius pocket in both decks; the difference is the running clearance. fold_angle 0 closed, 180 flat.",
+        "parameters": [
+          "hinge_barrel_radius",
+          "hinge_relief_radius",
+          "hinge_relief_span",
+          "hinge_knuckle_count",
+          "hinge_knuckle_length",
+          "hinge_knuckle_pitch",
+          "hinge_knuckle_start_x",
+          "fold_angle"
+        ],
+        "compatible_with": [
+          "hinge-hyperobject",
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "primary_screen_window",
+        "label": {
+          "en": "Primary Display Window",
+          "es": "Ventana de la pantalla principal"
+        },
+        "geometry_type": "screen",
+        "standard": "internal: a rectangular aperture of the display's published active area, sunk screen_recess_depth into the upper deck's inner face.",
+        "parameters": [
+          "primary_screen_width",
+          "primary_screen_height",
+          "primary_screen_center_y",
+          "screen_recess_depth"
+        ]
+      },
+      {
+        "id": "secondary_screen_window",
+        "label": {
+          "en": "Secondary Display Window",
+          "es": "Ventana de la pantalla secundaria"
+        },
+        "geometry_type": "screen",
+        "standard": "internal: a rectangular aperture of the display's published active area, sunk screen_recess_depth into the lower deck's face. It also sets where the control clusters sit.",
+        "parameters": [
+          "secondary_screen_width",
+          "secondary_screen_height",
+          "secondary_screen_center_y",
+          "screen_recess_depth"
+        ]
+      },
+      {
+        "id": "usb_c_port",
+        "label": {
+          "en": "USB-C Port Opening",
+          "es": "Boca del puerto USB-C"
+        },
+        "geometry_type": "port",
+        "standard": "internal: a rectangular opening in the front face of the lower deck, sized to clear a USB-C receptacle. Present only where the registry lists the port.",
+        "parameters": [
+          "usb_c_present",
+          "usb_c_width",
+          "usb_c_height",
+          "usb_c_center_x",
+          "usb_c_center_z"
+        ]
+      },
+      {
+        "id": "cradle_seat",
+        "label": {
+          "en": "Cradle Seat",
+          "es": "Asiento de base"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: the lower deck's outer face and its rounded footprint — the surface a dock, stand or cradle registers against.",
+        "parameters": [
+          "deck_length",
+          "deck_depth",
+          "lower_deck_thickness",
+          "corner_radius"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "sbc-case"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A dimensioned, parametric model of the dual-screen handhelds people actually own lets anyone fabricate a cradle, a dock, a travel shell or a repair fixture that fits — for hardware whose manufacturer publishes an outline and nothing else, and for hardware whose manufacturer is gone. Because every named preset is built from published dimensions with its source recorded, a correction travels to every accessory that mates with it.",
+      "es": "Un modelo paramétrico y acotado de las consolas de doble pantalla que la gente tiene permite fabricar una base, un dock, una funda de viaje o un útil de reparación que encaje — para equipos cuyo fabricante publica un contorno y nada más, y para equipos cuyo fabricante ya no existe. Como cada preajuste con nombre se construye con dimensiones publicadas y su fuente anotada, una corrección llega a cada accesorio que acopla con él."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "Telesia docs/DEVICE_GEOMETRY.md §3.1 (components are hyperobjects too); gate H8 there rules how a component cartridge will feed an assembly cartridge.",
+    "note": "A device is a hyperobject of hyperobjects: a screen, a hinge, a button, a D-pad, a stick, a port and a cartridge slot are each one in their own right and feed into this one. main.py builds each through its own function taking its own parameter dict, so any of them can be lifted into its own cartridge without a rewrite; clamshell.graph.json groups each one's nodes under the same slug as a node-id prefix. `component:<slug>` cannot be spelled literally in a node id — the transpiler's grammar is ^[A-Za-z][A-Za-z0-9_]*$ — so the prefix is the slug plus an underscore. Sub-graph reuse (yantra4d lane G-CLUSTERS) is what would let the twin REFERENCE a component cartridge instead of duplicating its nodes.",
+    "components": [
+      {
+        "slug": "deck_shell",
+        "function": "deck_shell",
+        "graph_prefix": "deckshell_",
+        "exposes": [
+          "device_envelope",
+          "cradle_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "display_panel",
+        "function": "display_panel",
+        "graph_prefix": "display_",
+        "exposes": [
+          "display_recess"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "hinge_barrel",
+        "function": "hinge_barrel",
+        "graph_prefix": "hingebarrel_",
+        "exposes": [
+          "revolute_axis",
+          "mounting_surface"
+        ],
+        "consumes": [],
+        "upstream_cartridge": "hinge-hyperobject"
+      },
+      {
+        "slug": "hinge_relief",
+        "function": "hinge_relief",
+        "graph_prefix": "hingerelief_",
+        "exposes": [],
+        "consumes": [
+          "revolute_axis"
+        ]
+      },
+      {
+        "slug": "d_pad",
+        "function": "d_pad",
+        "graph_prefix": "dpad_",
+        "exposes": [
+          "dpad_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "face_button",
+        "function": "face_button",
+        "graph_prefix": "facebtn_",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "arrangement": "ring"
+      },
+      {
+        "slug": "button_row",
+        "function": "button_row",
+        "graph_prefix": "buttonrow_",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "arrangement": "row"
+      },
+      {
+        "slug": "analog_stick",
+        "function": "analog_stick",
+        "graph_prefix": "stick_",
+        "exposes": [
+          "stick_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "shoulder_trigger",
+        "function": "shoulder_trigger",
+        "graph_prefix": "trigger_",
+        "exposes": [
+          "trigger_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "port_receptacle",
+        "function": "port_receptacle",
+        "graph_prefix": "port_",
+        "exposes": [
+          "port_cutout"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "cartridge_slot",
+        "function": "cartridge_slot",
+        "graph_prefix": "slot_",
+        "exposes": [
+          "cartridge_slot"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "speaker_grille",
+        "function": "speaker_grille",
+        "graph_prefix": "speaker_",
+        "exposes": [],
+        "consumes": [],
+        "note": "no upstream CDG id; a vented face is not a mating feature"
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "device",
+      "label": {
+        "en": "Device (assembled)",
+        "es": "Dispositivo (ensamblado)"
+      },
+      "description": {
+        "en": "All three parts in world coordinates at the current fold angle. Not a print target — the parts are separate bodies held apart by the hinge.",
+        "es": "Las tres piezas en coordenadas de mundo al ángulo de apertura actual. No es un objetivo de impresión — las piezas son cuerpos separados unidos por la bisagra."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "lower_deck",
+        "upper_deck",
+        "hinge"
+      ],
+      "part_quantities": {
+        "lower_deck": 1,
+        "upper_deck": 1,
+        "hinge": 1
+      },
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "upper_deck",
+      "label": {
+        "en": "Upper Deck",
+        "es": "Cubierta superior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "upper_deck"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "lower_deck",
+      "label": {
+        "en": "Lower Deck",
+        "es": "Cubierta inferior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "lower_deck"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_part": 8
+      }
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge Knuckles",
+        "es": "Nudillos de bisagra"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "hinge"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "graph_device",
+      "label": {
+        "en": "Device (graph twin)",
+        "es": "Dispositivo (gemelo en grafo)"
+      },
+      "description": {
+        "en": "The same three parts built from the node graph. Server-only, and gated to pro and premium like every graph cartridge.",
+        "es": "Las mismas tres piezas construidas desde el grafo de nodos. Sólo en servidor, y limitado a pro y premium como todo cartucho de grafo."
+      },
+      "scad_file": "clamshell.graph.json",
+      "engine": "graph",
+      "parts": [
+        "lower_deck",
+        "upper_deck",
+        "hinge"
+      ],
+      "estimate": {
+        "base_units": 3,
+        "formula": "per_part"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "lower_deck",
+      "label": {
+        "en": "Lower Deck",
+        "es": "Cubierta inferior"
+      },
+      "render_mode": 0,
+      "color": "#3f5d7d"
+    },
+    {
+      "id": "upper_deck",
+      "label": {
+        "en": "Upper Deck",
+        "es": "Cubierta superior"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge Knuckles",
+        "es": "Nudillos de bisagra"
+      },
+      "render_mode": 0,
+      "color": "#b08d57"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope & Fold",
+        "es": "Envolvente y apertura"
+      }
+    },
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge",
+        "es": "Bisagra"
+      }
+    },
+    {
+      "id": "displays",
+      "label": {
+        "en": "Displays",
+        "es": "Pantallas"
+      }
+    },
+    {
+      "id": "controls",
+      "label": {
+        "en": "Controls",
+        "es": "Controles"
+      }
+    },
+    {
+      "id": "ports",
+      "label": {
+        "en": "Ports",
+        "es": "Puertos"
+      }
+    },
+    {
+      "id": "slot",
+      "label": {
+        "en": "Cartridge Slot",
+        "es": "Ranura de cartucho"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "deck_length",
+      "type": "slider",
+      "default": 150,
+      "min": 60,
+      "max": 300,
+      "step": 0.1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "deckshell_lower_box.w",
+        "deckshell_upper_box.w"
+      ],
+      "label": {
+        "en": "Deck length — hinge axis (mm)",
+        "es": "Largo de la cubierta — eje de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The long axis, X. Both decks share it. In a preset this is the registry's closed height.",
+        "es": "El eje largo, X. Ambas cubiertas lo comparten. En un preajuste es la altura cerrada del registro."
+      }
+    },
+    {
+      "id": "deck_depth",
+      "type": "slider",
+      "default": 90,
+      "min": 40,
+      "max": 220,
+      "step": 0.1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "deckshell_lower_box.d",
+        "deckshell_upper_box.d"
+      ],
+      "label": {
+        "en": "Deck depth — folding axis (mm)",
+        "es": "Fondo de la cubierta — eje de plegado (mm)"
+      },
+      "tooltip": {
+        "en": "The folding axis, Y. Each deck runs from the hinge at y=0 to the front face. In a preset this is the registry's closed width.",
+        "es": "El eje de plegado, Y. Cada cubierta va de la bisagra en y=0 a la cara frontal. En un preajuste es el ancho cerrado del registro."
+      }
+    },
+    {
+      "id": "upper_deck_thickness",
+      "type": "slider",
+      "default": 9.9,
+      "min": 2,
+      "max": 40,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "deckshell_upper_box.h",
+      "label": {
+        "en": "Upper deck thickness (mm)",
+        "es": "Espesor de la cubierta superior (mm)"
+      },
+      "tooltip": {
+        "en": "Half of the closed thickness. The SUM of the two decks is the published closed depth; the split between them is an archetype default (45/55), not a manufacturer figure.",
+        "es": "Una parte del espesor cerrado. La SUMA de ambas cubiertas es la profundidad cerrada publicada; el reparto entre ellas es un valor por defecto del arquetipo (45/55), no del fabricante."
+      }
+    },
+    {
+      "id": "lower_deck_thickness",
+      "type": "slider",
+      "default": 12.1,
+      "min": 2,
+      "max": 40,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "deckshell_lower_box.h",
+      "label": {
+        "en": "Lower deck thickness (mm)",
+        "es": "Espesor de la cubierta inferior (mm)"
+      },
+      "tooltip": {
+        "en": "The other half of the closed thickness. Keep upper + lower equal to the device's published closed depth.",
+        "es": "La otra parte del espesor cerrado. Mantén superior + inferior igual a la profundidad cerrada publicada del dispositivo."
+      }
+    },
+    {
+      "id": "corner_radius",
+      "type": "slider",
+      "default": 5,
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "deckshell_lower_round.radius",
+        "deckshell_upper_round.radius"
+      ],
+      "label": {
+        "en": "Corner radius (mm)",
+        "es": "Radio de esquina (mm)"
+      },
+      "tooltip": {
+        "en": "Rounding on the four vertical edges of each deck. ARCHETYPE DEFAULT: no manufacturer in this family publishes a corner radius (0 of 84 devices in the registry), so this is ours at every preset.",
+        "es": "Redondeo en las cuatro aristas verticales de cada cubierta. VALOR DEL ARQUETIPO: ningún fabricante de esta familia publica un radio de esquina (0 de 84 dispositivos del registro), así que es nuestro en todos los preajustes."
+      }
+    },
+    {
+      "id": "fold_angle",
+      "type": "slider",
+      "default": 120,
+      "min": 0,
+      "max": 180,
+      "step": 1,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "asm_upper_deck.angle",
+      "label": {
+        "en": "Fold angle (degrees)",
+        "es": "Ángulo de apertura (grados)"
+      },
+      "tooltip": {
+        "en": "0 closed, 180 flat. The upper deck turns about the hinge axis, which is the X axis through the origin.",
+        "es": "0 cerrado, 180 plano. La cubierta superior gira sobre el eje de bisagra, que es el eje X por el origen."
+      }
+    },
+    {
+      "id": "deck_center_y",
+      "type": "slider",
+      "default": 45,
+      "min": 20,
+      "max": 110,
+      "step": 0.05,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "deckshell_lower_place.y",
+        "deckshell_upper_place.y"
+      ],
+      "label": {
+        "en": "Deck centre, Y (mm)",
+        "es": "Centro de cubierta, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Half the deck depth. Derived — the graph engine has no expressions, so it is its own parameter (lane G-EXPR).",
+        "es": "La mitad del fondo. Derivado — el motor de grafos no tiene expresiones, así que es su propio parámetro (carril G-EXPR)."
+      }
+    },
+    {
+      "id": "lower_deck_center_z",
+      "type": "slider",
+      "default": -6.05,
+      "min": -20,
+      "max": -1,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "deckshell_lower_place.z",
+      "label": {
+        "en": "Lower deck centre, Z (mm)",
+        "es": "Centro de cubierta inferior, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Minus half the lower deck thickness: the lower deck hangs below the seam plane z=0. Derived.",
+        "es": "Menos la mitad del espesor inferior: la cubierta inferior cuelga bajo el plano de unión z=0. Derivado."
+      }
+    },
+    {
+      "id": "upper_deck_center_z",
+      "type": "slider",
+      "default": 4.95,
+      "min": 1,
+      "max": 20,
+      "step": 0.005,
+      "group": "envelope",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "deckshell_upper_place.z",
+      "label": {
+        "en": "Upper deck centre, Z (mm)",
+        "es": "Centro de cubierta superior, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Half the upper deck thickness: closed, the upper deck sits above the seam plane. Derived.",
+        "es": "La mitad del espesor superior: cerrado, la cubierta superior queda sobre el plano de unión. Derivado."
+      }
+    },
+    {
+      "id": "hinge_barrel_radius",
+      "type": "slider",
+      "default": 5.445,
+      "min": 0.5,
+      "max": 20,
+      "step": 0.005,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_cyl.r",
+      "label": {
+        "en": "Hinge barrel radius (mm)",
+        "es": "Radio del barril de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The knuckle. Kept under the thinner deck so the barrel stays inside the closed envelope, and under the hinge-side bezel so its pocket never reaches a screen. ARCHETYPE DEFAULT — no manufacturer publishes it.",
+        "es": "El nudillo. Se mantiene por debajo de la cubierta más delgada para que el barril quede dentro del envolvente cerrado, y por debajo del bisel trasero para que su alojamiento no llegue a una pantalla. VALOR DEL ARQUETIPO — ningún fabricante lo publica."
+      }
+    },
+    {
+      "id": "hinge_relief_radius",
+      "type": "slider",
+      "default": 5.845,
+      "min": 0.5,
+      "max": 20,
+      "step": 0.005,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingerelief_cyl.r",
+      "label": {
+        "en": "Hinge relief radius (mm)",
+        "es": "Radio del alojamiento de bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "The pocket both decks give up so the barrel can turn. Set it to the barrel radius plus the running clearance you want (archetype: 0.4 mm). Until lane G-EXPR lands the graph cannot compute it, so it is a separate control.",
+        "es": "El alojamiento que ambas cubiertas ceden para que gire el barril. Ajústalo al radio del barril más la holgura de giro deseada (arquetipo: 0.4 mm). Hasta que llegue el carril G-EXPR el grafo no puede calcularlo, por eso es un control aparte."
+      }
+    },
+    {
+      "id": "hinge_relief_span",
+      "type": "slider",
+      "default": 75.8,
+      "min": 10,
+      "max": 300,
+      "step": 0.1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingerelief_cyl.h",
+      "label": {
+        "en": "Hinge relief span (mm)",
+        "es": "Largo del alojamiento (mm)"
+      },
+      "tooltip": {
+        "en": "How far along the hinge the relief runs. Outside it the rear face stays solid — which is where the shoulder buttons cut.",
+        "es": "Cuánto recorre el alojamiento a lo largo de la bisagra. Fuera de él la cara trasera queda sólida — que es donde cortan los gatillos."
+      }
+    },
+    {
+      "id": "hinge_knuckle_count",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_run.count",
+      "label": {
+        "en": "Knuckle count",
+        "es": "Número de nudillos"
+      },
+      "tooltip": {
+        "en": "How many barrels along the hinge. Each is a separate body.",
+        "es": "Cuántos barriles hay a lo largo de la bisagra. Cada uno es un cuerpo aparte."
+      }
+    },
+    {
+      "id": "hinge_knuckle_length",
+      "type": "slider",
+      "default": 21,
+      "min": 2,
+      "max": 150,
+      "step": 0.1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_cyl.h",
+      "label": {
+        "en": "Knuckle length (mm)",
+        "es": "Largo de nudillo (mm)"
+      },
+      "tooltip": {
+        "en": "Axial length of one barrel.",
+        "es": "Largo axial de un barril."
+      }
+    },
+    {
+      "id": "hinge_knuckle_pitch",
+      "type": "slider",
+      "default": 27,
+      "min": 1,
+      "max": 150,
+      "step": 0.1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_run.dx",
+      "label": {
+        "en": "Knuckle pitch (mm)",
+        "es": "Paso entre nudillos (mm)"
+      },
+      "tooltip": {
+        "en": "Centre-to-centre spacing. For an evenly spread run use (hinge run − knuckle length) ÷ (count − 1); the graph has no expressions, so you set it.",
+        "es": "Separación centro a centro. Para un reparto uniforme usa (recorrido de bisagra − largo de nudillo) ÷ (número − 1); el grafo no tiene expresiones, así que lo ajustas tú."
+      }
+    },
+    {
+      "id": "hinge_knuckle_start_x",
+      "type": "slider",
+      "default": -27,
+      "min": -150,
+      "max": 150,
+      "step": 0.1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_place.x",
+      "label": {
+        "en": "First knuckle centre, X (mm)",
+        "es": "Centro del primer nudillo, X (mm)"
+      },
+      "tooltip": {
+        "en": "Where the run starts. Derived from the hinge run and the knuckle length.",
+        "es": "Dónde empieza el recorrido. Derivado del recorrido de bisagra y del largo de nudillo."
+      }
+    },
+    {
+      "id": "hinge_clip_span",
+      "type": "slider",
+      "default": 400,
+      "min": 100,
+      "max": 1000,
+      "step": 1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "hingebarrel_clip.w",
+        "hingebarrel_clip.d",
+        "hingebarrel_clip.h"
+      ],
+      "label": {
+        "en": "Barrel clip span (mm)",
+        "es": "Largo del recorte de barril (mm)"
+      },
+      "tooltip": {
+        "en": "Frozen constant. The tool that halves the barrel at the hinge plane, made far larger than any device so it always cuts clean — the same through-cut idiom the commons' other graph cartridges use.",
+        "es": "Constante fija. La herramienta que parte el barril en el plano de bisagra, mucho mayor que cualquier dispositivo para que siempre corte limpio — el mismo recurso de corte pasante que usan los otros cartuchos de grafo del commons."
+      }
+    },
+    {
+      "id": "hinge_clip_center_y",
+      "type": "slider",
+      "default": -200,
+      "min": -500,
+      "max": -50,
+      "step": 1,
+      "group": "hinge",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "hingebarrel_clip_place.y",
+      "label": {
+        "en": "Barrel clip centre, Y (mm)",
+        "es": "Centro del recorte de barril, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Minus half the clip span, so the clip occupies exactly y ≤ 0 and the barrel keeps its half. Frozen constant.",
+        "es": "Menos la mitad del largo del recorte, para que ocupe exactamente y ≤ 0 y el barril conserve su mitad. Constante fija."
+      }
+    },
+    {
+      "id": "primary_screen_width",
+      "type": "slider",
+      "default": 100,
+      "min": 10,
+      "max": 280,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_pri_cut.w",
+      "label": {
+        "en": "Primary display active area, X (mm)",
+        "es": "Área activa de la pantalla principal, X (mm)"
+      },
+      "tooltip": {
+        "en": "From the registry's displays[].active_area_mm for the primary display. Some registry entries derive it from diagonal, aspect and resolution and say so; some manufacturers publish it in millimetres directly.",
+        "es": "Del campo displays[].active_area_mm del registro para la pantalla principal. Algunas entradas lo derivan de diagonal, relación y resolución y lo declaran; algunos fabricantes lo publican en milímetros."
+      }
+    },
+    {
+      "id": "primary_screen_height",
+      "type": "slider",
+      "default": 60,
+      "min": 10,
+      "max": 200,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_pri_cut.d",
+      "label": {
+        "en": "Primary display active area, Y (mm)",
+        "es": "Área activa de la pantalla principal, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The short dimension of the primary display's active area.",
+        "es": "La dimensión corta del área activa de la pantalla principal."
+      }
+    },
+    {
+      "id": "primary_screen_center_y",
+      "type": "slider",
+      "default": 45,
+      "min": 5,
+      "max": 200,
+      "step": 0.05,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_pri_place.y",
+      "label": {
+        "en": "Primary display centre, Y (mm)",
+        "es": "Centro de la pantalla principal, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Centred on the deck by default. No manufacturer in this family publishes a bezel split, so the offset is ours.",
+        "es": "Centrada en la cubierta por defecto. Ningún fabricante de esta familia publica el reparto de biseles, así que el desplazamiento es nuestro."
+      }
+    },
+    {
+      "id": "primary_screen_cut_center_z",
+      "type": "slider",
+      "default": 0.4,
+      "min": 0.05,
+      "max": 5,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_pri_place.z",
+      "label": {
+        "en": "Primary recess centre, Z (mm)",
+        "es": "Centro del rebaje principal, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Half the recess depth, above the seam plane — the tool bites down into the upper deck's inner face. Derived.",
+        "es": "La mitad de la profundidad del rebaje, sobre el plano de unión — la herramienta muerde la cara interior de la cubierta superior. Derivado."
+      }
+    },
+    {
+      "id": "secondary_screen_width",
+      "type": "slider",
+      "default": 80,
+      "min": 10,
+      "max": 280,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_sec_cut.w",
+      "label": {
+        "en": "Secondary display active area, X (mm)",
+        "es": "Área activa de la pantalla secundaria, X (mm)"
+      },
+      "tooltip": {
+        "en": "From the registry's displays[].active_area_mm for the secondary display. It also sets where the control clusters sit.",
+        "es": "Del campo displays[].active_area_mm del registro para la pantalla secundaria. También fija dónde van los grupos de controles."
+      }
+    },
+    {
+      "id": "secondary_screen_height",
+      "type": "slider",
+      "default": 50,
+      "min": 10,
+      "max": 200,
+      "step": 0.01,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_sec_cut.d",
+      "label": {
+        "en": "Secondary display active area, Y (mm)",
+        "es": "Área activa de la pantalla secundaria, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The short dimension of the secondary display's active area.",
+        "es": "La dimensión corta del área activa de la pantalla secundaria."
+      }
+    },
+    {
+      "id": "secondary_screen_center_y",
+      "type": "slider",
+      "default": 45,
+      "min": 5,
+      "max": 200,
+      "step": 0.05,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_sec_place.y",
+      "label": {
+        "en": "Secondary display centre, Y (mm)",
+        "es": "Centro de la pantalla secundaria, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Centred on the deck by default.",
+        "es": "Centrada en la cubierta por defecto."
+      }
+    },
+    {
+      "id": "secondary_screen_cut_center_z",
+      "type": "slider",
+      "default": -0.4,
+      "min": -5,
+      "max": -0.05,
+      "step": 0.005,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "display_sec_place.z",
+      "label": {
+        "en": "Secondary recess centre, Z (mm)",
+        "es": "Centro del rebaje secundario, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Minus half the recess depth — the tool bites down into the lower deck's face. Derived.",
+        "es": "Menos la mitad de la profundidad del rebaje — la herramienta muerde la cara de la cubierta inferior. Derivado."
+      }
+    },
+    {
+      "id": "screen_recess_depth",
+      "type": "slider",
+      "default": 0.8,
+      "min": 0.1,
+      "max": 5,
+      "step": 0.05,
+      "group": "displays",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "display_pri_cut.h",
+        "display_sec_cut.h"
+      ],
+      "label": {
+        "en": "Display recess depth (mm)",
+        "es": "Profundidad del rebaje de pantalla (mm)"
+      },
+      "tooltip": {
+        "en": "How far each display window sinks below its deck face. ARCHETYPE DEFAULT.",
+        "es": "Cuánto se hunde cada ventana de pantalla bajo la cara de su cubierta. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "control_recess_depth",
+      "type": "slider",
+      "default": 1.2,
+      "min": 0.2,
+      "max": 5,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "dpad_arm_a.h",
+        "dpad_arm_b.h",
+        "facebtn_seat.h",
+        "stick_seat.h",
+        "buttonrow_seat.h",
+        "speaker_hole.h"
+      ],
+      "label": {
+        "en": "Control recess depth (mm)",
+        "es": "Profundidad de rebaje de controles (mm)"
+      },
+      "tooltip": {
+        "en": "One depth for every control pocket and every speaker hole. ARCHETYPE DEFAULT.",
+        "es": "Una sola profundidad para cada alojamiento de control y cada perforación de altavoz. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "control_cut_center_z",
+      "type": "slider",
+      "default": -0.6,
+      "min": -5,
+      "max": -0.1,
+      "step": 0.005,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "dpad_place.z",
+        "facebtn_place.z",
+        "stick_place.z",
+        "buttonrow_place.z",
+        "speaker_place.z"
+      ],
+      "label": {
+        "en": "Control cut centre, Z (mm)",
+        "es": "Centro de corte de controles, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Minus half the control recess depth. Derived.",
+        "es": "Menos la mitad de la profundidad de rebaje. Derivado."
+      }
+    },
+    {
+      "id": "dpad_center_x",
+      "type": "slider",
+      "default": -58,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "dpad_place.x",
+      "label": {
+        "en": "D-pad centre, X (mm)",
+        "es": "Centro de la cruceta, X (mm)"
+      },
+      "tooltip": {
+        "en": "Set from the secondary display's half-width plus the archetype's cluster margin.",
+        "es": "Se fija a partir de la mitad del ancho de la pantalla secundaria más el margen de grupo del arquetipo."
+      }
+    },
+    {
+      "id": "dpad_center_y",
+      "type": "slider",
+      "default": 45,
+      "min": 0,
+      "max": 200,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "dpad_place.y",
+      "label": {
+        "en": "D-pad centre, Y (mm)",
+        "es": "Centro de la cruceta, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Level with the secondary display's centre by default.",
+        "es": "A la altura del centro de la pantalla secundaria por defecto."
+      }
+    },
+    {
+      "id": "dpad_arm_length",
+      "type": "slider",
+      "default": 22,
+      "min": 4,
+      "max": 60,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "dpad_arm_a.w",
+        "dpad_arm_b.d"
+      ],
+      "label": {
+        "en": "D-pad arm length (mm)",
+        "es": "Largo del brazo de la cruceta (mm)"
+      },
+      "tooltip": {
+        "en": "Tip to tip across the cross. ARCHETYPE DEFAULT — the registry records that a D-pad exists, never its size.",
+        "es": "De punta a punta de la cruz. VALOR DEL ARQUETIPO — el registro anota que hay cruceta, nunca su tamaño."
+      }
+    },
+    {
+      "id": "dpad_arm_width",
+      "type": "slider",
+      "default": 8,
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": [
+        "dpad_arm_a.d",
+        "dpad_arm_b.w"
+      ],
+      "label": {
+        "en": "D-pad arm width (mm)",
+        "es": "Ancho del brazo de la cruceta (mm)"
+      },
+      "tooltip": {
+        "en": "Width of each arm. ARCHETYPE DEFAULT.",
+        "es": "Ancho de cada brazo. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "face_button_center_x",
+      "type": "slider",
+      "default": 58,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_place.x",
+      "label": {
+        "en": "Face-button cluster centre, X (mm)",
+        "es": "Centro del grupo de botones, X (mm)"
+      },
+      "tooltip": {
+        "en": "Mirror of the D-pad cluster across the secondary display.",
+        "es": "Espejo del grupo de la cruceta al otro lado de la pantalla secundaria."
+      }
+    },
+    {
+      "id": "face_button_center_y",
+      "type": "slider",
+      "default": 45,
+      "min": 0,
+      "max": 200,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_place.y",
+      "label": {
+        "en": "Face-button cluster centre, Y (mm)",
+        "es": "Centro del grupo de botones, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Level with the secondary display's centre by default.",
+        "es": "A la altura del centro de la pantalla secundaria por defecto."
+      }
+    },
+    {
+      "id": "face_button_count",
+      "type": "slider",
+      "default": 4,
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_ring.count",
+      "label": {
+        "en": "Face-button count",
+        "es": "Número de botones frontales"
+      },
+      "tooltip": {
+        "en": "From the registry's controls[] entry of kind `abxy`.",
+        "es": "Del registro, la entrada controls[] de tipo `abxy`."
+      }
+    },
+    {
+      "id": "face_button_spacing_deg",
+      "type": "slider",
+      "default": 90,
+      "min": 15,
+      "max": 180,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_ring.angle",
+      "label": {
+        "en": "Face-button spacing (degrees)",
+        "es": "Separación de botones (grados)"
+      },
+      "tooltip": {
+        "en": "Angle between neighbouring buttons. For an even ring use 360 ÷ count (4 buttons = 90°); the graph has no expressions, so you set both.",
+        "es": "Ángulo entre botones vecinos. Para un anillo uniforme usa 360 ÷ número (4 botones = 90°); el grafo no tiene expresiones, así que ajustas ambos."
+      }
+    },
+    {
+      "id": "face_button_circle_radius",
+      "type": "slider",
+      "default": 11,
+      "min": 2,
+      "max": 40,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_offset.x",
+      "label": {
+        "en": "Face-button circle radius (mm)",
+        "es": "Radio del círculo de botones (mm)"
+      },
+      "tooltip": {
+        "en": "Cluster centre to each button centre. ARCHETYPE DEFAULT.",
+        "es": "Del centro del grupo al centro de cada botón. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "face_button_radius",
+      "type": "slider",
+      "default": 4.5,
+      "min": 1,
+      "max": 15,
+      "step": 0.25,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "facebtn_seat.r",
+      "label": {
+        "en": "Face-button radius (mm)",
+        "es": "Radio de botón frontal (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT — the registry records how many buttons, never how big.",
+        "es": "VALOR DEL ARQUETIPO — el registro anota cuántos botones, nunca su tamaño."
+      }
+    },
+    {
+      "id": "stick_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "stick_row.count",
+      "label": {
+        "en": "Analogue stick count",
+        "es": "Número de sticks analógicos"
+      },
+      "tooltip": {
+        "en": "From the registry's controls[] entry of kind `stick`. 0 removes them in the CadQuery reference; the graph engine clamps pattern counts to at least 1, so a zero there still draws one.",
+        "es": "Del registro, la entrada controls[] de tipo `stick`. 0 los elimina en la referencia CadQuery; el motor de grafos limita los patrones a 1 como mínimo, así que un cero allí dibuja uno."
+      }
+    },
+    {
+      "id": "stick_first_center_x",
+      "type": "slider",
+      "default": -58,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "stick_place.x",
+      "label": {
+        "en": "First stick centre, X (mm)",
+        "es": "Centro del primer stick, X (mm)"
+      },
+      "tooltip": {
+        "en": "Left-hand stick. The second follows at the pitch below.",
+        "es": "Stick izquierdo. El segundo sigue con el paso de abajo."
+      }
+    },
+    {
+      "id": "stick_pitch_x",
+      "type": "slider",
+      "default": 116,
+      "min": 0,
+      "max": 300,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "stick_row.dx",
+      "label": {
+        "en": "Stick pitch, X (mm)",
+        "es": "Paso entre sticks, X (mm)"
+      },
+      "tooltip": {
+        "en": "Centre-to-centre spacing between sticks.",
+        "es": "Separación centro a centro entre sticks."
+      }
+    },
+    {
+      "id": "stick_center_y",
+      "type": "slider",
+      "default": 27,
+      "min": 0,
+      "max": 200,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "stick_place.y",
+      "label": {
+        "en": "Stick centre, Y (mm)",
+        "es": "Centro de stick, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Sits between the cluster row and the hinge. ARCHETYPE OFFSET.",
+        "es": "Va entre la fila de grupos y la bisagra. DESPLAZAMIENTO DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "stick_radius",
+      "type": "slider",
+      "default": 8,
+      "min": 2,
+      "max": 20,
+      "step": 0.25,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "stick_seat.r",
+      "label": {
+        "en": "Stick recess radius (mm)",
+        "es": "Radio del alojamiento del stick (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "shoulder_button_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_run.count",
+      "label": {
+        "en": "Shoulder-button count",
+        "es": "Número de gatillos"
+      },
+      "tooltip": {
+        "en": "From the registry's controls[] entry of kind `bumper`.",
+        "es": "Del registro, la entrada controls[] de tipo `bumper`."
+      }
+    },
+    {
+      "id": "shoulder_button_first_center_x",
+      "type": "slider",
+      "default": -54.5,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_place.x",
+      "label": {
+        "en": "First shoulder centre, X (mm)",
+        "es": "Centro del primer gatillo, X (mm)"
+      },
+      "tooltip": {
+        "en": "Placed outboard of the hinge run so the cut lands in solid material, not in the hinge pocket.",
+        "es": "Situado fuera del recorrido de bisagra para que el corte caiga en material sólido, no en el alojamiento."
+      }
+    },
+    {
+      "id": "shoulder_button_pitch_x",
+      "type": "slider",
+      "default": 109,
+      "min": 0,
+      "max": 300,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_run.dx",
+      "label": {
+        "en": "Shoulder pitch, X (mm)",
+        "es": "Paso entre gatillos (mm)"
+      },
+      "tooltip": {
+        "en": "Centre-to-centre spacing along the rear edge.",
+        "es": "Separación centro a centro a lo largo del borde trasero."
+      }
+    },
+    {
+      "id": "shoulder_button_center_y",
+      "type": "slider",
+      "default": 0,
+      "min": -20,
+      "max": 20,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_place.y",
+      "label": {
+        "en": "Shoulder centre, Y (mm)",
+        "es": "Centro de gatillo, Y (mm)"
+      },
+      "tooltip": {
+        "en": "0 straddles the rear face, so the cut bites half its depth into real material and never presents a face coincident with the deck's.",
+        "es": "0 lo pone a caballo de la cara trasera, así el corte muerde la mitad de su fondo en material real y nunca deja una cara coincidente con la de la cubierta."
+      }
+    },
+    {
+      "id": "shoulder_button_center_z",
+      "type": "slider",
+      "default": -6.05,
+      "min": -30,
+      "max": 0,
+      "step": 0.005,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_place.z",
+      "label": {
+        "en": "Shoulder centre, Z (mm)",
+        "es": "Centro de gatillo, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Mid-thickness of the lower deck. Derived.",
+        "es": "A media altura de la cubierta inferior. Derivado."
+      }
+    },
+    {
+      "id": "shoulder_button_width",
+      "type": "slider",
+      "default": 26,
+      "min": 4,
+      "max": 60,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_box.w",
+      "label": {
+        "en": "Shoulder width (mm)",
+        "es": "Ancho de gatillo (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "shoulder_button_depth",
+      "type": "slider",
+      "default": 6,
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_box.d",
+      "label": {
+        "en": "Shoulder depth (mm)",
+        "es": "Fondo de gatillo (mm)"
+      },
+      "tooltip": {
+        "en": "The cut straddles the rear face, so it bites half of this into the deck. ARCHETYPE DEFAULT.",
+        "es": "El corte va a caballo de la cara trasera, así que muerde la mitad de esto en la cubierta. VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "shoulder_button_height",
+      "type": "slider",
+      "default": 4,
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "trigger_box.h",
+      "label": {
+        "en": "Shoulder height (mm)",
+        "es": "Alto de gatillo (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "menu_button_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "buttonrow_run.count",
+      "label": {
+        "en": "Start/select button count",
+        "es": "Número de botones de menú"
+      },
+      "tooltip": {
+        "en": "From the registry's controls[] entry of kind `button` — the start/select row.",
+        "es": "Del registro, la entrada controls[] de tipo `button` — la fila start/select."
+      }
+    },
+    {
+      "id": "menu_button_first_center_x",
+      "type": "slider",
+      "default": 52,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "buttonrow_place.x",
+      "label": {
+        "en": "First start/select centre, X (mm)",
+        "es": "Centro del primer botón de menú, X (mm)"
+      },
+      "tooltip": {
+        "en": "The row is centred under the face-button cluster.",
+        "es": "La fila va centrada bajo el grupo de botones frontales."
+      }
+    },
+    {
+      "id": "menu_button_pitch_x",
+      "type": "slider",
+      "default": 12,
+      "min": 0,
+      "max": 60,
+      "step": 0.5,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "buttonrow_run.dx",
+      "label": {
+        "en": "Start/select pitch, X (mm)",
+        "es": "Paso entre botones de menú (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "menu_button_center_y",
+      "type": "slider",
+      "default": 78,
+      "min": 0,
+      "max": 220,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "buttonrow_place.y",
+      "label": {
+        "en": "Start/select centre, Y (mm)",
+        "es": "Centro de botones de menú, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The front row, between the secondary display and the front face, and never closer to that face than the archetype's edge margin.",
+        "es": "La fila delantera, entre la pantalla secundaria y la cara frontal, y nunca más cerca de esa cara que el margen de borde del arquetipo."
+      }
+    },
+    {
+      "id": "menu_button_radius",
+      "type": "slider",
+      "default": 2.5,
+      "min": 0.5,
+      "max": 10,
+      "step": 0.25,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "buttonrow_seat.r",
+      "label": {
+        "en": "Start/select radius (mm)",
+        "es": "Radio de botón de menú (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "speaker_hole_count",
+      "type": "slider",
+      "default": 6,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_run.count",
+      "label": {
+        "en": "Speaker hole count",
+        "es": "Número de perforaciones de altavoz"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT — the registry does not describe grilles.",
+        "es": "VALOR DEL ARQUETIPO — el registro no describe rejillas."
+      }
+    },
+    {
+      "id": "speaker_first_center_x",
+      "type": "slider",
+      "default": -66.75,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_place.x",
+      "label": {
+        "en": "First speaker hole, X (mm)",
+        "es": "Primera perforación, X (mm)"
+      },
+      "tooltip": {
+        "en": "The grille is centred under the D-pad cluster.",
+        "es": "La rejilla va centrada bajo el grupo de la cruceta."
+      }
+    },
+    {
+      "id": "speaker_center_y",
+      "type": "slider",
+      "default": 78,
+      "min": 0,
+      "max": 220,
+      "step": 0.05,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_place.y",
+      "label": {
+        "en": "Speaker grille centre, Y (mm)",
+        "es": "Centro de la rejilla, Y (mm)"
+      },
+      "tooltip": {
+        "en": "Shares the front row with the start/select buttons.",
+        "es": "Comparte la fila delantera con los botones de menú."
+      }
+    },
+    {
+      "id": "speaker_hole_radius",
+      "type": "slider",
+      "default": 0.9,
+      "min": 0.2,
+      "max": 5,
+      "step": 0.1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_hole.r",
+      "label": {
+        "en": "Speaker hole radius (mm)",
+        "es": "Radio de perforación (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "speaker_hole_pitch",
+      "type": "slider",
+      "default": 3.5,
+      "min": 1,
+      "max": 20,
+      "step": 0.1,
+      "group": "controls",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "speaker_run.dx",
+      "label": {
+        "en": "Speaker hole pitch (mm)",
+        "es": "Paso entre perforaciones (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "usb_c_width",
+      "type": "slider",
+      "default": 9,
+      "min": 4,
+      "max": 30,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.w",
+      "label": {
+        "en": "USB-C opening width (mm)",
+        "es": "Ancho de la boca USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT sized to clear a USB-C receptacle; the registry records that a port exists, not its cut-out.",
+        "es": "VALOR DEL ARQUETIPO dimensionado para librar un conector USB-C; el registro anota que hay un puerto, no su recorte."
+      }
+    },
+    {
+      "id": "usb_c_height",
+      "type": "slider",
+      "default": 3.2,
+      "min": 1,
+      "max": 12,
+      "step": 0.1,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.h",
+      "label": {
+        "en": "USB-C opening height (mm)",
+        "es": "Alto de la boca USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "usb_c_depth",
+      "type": "slider",
+      "default": 12,
+      "min": 2,
+      "max": 40,
+      "step": 0.5,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_box.d",
+      "label": {
+        "en": "USB-C opening depth (mm)",
+        "es": "Fondo de la boca USB-C (mm)"
+      },
+      "tooltip": {
+        "en": "The cut straddles the front face, so it bites half of this into the deck. Frozen archetype constant.",
+        "es": "El corte va a caballo de la cara frontal, así que muerde la mitad de esto. Constante fija del arquetipo."
+      }
+    },
+    {
+      "id": "usb_c_center_x",
+      "type": "slider",
+      "default": 0,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.x",
+      "label": {
+        "en": "USB-C centre, X (mm)",
+        "es": "Centro USB-C, X (mm)"
+      },
+      "tooltip": {
+        "en": "Centred on the front face by default. No manufacturer in this family publishes a connector position.",
+        "es": "Centrado en la cara frontal por defecto. Ningún fabricante de esta familia publica la posición del conector."
+      }
+    },
+    {
+      "id": "usb_c_center_y",
+      "type": "slider",
+      "default": 90,
+      "min": 0,
+      "max": 250,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.y",
+      "label": {
+        "en": "USB-C centre, Y (mm)",
+        "es": "Centro USB-C, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The front face — equal to the deck depth. Derived.",
+        "es": "La cara frontal — igual al fondo de la cubierta. Derivado."
+      }
+    },
+    {
+      "id": "usb_c_center_z",
+      "type": "slider",
+      "default": -6.05,
+      "min": -30,
+      "max": 0,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_usb_place.z",
+      "label": {
+        "en": "USB-C centre, Z (mm)",
+        "es": "Centro USB-C, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Mid-thickness of the lower deck. Derived.",
+        "es": "A media altura de la cubierta inferior. Derivado."
+      }
+    },
+    {
+      "id": "headphone_radius",
+      "type": "slider",
+      "default": 1.75,
+      "min": 0.5,
+      "max": 6,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_jack_cyl.r",
+      "label": {
+        "en": "Headphone jack radius (mm)",
+        "es": "Radio del jack de audio (mm)"
+      },
+      "tooltip": {
+        "en": "Half the 3.5 mm nominal connector the registry names as the port kind `headphone_3_5`.",
+        "es": "La mitad del conector nominal de 3.5 mm que el registro nombra como tipo de puerto `headphone_3_5`."
+      }
+    },
+    {
+      "id": "headphone_depth",
+      "type": "slider",
+      "default": 12,
+      "min": 2,
+      "max": 40,
+      "step": 0.5,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_jack_cyl.h",
+      "label": {
+        "en": "Headphone bore depth (mm)",
+        "es": "Fondo del barreno de audio (mm)"
+      },
+      "tooltip": {
+        "en": "The cut straddles the front face. Frozen archetype constant.",
+        "es": "El corte va a caballo de la cara frontal. Constante fija del arquetipo."
+      }
+    },
+    {
+      "id": "headphone_center_x",
+      "type": "slider",
+      "default": -45,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_jack_place.x",
+      "label": {
+        "en": "Headphone centre, X (mm)",
+        "es": "Centro del jack, X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE OFFSET from the deck centre; not a published position.",
+        "es": "DESPLAZAMIENTO DEL ARQUETIPO desde el centro; no es una posición publicada."
+      }
+    },
+    {
+      "id": "headphone_center_y",
+      "type": "slider",
+      "default": 90,
+      "min": 0,
+      "max": 250,
+      "step": 0.05,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_jack_place.y",
+      "label": {
+        "en": "Headphone centre, Y (mm)",
+        "es": "Centro del jack, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The front face. Derived.",
+        "es": "La cara frontal. Derivado."
+      }
+    },
+    {
+      "id": "headphone_center_z",
+      "type": "slider",
+      "default": -6.05,
+      "min": -30,
+      "max": 0,
+      "step": 0.005,
+      "group": "ports",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "port_jack_place.z",
+      "label": {
+        "en": "Headphone centre, Z (mm)",
+        "es": "Centro del jack, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Mid-thickness of the lower deck. Derived.",
+        "es": "A media altura de la cubierta inferior. Derivado."
+      }
+    },
+    {
+      "id": "cartridge_slot_width",
+      "type": "slider",
+      "default": 35,
+      "min": 5,
+      "max": 90,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_box.w",
+      "label": {
+        "en": "Cartridge slot width (mm)",
+        "es": "Ancho de la ranura de cartucho (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT THROUGHOUT: the registry's ports[] vocabulary has no game-card kind, so no preset sources this component and it is never a device claim.",
+        "es": "VALOR DEL ARQUETIPO EN TODOS LOS CASOS: el vocabulario ports[] del registro no tiene un tipo de tarjeta de juego, así que ningún preajuste lo toma del registro y nunca es una afirmación sobre el dispositivo."
+      }
+    },
+    {
+      "id": "cartridge_slot_height",
+      "type": "slider",
+      "default": 4,
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_box.h",
+      "label": {
+        "en": "Cartridge slot height (mm)",
+        "es": "Alto de la ranura de cartucho (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT.",
+        "es": "VALOR DEL ARQUETIPO."
+      }
+    },
+    {
+      "id": "cartridge_slot_depth",
+      "type": "slider",
+      "default": 10,
+      "min": 2,
+      "max": 40,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_box.d",
+      "label": {
+        "en": "Cartridge slot depth (mm)",
+        "es": "Fondo de la ranura de cartucho (mm)"
+      },
+      "tooltip": {
+        "en": "The cut straddles the front face, so it bites half of this into the deck. Frozen archetype constant.",
+        "es": "El corte va a caballo de la cara frontal, así que muerde la mitad de esto. Constante fija del arquetipo."
+      }
+    },
+    {
+      "id": "cartridge_slot_center_x",
+      "type": "slider",
+      "default": 45,
+      "min": -150,
+      "max": 150,
+      "step": 0.05,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_place.x",
+      "label": {
+        "en": "Cartridge slot centre, X (mm)",
+        "es": "Centro de la ranura, X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE OFFSET from the deck centre, mirroring the headphone jack; not a published position.",
+        "es": "DESPLAZAMIENTO DEL ARQUETIPO desde el centro, en espejo con el jack; no es una posición publicada."
+      }
+    },
+    {
+      "id": "cartridge_slot_center_y",
+      "type": "slider",
+      "default": 90,
+      "min": 0,
+      "max": 250,
+      "step": 0.05,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_place.y",
+      "label": {
+        "en": "Cartridge slot centre, Y (mm)",
+        "es": "Centro de la ranura, Y (mm)"
+      },
+      "tooltip": {
+        "en": "The front face. Derived.",
+        "es": "La cara frontal. Derivado."
+      }
+    },
+    {
+      "id": "cartridge_slot_center_z",
+      "type": "slider",
+      "default": -6.05,
+      "min": -30,
+      "max": 0,
+      "step": 0.005,
+      "group": "slot",
+      "modes": [
+        "device",
+        "upper_deck",
+        "lower_deck",
+        "hinge",
+        "graph_device"
+      ],
+      "binding": "slot_place.z",
+      "label": {
+        "en": "Cartridge slot centre, Z (mm)",
+        "es": "Centro de la ranura, Z (mm)"
+      },
+      "tooltip": {
+        "en": "Mid-thickness of the lower deck. Derived.",
+        "es": "A media altura de la cubierta inferior. Derivado."
+      }
+    },
+    {
+      "id": "usb_c_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "device",
+        "lower_deck"
+      ],
+      "label": {
+        "en": "USB-C port",
+        "es": "Puerto USB-C"
+      },
+      "tooltip": {
+        "en": "From the registry's ports[]. Off for a device whose manufacturer lists no USB-C — a Nintendo DS must not grow one. The graph twin cannot read this (it has no branching), so the graph always cuts the port; see docs/research/clamshell-archetype.md.",
+        "es": "Del campo ports[] del registro. Apagado para un dispositivo cuyo fabricante no lista USB-C — a una Nintendo DS no le puede salir uno. El gemelo en grafo no puede leerlo (no tiene ramificación), así que siempre corta el puerto; ver docs/research/clamshell-archetype.md."
+      }
+    },
+    {
+      "id": "headphone_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "device",
+        "lower_deck"
+      ],
+      "label": {
+        "en": "3.5 mm headphone jack",
+        "es": "Jack de 3.5 mm"
+      },
+      "tooltip": {
+        "en": "From the registry's ports[] entry of kind `headphone_3_5`. Same graph limitation as the USB-C flag.",
+        "es": "Del campo ports[] del registro, entrada de tipo `headphone_3_5`. Misma limitación del grafo que el indicador USB-C."
+      }
+    },
+    {
+      "id": "cartridge_slot_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "slot",
+      "modes": [
+        "device",
+        "lower_deck"
+      ],
+      "label": {
+        "en": "Cartridge slot",
+        "es": "Ranura de cartucho"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE DEFAULT, on at every preset: the registry's ports[] vocabulary has no game-card kind (device-geometry.report.md §4 records Nintendo's card slot as omitted for want of a matching enum), so nothing sources it either way. Same graph limitation as the port flags.",
+        "es": "VALOR DEL ARQUETIPO, activo en todos los preajustes: el vocabulario ports[] del registro no tiene un tipo de tarjeta de juego (device-geometry.report.md §4 anota que la ranura de Nintendo se omitió por falta de un tipo en el enum), así que nada lo fija en ningún sentido. Misma limitación del grafo que los indicadores de puerto."
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "hinge_relief_radius > hinge_barrel_radius",
+      "severity": "error",
+      "message": {
+        "en": "The hinge pocket must be larger than the barrel it holds, or the decks and the knuckles occupy the same space. Set hinge_relief_radius = hinge_barrel_radius + running clearance (archetype: 0.4 mm).",
+        "es": "El alojamiento debe ser mayor que el barril que aloja, o las cubiertas y los nudillos ocupan el mismo espacio. Ajusta hinge_relief_radius = hinge_barrel_radius + holgura de giro (arquetipo: 0.4 mm)."
+      }
+    },
+    {
+      "expression": "hinge_relief_radius < upper_deck_thickness && hinge_relief_radius < lower_deck_thickness",
+      "severity": "error",
+      "message": {
+        "en": "The hinge pocket is deeper than a deck is thick: it would cut straight through. Reduce hinge_barrel_radius, or make the decks thicker.",
+        "es": "El alojamiento es más profundo que el espesor de una cubierta: la atravesaría. Reduce hinge_barrel_radius o engrosa las cubiertas."
+      }
+    },
+    {
+      "expression": "2.0 * hinge_relief_radius < deck_depth - secondary_screen_height && 2.0 * hinge_relief_radius < deck_depth - primary_screen_height",
+      "severity": "warning",
+      "message": {
+        "en": "The hinge pocket reaches into a display window. The model still builds, but the recess and the pocket merge at the hinge edge — reduce hinge_barrel_radius or move the screen forward.",
+        "es": "El alojamiento de la bisagra alcanza una ventana de pantalla. El modelo sigue construyéndose, pero el rebaje y el alojamiento se juntan en el borde de bisagra — reduce hinge_barrel_radius o adelanta la pantalla."
+      }
+    },
+    {
+      "expression": "primary_screen_width < deck_length && secondary_screen_width < deck_length && primary_screen_height < deck_depth && secondary_screen_height < deck_depth",
+      "severity": "error",
+      "message": {
+        "en": "A display window is larger than the deck that carries it.",
+        "es": "Una ventana de pantalla es mayor que la cubierta que la lleva."
+      }
+    },
+    {
+      "expression": "2.0 * corner_radius < deck_depth && 2.0 * corner_radius < deck_length",
+      "severity": "error",
+      "message": {
+        "en": "The corner radius is more than half the deck: the fillet has no edge left to round.",
+        "es": "El radio de esquina supera la mitad de la cubierta: el redondeo se queda sin arista."
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        -220,
+        180
+      ],
+      "target": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        45,
+        320
+      ],
+      "target": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frente"
+      },
+      "position": [
+        0,
+        -320,
+        0
+      ],
+      "target": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "id": "hinge_end",
+      "label": {
+        "en": "Hinge End",
+        "es": "Extremo de bisagra"
+      },
+      "position": [
+        320,
+        0,
+        0
+      ],
+      "target": [
+        0,
+        45,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 14,
+    "per_unit": 3,
+    "per_part": 10,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "device": {
+        "part_overrides": {
+          "hinge": {
+            "geometry.body_count": {
+              "expected": "hinge_knuckle_count"
+            }
+          }
+        }
+      },
+      "hinge": {
+        "part_overrides": {
+          "hinge": {
+            "geometry.body_count": {
+              "expected": "hinge_knuckle_count"
+            }
+          }
+        }
+      },
+      "graph_device": {
+        "part_overrides": {
+          "hinge": {
+            "geometry.body_count": {
+              "expected": "hinge_knuckle_count"
+            }
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from Telesia's device-geometry registry or derived from it by the archetype rules recorded in the generator and in docs/README.md. Re-run the generator to change them.",
+    "generator": "telesia:scripts/device-presets.py",
+    "command": "python3 scripts/device-presets.py --family clamshell-dual-screen-handheld --write <manifest>",
+    "registry": {
+      "repository": "madfam-org/telesia",
+      "path": "data/registry/device-geometry.json",
+      "schema": "telesia.device_geometry.v1",
+      "snapshot": "2026-09-13",
+      "sha256": "ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0",
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "clamshell-dual-screen-handheld",
+    "axis_mapping": {
+      "deck_length": "registry dimensions_mm.closed.height (the long axis, the hinge axis)",
+      "deck_depth": "registry dimensions_mm.closed.width (the folding axis)",
+      "upper_deck_thickness + lower_deck_thickness": "registry dimensions_mm.closed.depth"
+    },
+    "awaiting_a_source": [
+      {
+        "slug": "onexplayer-onexsugar",
+        "brand": "OneXPlayer",
+        "model": "ONEXSUGAR Sugar 1",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the registry (null)"
+      },
+      {
+        "slug": "ayn-thor",
+        "brand": "AYN",
+        "model": "Thor",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the registry (null)"
+      },
+      {
+        "slug": "sony-tablet-p",
+        "brand": "Sony",
+        "model": "Tablet P",
+        "status": "unverified",
+        "reason": "closed envelope unresolved in the registry (null)"
+      }
+    ]
+  },
+  "presets": [
+    {
+      "slug": "ayaneo-flip-ds",
+      "label": {
+        "en": "FLIP DS",
+        "es": "FLIP DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `ayaneo-flip-ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "ayaneo-flip-ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "stick count",
+          "shoulder-button count"
+        ]
+      },
+      "values": {
+        "deck_length": 180,
+        "deck_depth": 102,
+        "upper_deck_thickness": 13.41,
+        "lower_deck_thickness": 16.39,
+        "deck_center_y": 51,
+        "lower_deck_center_z": -8.195,
+        "upper_deck_center_z": 6.705,
+        "hinge_barrel_radius": 6,
+        "hinge_relief_radius": 6.4,
+        "hinge_relief_span": 90.8,
+        "hinge_knuckle_length": 25.2,
+        "hinge_knuckle_pitch": 32.4,
+        "hinge_knuckle_start_x": -32.4,
+        "primary_screen_width": 155,
+        "primary_screen_height": 87.2,
+        "primary_screen_center_y": 51,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 74,
+        "secondary_screen_height": 49.3,
+        "secondary_screen_center_y": 51,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -55,
+        "dpad_center_y": 51,
+        "face_button_center_x": 55,
+        "face_button_center_y": 51,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -55,
+        "stick_pitch_x": 110,
+        "stick_center_y": 33,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -62,
+        "shoulder_button_pitch_x": 124,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 0,
+        "menu_button_first_center_x": 55,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 83.65,
+        "speaker_first_center_x": -63.75,
+        "speaker_center_y": 83.65,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 102,
+        "usb_c_center_z": -8.195,
+        "headphone_center_x": -54,
+        "headphone_center_y": 102,
+        "headphone_center_z": -8.195,
+        "cartridge_slot_center_x": 54,
+        "cartridge_slot_center_y": 102,
+        "cartridge_slot_center_z": -8.195,
+        "usb_c_present": true,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "ayaneo-flip-1s-ds",
+      "label": {
+        "en": "FLIP 1S DS",
+        "es": "FLIP 1S DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `ayaneo-flip-1s-ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "ayaneo-flip-1s-ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "stick count",
+          "shoulder-button count"
+        ]
+      },
+      "values": {
+        "deck_length": 180,
+        "deck_depth": 102,
+        "upper_deck_thickness": 13.185,
+        "lower_deck_thickness": 16.115,
+        "deck_center_y": 51,
+        "lower_deck_center_z": -8.0575,
+        "upper_deck_center_z": 6.5925,
+        "hinge_barrel_radius": 6,
+        "hinge_relief_radius": 6.4,
+        "hinge_relief_span": 90.8,
+        "hinge_knuckle_length": 25.2,
+        "hinge_knuckle_pitch": 32.4,
+        "hinge_knuckle_start_x": -32.4,
+        "primary_screen_width": 155,
+        "primary_screen_height": 87.2,
+        "primary_screen_center_y": 51,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 95.1,
+        "secondary_screen_height": 63.4,
+        "secondary_screen_center_y": 51,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -65.55,
+        "dpad_center_y": 51,
+        "face_button_center_x": 65.55,
+        "face_button_center_y": 51,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -65.55,
+        "stick_pitch_x": 131.1,
+        "stick_center_y": 33,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -62,
+        "shoulder_button_pitch_x": 124,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 0,
+        "menu_button_first_center_x": 65.55,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 90.7,
+        "speaker_first_center_x": -74.3,
+        "speaker_center_y": 90.7,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 102,
+        "usb_c_center_z": -8.0575,
+        "headphone_center_x": -54,
+        "headphone_center_y": 102,
+        "headphone_center_z": -8.0575,
+        "cartridge_slot_center_x": 54,
+        "cartridge_slot_center_y": 102,
+        "cartridge_slot_center_z": -8.0575,
+        "usb_c_present": true,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "ayaneo-pocket-ds",
+      "label": {
+        "en": "Pocket DS",
+        "es": "Pocket DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `ayaneo-pocket-ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "ayaneo-pocket-ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": null,
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "materials",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "stick count",
+          "shoulder-button count"
+        ]
+      },
+      "values": {
+        "deck_length": 179.8,
+        "deck_depth": 101.8,
+        "upper_deck_thickness": 11.25,
+        "lower_deck_thickness": 13.75,
+        "deck_center_y": 50.9,
+        "lower_deck_center_z": -6.875,
+        "upper_deck_center_z": 5.625,
+        "hinge_barrel_radius": 5.9,
+        "hinge_relief_radius": 6.3,
+        "hinge_relief_span": 90.7,
+        "hinge_knuckle_length": 25.172,
+        "hinge_knuckle_pitch": 32.364,
+        "hinge_knuckle_start_x": -32.364,
+        "primary_screen_width": 155,
+        "primary_screen_height": 87.2,
+        "primary_screen_center_y": 50.9,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 101.6,
+        "secondary_screen_height": 76.2,
+        "secondary_screen_center_y": 50.9,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -68.8,
+        "dpad_center_y": 50.9,
+        "face_button_center_x": 68.8,
+        "face_button_center_y": 50.9,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -68.8,
+        "stick_pitch_x": 137.6,
+        "stick_center_y": 32.9,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -61.95,
+        "shoulder_button_pitch_x": 123.9,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 0,
+        "menu_button_first_center_x": 68.8,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 95.8,
+        "speaker_first_center_x": -77.55,
+        "speaker_center_y": 95.8,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 101.8,
+        "usb_c_center_z": -6.875,
+        "headphone_center_x": -53.94,
+        "headphone_center_y": 101.8,
+        "headphone_center_z": -6.875,
+        "cartridge_slot_center_x": 53.94,
+        "cartridge_slot_center_y": 101.8,
+        "cartridge_slot_center_z": -6.875,
+        "usb_c_present": true,
+        "headphone_present": false
+      }
+    },
+    {
+      "slug": "nintendo-ds",
+      "label": {
+        "en": "Nintendo DS",
+        "es": "Nintendo DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "nds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 148.7,
+        "deck_depth": 84.7,
+        "upper_deck_thickness": 13.005,
+        "lower_deck_thickness": 15.895,
+        "deck_center_y": 42.35,
+        "lower_deck_center_z": -7.9475,
+        "upper_deck_center_z": 6.5025,
+        "hinge_barrel_radius": 7.1528,
+        "hinge_relief_radius": 7.5528,
+        "hinge_relief_span": 75.15,
+        "hinge_knuckle_length": 20.818,
+        "hinge_knuckle_pitch": 26.766,
+        "hinge_knuckle_start_x": -26.766,
+        "primary_screen_width": 61.44,
+        "primary_screen_height": 46.08,
+        "primary_screen_center_y": 42.35,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 61.44,
+        "secondary_screen_height": 46.08,
+        "secondary_screen_center_y": 42.35,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -48.72,
+        "dpad_center_y": 42.35,
+        "face_button_center_x": 48.72,
+        "face_button_center_y": 42.35,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 0,
+        "stick_first_center_x": -48.72,
+        "stick_pitch_x": 97.44,
+        "stick_center_y": 24.35,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -54.175,
+        "shoulder_button_pitch_x": 108.35,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 42.72,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 73.39,
+        "speaker_first_center_x": -57.47,
+        "speaker_center_y": 73.39,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 84.7,
+        "usb_c_center_z": -7.9475,
+        "headphone_center_x": -44.61,
+        "headphone_center_y": 84.7,
+        "headphone_center_z": -7.9475,
+        "cartridge_slot_center_x": 44.61,
+        "cartridge_slot_center_y": 84.7,
+        "cartridge_slot_center_z": -7.9475,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-ds-lite",
+      "label": {
+        "en": "Nintendo DS Lite",
+        "es": "Nintendo DS Lite"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-ds-lite` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-ds-lite",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "nds",
+        "sourced": [
+          "announced",
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 133,
+        "deck_depth": 73.9,
+        "upper_deck_thickness": 9.675,
+        "lower_deck_thickness": 11.825,
+        "deck_center_y": 36.95,
+        "lower_deck_center_z": -5.9125,
+        "upper_deck_center_z": 4.8375,
+        "hinge_barrel_radius": 5.3213,
+        "hinge_relief_radius": 5.7213,
+        "hinge_relief_span": 67.3,
+        "hinge_knuckle_length": 18.62,
+        "hinge_knuckle_pitch": 23.94,
+        "hinge_knuckle_start_x": -23.94,
+        "primary_screen_width": 61.44,
+        "primary_screen_height": 46.08,
+        "primary_screen_center_y": 36.95,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 61.44,
+        "secondary_screen_height": 46.08,
+        "secondary_screen_center_y": 36.95,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -48.72,
+        "dpad_center_y": 36.95,
+        "face_button_center_x": 48.72,
+        "face_button_center_y": 36.95,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 0,
+        "stick_first_center_x": -48.72,
+        "stick_pitch_x": 97.44,
+        "stick_center_y": 18.95,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -50.25,
+        "shoulder_button_pitch_x": 100.5,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 42.72,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 67.9,
+        "speaker_first_center_x": -57.47,
+        "speaker_center_y": 67.9,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 73.9,
+        "usb_c_center_z": -5.9125,
+        "headphone_center_x": -39.9,
+        "headphone_center_y": 73.9,
+        "headphone_center_z": -5.9125,
+        "cartridge_slot_center_x": 39.9,
+        "cartridge_slot_center_y": 73.9,
+        "cartridge_slot_center_z": -5.9125,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-dsi",
+      "label": {
+        "en": "Nintendo DSi",
+        "es": "Nintendo DSi"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-dsi` (status: partial); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-dsi",
+        "snapshot": "2026-09-13",
+        "status": "partial",
+        "telesia_platform_hint": "nintendo-dsi",
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "primary display active area",
+          "secondary display active area",
+          "face-button count",
+          "stick count",
+          "shoulder-button count",
+          "menu-button count"
+        ]
+      },
+      "values": {
+        "deck_length": 137,
+        "deck_depth": 74.9,
+        "upper_deck_thickness": 8.505,
+        "lower_deck_thickness": 10.395,
+        "deck_center_y": 37.45,
+        "lower_deck_center_z": -5.1975,
+        "upper_deck_center_z": 4.2525,
+        "hinge_barrel_radius": 4.6778,
+        "hinge_relief_radius": 5.0778,
+        "hinge_relief_span": 69.3,
+        "hinge_knuckle_length": 19.18,
+        "hinge_knuckle_pitch": 24.66,
+        "hinge_knuckle_start_x": -24.66,
+        "dpad_center_x": -58,
+        "dpad_center_y": 37.45,
+        "face_button_center_x": 58,
+        "face_button_center_y": 37.45,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -58,
+        "stick_pitch_x": 116,
+        "stick_center_y": 19.45,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -51.25,
+        "shoulder_button_pitch_x": 102.5,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 52,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 68.9,
+        "speaker_first_center_x": -66.75,
+        "speaker_center_y": 68.9,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 74.9,
+        "usb_c_center_z": -5.1975,
+        "headphone_center_x": -41.1,
+        "headphone_center_y": 74.9,
+        "headphone_center_z": -5.1975,
+        "cartridge_slot_center_x": 41.1,
+        "cartridge_slot_center_y": 74.9,
+        "cartridge_slot_center_z": -5.1975,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-dsi-xl",
+      "label": {
+        "en": "Nintendo DSi XL",
+        "es": "Nintendo DSi XL"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-dsi-xl` (status: partial); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-dsi-xl",
+        "snapshot": "2026-09-13",
+        "status": "partial",
+        "telesia_platform_hint": "nintendo-dsi",
+        "sourced": [
+          "announced",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "primary display active area",
+          "secondary display active area",
+          "face-button count",
+          "stick count",
+          "shoulder-button count",
+          "menu-button count"
+        ]
+      },
+      "values": {
+        "deck_length": 161,
+        "deck_depth": 91.4,
+        "upper_deck_thickness": 9.54,
+        "lower_deck_thickness": 11.66,
+        "deck_center_y": 45.7,
+        "lower_deck_center_z": -5.83,
+        "upper_deck_center_z": 4.77,
+        "hinge_barrel_radius": 5.247,
+        "hinge_relief_radius": 5.647,
+        "hinge_relief_span": 81.3,
+        "hinge_knuckle_length": 22.54,
+        "hinge_knuckle_pitch": 28.98,
+        "hinge_knuckle_start_x": -28.98,
+        "dpad_center_x": -58,
+        "dpad_center_y": 45.7,
+        "face_button_center_x": 58,
+        "face_button_center_y": 45.7,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -58,
+        "stick_pitch_x": 116,
+        "stick_center_y": 27.7,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -57.25,
+        "shoulder_button_pitch_x": 114.5,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 52,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 78.7,
+        "speaker_first_center_x": -66.75,
+        "speaker_center_y": 78.7,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 91.4,
+        "usb_c_center_z": -5.83,
+        "headphone_center_x": -48.3,
+        "headphone_center_y": 91.4,
+        "headphone_center_z": -5.83,
+        "cartridge_slot_center_x": 48.3,
+        "cartridge_slot_center_y": 91.4,
+        "cartridge_slot_center_z": -5.83,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-3ds",
+      "label": {
+        "en": "Nintendo 3DS",
+        "es": "Nintendo 3DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-3ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-3ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 134,
+        "deck_depth": 74,
+        "upper_deck_thickness": 9.45,
+        "lower_deck_thickness": 11.55,
+        "deck_center_y": 37,
+        "lower_deck_center_z": -5.775,
+        "upper_deck_center_z": 4.725,
+        "hinge_barrel_radius": 5.1975,
+        "hinge_relief_radius": 5.5975,
+        "hinge_relief_span": 67.8,
+        "hinge_knuckle_length": 18.76,
+        "hinge_knuckle_pitch": 24.12,
+        "hinge_knuckle_start_x": -24.12,
+        "primary_screen_width": 76.8,
+        "primary_screen_height": 46.08,
+        "primary_screen_center_y": 37,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 61.44,
+        "secondary_screen_height": 46.08,
+        "secondary_screen_center_y": 37,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -48.72,
+        "dpad_center_y": 37,
+        "face_button_center_x": 48.72,
+        "face_button_center_y": 37,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 1,
+        "stick_first_center_x": -48.72,
+        "stick_pitch_x": 97.44,
+        "stick_center_y": 19,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -50.5,
+        "shoulder_button_pitch_x": 101,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 42.72,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 68,
+        "speaker_first_center_x": -57.47,
+        "speaker_center_y": 68,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 74,
+        "usb_c_center_z": -5.775,
+        "headphone_center_x": -40.2,
+        "headphone_center_y": 74,
+        "headphone_center_z": -5.775,
+        "cartridge_slot_center_x": 40.2,
+        "cartridge_slot_center_y": 74,
+        "cartridge_slot_center_z": -5.775,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-3ds-xl",
+      "label": {
+        "en": "Nintendo 3DS XL",
+        "es": "Nintendo 3DS XL"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-3ds-xl` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-3ds-xl",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 156,
+        "deck_depth": 93,
+        "upper_deck_thickness": 9.9,
+        "lower_deck_thickness": 12.1,
+        "deck_center_y": 46.5,
+        "lower_deck_center_z": -6.05,
+        "upper_deck_center_z": 4.95,
+        "hinge_barrel_radius": 5.445,
+        "hinge_relief_radius": 5.845,
+        "hinge_relief_span": 78.8,
+        "hinge_knuckle_length": 21.84,
+        "hinge_knuckle_pitch": 28.08,
+        "hinge_knuckle_start_x": -28.08,
+        "primary_screen_width": 106.2,
+        "primary_screen_height": 63.72,
+        "primary_screen_center_y": 46.5,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 84.96,
+        "secondary_screen_height": 63.72,
+        "secondary_screen_center_y": 46.5,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -60.48,
+        "dpad_center_y": 46.5,
+        "face_button_center_x": 60.48,
+        "face_button_center_y": 46.5,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 1,
+        "stick_first_center_x": -60.48,
+        "stick_pitch_x": 120.96,
+        "stick_center_y": 28.5,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -56,
+        "shoulder_button_pitch_x": 112,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 54.48,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 86.36,
+        "speaker_first_center_x": -69.23,
+        "speaker_center_y": 86.36,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 93,
+        "usb_c_center_z": -6.05,
+        "headphone_center_x": -46.8,
+        "headphone_center_y": 93,
+        "headphone_center_z": -6.05,
+        "cartridge_slot_center_x": 46.8,
+        "cartridge_slot_center_y": 93,
+        "cartridge_slot_center_z": -6.05,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "new-nintendo-3ds",
+      "label": {
+        "en": "New Nintendo 3DS",
+        "es": "New Nintendo 3DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `new-nintendo-3ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "new-nintendo-3ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "new-nintendo-3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 142,
+        "deck_depth": 80.6,
+        "upper_deck_thickness": 9.72,
+        "lower_deck_thickness": 11.88,
+        "deck_center_y": 40.3,
+        "lower_deck_center_z": -5.94,
+        "upper_deck_center_z": 4.86,
+        "hinge_barrel_radius": 5.346,
+        "hinge_relief_radius": 5.746,
+        "hinge_relief_span": 71.8,
+        "hinge_knuckle_length": 19.88,
+        "hinge_knuckle_pitch": 25.56,
+        "hinge_knuckle_start_x": -25.56,
+        "primary_screen_width": 84.6,
+        "primary_screen_height": 50.76,
+        "primary_screen_center_y": 40.3,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 67.68,
+        "secondary_screen_height": 50.76,
+        "secondary_screen_center_y": 40.3,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -51.84,
+        "dpad_center_y": 40.3,
+        "face_button_center_x": 51.84,
+        "face_button_center_y": 40.3,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -51.84,
+        "stick_pitch_x": 103.68,
+        "stick_center_y": 22.3,
+        "shoulder_button_count": 4,
+        "shoulder_button_first_center_x": -52.5,
+        "shoulder_button_pitch_x": 105,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 45.84,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 73.68,
+        "speaker_first_center_x": -60.59,
+        "speaker_center_y": 73.68,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 80.6,
+        "usb_c_center_z": -5.94,
+        "headphone_center_x": -42.6,
+        "headphone_center_y": 80.6,
+        "headphone_center_z": -5.94,
+        "cartridge_slot_center_x": 42.6,
+        "cartridge_slot_center_y": 80.6,
+        "cartridge_slot_center_z": -5.94,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "new-nintendo-3ds-xl",
+      "label": {
+        "en": "New Nintendo 3DS XL",
+        "es": "New Nintendo 3DS XL"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `new-nintendo-3ds-xl` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "new-nintendo-3ds-xl",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "new-nintendo-3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 160,
+        "deck_depth": 93.5,
+        "upper_deck_thickness": 9.675,
+        "lower_deck_thickness": 11.825,
+        "deck_center_y": 46.75,
+        "lower_deck_center_z": -5.9125,
+        "upper_deck_center_z": 4.8375,
+        "hinge_barrel_radius": 5.3213,
+        "hinge_relief_radius": 5.7213,
+        "hinge_relief_span": 80.8,
+        "hinge_knuckle_length": 22.4,
+        "hinge_knuckle_pitch": 28.8,
+        "hinge_knuckle_start_x": -28.8,
+        "primary_screen_width": 106.2,
+        "primary_screen_height": 63.72,
+        "primary_screen_center_y": 46.75,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 84.96,
+        "secondary_screen_height": 63.72,
+        "secondary_screen_center_y": 46.75,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -60.48,
+        "dpad_center_y": 46.75,
+        "face_button_center_x": 60.48,
+        "face_button_center_y": 46.75,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -60.48,
+        "stick_pitch_x": 120.96,
+        "stick_center_y": 28.75,
+        "shoulder_button_count": 4,
+        "shoulder_button_first_center_x": -57,
+        "shoulder_button_pitch_x": 114,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 54.48,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 86.61,
+        "speaker_first_center_x": -69.23,
+        "speaker_center_y": 86.61,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 93.5,
+        "usb_c_center_z": -5.9125,
+        "headphone_center_x": -48,
+        "headphone_center_y": 93.5,
+        "headphone_center_z": -5.9125,
+        "cartridge_slot_center_x": 48,
+        "cartridge_slot_center_y": 93.5,
+        "cartridge_slot_center_z": -5.9125,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    },
+    {
+      "slug": "nintendo-2ds",
+      "label": {
+        "en": "Nintendo 2DS",
+        "es": "Nintendo 2DS"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `nintendo-2ds` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-2ds",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [],
+        "caveat": "Nintendo describes this model as \"a new distinctive fixed slate form design\"; it does not fold. Its registry entry has every hinge field null and device-geometry.report.md §4 proposes moving it to a slate-dual-screen-handheld family. The preset therefore pins fold_angle to 0 and carries the envelope only — the archetype's fold is not a claim about this device."
+      },
+      "values": {
+        "deck_length": 144,
+        "deck_depth": 127,
+        "upper_deck_thickness": 9.135,
+        "lower_deck_thickness": 11.165,
+        "deck_center_y": 63.5,
+        "lower_deck_center_z": -5.5825,
+        "upper_deck_center_z": 4.5675,
+        "hinge_barrel_radius": 5.0243,
+        "hinge_relief_radius": 5.4243,
+        "hinge_relief_span": 72.8,
+        "hinge_knuckle_length": 20.16,
+        "hinge_knuckle_pitch": 25.92,
+        "hinge_knuckle_start_x": -25.92,
+        "primary_screen_width": 76.8,
+        "primary_screen_height": 46.08,
+        "primary_screen_center_y": 63.5,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 61.44,
+        "secondary_screen_height": 46.08,
+        "secondary_screen_center_y": 63.5,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -48.72,
+        "dpad_center_y": 63.5,
+        "face_button_center_x": 48.72,
+        "face_button_center_y": 63.5,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 1,
+        "stick_first_center_x": -48.72,
+        "stick_pitch_x": 97.44,
+        "stick_center_y": 45.5,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -53,
+        "shoulder_button_pitch_x": 106,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 42.72,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 94.54,
+        "speaker_first_center_x": -57.47,
+        "speaker_center_y": 94.54,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 127,
+        "usb_c_center_z": -5.5825,
+        "headphone_center_x": -43.2,
+        "headphone_center_y": 127,
+        "headphone_center_z": -5.5825,
+        "cartridge_slot_center_x": 43.2,
+        "cartridge_slot_center_y": 127,
+        "cartridge_slot_center_z": -5.5825,
+        "usb_c_present": false,
+        "headphone_present": true,
+        "fold_angle": 0
+      }
+    },
+    {
+      "slug": "new-nintendo-2ds-xl",
+      "label": {
+        "en": "New Nintendo 2DS XL",
+        "es": "New Nintendo 2DS XL"
+      },
+      "source": "telesia registry device-geometry.json snapshot 2026-09-13, device `new-nintendo-2ds-xl` (status: verified); envelope closed height x width x depth as published. Generated by scripts/device-presets.py — do not edit by hand.",
+      "registry": {
+        "device": "new-nintendo-2ds-xl",
+        "snapshot": "2026-09-13",
+        "status": "verified",
+        "telesia_platform_hint": "new-nintendo-3ds",
+        "sourced": [
+          "controls",
+          "dimensions_mm",
+          "displays",
+          "hinge",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "deck_length": 159.36,
+        "deck_depth": 86.36,
+        "upper_deck_thickness": 9.36,
+        "lower_deck_thickness": 11.44,
+        "deck_center_y": 43.18,
+        "lower_deck_center_z": -5.72,
+        "upper_deck_center_z": 4.68,
+        "hinge_barrel_radius": 5.148,
+        "hinge_relief_radius": 5.548,
+        "hinge_relief_span": 80.48,
+        "hinge_knuckle_length": 22.3104,
+        "hinge_knuckle_pitch": 28.6848,
+        "hinge_knuckle_start_x": -28.6848,
+        "primary_screen_width": 106.2,
+        "primary_screen_height": 63.72,
+        "primary_screen_center_y": 43.18,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 84.96,
+        "secondary_screen_height": 63.72,
+        "secondary_screen_center_y": 43.18,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -60.48,
+        "dpad_center_y": 43.18,
+        "face_button_center_x": 60.48,
+        "face_button_center_y": 43.18,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -60.48,
+        "stick_pitch_x": 120.96,
+        "stick_center_y": 25.18,
+        "shoulder_button_count": 4,
+        "shoulder_button_first_center_x": -56.84,
+        "shoulder_button_pitch_x": 113.68,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 54.48,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 80.36,
+        "speaker_first_center_x": -69.23,
+        "speaker_center_y": 80.36,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 86.36,
+        "usb_c_center_z": -5.72,
+        "headphone_center_x": -47.808,
+        "headphone_center_y": 86.36,
+        "headphone_center_z": -5.72,
+        "cartridge_slot_center_x": 47.808,
+        "cartridge_slot_center_y": 86.36,
+        "cartridge_slot_center_z": -5.72,
+        "usb_c_present": false,
+        "headphone_present": true
+      }
+    }
+  ]
+}

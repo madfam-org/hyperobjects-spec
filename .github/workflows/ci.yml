@@ -152,6 +152,20 @@ jobs:
         # src/y4d_spec/graph/VENDORED.md.
         run: .venv/bin/python scripts/qa/check_graph_sync.py
 
+      - name: Graph-core lock guard
+        # BLOCKING. src/hyperobject_graph/ is the shared graph core of RFC 0067 and it is
+        # CANONICAL here: Yantra4D, Fashion Cabinet and Pliego vendor the directory and pin
+        # it by core.lock.json. The lock must be the truth about the files beside it, or a
+        # kernel pins a lie. The mirror of the drift guard above. See docs/GRAPH_CORE.md.
+        run: .venv/bin/python scripts/qa/check_graph_core_lock.py
+
+      - name: Graph core keeps every solid graph byte-identical
+        # BLOCKING. The solid engine sits behind the core's node-pack interface; every
+        # graph in the solid commons (fixtures, byte-identical copies) must validate with
+        # zero problems and transpile to the very bytes the engine emits directly, and to
+        # the digest pinned at this engine lock.
+        run: .venv/bin/python scripts/qa/check_graph_core_solid.py
+
       - name: Lint
         run: .venv/bin/ruff check src tests scripts
 
@@ -207,6 +221,16 @@ jobs:
           .venv/bin/y4d-spec check --render --parity \
             tests/fixtures/y4d/graph-block tests/fixtures/y4d/graph-twin \
             tests/fixtures/y4d/graph-twin-expr
+          # THE WRAPPER ROWS (RFC 0067 G-1): a graph with one `script` node running the
+          # mode's own source, around a CadQuery script and around an OpenSCAD one. The
+          # parity pass must find every wrapper render identical to its script byte for
+          # byte, at the defaults and every preset — 8 pairs, counted, so a wrapper lane
+          # that stopped pairing cannot pass by comparing nothing.
+          .venv/bin/y4d-spec check --render --parity --require-openscad -v \
+            tests/fixtures/y4d/graph-wrapper tests/fixtures/y4d/graph-wrapper-scad > wrapper.out
+          grep -q "parity=8/8 ok" wrapper.out
+          test "$(grep -c 'wrapper identical' wrapper.out)" -eq 8
+          rm -f wrapper.out
           # G-DEADPARAM, the other way round: this fixture MUST fail, and must name the
           # three dead parameters. A rule whose only proof is that healthy cartridges
           # pass is a rule that could be switched off without anything going red.

@@ -354,6 +354,12 @@ def all_structure_rules(cartridge_dir: Path, manifest: dict) -> tuple[list[str],
     problems.extend(vendor_rules(cartridge_dir))
     problems.extend(shipped_license_rules(cartridge_dir, manifest))
     problems.extend(dead_parameter_rules(cartridge_dir, manifest))
+    # The graph core (RFC 0067): failures for a 1.2 graph, notes for a 1.0/1.1 one.
+    from .graph_core_rules import graph_core_rules
+
+    graph_problems, graph_notes = graph_core_rules(cartridge_dir, manifest)
+    problems.extend(graph_problems)
+    notes.extend(graph_notes)
     # default-drift is NOTE ONLY (y4d_spec.default_drift): it never adds a problem.
     from .default_drift import default_drift_rules
 
