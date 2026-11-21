@@ -26,6 +26,7 @@ transpiler refuses them with its own message.
 from __future__ import annotations
 
 import keyword
+import math
 import re
 
 from .declarations import (
@@ -399,8 +400,7 @@ def validate(
             table = None
         default = spec["default"]
         if isinstance(default, bool) or (
-            isinstance(default, (int, float)) and default == default
-            and abs(default) != float("inf")
+            isinstance(default, (int, float)) and math.isfinite(default)
         ):
             pass
         elif isinstance(default, str) and OPTION_RE.match(default):

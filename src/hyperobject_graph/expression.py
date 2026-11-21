@@ -243,7 +243,7 @@ def expression_names(tree: tuple) -> set[str]:
 
 def truthy(value: object) -> bool:
     """JavaScript truthiness for the dialect's values (0 and NaN are false)."""
-    return bool(value) and value == value
+    return bool(value) and not (isinstance(value, float) and math.isnan(value))
 
 
 def _number(value: object) -> float:

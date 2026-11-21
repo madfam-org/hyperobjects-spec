@@ -113,6 +113,12 @@ JSON, the `script` node included.
 The core hands `transpile` the document **with the core-only keys removed and nothing
 else touched** (`pack_document`). For a 1.0/1.1 document that is the document itself.
 
+The core's `dead-parameter` check sees only the graph: a script pass-through counts as
+wiring there, because the core cannot read a source. **A kernel must also check that the
+wrapped source reads each parameter**, or a wrapper that passes everything through hides
+a dead control. The keystone does it for solid by holding the wrapped script to
+G-DEADPARAM; the soft and sheet adapters must do the same with their own source readers.
+
 ### The solid pack
 
 `y4d_spec.solid_pack.SOLID_PACK` is Yantra4D's graph engine behind this interface: the
@@ -173,6 +179,9 @@ Semantics every kernel implements identically:
    (which inject nothing) and at every preset.
 2. **Expressions and literals are always defined.** An `expr` reads the graph's
    `parameters`/`derived` scope with 1.1 semantics (injected value or declared default).
+   They are for script nodes inside native graphs: a **wrapper** a kernel verifies as its
+   script binds only pass-throughs, each under its own name, covering every parameter its
+   mode lists (the keystone refuses anything else for a wrapper).
 3. **The part.** Without `part`, the node passes the render's selected part through (the
    pack's `part_parameter`), so one node serves every output that names it, and it may
    feed only `outputs`. With `part`, it renders that part and may feed other nodes.
