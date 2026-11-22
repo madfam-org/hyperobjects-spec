@@ -93,8 +93,11 @@ def _code_type(name: str) -> str | None:
     return None
 
 
-def _axis(spec: str) -> tuple[int, int]:
-    """``"+z"`` → ``(2, +1)``."""
+def _axis(spec: object) -> tuple[int, int] | None:
+    """``"+z"`` → ``(2, +1)``; None for anything that is not one of the six directions
+    (the schema has already refused it; no pass may crash on it)."""
+    if not isinstance(spec, str) or len(spec) != 2 or spec[0] not in "+-" or spec[1] not in _AXES:
+        return None
     return _AXES[spec[1]], (1 if spec[0] == "+" else -1)
 
 
@@ -411,8 +414,8 @@ def _screen_problems(control: dict) -> list[str]:
     if control.get("role") != "screen" or not isinstance(surface, dict):
         return []
     normal, up = surface.get("normal"), surface.get("up")
-    if isinstance(normal, str) and isinstance(up, str) and len(normal) == 2 and len(up) == 2:
-        if normal[1] == up[1]:
+    if _axis(normal) is not None and _axis(up) is not None:
+        if _axis(normal)[0] == _axis(up)[0]:
             return [
                 f"{RULE_ID}: control '{control['part']}': surface.normal {normal} and "
                 f"surface.up {up} lie on one axis; the top of the picture is a direction "
@@ -659,7 +662,7 @@ def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[
             verified.append("on the structure")
 
     travel = control.get("travel") if isinstance(control.get("travel"), dict) else {}
-    if isinstance(travel.get("axis"), str) and role in ("button", "trigger", "stick"):
+    if _axis(travel.get("axis")) is not None and role in ("button", "trigger", "stick"):
         axis, sign = _axis(travel["axis"])
         hull = _union(structure) if structure is not None else None
         if hull is not None and bounds is not None:
@@ -684,9 +687,10 @@ def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[
                 )
 
     surface = control.get("surface") if isinstance(control.get("surface"), dict) else {}
-    if role == "screen" and extents is not None and {"normal", "up"} <= set(surface):
-        normal, _ = _axis(surface["normal"])
-        up, _ = _axis(surface["up"])
+    faces = _axis(surface.get("normal")), _axis(surface.get("up"))
+    square_on = None not in faces and faces[0][0] != faces[1][0]
+    if role == "screen" and extents is not None and square_on:
+        normal, up = faces[0][0], faces[1][0]
         across = 3 - normal - up
         if extents[normal] >= min(extents[across], extents[up]):
             failures.append(
@@ -699,7 +703,8 @@ def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[
                 f"face {extents[across]:.2f} × {extents[up]:.2f} mm looking {surface['normal']}"
             )
             try:
-                px = [_number(item, env) for item in control.get("pixels") or []]
+                listed = control.get("pixels")
+                px = [_number(i, env) for i in (listed if isinstance(listed, list) else [])]
             except (core.GraphCoreError, ValueError):
                 px = []
             if len(px) == 2 and px[0] > 0 and px[1] > 0:

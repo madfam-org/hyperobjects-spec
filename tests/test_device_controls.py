@@ -497,6 +497,48 @@ def test_a_preset_point_uses_the_presets_numbers(manifest):
     assert any("320 × 240 pixels" in n for n in check.notes)
 
 
+# ── no pass crashes on a malformed declaration ───────────────────────────────────────
+
+WRONG = (None, 5, 0.5, True, "x", "+w", [], ["x"], {}, {"x": 1}, {"expr": 5}, {"expr": "1 +"})
+
+
+def test_no_pass_raises_on_a_field_of_the_wrong_type(manifest):
+    """The schema refuses these; what is tested is that every pass still returns. A
+    checker that stops with a traceback reports nothing about the rest of the cartridge."""
+    renders = [
+        BODY,
+        render("screen", (-35.56, 17.33, 17.2), (35.56, 70.67, 18.2)),
+        render("button_south", (20, -25, 17), (28, -17, 19.4)),
+        render("stick_left", (-28.5, -52.5, 16.8), (-15.5, -39.5, 23)),
+        render("slide_switch", (42.8, 26.5, 7.8), (45, 30.5, 10.2)),
+    ]
+    paths = [("vocabulary",), ("structure",), ("controls",)]
+    for i, entry in enumerate(manifest["device"]["controls"]):
+        for key, value in entry.items():
+            paths.append(("controls", i, key))
+            if isinstance(value, dict):
+                paths.extend(("controls", i, key, sub) for sub in value)
+            if isinstance(value, list):
+                paths.append(("controls", i, key, 0))
+    assert len(paths) > 200
+    for path in paths:
+        for wrong in WRONG:
+            mutated = copy.deepcopy(manifest)
+            node = mutated["device"]
+            for step in path[:-1]:
+                node = node[step]
+            node[path[-1]] = wrong
+            dev.manifest_rules(mutated)
+            dev.graph_rules(CARTRIDGE, mutated)
+            dev.render_checks(mutated, renders)
+    for wrong in WRONG:
+        mutated = copy.deepcopy(manifest)
+        mutated["device"] = wrong
+        dev.manifest_rules(mutated)
+        dev.graph_rules(CARTRIDGE, mutated)
+        dev.render_checks(mutated, renders)
+
+
 # ── the render pass, against the real meshes ─────────────────────────────────────────
 
 
