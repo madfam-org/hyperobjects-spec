@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/madfam-org/hyperobjects-spec/blob/main/src/hyperobjects_schemas/schemas/device-controls.schema.json",
+  "$id": "https://madfam.io/schemas/device-controls.schema.json",
   "title": "Device-control declaration (device-controls 1.0)",
   "description": "The `device` block of a solid cartridge manifest: which of the cartridge's parts a person can press, tilt, slide, look at or plug into, and what each one sends. One entry per part. A viewer reads it to light a control, animate its travel and show a screen; a program reads it to turn a press into the input event the real device would send. The shape is checked here; the declaration is checked against the cartridge's parts, modes, presets, graph and rendered meshes by `y4d_spec.device` (docs/DEVICE_CONTROLS.md).",
   "type": "object",
