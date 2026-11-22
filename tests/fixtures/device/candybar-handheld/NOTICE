@@ -1,0 +1,24 @@
+NOTICE — provenance
+===================
+
+Candy-Bar Handheld (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+No third-party code or design files are vendored in this cartridge.
+
+An archetype, not a replica
+---------------------------
+
+This cartridge models a FAMILY: an upright slab with a screen above its
+controls. It models no manufacturer's product. It draws no logo, wordmark,
+badge, glyph, colourway, texture, vent or parting line, and no outline or
+control arrangement was traced or measured from a device.
+
+The two presets are ILLUSTRATIVE. Their names describe a size and a layout, and
+their dimensions are round numbers chosen to show the parameter space. They are
+not the dimensions of any device.
+
+The input event names in the manifest's `device` block (BTN_SOUTH, ABS_X,
+KEY_POWER and so on) are the names the Linux kernel gives input events. They are
+the interface a program and a driver agree on, and they are used here as names.

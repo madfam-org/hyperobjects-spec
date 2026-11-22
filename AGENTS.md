@@ -312,6 +312,30 @@ redundant edge that would report one of the other two failures twice.
   core); on a 1.0/1.1 graph they are `graph-core:` notes and the engine is the enforcing
   validator. Do not promote the notes without a whole-commons pass written down.
 
+## The device-control vocabulary (`y4d_spec.device`) — read before touching it
+
+- **What it is.** A `device` block in a solid manifest says which part is a control, the
+  Linux input event it sends, its travel, a screen's pixels and face, a light's colours and
+  where the control is present. Contract: `docs/DEVICE_CONTROLS.md`. Nothing runs on a
+  manifest without the block.
+- **`input-codes.json` is GENERATED.** Never hand-edit it. A new name comes from
+  `scripts/refresh_device_input_codes.py <header> --tag <kernel tag>`, which records the
+  tag and the header's sha256. An unknown name in a cartridge is a failure by design: the
+  cartridge waits for the table, as it waits for an interface size key.
+- **Expressions are the graph core's.** `present_when` and `{"expr"}` are parsed and
+  evaluated by `hyperobject_graph`; do not write a second evaluator here. Numbers go in as
+  floats, because the dialect's `==` is strict.
+- **The render pass reads `RenderCheck.bounds` and `extents` and nothing else.** That is
+  why its tests run on stand-in renders with no CAD kernel. Keep it that way: a verdict
+  that needs the mesh belongs in `geometry.py`, recorded on the `RenderCheck`.
+- **Failures from birth, notes for what a healthy device can do.** No cartridge carried
+  the block before the module. A new observation that could be true of a real device (two
+  controls on one code, non-square pixels) is a note.
+- **The fixture is a copy** of the solid commons' `candybar-handheld`
+  (`tests/fixtures/device/NOTICE.md`). Refresh it from the commons; break a copy in a test.
+- The summary clause is `device=P/M ok, unverified=U, failures=F` (`P + U + F = M`),
+  printed only when a declaration was checked against renders.
+
 ## Every declared parameter must be referenced (G-DEADPARAM)
 
 A `parameters[]` entry no source reads is a **conformance failure**: the UI offers a

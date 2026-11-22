@@ -888,6 +888,25 @@ as before. Fixtures: `tests/fixtures/y4d/frame-plate`
 (every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
 normal).
 
+### Device controls: which part is a button, and what it sends
+
+A cartridge that models a device a person operates (a handheld, a remote, a panel) can
+carry a `device` block: for each part, whether it is a button, a stick, a trigger, a
+switch, a screen, a light, a port or a motor, the Linux input event it sends, how it
+travels, a screen's pixels and lit face, a light's colours, and where on the parameter
+space the control exists. A viewer reads it to light and press the model; an input bridge
+reads it to send what the real device would. Contract:
+[`docs/DEVICE_CONTROLS.md`](docs/DEVICE_CONTROLS.md).
+
+`y4d-spec check` holds the declaration to the cartridge. Without a render: every declared
+part is a part some mode renders and every part is accounted for, every input name is in
+the table generated from the kernel's header, every expression is in the graph core's
+dialect, a mode lists no control its parameter point lacks, and every control is an output
+of its mode's graph (RFC 0067). With `--render`: each control sits on the device's
+structure, a press moves it in and not out, and a screen's lit face is the part's large
+face. The summary then carries `device=P/M ok, unverified=U, failures=F`. A manifest
+without a `device` block is checked exactly as before.
+
 ---
 
 ## Render environment

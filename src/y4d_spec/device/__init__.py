@@ -12,7 +12,8 @@ has, so a declaration cannot describe a device the cartridge does not build:
 
 * :func:`manifest_rules` — no directory, no render. The shape; every declared part is a
   part of the cartridge that some mode renders, and every part is accounted for; every
-  input name exists and suits its role; every expression parses in the graph core's
+  input name exists and suits its role; a label carries both locales; every expression
+  parses in the graph core's
   dialect and reads declared parameters; and at each parameter point a run renders (a
   mode at its defaults, and each preset in its modes) a control the mode lists is present
   there and its numbers are sound.
@@ -393,6 +394,18 @@ def _expression_problems(doc: dict, block: dict) -> list[str]:
     return out
 
 
+def _label_problems(control: dict) -> list[str]:
+    """A control's label is a surface string: it carries the commons' locales (en, es)."""
+    from ..rules import _i18n_missing
+
+    if "label" not in control:
+        return []
+    return [
+        f"{RULE_ID}: control '{control['part']}': label is missing its '{loc}' translation"
+        for loc in _i18n_missing(control["label"])
+    ]
+
+
 def _screen_problems(control: dict) -> list[str]:
     surface = control.get("surface")
     if control.get("role") != "screen" or not isinstance(surface, dict):
@@ -489,6 +502,7 @@ def manifest_rules(doc: dict) -> tuple[list[str], list[str]]:
     problems.extend(_part_problems(doc, block))
     for control in _controls(block):
         problems.extend(_code_problems(control))
+        problems.extend(_label_problems(control))
         problems.extend(_screen_problems(control))
     expression_problems = _expression_problems(doc, block)
     problems.extend(expression_problems)
