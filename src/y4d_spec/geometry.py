@@ -236,6 +236,12 @@ class RenderCheck:
     #: it wraps, "cadquery" or "openscad". The parity pass pairs the wrapper with that
     #: engine's render of the same target and requires the two meshes byte for byte.
     wraps: str | None = None
+    #: The mesh's axis-aligned bounding box in the model frame, ``(min corner, max
+    #: corner)``. `extents` says how large a part is; this says where it is, which is what
+    #: lets the device-control pass (y4d_spec.device) ask whether a control sits on its
+    #: device and which way a press moves it. Last, so every field before it keeps its
+    #: position for a caller that passes them positionally.
+    bounds: tuple[tuple[float, float, float], tuple[float, float, float]] | None = None
 
     def __bool__(self) -> bool:
         return self.ok
@@ -690,6 +696,7 @@ def _judge_stl(
         watertight=watertight,
         bodies=verdict.bodies if verdict.bodies is not None else 0,
         extents=tuple(float(x) for x in mesh.extents),
+        bounds=tuple(tuple(float(x) for x in corner) for corner in mesh.bounds),
         preset=preset,
         engine=engine,
         # Only a mesh that WILL still be on disk is recorded. `keep` is the caller

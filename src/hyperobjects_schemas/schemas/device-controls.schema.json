@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madfam.io/schemas/device-controls.schema.json",
+  "title": "Device-control declaration (device-controls 1.0)",
+  "description": "The `device` block of a solid cartridge manifest: which of the cartridge's parts a person can press, tilt, slide, look at or plug into, and what each one sends. One entry per part. A viewer reads it to light a control, animate its travel and show a screen; a program reads it to turn a press into the input event the real device would send. The shape is checked here; the declaration is checked against the cartridge's parts, modes, presets, graph and rendered meshes by `y4d_spec.device` (docs/DEVICE_CONTROLS.md).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["vocabulary", "structure", "controls"],
+  "properties": {
+    "vocabulary": {
+      "type": "string",
+      "pattern": "^device-controls/1\\.(0|[1-9]\\d*)$",
+      "description": "The vocabulary and the version the declaration is written in, `device-controls/1.0`."
+    },
+    "structure": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/partId" },
+          { "$ref": "#/$defs/structurePart" }
+        ]
+      },
+      "description": "The parts that are not controls: the body, a trim, a mount. Every part of the cartridge is either listed here or declared as a control, so a viewer never has to guess whether a part can be pressed. An entry is the part's id, or an object that also says where the part is present."
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/control" }
+    }
+  },
+  "$defs": {
+    "partId": { "type": "string", "minLength": 1 },
+    "structurePart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["part"],
+      "properties": {
+        "part": { "$ref": "#/$defs/partId" },
+        "present_when": {
+          "$ref": "#/$defs/exprSource",
+          "description": "An expression over the cartridge's parameters. The part exists on the device where it is true. Absent means always."
+        }
+      }
+    },
+    "i18nString": {
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "object",
+          "required": ["en"],
+          "properties": { "en": { "type": "string", "minLength": 1 } },
+          "additionalProperties": { "type": "string" }
+        }
+      ]
+    },
+    "exprSource": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "number": {
+      "description": "A number, or an expression over the cartridge's parameters in the graph core's dialect (docs/GRAPH_CORE.md).",
+      "oneOf": [
+        { "type": "number" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["expr"],
+          "properties": { "expr": { "$ref": "#/$defs/exprSource" } }
+        }
+      ]
+    },
+    "axis": {
+      "type": "string",
+      "enum": ["+x", "-x", "+y", "-y", "+z", "-z"],
+      "description": "A direction along one axis of the cartridge's model frame."
+    },
+    "keyCode": {
+      "type": "string",
+      "pattern": "^(KEY|BTN)_[A-Z0-9_]+$",
+      "description": "A Linux EV_KEY event name."
+    },
+    "absCode": {
+      "type": "string",
+      "pattern": "^ABS_[A-Z0-9_]+$",
+      "description": "A Linux EV_ABS event name."
+    },
+    "switchCode": {
+      "type": "string",
+      "pattern": "^(SW|KEY|BTN)_[A-Z0-9_]+$",
+      "description": "A Linux EV_SW event name, or an EV_KEY name for a switch the driver reports as a key."
+    },
+    "hatDirection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["axis", "value"],
+      "properties": {
+        "axis": { "$ref": "#/$defs/absCode" },
+        "value": { "enum": [-1, 1] }
+      },
+      "description": "One direction of an axis the driver reports for a button, as a hat switch does: the axis and the value it takes while the button is held."
+    },
+    "travel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "$ref": "#/$defs/axis",
+          "description": "The direction the part moves when it is pressed (a button, a trigger, a stick's click) or thrown (a switch, from its first position to its last)."
+        },
+        "depth": {
+          "$ref": "#/$defs/number",
+          "description": "How far it moves along `axis`, in millimetres."
+        },
+        "tilt": {
+          "$ref": "#/$defs/number",
+          "description": "A stick's largest tilt from rest, in degrees."
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "required": ["part", "role"],
+      "properties": {
+        "part": {
+          "$ref": "#/$defs/partId",
+          "description": "The id of the part this entry describes, as in the manifest's `parts[]` and the graph's `outputs`."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["button", "stick", "trigger", "switch", "screen", "light", "port", "motor"]
+        },
+        "label": { "$ref": "#/$defs/i18nString" },
+        "present_when": {
+          "$ref": "#/$defs/exprSource",
+          "description": "An expression over the cartridge's parameters. The control exists on the device where it is true. Absent means always."
+        },
+        "parameters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "The parameters that size or place this control."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "role": { "const": "button" } }, "required": ["role"] },
+          "then": {
+            "required": ["code", "travel"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "code": { "oneOf": [{ "$ref": "#/$defs/keyCode" }, { "$ref": "#/$defs/hatDirection" }] },
+              "travel": { "$ref": "#/$defs/travel", "required": ["axis", "depth"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "stick" } }, "required": ["role"] },
+          "then": {
+            "required": ["axes", "travel"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "axes": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["x", "y"],
+                "properties": {
+                  "x": { "$ref": "#/$defs/absCode" },
+                  "y": { "$ref": "#/$defs/absCode" }
+                }
+              },
+              "click": { "$ref": "#/$defs/keyCode" },
+              "travel": { "$ref": "#/$defs/travel", "required": ["axis", "tilt"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "trigger" } }, "required": ["role"] },
+          "then": {
+            "required": ["travel"],
+            "anyOf": [{ "required": ["code"] }, { "required": ["axis"] }],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "code": { "$ref": "#/$defs/keyCode" },
+              "axis": { "$ref": "#/$defs/absCode" },
+              "travel": { "$ref": "#/$defs/travel", "required": ["axis", "depth"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "switch" } }, "required": ["role"] },
+          "then": {
+            "required": ["code", "positions", "travel"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "code": { "$ref": "#/$defs/switchCode" },
+              "positions": { "type": "integer", "minimum": 2, "maximum": 8 },
+              "travel": { "$ref": "#/$defs/travel", "required": ["axis", "depth"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "screen" } }, "required": ["role"] },
+          "then": {
+            "required": ["pixels", "surface"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "pixels": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "$ref": "#/$defs/number" },
+                "description": "The panel's pixel count, `[across, down]` as the surface's `up` reads it."
+              },
+              "surface": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["normal", "up"],
+                "properties": {
+                  "normal": {
+                    "$ref": "#/$defs/axis",
+                    "description": "The direction the lit face looks: a frame source is drawn on the part's outermost face along it."
+                  },
+                  "up": {
+                    "$ref": "#/$defs/axis",
+                    "description": "The direction of the top of the picture."
+                  }
+                }
+              },
+              "touch": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "light" } }, "required": ["role"] },
+          "then": {
+            "required": ["colours"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "colours": {
+                "oneOf": [
+                  { "const": "rgb", "description": "Any colour." },
+                  {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+                    "description": "The fixed colours it can show."
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "port" } }, "required": ["role"] },
+          "then": {
+            "required": ["connector"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "connector": {
+                "type": "string",
+                "enum": [
+                  "usb-c", "usb-a", "usb-micro-b", "audio-3.5mm", "card-microsd", "card-sd",
+                  "video-hdmi", "video-hdmi-mini", "video-hdmi-micro", "power-barrel",
+                  "contacts", "other"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "motor" } }, "required": ["role"] },
+          "then": {
+            "required": ["effect"],
+            "properties": {
+              "part": true, "role": true, "label": true, "present_when": true, "parameters": true,
+              "effect": { "type": "string", "enum": ["rumble"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    }
+  }
+}

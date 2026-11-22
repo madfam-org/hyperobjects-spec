@@ -1,0 +1,1784 @@
+{
+  "version": "1.2.0",
+  "kernel": "solid",
+  "units": "mm",
+  "meta": {
+    "title": "Candy-Bar Handheld",
+    "note": "A wrapper graph (RFC 0067): one script node runs main.py, and the graph declares every parameter, group, preset, constraint and interface a visitor sees. Each part of the device, every control among them, is an output. After an edit to main.py or to a declared manifest entry, copy the entry here and re-pin provenance.sources (sha256 of main.py)."
+  },
+  "declarations": {
+    "parameters": [
+      {
+        "id": "body_width",
+        "type": "slider",
+        "default": 88.0,
+        "min": 50.0,
+        "max": 200.0,
+        "step": 0.5,
+        "group": "body",
+        "label": {
+          "en": "Body width (mm)",
+          "es": "Ancho del cuerpo (mm)"
+        },
+        "tooltip": {
+          "en": "Across the face, X.",
+          "es": "A lo ancho de la cara, X."
+        }
+      },
+      {
+        "id": "body_height",
+        "type": "slider",
+        "default": 164.0,
+        "min": 70.0,
+        "max": 280.0,
+        "step": 0.5,
+        "group": "body",
+        "label": {
+          "en": "Body height (mm)",
+          "es": "Alto del cuerpo (mm)"
+        },
+        "tooltip": {
+          "en": "Up the face, Y. A candy-bar handheld is taller than it is wide.",
+          "es": "A lo alto de la cara, Y. Un portátil tipo barra es más alto que ancho."
+        }
+      },
+      {
+        "id": "body_depth",
+        "type": "slider",
+        "default": 18.0,
+        "min": 8.0,
+        "max": 40.0,
+        "step": 0.5,
+        "group": "body",
+        "label": {
+          "en": "Body depth (mm)",
+          "es": "Fondo del cuerpo (mm)"
+        },
+        "tooltip": {
+          "en": "Front face to rear face, Z.",
+          "es": "De la cara frontal a la trasera, Z."
+        }
+      },
+      {
+        "id": "corner_radius",
+        "type": "slider",
+        "default": 10.0,
+        "min": 0.0,
+        "max": 30.0,
+        "step": 0.5,
+        "group": "body",
+        "label": {
+          "en": "Corner radius (mm)",
+          "es": "Radio de esquina (mm)"
+        },
+        "tooltip": {
+          "en": "Rounds the four corners of the outline.",
+          "es": "Redondea las cuatro esquinas del contorno."
+        }
+      },
+      {
+        "id": "screen_diagonal",
+        "type": "slider",
+        "default": 3.5,
+        "min": 2.0,
+        "max": 7.0,
+        "step": 0.05,
+        "group": "screen",
+        "label": {
+          "en": "Screen diagonal (in)",
+          "es": "Diagonal de pantalla (pulg)"
+        },
+        "tooltip": {
+          "en": "Diagonal of the lit area, in inches.",
+          "es": "Diagonal del área iluminada, en pulgadas."
+        }
+      },
+      {
+        "id": "screen_aspect_w",
+        "type": "slider",
+        "default": 4,
+        "min": 1,
+        "max": 21,
+        "step": 1,
+        "group": "screen",
+        "label": {
+          "en": "Screen aspect, width",
+          "es": "Aspecto de pantalla, ancho"
+        },
+        "tooltip": {
+          "en": "The first number of the aspect ratio: 4 in 4:3.",
+          "es": "El primer número de la relación de aspecto: 4 en 4:3."
+        }
+      },
+      {
+        "id": "screen_aspect_h",
+        "type": "slider",
+        "default": 3,
+        "min": 1,
+        "max": 21,
+        "step": 1,
+        "group": "screen",
+        "label": {
+          "en": "Screen aspect, height",
+          "es": "Aspecto de pantalla, alto"
+        },
+        "tooltip": {
+          "en": "The second number of the aspect ratio: 3 in 4:3.",
+          "es": "El segundo número de la relación de aspecto: 3 en 4:3."
+        }
+      },
+      {
+        "id": "screen_center_y",
+        "type": "slider",
+        "default": 44.0,
+        "min": -100.0,
+        "max": 120.0,
+        "step": 0.5,
+        "group": "screen",
+        "label": {
+          "en": "Screen centre height (mm)",
+          "es": "Altura del centro de pantalla (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the screen above the centre of the body.",
+          "es": "Centro de la pantalla sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "screen_pixels_w",
+        "intentionally_unused": {
+          "reason": "Read by the manifest's device block, not by the geometry: it is the pixel count of the screen control (device.controls 'screen', pixels). The panel's size comes from screen_diagonal and the aspect pair, so no solid changes with it."
+        },
+        "type": "slider",
+        "default": 640,
+        "min": 64,
+        "max": 4096,
+        "step": 1,
+        "group": "screen",
+        "label": {
+          "en": "Screen pixels across",
+          "es": "Píxeles de pantalla a lo ancho"
+        },
+        "tooltip": {
+          "en": "Pixel columns of the panel. It changes no geometry.",
+          "es": "Columnas de píxeles del panel. No cambia la geometría."
+        }
+      },
+      {
+        "id": "screen_pixels_h",
+        "intentionally_unused": {
+          "reason": "Read by the manifest's device block, not by the geometry: it is the pixel count of the screen control (device.controls 'screen', pixels). The panel's size comes from screen_diagonal and the aspect pair, so no solid changes with it."
+        },
+        "type": "slider",
+        "default": 480,
+        "min": 64,
+        "max": 4096,
+        "step": 1,
+        "group": "screen",
+        "label": {
+          "en": "Screen pixels down",
+          "es": "Píxeles de pantalla a lo alto"
+        },
+        "tooltip": {
+          "en": "Pixel rows of the panel. It changes no geometry.",
+          "es": "Filas de píxeles del panel. No cambia la geometría."
+        }
+      },
+      {
+        "id": "control_x",
+        "type": "slider",
+        "default": 24.0,
+        "min": 8.0,
+        "max": 90.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "Control cluster offset (mm)",
+          "es": "Separación de los controles (mm)"
+        },
+        "tooltip": {
+          "en": "The D-pad sits this far left of centre and the face buttons this far right.",
+          "es": "La cruceta queda a esta distancia a la izquierda del centro y los botones a la derecha."
+        }
+      },
+      {
+        "id": "control_y",
+        "type": "slider",
+        "default": -12.0,
+        "min": -130.0,
+        "max": 120.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "Control cluster height (mm)",
+          "es": "Altura de los controles (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the D-pad and of the face buttons.",
+          "es": "Centro de la cruceta y de los botones frontales."
+        }
+      },
+      {
+        "id": "dpad_span",
+        "type": "slider",
+        "default": 24.0,
+        "min": 12.0,
+        "max": 44.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "D-pad span (mm)",
+          "es": "Envergadura de la cruceta (mm)"
+        },
+        "tooltip": {
+          "en": "Tip to tip.",
+          "es": "De punta a punta."
+        }
+      },
+      {
+        "id": "dpad_arm",
+        "type": "slider",
+        "default": 8.0,
+        "min": 4.0,
+        "max": 16.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "D-pad arm width (mm)",
+          "es": "Ancho del brazo de la cruceta (mm)"
+        },
+        "tooltip": {
+          "en": "Width of each of the four arms.",
+          "es": "Ancho de cada uno de los cuatro brazos."
+        }
+      },
+      {
+        "id": "face_button_diameter",
+        "type": "slider",
+        "default": 8.0,
+        "min": 4.0,
+        "max": 16.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "Face button diameter (mm)",
+          "es": "Diámetro del botón frontal (mm)"
+        },
+        "tooltip": {
+          "en": "Each of the four face buttons.",
+          "es": "Cada uno de los cuatro botones frontales."
+        }
+      },
+      {
+        "id": "face_button_spread",
+        "type": "slider",
+        "default": 9.0,
+        "min": 5.0,
+        "max": 22.0,
+        "step": 0.5,
+        "group": "controls",
+        "label": {
+          "en": "Face button spread (mm)",
+          "es": "Separación de los botones frontales (mm)"
+        },
+        "tooltip": {
+          "en": "From the centre of the diamond to the centre of each button.",
+          "es": "Del centro del rombo al centro de cada botón."
+        }
+      },
+      {
+        "id": "button_height",
+        "type": "slider",
+        "default": 1.4,
+        "min": 0.4,
+        "max": 4.0,
+        "step": 0.1,
+        "group": "controls",
+        "label": {
+          "en": "Button height (mm)",
+          "es": "Altura del botón (mm)"
+        },
+        "tooltip": {
+          "en": "How far a face button stands above the face.",
+          "es": "Cuánto sobresale un botón frontal de la cara."
+        }
+      },
+      {
+        "id": "button_travel",
+        "type": "slider",
+        "default": 0.6,
+        "min": 0.2,
+        "max": 2.0,
+        "step": 0.1,
+        "group": "controls",
+        "label": {
+          "en": "Button travel (mm)",
+          "es": "Recorrido del botón (mm)"
+        },
+        "tooltip": {
+          "en": "How far a face button goes down. Its seat is this deep plus 0.4 mm.",
+          "es": "Cuánto baja un botón frontal. Su asiento tiene este fondo más 0.4 mm."
+        }
+      },
+      {
+        "id": "stick_count",
+        "type": "slider",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "group": "sticks",
+        "label": {
+          "en": "Sticks",
+          "es": "Palancas"
+        },
+        "tooltip": {
+          "en": "0, 1 (left) or 2. The body carries a dish for each.",
+          "es": "0, 1 (izquierda) o 2. El cuerpo lleva una cazoleta por cada una."
+        }
+      },
+      {
+        "id": "stick_x",
+        "type": "slider",
+        "default": 22.0,
+        "min": 8.0,
+        "max": 90.0,
+        "step": 0.5,
+        "group": "sticks",
+        "label": {
+          "en": "Stick offset (mm)",
+          "es": "Separación de las palancas (mm)"
+        },
+        "tooltip": {
+          "en": "Each stick sits this far from the centre line.",
+          "es": "Cada palanca queda a esta distancia del eje central."
+        }
+      },
+      {
+        "id": "stick_y",
+        "type": "slider",
+        "default": -46.0,
+        "min": -130.0,
+        "max": 120.0,
+        "step": 0.5,
+        "group": "sticks",
+        "label": {
+          "en": "Stick height (mm)",
+          "es": "Altura de las palancas (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the sticks above the centre of the body.",
+          "es": "Centro de las palancas sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "stick_cap_diameter",
+        "type": "slider",
+        "default": 13.0,
+        "min": 8.0,
+        "max": 24.0,
+        "step": 0.5,
+        "group": "sticks",
+        "label": {
+          "en": "Stick cap diameter (mm)",
+          "es": "Diámetro del capuchón (mm)"
+        },
+        "tooltip": {
+          "en": "The disc a thumb rests on.",
+          "es": "El disco donde descansa el pulgar."
+        }
+      },
+      {
+        "id": "stick_height",
+        "type": "slider",
+        "default": 5.0,
+        "min": 3.0,
+        "max": 12.0,
+        "step": 0.5,
+        "group": "sticks",
+        "label": {
+          "en": "Stick height above the face (mm)",
+          "es": "Altura de la palanca sobre la cara (mm)"
+        },
+        "tooltip": {
+          "en": "Top of the cap above the face.",
+          "es": "Parte alta del capuchón sobre la cara."
+        }
+      },
+      {
+        "id": "stick_tilt",
+        "type": "slider",
+        "default": 18.0,
+        "min": 5.0,
+        "max": 30.0,
+        "step": 1.0,
+        "group": "sticks",
+        "label": {
+          "en": "Stick tilt (°)",
+          "es": "Inclinación de la palanca (°)"
+        },
+        "tooltip": {
+          "en": "Largest tilt from rest. The dish is wide enough for the cap at this tilt.",
+          "es": "Inclinación máxima desde el reposo. La cazoleta deja pasar el capuchón a esta inclinación."
+        }
+      },
+      {
+        "id": "light_ring_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "sticks",
+        "label": {
+          "en": "Light ring around each stick",
+          "es": "Aro de luz en cada palanca"
+        },
+        "tooltip": {
+          "en": "A ring let into the face around each stick's dish.",
+          "es": "Un aro empotrado en la cara alrededor de la cazoleta de cada palanca."
+        }
+      },
+      {
+        "id": "light_ring_width",
+        "type": "slider",
+        "default": 1.6,
+        "min": 0.8,
+        "max": 4.0,
+        "step": 0.1,
+        "group": "sticks",
+        "label": {
+          "en": "Light ring width (mm)",
+          "es": "Ancho del aro de luz (mm)"
+        },
+        "tooltip": {
+          "en": "Radial width of the ring.",
+          "es": "Ancho radial del aro."
+        }
+      },
+      {
+        "id": "shoulder_rows",
+        "type": "slider",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "group": "shoulders",
+        "label": {
+          "en": "Shoulder rows",
+          "es": "Filas de gatillos"
+        },
+        "tooltip": {
+          "en": "0 none, 1 a shoulder each side, 2 a shoulder and a trigger each side.",
+          "es": "0 ninguna, 1 un botón superior por lado, 2 un botón superior y un gatillo por lado."
+        }
+      },
+      {
+        "id": "shoulder_width",
+        "type": "slider",
+        "default": 24.0,
+        "min": 8.0,
+        "max": 60.0,
+        "step": 0.5,
+        "group": "shoulders",
+        "label": {
+          "en": "Shoulder width (mm)",
+          "es": "Ancho del botón superior (mm)"
+        },
+        "tooltip": {
+          "en": "Along the top edge.",
+          "es": "A lo largo del borde superior."
+        }
+      },
+      {
+        "id": "shoulder_inset",
+        "type": "slider",
+        "default": 12.0,
+        "min": 0.0,
+        "max": 60.0,
+        "step": 0.5,
+        "group": "shoulders",
+        "label": {
+          "en": "Shoulder inset (mm)",
+          "es": "Retiro del botón superior (mm)"
+        },
+        "tooltip": {
+          "en": "From the side of the body to the shoulder's outer end.",
+          "es": "Del costado del cuerpo al extremo exterior del botón."
+        }
+      },
+      {
+        "id": "shoulder_thickness",
+        "type": "slider",
+        "default": 6.0,
+        "min": 2.0,
+        "max": 14.0,
+        "step": 0.5,
+        "group": "shoulders",
+        "label": {
+          "en": "Shoulder thickness (mm)",
+          "es": "Espesor del botón superior (mm)"
+        },
+        "tooltip": {
+          "en": "Through the body. Shoulders sit near the face and triggers near the rear.",
+          "es": "A través del cuerpo. Los botones van cerca de la cara y los gatillos cerca del dorso."
+        }
+      },
+      {
+        "id": "menu_button_count",
+        "type": "slider",
+        "default": 3,
+        "min": 0,
+        "max": 3,
+        "step": 1,
+        "group": "system",
+        "label": {
+          "en": "Menu buttons",
+          "es": "Botones de menú"
+        },
+        "tooltip": {
+          "en": "0 none, 1 the centre one, 2 left and right, 3 all.",
+          "es": "0 ninguno, 1 el central, 2 izquierdo y derecho, 3 todos."
+        }
+      },
+      {
+        "id": "menu_button_diameter",
+        "type": "slider",
+        "default": 4.5,
+        "min": 2.5,
+        "max": 10.0,
+        "step": 0.1,
+        "group": "system",
+        "label": {
+          "en": "Menu button diameter (mm)",
+          "es": "Diámetro del botón de menú (mm)"
+        },
+        "tooltip": {
+          "en": "Menu and function buttons share it.",
+          "es": "Lo comparten los botones de menú y de función."
+        }
+      },
+      {
+        "id": "menu_pitch",
+        "type": "slider",
+        "default": 12.0,
+        "min": 5.0,
+        "max": 40.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Menu button pitch (mm)",
+          "es": "Paso de los botones de menú (mm)"
+        },
+        "tooltip": {
+          "en": "Centre to centre along the row.",
+          "es": "De centro a centro en la fila."
+        }
+      },
+      {
+        "id": "menu_y",
+        "type": "slider",
+        "default": -70.0,
+        "min": -135.0,
+        "max": 120.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Menu row height (mm)",
+          "es": "Altura de la fila de menú (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the row above the centre of the body.",
+          "es": "Centro de la fila sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "function_button_count",
+        "type": "slider",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "group": "system",
+        "label": {
+          "en": "Function buttons",
+          "es": "Botones de función"
+        },
+        "tooltip": {
+          "en": "0, 1 (left) or 2.",
+          "es": "0, 1 (izquierdo) o 2."
+        }
+      },
+      {
+        "id": "function_x",
+        "type": "slider",
+        "default": 34.0,
+        "min": 6.0,
+        "max": 95.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Function button offset (mm)",
+          "es": "Separación de los botones de función (mm)"
+        },
+        "tooltip": {
+          "en": "Each function button sits this far from the centre line.",
+          "es": "Cada botón de función queda a esta distancia del eje central."
+        }
+      },
+      {
+        "id": "function_y",
+        "type": "slider",
+        "default": 8.0,
+        "min": -130.0,
+        "max": 130.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Function button height (mm)",
+          "es": "Altura de los botones de función (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the function buttons above the centre of the body.",
+          "es": "Centro de los botones de función sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "side_button_length",
+        "type": "slider",
+        "default": 9.0,
+        "min": 4.0,
+        "max": 20.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Side button length (mm)",
+          "es": "Largo del botón lateral (mm)"
+        },
+        "tooltip": {
+          "en": "Power on the right side, volume up and down on the left.",
+          "es": "Encendido en el costado derecho, subir y bajar volumen en el izquierdo."
+        }
+      },
+      {
+        "id": "side_button_y",
+        "type": "slider",
+        "default": 40.0,
+        "min": -120.0,
+        "max": 125.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Side button height (mm)",
+          "es": "Altura de los botones laterales (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the power button, and of the volume pair, above the centre of the body.",
+          "es": "Centro del botón de encendido, y del par de volumen, sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "slide_switch_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "system",
+        "label": {
+          "en": "Slide switch",
+          "es": "Interruptor deslizante"
+        },
+        "tooltip": {
+          "en": "A two-position slider on the right side, below power.",
+          "es": "Un deslizador de dos posiciones en el costado derecho, bajo el encendido."
+        }
+      },
+      {
+        "id": "slide_switch_throw",
+        "type": "slider",
+        "default": 3.0,
+        "min": 1.5,
+        "max": 8.0,
+        "step": 0.5,
+        "group": "system",
+        "label": {
+          "en": "Slide switch throw (mm)",
+          "es": "Carrera del interruptor (mm)"
+        },
+        "tooltip": {
+          "en": "How far the knob slides. Its slot is this much longer.",
+          "es": "Cuánto se desliza la perilla. Su ranura es esto más larga."
+        }
+      },
+      {
+        "id": "port_bottom_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "ports",
+        "label": {
+          "en": "Port on the bottom edge",
+          "es": "Puerto en el borde inferior"
+        },
+        "tooltip": {
+          "en": "A port mouth in the middle of the bottom edge.",
+          "es": "Una boca de puerto al centro del borde inferior."
+        }
+      },
+      {
+        "id": "port_top_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "ports",
+        "label": {
+          "en": "Port on the top edge",
+          "es": "Puerto en el borde superior"
+        },
+        "tooltip": {
+          "en": "A port mouth in the middle of the top edge.",
+          "es": "Una boca de puerto al centro del borde superior."
+        }
+      },
+      {
+        "id": "port_rear_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "ports",
+        "label": {
+          "en": "Port on the rear",
+          "es": "Puerto en el dorso"
+        },
+        "tooltip": {
+          "en": "A port mouth in the rear face.",
+          "es": "Una boca de puerto en la cara trasera."
+        }
+      },
+      {
+        "id": "port_width",
+        "type": "slider",
+        "default": 9.0,
+        "min": 4.0,
+        "max": 20.0,
+        "step": 0.1,
+        "group": "ports",
+        "label": {
+          "en": "Port width (mm)",
+          "es": "Ancho del puerto (mm)"
+        },
+        "tooltip": {
+          "en": "The long side of a port mouth.",
+          "es": "El lado largo de la boca de un puerto."
+        }
+      },
+      {
+        "id": "port_height",
+        "type": "slider",
+        "default": 3.2,
+        "min": 1.5,
+        "max": 8.0,
+        "step": 0.1,
+        "group": "ports",
+        "label": {
+          "en": "Port height (mm)",
+          "es": "Alto del puerto (mm)"
+        },
+        "tooltip": {
+          "en": "The short side of a port mouth.",
+          "es": "El lado corto de la boca de un puerto."
+        }
+      },
+      {
+        "id": "port_rear_y",
+        "type": "slider",
+        "default": -62.0,
+        "min": -130.0,
+        "max": 130.0,
+        "step": 0.5,
+        "group": "ports",
+        "label": {
+          "en": "Rear port height (mm)",
+          "es": "Altura del puerto trasero (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the rear port above the centre of the body.",
+          "es": "Centro del puerto trasero sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "light_bar_count",
+        "type": "slider",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "group": "lights",
+        "label": {
+          "en": "Light bars on the rear",
+          "es": "Barras de luz en el dorso"
+        },
+        "tooltip": {
+          "en": "0, 1 (upper) or 2.",
+          "es": "0, 1 (la superior) o 2."
+        }
+      },
+      {
+        "id": "light_bar_length",
+        "type": "slider",
+        "default": 40.0,
+        "min": 10.0,
+        "max": 150.0,
+        "step": 0.5,
+        "group": "lights",
+        "label": {
+          "en": "Light bar length (mm)",
+          "es": "Largo de la barra de luz (mm)"
+        },
+        "tooltip": {
+          "en": "Across the rear.",
+          "es": "A lo ancho del dorso."
+        }
+      },
+      {
+        "id": "light_bar_width",
+        "type": "slider",
+        "default": 3.0,
+        "min": 1.5,
+        "max": 10.0,
+        "step": 0.1,
+        "group": "lights",
+        "label": {
+          "en": "Light bar width (mm)",
+          "es": "Ancho de la barra de luz (mm)"
+        },
+        "tooltip": {
+          "en": "The lower bar sits this width plus 4 mm below the upper.",
+          "es": "La barra inferior queda este ancho más 4 mm bajo la superior."
+        }
+      },
+      {
+        "id": "light_bar_y",
+        "type": "slider",
+        "default": 62.0,
+        "min": -130.0,
+        "max": 130.0,
+        "step": 0.5,
+        "group": "lights",
+        "label": {
+          "en": "Light bar height (mm)",
+          "es": "Altura de la barra de luz (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the upper bar above the centre of the body.",
+          "es": "Centro de la barra superior sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "rear_mount_present",
+        "type": "checkbox",
+        "default": true,
+        "group": "rear",
+        "label": {
+          "en": "Rear module mount",
+          "es": "Montaje trasero para módulo"
+        },
+        "tooltip": {
+          "en": "A land on the rear with four screw holes for a module.",
+          "es": "Un resalte en el dorso con cuatro barrenos para atornillar un módulo."
+        }
+      },
+      {
+        "id": "rear_mount_width",
+        "type": "slider",
+        "default": 44.0,
+        "min": 20.0,
+        "max": 150.0,
+        "step": 0.5,
+        "group": "rear",
+        "label": {
+          "en": "Mount width (mm)",
+          "es": "Ancho del montaje (mm)"
+        },
+        "tooltip": {
+          "en": "Across the rear.",
+          "es": "A lo ancho del dorso."
+        }
+      },
+      {
+        "id": "rear_mount_height",
+        "type": "slider",
+        "default": 30.0,
+        "min": 16.0,
+        "max": 150.0,
+        "step": 0.5,
+        "group": "rear",
+        "label": {
+          "en": "Mount height (mm)",
+          "es": "Alto del montaje (mm)"
+        },
+        "tooltip": {
+          "en": "Up the rear.",
+          "es": "A lo alto del dorso."
+        }
+      },
+      {
+        "id": "rear_mount_y",
+        "type": "slider",
+        "default": 14.0,
+        "min": -120.0,
+        "max": 120.0,
+        "step": 0.5,
+        "group": "rear",
+        "label": {
+          "en": "Mount centre height (mm)",
+          "es": "Altura del centro del montaje (mm)"
+        },
+        "tooltip": {
+          "en": "Centre of the mount above the centre of the body.",
+          "es": "Centro del montaje sobre el centro del cuerpo."
+        }
+      },
+      {
+        "id": "rear_mount_hole",
+        "type": "slider",
+        "default": 2.7,
+        "min": 1.6,
+        "max": 4.0,
+        "step": 0.1,
+        "group": "rear",
+        "label": {
+          "en": "Mount hole diameter (mm)",
+          "es": "Diámetro de barreno del montaje (mm)"
+        },
+        "tooltip": {
+          "en": "Clearance for the module's screws. The holes sit 4 mm in from each corner.",
+          "es": "Paso libre para los tornillos del módulo. Los barrenos quedan a 4 mm de cada esquina."
+        }
+      }
+    ],
+    "parameter_groups": [
+      {
+        "id": "body",
+        "label": {
+          "en": "Body",
+          "es": "Cuerpo"
+        }
+      },
+      {
+        "id": "screen",
+        "label": {
+          "en": "Screen",
+          "es": "Pantalla"
+        }
+      },
+      {
+        "id": "controls",
+        "label": {
+          "en": "D-pad & face buttons",
+          "es": "Cruceta y botones frontales"
+        }
+      },
+      {
+        "id": "sticks",
+        "label": {
+          "en": "Sticks & light rings",
+          "es": "Palancas y aros de luz"
+        }
+      },
+      {
+        "id": "shoulders",
+        "label": {
+          "en": "Shoulders & triggers",
+          "es": "Botones superiores y gatillos"
+        }
+      },
+      {
+        "id": "system",
+        "label": {
+          "en": "Menu, function & side controls",
+          "es": "Menú, función y controles laterales"
+        }
+      },
+      {
+        "id": "ports",
+        "label": {
+          "en": "Ports",
+          "es": "Puertos"
+        }
+      },
+      {
+        "id": "lights",
+        "label": {
+          "en": "Light bars",
+          "es": "Barras de luz"
+        }
+      },
+      {
+        "id": "rear",
+        "label": {
+          "en": "Rear module mount",
+          "es": "Montaje trasero"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "id": "tall_two_sticks",
+        "mode": "device",
+        "label": {
+          "en": "Tall, 3.5 in 4:3, two sticks (illustrative)",
+          "es": "Alto, 3.5 pulg 4:3, dos palancas (ilustrativo)"
+        },
+        "description": {
+          "en": "88 × 164 × 18 mm with every control. Illustrative dimensions, not a product's.",
+          "es": "88 × 164 × 18 mm con todos los controles. Dimensiones ilustrativas, no de un producto."
+        },
+        "values": {
+          "body_width": 88.0,
+          "body_height": 164.0,
+          "body_depth": 18.0,
+          "corner_radius": 10.0,
+          "screen_diagonal": 3.5,
+          "screen_aspect_w": 4,
+          "screen_aspect_h": 3,
+          "screen_center_y": 44.0,
+          "screen_pixels_w": 640,
+          "screen_pixels_h": 480,
+          "control_x": 24.0,
+          "control_y": -12.0,
+          "dpad_span": 24.0,
+          "dpad_arm": 8.0,
+          "face_button_diameter": 8.0,
+          "face_button_spread": 9.0,
+          "button_height": 1.4,
+          "button_travel": 0.6,
+          "stick_count": 2,
+          "stick_x": 22.0,
+          "stick_y": -46.0,
+          "stick_cap_diameter": 13.0,
+          "stick_height": 5.0,
+          "stick_tilt": 18.0,
+          "light_ring_present": true,
+          "light_ring_width": 1.6,
+          "shoulder_rows": 2,
+          "shoulder_width": 24.0,
+          "shoulder_inset": 12.0,
+          "shoulder_thickness": 6.0,
+          "menu_button_count": 3,
+          "menu_button_diameter": 4.5,
+          "menu_pitch": 12.0,
+          "menu_y": -70.0,
+          "function_button_count": 2,
+          "function_x": 34.0,
+          "function_y": 8.0,
+          "side_button_length": 9.0,
+          "side_button_y": 40.0,
+          "slide_switch_present": true,
+          "slide_switch_throw": 3.0,
+          "port_bottom_present": true,
+          "port_top_present": true,
+          "port_rear_present": true,
+          "port_width": 9.0,
+          "port_height": 3.2,
+          "port_rear_y": -62.0,
+          "light_bar_count": 2,
+          "light_bar_length": 40.0,
+          "light_bar_width": 3.0,
+          "light_bar_y": 62.0,
+          "rear_mount_present": true,
+          "rear_mount_width": 44.0,
+          "rear_mount_height": 30.0,
+          "rear_mount_y": 14.0,
+          "rear_mount_hole": 2.7
+        }
+      },
+      {
+        "id": "compact_no_sticks",
+        "mode": "device_plain",
+        "label": {
+          "en": "Compact, 2.8 in 4:3, no sticks (illustrative)",
+          "es": "Compacto, 2.8 pulg 4:3, sin palancas (ilustrativo)"
+        },
+        "description": {
+          "en": "74 × 116 × 15 mm with a D-pad, four face buttons, two shoulders and two menu buttons. Illustrative dimensions, not a product's.",
+          "es": "74 × 116 × 15 mm con cruceta, cuatro botones frontales, dos botones superiores y dos de menú. Dimensiones ilustrativas, no de un producto."
+        },
+        "values": {
+          "body_width": 74.0,
+          "body_height": 116.0,
+          "body_depth": 15.0,
+          "corner_radius": 8.0,
+          "screen_diagonal": 2.8,
+          "screen_aspect_w": 4,
+          "screen_aspect_h": 3,
+          "screen_center_y": 28.0,
+          "screen_pixels_w": 320,
+          "screen_pixels_h": 240,
+          "control_x": 20.0,
+          "control_y": -17.0,
+          "dpad_span": 22.0,
+          "dpad_arm": 7.0,
+          "face_button_diameter": 7.0,
+          "face_button_spread": 8.0,
+          "button_height": 1.2,
+          "button_travel": 0.5,
+          "stick_count": 0,
+          "stick_x": 22.0,
+          "stick_y": -46.0,
+          "stick_cap_diameter": 13.0,
+          "stick_height": 5.0,
+          "stick_tilt": 18.0,
+          "light_ring_present": false,
+          "light_ring_width": 1.6,
+          "shoulder_rows": 1,
+          "shoulder_width": 20.0,
+          "shoulder_inset": 8.0,
+          "shoulder_thickness": 5.0,
+          "menu_button_count": 2,
+          "menu_button_diameter": 4.0,
+          "menu_pitch": 9.0,
+          "menu_y": -45.0,
+          "function_button_count": 0,
+          "function_x": 34.0,
+          "function_y": 8.0,
+          "side_button_length": 8.0,
+          "side_button_y": 30.0,
+          "slide_switch_present": false,
+          "slide_switch_throw": 3.0,
+          "port_bottom_present": true,
+          "port_top_present": false,
+          "port_rear_present": false,
+          "port_width": 8.5,
+          "port_height": 3.0,
+          "port_rear_y": -62.0,
+          "light_bar_count": 1,
+          "light_bar_length": 30.0,
+          "light_bar_width": 2.5,
+          "light_bar_y": 40.0,
+          "rear_mount_present": false,
+          "rear_mount_width": 44.0,
+          "rear_mount_height": 30.0,
+          "rear_mount_y": 14.0,
+          "rear_mount_hole": 2.7
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "expression": "body_width > 2 * corner_radius + 1 && body_height > 2 * corner_radius + 1",
+        "severity": "error",
+        "message": {
+          "en": "The corner radius must be under half the width and half the height.",
+          "es": "El radio de esquina debe ser menor que la mitad del ancho y del alto."
+        }
+      },
+      {
+        "expression": "(screen_diagonal * 25.4) * (screen_diagonal * 25.4) * screen_aspect_w * screen_aspect_w <= (body_width - 6) * (body_width - 6) * (screen_aspect_w * screen_aspect_w + screen_aspect_h * screen_aspect_h)",
+        "severity": "error",
+        "message": {
+          "en": "The screen is wider than the body less 3 mm a side. Reduce the diagonal or widen the body.",
+          "es": "La pantalla es más ancha que el cuerpo menos 3 mm por lado. Reduce la diagonal o ensancha el cuerpo."
+        }
+      },
+      {
+        "expression": "screen_center_y + 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h) <= body_height / 2 - 3",
+        "severity": "error",
+        "message": {
+          "en": "The screen runs off the top of the face. Lower it, shrink it or lengthen the body.",
+          "es": "La pantalla se sale por arriba de la cara. Bájala, achícala o alarga el cuerpo."
+        }
+      },
+      {
+        "expression": "17.97 * screen_diagonal * screen_aspect_w / (screen_aspect_w + screen_aspect_h) <= body_width / 2 - corner_radius || screen_center_y + 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h) <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The screen reaches into the rounded top corners. Lower it or reduce the corner radius.",
+          "es": "La pantalla invade las esquinas redondeadas de arriba. Bájala o reduce el radio de esquina."
+        }
+      },
+      {
+        "expression": "dpad_span >= dpad_arm + 4",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad span must leave an arm at least 2 mm long on each side of the hub.",
+          "es": "La envergadura debe dejar un brazo de al menos 2 mm a cada lado del centro."
+        }
+      },
+      {
+        "expression": "face_button_spread * 1.4 >= face_button_diameter + 1",
+        "severity": "error",
+        "message": {
+          "en": "The face buttons overlap. Increase the spread or reduce the diameter.",
+          "es": "Los botones frontales se enciman. Aumenta la separación o reduce el diámetro."
+        }
+      },
+      {
+        "expression": "control_x + dpad_span / 2 <= body_width / 2 - 3 && control_x + (face_button_spread + face_button_diameter / 2) <= body_width / 2 - 3",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad or the face buttons run off the side of the body (keep 3 mm).",
+          "es": "La cruceta o los botones frontales se salen del costado del cuerpo (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "2 * control_x >= dpad_span / 2 + (face_button_spread + face_button_diameter / 2) + 2",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad and the face buttons overlap. Increase the control offset.",
+          "es": "La cruceta y los botones frontales se enciman. Aumenta la separación de los controles."
+        }
+      },
+      {
+        "expression": "control_y + (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2)) + 2 <= screen_center_y - 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h)",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad or the face buttons reach the screen. Lower them or raise the screen.",
+          "es": "La cruceta o los botones frontales tocan la pantalla. Bájalos o sube la pantalla."
+        }
+      },
+      {
+        "expression": "control_y - (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2)) >= 3 - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad or the face buttons run off the bottom of the face.",
+          "es": "La cruceta o los botones frontales se salen por abajo de la cara."
+        }
+      },
+      {
+        "expression": "control_x + dpad_span / 2 <= body_width / 2 - corner_radius || (control_y < 0 ? -control_y : control_y) + dpad_span / 2 <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The D-pad reaches into a rounded corner. Move it in or reduce the corner radius.",
+          "es": "La cruceta invade una esquina redondeada. Acércala al centro o reduce el radio."
+        }
+      },
+      {
+        "expression": "control_x + (face_button_spread + face_button_diameter / 2) <= body_width / 2 - corner_radius || (control_y < 0 ? -control_y : control_y) + (face_button_spread + face_button_diameter / 2) <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The face buttons reach into a rounded corner. Move them in or reduce the corner radius.",
+          "es": "Los botones frontales invaden una esquina redondeada. Acércalos al centro o reduce el radio."
+        }
+      },
+      {
+        "expression": "function_button_count < 1 || function_x + menu_button_diameter / 2 <= body_width / 2 - 3",
+        "severity": "error",
+        "message": {
+          "en": "The function buttons run off the side of the body (keep 3 mm).",
+          "es": "Los botones de función se salen del costado del cuerpo (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "function_button_count < 1 || function_x + menu_button_diameter / 2 <= body_width / 2 - corner_radius || (function_y < 0 ? -function_y : function_y) + menu_button_diameter / 2 <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The function buttons reach into a rounded corner. Move them in or reduce the radius.",
+          "es": "Los botones de función invaden una esquina redondeada. Acércalos al centro o reduce el radio."
+        }
+      },
+      {
+        "expression": "function_button_count < 1 || function_y + menu_button_diameter / 2 + 2 <= screen_center_y - 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h)",
+        "severity": "error",
+        "message": {
+          "en": "The function buttons reach the screen. Lower them or raise the screen.",
+          "es": "Los botones de función tocan la pantalla. Bájalos o sube la pantalla."
+        }
+      },
+      {
+        "expression": "function_button_count < 1 || function_y - menu_button_diameter / 2 - 2 >= control_y + (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2))",
+        "severity": "error",
+        "message": {
+          "en": "The function buttons reach the D-pad or the face buttons. Raise them or lower the controls.",
+          "es": "Los botones de función tocan la cruceta o los botones frontales. Súbelos o baja los controles."
+        }
+      },
+      {
+        "expression": "stick_count < 1 || stick_x + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) <= body_width / 2 - 3",
+        "severity": "error",
+        "message": {
+          "en": "A stick or its light ring runs off the side of the body (keep 3 mm).",
+          "es": "Una palanca o su aro de luz se sale del costado del cuerpo (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "stick_count < 1 || (stick_y < 0 ? -stick_y : stick_y) + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) <= body_height / 2 - (corner_radius > 3 ? corner_radius : 3)",
+        "severity": "error",
+        "message": {
+          "en": "A stick or its light ring runs off the bottom of the face or into a rounded corner.",
+          "es": "Una palanca o su aro de luz se sale por abajo de la cara o invade una esquina redondeada."
+        }
+      },
+      {
+        "expression": "stick_count < 1 || stick_y + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 2 <= control_y - dpad_span / 2",
+        "severity": "error",
+        "message": {
+          "en": "The sticks reach the D-pad. Lower the sticks or raise the controls.",
+          "es": "Las palancas tocan la cruceta. Baja las palancas o sube los controles."
+        }
+      },
+      {
+        "expression": "stick_count < 1 || stick_y + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 2 <= control_y - (face_button_spread + face_button_diameter / 2)",
+        "severity": "error",
+        "message": {
+          "en": "The sticks reach the face buttons. Lower the sticks or raise the controls.",
+          "es": "Las palancas tocan los botones frontales. Baja las palancas o sube los controles."
+        }
+      },
+      {
+        "expression": "stick_count < 2 || stick_x >= (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 1",
+        "severity": "error",
+        "message": {
+          "en": "The two sticks overlap. Increase the stick offset.",
+          "es": "Las dos palancas se enciman. Aumenta la separación de las palancas."
+        }
+      },
+      {
+        "expression": "menu_button_count < 1 || (menu_button_count < 2 ? 0 : menu_pitch) + menu_button_diameter / 2 <= body_width / 2 - 3 && menu_y - menu_button_diameter / 2 >= 3 - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The menu row runs off the side or the bottom of the face (keep 3 mm).",
+          "es": "La fila de menú se sale del costado o de abajo de la cara (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "menu_button_count < 1 || (menu_button_count < 2 ? 0 : menu_pitch) + menu_button_diameter / 2 <= body_width / 2 - corner_radius || (menu_y < 0 ? -menu_y : menu_y) + menu_button_diameter / 2 <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The menu row reaches into a rounded corner. Narrow it, raise it or reduce the radius.",
+          "es": "La fila de menú invade una esquina redondeada. Angóstala, súbela o reduce el radio."
+        }
+      },
+      {
+        "expression": "menu_button_count < 1 || menu_y + menu_button_diameter / 2 + 2 <= control_y - (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2))",
+        "severity": "error",
+        "message": {
+          "en": "The menu row reaches the D-pad or the face buttons. Lower it or raise the controls.",
+          "es": "La fila de menú toca la cruceta o los botones frontales. Bájala o sube los controles."
+        }
+      },
+      {
+        "expression": "menu_button_count < 1 || stick_count < 1 || menu_y + menu_button_diameter / 2 + 2 <= stick_y - (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1)",
+        "severity": "error",
+        "message": {
+          "en": "The menu row reaches the sticks. Lower it or raise the sticks.",
+          "es": "La fila de menú toca las palancas. Bájala o sube las palancas."
+        }
+      },
+      {
+        "expression": "menu_button_count < 2 || (menu_button_count < 3 ? 2 : 1) * menu_pitch >= menu_button_diameter + 1",
+        "severity": "error",
+        "message": {
+          "en": "The menu buttons overlap. Increase the pitch or reduce the diameter.",
+          "es": "Los botones de menú se enciman. Aumenta el paso o reduce el diámetro."
+        }
+      },
+      {
+        "expression": "shoulder_rows < 1 || shoulder_inset >= corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The shoulders reach into the rounded corners. Increase the inset.",
+          "es": "Los botones superiores invaden las esquinas redondeadas. Aumenta el retiro."
+        }
+      },
+      {
+        "expression": "shoulder_rows < 2 || body_depth >= 2 * shoulder_thickness + 3",
+        "severity": "error",
+        "message": {
+          "en": "The body is too thin for a shoulder and a trigger one behind the other.",
+          "es": "El cuerpo es muy delgado para un botón superior y un gatillo uno tras otro."
+        }
+      },
+      {
+        "expression": "shoulder_rows < 1 || body_width / 2 - shoulder_inset - shoulder_width >= (port_top_present ? port_width / 2 : 0) + 1.5",
+        "severity": "error",
+        "message": {
+          "en": "The shoulders meet each other or the top port. Narrow them or increase the inset.",
+          "es": "Los botones superiores se tocan entre sí o con el puerto superior. Angóstalos o aumenta el retiro."
+        }
+      },
+      {
+        "expression": "!port_top_present && !port_bottom_present || port_width / 2 + 1 <= body_width / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The edge ports reach into the rounded corners. Narrow them or reduce the radius.",
+          "es": "Los puertos de los bordes invaden las esquinas redondeadas. Angóstalos o reduce el radio."
+        }
+      },
+      {
+        "expression": "side_button_y + side_button_length + 2 <= body_height / 2 - (corner_radius > 3 ? corner_radius : 3)",
+        "severity": "error",
+        "message": {
+          "en": "The side buttons reach the top corners. Lower them or shorten them.",
+          "es": "Los botones laterales llegan a las esquinas de arriba. Bájalos o acórtalos."
+        }
+      },
+      {
+        "expression": "side_button_y - side_button_length - 2 >= (corner_radius > 3 ? corner_radius : 3) - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The volume buttons reach the bottom corners. Raise them or shorten them.",
+          "es": "Los botones de volumen llegan a las esquinas de abajo. Súbelos o acórtalos."
+        }
+      },
+      {
+        "expression": "!slide_switch_present || side_button_y - side_button_length / 2 - slide_switch_throw - 10 >= (corner_radius > 3 ? corner_radius : 3) - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The slide switch reaches the bottom corners. Raise the side buttons or shorten the throw.",
+          "es": "El interruptor deslizante llega a las esquinas de abajo. Sube los botones laterales o acorta la carrera."
+        }
+      },
+      {
+        "expression": "light_bar_count < 1 || light_bar_length / 2 <= body_width / 2 - 3 && light_bar_y + light_bar_width / 2 <= body_height / 2 - 3 && light_bar_y - 1.5 * light_bar_width - 4 >= 3 - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "A light bar runs off the rear (keep 3 mm).",
+          "es": "Una barra de luz se sale del dorso (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "light_bar_count < 1 || light_bar_length / 2 <= body_width / 2 - corner_radius || light_bar_y + light_bar_width / 2 <= body_height / 2 - corner_radius && light_bar_y - 1.5 * light_bar_width - 4 >= corner_radius - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "A light bar reaches into a rounded corner. Shorten it or move it.",
+          "es": "Una barra de luz invade una esquina redondeada. Acórtala o muévela."
+        }
+      },
+      {
+        "expression": "!port_rear_present || port_rear_y + port_height / 2 <= body_height / 2 - 3 && port_rear_y - port_height / 2 >= 3 - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The rear port runs off the rear (keep 3 mm).",
+          "es": "El puerto trasero se sale del dorso (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "!port_rear_present || port_width / 2 <= body_width / 2 - corner_radius || (port_rear_y < 0 ? -port_rear_y : port_rear_y) + port_height / 2 <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The rear port reaches into a rounded corner. Move it toward the middle.",
+          "es": "El puerto trasero invade una esquina redondeada. Muévelo hacia el centro."
+        }
+      },
+      {
+        "expression": "!rear_mount_present || rear_mount_width / 2 <= body_width / 2 - 3 && rear_mount_y + rear_mount_height / 2 <= body_height / 2 - 3 && rear_mount_y - rear_mount_height / 2 >= 3 - body_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The rear mount runs off the rear (keep 3 mm).",
+          "es": "El montaje trasero se sale del dorso (deja 3 mm)."
+        }
+      },
+      {
+        "expression": "!rear_mount_present || rear_mount_width / 2 <= body_width / 2 - corner_radius || (rear_mount_y < 0 ? -rear_mount_y : rear_mount_y) + rear_mount_height / 2 <= body_height / 2 - corner_radius",
+        "severity": "error",
+        "message": {
+          "en": "The rear mount reaches into a rounded corner. Narrow it or move it toward the middle.",
+          "es": "El montaje trasero invade una esquina redondeada. Angóstalo o muévelo hacia el centro."
+        }
+      },
+      {
+        "expression": "light_bar_count < 1 || !rear_mount_present || light_bar_y - 1.5 * light_bar_width - 6 >= rear_mount_y + rear_mount_height / 2 || light_bar_y + light_bar_width / 2 + 2 <= rear_mount_y - rear_mount_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The light bars overlap the rear mount. Move one of them.",
+          "es": "Las barras de luz se enciman con el montaje trasero. Mueve uno de los dos."
+        }
+      },
+      {
+        "expression": "light_bar_count < 1 || !port_rear_present || light_bar_y - 1.5 * light_bar_width - 6 >= port_rear_y + port_height / 2 || light_bar_y + light_bar_width / 2 + 2 <= port_rear_y - port_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The light bars overlap the rear port. Move one of them.",
+          "es": "Las barras de luz se enciman con el puerto trasero. Mueve uno de los dos."
+        }
+      },
+      {
+        "expression": "!rear_mount_present || !port_rear_present || port_rear_y + port_height / 2 + 2 <= rear_mount_y - rear_mount_height / 2 || port_rear_y - port_height / 2 - 2 >= rear_mount_y + rear_mount_height / 2",
+        "severity": "error",
+        "message": {
+          "en": "The rear port overlaps the rear mount. Move one of them.",
+          "es": "El puerto trasero se encima con el montaje trasero. Mueve uno de los dos."
+        }
+      }
+    ],
+    "interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Device envelope",
+          "es": "Envolvente del dispositivo"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the outline body_width x body_height x body_depth with its four corners rounded by corner_radius. A stand, a dock or a case takes it.",
+        "parameters": [
+          "body_width",
+          "body_height",
+          "body_depth",
+          "corner_radius"
+        ],
+        "compatible_with": [
+          "device-stand"
+        ]
+      },
+      {
+        "id": "screen_window",
+        "label": {
+          "en": "Screen window",
+          "es": "Ventana de pantalla"
+        },
+        "geometry_type": "screen",
+        "standard": "internal: the lit area, a rectangle of screen_diagonal inches at screen_aspect_w:screen_aspect_h, centred on X at screen_center_y, in the front face.",
+        "parameters": [
+          "screen_diagonal",
+          "screen_aspect_w",
+          "screen_aspect_h",
+          "screen_center_y"
+        ]
+      },
+      {
+        "id": "rear_module_mount",
+        "label": {
+          "en": "Rear module mount",
+          "es": "Montaje trasero para módulo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal: four clearance holes of rear_mount_hole, 4 mm in from each corner of a land rear_mount_width x rear_mount_height that stands 2 mm proud of the rear, centred on X at rear_mount_y.",
+        "parameters": [
+          "rear_mount_width",
+          "rear_mount_height",
+          "rear_mount_y",
+          "rear_mount_hole"
+        ]
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "device",
+      "type": "script",
+      "params": {
+        "source": "main.py",
+        "language": "cadquery",
+        "output": "solid",
+        "bind": {
+          "body_depth": {
+            "param": "body_depth"
+          },
+          "body_height": {
+            "param": "body_height"
+          },
+          "body_width": {
+            "param": "body_width"
+          },
+          "button_height": {
+            "param": "button_height"
+          },
+          "button_travel": {
+            "param": "button_travel"
+          },
+          "control_x": {
+            "param": "control_x"
+          },
+          "control_y": {
+            "param": "control_y"
+          },
+          "corner_radius": {
+            "param": "corner_radius"
+          },
+          "dpad_arm": {
+            "param": "dpad_arm"
+          },
+          "dpad_span": {
+            "param": "dpad_span"
+          },
+          "face_button_diameter": {
+            "param": "face_button_diameter"
+          },
+          "face_button_spread": {
+            "param": "face_button_spread"
+          },
+          "function_button_count": {
+            "param": "function_button_count"
+          },
+          "function_x": {
+            "param": "function_x"
+          },
+          "function_y": {
+            "param": "function_y"
+          },
+          "light_bar_count": {
+            "param": "light_bar_count"
+          },
+          "light_bar_length": {
+            "param": "light_bar_length"
+          },
+          "light_bar_width": {
+            "param": "light_bar_width"
+          },
+          "light_bar_y": {
+            "param": "light_bar_y"
+          },
+          "light_ring_present": {
+            "param": "light_ring_present"
+          },
+          "light_ring_width": {
+            "param": "light_ring_width"
+          },
+          "menu_button_count": {
+            "param": "menu_button_count"
+          },
+          "menu_button_diameter": {
+            "param": "menu_button_diameter"
+          },
+          "menu_pitch": {
+            "param": "menu_pitch"
+          },
+          "menu_y": {
+            "param": "menu_y"
+          },
+          "port_bottom_present": {
+            "param": "port_bottom_present"
+          },
+          "port_height": {
+            "param": "port_height"
+          },
+          "port_rear_present": {
+            "param": "port_rear_present"
+          },
+          "port_rear_y": {
+            "param": "port_rear_y"
+          },
+          "port_top_present": {
+            "param": "port_top_present"
+          },
+          "port_width": {
+            "param": "port_width"
+          },
+          "rear_mount_height": {
+            "param": "rear_mount_height"
+          },
+          "rear_mount_hole": {
+            "param": "rear_mount_hole"
+          },
+          "rear_mount_present": {
+            "param": "rear_mount_present"
+          },
+          "rear_mount_width": {
+            "param": "rear_mount_width"
+          },
+          "rear_mount_y": {
+            "param": "rear_mount_y"
+          },
+          "screen_aspect_h": {
+            "param": "screen_aspect_h"
+          },
+          "screen_aspect_w": {
+            "param": "screen_aspect_w"
+          },
+          "screen_center_y": {
+            "param": "screen_center_y"
+          },
+          "screen_diagonal": {
+            "param": "screen_diagonal"
+          },
+          "screen_pixels_h": {
+            "param": "screen_pixels_h"
+          },
+          "screen_pixels_w": {
+            "param": "screen_pixels_w"
+          },
+          "shoulder_inset": {
+            "param": "shoulder_inset"
+          },
+          "shoulder_rows": {
+            "param": "shoulder_rows"
+          },
+          "shoulder_thickness": {
+            "param": "shoulder_thickness"
+          },
+          "shoulder_width": {
+            "param": "shoulder_width"
+          },
+          "side_button_length": {
+            "param": "side_button_length"
+          },
+          "side_button_y": {
+            "param": "side_button_y"
+          },
+          "slide_switch_present": {
+            "param": "slide_switch_present"
+          },
+          "slide_switch_throw": {
+            "param": "slide_switch_throw"
+          },
+          "stick_cap_diameter": {
+            "param": "stick_cap_diameter"
+          },
+          "stick_count": {
+            "param": "stick_count"
+          },
+          "stick_height": {
+            "param": "stick_height"
+          },
+          "stick_tilt": {
+            "param": "stick_tilt"
+          },
+          "stick_x": {
+            "param": "stick_x"
+          },
+          "stick_y": {
+            "param": "stick_y"
+          }
+        }
+      },
+      "inputs": {},
+      "meta": {
+        "label": {
+          "en": "Device script",
+          "es": "Guion del dispositivo"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "body": "device",
+    "rear_mount": "device",
+    "screen": "device",
+    "dpad_up": "device",
+    "dpad_down": "device",
+    "dpad_left": "device",
+    "dpad_right": "device",
+    "button_south": "device",
+    "button_east": "device",
+    "button_west": "device",
+    "button_north": "device",
+    "shoulder_left": "device",
+    "shoulder_right": "device",
+    "trigger_left": "device",
+    "trigger_right": "device",
+    "stick_left": "device",
+    "stick_right": "device",
+    "light_ring_left": "device",
+    "light_ring_right": "device",
+    "menu_left": "device",
+    "menu_center": "device",
+    "menu_right": "device",
+    "function_left": "device",
+    "function_right": "device",
+    "power_button": "device",
+    "volume_up": "device",
+    "volume_down": "device",
+    "slide_switch": "device",
+    "port_bottom": "device",
+    "port_top": "device",
+    "port_rear": "device",
+    "light_bar_upper": "device",
+    "light_bar_lower": "device"
+  },
+  "licence": {
+    "spdx": "CERN-OHL-W-2.0"
+  },
+  "provenance": {
+    "authored": "hand",
+    "sources": [
+      {
+        "path": "main.py",
+        "role": "script",
+        "sha256": "b78b019e2a8eb2b60da46cb478da50322ba7a6f78928a7b486647fd31b34ca0c"
+      }
+    ]
+  }
+}

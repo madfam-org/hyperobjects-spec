@@ -888,6 +888,31 @@ as before. Fixtures: `tests/fixtures/y4d/frame-plate`
 (every frame right) and `frame-plate-wrong` (an origin 1mm off its face, a flipped bore
 normal).
 
+### Device controls: which part is a button, and what it sends
+
+A cartridge that models a device a person operates (a handheld, a remote, a panel) can
+carry a `device` block: for each part, whether it is a button, a stick, a trigger, a
+switch, a screen, a light, a port or a motor, the Linux input event it sends, how it
+travels, a screen's pixels and lit face, a light's colours, and where on the parameter
+space the control exists. A viewer reads it to light and press the model; an input bridge
+reads it to send what the real device would. Contract:
+[`docs/DEVICE_CONTROLS.md`](docs/DEVICE_CONTROLS.md).
+
+`y4d-spec check` holds the declaration to the cartridge. Without a render: every declared
+part, control or structure, is a part some mode renders, and every part is accounted for;
+every input name is in the table generated from the kernel's header (names and numbers
+only, from `include/uapi/linux/input-event-codes.h` at v6.12, whose SPDX line is
+`GPL-2.0-only WITH Linux-syscall-note`; no text of the header is copied); every expression
+is in the graph core's dialect; a mode lists no control or structure part its parameter
+point lacks; and every control is an output of its mode's graph (RFC 0067). With
+`--render`, each control is judged against its host, the structure part rendered at the
+same point whose bounding box is nearest its own: within 1 mm, the control's box is
+neither away from the host's nor buried inside it, a press points into the host from the
+face the control sits on, and a screen's lit face is the part's thin side and looks away
+from the host. With no structure part rendered at the point, the control is unverified,
+not passed. The summary then carries `device=P/M ok, unverified=U, failures=F`. A manifest
+without a `device` block is checked exactly as before.
+
 ---
 
 ## Render environment

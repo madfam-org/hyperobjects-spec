@@ -69,6 +69,10 @@ class CartridgeResult:
     #: frame gate (frame_gate.py). Empty without --render, and empty on a manifest
     #: that declares no frame — the gate is a no-op there.
     frames: list = field(default_factory=list)
+    #: One DeviceCheck per (control, rendered point) from the device-control pass
+    #: (y4d_spec.device). Empty without --render, and empty on a manifest with no
+    #: `device` block.
+    device: list = field(default_factory=list)
     #: One LicenseBodyVerdict per LICENSE*/COPYING* the cartridge ships
     #: (structure.shipped_license_bodies). Their findings are in `notes`;
     #: they never affect `ok`.
@@ -153,6 +157,12 @@ def check_manifest(doc: dict) -> CartridgeResult:
     slug = (doc.get("project") or {}).get("slug") if isinstance(doc.get("project"), dict) else None
     # constraint-dialect is NOTE ONLY (y4d_spec.constraint_dialect): it never adds a problem.
     notes = frame_grammar_notes(doc) + constraint_dialect_notes(doc)
+    # The device-control vocabulary (y4d_spec.device): nothing without a `device` block.
+    from .device import manifest_rules as device_manifest_rules
+
+    device_problems, device_notes = device_manifest_rules(doc)
+    problems.extend(device_problems)
+    notes.extend(device_notes)
     return CartridgeResult(slug=slug, ok=not problems, problems=problems, notes=notes)
 
 
@@ -244,6 +254,13 @@ def check_cartridge(
     structure_problems, notes = structure.all_structure_rules(path, doc)
     result.problems.extend(structure_problems)
     result.notes.extend(notes)
+    # A declared control is an output of its mode's graph (y4d_spec.device, RFC 0067).
+    from .device import graph_rules as device_graph_rules
+    from .device import render_checks as device_render_checks
+
+    device_problems, device_notes = device_graph_rules(path, doc)
+    result.problems.extend(device_problems)
+    result.notes.extend(device_notes)
     result.license_bodies = structure.shipped_license_bodies(path, doc)
     for verdict in result.license_bodies:
         result.notes.extend(verdict.notes())
@@ -316,6 +333,22 @@ def check_cartridge(
             # Per-render notes (preset-vs-default sameness, printability
             # measurements) join the cartridge's notes and never touch `ok`.
             result.notes.extend(check.notes)
+
+        # The device-control pass: each control against the mesh the cartridge made.
+        # An unverified control is a note, as an unverified frame is; its failed render
+        # is already a problem above.
+        result.device = device_render_checks(doc, result.renders)
+        for dc in result.device:
+            if dc.status == "fail":
+                result.problems.append(dc.summary)
+            elif dc.status == "unverified":
+                result.notes.append(dc.summary)
+            result.notes.extend(
+                f"device-controls: ({dc.mode}, {dc.part}"
+                + (f", preset '{dc.preset}'" if dc.preset else "")
+                + f"): {note}"
+                for note in dc.notes
+            )
 
         # body-count is NOTE ONLY (y4d_spec.body_count): rendered connected bodies
         # against the declared count, per render. It never adds a problem.

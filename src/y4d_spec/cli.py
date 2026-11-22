@@ -129,6 +129,7 @@ def _cmd_check(args) -> int:
     parity_placement = 0
     parity_failed = 0
     frame_checks = frame_passed = frame_unverified = frame_failed = 0
+    device_checks = device_passed = device_unverified = device_failed = 0
     license_bodies: list = []
     for d in args.cartridges:
         try:
@@ -165,6 +166,10 @@ def _cmd_check(args) -> int:
         frame_passed += sum(1 for f in result.frames if f.status == "pass")
         frame_unverified += sum(1 for f in result.frames if f.status == "unverified")
         frame_failed += sum(1 for f in result.frames if f.status == "fail")
+        device_checks += len(result.device)
+        device_passed += sum(1 for c in result.device if c.status == "pass")
+        device_unverified += sum(1 for c in result.device if c.status == "unverified")
+        device_failed += sum(1 for c in result.device if c.status == "fail")
         license_bodies.extend(result.license_bodies)
 
         if result.ok:
@@ -218,6 +223,8 @@ def _cmd_check(args) -> int:
                     print(f"       {pcheck.summary}")
                 for fcheck in result.frames:
                     print(f"       {fcheck.summary}")
+                for dcheck in result.device:
+                    print(f"       {dcheck.summary}")
         else:
             failures += 1
             for prob in result.problems:
@@ -229,6 +236,8 @@ def _cmd_check(args) -> int:
                     print(f"       {pcheck.summary}")
                 for fcheck in result.frames:
                     print(f"       {fcheck.summary}")
+                for dcheck in result.device:
+                    print(f"       {dcheck.summary}")
 
         # Notes print for pass and fail alike, and never change the exit code.
         for note in result.notes:
@@ -260,6 +269,15 @@ def _cmd_check(args) -> int:
             f" frames={frame_passed}/{frame_checks} ok, unverified={frame_unverified}, "
             f"failures={frame_failed}"
         )
+    # `device=P/M ok, unverified=U, failures=F` (P + U + F = M) — one per (control,
+    # rendered point), appended only when a `device` block was checked against renders,
+    # so the line is unchanged for every other cartridge.
+    device_part = ""
+    if device_checks:
+        device_part = (
+            f" device={device_passed}/{device_checks} ok, unverified={device_unverified}, "
+            f"failures={device_failed}"
+        )
     # `licence-body: files=N canonical=C notices=S mismatched=M unjudged=U` (C+S+M+U =
     # N) — appended only when a cartridge shipped a licence file, like `frames=`. The
     # body check is NOTE ONLY: mismatched files print notes and never fail the run.
@@ -272,7 +290,7 @@ def _cmd_check(args) -> int:
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
         f"presets={preset_targets} skipped={skipped_targets}{parity_part}{frames_part}"
-        f"{license_part}"
+        f"{device_part}{license_part}"
     )
     return 1 if failures else 0
 

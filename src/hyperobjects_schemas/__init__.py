@@ -11,6 +11,7 @@ One place to read the contracts from, whichever side of the commons you author o
     load("sheet-behaviour")         # how a thin sheet behaves, across the commons
     load("assembly")                # ASM-1: a type-level assembly (assembly.json)
     load("sheet-manifest")          # the Pliego cartridge manifest (sheet side)
+    load("device-controls")         # a device cartridge's `device` block (controls)
 
 Names are given without the ``.schema.json`` suffix; the suffixed filename works too.
 
@@ -47,6 +48,10 @@ These files are copies of the schemas each platform repo publishes:
     The ``sheet-behaviour`` schema is authored here too: the cross-commons thin-sheet
     description (paper, fabric, felt, foam, thin prints, laminates). Its validator, mapping
     rules, ``material_ref`` resolver and laminate calculator live in ``hyperobjects_sheet``.
+    The ``device-controls`` schema is authored here: the ``device`` block of a solid
+    cartridge that models a device a person operates (which part is a button, a stick, a
+    screen, a light or a port, and the input it sends). Its rules live in
+    ``y4d_spec.device``; the contract is ``docs/DEVICE_CONTROLS.md``.
 
 ``fc_spec`` deliberately keeps loading its own bundled copies from
 ``fc_spec/schemas/`` rather than reaching into this package: the FC runner's
@@ -83,6 +88,7 @@ SCHEMAS: dict[str, str] = {
     "standard-part": "hyperobjects-spec",
     "reference-object": "hyperobjects-spec",
     "sheet-manifest": "hyperobjects-spec",
+    "device-controls": "hyperobjects-spec",
 }
 
 
