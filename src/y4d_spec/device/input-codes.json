@@ -4,8 +4,10 @@
   "project": "Linux kernel",
   "file": "include/uapi/linux/input-event-codes.h",
   "tag": "v6.12",
-  "sha256": "f9889a73d7d4f7e303d2d346a3622657169c5e8d7d354cb7a030ff47a7fdfdee"
+  "sha256": "f9889a73d7d4f7e303d2d346a3622657169c5e8d7d354cb7a030ff47a7fdfdee",
+  "spdx_license_identifier": "GPL-2.0-only WITH Linux-syscall-note"
  },
+ "contents": "This table holds only names and numbers, generated from include/uapi/linux/input-event-codes.h at v6.12 by scripts/refresh_device_input_codes.py; no text of the header is copied. The header's SPDX-License-Identifier line is GPL-2.0-only WITH Linux-syscall-note.",
  "event_types": {
   "EV_KEY": 1,
   "EV_REL": 2,
@@ -15,7 +17,6 @@
  },
  "codes": {
   "EV_KEY": {
-   "KEY_RESERVED": 0,
    "KEY_ESC": 1,
    "KEY_1": 2,
    "KEY_2": 3,
@@ -662,7 +663,6 @@
    "REL_DIAL": 7,
    "REL_WHEEL": 8,
    "REL_MISC": 9,
-   "REL_RESERVED": 10,
    "REL_WHEEL_HI_RES": 11,
    "REL_HWHEEL_HI_RES": 12
   },
@@ -694,7 +694,6 @@
    "ABS_VOLUME": 32,
    "ABS_PROFILE": 33,
    "ABS_MISC": 40,
-   "ABS_RESERVED": 46,
    "ABS_MT_SLOT": 47,
    "ABS_MT_TOUCH_MAJOR": 48,
    "ABS_MT_TOUCH_MINOR": 49,
