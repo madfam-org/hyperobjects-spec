@@ -10,21 +10,24 @@ sends. Contract: ``docs/DEVICE_CONTROLS.md``. Shape: ``device-controls.schema.js
 Three passes, and each checks the declaration against something the cartridge actually
 has, so a declaration cannot describe a device the cartridge does not build:
 
-* :func:`manifest_rules` — no directory, no render. The shape; every declared part is a
-  part of the cartridge that some mode renders, and every part is accounted for; every
-  input name exists and suits its role; a label carries both locales; every expression
-  parses in the graph core's
-  dialect and reads declared parameters; and at each parameter point a run renders (a
-  mode at its defaults, and each preset in its modes) a control the mode lists is present
-  there and its numbers are sound.
+* :func:`manifest_rules` — no directory, no render. The shape; every declared part
+  (control or structure) is a part of the cartridge that some mode renders, and every
+  part is accounted for; every input name exists and suits its role; a label carries
+  both locales; every expression parses in the graph core's dialect and reads declared
+  parameters; and at each parameter point a run renders (a mode at its defaults, and
+  each preset in its modes) a part the mode lists is present there and a control's
+  numbers are sound.
 * :func:`graph_rules` — needs the directory. RFC 0067 gives every hyperobject a graph,
   and a control is one of its outputs: a mode that lists a control names a graph, the
   graph outputs that part, and a format 1.2 graph declares every parameter the
   declaration reads.
 * :func:`render_checks` — after ``--render``. One verdict per (control, rendered point)
-  against the mesh the cartridge produced: a screen's lit face is the part's large face,
-  a press moves the part into the device and not out of it, and no control sits away
-  from the structure it belongs to.
+  against the mesh the cartridge produced, judged against the control's **host**: the
+  structure part rendered at the same point that the control touches. The control sits
+  on the host's surface (neither away from it nor buried in it), a press moves it into
+  the host from the face it sits on, and a screen's lit face is the part's large face
+  and looks away from the host. With no host rendered at the point, the control is
+  unverified.
 
 Every rule is a failure from birth, as the sheet commons' and the 1.2 graph's were
 (AGENTS.md): no cartridge carried a ``device`` block before this module, so there is no
@@ -69,8 +72,11 @@ ROLES = ("button", "stick", "trigger", "switch", "screen", "light", "port", "mot
 GRAPH_FILE_SUFFIX = ".graph.json"
 
 #: Conventions of the render pass (labelled, as every tolerance in this package is).
-#: A control whose bounding box is further than this from every structure part's is
-#: called detached. Wide enough for a part that only touches its seat.
+#: How near a control's bounding box must come to the surface of its host's, from
+#: outside or from inside. Further outside than this from every structure part's box is
+#: detached; further inside its host's box than this on every side is buried; a press
+#: or a lit face must reach the host's face on its side to within this. Wide enough for
+#: a part that only touches its seat and for a port mouth set back into an edge.
 DETACHED_MM = 1.0
 #: Pixels are called non-square when the two pitches differ by more than this fraction.
 PIXEL_ASPECT_BAND = 0.02
@@ -116,9 +122,21 @@ def _controls(block: dict) -> list[dict]:
     return [c for c in controls if isinstance(c, dict) and isinstance(c.get("part"), str)]
 
 
-def _structure(block: dict) -> list[str]:
+def _structure_entries(block: dict) -> list[dict]:
+    """Every structure entry as ``{"part": id, ...}``: a bare id, or an object that can
+    carry ``present_when``."""
     structure = block.get("structure")
-    return [p for p in structure if isinstance(p, str)] if isinstance(structure, list) else []
+    entries: list[dict] = []
+    for item in structure if isinstance(structure, list) else []:
+        if isinstance(item, str):
+            entries.append({"part": item})
+        elif isinstance(item, dict) and isinstance(item.get("part"), str):
+            entries.append(item)
+    return entries
+
+
+def _structure(block: dict) -> list[str]:
+    return [entry["part"] for entry in _structure_entries(block)]
 
 
 def _modes(doc: dict) -> list[dict]:
@@ -337,27 +355,29 @@ def _part_problems(doc: dict, block: dict) -> list[str]:
         if isinstance(p, dict) and isinstance(p.get("id"), str)
     ]
     rendered = {pid for mode in _modes(doc) for pid in _mode_parts(mode)}
-    structure = _structure(block)
-    declared: dict[str, str] = {pid: "structure" for pid in structure}
-    for control in _controls(block):
-        pid = control["part"]
+    declared: dict[str, str] = {}
+    entries = [(pid, "structure") for pid in _structure(block)]
+    entries += [(control["part"], "control") for control in _controls(block)]
+    for pid, kind in entries:
         if pid in declared:
             out.append(
-                f"{RULE_ID}: part '{pid}' is declared twice ({declared[pid]} and control); "
+                f"{RULE_ID}: part '{pid}' is declared twice ({declared[pid]} and {kind}); "
                 "one entry describes one part"
             )
-        declared[pid] = "control"
+            continue
+        declared[pid] = kind
     for pid, kind in declared.items():
         if pid not in parts:
             out.append(
                 f"{RULE_ID}: {kind} '{pid}' is not a part of this cartridge (parts[]: "
                 f"{', '.join(parts) or 'none'})"
             )
-        elif kind == "control" and pid not in rendered:
-            out.append(
-                f"{RULE_ID}: control '{pid}' is rendered by no mode; a control nothing "
-                "renders cannot be shown or pressed"
+        elif pid not in rendered:
+            why = (
+                "a control nothing renders cannot be shown or pressed" if kind == "control"
+                else "structure nothing renders cannot hold a control"
             )
+            out.append(f"{RULE_ID}: {kind} '{pid}' is rendered by no mode; {why}")
     for pid in parts:
         if pid not in declared:
             out.append(
@@ -367,6 +387,13 @@ def _part_problems(doc: dict, block: dict) -> list[str]:
     return out
 
 
+def _entries(block: dict) -> list[tuple[str, dict]]:
+    """``(kind, entry)`` for every structure entry and every control."""
+    return [("structure", e) for e in _structure_entries(block)] + [
+        ("control", c) for c in _controls(block)
+    ]
+
+
 def _expression_problems(doc: dict, block: dict) -> list[str]:
     out = []
     scope = _scope(doc)
@@ -374,19 +401,21 @@ def _expression_problems(doc: dict, block: dict) -> list[str]:
         p["id"] for p in doc.get("parameters") or []
         if isinstance(p, dict) and isinstance(p.get("id"), str)
     }
-    for control in _controls(block):
-        pid = control["part"]
-        for field, source in _expressions(control):
-            tree, error = _parse(source, f"device control '{pid}' {field}")
+    for kind, entry in _entries(block):
+        pid = entry["part"]
+        for field, source in _expressions(entry):
+            tree, error = _parse(source, f"device {kind} '{pid}' {field}")
             if tree is None:
-                out.append(f"{RULE_ID}: control '{pid}': {field}: {error}")
+                out.append(f"{RULE_ID}: {kind} '{pid}': {field}: {error}")
                 continue
             for name in sorted(core.expression_names(tree) - set(scope)):
                 reason = (
                     "is not a number or a boolean, and the dialect reads nothing else"
                     if name in declared else "is not a declared parameter"
                 )
-                out.append(f"{RULE_ID}: control '{pid}': {field} reads '{name}', which {reason}")
+                out.append(f"{RULE_ID}: {kind} '{pid}': {field} reads '{name}', which {reason}")
+    for control in _controls(block):
+        pid = control["part"]
         listed = control.get("parameters")
         for name in listed if isinstance(listed, list) else []:
             if isinstance(name, str) and name not in declared:
@@ -457,28 +486,30 @@ def _point_rules(doc: dict, block: dict) -> tuple[list[str], list[str]]:
     notes: list[str] = []
     scope = _scope(doc)
     modes = {m["id"]: m for m in _modes(doc)}
-    controls = _controls(block)
+    entries = _entries(block)
     for mode_id, preset_id, values in _points(doc):
         env = _env(scope, values)
         listed = set(_mode_parts(modes[mode_id]))
         here = _where(mode_id, preset_id)
         sending: dict[str, str] = {}
-        for control in controls:
+        for kind, control in entries:
             pid = control["part"]
             if pid not in listed:
                 continue
             try:
                 present = _present(control, env)
             except core.GraphCoreError as exc:
-                problems.append(f"{RULE_ID}: control '{pid}': present_when at {here}: {exc}")
+                problems.append(f"{RULE_ID}: {kind} '{pid}': present_when at {here}: {exc}")
                 continue
             if not present:
                 problems.append(
-                    f"{RULE_ID}: {here}: the mode lists control '{pid}', and the "
+                    f"{RULE_ID}: {here}: the mode lists {kind} '{pid}', and the "
                     f"declaration says it is absent there (present_when "
                     f"'{control['present_when']}' is false); a mode shows only the "
-                    "controls its parameter point has"
+                    "parts its parameter point has"
                 )
+                continue
+            if kind == "structure":
                 continue
             for message in _point_numbers(control, env):
                 problems.append(f"{RULE_ID}: control '{pid}' at {here}: {message}")
@@ -564,10 +595,13 @@ def graph_rules(cartridge_dir: Path, doc: dict) -> tuple[list[str], list[str]]:
         return [], []
     problems: list[str] = []
     controls = {c["part"]: c for c in _controls(block)}
+    reads = {e["part"]: ("structure", e) for e in _structure_entries(block)}
+    reads.update({pid: ("control", c) for pid, c in controls.items()})
     for mode in _modes(doc):
         shown = [pid for pid in _mode_parts(mode) if pid in controls]
         if not shown:
             continue
+        listed = [pid for pid in _mode_parts(mode) if pid in reads]
         names = _graph_names(mode)
         if not names:
             problems.append(
@@ -592,10 +626,11 @@ def graph_rules(cartridge_dir: Path, doc: dict) -> tuple[list[str], list[str]]:
             if not isinstance(entries, list):
                 continue
             declared = {e["id"] for e in entries if isinstance(e, dict) and "id" in e}
-            for pid in shown:
-                for read in sorted(_read_names(controls[pid]) - declared):
+            for pid in listed:
+                kind, entry = reads[pid]
+                for read in sorted(_read_names(entry) - declared):
                     problems.append(
-                        f"{RULE_ID}: graph {name}: control '{pid}' reads parameter "
+                        f"{RULE_ID}: graph {name}: {kind} '{pid}' reads parameter "
                         f"'{read}', which the graph does not declare"
                     )
     return problems, []
@@ -613,11 +648,14 @@ class DeviceCheck:
     mode: str
     preset: str | None
     engine: str | None
-    #: "pass", "fail", or "unverified" (the render was skipped or failed, so nothing here
-    #: judged the control against a mesh; the render lane reports a failed render itself).
+    #: "pass", "fail", or "unverified": the render was skipped or failed (the render lane
+    #: reports a failed render itself), or no structure part was rendered at the point,
+    #: so nothing here judged where the control sits.
     status: str
     detail: str
     notes: tuple[str, ...] = ()
+    #: The structure part the control was judged against (its host), or None.
+    host: str | None = None
 
     @property
     def summary(self) -> str:
@@ -628,53 +666,124 @@ class DeviceCheck:
         return f"{RULE_ID}: {self.role} {target}: {verdict} — {self.detail}"
 
 
-def _union(boxes: list) -> tuple[list[float], list[float]] | None:
-    if not boxes:
-        return None
-    lo = [min(b[0][i] for b in boxes) for i in range(3)]
-    hi = [max(b[1][i] for b in boxes) for i in range(3)]
-    return lo, hi
-
-
 def _gap(a, b) -> float:
     """The distance between two axis-aligned boxes (0 when they touch or overlap)."""
     per_axis = [max(a[0][i] - b[1][i], b[0][i] - a[1][i], 0.0) for i in range(3)]
     return math.sqrt(sum(d * d for d in per_axis))
 
 
-def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[str], str]:
-    """``(failures, notes, what was verified)`` for one control against its mesh."""
+def _overlap(a, b) -> float:
+    """The volume two axis-aligned boxes share (0 when they only touch or are apart)."""
+    volume = 1.0
+    for i in range(3):
+        volume *= max(min(a[1][i], b[1][i]) - max(a[0][i], b[0][i]), 0.0)
+    return volume
+
+
+def _host(bounds, hosts: list[tuple[str, tuple]]) -> tuple[str, tuple, float]:
+    """``(part, box, gap)`` of the structure part a control belongs to: the nearest box,
+    and among boxes the control touches, the one it shares the most volume with (a
+    button in its seat shares its stem with the shell, not with the lid beside it)."""
+    ranked = sorted(
+        enumerate(hosts),
+        key=lambda item: (_gap(bounds, item[1][1]), -_overlap(bounds, item[1][1]), item[0]),
+    )
+    _index, (part, box) = ranked[0]
+    return part, box, _gap(bounds, box)
+
+
+def _centre(box, axis: int) -> float:
+    return (box[0][axis] + box[1][axis]) / 2
+
+
+def _side(box, axis: int, sign: int) -> float:
+    """The coordinate of a box's face on one side of one axis."""
+    return box[1][axis] if sign > 0 else box[0][axis]
+
+
+def _reaches(bounds, host, axis: int, sign: int) -> float:
+    """How far the control's face on the ``sign`` side of ``axis`` falls short of the
+    host's face on that side (0 or less when it reaches it or stands proud of it)."""
+    return (_side(host, axis, sign) - _side(bounds, axis, sign)) * sign
+
+
+def _seated(bounds, host_id: str, host, gap: float) -> tuple[list[str], list[str]]:
+    """``(failures, verified)``: the control's box comes within DETACHED_MM of the surface
+    of its host's box, from outside (detached) or from inside (buried)."""
+    if gap > DETACHED_MM:
+        return [
+            f"sits {gap:.2f} mm away from the nearest structure part, '{host_id}' (more "
+            f"than {DETACHED_MM:g} mm); a control belongs on its device"
+        ], []
+    inside = min(
+        min(bounds[0][i] - host[0][i], host[1][i] - bounds[1][i]) for i in range(3)
+    )
+    if inside > DETACHED_MM:
+        return [
+            f"lies {inside:.2f} mm inside structure part '{host_id}' on every side (more "
+            f"than {DETACHED_MM:g} mm); a control reaches the surface of the part it is "
+            "on"
+        ], []
+    return [], [f"on '{host_id}'"]
+
+
+def _faces_out(bounds, host_id: str, host, spec: str, field: str, press: bool):
+    """``(failures, verified)`` for a direction that must point into the host (a press)
+    or out of it (a lit face), from the face of the host the control sits on."""
+    axis, sign = _axis(spec)
+    out = -sign if press else sign  # the side of the host the control sits on
+    letter = spec[1]
+    away = (_centre(bounds, axis) - _centre(host, axis)) * out
+    if away <= 0:
+        lies = "+" if _centre(host, axis) > _centre(bounds, axis) else "-"
+        verb = "points away from" if press else "looks into"
+        return [
+            f"{field} {spec} {verb} structure part '{host_id}' (the structure part lies "
+            f"{lies}{letter} of the control); "
+            + ("a press moves a control in" if press else "a lit face looks out of its device")
+        ], []
+    short = _reaches(bounds, host, axis, out)
+    if short > DETACHED_MM:
+        return [
+            f"{field} {spec}: the part's {'+' if out > 0 else '-'}{letter} side is "
+            f"{short:.2f} mm short of that face of structure part '{host_id}' (more than "
+            f"{DETACHED_MM:g} mm); a control sits on the face it "
+            + ("is pressed into" if press else "lights")
+        ], []
+    return [], [f"presses in along {spec}" if press else f"looks out along {spec}"]
+
+
+def _judge(control: dict, check, env: dict, hosts: list) -> tuple[list[str], list[str],
+                                                                   list[str], str | None]:
+    """``(failures, notes, what was verified, host)`` for one control against its mesh.
+
+    ``hosts`` are ``(part, bounds)`` of the structure parts rendered and present at the
+    same point. Without one, nothing here can say where the control sits: the host is
+    None and only what the part's own extents show is judged.
+    """
     failures: list[str] = []
     notes: list[str] = []
     verified: list[str] = []
     role = control.get("role")
     extents = check.extents
     bounds = getattr(check, "bounds", None)
+    host_id = host = None
 
-    if structure is not None and bounds is not None:
-        gap = min(_gap(bounds, box) for box in structure)
-        if gap > DETACHED_MM:
-            failures.append(
-                f"sits {gap:.2f} mm away from every structure part (more than "
-                f"{DETACHED_MM:g} mm); a control belongs on its device"
-            )
-        else:
-            verified.append("on the structure")
+    if hosts and bounds is not None:
+        host_id, host, gap = _host(bounds, hosts)
+        found, ok = _seated(bounds, host_id, host, gap)
+        failures += found
+        verified += ok
+        if found:
+            host = None  # a control off its host has no face of it to be judged on
 
     travel = control.get("travel") if isinstance(control.get("travel"), dict) else {}
     if _axis(travel.get("axis")) is not None and role in ("button", "trigger", "stick"):
-        axis, sign = _axis(travel["axis"])
-        hull = _union(structure) if structure is not None else None
-        if hull is not None and bounds is not None:
-            toward = (hull[0][axis] + hull[1][axis]) / 2 - (bounds[0][axis] + bounds[1][axis]) / 2
-            if toward * sign <= 0:
-                failures.append(
-                    f"travel.axis {travel['axis']} points away from the device (its "
-                    f"structure lies {'+' if toward > 0 else '-'}{travel['axis'][1]} of "
-                    "the part); a press moves a control in"
-                )
-            else:
-                verified.append(f"presses in along {travel['axis']}")
+        axis, _sign = _axis(travel["axis"])
+        if host is not None:
+            found, ok = _faces_out(bounds, host_id, host, travel["axis"], "travel.axis", True)
+            failures += found
+            verified += ok
         if "depth" in travel and extents is not None:
             try:
                 depth = _number(travel["depth"], env)
@@ -702,6 +811,12 @@ def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[
             verified.append(
                 f"face {extents[across]:.2f} × {extents[up]:.2f} mm looking {surface['normal']}"
             )
+            if host is not None:
+                found, ok = _faces_out(
+                    bounds, host_id, host, surface["normal"], "surface.normal", False
+                )
+                failures += found
+                verified += ok
             try:
                 listed = control.get("pixels")
                 px = [_number(i, env) for i in (listed if isinstance(listed, list) else [])]
@@ -718,26 +833,31 @@ def _judge(control: dict, check, env: dict, structure) -> tuple[list[str], list[
 
     if check.bodies is not None and check.bodies > 1:
         notes.append(f"renders as {check.bodies} bodies; a control is usually one")
-    return failures, notes, "; ".join(verified) or "rendered"
+    return failures, notes, verified, host_id
+
+
+def _preset_values(doc: dict) -> dict[str, dict]:
+    """Preset label → values, labelled exactly as the render lane labels a preset render
+    (``rules.preset_targets``: the id, else the slug, else ``presets[i]``)."""
+    from ..rules import preset_targets
+
+    return {label: values for label, _mode, _part, values in preset_targets(doc)}
 
 
 def render_checks(doc: dict, renders: list) -> list[DeviceCheck]:
     """One :class:`DeviceCheck` per (control a mode lists, rendered point, engine).
 
     ``renders`` are the run's ``RenderCheck`` objects. A control the declaration calls
-    absent at a point is not judged there (pass 1 already refused a mode that lists it).
+    absent at a point is not judged there (pass 1 already refused a mode that lists it),
+    and a structure part absent there is nobody's host.
     """
     block = _block(doc)
     if block is None:
         return []
     controls = {c["part"]: c for c in _controls(block)}
-    structure_ids = set(_structure(block))
+    structure = {e["part"]: e for e in _structure_entries(block)}
     scope = _scope(doc)
-    presets = {
-        str(p.get("id") or p.get("slug")): p.get("values")
-        for p in doc.get("presets") or []
-        if isinstance(p, dict) and isinstance(p.get("values"), dict)
-    }
+    presets = _preset_values(doc)
 
     groups: dict[tuple, list] = {}
     for check in renders:
@@ -746,12 +866,17 @@ def render_checks(doc: dict, renders: list) -> list[DeviceCheck]:
     out: list[DeviceCheck] = []
     for (mode, preset, engine), checks in groups.items():
         env = _env(scope, presets.get(preset) or {}) if preset else dict(scope)
-        boxes = [
-            c.bounds for c in checks
-            if c.part in structure_ids and c.ok and not c.skipped
-            and getattr(c, "bounds", None) is not None
-        ]
-        structure = boxes or None
+        hosts = []
+        for c in checks:
+            if (
+                c.part in structure and c.ok and not c.skipped
+                and getattr(c, "bounds", None) is not None
+            ):
+                try:
+                    if _present(structure[c.part], env):
+                        hosts.append((c.part, c.bounds))
+                except core.GraphCoreError:
+                    continue
         for check in checks:
             control = controls.get(check.part)
             if control is None or not isinstance(control.get("role"), str):
@@ -767,13 +892,19 @@ def render_checks(doc: dict, renders: list) -> list[DeviceCheck]:
                 reason = check.skipped or "its render failed"
                 out.append(DeviceCheck(**base, status="unverified", detail=reason))
                 continue
-            failures, notes, verified = _judge(control, check, env, structure)
-            out.append(DeviceCheck(
-                **base,
-                status="fail" if failures else "pass",
-                detail="; ".join(failures) if failures else verified,
-                notes=tuple(notes),
-            ))
+            failures, notes, verified, host = _judge(control, check, env, hosts)
+            if failures:
+                status, detail = "fail", "; ".join(failures)
+            elif host is None:
+                status = "unverified"
+                detail = "; ".join(
+                    ["no structure part was rendered at this point, so nothing judged "
+                     "where the control sits"] + verified
+                )
+            else:
+                status, detail = "pass", "; ".join(verified)
+            out.append(DeviceCheck(**base, status=status, detail=detail, notes=tuple(notes),
+                                   host=host))
     return out
 
 

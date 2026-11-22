@@ -21,7 +21,7 @@ cartridge's source, and the behaviour stays in the programs that read the block.
 ```json
 "device": {
   "vocabulary": "device-controls/1.0",
-  "structure": ["body"],
+  "structure": ["body", { "part": "rear_mount", "present_when": "rear_mount_present" }],
   "controls": [
     { "part": "button_south", "role": "button",
       "label": { "en": "South face button", "es": "Botón frontal sur" },
@@ -41,7 +41,7 @@ cartridge's source, and the behaviour stays in the programs that read the block.
 | Key | Meaning |
 | :-- | :-- |
 | `vocabulary` | `device-controls/1.<minor>`. A keystone that knows an earlier minor checks what it knows and says so in a note. |
-| `structure` | The parts that are not controls: a body, a trim, a mount. |
+| `structure` | The parts that are not controls: a body, a trim, a mount. An entry is the part's id, or `{"part": id, "present_when": expr}` for a part that exists only on some of the parameter space. |
 | `controls` | One entry per control part. |
 
 **Every part of the cartridge is in exactly one of the two lists.** A viewer never has to
@@ -87,7 +87,15 @@ A control names what it sends by its **Linux input event name**: `BTN_SOUTH`, `K
 `input-codes.json`, generated from the kernel's user-space header
 `include/uapi/linux/input-event-codes.h` by `scripts/refresh_device_input_codes.py`; the
 table records the kernel tag and the header's sha256. `y4d_spec.device.input_codes()`
-returns it.
+returns it, read from the installed package. The header's bookkeeping names (`_MAX`,
+`_CNT`, `_MIN_INTERESTING`) and its `_RESERVED` placeholders are left out: they name no
+input a control can send.
+
+**What the table holds.** Only names and numbers, generated from
+`include/uapi/linux/input-event-codes.h` at tag v6.12; no text of the header is copied.
+That header's `SPDX-License-Identifier` line is `GPL-2.0-only WITH Linux-syscall-note`. The
+table states the same in its own `contents` and `source.spdx_license_identifier` fields,
+which the script writes from the header it reads.
 
 **A name the table lacks is a failure.** A misspelt code is a control that sends nothing,
 and nothing downstream would say so. A name a newer kernel added is taken up by refreshing
@@ -131,6 +139,10 @@ of its presets, and an empty mesh is a failure. So:
 - **`present_when` states where a control exists.** A mode that lists a control at a
   parameter point where the declaration says it is absent is a failure. A mode may list
   fewer controls than are present: a mode of one part is still a mode.
+- **A structure part can say the same**, with a structure entry `{"part": id,
+  "present_when": expr}`: a mount, a stand or a battery door that only some of the
+  parameter space has. The same rule holds for it, and a structure part absent at a point
+  is not a host for the render checks below.
 - A viewer that reads the block can hide a control whose `present_when` is false at the
   visitor's parameters, whatever the mode lists.
 
@@ -151,13 +163,13 @@ holds the declaration to something the cartridge has. A finding is prefixed
 | not a part | a control or a structure entry names no entry of `parts[]` |
 | declared twice | one part has two entries |
 | unaccounted part | a part is neither a control nor structure |
-| rendered by no mode | a control no mode lists |
+| rendered by no mode | a control or a structure part no mode lists |
 | input name | a name the table lacks, or one of the wrong event type for its field; a stick whose two axes are one |
 | label | a label without `en` or `es` |
-| expression | does not parse, or reads a name that is not a declared number or boolean parameter |
+| expression | a control's or a structure entry's expression does not parse, or reads a name that is not a declared number or boolean parameter |
 | `parameters` | names a parameter the manifest does not declare |
 | screen surface | `normal` and `up` on one axis |
-| absent where listed | at a mode's defaults, or at a preset in its mode, a control the mode lists has a false `present_when` |
+| absent where listed | at a mode's defaults, or at a preset in its mode, a control or a structure part the mode lists has a false `present_when` |
 | number | at one of those points, `travel.depth` is not above 0, `travel.tilt` is not between 0 and 90, a pixel count is not a whole number of 1 or more, or an expression divides by zero |
 
 and from the cartridge directory:
@@ -166,23 +178,35 @@ and from the cartridge directory:
 | :-- | :-- |
 | no graph | a mode lists a control and names no graph |
 | not an output | the mode's graph does not output a control the mode lists |
-| undeclared parameter | a 1.2 graph's declarations lack a parameter the control reads |
+| undeclared parameter | a 1.2 graph's declarations lack a parameter that a control, or a structure entry, the mode lists reads |
 
 A graph the render lane or the graph core refuses is theirs to report, once.
 
 **With `--render`**, one verdict per (control a mode lists, rendered point, engine), against
 the mesh the cartridge produced. `bounds` on a render is the mesh's bounding box in the
-model frame:
+model frame. Each control is judged against its **host**: of the structure parts rendered
+at the same point (mode, preset, engine) and present there, the one whose box is nearest
+the control's box, and among those the control's box touches, the one it shares the most
+volume with. One part is judged against one host, so a button on the base of an opened
+clamshell is judged against the base, not against the base and the lid together. The
+tolerance is 1 mm (`DETACHED_MM`), and every distance is between boxes:
 
 | Failure | Rule |
 | :-- | :-- |
-| detached | the control's bounding box is more than 1 mm from every structure part's |
-| travel points out | for a button, a trigger or a stick, `travel.axis` points away from the structure; a press moves a control in |
-| screen face | `surface.normal` is not the screen part's thin direction |
+| detached | the control's box is more than 1 mm from its host's, the nearest structure part's |
+| buried | the control's box lies more than 1 mm inside its host's on every side |
+| travel points out | for a button, a trigger or a stick with a `travel.axis`: the host's centre does not lie along `travel.axis` from the control's, or the control's side facing away from the press falls more than 1 mm short of the host's face on that side. A press moves a control into the face it sits on. |
+| screen face | `surface.normal` is not the screen part's thin direction; or the host's centre lies along `normal` from the screen's (the lit face looks into its host); or the screen's side along `normal` falls more than 1 mm short of the host's face on that side |
 
-A control whose render failed or was skipped is **unverified**: a note, never a pass. The
-failed render is already a failure. A control the declaration calls absent at a point is
-not judged there.
+A control is **unverified**, a note and never a pass, when its render failed or was skipped
+(the failed render is already a failure) or when no structure part was rendered and present
+at that point: then nothing judged where it sits. A screen whose `normal` is not its thin
+direction still fails without a host, since that needs only the screen's own extents. A
+control the declaration calls absent at a point is not judged there.
+
+These are judgements on bounding boxes, the evidence a render records (`RenderCheck.bounds`,
+`extents`). A box is not the surface: a control in a pocket more than 1 mm deep in a
+concave host reads as buried, and a box can touch a host's box away from the host's surface.
 
 The summary line gains a clause when a declaration was checked against renders:
 
@@ -230,5 +254,5 @@ renumber input events) and is not a vocabulary change.
 
 `tests/fixtures/device/candybar-handheld` is a copy of the solid commons' generic handheld:
 thirty-one controls in seven of the eight roles (it has no motor), layout parameters with
-`present_when`, two modes, two presets and a wrapper graph. It passes all three passes, and
-the tests break a copy of it to show each failure.
+`present_when` on controls and on the rear mount, two modes, two presets and a wrapper
+graph. It passes all three passes, and the tests break a copy of it to show each failure.

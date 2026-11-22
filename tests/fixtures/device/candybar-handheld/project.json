@@ -1587,11 +1587,27 @@
       }
     },
     {
-      "expression": "(screen_diagonal * 25.4) * (screen_diagonal * 25.4) * screen_aspect_w * screen_aspect_w <= (body_width - 4) * (body_width - 4) * (screen_aspect_w * screen_aspect_w + screen_aspect_h * screen_aspect_h)",
+      "expression": "(screen_diagonal * 25.4) * (screen_diagonal * 25.4) * screen_aspect_w * screen_aspect_w <= (body_width - 6) * (body_width - 6) * (screen_aspect_w * screen_aspect_w + screen_aspect_h * screen_aspect_h)",
       "severity": "error",
       "message": {
-        "en": "The screen is wider than the body. Reduce the diagonal or widen the body.",
-        "es": "La pantalla es más ancha que el cuerpo. Reduce la diagonal o ensancha el cuerpo."
+        "en": "The screen is wider than the body less 3 mm a side. Reduce the diagonal or widen the body.",
+        "es": "La pantalla es más ancha que el cuerpo menos 3 mm por lado. Reduce la diagonal o ensancha el cuerpo."
+      }
+    },
+    {
+      "expression": "screen_center_y + 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h) <= body_height / 2 - 3",
+      "severity": "error",
+      "message": {
+        "en": "The screen runs off the top of the face. Lower it, shrink it or lengthen the body.",
+        "es": "La pantalla se sale por arriba de la cara. Bájala, achícala o alarga el cuerpo."
+      }
+    },
+    {
+      "expression": "17.97 * screen_diagonal * screen_aspect_w / (screen_aspect_w + screen_aspect_h) <= body_width / 2 - corner_radius || screen_center_y + 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h) <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The screen reaches into the rounded top corners. Lower it or reduce the corner radius.",
+        "es": "La pantalla invade las esquinas redondeadas de arriba. Bájala o reduce el radio de esquina."
       }
     },
     {
@@ -1603,35 +1619,299 @@
       }
     },
     {
-      "expression": "control_x + dpad_span / 2 <= body_width / 2 - 2 && control_x + face_button_spread + face_button_diameter / 2 <= body_width / 2 - 2",
-      "severity": "error",
-      "message": {
-        "en": "The D-pad or the face buttons run off the side of the body.",
-        "es": "La cruceta o los botones frontales se salen del costado del cuerpo."
-      }
-    },
-    {
       "expression": "face_button_spread * 1.4 >= face_button_diameter + 1",
-      "severity": "warning",
+      "severity": "error",
       "message": {
         "en": "The face buttons overlap. Increase the spread or reduce the diameter.",
         "es": "Los botones frontales se enciman. Aumenta la separación o reduce el diámetro."
       }
     },
     {
-      "expression": "shoulder_inset >= corner_radius",
-      "severity": "warning",
+      "expression": "control_x + dpad_span / 2 <= body_width / 2 - 3 && control_x + (face_button_spread + face_button_diameter / 2) <= body_width / 2 - 3",
+      "severity": "error",
+      "message": {
+        "en": "The D-pad or the face buttons run off the side of the body (keep 3 mm).",
+        "es": "La cruceta o los botones frontales se salen del costado del cuerpo (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "2 * control_x >= dpad_span / 2 + (face_button_spread + face_button_diameter / 2) + 2",
+      "severity": "error",
+      "message": {
+        "en": "The D-pad and the face buttons overlap. Increase the control offset.",
+        "es": "La cruceta y los botones frontales se enciman. Aumenta la separación de los controles."
+      }
+    },
+    {
+      "expression": "control_y + (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2)) + 2 <= screen_center_y - 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h)",
+      "severity": "error",
+      "message": {
+        "en": "The D-pad or the face buttons reach the screen. Lower them or raise the screen.",
+        "es": "La cruceta o los botones frontales tocan la pantalla. Bájalos o sube la pantalla."
+      }
+    },
+    {
+      "expression": "control_y - (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2)) >= 3 - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The D-pad or the face buttons run off the bottom of the face.",
+        "es": "La cruceta o los botones frontales se salen por abajo de la cara."
+      }
+    },
+    {
+      "expression": "control_x + dpad_span / 2 <= body_width / 2 - corner_radius || (control_y < 0 ? -control_y : control_y) + dpad_span / 2 <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The D-pad reaches into a rounded corner. Move it in or reduce the corner radius.",
+        "es": "La cruceta invade una esquina redondeada. Acércala al centro o reduce el radio."
+      }
+    },
+    {
+      "expression": "control_x + (face_button_spread + face_button_diameter / 2) <= body_width / 2 - corner_radius || (control_y < 0 ? -control_y : control_y) + (face_button_spread + face_button_diameter / 2) <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The face buttons reach into a rounded corner. Move them in or reduce the corner radius.",
+        "es": "Los botones frontales invaden una esquina redondeada. Acércalos al centro o reduce el radio."
+      }
+    },
+    {
+      "expression": "function_button_count < 1 || function_x + menu_button_diameter / 2 <= body_width / 2 - 3",
+      "severity": "error",
+      "message": {
+        "en": "The function buttons run off the side of the body (keep 3 mm).",
+        "es": "Los botones de función se salen del costado del cuerpo (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "function_button_count < 1 || function_x + menu_button_diameter / 2 <= body_width / 2 - corner_radius || (function_y < 0 ? -function_y : function_y) + menu_button_diameter / 2 <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The function buttons reach into a rounded corner. Move them in or reduce the radius.",
+        "es": "Los botones de función invaden una esquina redondeada. Acércalos al centro o reduce el radio."
+      }
+    },
+    {
+      "expression": "function_button_count < 1 || function_y + menu_button_diameter / 2 + 2 <= screen_center_y - 17.97 * screen_diagonal * screen_aspect_h / (screen_aspect_w + screen_aspect_h)",
+      "severity": "error",
+      "message": {
+        "en": "The function buttons reach the screen. Lower them or raise the screen.",
+        "es": "Los botones de función tocan la pantalla. Bájalos o sube la pantalla."
+      }
+    },
+    {
+      "expression": "function_button_count < 1 || function_y - menu_button_diameter / 2 - 2 >= control_y + (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2))",
+      "severity": "error",
+      "message": {
+        "en": "The function buttons reach the D-pad or the face buttons. Raise them or lower the controls.",
+        "es": "Los botones de función tocan la cruceta o los botones frontales. Súbelos o baja los controles."
+      }
+    },
+    {
+      "expression": "stick_count < 1 || stick_x + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) <= body_width / 2 - 3",
+      "severity": "error",
+      "message": {
+        "en": "A stick or its light ring runs off the side of the body (keep 3 mm).",
+        "es": "Una palanca o su aro de luz se sale del costado del cuerpo (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "stick_count < 1 || (stick_y < 0 ? -stick_y : stick_y) + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) <= body_height / 2 - (corner_radius > 3 ? corner_radius : 3)",
+      "severity": "error",
+      "message": {
+        "en": "A stick or its light ring runs off the bottom of the face or into a rounded corner.",
+        "es": "Una palanca o su aro de luz se sale por abajo de la cara o invade una esquina redondeada."
+      }
+    },
+    {
+      "expression": "stick_count < 1 || stick_y + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 2 <= control_y - dpad_span / 2",
+      "severity": "error",
+      "message": {
+        "en": "The sticks reach the D-pad. Lower the sticks or raise the controls.",
+        "es": "Las palancas tocan la cruceta. Baja las palancas o sube los controles."
+      }
+    },
+    {
+      "expression": "stick_count < 1 || stick_y + (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 2 <= control_y - (face_button_spread + face_button_diameter / 2)",
+      "severity": "error",
+      "message": {
+        "en": "The sticks reach the face buttons. Lower the sticks or raise the controls.",
+        "es": "Las palancas tocan los botones frontales. Baja las palancas o sube los controles."
+      }
+    },
+    {
+      "expression": "stick_count < 2 || stick_x >= (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1) + 1",
+      "severity": "error",
+      "message": {
+        "en": "The two sticks overlap. Increase the stick offset.",
+        "es": "Las dos palancas se enciman. Aumenta la separación de las palancas."
+      }
+    },
+    {
+      "expression": "menu_button_count < 1 || (menu_button_count < 2 ? 0 : menu_pitch) + menu_button_diameter / 2 <= body_width / 2 - 3 && menu_y - menu_button_diameter / 2 >= 3 - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The menu row runs off the side or the bottom of the face (keep 3 mm).",
+        "es": "La fila de menú se sale del costado o de abajo de la cara (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "menu_button_count < 1 || (menu_button_count < 2 ? 0 : menu_pitch) + menu_button_diameter / 2 <= body_width / 2 - corner_radius || (menu_y < 0 ? -menu_y : menu_y) + menu_button_diameter / 2 <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The menu row reaches into a rounded corner. Narrow it, raise it or reduce the radius.",
+        "es": "La fila de menú invade una esquina redondeada. Angóstala, súbela o reduce el radio."
+      }
+    },
+    {
+      "expression": "menu_button_count < 1 || menu_y + menu_button_diameter / 2 + 2 <= control_y - (dpad_span / 2 > (face_button_spread + face_button_diameter / 2) ? dpad_span / 2 : (face_button_spread + face_button_diameter / 2))",
+      "severity": "error",
+      "message": {
+        "en": "The menu row reaches the D-pad or the face buttons. Lower it or raise the controls.",
+        "es": "La fila de menú toca la cruceta o los botones frontales. Bájala o sube los controles."
+      }
+    },
+    {
+      "expression": "menu_button_count < 1 || stick_count < 1 || menu_y + menu_button_diameter / 2 + 2 <= stick_y - (stick_cap_diameter / 2 + light_ring_width + (stick_height + 1.2) * stick_tilt / 51.9 + 1.1)",
+      "severity": "error",
+      "message": {
+        "en": "The menu row reaches the sticks. Lower it or raise the sticks.",
+        "es": "La fila de menú toca las palancas. Bájala o sube las palancas."
+      }
+    },
+    {
+      "expression": "menu_button_count < 2 || (menu_button_count < 3 ? 2 : 1) * menu_pitch >= menu_button_diameter + 1",
+      "severity": "error",
+      "message": {
+        "en": "The menu buttons overlap. Increase the pitch or reduce the diameter.",
+        "es": "Los botones de menú se enciman. Aumenta el paso o reduce el diámetro."
+      }
+    },
+    {
+      "expression": "shoulder_rows < 1 || shoulder_inset >= corner_radius",
+      "severity": "error",
       "message": {
         "en": "The shoulders reach into the rounded corners. Increase the inset.",
         "es": "Los botones superiores invaden las esquinas redondeadas. Aumenta el retiro."
       }
     },
     {
-      "expression": "body_depth >= 2 * shoulder_thickness + 3",
-      "severity": "warning",
+      "expression": "shoulder_rows < 2 || body_depth >= 2 * shoulder_thickness + 3",
+      "severity": "error",
       "message": {
         "en": "The body is too thin for a shoulder and a trigger one behind the other.",
         "es": "El cuerpo es muy delgado para un botón superior y un gatillo uno tras otro."
+      }
+    },
+    {
+      "expression": "shoulder_rows < 1 || body_width / 2 - shoulder_inset - shoulder_width >= (port_top_present ? port_width / 2 : 0) + 1.5",
+      "severity": "error",
+      "message": {
+        "en": "The shoulders meet each other or the top port. Narrow them or increase the inset.",
+        "es": "Los botones superiores se tocan entre sí o con el puerto superior. Angóstalos o aumenta el retiro."
+      }
+    },
+    {
+      "expression": "!port_top_present && !port_bottom_present || port_width / 2 + 1 <= body_width / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The edge ports reach into the rounded corners. Narrow them or reduce the radius.",
+        "es": "Los puertos de los bordes invaden las esquinas redondeadas. Angóstalos o reduce el radio."
+      }
+    },
+    {
+      "expression": "side_button_y + side_button_length + 2 <= body_height / 2 - (corner_radius > 3 ? corner_radius : 3)",
+      "severity": "error",
+      "message": {
+        "en": "The side buttons reach the top corners. Lower them or shorten them.",
+        "es": "Los botones laterales llegan a las esquinas de arriba. Bájalos o acórtalos."
+      }
+    },
+    {
+      "expression": "side_button_y - side_button_length - 2 >= (corner_radius > 3 ? corner_radius : 3) - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The volume buttons reach the bottom corners. Raise them or shorten them.",
+        "es": "Los botones de volumen llegan a las esquinas de abajo. Súbelos o acórtalos."
+      }
+    },
+    {
+      "expression": "!slide_switch_present || side_button_y - side_button_length / 2 - slide_switch_throw - 10 >= (corner_radius > 3 ? corner_radius : 3) - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The slide switch reaches the bottom corners. Raise the side buttons or shorten the throw.",
+        "es": "El interruptor deslizante llega a las esquinas de abajo. Sube los botones laterales o acorta la carrera."
+      }
+    },
+    {
+      "expression": "light_bar_count < 1 || light_bar_length / 2 <= body_width / 2 - 3 && light_bar_y + light_bar_width / 2 <= body_height / 2 - 3 && light_bar_y - 1.5 * light_bar_width - 4 >= 3 - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "A light bar runs off the rear (keep 3 mm).",
+        "es": "Una barra de luz se sale del dorso (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "light_bar_count < 1 || light_bar_length / 2 <= body_width / 2 - corner_radius || light_bar_y + light_bar_width / 2 <= body_height / 2 - corner_radius && light_bar_y - 1.5 * light_bar_width - 4 >= corner_radius - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "A light bar reaches into a rounded corner. Shorten it or move it.",
+        "es": "Una barra de luz invade una esquina redondeada. Acórtala o muévela."
+      }
+    },
+    {
+      "expression": "!port_rear_present || port_rear_y + port_height / 2 <= body_height / 2 - 3 && port_rear_y - port_height / 2 >= 3 - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The rear port runs off the rear (keep 3 mm).",
+        "es": "El puerto trasero se sale del dorso (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "!port_rear_present || port_width / 2 <= body_width / 2 - corner_radius || (port_rear_y < 0 ? -port_rear_y : port_rear_y) + port_height / 2 <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The rear port reaches into a rounded corner. Move it toward the middle.",
+        "es": "El puerto trasero invade una esquina redondeada. Muévelo hacia el centro."
+      }
+    },
+    {
+      "expression": "!rear_mount_present || rear_mount_width / 2 <= body_width / 2 - 3 && rear_mount_y + rear_mount_height / 2 <= body_height / 2 - 3 && rear_mount_y - rear_mount_height / 2 >= 3 - body_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The rear mount runs off the rear (keep 3 mm).",
+        "es": "El montaje trasero se sale del dorso (deja 3 mm)."
+      }
+    },
+    {
+      "expression": "!rear_mount_present || rear_mount_width / 2 <= body_width / 2 - corner_radius || (rear_mount_y < 0 ? -rear_mount_y : rear_mount_y) + rear_mount_height / 2 <= body_height / 2 - corner_radius",
+      "severity": "error",
+      "message": {
+        "en": "The rear mount reaches into a rounded corner. Narrow it or move it toward the middle.",
+        "es": "El montaje trasero invade una esquina redondeada. Angóstalo o muévelo hacia el centro."
+      }
+    },
+    {
+      "expression": "light_bar_count < 1 || !rear_mount_present || light_bar_y - 1.5 * light_bar_width - 6 >= rear_mount_y + rear_mount_height / 2 || light_bar_y + light_bar_width / 2 + 2 <= rear_mount_y - rear_mount_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The light bars overlap the rear mount. Move one of them.",
+        "es": "Las barras de luz se enciman con el montaje trasero. Mueve uno de los dos."
+      }
+    },
+    {
+      "expression": "light_bar_count < 1 || !port_rear_present || light_bar_y - 1.5 * light_bar_width - 6 >= port_rear_y + port_height / 2 || light_bar_y + light_bar_width / 2 + 2 <= port_rear_y - port_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The light bars overlap the rear port. Move one of them.",
+        "es": "Las barras de luz se enciman con el puerto trasero. Mueve uno de los dos."
+      }
+    },
+    {
+      "expression": "!rear_mount_present || !port_rear_present || port_rear_y + port_height / 2 + 2 <= rear_mount_y - rear_mount_height / 2 || port_rear_y - port_height / 2 - 2 >= rear_mount_y + rear_mount_height / 2",
+      "severity": "error",
+      "message": {
+        "en": "The rear port overlaps the rear mount. Move one of them.",
+        "es": "El puerto trasero se encima con el montaje trasero. Mueve uno de los dos."
       }
     }
   ],
@@ -1783,7 +2063,10 @@
     "vocabulary": "device-controls/1.0",
     "structure": [
       "body",
-      "rear_mount"
+      {
+        "part": "rear_mount",
+        "present_when": "rear_mount_present"
+      }
     ],
     "controls": [
       {

@@ -327,12 +327,15 @@ redundant edge that would report one of the other two failures twice.
   floats, because the dialect's `==` is strict.
 - **The render pass reads `RenderCheck.bounds` and `extents` and nothing else.** That is
   why its tests run on stand-in renders with no CAD kernel. Keep it that way: a verdict
-  that needs the mesh belongs in `geometry.py`, recorded on the `RenderCheck`.
+  that needs the mesh belongs in `geometry.py`, recorded on the `RenderCheck`. Each
+  control is judged against one **host**, the nearest structure part rendered at its point,
+  never against the union of all structure; with no host rendered it is unverified.
 - **Failures from birth, notes for what a healthy device can do.** No cartridge carried
   the block before the module. A new observation that could be true of a real device (two
   controls on one code, non-square pixels) is a note.
 - **The fixture is a copy** of the solid commons' `candybar-handheld`
   (`tests/fixtures/device/NOTICE.md`). Refresh it from the commons; break a copy in a test.
+  The two must stay byte-identical until the commons' `SPEC_PIN` reaches this vocabulary.
 - The summary clause is `device=P/M ok, unverified=U, failures=F` (`P + U + F = M`),
   printed only when a declaration was checked against renders.
 

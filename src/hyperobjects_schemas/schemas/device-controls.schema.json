@@ -15,8 +15,13 @@
     "structure": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/partId" },
-      "description": "The parts that are not controls: the body, a trim, a mount. Every part of the cartridge is either listed here or declared as a control, so a viewer never has to guess whether a part can be pressed."
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/partId" },
+          { "$ref": "#/$defs/structurePart" }
+        ]
+      },
+      "description": "The parts that are not controls: the body, a trim, a mount. Every part of the cartridge is either listed here or declared as a control, so a viewer never has to guess whether a part can be pressed. An entry is the part's id, or an object that also says where the part is present."
     },
     "controls": {
       "type": "array",
@@ -26,6 +31,18 @@
   },
   "$defs": {
     "partId": { "type": "string", "minLength": 1 },
+    "structurePart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["part"],
+      "properties": {
+        "part": { "$ref": "#/$defs/partId" },
+        "present_when": {
+          "$ref": "#/$defs/exprSource",
+          "description": "An expression over the cartridge's parameters. The part exists on the device where it is true. Absent means always."
+        }
+      }
+    },
     "i18nString": {
       "oneOf": [
         { "type": "string", "minLength": 1 },

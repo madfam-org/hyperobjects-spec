@@ -135,8 +135,41 @@ def test_a_control_must_name_a_part_of_the_cartridge(doc):
 
 
 def test_every_part_is_a_control_or_structure(doc):
-    doc["device"]["structure"].remove("rear_mount")
+    doc["device"]["structure"] = ["body"]  # the mount's entry is gone
     one(problems(doc), "part 'rear_mount' is neither a control nor listed")
+
+
+def test_a_structure_entry_may_say_where_the_part_is_present(manifest, doc):
+    assert {"part": "rear_mount", "present_when": "rear_mount_present"} in (
+        manifest["device"]["structure"]
+    )
+    # the mode that lists the mount, at a point where the switch is off
+    next(p for p in doc["parameters"] if p["id"] == "rear_mount_present")["default"] = False
+    found = problems(doc)
+    one(found, "mode 'device' at its defaults", "lists structure 'rear_mount'",
+        "'rear_mount_present' is false")
+    assert len(found) == 1, found
+
+
+def test_a_structure_expression_is_checked_like_a_controls(doc):
+    doc["device"]["structure"][1]["present_when"] = "mount_present"
+    one(problems(doc), "structure 'rear_mount': present_when reads 'mount_present', which "
+        "is not a declared parameter")
+    doc["device"]["structure"][1]["present_when"] = "rear_mount_present &&"
+    one(problems(doc), "structure 'rear_mount': present_when:")
+    doc["device"]["structure"][1] = {"part": "rear_mount", "colours": "rgb"}
+    assert any("schema" in f and "device/structure/1" in f for f in problems(doc))
+
+
+def test_a_structure_entry_is_declared_once(doc):
+    doc["device"]["structure"].append("body")
+    one(problems(doc), "part 'body' is declared twice (structure and structure)")
+
+
+def test_structure_no_mode_renders_is_refused(doc):
+    for mode in doc["modes"]:
+        mode["parts"] = [p for p in mode["parts"] if p != "rear_mount"]
+    one(problems(doc), "structure 'rear_mount' is rendered by no mode")
 
 
 def test_a_part_is_declared_once(doc):
@@ -175,7 +208,43 @@ def test_the_input_code_table_says_where_it_came_from():
     assert table["codes"]["EV_ABS"]["ABS_HAT0X"] == 0x10
     assert table["codes"]["EV_SW"]["SW_LID"] == 0
     for names in table["codes"].values():
-        assert not [n for n in names if n.endswith(("_MAX", "_CNT"))]
+        assert not [n for n in names if n.endswith(("_MAX", "_CNT", "_RESERVED"))]
+    # what the table holds, next to the table (docs/DEVICE_CONTROLS.md says the same)
+    assert table["source"]["spdx_license_identifier"] == "GPL-2.0-only WITH Linux-syscall-note"
+    assert "only names and numbers" in table["contents"]
+    assert "no text of the header is copied" in table["contents"]
+    assert table["source"]["tag"] in table["contents"]
+
+
+def test_a_reserved_placeholder_is_not_an_input_name(doc):
+    control(doc, "button_south")["code"] = "KEY_RESERVED"
+    one(problems(doc), "code 'KEY_RESERVED' is not an input event name")
+
+
+def test_input_codes_reads_the_package_data(tmp_path, monkeypatch):
+    """The table is read through importlib.resources from the y4d_spec.device package,
+    never from a path in a source tree; the wheel check (scripts/qa/check_graph_wheel.py)
+    loads it from an unpacked wheel. Here the package's resources are pointed at a stand-in
+    directory, and what input_codes() returns must be what that directory holds."""
+    from importlib import resources
+
+    stand_in = {"source": {"tag": "v0.0-test"}, "event_types": {}, "codes": {}}
+    (tmp_path / "input-codes.json").write_text(json.dumps(stand_in), encoding="utf-8")
+    asked = []
+
+    def files(package):
+        asked.append(package)
+        return tmp_path
+
+    dev.input_codes.cache_clear()
+    monkeypatch.setattr(resources, "files", files)
+    try:
+        assert dev.input_codes() == stand_in
+    finally:
+        monkeypatch.undo()
+        dev.input_codes.cache_clear()
+    assert asked == ["y4d_spec.device"]
+    assert dev.input_codes()["source"]["tag"] == "v6.12"
 
 
 def test_the_table_is_shipped_in_the_wheel_manifest():
@@ -260,13 +329,16 @@ def test_a_listed_parameter_must_exist(doc):
 
 
 def test_a_mode_may_not_list_a_control_its_point_lacks(doc):
-    # the compact preset switches thirteen controls off; in the full mode they are listed
+    # the compact preset switches thirteen controls and the rear mount off; in the full
+    # mode they are listed
     doc["presets"][1]["mode"] = "device"
     found = problems(doc)
     absent = [f for f in found if "the declaration says it is absent there" in f]
-    assert len(absent) == 13, absent
+    assert len(absent) == 14, absent
     one(absent, "mode 'device', preset 'compact_no_sticks'", "control 'stick_left'",
         "'stick_count >= 1' is false")
+    one(absent, "mode 'device', preset 'compact_no_sticks'", "structure 'rear_mount'",
+        "'rear_mount_present' is false")
     assert len(found) == len(absent)
 
 
@@ -413,8 +485,8 @@ def verdicts(doc, *renders):
 def test_a_control_seated_in_the_body_passes(manifest):
     south = render("button_south", (20, -25, 17), (28, -17, 19.4))
     check = verdicts(manifest, south)["button_south"]
-    assert check.status == "pass" and check.notes == ()
-    assert "on the structure" in check.detail and "presses in along -z" in check.detail
+    assert check.status == "pass" and check.notes == () and check.host == "body"
+    assert "on 'body'" in check.detail and "presses in along -z" in check.detail
     assert check.summary.startswith(
         "device-controls: button (device, button_south, defaults, cadquery): ok"
     )
@@ -428,7 +500,7 @@ def test_a_control_away_from_the_structure_fails(manifest):
     adrift = render("button_south", (20, -25, 30), (28, -17, 32.4))
     check = verdicts(manifest, adrift)["button_south"]
     assert check.status == "fail"
-    assert "sits 12.00 mm away from every structure part" in check.detail
+    assert "sits 12.00 mm away from the nearest structure part, 'body'" in check.detail
 
 
 def test_a_press_that_moves_the_part_out_fails(doc):
@@ -436,7 +508,84 @@ def test_a_press_that_moves_the_part_out_fails(doc):
     power = render("power_button", (42.5, 35.5, 7.5), (44.8, 44.5, 10.5))
     check = verdicts(doc, power)["power_button"]
     assert check.status == "fail"
-    assert "travel.axis +x points away from the device" in check.detail
+    assert "travel.axis +x points away from structure part 'body'" in check.detail
+    assert "(the structure part lies -x of the control)" in check.detail
+
+
+def test_a_control_buried_in_its_host_fails(manifest):
+    """A light has no travel to judge, so only its seat can say it is not on the surface:
+    every side of this box is 2 mm or more inside the body's."""
+    buried = render("light_bar_upper", (-20, 60.5, 2), (20, 63.5, 3))
+    check = verdicts(manifest, buried)["light_bar_upper"]
+    assert check.status == "fail"
+    assert "lies 2.00 mm inside structure part 'body' on every side" in check.detail
+    # a port mouth set back 0.3 mm into its edge is on the surface
+    mouth = render("port_bottom", (-4.5, -81.7, 7.4), (4.5, -80.7, 10.6))
+    assert verdicts(manifest, mouth)["port_bottom"].status == "pass"
+
+
+def test_a_press_into_a_face_the_control_is_not_on_fails(doc):
+    """The power button sits on the +x side; declared to press -z, it would be pressed
+    into the front face it does not reach. Its centre is above the body's, so a test of
+    centres alone passes it."""
+    control(doc, "power_button")["travel"]["axis"] = "-z"
+    power = render("power_button", (42.5, 35.5, 9), (44.8, 44.5, 13))
+    check = verdicts(doc, power)["power_button"]
+    assert check.status == "fail"
+    assert "travel.axis -z: the part's +z side is 5.00 mm short of that face of structure " \
+        "part 'body'" in check.detail
+
+
+def clamshell(doc) -> tuple[dict, object, object]:
+    """The fixture with a second structure part, a lid opened upright behind the top
+    edge: the box of the two is tall, and its centre is far above the face buttons."""
+    doc["parts"].append({"id": "lid", "label": {"en": "Lid", "es": "Tapa"}})
+    doc["modes"][0]["parts"].append("lid")
+    doc["device"]["structure"].append("lid")
+    lid = render("lid", (-44, 82, 0), (44, 100, 164))
+    return doc, BODY, lid
+
+
+def test_each_control_is_judged_against_the_part_it_is_on(doc):
+    doc, body, lid = clamshell(doc)
+    south = render("button_south", (20, -25, 17), (28, -17, 19.4))
+    check = {c.part: c for c in dev.render_checks(doc, [body, lid, south])}["button_south"]
+    assert check.status == "pass" and check.host == "body", check.detail
+    # a screen on the lid's inner face, looking at the visitor (-y) from the lid
+    control(doc, "screen")["surface"] = {"normal": "-y", "up": "+z"}
+    screen = render("screen", (-35, 81.8, 30), (35, 82.8, 130))
+    check = {c.part: c for c in dev.render_checks(doc, [body, lid, screen])}["screen"]
+    assert check.status == "pass" and check.host == "lid", check.detail
+    assert "looks out along -y" in check.detail
+
+
+def test_a_screen_looks_away_from_its_host(doc):
+    screen = render("screen", (-35.56, 17.33, 17.2), (35.56, 70.67, 18.2))
+    control(doc, "screen")["surface"] = {"normal": "-z", "up": "+y"}
+    check = verdicts(doc, screen)["screen"]
+    assert check.status == "fail"
+    assert "surface.normal -z looks into structure part 'body'" in check.detail
+    # thin along its normal, looking out, but 5 mm below the face it is said to light
+    # (it pokes out of the top edge, so it is not buried)
+    control(doc, "screen")["surface"] = {"normal": "+z", "up": "+y"}
+    sunk = render("screen", (-35.56, 40, 12), (35.56, 90, 13))
+    check = verdicts(doc, sunk)["screen"]
+    assert check.status == "fail"
+    assert "surface.normal +z: the part's +z side is 5.00 mm short" in check.detail
+
+
+def test_no_host_rendered_leaves_a_control_unverified(manifest, doc):
+    screen = render("screen", (-35.56, 17.33, 17.2), (35.56, 70.67, 18.2))
+    check = dev.render_checks(manifest, [screen])[0]
+    assert check.status == "unverified" and check.host is None
+    assert "no structure part was rendered at this point" in check.detail
+    # a structure part the declaration calls absent at the point is nobody's host
+    doc["device"]["structure"][0] = {"part": "body", "present_when": "stick_count >= 3"}
+    check = dev.render_checks(doc, [BODY, screen])[0]
+    assert check.status == "unverified", check.detail
+    # what the part's own extents show is still judged
+    control(doc, "screen")["surface"] = {"normal": "+x", "up": "+y"}
+    assert dev.render_checks(doc, [BODY, screen])[0].status == "fail"
 
 
 def test_a_switch_may_slide_along_its_edge(manifest):
@@ -497,14 +646,26 @@ def test_a_preset_point_uses_the_presets_numbers(manifest):
     assert any("320 × 240 pixels" in n for n in check.notes)
 
 
+def test_a_preset_without_an_id_is_read_as_the_render_lane_names_it(doc):
+    """`rules.preset_targets` names a preset with no id or slug `presets[i]`; the device
+    pass must read that preset's numbers under the same name, not the defaults."""
+    del doc["presets"][1]["id"]
+    body = render("body", (-37, -58, 0), (37, 58, 15), mode="device_plain", preset="presets[1]")
+    screen = render("screen", (-30, 6, 14.2), (30, 50, 15.2), mode="device_plain",
+                    preset="presets[1]")
+    check = dev.render_checks(doc, [body, screen])[0]
+    assert any("320 × 240 pixels" in n for n in check.notes), check.notes
+
+
 # ── no pass crashes on a malformed declaration ───────────────────────────────────────
 
-WRONG = (None, 5, "+w", ["x"], {"x": 1}, {"expr": "1 +"})
+WRONG = (None, 5, 0.5, True, "x", "+w", [], ["x"], {}, {"x": 1}, {"expr": 5}, {"expr": "1 +"})
 
 
 def test_no_pass_raises_on_a_field_of_the_wrong_type(manifest):
     """The schema refuses these; what is tested is that every pass still returns. A
-    checker that stops with a traceback reports nothing about the rest of the cartridge."""
+    checker that stops with a traceback reports nothing about the rest of the cartridge.
+    Every field of every control and of every structure entry, twelve wrong values each."""
     renders = [
         BODY,
         render("screen", (-35.56, 17.33, 17.2), (35.56, 70.67, 18.2)),
@@ -513,18 +674,19 @@ def test_no_pass_raises_on_a_field_of_the_wrong_type(manifest):
         render("slide_switch", (42.8, 26.5, 7.8), (45, 30.5, 10.2)),
     ]
     paths = [("vocabulary",), ("structure",), ("controls",)]
-    seen_roles = set()
+    for i, entry in enumerate(manifest["device"]["structure"]):
+        paths.append(("structure", i))
+        if isinstance(entry, dict):
+            paths.extend(("structure", i, key) for key in entry)
     for i, entry in enumerate(manifest["device"]["controls"]):
-        if entry["role"] in seen_roles and entry["part"] not in {r.part for r in renders}:
-            continue  # one control of each role, and every control that has a render
-        seen_roles.add(entry["role"])
         for key, value in entry.items():
             paths.append(("controls", i, key))
             if isinstance(value, dict):
                 paths.extend(("controls", i, key, sub) for sub in value)
             if isinstance(value, list):
                 paths.append(("controls", i, key, 0))
-    assert len(paths) > 60 and len(seen_roles) == 7
+    assert len(paths) > 200
+    assert ("structure", 1, "present_when") in paths
     for path in paths:
         for wrong in WRONG:
             mutated = copy.deepcopy(manifest)
@@ -533,14 +695,82 @@ def test_no_pass_raises_on_a_field_of_the_wrong_type(manifest):
                 node = node[step]
             node[path[-1]] = wrong
             dev.manifest_rules(mutated)
+            dev.graph_rules(CARTRIDGE, mutated)
             dev.render_checks(mutated, renders)
-        dev.graph_rules(CARTRIDGE, mutated)  # reads the graph file: once per field
     for wrong in WRONG:
         mutated = copy.deepcopy(manifest)
         mutated["device"] = wrong
         dev.manifest_rules(mutated)
         dev.graph_rules(CARTRIDGE, mutated)
         dev.render_checks(mutated, renders)
+
+
+# ── a device finding fails the run: check_cartridge and the CLI, no stand-in ─────────
+
+
+def test_a_device_graph_failure_fails_the_check_and_the_cli(scratch, capsys):
+    """A mode that shows controls and names no graph is a finding only the device pass
+    makes, so it alone must turn the cartridge's verdict and the exit code."""
+    from y4d_spec.cli import main
+
+    def drop(doc):
+        del doc["modes"][1]["graph_file"]
+
+    rewrite(scratch / "project.json", drop)
+    result = check_cartridge(scratch)
+    assert not result.ok
+    assert len(result.problems) == 1, result.problems
+    one(result.problems, "device-controls: mode 'device_plain' shows controls", "names no graph")
+    assert main(["check", str(scratch)]) == 1
+    out = capsys.readouterr().out
+    assert "names no graph" in out and "failures=1" in out
+
+
+def two_parts(scratch: Path, axis: str) -> Path:
+    """The fixture cut down to the body and the power button, one mode, no preset: four
+    renders (the script and its wrapper graph), with the button's travel set to `axis`."""
+    keep = ("body", "power_button")
+
+    def manifest(doc):
+        doc["parts"] = [p for p in doc["parts"] if p["id"] in keep]
+        doc["modes"] = [dict(doc["modes"][0], parts=list(keep))]
+        doc["presets"] = []
+        doc["device"]["structure"] = ["body"]
+        doc["device"]["controls"] = [c for c in doc["device"]["controls"] if c["part"] in keep]
+        doc["device"]["controls"][0]["travel"]["axis"] = axis
+
+    def graph(doc):
+        doc["outputs"] = {k: v for k, v in doc["outputs"].items() if k in keep}
+        doc["declarations"]["presets"] = []
+
+    rewrite(scratch / "project.json", manifest)
+    rewrite(scratch / "candybar.graph.json", graph)
+    return scratch
+
+
+@pytest.mark.geometry
+def test_a_device_render_failure_fails_the_check_and_the_cli(scratch, capsys):
+    """Rendered for real: the power button pressed -x passes, the same button declared to
+    press +x (out of the body) fails check_cartridge and makes the CLI exit 1."""
+    from y4d_spec.cli import main
+
+    cartridge = two_parts(scratch, "-x")
+    clean = check_cartridge(cartridge, render=True, printability=False)
+    assert clean.ok, clean.problems
+    assert {c.status for c in clean.device} == {"pass"} and len(clean.device) >= 1
+
+    two_parts(cartridge, "+x")
+    broken = check_cartridge(cartridge, render=True, printability=False)
+    assert not broken.ok
+    assert broken.device and {c.status for c in broken.device} == {"fail"}
+    assert broken.problems == [c.summary for c in broken.device], broken.problems
+    assert all("travel.axis +x points away from structure part 'body'" in p
+               for p in broken.problems)
+
+    assert main(["check", str(cartridge), "--render", "--no-printability"]) == 1
+    last = capsys.readouterr().out.strip().splitlines()[-1]
+    total = len(broken.device)
+    assert f" device=0/{total} ok, unverified=0, failures={total}" in last
 
 
 # ── the render pass, against the real meshes ─────────────────────────────────────────

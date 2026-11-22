@@ -899,12 +899,18 @@ reads it to send what the real device would. Contract:
 [`docs/DEVICE_CONTROLS.md`](docs/DEVICE_CONTROLS.md).
 
 `y4d-spec check` holds the declaration to the cartridge. Without a render: every declared
-part is a part some mode renders and every part is accounted for, every input name is in
-the table generated from the kernel's header, every expression is in the graph core's
-dialect, a mode lists no control its parameter point lacks, and every control is an output
-of its mode's graph (RFC 0067). With `--render`: each control sits on the device's
-structure, a press moves it in and not out, and a screen's lit face is the part's large
-face. The summary then carries `device=P/M ok, unverified=U, failures=F`. A manifest
+part, control or structure, is a part some mode renders, and every part is accounted for;
+every input name is in the table generated from the kernel's header (names and numbers
+only, from `include/uapi/linux/input-event-codes.h` at v6.12, whose SPDX line is
+`GPL-2.0-only WITH Linux-syscall-note`; no text of the header is copied); every expression
+is in the graph core's dialect; a mode lists no control or structure part its parameter
+point lacks; and every control is an output of its mode's graph (RFC 0067). With
+`--render`, each control is judged against its host, the structure part rendered at the
+same point whose bounding box is nearest its own: within 1 mm, the control's box is
+neither away from the host's nor buried inside it, a press points into the host from the
+face the control sits on, and a screen's lit face is the part's thin side and looks away
+from the host. With no structure part rendered at the point, the control is unverified,
+not passed. The summary then carries `device=P/M ok, unverified=U, failures=F`. A manifest
 without a `device` block is checked exactly as before.
 
 ---
