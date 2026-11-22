@@ -210,6 +210,11 @@ class RenderCheck:
     watertight: bool | None = None
     bodies: int | None = None
     extents: tuple[float, float, float] | None = None
+    #: The mesh's axis-aligned bounding box in the model frame, ``(min corner, max
+    #: corner)``. `extents` says how large a part is; this says where it is, which is what
+    #: lets the device-control pass (y4d_spec.device) ask whether a control sits on its
+    #: device and which way a press moves it.
+    bounds: tuple[tuple[float, float, float], tuple[float, float, float]] | None = None
     #: The preset id this render used, or None for the cartridge's own defaults.
     #: Present so a failure names the parameter point the user would have clicked.
     preset: str | None = None
@@ -690,6 +695,7 @@ def _judge_stl(
         watertight=watertight,
         bodies=verdict.bodies if verdict.bodies is not None else 0,
         extents=tuple(float(x) for x in mesh.extents),
+        bounds=tuple(tuple(float(x) for x in corner) for corner in mesh.bounds),
         preset=preset,
         engine=engine,
         # Only a mesh that WILL still be on disk is recorded. `keep` is the caller
