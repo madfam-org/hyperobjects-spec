@@ -481,7 +481,9 @@ def test_cli_reports_by_default_and_fails_under_strict(gate_fixture, capsys, mon
     from y4d_spec.cli import main
 
     monkeypatch.delenv(STRICT_ENV, raising=False)
-    assert main(["check", "--render", "--no-presets", str(gate_fixture)]) == 0
+    # --no-printability: the 400 mm disc and 360 mm ring would add two build-volume notes.
+    args = ["check", "--render", "--no-presets", "--no-printability"]
+    assert main([*args, str(gate_fixture)]) == 0
     out = capsys.readouterr().out
     assert "mesh-gate chord-error: (disc, disc, cadquery):" in out
     assert "[report-only]" in out
@@ -494,14 +496,13 @@ def test_cli_reports_by_default_and_fails_under_strict(gate_fixture, capsys, mon
     ) in summary
     assert " notes=3 " in summary  # the finding, the exemption, the lint
 
-    assert main(["check", "--render", "--no-presets", "--mesh-strict", "chord-error",
-                 str(gate_fixture)]) == 1
+    assert main([*args, "--mesh-strict", "chord-error", str(gate_fixture)]) == 1
     out = capsys.readouterr().out
     assert "FAIL mesh-gate-disc: mesh-gate chord-error:" in out
     assert "mesh-gate[strict=chord-error]" in out.strip().splitlines()[-1]
 
     monkeypatch.setenv(STRICT_ENV, "segments")
-    assert main(["check", "--render", "--no-presets", str(gate_fixture)]) == 0  # exempt
+    assert main([*args, str(gate_fixture)]) == 0  # ring exempt; disc and knob have 126 or none
 
 
 def test_cli_refuses_a_strict_switch_without_render_or_with_a_typo(capsys, monkeypatch):
