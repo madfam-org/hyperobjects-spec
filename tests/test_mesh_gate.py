@@ -222,6 +222,47 @@ def test_lint_is_silent_on_unparseable_source():
     assert _lint_source("def (:", "broken.py") == []
 
 
+# ── the geom-core side of the oracle seam, without geom-core ──────────────────────────
+
+
+def test_geom_core_structure_counts_are_read_from_its_integrity_report(monkeypatch):
+    """`nonmanifold_edges` and `degenerate_faces` from `assess_integrity()`, the triangle
+    count from `get_triangle_count()`; a disagreement with trimesh joins oracle-parity."""
+    import sys
+    import types
+
+    from y4d_spec import mesh_oracle
+
+    module = types.ModuleType(mesh_oracle.GEOM_CORE_MODULE)
+
+    class Analyzer:
+        def load_stl(self, path):
+            return True
+
+        def get_triangle_count(self):
+            return 14
+
+        def assess_integrity(self, scale_hint=None):
+            return types.SimpleNamespace(
+                watertight=False, volume=1000.0, body_count=1, boundary_edges=0,
+                nonmanifold_edges=3, degenerate_faces=1,
+            )
+
+    module.Analyzer = Analyzer
+    monkeypatch.setitem(sys.modules, mesh_oracle.GEOM_CORE_MODULE, module)
+    measured = mesh_oracle.GeomCoreOracle().measure("part.stl")
+    assert (measured.nonmanifold_edges, measured.degenerate_faces, measured.triangles) == (
+        3, 1, 14,
+    )
+    by_trimesh = mesh_oracle.MeshMeasure(
+        oracle="trimesh", watertight=False, volume=1000.0, bodies=1,
+        nonmanifold_edges=3, degenerate_faces=0, triangles=14,
+    )
+    note = mesh_oracle.oracle_parity_note("(m, p)", by_trimesh, measured)
+    assert note and "degenerate faces trimesh=0 geom-core=1" in note
+    assert "nonmanifold" not in note and "triangles" not in note
+
+
 # ── measured meshes: structure under every oracle, circle fit ─────────────────────────
 
 
@@ -447,10 +488,11 @@ def test_cli_reports_by_default_and_fails_under_strict(gate_fixture, capsys, mon
     assert "mesh-gate chord-error: (disc, ring, cadquery): exempt — TEST FIXTURE" in out
     assert "mesh-gate facet-lint: disc.py:" in out
     summary = out.strip().splitlines()[-1]
-    assert summary.endswith(
+    assert (
         " mesh-gate[report-only]: manifold=0 zero-area=0 duplicate-faces=0 chord-error=1 "
         "segments=0 exempt=1 size=0 facet-lint=1"
-    )
+    ) in summary
+    assert " notes=3 " in summary  # the finding, the exemption, the lint
 
     assert main(["check", "--render", "--no-presets", "--mesh-strict", "chord-error",
                  str(gate_fixture)]) == 1

@@ -251,6 +251,12 @@ def _cmd_check(args) -> int:
         # Notes print for pass and fail alike, and never change the exit code.
         for note in result.notes:
             print(f"  note {name}: {note}")
+        # The mesh gate's report (report-only findings, exemptions, size, lint): notes
+        # too, counted in `notes=` and summarised in the `mesh-gate[...]` clause.
+        if result.mesh_gate is not None:
+            for note in result.mesh_gate.notes:
+                print(f"  note {name}: {note}")
+            total_notes += len(result.mesh_gate.notes)
 
     geom = "verified" if args.render else "NOT verified (pass --render)"
     # `parity=N/M ok, warn=K, exempt=E, placement=P, failures=J` — N+K+E+J = M by
@@ -287,7 +293,8 @@ def _cmd_check(args) -> int:
 
         license_part = f" {summary_clause(license_bodies)}"
     # ` mesh-gate[report-only]: manifold=… zero-area=… duplicate-faces=… chord-error=…
-    # segments=… exempt=E size=S facet-lint=L` — under --render only. Every count but
+    # segments=… exempt=E size=S facet-lint=L` — under --render only, right after
+    # `skipped=` so the clauses that already ended the line still do. Every count but
     # `exempt` (findings) is CARTRIDGES that would fail that check: what step 1 of the
     # rollout publishes (ruling M7). `[strict=…]` names the checks this run fails on.
     mesh_part = ""
@@ -298,8 +305,8 @@ def _cmd_check(args) -> int:
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
-        f"presets={preset_targets} skipped={skipped_targets}{parity_part}{frames_part}"
-        f"{license_part}{mesh_part}"
+        f"presets={preset_targets} skipped={skipped_targets}{mesh_part}{parity_part}"
+        f"{frames_part}{license_part}"
     )
     return 1 if failures else 0
 

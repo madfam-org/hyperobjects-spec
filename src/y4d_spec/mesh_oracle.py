@@ -262,10 +262,18 @@ class GeomCoreOracle:
             # The mesh gate's structure counts, from geom-core's own integrity report
             # (`nonmanifold_edges`: edges of three or more faces; `degenerate_faces`: a
             # repeated vertex or twice the area at or below 1e-12 x extent squared).
-            nonmanifold_edges=int(integrity.nonmanifold_edges),
-            degenerate_faces=int(integrity.degenerate_faces),
-            triangles=int(analyzer.get_triangle_count()),
+            nonmanifold_edges=_optional_int(getattr(integrity, "nonmanifold_edges", None)),
+            degenerate_faces=_optional_int(getattr(integrity, "degenerate_faces", None)),
+            triangles=_optional_int(
+                analyzer.get_triangle_count() if hasattr(analyzer, "get_triangle_count")
+                else None
+            ),
         )
+
+
+def _optional_int(value) -> int | None:
+    """A count geom-core may not report (an older build): None, never a made-up zero."""
+    return None if value is None else int(value)
 
 
 def _volumes_agree(a: float, b: float) -> bool:

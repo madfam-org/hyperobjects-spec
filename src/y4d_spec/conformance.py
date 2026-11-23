@@ -74,7 +74,9 @@ class CartridgeResult:
     #: they never affect `ok`.
     license_bodies: list = field(default_factory=list)
     #: The mesh gate's verdict on this cartridge (y4d_spec.mesh_gate.CartridgeGate):
-    #: which checks it would fail, its exemptions and lint. None without --render.
+    #: which checks it would fail, its notes (report-only findings, exemptions, the size
+    #: warning, the lint) and exemption count. Strict findings are ALSO in `problems`.
+    #: None without --render.
     mesh_gate: object | None = None
 
     def __bool__(self) -> bool:
@@ -332,13 +334,18 @@ def check_cartridge(
         # against the declared count, per render. It never adds a problem.
         result.notes.extend(body_count_notes(doc, result.renders))
 
-        # The mesh gate (y4d_spec.mesh_gate): notes, except the checks switched strict.
+        # The mesh gate (y4d_spec.mesh_gate). A check switched strict adds PROBLEMS.
+        # Everything else (report-only findings, exemptions, the size warning, the lint)
+        # is the gate's own report, `result.mesh_gate.notes`, printed by the CLI as notes
+        # and counted in its `mesh-gate[...]` clause. It is kept out of `result.notes` on
+        # purpose: step 1 of the rollout must not change what any existing note-reader
+        # sees, and the gate's notes are a report with their own summary, not findings
+        # about the manifest.
         from .mesh_gate import cartridge_gate, facet_lint, strict_checks
 
         strict = strict_checks() if mesh_strict is None else mesh_strict
         gate = cartridge_gate(result.renders, strict, facet_lint(path, doc))
         result.problems.extend(gate.problems)
-        result.notes.extend(gate.notes)
         result.mesh_gate = gate
 
         for pc in result.parity:

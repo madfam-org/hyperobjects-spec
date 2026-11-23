@@ -567,11 +567,13 @@ def mesh_resolution(mesh) -> Resolution:
             sectors = np.unique(np.floor((theta + math.pi) / (math.pi / 6)).astype(int) % 12)
             if len(sectors) < 12:
                 continue
-            azimuths = np.unique(np.round(np.degrees(theta) / 0.25).astype(int) % 1440)
-            if len(azimuths) < 3:
+            # Vertices at the same azimuth (the top and bottom of one facet) are one
+            # azimuth; gaps are measured between distinct ones, unrounded.
+            deg = np.sort(np.degrees(theta) % 360.0)
+            steps = np.diff(np.concatenate([deg, [deg[0] + 360.0]]))
+            gaps = steps[steps > 0.05]
+            if len(gaps) < 3:
                 continue
-            deg = np.sort(azimuths * 0.25)
-            gaps = np.diff(np.concatenate([deg, [deg[0] + 360.0]]))
             widest = float(np.max(gaps))
             res.circles.append(Circle(
                 radius=float(r),
