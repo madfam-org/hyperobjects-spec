@@ -45,6 +45,7 @@ from hyperobjects_sheet import add_sheet_parser
 from .assembly.cli import add_assembly_parser
 from .conformance import check_cartridge
 from .geometry import OPENSCAD_TIMEOUT_S
+from .mesh_gate import CHECKS as MESH_GATE_CHECKS
 from .parity import AABB_WARN_BAND, PARITY_TOLERANCE, PLACEMENT_NOTE_BAND
 
 
@@ -101,14 +102,27 @@ def _cmd_check(args) -> int:
             if not lib.is_dir():
                 print(f"  ERROR --openscad-path {lib}: not a directory")
                 return 2
-    elif args.require_openscad or args.openscad_path or args.parity:
+    elif args.require_openscad or args.openscad_path or args.parity or args.mesh_strict:
         # These only mean something under --render, and silently ignoring them is how
         # a CI job that MEANT to require OpenSCAD — or MEANT to compare both kernels —
         # passes having rendered nothing and compared nothing.
         print(
-            "  ERROR --require-openscad/--openscad-path/--parity only apply with --render"
+            "  ERROR --require-openscad/--openscad-path/--parity/--mesh-strict only apply "
+            "with --render"
         )
         return 2
+
+    # The mesh gate's strict switch (y4d_spec.mesh_gate, ruling M7). Refused up front,
+    # like the oracle: a typo must not leave a lane report-only that meant to block.
+    mesh_strict: frozenset[str] = frozenset()
+    if args.render:
+        from .mesh_gate import MeshGateError, strict_checks
+
+        try:
+            mesh_strict = strict_checks(args.mesh_strict or [])
+        except MeshGateError as exc:
+            print(f"  ERROR {exc}")
+            return 2
 
     if args.parity_tolerance is not None and not args.parity:
         print("  ERROR --parity-tolerance only applies with --parity")
@@ -130,6 +144,7 @@ def _cmd_check(args) -> int:
     parity_failed = 0
     frame_checks = frame_passed = frame_unverified = frame_failed = 0
     license_bodies: list = []
+    mesh_gates: list = []
     for d in args.cartridges:
         try:
             result = check_cartridge(
@@ -142,6 +157,7 @@ def _cmd_check(args) -> int:
                 openscad_timeout=args.openscad_timeout,
                 parity=args.parity,
                 parity_tolerance=args.parity_tolerance,
+                mesh_strict=mesh_strict,
             )
         except OSError as exc:
             print(f"  ERROR {d}: cannot read — {exc}")
@@ -166,6 +182,8 @@ def _cmd_check(args) -> int:
         frame_unverified += sum(1 for f in result.frames if f.status == "unverified")
         frame_failed += sum(1 for f in result.frames if f.status == "fail")
         license_bodies.extend(result.license_bodies)
+        if result.mesh_gate is not None:
+            mesh_gates.append(result.mesh_gate)
 
         if result.ok:
             suffix = ""
@@ -233,6 +251,12 @@ def _cmd_check(args) -> int:
         # Notes print for pass and fail alike, and never change the exit code.
         for note in result.notes:
             print(f"  note {name}: {note}")
+        # The mesh gate's report (report-only findings, exemptions, size, lint): notes
+        # too, counted in `notes=` and summarised in the `mesh-gate[...]` clause.
+        if result.mesh_gate is not None:
+            for note in result.mesh_gate.notes:
+                print(f"  note {name}: {note}")
+            total_notes += len(result.mesh_gate.notes)
 
     geom = "verified" if args.render else "NOT verified (pass --render)"
     # `parity=N/M ok, warn=K, exempt=E, placement=P, failures=J` — N+K+E+J = M by
@@ -268,11 +292,21 @@ def _cmd_check(args) -> int:
         from hyperobjects_licenses import summary_clause
 
         license_part = f" {summary_clause(license_bodies)}"
+    # ` mesh-gate[report-only]: manifold=… zero-area=… duplicate-faces=… chord-error=…
+    # segments=… exempt=E size=S facet-lint=L` — under --render only, right after
+    # `skipped=` so the clauses that already ended the line still do. Every count but
+    # `exempt` (findings) is CARTRIDGES that would fail that check: what step 1 of the
+    # rollout publishes (ruling M7). `[strict=…]` names the checks this run fails on.
+    mesh_part = ""
+    if args.render:
+        from .mesh_gate import summary_clause
+
+        mesh_part = summary_clause(mesh_gates, mesh_strict)
     print(
         f"y4d-spec check: cartridges={len(args.cartridges)} failures={failures} "
         f"notes={total_notes} geometry={geom} renders={rendered_targets} "
-        f"presets={preset_targets} skipped={skipped_targets}{parity_part}{frames_part}"
-        f"{license_part}"
+        f"presets={preset_targets} skipped={skipped_targets}{mesh_part}{parity_part}"
+        f"{frames_part}{license_part}"
     )
     return 1 if failures else 0
 
@@ -346,6 +380,7 @@ def _cmd_rules(args) -> int:
         rules.i18n_rules,
         rules.license_rules,
         rules.verification_rules,
+        rules.mesh_resolution_policy_rules,
         semantic_rules.interface_frame_rules,
         semantic_rules.requirements_rules,
         constraint_dialect.constraint_dialect_notes,
@@ -376,6 +411,12 @@ def _cmd_rules(args) -> int:
     print("       The mesh is measured by trimesh; Y4D_SPEC_MESH_ORACLE=geomcore|both")
     print("       measures it with geom-core (y4d_spec.mesh_oracle), and with `both`")
     print("       a trimesh/geom-core disagreement is a NOTE only (oracle-parity).")
+    print("       The MESH GATE (y4d_spec.mesh_gate, report-only): non-manifold edges,")
+    print("       zero-area and duplicate triangles, chord error over 0.05mm, full")
+    print("       circles of radius >= 1mm under 32 segments, more than 200,000")
+    print("       triangles (a warning), and a source lint for faceting drawn into a")
+    print("       CadQuery solid. NOTES unless a check is named in --mesh-strict or")
+    print("       Y4D_SPEC_MESH_STRICT; the summary counts the cartridges that would fail.")
     print("       BEFORE any of that, the BUILT SHAPE goes through the B-Rep gate")
     print("       (y4d_spec.brep): BRepCheck_Analyzer(shape).IsValid(), plus a signed")
     print("       volume that must not be negative on the whole shape OR on any solid")
@@ -546,6 +587,15 @@ def main(argv: list[str] | None = None) -> int:
         f"{PARITY_TOLERANCE}). The faceting warn band ({AABB_WARN_BAND}mm) and the "
         f"2%% volume allowance are NOT scaled by it: they are the platform's, and a "
         f"local override of one gate must not silently move the others",
+    )
+    p_check.add_argument(
+        "--mesh-strict",
+        action="append",
+        metavar="CHECK",
+        choices=[*MESH_GATE_CHECKS, "all"],
+        help="under --render, make a mesh-gate check FAIL instead of reporting it as a "
+        f"note: one of {', '.join(MESH_GATE_CHECKS)}, or all. Repeatable; adds to "
+        "Y4D_SPEC_MESH_STRICT. The gate is report-only without it (rollout step 1)",
     )
     p_check.add_argument(
         "-v", "--verbose", action="store_true", help="print each render's measurements"

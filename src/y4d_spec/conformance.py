@@ -73,6 +73,11 @@ class CartridgeResult:
     #: (structure.shipped_license_bodies). Their findings are in `notes`;
     #: they never affect `ok`.
     license_bodies: list = field(default_factory=list)
+    #: The mesh gate's verdict on this cartridge (y4d_spec.mesh_gate.CartridgeGate):
+    #: which checks it would fail, its notes (report-only findings, exemptions, the size
+    #: warning, the lint) and exemption count. Strict findings are ALSO in `problems`.
+    #: None without --render.
+    mesh_gate: object | None = None
 
     def __bool__(self) -> bool:
         return self.ok
@@ -186,6 +191,7 @@ def check_cartridge(
     openscad_timeout: int | None = None,
     parity: bool = False,
     parity_tolerance: float | None = None,
+    mesh_strict: frozenset[str] | None = None,
 ) -> CartridgeResult:
     """Check a cartridge DIRECTORY: its manifest, its files, and optionally its geometry.
 
@@ -215,6 +221,13 @@ def check_cartridge(
     looks like at 0.001mm. A part the manifest declares exempt is not compared at all
     and is reported as a note (G38 — see parity.py); an exemption is a declaration that
     the comparison is meaningless for that part, which no tolerance answers.
+
+    Under `render=True` the mesh gate (mesh_gate.py, rulings M4–M7) reports every render
+    whose mesh is non-manifold, holds zero-area or duplicate triangles, deviates from its
+    surface by more than 0.05mm, or draws a full circle of radius 1mm or more with fewer
+    than 32 segments, plus a source lint for faceting drawn into a CadQuery solid. All of
+    it is NOTES (step 1 of the rollout: report-only) except the checks named in
+    `mesh_strict`, which fail; None reads `Y4D_SPEC_MESH_STRICT`.
     """
     path = Path(cartridge_dir).resolve()
     manifest_path = path / "project.json"
@@ -320,6 +333,20 @@ def check_cartridge(
         # body-count is NOTE ONLY (y4d_spec.body_count): rendered connected bodies
         # against the declared count, per render. It never adds a problem.
         result.notes.extend(body_count_notes(doc, result.renders))
+
+        # The mesh gate (y4d_spec.mesh_gate). A check switched strict adds PROBLEMS.
+        # Everything else (report-only findings, exemptions, the size warning, the lint)
+        # is the gate's own report, `result.mesh_gate.notes`, printed by the CLI as notes
+        # and counted in its `mesh-gate[...]` clause. It is kept out of `result.notes` on
+        # purpose: step 1 of the rollout must not change what any existing note-reader
+        # sees, and the gate's notes are a report with their own summary, not findings
+        # about the manifest.
+        from .mesh_gate import cartridge_gate, facet_lint, strict_checks
+
+        strict = strict_checks() if mesh_strict is None else mesh_strict
+        gate = cartridge_gate(result.renders, strict, facet_lint(path, doc))
+        result.problems.extend(gate.problems)
+        result.mesh_gate = gate
 
         for pc in result.parity:
             if pc.exempt:

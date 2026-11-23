@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### The mesh gate, report-only (owner rulings M4–M7, 0.22.0)
+
+Owner rulings of 2026-11-22 on the Yantra4D mesh proposal (design: yantra4d
+`docs/architecture/tessellation-profiles-and-mesh-gate.md`). Step 1 of four: report-only,
+with a switch per check. Nothing that passed before fails now.
+
+- **`y4d_spec.mesh_gate`.** Under `--render` every judged mesh is checked for non-manifold
+  edges, zero-area triangles, duplicate faces, chord error over 0.05 mm and full circles
+  of radius ≥ 1 mm under 32 segments, and warned above 200,000 triangles. CadQuery and
+  graph parts are measured against their own solid after the export; OpenSCAD parts by a
+  circle fit on the mesh (axis-aligned full circles only, said in every such note). Sliver
+  share is never judged.
+- **Report-only.** Findings are `mesh-gate <check>:` notes. `--mesh-strict CHECK`
+  (repeatable) or `Y4D_SPEC_MESH_STRICT` (a list, or `all`) turns a check into a failure;
+  an unknown name exits 2. `size` and the lint never fail. The summary line gains
+  `mesh-gate[report-only]: manifold=… zero-area=… duplicate-faces=… chord-error=…
+  segments=… exempt=… size=… facet-lint=…`, counting cartridges per check.
+- **`facet-lint`.** A source lint for faceting drawn into a CadQuery solid (`polyline`
+  built from `sin`/`cos`; `polygon(n, …)` with 7 ≤ n < 32), warning only (M5). No circle
+  fit runs on CadQuery output.
+- **The opt-out (M6).** `{"enabled": false, "reason": …}` at
+  `verification.stages.geometry.checks.mesh_resolution` for the cartridge, replaced whole
+  by `"geometry.mesh_resolution"` in a mode's `overrides` or a part's `part_overrides`;
+  switches off `chord-error` and `segments` only, printed as `exempt` and counted. Without a reason it is a conformance
+  failure (`mesh_resolution_policy_rules`, manifest lane) and exempts nothing. No schema
+  change was needed: the bundled schema already admits the block.
+- **Every oracle.** `MeshMeasure` gains `nonmanifold_edges`, `degenerate_faces` and
+  `triangles` from trimesh and from geom-core (`assess_integrity()`,
+  `get_triangle_count()`); duplicates are trimesh's under every selection, as geom-core
+  does not count them. Under `both`, a disagreement in the three is part of the
+  `oracle-parity` note.
+- **A clearer failure.** A non-watertight mesh with non-manifold edges now says how many,
+  instead of reading "0 boundary edge(s)".
+
+Not changed, reported: the `[geometry]` extra still pins `cadquery>=2.4,<2.8`, while the
+platform renders with CadQuery 2.8.0, so CI re-exports with an older kernel than the file
+a user downloads. Moving the pin is a separate decision (the cap exists for CPython 3.13
+wheels).
+
 ### `y4d-spec check` no longer stops on a graph whose `nodes` is not a list
 
 `default_drift.graph_binding_literals` iterated `graph["nodes"]` without checking its type,
