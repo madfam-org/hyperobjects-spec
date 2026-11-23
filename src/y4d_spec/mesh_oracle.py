@@ -122,6 +122,8 @@ class MeshMeasure:
     triangles: int | None = None
     #: Triangles listed twice. trimesh only: geom-core does not count duplicates.
     duplicate_faces: int | None = None
+    #: Why the structure counts are None, when they could not be measured.
+    structure_error: str | None = None
 
 
 class MeshOracle(Protocol):
@@ -198,7 +200,15 @@ class TrimeshOracle:
             body_volumes = tuple(bvol for _faces, bvol in components)
         from .mesh_gate import structure_counts
 
-        counts = structure_counts(mesh)
+        # The mesh gate's counts are a report, never the verdict: if they cannot be
+        # measured (an exception, a pathological mesh), they are None and the reason is
+        # kept, and the watertight / volume / body verdict above stands exactly as before.
+        structure_error = None
+        try:
+            counts = structure_counts(mesh)
+        except Exception as exc:
+            counts = {}
+            structure_error = f"{type(exc).__name__}: {exc}"
         return MeshMeasure(
             oracle=self.name,
             watertight=watertight,
@@ -207,10 +217,11 @@ class TrimeshOracle:
             boundary_edges=None if watertight else _boundary_edges(mesh),
             body_volumes=body_volumes,
             bodies_error=error,
-            nonmanifold_edges=counts["nonmanifold_edges"],
-            degenerate_faces=counts["degenerate_faces"],
-            triangles=counts["triangles"],
-            duplicate_faces=counts["duplicate_faces"],
+            nonmanifold_edges=counts.get("nonmanifold_edges"),
+            degenerate_faces=counts.get("degenerate_faces"),
+            triangles=counts.get("triangles"),
+            duplicate_faces=counts.get("duplicate_faces"),
+            structure_error=structure_error,
         )
 
 

@@ -347,6 +347,25 @@ def test_a_zero_area_triangle_is_counted(tmp_path, monkeypatch, oracle):
 
 
 @pytest.mark.geometry
+def test_a_failing_structure_count_never_fails_a_render(tmp_path, monkeypatch):
+    """The gate's counts are a report: if they raise, the counts are None, the render's
+    verdict is what it was without the gate, and a note says what was not measured."""
+    from y4d_spec import mesh_gate
+    from y4d_spec.geometry import _judge_stl
+
+    def boom(mesh):
+        raise MemoryError("pathological mesh")
+
+    monkeypatch.setattr(mesh_gate, "structure_counts", boom)
+    check = _judge_stl(_write(_box(), tmp_path), mode="m", part="p", preset=None,
+                       printability=False, engine="cadquery")
+    assert check.ok and check.watertight and check.bodies == 1
+    assert check.gate == []
+    assert any("structure counts did not run (MemoryError: pathological mesh)" in n
+               for n in check.notes)
+
+
+@pytest.mark.geometry
 @pytest.mark.parametrize(
     ("radius", "sections", "expected"),
     [

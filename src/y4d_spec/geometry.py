@@ -748,6 +748,12 @@ def _judge_stl(
     from .mesh_gate import mesh_resolution, resolution_findings, structure_findings
 
     check.gate = structure_findings(verdict, by_trimesh.duplicate_faces)
+    if by_trimesh.structure_error is not None:
+        check.notes.append(
+            f"mesh-gate: {check.target}: the structure counts did not run "
+            f"({by_trimesh.structure_error}) — manifold, zero-area and duplicate-faces "
+            f"UNMEASURED"
+        )
     if engine == "openscad" and check.ok:
         try:
             check.gate.extend(resolution_findings(mesh_resolution(mesh)))

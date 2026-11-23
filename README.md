@@ -319,11 +319,14 @@ where every number but `exempt` (findings) counts CARTRIDGES that would fail tha
 and `[strict=…]` replaces `[report-only]` when a check is switched.
 
 The opt-out, for parts faceted on purpose: `verification.stages.geometry.checks.
-mesh_resolution`, replaced whole by a mode's `overrides["geometry.mesh_resolution"]`,
-replaced whole by `part_overrides.<part>["geometry.mesh_resolution"]`:
+mesh_resolution` for the whole cartridge, replaced whole by a mode's
+`overrides["geometry.mesh_resolution"]`, replaced whole by
+`part_overrides.<part>["geometry.mesh_resolution"]`. For one part:
 
 ```jsonc
-"geometry.mesh_resolution": { "enabled": false, "reason": "the 16-sided knuckles are the low-poly style" }
+"verification": { "mode_overrides": { "<mode>": { "part_overrides": { "<part>": {
+  "geometry.mesh_resolution": { "enabled": false, "reason": "the 16-sided knuckles are the low-poly style" }
+} } } } }
 ```
 
 It switches off `chord-error` and `segments` only; the finding is still printed, as

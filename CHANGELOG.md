@@ -26,9 +26,10 @@ with a switch per check. Nothing that passed before fails now.
 - **`facet-lint`.** A source lint for faceting drawn into a CadQuery solid (`polyline`
   built from `sin`/`cos`; `polygon(n, …)` with 7 ≤ n < 32), warning only (M5). No circle
   fit runs on CadQuery output.
-- **The opt-out (M6).** `geometry.mesh_resolution: {"enabled": false, "reason": …}` at
-  cartridge, mode or part level, replaced whole; switches off `chord-error` and
-  `segments` only, printed as `exempt` and counted. Without a reason it is a conformance
+- **The opt-out (M6).** `{"enabled": false, "reason": …}` at
+  `verification.stages.geometry.checks.mesh_resolution` for the cartridge, replaced whole
+  by `"geometry.mesh_resolution"` in a mode's `overrides` or a part's `part_overrides`;
+  switches off `chord-error` and `segments` only, printed as `exempt` and counted. Without a reason it is a conformance
   failure (`mesh_resolution_policy_rules`, manifest lane) and exempts nothing. No schema
   change was needed: the bundled schema already admits the block.
 - **Every oracle.** `MeshMeasure` gains `nonmanifold_edges`, `degenerate_faces` and

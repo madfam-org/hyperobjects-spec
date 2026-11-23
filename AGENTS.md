@@ -163,9 +163,10 @@ rollout is report-only: each finding is a `mesh-gate <check>:` note, and becomes
 only for the checks named in `--mesh-strict` / `Y4D_SPEC_MESH_STRICT` (`[strict=…]`). Do
 not flip a check to strict in a commons or platform lane as part of an unrelated change:
 steps 2–4 (fix or opt out, block on pull requests, block nightly) are separate, ruled
-steps. Never add a sliver-share check. The opt-out is
-`geometry.mesh_resolution: {"enabled": false, "reason": …}` (cartridge, mode or part,
-replaced whole), switches off `chord-error` and `segments` only, and needs its reason.
+steps. Never add a sliver-share check. The opt-out is `{"enabled": false, "reason": …}`
+at `verification.stages.geometry.checks.mesh_resolution` (the cartridge), replaced whole
+by `"geometry.mesh_resolution"` in a mode's `overrides` or a part's `part_overrides`. It
+switches off `chord-error` and `segments` only, and needs its reason.
 
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
