@@ -29,7 +29,11 @@ What stays on trimesh under every selection, because geom-core does not compute 
 loading the mesh for the extents and the printability notes, the boundary-edge count
 in a trimesh-verdict failure message, and the per-body signed volumes that name an
 inverted body (geom-core reports one `inverted` flag for the whole mesh, not a volume
-per body). Format conversion stays trimesh's in the whole programme.
+per body), the mesh gate's duplicate-face count (geom-core does not count duplicates)
+and its circle fit on OpenSCAD meshes. The gate's other structure counts (non-manifold
+edges, zero-area triangles, triangles) are read from the verdict oracle, and under
+`both` a disagreement in them is part of the `oracle-parity` note. Format conversion
+stays trimesh's in the whole programme.
 
 Two geom-core facts this adapter is shaped by, both read from geom-core v0.1.0:
 
@@ -110,6 +114,14 @@ class MeshMeasure:
     body_volumes: tuple[float, ...] | None = None
     #: Why the bodies could not be counted, when they could not.
     bodies_error: str | None = None
+    #: The mesh gate's structure counts (y4d_spec.mesh_gate): edges shared by more than
+    #: two triangles, zero-area triangles after the merge, and triangles. Both oracles
+    #: measure these three; None when an oracle could not.
+    nonmanifold_edges: int | None = None
+    degenerate_faces: int | None = None
+    triangles: int | None = None
+    #: Triangles listed twice. trimesh only: geom-core does not count duplicates.
+    duplicate_faces: int | None = None
 
 
 class MeshOracle(Protocol):
@@ -184,6 +196,9 @@ class TrimeshOracle:
         else:
             bodies = len(components)
             body_volumes = tuple(bvol for _faces, bvol in components)
+        from .mesh_gate import structure_counts
+
+        counts = structure_counts(mesh)
         return MeshMeasure(
             oracle=self.name,
             watertight=watertight,
@@ -192,6 +207,10 @@ class TrimeshOracle:
             boundary_edges=None if watertight else _boundary_edges(mesh),
             body_volumes=body_volumes,
             bodies_error=error,
+            nonmanifold_edges=counts["nonmanifold_edges"],
+            degenerate_faces=counts["degenerate_faces"],
+            triangles=counts["triangles"],
+            duplicate_faces=counts["duplicate_faces"],
         )
 
 
@@ -240,6 +259,12 @@ class GeomCoreOracle:
             volume=float(integrity.volume),
             bodies=int(integrity.body_count),
             boundary_edges=int(integrity.boundary_edges),
+            # The mesh gate's structure counts, from geom-core's own integrity report
+            # (`nonmanifold_edges`: edges of three or more faces; `degenerate_faces`: a
+            # repeated vertex or twice the area at or below 1e-12 x extent squared).
+            nonmanifold_edges=int(integrity.nonmanifold_edges),
+            degenerate_faces=int(integrity.degenerate_faces),
+            triangles=int(analyzer.get_triangle_count()),
         )
 
 
@@ -263,6 +288,11 @@ def oracle_parity_note(target: str, first: MeshMeasure, second: MeshMeasure) -> 
         diffs.append(
             f"bodies {first.oracle}={_count(first)} {second.oracle}={_count(second)}"
         )
+    # The mesh gate's structure counts, compared exactly when both oracles measured them.
+    for name in ("nonmanifold_edges", "degenerate_faces", "triangles"):
+        a, b = getattr(first, name), getattr(second, name)
+        if a is not None and b is not None and a != b:
+            diffs.append(f"{name.replace('_', ' ')} {first.oracle}={a} {second.oracle}={b}")
     if not _volumes_agree(first.volume, second.volume):
         scale = max(abs(first.volume), abs(second.volume))
         rel = abs(first.volume - second.volume) / scale

@@ -1,0 +1,149 @@
+{
+  "project": {
+    "name": "Mesh Gate Disc",
+    "slug": "mesh-gate-disc",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Test fixture for the report-only mesh gate: a disc whose 126-segment rim is over the 0.05 mm chord limit, a ring with the same finding exempted in the manifest, and a knob drawn as a 12-sided polygon that only the source lint can see.",
+      "es": "Accesorio de prueba para la puerta de malla en modo informe: un disco cuyo borde de 126 segmentos supera el límite de cuerda de 0.05 mm, un anillo con el mismo hallazgo exento en el manifiesto y una perilla dibujada como polígono de 12 lados que solo el lint de fuente puede ver."
+    },
+    "thumbnail": "/projects/mesh-gate-disc.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "test",
+      "fixture",
+      "cadquery",
+      "mesh",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    }
+  },
+  "modes": [
+    {
+      "id": "disc",
+      "label": {
+        "en": "Disc",
+        "es": "Disco"
+      },
+      "scad_file": "disc.py",
+      "cq_file": "disc.py",
+      "parts": [
+        "disc",
+        "ring",
+        "knob"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "disc",
+      "label": {
+        "en": "Disc",
+        "es": "Disco"
+      },
+      "render_mode": 0,
+      "color": "#8899aa"
+    },
+    {
+      "id": "ring",
+      "label": {
+        "en": "Ring",
+        "es": "Anillo"
+      },
+      "render_mode": 1,
+      "color": "#aa9988"
+    },
+    {
+      "id": "knob",
+      "label": {
+        "en": "Knob",
+        "es": "Perilla"
+      },
+      "render_mode": 2,
+      "color": "#88aa99"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "disc_radius",
+      "type": "slider",
+      "default": 200.0,
+      "min": 100.0,
+      "max": 250.0,
+      "step": 10.0,
+      "group": "size",
+      "label": {
+        "en": "Disc radius (mm)",
+        "es": "Radio del disco (mm)"
+      },
+      "tooltip": {
+        "en": "Radius of the disc; the ring follows it.",
+        "es": "Radio del disco; el anillo lo sigue."
+      }
+    }
+  ],
+  "presets": [],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "disc": {
+        "part_overrides": {
+          "ring": {
+            "geometry.mesh_resolution": {
+              "enabled": false,
+              "reason": "TEST FIXTURE — the ring's rim at today's print tolerance is the over-limit chord this exemption exists to show; a real cartridge names why its part is faceted on purpose."
+            }
+          }
+        }
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "disc_face",
+        "label": {
+          "en": "Disc face",
+          "es": "Cara del disco"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "disc_radius"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "None — this is a test fixture, not a design. It is the positive control for the mesh gate: a check that is never seen to report is a check nobody can trust.",
+      "es": "Ninguno — es un accesorio de prueba, no un diseño. Es el control positivo de la puerta de malla: una verificación que nunca se ve informar es una en la que nadie puede confiar."
+    },
+    "commons_license": "CC0-1.0"
+  }
+}

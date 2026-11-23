@@ -280,6 +280,56 @@ on every push; the default flips to geom-core in a separate change, only after t
 parity over the whole commons is written down in the CHANGELOG with every disagreement
 explained ("oracle-parity").
 
+**The mesh gate (`mesh-gate`, report-only).** Owner rulings M4–M7 (2026-11-22; design
+in yantra4d `docs/architecture/tessellation-profiles-and-mesh-gate.md`), step 1 of a
+four-step rollout. Every judged mesh is also checked for:
+
+| Check | Would fail when | Measured |
+|---|---|---|
+| `manifold` | an edge is shared by more than two triangles | by the verdict oracle |
+| `zero-area` | a triangle has zero area after the vertex merge (a repeated vertex, or twice its area at or below 1e-12 × the largest extent squared) | by the verdict oracle |
+| `duplicate-faces` | the same triangle is listed twice | by trimesh, under every oracle |
+| `chord-error` | the mesh deviates from the surface by more than 0.05mm | CadQuery/graph: against the solid; OpenSCAD: circle fit |
+| `segments` | a full circle of radius 1mm or more has fewer than 32 segments | as `chord-error` |
+| `size` | a part has more than 200,000 triangles | a warning, never a failure |
+
+Sliver share is never judged: thin triangles are what every CAD tessellator makes. A
+CadQuery or graph part is measured against its own B-rep after the export (triangle
+centroids and edge midpoints against each face's surface; segments from the polygon each
+circular edge was meshed into, arcs of one circle added up). An OpenSCAD part has no
+solid, so circles are fitted to its mesh: axis-aligned full circles only, and the note
+says so. A non-watertight failure now also names its non-manifold edges instead of
+reading "0 boundary edge(s)".
+
+A source lint (`facet-lint`) reads every CadQuery source a mode names for faceting drawn
+into the solid, which the solid measurement cannot see because the mesh matches it: a
+`polyline` built from `sin`/`cos`, and `polygon(n, ...)` with 7 ≤ n < 32 (a literal, or a
+local function returning literals). It only ever warns.
+
+Every finding is a **note** (`mesh-gate <check>: <target>: … [report-only]`). A check
+becomes a **failure** when it is named strict: `--mesh-strict CHECK` (repeatable) or
+`Y4D_SPEC_MESH_STRICT=chord-error,segments` (or `all`); an unknown name exits `2`.
+`size` and the lint cannot be made strict. Under `--render` the summary line gains
+
+```
+mesh-gate[report-only]: manifold=0 zero-area=0 duplicate-faces=0 chord-error=C segments=S exempt=E size=Z facet-lint=L
+```
+
+where every number but `exempt` (findings) counts CARTRIDGES that would fail that check,
+and `[strict=…]` replaces `[report-only]` when a check is switched.
+
+The opt-out, for parts faceted on purpose: `verification.stages.geometry.checks.
+mesh_resolution`, replaced whole by a mode's `overrides["geometry.mesh_resolution"]`,
+replaced whole by `part_overrides.<part>["geometry.mesh_resolution"]`:
+
+```jsonc
+"geometry.mesh_resolution": { "enabled": false, "reason": "the 16-sided knuckles are the low-poly style" }
+```
+
+It switches off `chord-error` and `segments` only; the finding is still printed, as
+`exempt — <reason>`, and counted in `exempt=`. `enabled: false` without a non-empty
+`reason` is a conformance failure, caught with no `--render`, and exempts nothing.
+
 **A `cq.Assembly` result is flattened with `toCompound()`**, then exported through the
 same `cq.exporters.export` a `Workplane` uses — not `Assembly.save`, which CadQuery 2.7
 marks `@deprecate()`d ("will be removed in the next release") while 22 commons cartridges

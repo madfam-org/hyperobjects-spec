@@ -236,6 +236,10 @@ class RenderCheck:
     #: it wraps, "cadquery" or "openscad". The parity pass pairs the wrapper with that
     #: engine's render of the same target and requires the two meshes byte for byte.
     wraps: str | None = None
+    #: The mesh gate's findings on this render (y4d_spec.mesh_gate.GateFinding). Report-
+    #: only unless a check is switched strict; they never touch `ok` here. The caller
+    #: (conformance.check_cartridge) turns them into notes or, when strict, problems.
+    gate: list = field(default_factory=list)
 
     def __bool__(self) -> bool:
         return self.ok
@@ -552,7 +556,7 @@ def render_part(
                 problems=problems + [f"STL export failed: {type(exc).__name__}: {exc}"],
             )
 
-        return _judge_stl(
+        check = _judge_stl(
             stl,
             mode=mode,
             part=part,
@@ -562,6 +566,21 @@ def render_part(
             problems=problems,
             keep=stl_dir is not None,
         )
+
+    # The mesh gate's resolution checks, against the SOLID (mesh_gate.solid_resolution):
+    # the export just left on every face the triangulation the STL holds. Only on a
+    # render that passed, as printability; report-only, never touches `ok`.
+    if check.ok:
+        from .mesh_gate import resolution_findings, solid_resolution
+
+        try:
+            check.gate.extend(resolution_findings(solid_resolution(result)))
+        except Exception as exc:  # the gate failing is not the cartridge failing
+            check.notes.append(
+                f"mesh-gate: {check.target}: the solid measurement did not run "
+                f"({type(exc).__name__}: {exc}) — resolution UNMEASURED"
+            )
+    return check
 
 
 def _judge_stl(
@@ -655,9 +674,19 @@ def _judge_stl(
     if not watertight:
         # Count boundary edges directly rather than via mesh.outline(), which needs a
         # graph engine and would turn a plain finding into an ImportError.
+        #
+        # An edge shared by three or more triangles also breaks the watertight test, and
+        # a message that counted boundary edges alone read "0 boundary edge(s)" there.
+        # The non-manifold count is named whenever there is one (mesh gate, ruling M4).
+        nonmanifold = verdict.nonmanifold_edges or by_trimesh.nonmanifold_edges or 0
+        manifold_part = (
+            f", {nonmanifold} non-manifold edge(s) (shared by more than two triangles)"
+            if nonmanifold
+            else ""
+        )
         problems.append(
-            f"not watertight — {verdict.boundary_edges} boundary edge(s); the mesh "
-            f"does not enclose a volume"
+            f"not watertight — {verdict.boundary_edges} boundary edge(s){manifold_part}; "
+            f"the mesh does not enclose a volume"
         )
     if volume <= 0:
         problems.append(f"volume is {volume:.4f} (must be > 0)")
@@ -710,6 +739,23 @@ def _judge_stl(
                 mesh, mode=mode, part=part, preset=preset, engine=engine
             )
         ]
+
+    # The mesh gate (y4d_spec.mesh_gate, rulings M4–M7): structure findings from the
+    # verdict oracle, duplicates from trimesh (geom-core does not count them). On an
+    # OpenSCAD mesh that passed, the resolution checks too, by circle fit: there is no
+    # solid to measure against. CadQuery and graph parts get theirs in render_part,
+    # against the solid. Report-only here; never touches `ok`.
+    from .mesh_gate import mesh_resolution, resolution_findings, structure_findings
+
+    check.gate = structure_findings(verdict, by_trimesh.duplicate_faces)
+    if engine == "openscad" and check.ok:
+        try:
+            check.gate.extend(resolution_findings(mesh_resolution(mesh)))
+        except Exception as exc:  # the gate failing is not the cartridge failing
+            check.notes.append(
+                f"mesh-gate: {check.target}: the circle fit did not run "
+                f"({type(exc).__name__}: {exc}) — resolution UNMEASURED"
+            )
 
     # oracle-parity (Y4D_SPEC_MESH_ORACLE=both): NOTE ONLY, after printability because
     # that block assigns `check.notes` whole. Never touches `ok`.
@@ -1034,6 +1080,7 @@ def check_geometry(
     with its render. The directory is the CALLER's to create and clean up; passing
     None (the default) is the old behaviour exactly.
     """
+    from .mesh_gate import apply_policy as apply_mesh_policy
     from .openscad import openscad_binary, render_part_openscad
     from .rules import parameter_defaults, preset_changes_anything, preset_targets, render_targets
 
@@ -1135,6 +1182,10 @@ def check_geometry(
                 stl_dir=target_stl_dir,
             )
         check.engine = engine
+        # The mesh-resolution opt-out (mesh_gate, ruling M6): resolved here because this
+        # is where the manifest and the (mode, part) meet. Exempt findings stay on the
+        # check, printed and counted, never dropped.
+        apply_mesh_policy(check, manifest)
         return check
 
     for mode_id, part_id in render_targets(manifest):

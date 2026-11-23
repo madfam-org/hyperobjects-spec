@@ -151,6 +151,22 @@ geom-core with `scripts/qa/install_geom_core.sh` (the `geometry-core` extra is e
 pip extras cannot point at the release URL). Do not flip the default before the
 whole-commons parity is written down (CHANGELOG, "oracle-parity").
 
+Under `--render` the **mesh gate** (`y4d_spec.mesh_gate`, owner rulings M4–M7,
+2026-11-22) appends one more clause, always:
+
+```
+mesh-gate[report-only]: manifold=0 zero-area=0 duplicate-faces=0 chord-error=C segments=S exempt=E size=Z facet-lint=L
+```
+
+→ every number but `exempt` counts CARTRIDGES that would fail that check. Step 1 of the
+rollout is report-only: each finding is a `mesh-gate <check>:` note, and becomes a failure
+only for the checks named in `--mesh-strict` / `Y4D_SPEC_MESH_STRICT` (`[strict=…]`). Do
+not flip a check to strict in a commons or platform lane as part of an unrelated change:
+steps 2–4 (fix or opt out, block on pull requests, block nightly) are separate, ruled
+steps. Never add a sliver-share check. The opt-out is
+`geometry.mesh_resolution: {"enabled": false, "reason": …}` (cartridge, mode or part,
+replaced whole), switches off `chord-error` and `segments` only, and needs its reason.
+
 New rules land as notes first. A rule that fires on healthy cartridges is not
 strict, it is wrong; nothing becomes a failure until its false-positive analysis
 against the whole commons is written down (see `rules.py` for the killed ones).
